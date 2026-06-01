@@ -63,13 +63,14 @@ commit_milestone() {
   echo "=== [$NAME] committed $MS ($status) ==="
 }
 
-# Record token cost for the milestone's session (best-effort).
-record_cost() {
-  local sid="$1"
-  [ -n "$sid" ] || { echo '{"sessionID":null,"note":"no session id captured"}' >"$LOG_DIR/$MS.cost.json"; return; }
-  node "$REPO/orchestration/cost-of-session.mjs" "$sid" >"$LOG_DIR/$MS.cost.json" 2>/dev/null \
-    || echo "{\"sessionID\":\"$sid\",\"note\":\"export failed\"}" >"$LOG_DIR/$MS.cost.json"
-  echo "=== [$NAME] $MS cost -> $(cat "$LOG_DIR/$MS.cost.json") ==="
+# Record milestone metrics (cost + tokens + runtime) by summing step_finish
+# events from the attempt logs. Robust for large sessions (opencode export
+# truncates at 128KB, so it is NOT used).
+record_metrics() {
+  local status="$1" attempts="$2"
+  node "$REPO/orchestration/metrics.mjs" "$LOG_DIR" "$MS" "$status" "$attempts" >"$LOG_DIR/$MS.metrics.json" 2>/dev/null \
+    || echo "{\"milestone\":\"$MS\",\"note\":\"metrics failed\"}" >"$LOG_DIR/$MS.metrics.json"
+  echo "=== [$NAME] $MS metrics -> $(cat "$LOG_DIR/$MS.metrics.json") ==="
 }
 
 # Number of registered strategies right now (via the judge's JSON). Used to set
@@ -121,14 +122,14 @@ while true; do
     echo "$OUT"
     echo "=== [$NAME] $MS PASSED after $i attempt(s) ==="
     commit_milestone PASS "$i"
-    record_cost "$SID"
+    record_metrics PASS "$i"
     break
   fi
   echo "$OUT"
   if [ "$i" -ge "$MAX_RETRIES" ]; then
     echo "=== [$NAME] $MS FAILED after $i attempt(s) ==="
     commit_milestone FAIL "$i"
-    record_cost "$SID"
+    record_metrics FAIL "$i"
     exit 1
   fi
   i=$((i + 1))

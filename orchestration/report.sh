@@ -64,10 +64,10 @@ grep -vE '^[[:space:]]*(#|$)' "$MODELS_FILE" | while read -r model name _rest; d
       for f in docs/notes/m2.md docs/notes/m3.md docs/forcing-boundary.md docs/flow.md; do
         if [ -f "$wt/$f" ]; then echo "  - \`$f\` ✅"; else echo "  - \`$f\` —"; fi
       done
-      echo "- 成本(token cost,来自 opencode export):"
+      echo "- 指标(cost / runtime / tokens,来自各 attempt 日志的 step_finish):"
       for ms in m2 m3; do
-        cf="$WT_ROOT/logs/$name/$ms.cost.json"
-        if [ -f "$cf" ]; then echo "  - $ms: \`$(cat "$cf")\`"; fi
+        mf="$WT_ROOT/logs/$name/$ms.metrics.json"
+        if [ -f "$mf" ]; then echo "  - $ms: \`$(cat "$mf")\`"; fi
       done
       nf=$(cat "$WT_ROOT/logs/$name/"*.notes 2>/dev/null)
       if [ -n "$nf" ]; then echo "- ⚠️ 异常记录(notes):"; printf '%s\n' "$nf" | sed 's/^/    /'; fi
@@ -100,7 +100,7 @@ mkdir -p "$ARCH"
 cp "$SUMMARY" "$QUESTIONS" "$ARCH/" 2>/dev/null
 grep -vE '^[[:space:]]*(#|$)' "$MODELS_FILE" | while read -r _m name _r; do
   for ms in m2 m3; do
-    [ -f "$WT_ROOT/logs/$name/$ms.cost.json" ] && cp "$WT_ROOT/logs/$name/$ms.cost.json" "$ARCH/$name-$ms.cost.json" 2>/dev/null
+    [ -f "$WT_ROOT/logs/$name/$ms.metrics.json" ] && cp "$WT_ROOT/logs/$name/$ms.metrics.json" "$ARCH/$name-$ms.metrics.json" 2>/dev/null
     [ -f "$WT_ROOT/logs/$name/$ms.notes" ] && cp "$WT_ROOT/logs/$name/$ms.notes" "$ARCH/$name-$ms.notes" 2>/dev/null
   done
 done

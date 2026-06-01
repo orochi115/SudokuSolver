@@ -1,0 +1,2 @@
+00:17:41 attempted-floor: require strategies > 20 (else retry)
+00:47:41 opencode TIMEOUT after 1800s (attempt killed) -> m3-attempt-1.log
