@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-06-01T16:15:38.597Z",
+  "strategies": [
+    "full-house",
+    "naked-single",
+    "hidden-single",
+    "locked-candidates-pointing",
+    "locked-candidates-claiming",
+    "naked-pair",
+    "hidden-pair",
+    "naked-triple",
+    "hidden-triple",
+    "naked-quad",
+    "hidden-quad",
+    "basic-fish-x-wing",
+    "basic-fish-swordfish",
+    "basic-fish-jellyfish",
+    "skyscraper",
+    "2-string-kite",
+    "empty-rectangle",
+    "xy-wing",
+    "xyz-wing",
+    "w-wing"
+  ],
+  "results": [
+    {
+      "difficulty": "easy",
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "strategiesUsed": {
+        "naked-single": 2582,
+        "full-house": 2077,
+        "hidden-single": 403
+      }
+    },
+    {
+      "difficulty": "medium",
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "strategiesUsed": {
+        "naked-single": 2287,
+        "full-house": 2043,
+        "hidden-single": 976,
+        "locked-candidates-pointing": 66,
+        "naked-pair": 10,
+        "locked-candidates-claiming": 10,
+        "hidden-pair": 1
+      }
+    },
+    {
+      "difficulty": "hard",
+      "total": 100,
+      "solved": 87,
+      "stuck": 13,
+      "solveRate": 0.87,
+      "strategiesUsed": {
+        "hidden-single": 1104,
+        "locked-candidates-pointing": 217,
+        "locked-candidates-claiming": 55,
+        "naked-pair": 55,
+        "naked-single": 1765,
+        "hidden-pair": 32,
+        "full-house": 1761,
+        "xy-wing": 25,
+        "2-string-kite": 21,
+        "basic-fish-swordfish": 4,
+        "skyscraper": 22,
+        "basic-fish-x-wing": 24,
+        "hidden-triple": 2,
+        "naked-triple": 3,
+        "xyz-wing": 10,
+        "w-wing": 1
+      }
+    },
+    {
+      "difficulty": "diabolical",
+      "total": 100,
+      "solved": 7,
+      "stuck": 93,
+      "solveRate": 0.07,
+      "strategiesUsed": {
+        "hidden-single": 89,
+        "locked-candidates-pointing": 20,
+        "locked-candidates-claiming": 3,
+        "hidden-pair": 3,
+        "naked-quad": 1,
+        "naked-single": 139,
+        "full-house": 144,
+        "skyscraper": 1,
+        "w-wing": 6,
+        "naked-pair": 9,
+        "basic-fish-x-wing": 1,
+        "hidden-triple": 1
+      }
+    }
+  ],
+  "overall": {
+    "total": 400,
+    "solved": 294,
+    "solveRate": 0.735
+  }
+}
