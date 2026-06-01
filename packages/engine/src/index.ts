@@ -11,4 +11,17 @@ export * from './solver.js';
 export * from './soundness.js';
 export * from './parser.js';
 export * from './bruteforce.js';
-export { STRATEGIES, nakedSingle } from './strategies/index.js';
+export {
+  STRATEGIES,
+  basicFish,
+  fullHouse,
+  hiddenSingle,
+  hiddenSubset,
+  lockedCandidates,
+  nakedSingle,
+  nakedSubset,
+  singleDigitPatterns,
+  wWing,
+  xyWing,
+  xyzWing,
+} from './strategies/index.js';

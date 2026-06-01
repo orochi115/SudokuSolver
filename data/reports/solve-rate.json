@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-06-01T17:46:01.300Z",
+  "strategyOrder": [
+    {
+      "id": "full-house",
+      "difficulty": 10
+    },
+    {
+      "id": "naked-single",
+      "difficulty": 10
+    },
+    {
+      "id": "hidden-single",
+      "difficulty": 10
+    },
+    {
+      "id": "locked-candidates",
+      "difficulty": 20
+    },
+    {
+      "id": "naked-subset",
+      "difficulty": 30
+    },
+    {
+      "id": "hidden-subset",
+      "difficulty": 30
+    },
+    {
+      "id": "basic-fish",
+      "difficulty": 40
+    },
+    {
+      "id": "single-digit-patterns",
+      "difficulty": 45
+    },
+    {
+      "id": "xy-wing",
+      "difficulty": 50
+    },
+    {
+      "id": "xyz-wing",
+      "difficulty": 50
+    },
+    {
+      "id": "w-wing",
+      "difficulty": 50
+    }
+  ],
+  "byDifficulty": {
+    "easy": {
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 100,
+      "avgSteps": 50.62
+    },
+    "medium": {
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 100,
+      "avgSteps": 53.91
+    },
+    "hard": {
+      "total": 100,
+      "solved": 83,
+      "stuck": 17,
+      "solveRate": 83,
+      "avgSteps": 52.62
+    },
+    "diabolical": {
+      "total": 100,
+      "solved": 14,
+      "stuck": 86,
+      "solveRate": 14,
+      "avgSteps": 24.89
+    }
+  }
+}
