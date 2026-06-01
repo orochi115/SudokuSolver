@@ -17,6 +17,10 @@ import { hiddenPair, hiddenTriple, hiddenQuad } from './hidden-subsets.js';
 import { xWing, swordfish, jellyfish } from './fish.js';
 import { skyscraper, twoStringKite, emptyRectangle } from './single-digit-patterns.js';
 import { xyWing, xyzWing, wWing } from './wings.js';
+import { simpleColoring } from './coloring.js';
+import { aic } from './aic.js';
+import { alsXZ } from './als.js';
+import { uniqueRectangleType1, bugPlusOne } from './uniqueness.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   fullHouse,
@@ -39,6 +43,11 @@ export const STRATEGIES: readonly Strategy[] = [
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  alsXZ,
+  uniqueRectangleType1,
+  bugPlusOne,
 ];
 
 export {
@@ -62,4 +71,9 @@ export {
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  alsXZ,
+  uniqueRectangleType1,
+  bugPlusOne,
 };

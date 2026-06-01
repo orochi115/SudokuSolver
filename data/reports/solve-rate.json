@@ -15,16 +15,16 @@
   },
   "hard": {
     "total": 100,
-    "solved": 89,
-    "stuck": 11,
-    "rate": "89.0%",
+    "solved": 100,
+    "stuck": 0,
+    "rate": "100.0%",
     "soundnessOk": true
   },
   "diabolical": {
     "total": 100,
-    "solved": 14,
-    "stuck": 86,
-    "rate": "14.0%",
+    "solved": 82,
+    "stuck": 18,
+    "rate": "82.0%",
     "soundnessOk": true
   }
 }
