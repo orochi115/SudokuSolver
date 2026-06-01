@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-06-01T13:11:45.161Z",
+  "strategies": [
+    {
+      "id": "naked-single",
+      "difficulty": 10
+    },
+    {
+      "id": "hidden-single",
+      "difficulty": 10
+    },
+    {
+      "id": "locked-candidates",
+      "difficulty": 20
+    },
+    {
+      "id": "naked-pair",
+      "difficulty": 24
+    },
+    {
+      "id": "hidden-pair",
+      "difficulty": 25
+    },
+    {
+      "id": "naked-triple",
+      "difficulty": 26
+    },
+    {
+      "id": "hidden-triple",
+      "difficulty": 27
+    },
+    {
+      "id": "naked-quad",
+      "difficulty": 28
+    },
+    {
+      "id": "hidden-quad",
+      "difficulty": 29
+    },
+    {
+      "id": "x-wing",
+      "difficulty": 40
+    },
+    {
+      "id": "skyscraper",
+      "difficulty": 42
+    },
+    {
+      "id": "two-string-kite",
+      "difficulty": 43
+    },
+    {
+      "id": "empty-rectangle",
+      "difficulty": 44
+    },
+    {
+      "id": "swordfish",
+      "difficulty": 45
+    },
+    {
+      "id": "jellyfish",
+      "difficulty": 50
+    },
+    {
+      "id": "xy-wing",
+      "difficulty": 50
+    },
+    {
+      "id": "xyz-wing",
+      "difficulty": 51
+    },
+    {
+      "id": "w-wing",
+      "difficulty": 52
+    }
+  ],
+  "byDifficulty": {
+    "easy": {
+      "total": 100,
+      "solved": 100,
+      "solveRate": 100,
+      "avgSteps": 50.62
+    },
+    "medium": {
+      "total": 100,
+      "solved": 100,
+      "solveRate": 100,
+      "avgSteps": 53.93
+    },
+    "hard": {
+      "total": 100,
+      "solved": 87,
+      "solveRate": 87,
+      "avgSteps": 54.28
+    },
+    "diabolical": {
+      "total": 100,
+      "solved": 14,
+      "solveRate": 14,
+      "avgSteps": 25.59
+    }
+  },
+  "overall": {
+    "total": 400,
+    "solved": 301,
+    "solveRate": 75.25,
+    "avgSteps": 46.11
+  }
+}

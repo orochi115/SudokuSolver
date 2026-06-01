@@ -11,4 +11,24 @@ export * from './solver.js';
 export * from './soundness.js';
 export * from './parser.js';
 export * from './bruteforce.js';
-export { STRATEGIES, nakedSingle } from './strategies/index.js';
+export {
+  STRATEGIES,
+  nakedSingle,
+  hiddenSingle,
+  lockedCandidates,
+  nakedPair,
+  hiddenPair,
+  nakedTriple,
+  hiddenTriple,
+  nakedQuad,
+  hiddenQuad,
+  xWing,
+  swordfish,
+  jellyfish,
+  skyscraper,
+  twoStringKite,
+  emptyRectangle,
+  xyWing,
+  xyzWing,
+  wWing,
+} from './strategies/index.js';
