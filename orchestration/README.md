@@ -41,9 +41,10 @@ cat orchestration/reports/questions.md
 - 提问不卡死:`run` 单发,问题只进输出/QUESTIONS.md;重试用 `-c` 续接会话喂回 verify 结果。
 - **超时保护**:每次 opencode 尝试受 `TIMEOUT` 秒限制(默认 1800),挂起的模型会被杀掉并判 FAIL,
   不会阻塞整个 fleet,只是安全网。
-- **按-provider 限并发**:总并发 ≤ `MAX_PAR`;`SERIAL_PROVIDERS`(默认 `amazon-bedrock`)里的
+- **按-provider 限并发**:总并发 ≤ `MAX_PAR`;`SERIAL_PROVIDERS`(默认 `amazon-bedrock alibaba-cn`)里的
   provider 同时最多 `SERIAL_CAP`(默认 1)个,其余 provider 仅受 `MAX_PAR` 限。
-  这样 Bedrock 串行避免限流,非 Bedrock 仍并行——比一刀切降 `MAX_PAR` 更快。
+  当前清单全走直连 provider;`alibaba-cn` 的 5 个模型共用一个 DashScope key,故默认串行以防限流,
+  其它 provider 仍并行。无需串行时 `SERIAL_PROVIDERS="" ...` 关闭。
 - **验收闸门 = 有效 + 健全 + 确有尝试**:typecheck + test 通过、**健全性 0 violation**、
   且该里程碑**至少新增 1 个已注册策略**(attempted-floor:`run-model.sh` 记下里程碑开始时的策略数,
   要求结束时 > 它)。**解出率/成本只收集、不 gate**——质量由收集到的数字事后比较。

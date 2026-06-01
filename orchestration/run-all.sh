@@ -3,8 +3,8 @@
 # run-all.sh --one <provider/model> <name>     (internal) one model's M2->M3 pipeline
 #
 # Provider-aware scheduler: total concurrency is capped at MAX_PAR, AND each
-# "serial" provider (default: amazon-bedrock, which shares one Bedrock quota
-# across opus/sonnet/kimi) is capped at SERIAL_CAP (default 1) concurrent runs.
+# "serial" provider (default: amazon-bedrock + alibaba-cn, since alibaba-cn's
+# 5 models share one DashScope key) is capped at SERIAL_CAP (default 1).
 # Non-serial providers are limited only by MAX_PAR, so they still parallelise.
 #
 # Each model runs M2 (gated, with retries); only if M2 passes does M3 run.
@@ -20,7 +20,7 @@ SELF="$(cd "$(dirname "$0")" && pwd)/run-all.sh"
 REPO="$(git rev-parse --show-toplevel)"
 RETRIES="${RETRIES:-3}"
 MAX_PAR="${MAX_PAR:-4}"
-SERIAL_PROVIDERS="${SERIAL_PROVIDERS:-amazon-bedrock}"
+SERIAL_PROVIDERS="${SERIAL_PROVIDERS:-amazon-bedrock alibaba-cn}"
 SERIAL_CAP="${SERIAL_CAP:-1}"
 STATUS_DIR="$REPO/orchestration/reports/status"
 mkdir -p "$STATUS_DIR"
