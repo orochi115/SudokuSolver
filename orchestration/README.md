@@ -60,6 +60,26 @@ cat orchestration/reports/questions.md
   分支都会停在干净、带状态标签的状态,便于看 diff 与复盘。
 - 这些提交在各自 worktree 的 `model/<短名>` 分支上,**不影响 `foundation` / `master` / `orchestration`**。
 
+## 日志与排查
+所有日志写文件(便于事后排查),位置:
+- `sudoku-wt/logs/<名>/<ms>-attempt-N.log` —— 每次 opencode 的原始输出(JSON 事件流,含模型每一步)。
+- `sudoku-wt/logs/<名>/pipeline.log` —— 该模型整条流水线(里程碑标记 + verify 输出 + 异常 notes)。
+- `sudoku-wt/logs/<名>/<ms>.notes` —— **异常记录**:resume 了历史状态、opencode 超时/非零退出、没抓到 session 等。
+- `sudoku-wt/logs/<名>/<ms>.cost.json` —— 该里程碑 token cost。
+- `orchestration/reports/scheduler.log` —— 调度器的启动顺序/时间。
+- `orchestration/reports/summary.md` / `questions.md` —— 跑完的汇总(含 ⚠️ 异常记录)。
+
+**模型自身的原始输出(transcript)**保留在磁盘 `sudoku-wt/logs/`,**不提交进 git**(太大)。
+模型的实质产出(代码 + `docs/notes/mX.md`)提交在各自 `model/<名>` 分支;
+一份**小而可提交的运行记录**(summary + questions + 各模型 cost/notes)由 report 写入
+`orchestration/reports/archive/<时间戳>/`,**这个目录可被 git 跟踪**——`git add` 后提交到 orchestration 即留档。
+
+## 重跑 / 恢复语义
+- 中断后再跑 `run-all.sh`:若某模型的 `model/<名>` 分支/worktree 仍在,脚本会**在其上继续(resume)**,
+  并在 notes 里记一条 `PRE-EXISTING ... RESUMING`。**想要干净重跑**:先 `cleanup.sh --purge`。
+- 单个模型失败/超时/卡住**不会阻塞其它模型**:调度器后台跑各模型、按存活态回收槽位,
+  每次尝试还有 `TIMEOUT` 上限兜底。失败的里程碑会提交(带 FAIL 标签)并记录,便于排查。
+
 ## 清理 worktree
 ```bash
 # 默认:删掉 ../sudoku-wt/* 工作目录,但保留 model/<名> 分支及其提交(结果不丢)
