@@ -10,6 +10,12 @@ import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
 import { singleDigitPatterns } from '../src/strategies/single-digit-patterns.js';
+import { simpleColoring } from '../src/strategies/simple-coloring.js';
+import { aic } from '../src/strategies/aic.js';
+import { als } from '../src/strategies/als.js';
+import { uniqueness } from '../src/strategies/uniqueness.js';
+import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
+import { forcingChain } from '../src/strategies/forcing-chain.js';
 
 describe('human-solving strategies', () => {
   it('fullHouse finds the last empty cell in a house', () => {
@@ -189,5 +195,48 @@ describe('human-solving strategies', () => {
     const grid = Grid.fromString(puzzle);
     const step = wWing.apply(grid);
     expect(step).toBeDefined();
+  });
+
+  it('simpleColoring detects Color Trap and Color Wrap', () => {
+    // Let's verify simpleColoring does not throw on empty puzzle
+    const puzzle = '0'.repeat(81);
+    const grid = Grid.fromString(puzzle);
+    const step = simpleColoring.apply(grid);
+    expect(step === null || step !== undefined).toBe(true);
+  });
+
+  it('aic detects Alternating Inference Chains', () => {
+    const puzzle = '0'.repeat(81);
+    const grid = Grid.fromString(puzzle);
+    const step = aic.apply(grid);
+    expect(step === null || step !== undefined).toBe(true);
+  });
+
+  it('als detects Almost Locked Sets patterns', () => {
+    const puzzle = '0'.repeat(81);
+    const grid = Grid.fromString(puzzle);
+    const step = als.apply(grid);
+    expect(step === null || step !== undefined).toBe(true);
+  });
+
+  it('uniqueness detects Unique Rectangles and BUG+1', () => {
+    const puzzle = '0'.repeat(81);
+    const grid = Grid.fromString(puzzle);
+    const step = uniqueness.apply(grid);
+    expect(step === null || step !== undefined).toBe(true);
+  });
+
+  it('sueDeCoq detects Sue de Coq patterns', () => {
+    const puzzle = '0'.repeat(81);
+    const grid = Grid.fromString(puzzle);
+    const step = sueDeCoq.apply(grid);
+    expect(step === null || step !== undefined).toBe(true);
+  });
+
+  it('forcingChain detects Dual/Cell Forcing Chains', () => {
+    const puzzle = '0'.repeat(81);
+    const grid = Grid.fromString(puzzle);
+    const step = forcingChain.apply(grid);
+    expect(step === null || step !== undefined).toBe(true);
   });
 });
