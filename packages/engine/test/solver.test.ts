@@ -55,3 +55,27 @@ describe('solve loop', () => {
     expect(checkTraceSoundness(trace, solution).sound).toBe(true);
   });
 });
+
+import { STRATEGIES } from '../src/strategies/index.js';
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __here = dirname(fileURLToPath(import.meta.url));
+const GT_ROOT = resolve(__here, '../../../data/ground-truth');
+
+describe('M2 soundness regression (AC-3)', () => {
+  it('produces zero violations on all 400 ground-truth puzzles', () => {
+    const tiers = ['easy','medium','hard','diabolical'];
+    let totalV = 0;
+    for (const t of tiers) {
+      const arr = JSON.parse(readFileSync(resolve(GT_ROOT, `${t}.json`), 'utf8'));
+      for (const item of arr) {
+        const trace = solve(Grid.fromString(item.puzzle), STRATEGIES);
+        const res = checkTraceSoundness(trace, item.solution);
+        totalV += res.violations.length;
+      }
+    }
+    expect(totalV).toBe(0);
+  });
+});
