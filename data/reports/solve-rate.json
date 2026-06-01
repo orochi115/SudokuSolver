@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-06-01T15:37:04.345Z",
+  "strategyOrder": [
+    "naked-single",
+    "hidden-single",
+    "locked-candidates",
+    "naked-subset",
+    "hidden-subset",
+    "x-wing",
+    "swordfish",
+    "skyscraper",
+    "two-string-kite",
+    "jellyfish",
+    "empty-rectangle",
+    "xy-wing",
+    "xyz-wing",
+    "w-wing"
+  ],
+  "byDifficulty": {
+    "easy": {
+      "total": 100,
+      "solved": 100,
+      "solveRate": 1,
+      "avgStepsSolved": 50.62
+    },
+    "medium": {
+      "total": 100,
+      "solved": 100,
+      "solveRate": 1,
+      "avgStepsSolved": 54.01
+    },
+    "hard": {
+      "total": 100,
+      "solved": 87,
+      "solveRate": 0.87,
+      "avgStepsSolved": 58.5632
+    },
+    "diabolical": {
+      "total": 100,
+      "solved": 14,
+      "solveRate": 0.14,
+      "avgStepsSolved": 60.5714
+    }
+  }
+}
