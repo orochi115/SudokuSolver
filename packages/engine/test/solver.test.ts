@@ -1,9 +1,16 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
 import { Grid } from '../src/grid.js';
 import { solve } from '../src/solver.js';
 import { nakedSingle } from '../src/strategies/naked-single.js';
 import { checkTraceSoundness } from '../src/soundness.js';
 import { solveBruteforce } from '../src/bruteforce.js';
+import { STRATEGIES } from '../src/strategies/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // A puzzle solvable by naked singles alone (the reference strategy's reach).
 const NAKED_ONLY = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
@@ -53,5 +60,26 @@ describe('solve loop', () => {
     // Whatever it managed, it must still be sound.
     const solution = solveBruteforce(hard)!;
     expect(checkTraceSoundness(trace, solution).sound).toBe(true);
+  });
+
+  it('runs soundness regression check on all 400 ground-truth puzzles with all strategies (AC-3)', () => {
+    const REPO_ROOT = resolve(__dirname, '../../..');
+    const GROUND_TRUTH_DIR = resolve(REPO_ROOT, 'data/ground-truth');
+    const difficulties = ['easy', 'medium', 'hard', 'diabolical'];
+
+    for (const diff of difficulties) {
+      const truthFile = resolve(GROUND_TRUTH_DIR, `${diff}.json`);
+      if (!existsSync(truthFile)) continue;
+
+      const records = JSON.parse(readFileSync(truthFile, 'utf8'));
+      for (const record of records) {
+        const grid = Grid.fromString(record.puzzle);
+        const trace = solve(grid, STRATEGIES);
+
+        const soundness = checkTraceSoundness(trace, record.solution);
+        expect(soundness.sound).toBe(true);
+        expect(soundness.violations.length).toBe(0);
+      }
+    }
   });
 });

@@ -1,0 +1,26 @@
+{
+  "easy": {
+    "total": 100,
+    "solved": 100,
+    "solveRate": "100.00%",
+    "violationsCount": 0
+  },
+  "medium": {
+    "total": 100,
+    "solved": 100,
+    "solveRate": "100.00%",
+    "violationsCount": 0
+  },
+  "hard": {
+    "total": 100,
+    "solved": 88,
+    "solveRate": "88.00%",
+    "violationsCount": 0
+  },
+  "diabolical": {
+    "total": 100,
+    "solved": 14,
+    "solveRate": "14.00%",
+    "violationsCount": 0
+  }
+}
