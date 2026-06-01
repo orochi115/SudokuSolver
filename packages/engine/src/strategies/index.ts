@@ -9,13 +9,14 @@
 import type { Strategy } from '../strategy.js';
 import { nakedSingle } from './naked-single.js';
 import { hiddenSingle } from './hidden-single.js';
+import { simpleColoring } from './simple-coloring.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   nakedSingle,
   hiddenSingle,
-  // M2: pointing, claiming, nakedPair/Triple/Quad, hiddenPair/Triple/Quad
-  // M3: xWing, swordfish, jellyfish, skyscraper, twoStringKite, emptyRectangle,
-  //     xyWing, xyzWing, wWing, simpleColoring, aic, alsXz, ... uniqueRectangle, forcingChain
+  // M2 placeholders would go here (pointing etc.)
+  simpleColoring,
+  // M3: aic, alsXz, uniqueRectangle, forcingChain etc.
 ];
 
-export { nakedSingle, hiddenSingle };
+export { nakedSingle, hiddenSingle, simpleColoring };
