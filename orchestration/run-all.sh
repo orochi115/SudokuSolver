@@ -42,9 +42,15 @@ if [ "${1:-}" = "--one" ]; then
     exit 0
   fi
 
+  # Capture this model's whole pipeline (markers + run-model echoes + verify
+  # output + notes) to a per-model file, while still showing it on the terminal.
+  ldir="$(cd "$REPO/.." && pwd)/sudoku-wt/logs/$name"
+  mkdir -p "$ldir"
+  exec > >(tee -a "$ldir/pipeline.log") 2>&1
+
   sf="$STATUS_DIR/$name.tsv"
   : > "$sf"
-  echo "### [$name] $model :: M2"
+  echo "### [$name] $model :: M2  ($(date '+%Y-%m-%d %H:%M:%S'))"
   if bash "$REPO/orchestration/run-model.sh" "$model" "$name" "orchestration/prompts/m2.md" "$RETRIES"; then
     printf 'm2\tPASS\n' >> "$sf"
     echo "### [$name] $model :: M3"
@@ -63,6 +69,11 @@ fi
 # ---- main: provider-aware scheduler ----
 MODELS_FILE="${1:-$REPO/orchestration/models.txt}"
 [ -f "$MODELS_FILE" ] || { echo "models file not found: $MODELS_FILE"; exit 1; }
+
+# Capture the scheduler's own output (launch order, timing) to a file too.
+mkdir -p "$REPO/orchestration/reports"
+exec > >(tee -a "$REPO/orchestration/reports/scheduler.log") 2>&1
+echo "===== run-all start $(date '+%Y-%m-%d %H:%M:%S') ====="
 
 models=(); names=(); launched=()
 while read -r m n _rest; do models+=("$m"); names+=("$n"); launched+=("0"); done \

@@ -33,6 +33,9 @@ LOG_DIR="$WT_ROOT/logs/$NAME"   # outside the worktree, so logs never enter a co
 mkdir -p "$LOG_DIR"
 MS="$(basename "$PROMPT_FILE" .md)"   # milestone label, e.g. m2
 
+# Record an anomaly/observation for post-mortem (echoed + appended to a notes file).
+note() { echo "[NOTE $NAME/$MS] $*"; printf '%s %s\n' "$(date +%H:%M:%S)" "$*" >>"$LOG_DIR/$MS.notes"; }
+
 AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n若有会影响实现的疑问,请写入 worktree 根目录的 `QUESTIONS.md`(每条一行)再继续,不要停下等待回答。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。'
 
 # Run opencode with a hard timeout; output (JSON events) goes to $1.
@@ -44,7 +47,8 @@ run_opencode() {
   local wpid=$!
   wait "$pid"; local rc=$?
   kill "$wpid" 2>/dev/null; wait "$wpid" 2>/dev/null
-  [ "$rc" -ge 124 ] && echo "(opencode hit ${TIMEOUT}s timeout, killed)" >>"$log"
+  if [ "$rc" -ge 124 ]; then note "opencode TIMEOUT after ${TIMEOUT}s (attempt killed) -> $(basename "$log")"
+  elif [ "$rc" -ne 0 ]; then note "opencode exited rc=$rc -> $(basename "$log")"; fi
   return 0
 }
 
@@ -69,10 +73,14 @@ record_cost() {
 }
 
 # --- ensure worktree ---
+# Reuse within a run (M2 creates it, M3 reuses) is normal. Reuse/attach at the
+# FIRST milestone (m2) means leftover state from a PRIOR run -> resume, recorded.
 if git -C "$REPO" worktree list --porcelain | grep -qx "worktree $WT"; then
   echo "=== [$NAME] reusing worktree $WT ==="
+  [ "$MS" = "m2" ] && note "PRE-EXISTING worktree reused (leftover from a prior run; RESUMING on top of it, not fresh). For a clean run: orchestration/cleanup.sh --purge first."
 elif git -C "$REPO" show-ref --verify --quiet "refs/heads/$BRANCH"; then
   echo "=== [$NAME] attaching existing branch $BRANCH to new worktree ==="
+  note "PRE-EXISTING branch $BRANCH attached to a new worktree (leftover from a prior run; RESUMING)."
   git -C "$REPO" worktree add "$WT" "$BRANCH"
 else
   echo "=== [$NAME] creating worktree on $BRANCH (from foundation) ==="
@@ -87,6 +95,7 @@ echo "=== [$NAME] $MS attempt 1 :: $MODEL ==="
 LOG1="$LOG_DIR/$MS-attempt-1.log"
 run_opencode "$LOG1" run -m "$MODEL" --dir "$WT" --dangerously-skip-permissions --format json "$(cat "$PROMPT_PATH")$AUTONOMY"
 SID="$(grep -o 'ses_[A-Za-z0-9]*' "$LOG1" | head -1)"
+[ -n "$SID" ] || note "no session id captured in attempt 1 (opencode may have failed to start / model unavailable / errored immediately) -> see $MS-attempt-1.log"
 
 i=1
 while true; do

@@ -1,2 +1,6 @@
 *
 !.gitignore
+# Live working files (summary.md, questions.md, scheduler.log, status/) stay ignored.
+# Committable per-run snapshots live under archive/ and ARE tracked:
+!archive/
+!archive/**

@@ -69,7 +69,9 @@ grep -vE '^[[:space:]]*(#|$)' "$MODELS_FILE" | while read -r model name _rest; d
         cf="$WT_ROOT/logs/$name/$ms.cost.json"
         if [ -f "$cf" ]; then echo "  - $ms: \`$(cat "$cf")\`"; fi
       done
-      echo "- 日志:\`sudoku-wt/logs/$name/\`"
+      nf=$(cat "$WT_ROOT/logs/$name/"*.notes 2>/dev/null)
+      if [ -n "$nf" ]; then echo "- ⚠️ 异常记录(notes):"; printf '%s\n' "$nf" | sed 's/^/    /'; fi
+      echo "- 日志:\`sudoku-wt/logs/$name/\`(pipeline.log + 各 attempt 的 opencode JSON)"
       echo
     } >> "$SUMMARY"
 
@@ -89,3 +91,17 @@ done
 
 echo "wrote $SUMMARY"
 echo "wrote $QUESTIONS"
+
+# Durable, committable snapshot of this run (small files only: report + per-model
+# cost/notes). Raw transcripts stay on disk under sudoku-wt/logs/ (too big for git).
+RUNID="$(date '+%Y%m%d-%H%M%S')"
+ARCH="$REPORTS/archive/$RUNID"
+mkdir -p "$ARCH"
+cp "$SUMMARY" "$QUESTIONS" "$ARCH/" 2>/dev/null
+grep -vE '^[[:space:]]*(#|$)' "$MODELS_FILE" | while read -r _m name _r; do
+  for ms in m2 m3; do
+    [ -f "$WT_ROOT/logs/$name/$ms.cost.json" ] && cp "$WT_ROOT/logs/$name/$ms.cost.json" "$ARCH/$name-$ms.cost.json" 2>/dev/null
+    [ -f "$WT_ROOT/logs/$name/$ms.notes" ] && cp "$WT_ROOT/logs/$name/$ms.notes" "$ARCH/$name-$ms.notes" 2>/dev/null
+  done
+done
+echo "snapshot -> $ARCH (commit it on the orchestration branch to keep the run record)"
