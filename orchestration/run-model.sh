@@ -107,10 +107,13 @@ while true; do
   i=$((i + 1))
   echo "=== [$NAME] $MS verify failed; retry $i (continuing session) ==="
   LOGN="$LOG_DIR/$MS-attempt-$i.log"
-  run_opencode "$LOGN" run --dir "$WT" --dangerously-skip-permissions --format json -c \
+  # Continue the SAME session by explicit id (parallel-safe; keeps all retry cost
+  # under one session for attribution). Fall back to -c if no id was captured.
+  if [ -n "$SID" ]; then CONT=(--session "$SID"); else CONT=(-c); fi
+  run_opencode "$LOGN" run --dir "$WT" --dangerously-skip-permissions --format json "${CONT[@]}" \
     "上一次验收未通过。verify 输出如下:
 
 $OUT
 
-请自主修复,不要提问,直到 npm run typecheck、npm test 全绿,且达到验收要求(健全性 0 violation 且解出率达标)。"
+请自主修复,不要提问,直到 npm run typecheck、npm test 全绿,且引擎对 data/ground-truth 零健全性 violation。"
 done
