@@ -1,0 +1,2440 @@
+{
+  "timestamp": "2026-06-01T22:56:12.397Z",
+  "summary": {
+    "total": 400,
+    "solved": 247,
+    "rate": 0.6175
+  },
+  "byDifficulty": {
+    "easy": {
+      "total": 100,
+      "solved": 100,
+      "rate": 1
+    },
+    "medium": {
+      "total": 100,
+      "solved": 100,
+      "rate": 1
+    },
+    "hard": {
+      "total": 100,
+      "solved": 46,
+      "rate": 0.46
+    },
+    "diabolical": {
+      "total": 100,
+      "solved": 1,
+      "rate": 0.01
+    }
+  },
+  "details": {
+    "easy": [
+      {
+        "index": 0,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 1,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 2,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 3,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 4,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 5,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 6,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 7,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 8,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 9,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 10,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 11,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 12,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 13,
+        "solved": true,
+        "steps": 41,
+        "sound": true
+      },
+      {
+        "index": 14,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 15,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 16,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 17,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 18,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 19,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 20,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 21,
+        "solved": true,
+        "steps": 47,
+        "sound": true
+      },
+      {
+        "index": 22,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 23,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 24,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 25,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 26,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 27,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 28,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 29,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 30,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 31,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 32,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 33,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 34,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 35,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 36,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 37,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 38,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 39,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 40,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 41,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 42,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 43,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 44,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 45,
+        "solved": true,
+        "steps": 44,
+        "sound": true
+      },
+      {
+        "index": 46,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 47,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 48,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 49,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 50,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 51,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 52,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 53,
+        "solved": true,
+        "steps": 45,
+        "sound": true
+      },
+      {
+        "index": 54,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 55,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 56,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 57,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 58,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 59,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 60,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 61,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 62,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 63,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 64,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 65,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 66,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 67,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 68,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 69,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 70,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 71,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 72,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 73,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 74,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 75,
+        "solved": true,
+        "steps": 44,
+        "sound": true
+      },
+      {
+        "index": 76,
+        "solved": true,
+        "steps": 44,
+        "sound": true
+      },
+      {
+        "index": 77,
+        "solved": true,
+        "steps": 44,
+        "sound": true
+      },
+      {
+        "index": 78,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 79,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 80,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 81,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 82,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 83,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 84,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 85,
+        "solved": true,
+        "steps": 44,
+        "sound": true
+      },
+      {
+        "index": 86,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 87,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 88,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 89,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 90,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 91,
+        "solved": true,
+        "steps": 45,
+        "sound": true
+      },
+      {
+        "index": 92,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 93,
+        "solved": true,
+        "steps": 44,
+        "sound": true
+      },
+      {
+        "index": 94,
+        "solved": true,
+        "steps": 48,
+        "sound": true
+      },
+      {
+        "index": 95,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 96,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 97,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 98,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 99,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      }
+    ],
+    "medium": [
+      {
+        "index": 0,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 1,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 2,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 3,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 4,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 5,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 6,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 7,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 8,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 9,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 10,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 11,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 12,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 13,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 14,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 15,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 16,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 17,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 18,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 19,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 20,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 21,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 22,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 23,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 24,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 25,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 26,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 27,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 28,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 29,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 30,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 31,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 32,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 33,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 34,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 35,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 36,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 37,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 38,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 39,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 40,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 41,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 42,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 43,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 44,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 45,
+        "solved": true,
+        "steps": 61,
+        "sound": true
+      },
+      {
+        "index": 46,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 47,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 48,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 49,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 50,
+        "solved": true,
+        "steps": 61,
+        "sound": true
+      },
+      {
+        "index": 51,
+        "solved": true,
+        "steps": 51,
+        "sound": true
+      },
+      {
+        "index": 52,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 53,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 54,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 55,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 56,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 57,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 58,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 59,
+        "solved": true,
+        "steps": 64,
+        "sound": true
+      },
+      {
+        "index": 60,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 61,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 62,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 63,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 64,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 65,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 66,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 67,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 68,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 69,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 70,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 71,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 72,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 73,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 74,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 75,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 76,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 77,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 78,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 79,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 80,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 81,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 82,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 83,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 84,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 85,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 86,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 87,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 88,
+        "solved": true,
+        "steps": 53,
+        "sound": true
+      },
+      {
+        "index": 89,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 90,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 91,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 92,
+        "solved": true,
+        "steps": 50,
+        "sound": true
+      },
+      {
+        "index": 93,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 94,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 95,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 96,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 97,
+        "solved": true,
+        "steps": 49,
+        "sound": true
+      },
+      {
+        "index": 98,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 99,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      }
+    ],
+    "hard": [
+      {
+        "index": 0,
+        "solved": true,
+        "steps": 59,
+        "sound": true
+      },
+      {
+        "index": 1,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 2,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 3,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 4,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 5,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 6,
+        "solved": false,
+        "steps": 19,
+        "sound": true
+      },
+      {
+        "index": 7,
+        "solved": false,
+        "steps": 38,
+        "sound": true
+      },
+      {
+        "index": 8,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 9,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 10,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 11,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 12,
+        "solved": false,
+        "steps": 29,
+        "sound": true
+      },
+      {
+        "index": 13,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 14,
+        "solved": true,
+        "steps": 63,
+        "sound": true
+      },
+      {
+        "index": 15,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 16,
+        "solved": true,
+        "steps": 62,
+        "sound": true
+      },
+      {
+        "index": 17,
+        "solved": true,
+        "steps": 63,
+        "sound": true
+      },
+      {
+        "index": 18,
+        "solved": false,
+        "steps": 17,
+        "sound": true
+      },
+      {
+        "index": 19,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 20,
+        "solved": false,
+        "steps": 14,
+        "sound": true
+      },
+      {
+        "index": 21,
+        "solved": false,
+        "steps": 23,
+        "sound": true
+      },
+      {
+        "index": 22,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 23,
+        "solved": true,
+        "steps": 59,
+        "sound": true
+      },
+      {
+        "index": 24,
+        "solved": true,
+        "steps": 72,
+        "sound": true
+      },
+      {
+        "index": 25,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 26,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 27,
+        "solved": true,
+        "steps": 52,
+        "sound": true
+      },
+      {
+        "index": 28,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 29,
+        "solved": true,
+        "steps": 62,
+        "sound": true
+      },
+      {
+        "index": 30,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 31,
+        "solved": false,
+        "steps": 29,
+        "sound": true
+      },
+      {
+        "index": 32,
+        "solved": false,
+        "steps": 26,
+        "sound": true
+      },
+      {
+        "index": 33,
+        "solved": false,
+        "steps": 38,
+        "sound": true
+      },
+      {
+        "index": 34,
+        "solved": true,
+        "steps": 61,
+        "sound": true
+      },
+      {
+        "index": 35,
+        "solved": false,
+        "steps": 25,
+        "sound": true
+      },
+      {
+        "index": 36,
+        "solved": false,
+        "steps": 28,
+        "sound": true
+      },
+      {
+        "index": 37,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 38,
+        "solved": false,
+        "steps": 28,
+        "sound": true
+      },
+      {
+        "index": 39,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      },
+      {
+        "index": 40,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 41,
+        "solved": false,
+        "steps": 32,
+        "sound": true
+      },
+      {
+        "index": 42,
+        "solved": false,
+        "steps": 25,
+        "sound": true
+      },
+      {
+        "index": 43,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 44,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 45,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 46,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 47,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 48,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      },
+      {
+        "index": 49,
+        "solved": true,
+        "steps": 62,
+        "sound": true
+      },
+      {
+        "index": 50,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      },
+      {
+        "index": 51,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 52,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 53,
+        "solved": false,
+        "steps": 30,
+        "sound": true
+      },
+      {
+        "index": 54,
+        "solved": false,
+        "steps": 31,
+        "sound": true
+      },
+      {
+        "index": 55,
+        "solved": true,
+        "steps": 59,
+        "sound": true
+      },
+      {
+        "index": 56,
+        "solved": true,
+        "steps": 62,
+        "sound": true
+      },
+      {
+        "index": 57,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 58,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 59,
+        "solved": true,
+        "steps": 61,
+        "sound": true
+      },
+      {
+        "index": 60,
+        "solved": true,
+        "steps": 55,
+        "sound": true
+      },
+      {
+        "index": 61,
+        "solved": true,
+        "steps": 64,
+        "sound": true
+      },
+      {
+        "index": 62,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 63,
+        "solved": false,
+        "steps": 17,
+        "sound": true
+      },
+      {
+        "index": 64,
+        "solved": false,
+        "steps": 29,
+        "sound": true
+      },
+      {
+        "index": 65,
+        "solved": false,
+        "steps": 19,
+        "sound": true
+      },
+      {
+        "index": 66,
+        "solved": false,
+        "steps": 35,
+        "sound": true
+      },
+      {
+        "index": 67,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 68,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 69,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 70,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 71,
+        "solved": false,
+        "steps": 34,
+        "sound": true
+      },
+      {
+        "index": 72,
+        "solved": false,
+        "steps": 11,
+        "sound": true
+      },
+      {
+        "index": 73,
+        "solved": true,
+        "steps": 59,
+        "sound": true
+      },
+      {
+        "index": 74,
+        "solved": false,
+        "steps": 11,
+        "sound": true
+      },
+      {
+        "index": 75,
+        "solved": false,
+        "steps": 24,
+        "sound": true
+      },
+      {
+        "index": 76,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 77,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 78,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 79,
+        "solved": true,
+        "steps": 63,
+        "sound": true
+      },
+      {
+        "index": 80,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 81,
+        "solved": true,
+        "steps": 57,
+        "sound": true
+      },
+      {
+        "index": 82,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 83,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      },
+      {
+        "index": 84,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 85,
+        "solved": false,
+        "steps": 37,
+        "sound": true
+      },
+      {
+        "index": 86,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 87,
+        "solved": true,
+        "steps": 63,
+        "sound": true
+      },
+      {
+        "index": 88,
+        "solved": false,
+        "steps": 35,
+        "sound": true
+      },
+      {
+        "index": 89,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 90,
+        "solved": false,
+        "steps": 26,
+        "sound": true
+      },
+      {
+        "index": 91,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 92,
+        "solved": true,
+        "steps": 58,
+        "sound": true
+      },
+      {
+        "index": 93,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 94,
+        "solved": true,
+        "steps": 62,
+        "sound": true
+      },
+      {
+        "index": 95,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 96,
+        "solved": true,
+        "steps": 60,
+        "sound": true
+      },
+      {
+        "index": 97,
+        "solved": false,
+        "steps": 23,
+        "sound": true
+      },
+      {
+        "index": 98,
+        "solved": true,
+        "steps": 56,
+        "sound": true
+      },
+      {
+        "index": 99,
+        "solved": true,
+        "steps": 54,
+        "sound": true
+      }
+    ],
+    "diabolical": [
+      {
+        "index": 0,
+        "solved": false,
+        "steps": 27,
+        "sound": true
+      },
+      {
+        "index": 1,
+        "solved": false,
+        "steps": 8,
+        "sound": true
+      },
+      {
+        "index": 2,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 3,
+        "solved": false,
+        "steps": 19,
+        "sound": true
+      },
+      {
+        "index": 4,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 5,
+        "solved": false,
+        "steps": 5,
+        "sound": true
+      },
+      {
+        "index": 6,
+        "solved": false,
+        "steps": 24,
+        "sound": true
+      },
+      {
+        "index": 7,
+        "solved": false,
+        "steps": 24,
+        "sound": true
+      },
+      {
+        "index": 8,
+        "solved": false,
+        "steps": 7,
+        "sound": true
+      },
+      {
+        "index": 9,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 10,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 11,
+        "solved": false,
+        "steps": 27,
+        "sound": true
+      },
+      {
+        "index": 12,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 13,
+        "solved": false,
+        "steps": 12,
+        "sound": true
+      },
+      {
+        "index": 14,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 15,
+        "solved": false,
+        "steps": 19,
+        "sound": true
+      },
+      {
+        "index": 16,
+        "solved": false,
+        "steps": 23,
+        "sound": true
+      },
+      {
+        "index": 17,
+        "solved": false,
+        "steps": 3,
+        "sound": true
+      },
+      {
+        "index": 18,
+        "solved": false,
+        "steps": 19,
+        "sound": true
+      },
+      {
+        "index": 19,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 20,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 21,
+        "solved": false,
+        "steps": 5,
+        "sound": true
+      },
+      {
+        "index": 22,
+        "solved": false,
+        "steps": 31,
+        "sound": true
+      },
+      {
+        "index": 23,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 24,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 25,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 26,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 27,
+        "solved": false,
+        "steps": 25,
+        "sound": true
+      },
+      {
+        "index": 28,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      },
+      {
+        "index": 29,
+        "solved": false,
+        "steps": 12,
+        "sound": true
+      },
+      {
+        "index": 30,
+        "solved": false,
+        "steps": 24,
+        "sound": true
+      },
+      {
+        "index": 31,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 32,
+        "solved": false,
+        "steps": 14,
+        "sound": true
+      },
+      {
+        "index": 33,
+        "solved": false,
+        "steps": 11,
+        "sound": true
+      },
+      {
+        "index": 34,
+        "solved": false,
+        "steps": 28,
+        "sound": true
+      },
+      {
+        "index": 35,
+        "solved": false,
+        "steps": 9,
+        "sound": true
+      },
+      {
+        "index": 36,
+        "solved": true,
+        "steps": 64,
+        "sound": true
+      },
+      {
+        "index": 37,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 38,
+        "solved": false,
+        "steps": 26,
+        "sound": true
+      },
+      {
+        "index": 39,
+        "solved": false,
+        "steps": 10,
+        "sound": true
+      },
+      {
+        "index": 40,
+        "solved": false,
+        "steps": 25,
+        "sound": true
+      },
+      {
+        "index": 41,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 42,
+        "solved": false,
+        "steps": 6,
+        "sound": true
+      },
+      {
+        "index": 43,
+        "solved": false,
+        "steps": 19,
+        "sound": true
+      },
+      {
+        "index": 44,
+        "solved": false,
+        "steps": 4,
+        "sound": true
+      },
+      {
+        "index": 45,
+        "solved": false,
+        "steps": 10,
+        "sound": true
+      },
+      {
+        "index": 46,
+        "solved": false,
+        "steps": 7,
+        "sound": true
+      },
+      {
+        "index": 47,
+        "solved": false,
+        "steps": 26,
+        "sound": true
+      },
+      {
+        "index": 48,
+        "solved": false,
+        "steps": 11,
+        "sound": true
+      },
+      {
+        "index": 49,
+        "solved": false,
+        "steps": 30,
+        "sound": true
+      },
+      {
+        "index": 50,
+        "solved": false,
+        "steps": 11,
+        "sound": true
+      },
+      {
+        "index": 51,
+        "solved": false,
+        "steps": 12,
+        "sound": true
+      },
+      {
+        "index": 52,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 53,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 54,
+        "solved": false,
+        "steps": 23,
+        "sound": true
+      },
+      {
+        "index": 55,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 56,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 57,
+        "solved": false,
+        "steps": 8,
+        "sound": true
+      },
+      {
+        "index": 58,
+        "solved": false,
+        "steps": 26,
+        "sound": true
+      },
+      {
+        "index": 59,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      },
+      {
+        "index": 60,
+        "solved": false,
+        "steps": 29,
+        "sound": true
+      },
+      {
+        "index": 61,
+        "solved": false,
+        "steps": 17,
+        "sound": true
+      },
+      {
+        "index": 62,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 63,
+        "solved": false,
+        "steps": 41,
+        "sound": true
+      },
+      {
+        "index": 64,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 65,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 66,
+        "solved": false,
+        "steps": 33,
+        "sound": true
+      },
+      {
+        "index": 67,
+        "solved": false,
+        "steps": 18,
+        "sound": true
+      },
+      {
+        "index": 68,
+        "solved": false,
+        "steps": 10,
+        "sound": true
+      },
+      {
+        "index": 69,
+        "solved": false,
+        "steps": 11,
+        "sound": true
+      },
+      {
+        "index": 70,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 71,
+        "solved": false,
+        "steps": 26,
+        "sound": true
+      },
+      {
+        "index": 72,
+        "solved": false,
+        "steps": 34,
+        "sound": true
+      },
+      {
+        "index": 73,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 74,
+        "solved": false,
+        "steps": 38,
+        "sound": true
+      },
+      {
+        "index": 75,
+        "solved": false,
+        "steps": 23,
+        "sound": true
+      },
+      {
+        "index": 76,
+        "solved": false,
+        "steps": 9,
+        "sound": true
+      },
+      {
+        "index": 77,
+        "solved": false,
+        "steps": 36,
+        "sound": true
+      },
+      {
+        "index": 78,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 79,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 80,
+        "solved": false,
+        "steps": 24,
+        "sound": true
+      },
+      {
+        "index": 81,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 82,
+        "solved": false,
+        "steps": 16,
+        "sound": true
+      },
+      {
+        "index": 83,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      },
+      {
+        "index": 84,
+        "solved": false,
+        "steps": 24,
+        "sound": true
+      },
+      {
+        "index": 85,
+        "solved": false,
+        "steps": 14,
+        "sound": true
+      },
+      {
+        "index": 86,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 87,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 88,
+        "solved": false,
+        "steps": 17,
+        "sound": true
+      },
+      {
+        "index": 89,
+        "solved": false,
+        "steps": 25,
+        "sound": true
+      },
+      {
+        "index": 90,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 91,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 92,
+        "solved": false,
+        "steps": 22,
+        "sound": true
+      },
+      {
+        "index": 93,
+        "solved": false,
+        "steps": 14,
+        "sound": true
+      },
+      {
+        "index": 94,
+        "solved": false,
+        "steps": 21,
+        "sound": true
+      },
+      {
+        "index": 95,
+        "solved": false,
+        "steps": 27,
+        "sound": true
+      },
+      {
+        "index": 96,
+        "solved": false,
+        "steps": 20,
+        "sound": true
+      },
+      {
+        "index": 97,
+        "solved": false,
+        "steps": 15,
+        "sound": true
+      },
+      {
+        "index": 98,
+        "solved": false,
+        "steps": 29,
+        "sound": true
+      },
+      {
+        "index": 99,
+        "solved": false,
+        "steps": 13,
+        "sound": true
+      }
+    ]
+  }
+}
