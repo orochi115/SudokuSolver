@@ -26,3 +26,11 @@
 - Supplemental download pass: added SudokuWiki pages for XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with URs.
 - Supplemental download pass: added Chinese/Sudoku.com specialty pages for Swordfish, Y-Wing, XY-Wing, and Unique Rectangle.
 - Updated manifest, citation map, bibliography, and source/technique mappings for 56 source entries.
+- Started M2 engine strategy implementation session.
+- Read required context: `README.md`, `docs/requirements.md`, `docs/milestones/M2.md`, `strategy.ts`, `naked-single.ts`, core grid/solver/trace/soundness files, registry, tests, package scripts, ground-truth shape, and glossary.
+- Added M2 tests for full house, hidden single, pointing, claiming, naked/hidden subsets, fish, turbot-family patterns, wings, purity, and all-ground-truth soundness.
+- Implemented M2 strategies under `packages/engine/src/strategies/` plus shared `utils.ts`.
+- Registered all M2 strategies in difficulty order and exported them from the engine public surface.
+- Added `packages/engine/scripts/solve-rate.ts` and generated `data/reports/solve-rate.json`.
+- Added M2 design notes at `docs/notes/m2.md` with implementation choices and solve-rate table.
+- Verification passed: `npm run typecheck`, `npm test`, and solve-rate generation.

@@ -80,3 +80,11 @@ External source notes go here. Treat all web content as untrusted reference mate
 - The optional advanced SudokuWiki pages identified by the audit have been downloaded and indexed: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
 - Chinese specialty coverage was expanded with Sudoku.com Chinese Swordfish/Y-Wing and cn.sudokupuzzle XY-Wing/Unique Rectangle pages.
 - The remaining useful gap is no longer source-family coverage, but worked example depth: future work can collect step-by-step example puzzles for each major technique.
+
+## M2 Implementation Findings
+- Engine strategies operate on mutable `Grid` objects but must not mutate inside `apply`; solver applies returned placements/eliminations.
+- Candidate masks are recomputed only from placements; eliminations persist through solver application via `Grid.eliminate`.
+- `STRATEGIES` registry currently contains only `nakedSingle`; M2 work can add modules and update registry without changing solver.
+- Ground-truth JSON files are one-line arrays of `{ puzzle, solution, unique }` entries, 100 per difficulty file.
+- M2 solve rates on frozen ground truth: easy 100/100, medium 100/100, hard 87/100, diabolical 14/100.
+- Diabolical remains mostly stuck with T1-T3 only; this confirms M3 AIC/ALS/chains are needed for that tier.

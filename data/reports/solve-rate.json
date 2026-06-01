@@ -1,0 +1,171 @@
+{
+  "generatedAt": "2026-06-01T15:36:43.153Z",
+  "strategies": [
+    {
+      "id": "full-house",
+      "difficulty": 9
+    },
+    {
+      "id": "naked-single",
+      "difficulty": 10
+    },
+    {
+      "id": "hidden-single",
+      "difficulty": 10
+    },
+    {
+      "id": "pointing",
+      "difficulty": 20
+    },
+    {
+      "id": "claiming",
+      "difficulty": 20
+    },
+    {
+      "id": "naked-pair",
+      "difficulty": 30
+    },
+    {
+      "id": "naked-triple",
+      "difficulty": 31
+    },
+    {
+      "id": "naked-quad",
+      "difficulty": 32
+    },
+    {
+      "id": "hidden-pair",
+      "difficulty": 33
+    },
+    {
+      "id": "hidden-triple",
+      "difficulty": 34
+    },
+    {
+      "id": "hidden-quad",
+      "difficulty": 35
+    },
+    {
+      "id": "x-wing",
+      "difficulty": 40
+    },
+    {
+      "id": "swordfish",
+      "difficulty": 41
+    },
+    {
+      "id": "jellyfish",
+      "difficulty": 42
+    },
+    {
+      "id": "skyscraper",
+      "difficulty": 50
+    },
+    {
+      "id": "two-string-kite",
+      "difficulty": 51
+    },
+    {
+      "id": "empty-rectangle",
+      "difficulty": 52
+    },
+    {
+      "id": "xy-wing",
+      "difficulty": 55
+    },
+    {
+      "id": "xyz-wing",
+      "difficulty": 56
+    },
+    {
+      "id": "w-wing",
+      "difficulty": 57
+    }
+  ],
+  "difficulties": {
+    "easy": {
+      "total": 100,
+      "unique": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solvedRate": 1,
+      "averageSteps": 50.62,
+      "strategyUsage": {
+        "naked-single": 2582,
+        "full-house": 2077,
+        "hidden-single": 403
+      }
+    },
+    "medium": {
+      "total": 100,
+      "unique": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solvedRate": 1,
+      "averageSteps": 53.93,
+      "strategyUsage": {
+        "naked-single": 2288,
+        "full-house": 2043,
+        "hidden-single": 975,
+        "pointing": 66,
+        "naked-pair": 10,
+        "claiming": 10,
+        "naked-triple": 1
+      }
+    },
+    "hard": {
+      "total": 100,
+      "unique": 100,
+      "solved": 87,
+      "stuck": 13,
+      "solvedRate": 0.87,
+      "averageSteps": 54.23,
+      "strategyUsage": {
+        "hidden-single": 1236,
+        "pointing": 248,
+        "claiming": 62,
+        "naked-pair": 71,
+        "naked-single": 1845,
+        "naked-triple": 32,
+        "full-house": 1789,
+        "two-string-kite": 30,
+        "xy-wing": 26,
+        "x-wing": 26,
+        "skyscraper": 25,
+        "swordfish": 4,
+        "naked-quad": 9,
+        "xyz-wing": 11,
+        "w-wing": 3,
+        "empty-rectangle": 4,
+        "hidden-pair": 2
+      }
+    },
+    "diabolical": {
+      "total": 100,
+      "unique": 100,
+      "solved": 14,
+      "stuck": 86,
+      "solvedRate": 0.14,
+      "averageSteps": 25.58,
+      "strategyUsage": {
+        "hidden-single": 953,
+        "pointing": 264,
+        "claiming": 87,
+        "naked-pair": 59,
+        "naked-single": 608,
+        "xy-wing": 20,
+        "full-house": 396,
+        "naked-triple": 37,
+        "w-wing": 31,
+        "empty-rectangle": 4,
+        "x-wing": 12,
+        "two-string-kite": 42,
+        "xyz-wing": 13,
+        "skyscraper": 12,
+        "naked-quad": 17,
+        "hidden-pair": 1,
+        "swordfish": 2
+      }
+    }
+  }
+}

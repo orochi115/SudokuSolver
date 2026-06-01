@@ -46,3 +46,31 @@ Collect enough reliable internet material to support a later synthesis of a full
 3. Download optional Chinese specialty pages - complete
 4. Update manifest, citations, bibliography, and mappings - complete
 5. Validate associations and commit supplemental sources - complete
+
+## Phase 4: M2 Engine Strategies
+1. Read M2 requirements, engine interfaces, existing tests, and technique notes - complete
+2. Add failing tests for T1-T3 strategies and solve-rate/soundness coverage - complete
+3. Implement strategy helper utilities and independent strategy modules - complete
+4. Register strategies by difficulty and expose public exports - complete
+5. Add solve-rate script and generated report - complete
+6. Write `docs/notes/m2.md` design notes with solve-rate results - complete
+7. Run typecheck, full tests, soundness regression, and solve-rate script until green - complete
+
+## M2 Implementation Constraints
+- Do not modify core foundation files: `grid.ts`, `trace.ts`, `strategy.ts`, `solver.ts`, `soundness.ts`, `bruteforce.ts`, `parser.ts`.
+- Do not modify `data/ground-truth/`, top-level configuration, or existing spec docs under `docs/requirements.md` and `docs/milestones/`.
+- Each strategy is an independent pure module under `packages/engine/src/strategies/` and returns only the first applicable step.
+- Use bilingual explanations and highlights consistent with `naked-single.ts` and glossary terms.
+
+## M2 Verification Results
+- `npm run typecheck` passed.
+- `npm test` passed: 7 test files, 42 tests.
+- `packages/engine/test/m2-soundness.test.ts` covers all 400 frozen ground-truth puzzles and reported zero violations.
+- `npx tsx packages/engine/scripts/solve-rate.ts` generated `data/reports/solve-rate.json`.
+
+## Errors Encountered During M2
+| Error | Attempt | Resolution |
+|---|---|---|
+| Initial M2 test run failed because strategy modules did not exist | TDD red run for `strategies-m2.test.ts` | Added independent strategy modules and registry exports |
+| Some chain-pattern tests expected different eliminations | First green run after implementation | Found hand-built candidates invalidated intended strong links or allowed another valid first step; corrected fixtures |
+| `typecheck` reported weak tuple inference in fish parameterized tests | First typecheck | Added explicit `fishCases` tuple type |
