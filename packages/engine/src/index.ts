@@ -13,15 +13,8 @@ export * from './parser.js';
 export * from './bruteforce.js';
 export {
   STRATEGIES,
-  nakedSingle,
-  fullHouse,
-  hiddenSingle,
-  lockedCandidates,
-  nakedSubset,
-  hiddenSubset,
-  basicFish,
-  singleDigitPatterns,
-  xyWing,
-  xyzWing,
-  wWing,
+  nakedSingle, fullHouse, hiddenSingle, lockedCandidates,
+  nakedSubset, hiddenSubset, basicFish, singleDigitPatterns,
+  xyWing, xyzWing, wWing,
+  simpleColoring, aic, als, uniqueness, sueDeCoq, forcingChain,
 } from './strategies/index.js';

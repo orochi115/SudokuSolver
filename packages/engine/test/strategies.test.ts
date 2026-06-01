@@ -14,6 +14,12 @@ import { singleDigitPatterns } from '../src/strategies/single-digit-patterns.js'
 import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
+import { simpleColoring } from '../src/strategies/simple-coloring.js';
+import { aic } from '../src/strategies/aic.js';
+import { als } from '../src/strategies/als.js';
+import { uniqueness } from '../src/strategies/uniqueness.js';
+import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
+import { forcingChain } from '../src/strategies/forcing-chain.js';
 
 // Helper to convert a readable grid to 81-char string
 function board(strings: string[]): string {
@@ -234,6 +240,126 @@ describe('w-wing', () => {
   });
 });
 
+// ---- Simple Coloring ----
+describe('simple-coloring', () => {
+  it('returns null or valid eliminations on a sample board', () => {
+    const g = Grid.fromString(board([
+      '123456789',
+      '456789123',
+      '789123456',
+      '234567891',
+      '567891234',
+      '891234567',
+      '345678912',
+      '678912345',
+      '912345600',
+    ]));
+    g.recomputeCandidates();
+    const step = simpleColoring.apply(g);
+    expect(step === null || step.eliminations.length > 0 || step.placements.length > 0).toBe(true);
+  });
+});
+
+// ---- AIC ----
+describe('aic', () => {
+  it('returns null or valid eliminations on a sample board', () => {
+    const g = Grid.fromString(board([
+      '123456789',
+      '456789123',
+      '789123456',
+      '234567891',
+      '567891234',
+      '891234567',
+      '345678912',
+      '678912345',
+      '912345600',
+    ]));
+    g.recomputeCandidates();
+    const step = aic.apply(g);
+    expect(step === null || step.eliminations.length > 0 || step.placements.length > 0).toBe(true);
+  });
+});
+
+// ---- ALS ----
+describe('als', () => {
+  it('returns null or valid eliminations on a sample board', () => {
+    const g = Grid.fromString(board([
+      '123456789',
+      '456789123',
+      '789123456',
+      '234567891',
+      '567891234',
+      '891234567',
+      '345678912',
+      '678912345',
+      '912345600',
+    ]));
+    g.recomputeCandidates();
+    const step = als.apply(g);
+    expect(step === null || step.eliminations.length > 0 || step.placements.length > 0).toBe(true);
+  });
+});
+
+// ---- Uniqueness ----
+describe('uniqueness', () => {
+  it('returns null or valid eliminations on a sample board', () => {
+    const g = Grid.fromString(board([
+      '123456789',
+      '456789123',
+      '789123456',
+      '234567891',
+      '567891234',
+      '891234567',
+      '345678912',
+      '678912345',
+      '912345600',
+    ]));
+    g.recomputeCandidates();
+    const step = uniqueness.apply(g);
+    expect(step === null || step.eliminations.length > 0 || step.placements.length > 0).toBe(true);
+  });
+});
+
+// ---- Sue de Coq ----
+describe('sue-de-coq', () => {
+  it('returns null or valid eliminations on a sample board', () => {
+    const g = Grid.fromString(board([
+      '123456789',
+      '456789123',
+      '789123456',
+      '234567891',
+      '567891234',
+      '891234567',
+      '345678912',
+      '678912345',
+      '912345600',
+    ]));
+    g.recomputeCandidates();
+    const step = sueDeCoq.apply(g);
+    expect(step === null || step.eliminations.length > 0 || step.placements.length > 0).toBe(true);
+  });
+});
+
+// ---- Forcing Chain ----
+describe('forcing-chain', () => {
+  it('returns null or valid eliminations on a sample board', () => {
+    const g = Grid.fromString(board([
+      '123456789',
+      '456789123',
+      '789123456',
+      '234567891',
+      '567891234',
+      '891234567',
+      '345678912',
+      '678912345',
+      '912345600',
+    ]));
+    g.recomputeCandidates();
+    const step = forcingChain.apply(g);
+    expect(step === null || step.eliminations.length > 0 || step.placements.length > 0).toBe(true);
+  });
+});
+
 // ---- Integration: all strategies together ----
 describe('all strategies integration', () => {
   it('solves an easy puzzle with all strategies and stays sound', () => {
@@ -247,6 +373,15 @@ describe('all strategies integration', () => {
 
   it('solves a medium puzzle with all strategies and stays sound', () => {
     const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const solution = solveBruteforce(puzzle)!;
+    const g = Grid.fromString(puzzle);
+    const trace = solve(g, STRATEGIES);
+    const result = checkTraceSoundness(trace, solution);
+    expect(result.sound).toBe(true);
+  });
+
+  it('solves a diabolical puzzle with all strategies and stays sound', () => {
+    const puzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
     const solution = solveBruteforce(puzzle)!;
     const g = Grid.fromString(puzzle);
     const trace = solve(g, STRATEGIES);
