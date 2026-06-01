@@ -17,6 +17,12 @@ import { singleDigitPatterns } from './single-digit-patterns.js';
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
+import { simpleColoring } from './simple-coloring.js';
+import { aic } from './aic.js';
+import { als } from './als.js';
+import { uniqueness } from './uniqueness.js';
+import { sueDeCoq } from './sue-de-coq.js';
+import { forcingChain } from './forcing-chain.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // T1 — Singles (difficulty 4–10)
@@ -35,6 +41,14 @@ export const STRATEGIES: readonly Strategy[] = [
   xyWing,             // difficulty 50
   xyzWing,            // difficulty 50
   wWing,              // difficulty 50
+
+  // T4 — Advanced Strategies (difficulty 60–100)
+  simpleColoring,     // difficulty 60
+  aic,                // difficulty 70
+  als,                // difficulty 80
+  uniqueness,         // difficulty 90
+  sueDeCoq,           // difficulty 95
+  forcingChain,       // difficulty 100
 ];
 
 export {
@@ -49,4 +63,10 @@ export {
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  als,
+  uniqueness,
+  sueDeCoq,
+  forcingChain,
 };

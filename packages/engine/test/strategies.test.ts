@@ -533,6 +533,13 @@ describe('STRATEGIES registry', () => {
       'xy-wing',
       'xyz-wing',
       'w-wing',
+      // M3 strategies
+      'simple-coloring',
+      'aic',
+      'als',
+      'uniqueness',
+      'sue-de-coq',
+      'forcing-chain',
     ];
     for (const id of required) {
       expect(ids, `Strategy '${id}' should be registered`).toContain(id);

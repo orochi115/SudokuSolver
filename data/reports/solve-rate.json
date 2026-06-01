@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-01T17:52:51.500Z",
+  "generatedAt": "2026-06-01T18:32:44.097Z",
   "strategies": [
     {
       "id": "full-house",
@@ -44,6 +44,30 @@
     {
       "id": "w-wing",
       "difficulty": 50
+    },
+    {
+      "id": "simple-coloring",
+      "difficulty": 60
+    },
+    {
+      "id": "aic",
+      "difficulty": 70
+    },
+    {
+      "id": "als",
+      "difficulty": 80
+    },
+    {
+      "id": "uniqueness",
+      "difficulty": 90
+    },
+    {
+      "id": "sue-de-coq",
+      "difficulty": 95
+    },
+    {
+      "id": "forcing-chain",
+      "difficulty": 100
     }
   ],
   "results": [
@@ -64,7 +88,13 @@
         "single-digit-patterns": 0,
         "xy-wing": 0,
         "xyz-wing": 0,
-        "w-wing": 0
+        "w-wing": 0,
+        "simple-coloring": 0,
+        "aic": 0,
+        "als": 0,
+        "uniqueness": 0,
+        "sue-de-coq": 0,
+        "forcing-chain": 0
       },
       "stuckCount": 0,
       "avgSteps": 50.6
@@ -86,7 +116,13 @@
         "single-digit-patterns": 0,
         "xy-wing": 0,
         "xyz-wing": 0,
-        "w-wing": 0
+        "w-wing": 0,
+        "simple-coloring": 0,
+        "aic": 0,
+        "als": 0,
+        "uniqueness": 0,
+        "sue-de-coq": 0,
+        "forcing-chain": 0
       },
       "stuckCount": 0,
       "avgSteps": 53.9
@@ -94,52 +130,64 @@
     {
       "difficulty": "hard",
       "total": 100,
-      "solved": 87,
-      "solveRate": 87,
+      "solved": 100,
+      "solveRate": 100,
       "soundViolations": 0,
       "strategyUsage": {
-        "full-house": 1788,
-        "naked-single": 1838,
-        "hidden-single": 1244,
-        "locked-candidates": 311,
-        "naked-subset": 114,
+        "full-house": 2028,
+        "naked-single": 2017,
+        "hidden-single": 1260,
+        "locked-candidates": 319,
+        "naked-subset": 115,
         "hidden-subset": 2,
         "basic-fish": 30,
-        "single-digit-patterns": 56,
-        "xy-wing": 26,
+        "single-digit-patterns": 61,
+        "xy-wing": 30,
         "xyz-wing": 11,
-        "w-wing": 3
+        "w-wing": 5,
+        "simple-coloring": 1,
+        "aic": 26,
+        "als": 2,
+        "uniqueness": 0,
+        "sue-de-coq": 0,
+        "forcing-chain": 0
       },
-      "stuckCount": 13,
-      "avgSteps": 54.2
+      "stuckCount": 0,
+      "avgSteps": 59.1
     },
     {
       "difficulty": "diabolical",
       "total": 100,
-      "solved": 14,
-      "solveRate": 14,
+      "solved": 99,
+      "solveRate": 99,
       "soundViolations": 0,
       "strategyUsage": {
-        "full-house": 396,
-        "naked-single": 605,
-        "hidden-single": 956,
-        "locked-candidates": 351,
-        "naked-subset": 112,
-        "hidden-subset": 1,
-        "basic-fish": 14,
-        "single-digit-patterns": 54,
-        "xy-wing": 19,
-        "xyz-wing": 13,
-        "w-wing": 32
+        "full-house": 2028,
+        "naked-single": 2028,
+        "hidden-single": 1211,
+        "locked-candidates": 464,
+        "naked-subset": 173,
+        "hidden-subset": 2,
+        "basic-fish": 27,
+        "single-digit-patterns": 90,
+        "xy-wing": 41,
+        "xyz-wing": 22,
+        "w-wing": 54,
+        "simple-coloring": 7,
+        "aic": 240,
+        "als": 108,
+        "uniqueness": 3,
+        "sue-de-coq": 0,
+        "forcing-chain": 61
       },
-      "stuckCount": 86,
-      "avgSteps": 25.5
+      "stuckCount": 1,
+      "avgSteps": 65.6
     }
   ],
   "overall": {
     "total": 400,
-    "solved": 301,
-    "solveRate": 75.25,
+    "solved": 399,
+    "solveRate": 99.75,
     "soundViolations": 0
   }
 }
