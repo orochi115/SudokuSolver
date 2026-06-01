@@ -44,9 +44,13 @@ cat orchestration/reports/questions.md
 - **按-provider 限并发**:总并发 ≤ `MAX_PAR`;`SERIAL_PROVIDERS`(默认 `amazon-bedrock`)里的
   provider 同时最多 `SERIAL_CAP`(默认 1)个,其余 provider 仅受 `MAX_PAR` 限。
   这样 Bedrock 串行避免限流,非 Bedrock 仍并行——比一刀切降 `MAX_PAR` 更快。
-- **验收闸门只要求"有效且健全"**:typecheck + test 通过 + **健全性 0 violation**。
-  解出率/策略数/成本**只收集、不 gate**——各模型跑到尽力,事后比数字。健全性是硬要求
-  (不健全的解出率可被非法消除刷高,无可比性)。想额外 gate 可设 `MIN_EASY` 等环境变量(默认关)。
+- **验收闸门 = 有效 + 健全 + 确有尝试**:typecheck + test 通过、**健全性 0 violation**、
+  且该里程碑**至少新增 1 个已注册策略**(attempted-floor:`run-model.sh` 记下里程碑开始时的策略数,
+  要求结束时 > 它)。**解出率/成本只收集、不 gate**——质量由收集到的数字事后比较。
+  - 为什么要"确有尝试":闸门只看健全性的话,空跑/失败的尝试会因 baseline 本就健全而被误判通过
+    (曾出现某模型 M2 只 glob 一下就"通过",真正实现却挤到 M3)。attempted-floor 让空尝试改为**重试**,
+    既不强加解出率门槛,又保证按里程碑归属与成本统计准确。
+  - 仍想加解出率门槛可设 `MIN_EASY` 等环境变量(默认关)。
 - **成本统计**:每个里程碑会用 `opencode export` 汇总该会话的 token cost,写入
   `sudoku-wt/logs/<名>/<里程碑>.cost.json`,并汇入 `reports/summary.md`。
 - **前提**:`models.txt` 里每个 provider/model 已在 opencode 配好凭据;`git lfs pull` 已拉到谜题。

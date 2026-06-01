@@ -72,6 +72,17 @@ record_cost() {
   echo "=== [$NAME] $MS cost -> $(cat "$LOG_DIR/$MS.cost.json") ==="
 }
 
+# Number of registered strategies right now (via the judge's JSON). Used to set
+# the "milestone attempted" floor: the model must add >= 1 new strategy this
+# milestone, else the attempt did nothing and should retry (not silently pass).
+count_strategies() {
+  cp "$REPO/orchestration/judge/verify-engine.ts" "$WT/.verify-engine.ts"
+  local out
+  out=$( (cd "$WT" && npx tsx .verify-engine.ts 2>/dev/null) )
+  rm -f "$WT/.verify-engine.ts"
+  printf '%s' "$out" | grep -o '"strategies":[ ]*[0-9]*' | grep -o '[0-9]*' | head -1
+}
+
 # --- ensure worktree ---
 # Reuse within a run (M2 creates it, M3 reuses) is normal. Reuse/attach at the
 # FIRST milestone (m2) means leftover state from a PRIOR run -> resume, recorded.
@@ -89,6 +100,13 @@ fi
 
 echo "=== [$NAME] installing deps ==="
 ( cd "$WT" && npm install --silent )
+
+# --- milestone-attempted floor: require strategy count to grow this milestone ---
+# (Non-arbitrary: "did the model implement anything", NOT a quality threshold.
+#  Solve-rate stays collected-not-gated; soundness stays the hard correctness gate.)
+START_N="$(count_strategies)"; START_N="${START_N:-1}"
+export MIN_STRATEGIES=$((START_N + 1))
+note "attempted-floor: require strategies > $START_N (else retry)"
 
 # --- attempt 1 ---
 echo "=== [$NAME] $MS attempt 1 :: $MODEL ==="
