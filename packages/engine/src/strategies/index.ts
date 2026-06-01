@@ -8,12 +8,32 @@
 
 import type { Strategy } from '../strategy.js';
 import { nakedSingle } from './naked-single.js';
+import { hiddenSingle } from './hidden-single.js';
+import { lockedCandidates } from './locked-candidates.js';
+import { nakedSubsets } from './naked-subsets.js';
+import { hiddenSubsets } from './hidden-subsets.js';
+import { fish } from './fish.js';
+import { singleDigitPatterns } from './single-digit-patterns.js';
+import { wings } from './wings.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   nakedSingle,
-  // M2: hiddenSingle, pointing, claiming, nakedPair/Triple/Quad, hiddenPair/Triple/Quad
-  // M3: xWing, swordfish, jellyfish, skyscraper, twoStringKite, emptyRectangle,
-  //     xyWing, xyzWing, wWing, simpleColoring, aic, alsXz, ... uniqueRectangle, forcingChain
+  hiddenSingle,
+  lockedCandidates,
+  nakedSubsets,
+  hiddenSubsets,
+  fish,
+  singleDigitPatterns,
+  wings,
 ];
 
-export { nakedSingle };
+export {
+  nakedSingle,
+  hiddenSingle,
+  lockedCandidates,
+  nakedSubsets,
+  hiddenSubsets,
+  fish,
+  singleDigitPatterns,
+  wings,
+};
