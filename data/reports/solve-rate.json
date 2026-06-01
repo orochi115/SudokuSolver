@@ -1,0 +1,30 @@
+{
+  "easy": {
+    "sampled": 100,
+    "solved": 100,
+    "stuck": 0,
+    "sound": 100,
+    "rate": "100.0%"
+  },
+  "medium": {
+    "sampled": 100,
+    "solved": 100,
+    "stuck": 0,
+    "sound": 100,
+    "rate": "100.0%"
+  },
+  "hard": {
+    "sampled": 100,
+    "solved": 57,
+    "stuck": 43,
+    "sound": 100,
+    "rate": "57.0%"
+  },
+  "diabolical": {
+    "sampled": 100,
+    "solved": 1,
+    "stuck": 99,
+    "sound": 100,
+    "rate": "1.0%"
+  }
+}
