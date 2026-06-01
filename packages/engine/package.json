@@ -8,6 +8,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "solve-rate": "tsx ../../packages/engine/scripts/solve-rate.ts"
   }
 }
