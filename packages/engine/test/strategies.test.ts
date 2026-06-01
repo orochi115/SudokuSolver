@@ -11,6 +11,12 @@ import { singleDigitPatterns } from '../src/strategies/single-digit-patterns.js'
 import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
+import { simpleColoring } from '../src/strategies/simple-coloring.js';
+import { aic } from '../src/strategies/aic.js';
+import { als } from '../src/strategies/als.js';
+import { uniqueness } from '../src/strategies/uniqueness.js';
+import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
+import { forcingChain } from '../src/strategies/forcing-chain.js';
 import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 import { solveBruteforce } from '../src/bruteforce.js';
