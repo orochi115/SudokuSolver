@@ -40,7 +40,9 @@ cat orchestration/reports/questions.md
 - `--dangerously-skip-permissions` 免除写文件/跑测试的权限弹窗(headless 主要阻塞)。
 - 提问不卡死:`run` 单发,问题只进输出/QUESTIONS.md;重试用 `-c` 续接会话喂回 verify 结果。
 - **超时保护**:每次 opencode 尝试受 `TIMEOUT` 秒限制(默认 1800),挂起的模型会被杀掉并判 FAIL,
-  不会阻塞整个 fleet(opus48 曾连 trivial 提示都挂起 → 现已在 `models.txt` 禁用)。
+  不会阻塞整个 fleet,只是安全网。
+- **Bedrock 配额**:opus48 / sonnet46 / kimi-k25 共用同一 Bedrock 配额,高并发会触发限流/排队
+  (run-1 中 opus48 因此停滞 40 分钟,单独跑 7s 返回)。→ 跑含多个 Bedrock 模型时用较低 `MAX_PAR`(2~3)。
 - **验收闸门要求真实进步**:`verify.sh` 按里程碑设解出率/策略数下限(M2:easy≥0.90、medium≥0.40、
   策略≥3;M3:加 hard≥0.60、diabolical≥0.25、策略≥8)。空跑(只剩 baseline)会被判 FAIL,不再误过。
   下限是启发式、可在 `verify.sh` 或用环境变量(`MIN_EASY` 等)调。
