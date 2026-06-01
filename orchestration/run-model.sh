@@ -31,7 +31,7 @@ mkdir -p "$LOG_DIR"
 
 # Hard autonomy clause appended for headless runs (we are measuring coding
 # ability, so question-asking / permission quirks are neutralised).
-AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。'
+AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n若有会影响实现的疑问,请写入 worktree 根目录的 `QUESTIONS.md`(每条一行)再继续,不要停下等待回答。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。'
 
 mkdir -p "$WT_ROOT"
 if ! git -C "$REPO" worktree list --porcelain | grep -q "worktree $WT$"; then
