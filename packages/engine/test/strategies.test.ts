@@ -13,6 +13,10 @@ import { emptyRectangle } from '../src/strategies/empty-rectangle.js';
 import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
+import { simpleColoring } from '../src/strategies/simple-coloring.js';
+import { aic } from '../src/strategies/aic.js';
+import { als } from '../src/strategies/als.js';
+import { uniqueness } from '../src/strategies/uniqueness.js';
 
 describe('human strategy unit tests', () => {
   it('fullHouse identifies the last remaining cell in a house', () => {
@@ -243,5 +247,85 @@ describe('human strategy unit tests', () => {
     expect(step).not.toBeNull();
     expect(step!.strategyId).toBe('w-wing');
     expect(step!.eliminations).toEqual([{ cell: 72, digit: 3 }]);
+  });
+
+  it('simpleColoring eliminates candidate via Rule 1 (Trap)', () => {
+    const grid = Grid.fromString('0'.repeat(81));
+    grid.candidates.fill(0);
+    // Strong links of digit 9: cell 0 <-> cell 1, cell 1 <-> cell 10, cell 10 <-> cell 11
+    grid.candidates[0] = maskOf(9);
+    grid.candidates[1] = maskOf(9);
+    grid.candidates[10] = maskOf(9);
+    grid.candidates[11] = maskOf(9);
+    // Peer cell 2 sees cell 0 (Row 0) and cell 11 (Box 0? Wait, Row 1, Col 2 sees Row 0 Col 2 (cell 2)).
+    // Let's make cell 2 see cell 0 and cell 11.
+    // Cell 0 is R1C1, cell 11 is R2C3 (Row 1 Col 2), cell 2 is R1C3.
+    // cell 2 sees cell 0 (same row) and cell 11 (same box).
+    grid.candidates[2] = maskOf(9) | maskOf(5);
+
+    const step = simpleColoring.apply(grid);
+    expect(step).not.toBeNull();
+    expect(step!.strategyId).toBe('simple-coloring');
+    expect(step!.eliminations).toEqual([
+      { cell: 1, digit: 9 },
+      { cell: 11, digit: 9 },
+    ]);
+  });
+
+  it('aic finds an alternating inference chain elimination', () => {
+    const grid = Grid.fromString('0'.repeat(81));
+    grid.candidates.fill(0);
+    // Let's set up a standard skyscraper pattern, which can be solved as a Type 1 AIC
+    grid.candidates[1] = maskOf(9); // base
+    grid.candidates[2] = maskOf(9); // base
+    grid.candidates[10] = maskOf(9); // top 1
+    grid.candidates[20] = maskOf(9); // top 2
+    grid.candidates[2] = maskOf(9) | maskOf(4); // elimination cell
+
+    const step = aic.apply(grid);
+    expect(step).not.toBeNull();
+    expect(step!.strategyId).toBe('aic');
+    expect(step!.eliminations).toEqual([{ cell: 1, digit: 9 }]);
+  });
+
+  it('als finds singly-linked ALS-XZ elimination', () => {
+    const grid = Grid.fromString('0'.repeat(81));
+    grid.candidates.fill(0);
+    // ALS A: cells 0, 1 (row 0) have candidates {2, 3, 5}
+    grid.candidates[0] = maskOf(2) | maskOf(3);
+    grid.candidates[1] = maskOf(3) | maskOf(5);
+    // ALS B: cells 2, 3 (row 0) have candidates {2, 4, 5}
+    grid.candidates[2] = maskOf(2) | maskOf(4);
+    grid.candidates[3] = maskOf(4) | maskOf(5);
+
+    // Common digit Z = 5. Restricted common digit X = 2.
+    // Elimination cell: cell 4 (row 0) contains 5
+    grid.candidates[4] = maskOf(5) | maskOf(7);
+
+    const step = als.apply(grid);
+    expect(step).not.toBeNull();
+    expect(step!.strategyId).toBe('als');
+    expect(step!.eliminations).toEqual([{ cell: 3, digit: 5 }]);
+  });
+
+  it('uniqueness finds Unique Rectangle Type 1', () => {
+    const grid = Grid.fromString('0'.repeat(81));
+    grid.candidates.fill(0);
+    // Rectangle cells: 0, 1, 9, 10
+    // Boxes of 0, 1, 9, 10 are all box 0. Wait! Unique rectangle must span exactly 2 boxes!
+    // Let's use cell 0 (R1C1), cell 3 (R1C4), cell 9 (R2C1), cell 12 (R2C4)
+    // Box of 0 is 0. Box of 3 is 1. Box of 9 is 0. Box of 12 is 1. Yes, exactly 2 boxes!
+    grid.candidates[0] = maskOf(5) | maskOf(6);
+    grid.candidates[3] = maskOf(5) | maskOf(6);
+    grid.candidates[9] = maskOf(5) | maskOf(6);
+    grid.candidates[12] = maskOf(5) | maskOf(6) | maskOf(7); // extra 7
+
+    const step = uniqueness.apply(grid);
+    expect(step).not.toBeNull();
+    expect(step!.strategyId).toBe('uniqueness');
+    expect(step!.eliminations).toEqual([
+      { cell: 12, digit: 5 },
+      { cell: 12, digit: 6 },
+    ]);
   });
 });

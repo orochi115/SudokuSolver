@@ -11,4 +11,5 @@ export * from './solver.js';
 export * from './soundness.js';
 export * from './parser.js';
 export * from './bruteforce.js';
+export * from './config.js';
 export { STRATEGIES, nakedSingle } from './strategies/index.js';

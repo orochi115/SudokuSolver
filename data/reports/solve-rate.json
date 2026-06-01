@@ -11,12 +11,12 @@
   },
   "hard": {
     "total": 100,
-    "solved": 89,
-    "rate": 89
+    "solved": 100,
+    "rate": 100
   },
   "diabolical": {
     "total": 100,
-    "solved": 14,
-    "rate": 14
+    "solved": 85,
+    "rate": 85
   }
 }

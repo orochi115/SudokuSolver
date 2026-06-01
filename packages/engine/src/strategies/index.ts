@@ -21,6 +21,10 @@ import { emptyRectangle } from './empty-rectangle.js';
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
+import { simpleColoring } from './simple-coloring.js';
+import { aic } from './aic.js';
+import { als } from './als.js';
+import { uniqueness } from './uniqueness.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   fullHouse,
@@ -43,6 +47,10 @@ export const STRATEGIES: readonly Strategy[] = [
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  als,
+  uniqueness,
 ];
 
 export {
@@ -66,5 +74,9 @@ export {
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  als,
+  uniqueness,
 };
 
