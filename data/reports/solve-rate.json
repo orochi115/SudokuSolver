@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-06-01T17:51:16.943Z",
+  "strategyOrder": [
+    "full-house",
+    "naked-single",
+    "hidden-single",
+    "locked-candidates",
+    "naked-subset",
+    "hidden-subset",
+    "basic-fish",
+    "single-digit-patterns",
+    "xy-wing",
+    "xyz-wing",
+    "w-wing"
+  ],
+  "difficulties": {
+    "easy": {
+      "total": 100,
+      "unique": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "averageSteps": 50.62,
+      "maxSteps": 58,
+      "soundnessViolations": 0,
+      "strategyUsage": {
+        "naked-single": 2582,
+        "full-house": 2077,
+        "hidden-single": 403
+      }
+    },
+    "medium": {
+      "total": 100,
+      "unique": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "averageSteps": 54.01,
+      "maxSteps": 64,
+      "soundnessViolations": 0,
+      "strategyUsage": {
+        "naked-single": 2279,
+        "full-house": 2041,
+        "hidden-single": 986,
+        "locked-candidates": 84,
+        "naked-subset": 11
+      }
+    },
+    "hard": {
+      "total": 100,
+      "unique": 100,
+      "solved": 87,
+      "stuck": 13,
+      "solveRate": 0.87,
+      "averageSteps": 54.2,
+      "maxSteps": 71,
+      "soundnessViolations": 0,
+      "strategyUsage": {
+        "hidden-single": 1238,
+        "locked-candidates": 305,
+        "naked-subset": 112,
+        "naked-single": 1839,
+        "full-house": 1793,
+        "single-digit-patterns": 61,
+        "xy-wing": 26,
+        "basic-fish": 30,
+        "xyz-wing": 11,
+        "w-wing": 3,
+        "hidden-subset": 2
+      }
+    },
+    "diabolical": {
+      "total": 100,
+      "unique": 100,
+      "solved": 14,
+      "stuck": 86,
+      "solveRate": 0.14,
+      "averageSteps": 25.62,
+      "maxSteps": 72,
+      "soundnessViolations": 0,
+      "strategyUsage": {
+        "hidden-single": 954,
+        "locked-candidates": 354,
+        "naked-subset": 113,
+        "naked-single": 607,
+        "xy-wing": 20,
+        "full-house": 396,
+        "w-wing": 31,
+        "single-digit-patterns": 59,
+        "basic-fish": 14,
+        "xyz-wing": 13,
+        "hidden-subset": 1
+      }
+    }
+  },
+  "overall": {
+    "total": 400,
+    "unique": 400,
+    "solved": 301,
+    "stuck": 99,
+    "solveRate": 0.7525,
+    "averageSteps": 46.11,
+    "maxSteps": 72,
+    "soundnessViolations": 0,
+    "strategyUsage": {
+      "naked-single": 7307,
+      "full-house": 6307,
+      "hidden-single": 3581,
+      "locked-candidates": 743,
+      "naked-subset": 236,
+      "single-digit-patterns": 120,
+      "xy-wing": 46,
+      "basic-fish": 44,
+      "xyz-wing": 24,
+      "w-wing": 34,
+      "hidden-subset": 3
+    }
+  }
+}

@@ -2,6 +2,17 @@
 
 ## Session Log
 
+### 2026-06-02
+- Started M2 human strategy implementation under autonomous/headless constraints.
+- Read required docs and strategy interface/template: `README.md`, `docs/requirements.md`, `docs/milestones/M2.md`, `strategy.ts`, and `naked-single.ts`.
+- Restored existing planning context and appended Phase 4 for M2 implementation.
+- Added M2 strategy tests first; initial run failed on missing strategy modules as expected.
+- Implemented all required M2 strategy modules and registered exact ids in `STRATEGIES`.
+- Added `packages/engine/scripts/solve-rate.ts`, `packages/engine/test/m2-soundness.test.ts`, and generated `data/reports/solve-rate.json`.
+- Added `docs/notes/m2.md` with strategy design, tradeoffs, solve rates, and difficulties.
+- Requested independent review; fixed XY-Wing highlight candidates and added an explicit 400-entry ground-truth assertion.
+- Verification before final response: `npm run typecheck`, `npm test`, and `npx tsx packages/engine/scripts/solve-rate.ts` all completed successfully.
+
 ### 2026-06-01
 - Created planning files for the research task.
 - Created research directory: `research/sudoku-human-solving/sources`.

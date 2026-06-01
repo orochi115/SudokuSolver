@@ -46,3 +46,25 @@ Collect enough reliable internet material to support a later synthesis of a full
 3. Download optional Chinese specialty pages - complete
 4. Update manifest, citations, bibliography, and mappings - complete
 5. Validate associations and commit supplemental sources - complete
+
+## Phase 4: M2 Human Strategy Implementation
+1. Inspect engine structure, existing tests, strategy conventions, and ground-truth data - complete
+2. Add failing unit tests for required M2 strategy ids and exact representative deductions - complete
+3. Implement T1/T2 strategies: full-house, hidden-single, locked-candidates, naked-subset, hidden-subset - complete
+4. Implement T3 strategies: basic-fish, single-digit-patterns, xy-wing, xyz-wing, w-wing - complete
+5. Register strategies by difficulty and add shared helpers where minimal and strategy-local friendly - complete
+6. Add solve-rate script and 400-puzzle soundness regression - complete
+7. Run typecheck, tests, solve-rate report, and fix issues until green - complete
+8. Write `docs/notes/m2.md` with strategy design, tradeoffs, rates, and difficulties - complete
+
+## M2 Constraints
+- Do not modify engine core files, ground-truth data, top-level config, or existing spec docs.
+- Each strategy module under `packages/engine/src/strategies/` exports a `Strategy` object and does not mutate `Grid`.
+- Required registered ids: `full-house`, `hidden-single`, `locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, `single-digit-patterns`, `xy-wing`, `xyz-wing`, `w-wing`.
+- Every strategy needs bilingual explanations and highlights.
+
+## M2 Verification Results
+- `npm run typecheck`: exit 0.
+- `npm test`: 7 files / 33 tests passed.
+- `npx tsx packages/engine/scripts/solve-rate.ts`: wrote `data/reports/solve-rate.json`; easy 100%, medium 100%, hard 87%, diabolical 14%; soundness violations 0.
+- Independent review found no remaining critical/important findings after fixing an XY-Wing highlight issue and adding an explicit 400-entry regression assertion.
