@@ -4,14 +4,14 @@
  * This is the one strategy the foundation ships. Its purpose is twofold:
  *  1. Give the solver something real to run so the foundation is end-to-end
  *     testable (it alone solves the easiest puzzles).
- *  2. Pin down the conventions every model-branch strategy must follow:
+ *  2. Pin down the conventions every strategy must follow:
  *     - return the FIRST applicable deduction, or null;
  *     - never mutate the grid;
  *     - fill `highlights` so the replay/tutor can render the step;
  *     - write a bilingual `explanation` using glossary terms.
  *
- * Model branches should treat this file as the template for hidden-single,
- * locked-candidates, subsets, fish, wings, AIC, ALS, etc.
+ * Use this file as the template for hidden-single, locked-candidates, subsets,
+ * fish, wings, AIC, ALS, etc.
  */
 
 import { CELLS, ROW_OF, COL_OF, popcount, digitsOf } from '../grid.js';

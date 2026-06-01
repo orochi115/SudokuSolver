@@ -4,9 +4,8 @@
  * Samples a fixed, reproducible subset of each difficulty file and writes
  * { puzzle, solution, unique } records to data/ground-truth/<difficulty>.json.
  *
- * The committed sample is the SHARED, FROZEN grading set every model branch
- * scores against (see docs/milestones/M1.md and the multi-model rubric), so the
- * sampling here is deterministic (fixed stride, fixed count) — no randomness.
+ * The committed sample is a SHARED, FROZEN regression set (see docs/milestones/M1.md),
+ * so the sampling here is deterministic (fixed stride, fixed count) — no randomness.
  *
  * Usage:  npm run gen:ground-truth            # default 100/difficulty
  *         SAMPLE=300 npm run gen:ground-truth  # override sample size

@@ -1,8 +1,8 @@
 /**
  * Strategy registry.
  *
- * The foundation registers only the reference strategy. Model branches add
- * their implementations here, keeping the array ordered by `difficulty`
+ * The foundation registers only the reference strategy. Additional strategies
+ * are registered here, keeping the array ordered by `difficulty`
  * (the solver sorts defensively, but ordering here documents the flow).
  */
 

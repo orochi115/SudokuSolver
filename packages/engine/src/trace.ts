@@ -6,9 +6,9 @@
  *  - the static step-by-step web replay (M4),
  *  - the interactive tutor's progressive hints (M5).
  *
- * Therefore this file is INTENTIONALLY STABLE. Model branches implementing
- * strategies (M2+) must produce `Step` objects in exactly this shape so that
- * traces are comparable and the UI layers stay strategy-agnostic.
+ * Therefore this file is INTENTIONALLY STABLE. Strategy implementations (M2+)
+ * must produce `Step` objects in exactly this shape so that the UI layers stay
+ * strategy-agnostic.
  */
 
 /** A specific candidate: digit `digit` (1-9) in cell `cell` (0-80, row-major). */

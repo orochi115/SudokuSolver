@@ -1,6 +1,5 @@
 /**
- * Soundness check (NFR-1 / AC-3) — the project's strongest automated guard and
- * the primary scoring signal for the multi-model comparison.
+ * Soundness check (NFR-1 / AC-3) — the project's strongest automated guard.
  *
  * Given a trace and the puzzle's ground-truth solution, a SOUND solver never:
  *   - places a digit that disagrees with the solution, nor

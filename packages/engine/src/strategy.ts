@@ -1,12 +1,11 @@
 /**
  * Strategy contract — the interface every human-solving technique implements.
  *
- * This is the SEAM of the multi-model comparison. The foundation provides this
- * contract, the solver loop, the grid, the brute-force ground truth, and one
- * reference strategy (naked-single). Each model branch implements the remaining
- * strategies (M2: hidden single, locked candidates, subsets; M3: fish, wings,
- * coloring, AIC, ALS, uniqueness, forcing chains) against THIS interface, so
- * traces stay comparable and the solver/UI never change.
+ * This is the engine's extension point. The foundation provides this contract,
+ * the solver loop, the grid, the brute-force ground truth, and one reference
+ * strategy (naked-single). The remaining strategies (M2: hidden single, locked
+ * candidates, subsets; M3: fish, wings, coloring, AIC, ALS, uniqueness, forcing
+ * chains) are added against THIS interface, so the solver and UI never change.
  */
 
 import type { Grid } from './grid.js';

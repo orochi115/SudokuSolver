@@ -1,12 +1,12 @@
 # 进度看板 (Progress Checklist)
 
-总纲见 `docs/requirements.md`,各阶段详情见 `docs/milestones/`,横评协议见 `docs/model-comparison.md`。
+总纲见 `docs/requirements.md`,各阶段详情见 `docs/milestones/`。
 
 ## 阶段总览
 - [x] **第 1 阶段 · 研究库**(`research/sudoku-human-solving/`)
 - [x] **M1 地基** —— 引擎核心 + 测试 + 冻结标准答案集(`foundation` 分支)
-- [ ] **M2 基础策略** T1~T3(多模型分叉)
-- [ ] **M3 高级策略** T4 / AIC / ALS / forcing(多模型分叉)
+- [ ] **M2 基础策略** T1~T3
+- [ ] **M3 高级策略** T4 / AIC / ALS / forcing
 - [ ] **M4 网页逐步回放**
 - [ ] **M5 交互式引导 UI**
 
@@ -35,8 +35,3 @@
 
 ## M5 验收
 - [ ] AC-6 任意盘面分级提示 + 落子校验(浏览器 MCP 走查)
-
-## 横评(可选,贯穿 M2/M3)
-- [ ] 冻结 base 分支并打 tag
-- [ ] 各模型从 base 分叉实现 M2(及 M3)
-- [ ] 用 `docs/model-comparison.md` 的评分脚本产出对比报告
