@@ -4,15 +4,12 @@
 # The verification gate. Runs (in the target worktree):
 #   1. typecheck   2. unit tests   3. judge gate (soundness + solve-rate floors)
 #
-# The gate requires VALID + SOUND output only: typecheck passes, tests pass, and
-# ZERO soundness violations. Solve-rate / strategy count are COLLECTED by the
-# judge for comparison, NOT gated — we run each model to its best effort and
-# compare the numbers afterwards. (Soundness is non-negotiable: an unsound solver
-# can inflate its solve-rate with illegal eliminations, so its numbers are
-# meaningless.)
-#
-# Optional gating: export MIN_EASY/MIN_MEDIUM/MIN_HARD/MIN_DIAB/MIN_STRATEGIES
-# before calling to enforce floors. Off by default (the judge skips a floor of 0).
+# The gate requires: typecheck passes, tests pass, ZERO soundness violations, AND
+# all of the milestone's REQUIRED strategy ids are registered (equal scope for
+# every model — orchestration/required-ids/<ms>.txt). Solve-rate is COLLECTED,
+# NOT gated, so the comparison reflects implementation QUALITY on a fixed scope.
+# (Soundness is non-negotiable: an unsound solver can inflate solve-rate with
+# illegal eliminations.) Optional extra gating: export MIN_EASY/.../MIN_STRATEGIES.
 set -uo pipefail
 
 WT="${1:?usage: verify.sh <worktree-dir> [milestone]}"
@@ -20,6 +17,13 @@ MS="${2:-}"
 ORCH_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 JUDGE_SRC="$ORCH_ROOT/orchestration/judge/verify-engine.ts"
 JUDGE_DST="$WT/.verify-engine.ts"
+
+# Load the milestone's required strategy ids (comments/blanks stripped) for the gate.
+REQ_FILE="$ORCH_ROOT/orchestration/required-ids/$MS.txt"
+if [ -f "$REQ_FILE" ]; then
+  REQUIRE_IDS="$(grep -vE '^[[:space:]]*(#|$)' "$REQ_FILE" | tr '\n' ' ')"
+  export REQUIRE_IDS
+fi
 
 fail=0
 echo "--- [verify $MS] typecheck ---"

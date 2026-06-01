@@ -56,7 +56,13 @@ for (const diff of DIFFICULTIES) {
 
 console.log(
   JSON.stringify(
-    { strategies: STRATEGIES.length, totalPuzzles, totalViolations, report },
+    {
+      strategies: STRATEGIES.length,
+      strategyIds: STRATEGIES.map((s) => s.id),
+      totalPuzzles,
+      totalViolations,
+      report,
+    },
     null,
     2,
   ),
@@ -72,8 +78,20 @@ const floors: Record<string, number> = {
 };
 const minStrategies = Math.max(1, num('MIN_STRATEGIES') || 1);
 
+// REQUIRE_IDS (comma/space/newline separated) = the milestone's mandatory
+// strategy ids. The model must register ALL of them (equal scope for every
+// model). Solve-rate is NOT gated — it's collected to compare implementation
+// quality across models that all attempt the same scope.
+const requireIds = (process.env.REQUIRE_IDS ?? '')
+  .split(/[\s,]+/)
+  .map((s) => s.trim())
+  .filter(Boolean);
+const presentIds = new Set(STRATEGIES.map((s) => s.id));
+const missingIds = requireIds.filter((id) => !presentIds.has(id));
+
 const reasons: string[] = [];
 if (totalViolations > 0) reasons.push(`${totalViolations} soundness violation(s)`);
+if (missingIds.length > 0) reasons.push(`missing required strategies: ${missingIds.join(', ')}`);
 if (STRATEGIES.length < minStrategies)
   reasons.push(`only ${STRATEGIES.length} strategies (need >= ${minStrategies})`);
 for (const [diff, floor] of Object.entries(floors)) {

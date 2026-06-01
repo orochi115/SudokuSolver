@@ -1,0 +1,12 @@
+# M2 必须实现并按这些 id 注册的策略(family 粒度,缺一即退回重试)。
+# naked-single 已是 baseline,无需重复。
+full-house
+hidden-single
+locked-candidates
+naked-subset
+hidden-subset
+basic-fish
+single-digit-patterns
+xy-wing
+xyz-wing
+w-wing

@@ -1,0 +1,19 @@
+# M3 最终必须具备的全部策略 id(含 M2 范围 + M3 高级层,缺一即退回重试)。
+# 高级 id 为 family 粒度:als 含 ALS-XZ/链/Death Blossom;uniqueness 含 UR/BUG/可避免矩形;
+# aic 含 X-Chain/XY-Chain/Nice Loops/AIC;forcing-chain 含 forcing chains/nets。
+full-house
+hidden-single
+locked-candidates
+naked-subset
+hidden-subset
+basic-fish
+single-digit-patterns
+xy-wing
+xyz-wing
+w-wing
+simple-coloring
+aic
+als
+uniqueness
+sue-de-coq
+forcing-chain

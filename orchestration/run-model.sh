@@ -73,15 +73,13 @@ record_metrics() {
   echo "=== [$NAME] $MS metrics -> $(cat "$LOG_DIR/$MS.metrics.json") ==="
 }
 
-# Number of registered strategies right now (via the judge's JSON). Used to set
-# the "milestone attempted" floor: the model must add >= 1 new strategy this
-# milestone, else the attempt did nothing and should retry (not silently pass).
-count_strategies() {
-  cp "$REPO/orchestration/judge/verify-engine.ts" "$WT/.verify-engine.ts"
-  local out
-  out=$( (cd "$WT" && npx tsx .verify-engine.ts 2>/dev/null) )
-  rm -f "$WT/.verify-engine.ts"
-  printf '%s' "$out" | grep -o '"strategies":[ ]*[0-9]*' | grep -o '[0-9]*' | head -1
+# Build the "required strategies" section appended to the prompt, from the
+# milestone's canonical id list. Equal scope for every model; verify.sh enforces it.
+required_ids_section() {
+  local f="$REPO/orchestration/required-ids/$MS.txt" list
+  [ -f "$f" ] || return 0
+  list="$(grep -vE '^[[:space:]]*(#|$)' "$f")"
+  printf '\n\n## 必须实现的策略(缺一不可,缺失会被验收退回重试)\n请按下列**精确 id** 各注册一个策略到 `strategies/index.ts`(naked-single 已是 baseline);\n分组 id 可在内部覆盖子技巧(如 als 含 ALS-XZ/链/Death Blossom):\n%s\n' "$list"
 }
 
 # --- ensure worktree ---
@@ -102,17 +100,14 @@ fi
 echo "=== [$NAME] installing deps ==="
 ( cd "$WT" && npm install --silent )
 
-# --- milestone-attempted floor: require strategy count to grow this milestone ---
-# (Non-arbitrary: "did the model implement anything", NOT a quality threshold.
-#  Solve-rate stays collected-not-gated; soundness stays the hard correctness gate.)
-START_N="$(count_strategies)"; START_N="${START_N:-1}"
-export MIN_STRATEGIES=$((START_N + 1))
-note "attempted-floor: require strategies > $START_N (else retry)"
+# Fixed-scope: the model must implement ALL required ids (verify.sh enforces via
+# REQUIRE_IDS). Solve-rate is collected, not gated -> compares implementation quality.
+PROMPT_TEXT="$(cat "$PROMPT_PATH")$(required_ids_section)$AUTONOMY"
 
 # --- attempt 1 ---
 echo "=== [$NAME] $MS attempt 1 :: $MODEL ==="
 LOG1="$LOG_DIR/$MS-attempt-1.log"
-run_opencode "$LOG1" run -m "$MODEL" --dir "$WT" --dangerously-skip-permissions --format json "$(cat "$PROMPT_PATH")$AUTONOMY"
+run_opencode "$LOG1" run -m "$MODEL" --dir "$WT" --dangerously-skip-permissions --format json "$PROMPT_TEXT"
 SID="$(grep -o 'ses_[A-Za-z0-9]*' "$LOG1" | head -1)"
 [ -n "$SID" ] || note "no session id captured in attempt 1 (opencode may have failed to start / model unavailable / errored immediately) -> see $MS-attempt-1.log"
 

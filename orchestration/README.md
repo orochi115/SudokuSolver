@@ -45,15 +45,17 @@ cat orchestration/reports/questions.md
   provider 同时最多 `SERIAL_CAP`(默认 1)个,其余 provider 仅受 `MAX_PAR` 限。
   当前清单全走直连 provider;`alibaba-cn` 的 5 个模型共用一个 DashScope key,故默认串行以防限流,
   其它 provider 仍并行。无需串行时 `SERIAL_PROVIDERS="" ...` 关闭。
-- **验收闸门 = 有效 + 健全 + 确有尝试**:typecheck + test 通过、**健全性 0 violation**、
-  且该里程碑**至少新增 1 个已注册策略**(attempted-floor:`run-model.sh` 记下里程碑开始时的策略数,
-  要求结束时 > 它)。**解出率/成本只收集、不 gate**——质量由收集到的数字事后比较。
-  - 为什么要"确有尝试":闸门只看健全性的话,空跑/失败的尝试会因 baseline 本就健全而被误判通过
-    (曾出现某模型 M2 只 glob 一下就"通过",真正实现却挤到 M3)。attempted-floor 让空尝试改为**重试**,
-    既不强加解出率门槛,又保证按里程碑归属与成本统计准确。
-  - 仍想加解出率门槛可设 `MIN_EASY` 等环境变量(默认关)。
-- **成本统计**:每个里程碑会用 `opencode export` 汇总该会话的 token cost,写入
-  `sudoku-wt/logs/<名>/<里程碑>.cost.json`,并汇入 `reports/summary.md`。
+- **验收闸门 = 有效 + 健全 + 固定范围**:typecheck + test 通过、**健全性 0 violation**、
+  且**注册了该里程碑全部必需策略 id**(`orchestration/required-ids/<ms>.txt`,所有模型同一范围)。
+  缺任何 id 都会被退回**重试**;反馈里会列出缺失项。`run-model.sh` 把该清单注入提示词。
+  - **解出率只收集、不 gate**——所有模型实现同一范围,差异就纯粹反映**实现质量**(你的选择)。
+  - "固定范围"解决了公平性:模型缺某技巧 = 实现不出(能力),而非"没被要求"(否则结果会随温度漂)。
+  - 想额外加解出率门槛可设 `MIN_EASY` 等环境变量(默认关)。
+  - 取舍:必需清单含 `forcing-chain`/`als` 等最难项,弱模型可能多次重试后仍 FAIL——这正是能力信号;
+    报告会记下其部分成果、解出率与缺失 id。若太严可裁剪 `required-ids/*.txt`。
+- **成本 + 运行时**:每个里程碑汇总各 attempt 日志的 `step_finish` 事件,得到 cost / tokens /
+  步数 / `activeSec`(模型工作时长),写入 `sudoku-wt/logs/<名>/<里程碑>.metrics.json`,汇入 `reports/summary.md`。
+  (不用 `opencode export`——它对大会话在 128KB 处截断。)
 - **前提**:`models.txt` 里每个 provider/model 已在 opencode 配好凭据;`git lfs pull` 已拉到谜题。
 - 基线参考(仅 naked-single 时):easy 54% / medium 14% / hard 0% / diabolical 0%,0 violation。
 - 评分逻辑只在本目录、由你掌握;worker 看不到。详见 `model-comparison.md`。
