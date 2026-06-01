@@ -68,3 +68,24 @@ Collect enough reliable internet material to support a later synthesis of a full
 - `npm test`: 7 files / 33 tests passed.
 - `npx tsx packages/engine/scripts/solve-rate.ts`: wrote `data/reports/solve-rate.json`; easy 100%, medium 100%, hard 87%, diabolical 14%; soundness violations 0.
 - Independent review found no remaining critical/important findings after fixing an XY-Wing highlight issue and adding an explicit 400-entry regression assertion.
+
+## Phase 5: M3 Advanced Strategy Implementation
+1. Inspect M3 requirements, current strategy contract, trace links, tests, and local technique cards - complete
+2. Add failing tests for all required M3 strategy ids and representative advanced deductions - complete
+3. Implement link graph helpers, Simple Coloring, and AIC/X-chain deductions with link highlights - complete
+4. Implement ALS, uniqueness, Sue de Coq, and forcing-chain strategy modules conservatively - complete
+5. Register every required exact strategy id by difficulty - complete
+6. Add `docs/forcing-boundary.md`, `docs/flow.md`, and `docs/notes/m3.md` - complete
+7. Run typecheck, tests, 400-puzzle soundness, and solve-rate report until green - complete
+
+## M3 Constraints
+- Do not modify engine foundation files unless absolutely necessary; prefer pure strategy modules under `packages/engine/src/strategies/`.
+- Required exact registered ids: `full-house`, `hidden-single`, `locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, `single-digit-patterns`, `xy-wing`, `xyz-wing`, `w-wing`, `simple-coloring`, `aic`, `als`, `uniqueness`, `sue-de-coq`, `forcing-chain`.
+- Chain-like strategies must include `highlights.links` paths and must not mutate `Grid`.
+- Uniqueness and forcing-chain behavior should be conservative and documented as optional/boundary-controlled where supported by the current interface.
+
+## M3 Verification Results
+- Targeted M3 tests: 8 tests passed after red/green implementation.
+- Solve-rate report after review fixes: easy 100%, medium 100%, hard 100%, diabolical 97%, 0 soundness violations.
+- Independent review found two issues; fixed BUG+1 proof conditions and forcing-chain propagation link paths.
+- Final verification: `npm run typecheck`, `npm test`, and `npx tsx packages/engine/scripts/solve-rate.ts` exited 0.

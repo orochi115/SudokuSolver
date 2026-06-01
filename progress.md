@@ -2,6 +2,17 @@
 
 ## Session Log
 
+### 2026-06-02 M3
+- Started M3 advanced strategy implementation under autonomous/headless constraints.
+- Restored planning context and appended Phase 5 for M3.
+- Read `docs/milestones/M3.md`, current strategy registry, strategy contract, trace link contract, and representative M2 strategy helpers.
+- Added failing M3 strategy tests, then implemented `simple-coloring`, `aic`, `als`, `uniqueness`, `sue-de-coq`, and `forcing-chain` modules plus advanced helpers.
+- Registered all required exact strategy ids and updated M2 registry test to allow later tiers.
+- Added `docs/forcing-boundary.md`, `docs/flow.md`, and `docs/notes/m3.md`.
+- Ran solve-rate report: diabolical improved to 97/100 with zero soundness violations.
+- Independent review flagged BUG+1 proof conditions and forcing-chain link-path fidelity; fixed both and reran targeted tests plus solve-rate.
+- Final verification completed: typecheck exit 0, full tests 8 files / 41 tests passed, solve-rate report 397/400 overall and zero violations.
+
 ### 2026-06-02
 - Started M2 human strategy implementation under autonomous/headless constraints.
 - Read required docs and strategy interface/template: `README.md`, `docs/requirements.md`, `docs/milestones/M2.md`, `strategy.ts`, and `naked-single.ts`.
