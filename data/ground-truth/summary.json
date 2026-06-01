@@ -1,0 +1,22 @@
+{
+  "easy": {
+    "sampled": 100,
+    "solved": 100,
+    "unique": 100
+  },
+  "medium": {
+    "sampled": 100,
+    "solved": 100,
+    "unique": 100
+  },
+  "hard": {
+    "sampled": 100,
+    "solved": 100,
+    "unique": 100
+  },
+  "diabolical": {
+    "sampled": 100,
+    "solved": 100,
+    "unique": 100
+  }
+}

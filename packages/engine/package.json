@@ -1,0 +1,13 @@
+{
+  "name": "@sudoku/engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure TypeScript Sudoku human-solving engine (no DOM). Shared foundation for all model branches.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run"
+  }
+}
