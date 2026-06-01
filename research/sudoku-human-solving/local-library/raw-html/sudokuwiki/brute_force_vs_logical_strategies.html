@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Brute Force vs Logical Strategies - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script>
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Brute_Force_vs_Logical_Strategies';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				            <div class="SRSideMenuB">
+                <ul>
+                <li id="M0"><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+			    <li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    			<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+                </ul>
+            </div>
+		    <div class="SRSideMenuA">9x9 Solvers</div>
+		    <div class="SRSideMenuB">
+			    <ul>
+			    <li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+			    <li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+			    <li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+			    <li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+			    <li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+			    <li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+			    <li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+                </ul>
+            </div>
+            <div class="SRSideMenuA">6x6 Solvers</div>
+            <div class="SRSideMenuB">
+                <ul>
+		        <li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		        <li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+			    <li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+			    <li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+			    </ul>
+		    </div>
+			<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+			<div class="SRSideMenuB">
+				<ul>
+				<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+				<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+				<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+				</ul>
+			</div>
+		    <div class="SRSideMenuA">Puzzles to Play</div>
+		    <div class="SRSideMenuB">
+			    <ul>
+                <li id="M14"><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+                <li id="M164"><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+                <li id="M15"><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+                <li id="M16"><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+                <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+                <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+                <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+                <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+                <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+                <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+                <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+                <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+                <li id="M24"><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+                <li id="M25"><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+			    </ul>
+		    </div>
+		    <div class="SRSideMenuA">Apps</div>
+		    <div class="SRSideMenuB">
+			    <ul>
+			    <li id="M26"><a class="scanmenu" href="/5_Daily_Puzzles_for_the_iPad">5 Daily Puzzles</a></li>
+			    <li id="M27"><a class="scanmenu" href="/Sudoku_Solver_for_Android">SudokuWiki Solver</a></li>
+			    </ul>
+		    </div>
+		    <div class="SRSideMenuA">Str8ts</div>
+		    <div class="SRSideMenuB">
+			    <ul>
+			    <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+			    <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+			    <li><a class="spmenu" href="https://www.str8ts.com/New_Str8ts_Books">Str8ts Books</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+			    </ul>
+		    </div>
+		    <div class="SRSideMenuA">Other</div>
+		    <div class="SRSideMenuB">
+			    <ul>
+			    <li id="M29"><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+			    <li id="M30"><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+			    <li id="M31"><a class="scanmenu" href="/Donations">Donate</a></li>
+                <li id="M32"><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+			    </ul>
+		    </div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Brute_Force_vs_Logical_Strategies">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Brute Force vs Logical Strategies</h1><div class="SRCell">A number of times in feedbacks I've discussed the difference, or utility, of a <b>brute force</b> approach to solving Sudoku versus <b>logical strategies</b>. By <b>brute force</b> I mean any back-tracking method that can fill a puzzle board and derive all possible solutions. The <i>Solution Count</i> on the solver is an example. The rest of this site is devoted to logical strategies.<br><br>I made a decision early on when exploring Sudoku that I was interested in logical strategies since they told me <u>how</u> to solve a puzzle using steps that showed why each cell could be solved in sequence just from the logical consequences of having clues. This felt much more satisfying than guessing, trial and error and simply placing numbers by intuition. However, I agree that intuition is one way a human can beat a computer: it is not to be dismissed.<br><br>Brute force is the domain of computers and people quickly developed optimal - or near optimal - ways of demolishing a puzzle by back-tracking.  This is a proof by exhaustion since all valid numbers are inserted. The 'brutal' brute force does this in sequence, 1 to 9, top-left to bottom right until all ways of satisfying the rules are shown. A more clever brute force takes advantage of the theory of search branches. Either way, with brute force you can <b>count</b> the number of solutions, so partial or faulty Sudoku puzzles do not phase a brute-force algorithm. Which is why I employ one to check puzzles in the solver.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/strattime.png" alt="" /></figure>
+I don't pretend to know all Sudoku strategies and those I get stuck on are always solved by clever people in the <a href="/Weekly-Sudoku.aspx">Weekly Unsolvables</a> providing me with new clues. This is why Sudoku is so fascinating.  However, there is another aspect to the two solving methods that pertains to programmers, especially optimisers. <br><br>The diagram on the right is a crude impression of how brute-force stacks up against logic when the number of clues is taken into account. Simply put, brute force is much quicker when there are many clues - not surprising - whereas it is known that clue density does not - in general - affect the grade or difficulty of a puzzle. You can have very easy low clue puzzles and very hard high clue ones - although the bias to 'hard' is usually with fewer clues.<br><br><br></div>
+
+<div class="SRCell">
+<figure style="width:400px"><img src="PuzImages/8ClueJigsaw.png" alt="Brute Force fails on this puzzle" /><figcaption>Brute Force fails on this puzzle
+</figcaption></figure>
+In a low-clue puzzle there is more to crunch through for a logical solver, but it can collapse quickly. Some strategies require an awful lot of searching to identify patterns, or are not yet optimised, so it depends on if they are needed. But generally the time to solve is flat against clue density. <br><br>However, brute force quickly escalates in time cost when clues are low. There are two factors. Density, just discussed, but also the orientation of the puzzle. For very extreme puzzles like this Jigsaw, I have never run the Solution Count to completion. It could take hours, or years? I don't know. <br><br>The naive brute force (top-left to bottom-right) is very sensitive to the orientation of a puzzle - the search space greatly increases if there are few clues in the top of the button. Spin it around and it could solve quickly. However an optimised brute force says it is worth exploring the cells with the least number of candidates first. This can greatly reduce the total search space and does away with the orientation problem. Not entirely. There will often be many cells with, say, two candidates left, and it will pick the first one.<br><br>Some people are very enthusiastic about using a mixture of both approaches. Using just the basic strategies to start a puzzle and then back-tracking if/when this fails does work well. But I keep pattern based separate from brute-force since the rare 'unsolvable' can inspire new logical strategies and generate new knowledge about Sudoku.</div>
+
+<h2>A Brute Force Algorithm </h2>
+<div class="SRCell">The key is to express the rows, columns and boxes as bit arrays, which can be done in C or C++. At this point I'd like to credit <b>G.M. Boynton</b> who posted an algorithm way back in June 2005 (although I can't remember the language and if I ported it to bit arrays). We don't need to scan along a row or column to test if a number is present, we just need to know IF a number is present anywhere in the row, column or box.<br><br>
+
+<pre>unsigned short r[9]; <span class="precom">// bit array to signal presence of 1 to 9 on a row</span>
+unsigned short c[9]; <span class="precom">// bit array to signal presence of 1 to 9 on a columns</span>
+unsigned short b[9]; <span class="precom">// bit array to signal presence of 1 to 9 in a box</span>
+
+unsigned short vals[9][9];<span class="precom">// clues and solutions of each cell</span></pre>
+
+As well as being called in the main function to insert the next number, this function can be used to set up the initial values from the clues. We shift 1 by 'n' bits for whatever row, column and box it is a member of. 
+<pre>void put_number_back( sudoku *s, int y, int x, int n )
+{
+    s->r[y] += (1 << n);
+    s->c[x] += (1 << n);
+    s->b[s->boxnum[y][x]-1] += (1 << n);
+    s->vals[y][x] = n+1;
+}
+</pre>
+
+
+
+</div><br>
+
+<div class="SRCell">Imagine you are starting in <span class="hy">A1</span> which is empty and you want to insert 3.  If there is a 3 clue already down in <span class="hy">J1</span>  then the flag s->c[0] (first column) will contain a 1 at the third bit (1 shifted 2 bits). You can skip placing a 3 there and go onto 4. It pays to find the cell with the least amount of candidates before recursing with all n on that cell.</div><br>
+
+<div class="SRCell"><pre>bool bRecSlv( Sudoku s, int depth, unsigned int *solutions )
+{
+    register unsigned short x,y;
+    unsigned short n, best_n, xN, yN;
+    calls++;
+    
+    best_n = 0; <span class="precom">// Find the cell with the least amount of candidates</span>
+    for(y=0;y&lt;9;y++)
+        for(x=0;x&lt;9;x++)
+    	if( s.vals[y][x] == 0 ) <span class="precom">// that is still empty</span>
+	{
+	    <span class="precom">// Or together candidates in all visible units</span>
+	    n = bit_count(s.r[y] | s.c[x] | s.b[s.boxnum[y][x]-1]);
+	    <span class="precom">// Candidates for this cell are 511-n, so higher n is better</span>
+	    if( n > best_n ) {
+		best_n = n;
+		xN = x;
+		yN = y;
+	    }
+	}
+
+    if( !best_n )
+    {    
+        <span class="precom">// No empty cells, must be a solution. Return true if no more required</span>	    
+        (*solutions)++;
+        return true;
+    }
+    else 
+    {
+        x = xN;
+        y = yN;
+        for(n=0;n<9;n++)    <span class="precom">// For each possible number:</span>
+        {
+            <span class="precom">// if any bit mask is set, skip n</span>
+            if( s.r[y] & (1 << n) ) continue;
+            if( s.c[x] & (1 << n) ) continue;
+            if( s.b[s.boxnum[y][x]-1] & (1 << n) ) continue;
+            <span class="precom">// Valid to place n in this cell</span>
+            put_number_back( &s, y, x, n );
+
+            <span class="precom">// and call this function recursively!</span>
+            if( bRecSlv(s,depth+1,solutions) )    
+            {
+                return true; <span class="precom">// If solution found AND no more solutions required,
+	        // then exit recursive function</span>
+            }
+            <span class="precom">// take_off_number( &s, y, x, n ); // no need to zero n</span>
+        }
+    }
+    return false;  
+}</pre></div><br>
+
+<div class="SRCell">Note: We pass the whole "sudoku" object into the function, not a pointer to it. When we recurse a copy is made. When the branching is finished and we back out, the previous states are already in memory and in order. </div><br>
+
+
+
+
+
+
+	<br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=201&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Brute_Force_vs_Logical_Strategies" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(201,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment16722"><div class="w100pc"><div class="w60pc"><h2>... by: jobowo</h2></div><div class="w40pc datepost">Wednesday 3-Nov-2021</div></div>
+<div class="w100pc">The brute force algorithm suggested here can be, I believe, improved a little by an initial scan similar to the one that a paper and pencil solver will attempt, arriving at a list of empty cells and the only possible n values for those cells. Sorting by n and beginning with the cell(s) with the least n, one then begins the trial and error process (saving, as suggested, the current values so that one can return to this point if that value 'fails') and try with the next value.<br><br>With my humble programming skills, and using PHP (scarcely the fastest language), my solver can solve even the unsolveables here in less than 0.2 seconds. <br><br>But the actual point of my post here is the curious fact is that there appears to be little relationship between the "human" rating (which is presumably related to the intelligent algorithms offered here) and the brute force rating measured as time to solve. Quite a few puzzles rated "moderate" on the web take far longer to solve with this algorithm than those rated "unsolveable" or "hardest". Arto's scores in the middle of the pack of about 100 puzzles that I solve, in total, in about 4 seconds.<br><br>Some explanations are evident. If there are two cells to begin the operation that have n=2, I simply grab whichever SORT offers me first; I do something similar with the values: if 1,3,5 are possible values I pick them in numerical order. <br><br></div>
+<div class="w100pc" id="blog-reply16722"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is very true. There can be very easy 17 clue puzzles and very hard 32 clue ones. Grades skews to the small-clue end but generally it is candidate density that makes a difficult puzzles. If too make cells have three or more candidates then it gets very hard.</div></div><div id="blog-reply2779" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(201,16722,2779)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 27-November-2019. Views: 29536<br>
+			This page was last modified on 27-November-2019.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d375c78f59c9b',t:'MTc4MDMwNjQwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

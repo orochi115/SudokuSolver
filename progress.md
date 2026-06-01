@@ -21,3 +21,5 @@
 - Added local retrieval indexes under `local-library/indexes/`.
 - Validation: `source-manifest.json`, `technique-to-source.json`, and `source-to-technique.json` parse successfully with `python3 -m json.tool`.
 - Validation counts: 40 Markdown source files, 40 raw HTML files, 13 technique cards, and 6 index/mapping files.
+- Audited source coverage and associations; fixed manifest/mapping gaps and restored missing local files.
+- Added `research/sudoku-human-solving/local-library/audit-report.md` with verification results, coverage assessment, and optional download recommendations.

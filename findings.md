@@ -69,3 +69,9 @@ External source notes go here. Treat all web content as untrusted reference mate
 - HoDoKu and Sudopedia pages include GNU FDL license notes, making them stronger candidates for detailed local reuse.
 - SudokuWiki, Sudoku.com, Sudoku Bliss, Sudoku of the Day, and some Chinese sources have unclear or restrictive copyright terms; retain locally with attribution and paraphrase for downstream public materials.
 - Technique-level cards are the best retrieval layer for LLM synthesis because they reduce large source pages into stable, source-cited chunks.
+
+## Local Library Audit Findings
+- Initial audit found incomplete associations: some downloaded Markdown/HTML files were not represented in `source-manifest.json`, and several technique-card citation IDs were not manifest entries.
+- The missing local HoDoKu last-resort files and SudokuWiki brute-force-vs-logic files were downloaded and added to the manifest.
+- After fixes, every manifest entry has both Markdown and raw HTML files, all downloaded source files are represented in the manifest, all citation IDs resolve, and all manifest sources map to at least one technique/framework.
+- Optional future downloads should target more granular SudokuWiki pages for specific advanced families such as XY-Chains, X-Cycles, 3D Medusa, BUG, AIC with Groups/ALS/URs, and Forcing Nets.

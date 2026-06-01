@@ -4,6 +4,7 @@ Use stable citation IDs in technique cards and synthesis documents.
 
 ## Core Source IDs
 
+- `HODOKU-TECHNIQUES`: HoDoKu implemented techniques index.
 - `HODOKU-INTRO`: HoDoKu introduction and terminology.
 - `HODOKU-SINGLES`: HoDoKu singles page.
 - `HODOKU-INTERSECTIONS`: HoDoKu locked candidates page.
@@ -12,6 +13,7 @@ Use stable citation IDs in technique cards and synthesis documents.
 - `HODOKU-FISH-GENERAL`: HoDoKu fish general page.
 - `HODOKU-BASIC-FISH`: HoDoKu X-Wing/Swordfish/Jellyfish page.
 - `HODOKU-FINNED-FISH`: HoDoKu finned/sashimi fish page.
+- `HODOKU-COMPLEX-FISH`: HoDoKu complex fish page.
 - `HODOKU-SDP`: HoDoKu single-digit patterns page.
 - `HODOKU-WINGS`: HoDoKu wings page.
 - `HODOKU-COLORING`: HoDoKu coloring page.
@@ -22,13 +24,21 @@ Use stable citation IDs in technique cards and synthesis documents.
 - `HODOKU-LAST`: HoDoKu last-resort page.
 - `SUDOKUWIKI-FAMILIES`: SudokuWiki strategy families.
 - `SUDOKUWIKI-LOGIC-VS-BRUTE`: SudokuWiki brute force vs logical strategies.
+- `SUDOKUWIKI-NAKED`: SudokuWiki naked candidates page.
+- `SUDOKUWIKI-HIDDEN`: SudokuWiki hidden candidates page.
+- `SUDOKUWIKI-INTERSECTION`: SudokuWiki intersection removal page.
 - `SUDOKUWIKI-AIC`: SudokuWiki AIC page.
 - `SUDOKUWIKI-XWING`: SudokuWiki X-Wing page.
 - `SUDOKUWIKI-YWING`: SudokuWiki Y-Wing page.
+- `SUDOKUWIKI-SWORDFISH`: SudokuWiki Swordfish page.
+- `SUDOKUWIKI-SIMPLE-COLOURING`: SudokuWiki Simple Colouring page.
+- `SUDOKUWIKI-UNIQUE-RECTANGLES`: SudokuWiki Unique Rectangles page.
+- `SUDOKUWIKI-ALS`: SudokuWiki Almost Locked Sets page.
 - `SUDOPEDIA-SOLVING-TECHNIQUE`: Sudopedia solving technique index.
 - `SOTD-TECHNIQUES`: Sudoku of the Day technique index.
 - `SOTD-FORCING-CHAINS`: Sudoku of the Day forcing chains.
 - `SUDOKUCOM-POINTING-PAIRS`: Sudoku.com pointing pairs.
+- `SUDOKUCOM-ZH-POINTING-PAIRS`: Sudoku.com Chinese pointing pairs.
 - `SUDOKUCOM-ZH-XWING`: Sudoku.com Chinese X-Wing.
 - `SUDOKUBLISS-ADVANCED`: Sudoku Bliss advanced strategies.
 - `SUDOKUBLISS-ALS`: Sudoku Bliss ALS page.

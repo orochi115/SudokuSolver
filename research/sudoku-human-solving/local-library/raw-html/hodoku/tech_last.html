@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Last Resort (Forcing Chain, Forcing Net, Templates, Kraken Fish...)</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Last Resort (Forcing Chain, Forcing Net, Templates, Kraken Fish...)">
+    <meta name="keywords" content="sudoku,java,hodoku,last resort,templates,nishio,forcing chain,forcing net,kraken fish,brute force,guessing">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechLa a, #menu ul li ul li.mTechLa a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_last.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_last.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Last Resort</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#ts">Templates</a></li>
+        <li><a href="#fc">Forcing Chain</a></li>
+        <li><a href="#fn">Forcing Net</a></li>
+        <li><a href="#kf">Kraken Fish</a></li>
+        <li class="ni"><ul>
+            <li><a href="#kf1">Kraken Fish Type 1</a></li>
+            <li><a href="#kf2">Kraken Fish Type 2</a></li>
+        </ul></li>
+        <li><a href="#bf">Brute Force</a></li>
+    </ul>
+    <hr>
+
+    <h1><a name="ts"></a>Templates</h1>
+    <p>Templates are a single digit pattern method. In an empty sudoku grid exactly 46656
+    possibilities exist to place all 9 instances of a digit in the grid. Every time an instance of the digit
+    is placed, all combinations that don't contain that cell become invalid, and
+    every time another digit is placed
+    in a cell, all combinations that contain that cell become invalid. If all possible
+    templates have been calculated, the digit can be eliminated from any cell, that is not
+    contained in at least one of the remaining templates, and it can be set in all cells, that are
+    contained in all remaining templates.</p>
+    <p>From the description it should be clear, that Templates are not meant for human players.
+    They can however be used as indicators: If no Template eliminations are present, no instance
+    of a single digit pattern can possibly be found (e.g.: a very time consuming search
+    for complex fish types is not necessary). The other way round is not necessarily valid.</p>
+    <hr>
+
+    <h1><a name="fc"></a>Forcing Chain</h1>
+    <p>Before you try to dig into Forcing Chains or Nets, please make sure that you have completely understood
+    the <a href="tech_chains.php#in">Introduction</a> about chains.</p>
+    <p>Forcing Chain is a generic term for any chain that leads to a contradiction or a verity and thus
+    forces something (any Discontinuous Nice Loop or any AIC is a Forcing Chain by that definition).
+    Chains that don't lead to a contradiction themselves can be combined to a Multiple
+    Forcing Chain. All chains together can either prove a verity or a contradiction, thus leading
+    to a forcing.</p>
+    <p>In a verity, multiple chains have the same outcome. If one of the premises of the chains has
+    to be true, the result must be true. Examples for premises that can provide a verity:</p>
+    <ul>
+        <li>Chains starting from all candidates of a cell (one of the candidates must be true, and at least
+        one of the candidates must be false)</li>
+        <li>Chains starting from all instances of a candidate in one house</li>
+        <li>Chains starting from all additional digits of an <a href="tech_ur.php#un2">UR</a>
+        (currently not implemented in HoDoKu)</li>
+    </ul>
+    <p>In a contradiction, all chains start with the same premise, but lead to implications that
+    cannot all be true. Examples for contradictions:</p>
+    <ul>
+        <li>Chains proving that a cell cannot contain a digit</li>
+        <li>Chains eliminating all instances of a digit from a house</li>
+        <li>Chains setting more than one digit in a cell</li>
+        <li>Chains setting more than one instance of a digit in a house</li>
+    </ul>
+    <p>The possibilities of Multiple Forcing Chains are nearly limitless.</p>
+    <p>If a Forcing Chain or Net is viewed in HoDoKu, the sheer number of links can render
+    the image completely useless. It is therefore possible to show only one chain
+    at a time (see <a href="docs_play.php#hint_system_2">Using the Hint System</a> in the
+    Users Manual).</p>
+    <a href='show_example.php?file=fcv01&amp;tech=Forcing+Chain+Verity+%28all+chains%29'><img class='scr_l' src='../examples/fcv01.png' alt='Sudoku technique: Example for Forcing+Chain+Verity+%28all+chains%29'></a>    <a href='show_example.php?file=fcv02&amp;tech=Forcing+Chain+Verity+%28only+chain+1%29'><img class='scr_l' src='../examples/fcv02.png' alt='Sudoku technique: Example for Forcing+Chain+Verity+%28only+chain+1%29'></a>    <a href='show_example.php?file=fcv03&amp;tech=Forcing+Chain+Verity+%28only+chain+2%29'><img class='scr_l' src='../examples/fcv03.png' alt='Sudoku technique: Example for Forcing+Chain+Verity+%28only+chain+2%29'></a>    <a href='show_example.php?file=fcv04&amp;tech=Forcing+Chain+Verity+%28only+chain+3%29'><img class='scr_l' src='../examples/fcv04.png' alt='Sudoku technique: Example for Forcing+Chain+Verity+%28only+chain+3%29'></a>    <p>The example shows a rather simple Forcing Chain Verity, that proves that r1c7 has to be 4
+    (the first image shows all links at once, the other three images show the three chains).</p>
+    <p>Forcing Chain Verity => r1c7=4</p>
+    <ul>
+        <li>r4c4=1 r8c4=6 r6c8=6 r1c8=3 r1c7=4</li>
+        <li>r4c6=1 r4c7=3 r1c7=4</li>
+        <li>r4c7=1 r5c8=5 r1c8=3 r1c7=4</li>
+    </ul>
+    <p>Meaning: For every possible placement of digit 1 in row 4 it can be proved that
+    r1c7 is 4. r1c7 must therefore be 4.</p>
+    <p>For every Forcing Chain Verity a complementary Forcing Chain Contradiction exists. The contradiction
+    for the example above:</p>
+    <p>Forcing Chain Contradiction in r4 => r1c7=4</p>
+    <ul>
+        <li>r1c7&lt;&gt;4 r1c7=3 r1c8=5 r5c8=1 r8c4=1 r4c4&lt;&gt;1</li>
+        <li>r1c7&lt;&gt;4 r1c7=3 r4c6=3 r4c6&lt;&gt;1</li>
+        <li>r1c7&lt;&gt;4 r1c7=3 r1c8=5 r5c8=1 r4c7&lt;&gt;1</li>
+    </ul>
+    <p>Meaning: If r1c7 is not 4, row 4 doesn't contain digit 1. Since this is not possible, the
+    premise must be wrong, 4 can be placed in r1c7.</p>
+    <hr>
+
+    <h1><a name="fn"></a>Forcing Net</h1>
+    <p>A Forcing Net is build on the same principle than a Forcing Chain, but as net and not as chain
+    (see <a href="tech_chains.php#in7">Chains versus Nets</a>). They are a real "Last Ressort" method
+    and can be found manually only by very experienced players (the images below speak for themselves).</p>
+    <p>Notation: The branches of the net are put in parenthesis. There outcome is used later on in the net.</p>
+    <a href='show_example.php?file=fnv01&amp;tech=Forcing+Net+Verity+%28all+chains%29'><img class='scr_l' src='../examples/fnv01.png' alt='Sudoku technique: Example for Forcing+Net+Verity+%28all+chains%29'></a>    <a href='show_example.php?file=fnv02&amp;tech=Forcing+Net+Verity+%28only+net+1%29'><img class='scr_l' src='../examples/fnv02.png' alt='Sudoku technique: Example for Forcing+Net+Verity+%28only+net+1%29'></a>    <a href='show_example.php?file=fnv03&amp;tech=Forcing+Net+Verity+%28only+net+2%29'><img class='scr_l' src='../examples/fnv03.png' alt='Sudoku technique: Example for Forcing+Net+Verity+%28only+net+2%29'></a>    <a href='show_example.php?file=fnv04&amp;tech=Forcing+Net+Verity+%28only+net+3%29'><img class='scr_l' src='../examples/fnv04.png' alt='Sudoku technique: Example for Forcing+Net+Verity+%28only+net+3%29'></a>    <p>The example is a verity that proves that r1c2 has to be 5.</p>
+    <p>Forcing Net Verity => r1c2=5</p>
+    <ul>
+        <li>r7c2=6 (r4c2=7 r5c3&lt;&gt;7) (r3c2&lt;&gt;6) r9c5=6 (r9c5&lt;&gt;9) (r9c5&lt;&gt;9) r3c3=6 (r5c3=2 r8c3&lt;&gt;2) (r1c1=7 r9c1=2 r8c2=5 r8c3=9 r8c8=8 r7c9&lt;&gt;8) r9c3=7 r9c4=9 r3c4=4 r5c2=4 r5c9=1 r6c9=8 r8c5=8 r8c6=1 r1c6=6 r2c6=4 r3c4=9 r9c3=9 r8c3=5 r1c2=5</li>
+        <li>r7c2=7 (r7c2&lt;&gt;6) (r4c2=6 r3c2&lt;&gt;6) (r7c8&lt;&gt;7) (r7c7&lt;&gt;7) r9c9=7 (r3c3=7 r9c3=6 r9c1&lt;&gt;6) (r3c3=7 r3c3&lt;&gt;6) (r9c9&lt;&gt;2) r8c7=4 r8c8=2 r2c8=6 (r1c7&lt;&gt;6) r1c1=6 r2c8=6 (r1c7&lt;&gt;6) r2c1=2 r9c1=7 r7c2=9 (r1c2&lt;&gt;9) r1c3=9 r1c2=5</li>
+        <li>r7c2=9 (r1c2&lt;&gt;9) r1c3=9 r1c2=5</li>
+    </ul>
+    <p>Meaning: Cell r7c2 has three possibilities left: 6, 7, and 9. No matter which digit will
+    finally be placed in r7c2, r1c2 is always 5.</p>
+    <p>Let's study the last (and simplest) net. If we ignore the parenthesis, we can follow the chain nicely:
+    If r7c2 is 9, r3c2 cannot be 9. Here we are stuck. We cannot continue, because 9 in r3c2 and r1c3
+    are only weakly linked (additional 9 in r1c2). Fortunately, 9 in r1c2 cannot be true as well if r7c2 is 9 (the branch of the net),
+    thus turning the weak link into a strong link.</p>
+    <p>The branches in the other nets cannot be so easily explained. Just try to decipher them yourself.</p>
+    <hr>
+
+    <h1><a name="kf"></a>Kraken Fish</h1>
+    <p>A Kraken Fish is the combination of a fish with one or more chains. It usually uses
+    Finned Fishes, that don't provide eliminations, because the possible eliminations
+    cannot see all fins (see <a href="tech_fishg.php">Fish General</a>).</p>
+    <h2><a name="kf1"></a>Kraken Fish Type 1</h2>
+    <p>In a finned fish a possible elimination becomes an actual elimination, if it
+    can see all the fins. More often than not, this is not the case, and we get a
+    useless finned fish without eliminations. A Kraken Fish can squeaze an elimination
+    out of such a fish by using chains.</p>
+    <p>The premise for a finned fish was: If all fins are false, all possible eliminations
+    become valid. But if a fin is true, the fish is destroyed and the placement eliminates
+    all candidates of the fish digit in the peers of the fin.</p>
+    <p>In a Kraken Fish, that principle is simply enhanced: If we can prove that a possible
+    elimination must be false for all possible fins, we can eliminate that candidate.
+    The prove uses chains that start with a weak link in every fin and end in a weak link
+    in the possible elimination.</p>
+    <a href='show_example.php?file=kf101&amp;tech=Kraken+Fish+Type+1+%28Chain+1%29'><img class='scr_l' src='../examples/kf101.png' alt='Sudoku technique: Example for Kraken+Fish+Type+1+%28Chain+1%29'></a>    <a href='show_example.php?file=kf102&amp;tech=Kraken+Fish+Type+1+%28Chain+2%29'><img class='scr_l' src='../examples/kf102.png' alt='Sudoku technique: Example for Kraken+Fish+Type+1+%28Chain+2%29'></a>    <p>The example is from the same sudoku state. in which the Forcing Net from the example above
+    was necessary. The basis is a Finned Franken X-Wing: 2 r6b2 c57 fr6c2 fr6c9. Possible eliminations
+    are r158c7 (none of those see both fins).</p>
+    <p>The image on the left shows the first chain connecting fin r6c2 to r8c7:
+    r6c2 -2- ALS:r4c2,r5c13 -4- r2c1 =4= r2c6 -4- r8c6 =4= r8c7. The image on the right shows
+    the second chain for the second fin (r6c9): r6c9 -2- ALS:r13479c9 -8- ALS:r8c238 -2- r8c7.</p>
+    <p>Meaning:</p>
+    <ul>
+        <li>If both fins are false, the fish is true and r1c7, r5c7, and r8c7 can be eliminated</li>
+        <li>If fin r6c2 is true, 2 can be eliminated from r8c7 as proven by the first chain</li>
+        <li>If fin r6c9 is true, 2 can be eliminated from r8c7 as proven by the second chain</li>
+    </ul>
+    <p>This is a typical verity.</p>
+
+    <h2><a name="kf2"></a>Kraken Fish Type 2</h2>
+    <p>Type 2 gets slightly more complicated than type 1. Let us review what a fish is all about:
+    It guarantees that exactly one base candidate is true in all cover sets.</p>
+    <p>If we can build chains, starting with a weak link each, from each base candidate
+    in one of the cover sets plus from each fin (if present), that lead to the same
+    conclusion, we have a Forcing Chain verity.</p>
+    <a href='show_example.php?file=kf201&amp;tech=Kraken+Fish+Type+2+%28Fish+only%29'><img class='scr_l' src='../examples/kf201.png' alt='Sudoku technique: Example for Kraken+Fish+Type+2+%28Fish+only%29'></a>    <a href='show_example.php?file=kf202&amp;tech=Kraken+Fish+Type+2+%28Chain+1%29'><img class='scr_l' src='../examples/kf202.png' alt='Sudoku technique: Example for Kraken+Fish+Type+2+%28Chain+1%29'></a>    <a href='show_example.php?file=kf203&amp;tech=Kraken+Fish+Type+2+%28Chain+2%29'><img class='scr_l' src='../examples/kf203.png' alt='Sudoku technique: Example for Kraken+Fish+Type+2+%28Chain+2%29'></a>    <a href='show_example.php?file=kf204&amp;tech=Kraken+Fish+Type+2+%28Chain+3%29'><img class='scr_l' src='../examples/kf204.png' alt='Sudoku technique: Example for Kraken+Fish+Type+2+%28Chain+3%29'></a>    <p>The example shows a Kraken Fish based on a Sashimi X-Wing: 4 r15 c12 fr1c7 fr1c9.
+    What is good for us is that cover set column 2 has only one base candidate (r5c2).
+    The other 4 in that column (r3c2) is a cover candidate and doesn't interest us now.
+    We can build the following chains:</p>
+    <ul>
+        <li>r1c7 -4- r8c7 -2- ALS:r4c789,r56c7 -7- r5c9</li>
+        <li>r1c9 -4- ALS:r39c9 -7- r5c9</li>
+        <li>r5c2 =1= r5c9</li>
+    </ul>
+    <p>Together they prove that r5c9 cannot be 7.</p>
+    <hr>
+
+    <h1><a name="bf"></a>Brute Force</h1>
+    <p>Brute Force is not really a technique: Place a digit in a cell and look,
+    whether you get a solution or not. If that technique is enabled, every sudoku can be solved.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>
