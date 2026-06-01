@@ -1,0 +1,44 @@
+{
+  "strategies": 11,
+  "strategyIds": [
+    "full-house",
+    "naked-single",
+    "hidden-single",
+    "locked-candidates",
+    "naked-subset",
+    "hidden-subset",
+    "basic-fish",
+    "single-digit-patterns",
+    "xy-wing",
+    "xyz-wing",
+    "w-wing"
+  ],
+  "totalPuzzles": 400,
+  "totalViolations": 0,
+  "report": {
+    "easy": {
+      "n": 100,
+      "solved": 100,
+      "solveRate": 1,
+      "violations": 0
+    },
+    "medium": {
+      "n": 100,
+      "solved": 100,
+      "solveRate": 1,
+      "violations": 0
+    },
+    "hard": {
+      "n": 100,
+      "solved": 82,
+      "solveRate": 0.82,
+      "violations": 0
+    },
+    "diabolical": {
+      "n": 100,
+      "solved": 9,
+      "solveRate": 0.09,
+      "violations": 0
+    }
+  }
+}
