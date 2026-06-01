@@ -1,0 +1,667 @@
+﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>数独唯一矩形技巧详解：类型1/2/3/4完整攻略</title>
+        <meta name="description" content="详解数独唯一矩形（Unique Rectangle）四种类型：Type 1基础型、Type 2同余型、Type 3数组型、Type 4强链型。利用数独唯一解原则排除候选数，高级数独解题必备技巧。">
+            <meta name="keywords" content="数独唯一矩形,Unique Rectangle,UR技巧,数独高级技巧,唯一解原则,UR Type 1,UR Type 2,UR Type 3,UR Type 4,数独死局">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="数独唯一矩形技巧详解：类型1/2/3/4完整攻略">
+        <meta property="og:description" content="详解数独唯一矩形（Unique Rectangle）四种类型：Type 1基础型、Type 2同余型、Type 3数组型、Type 4强链型。利用数独唯一解原则排除候选数，高级数独解题必备技巧。">
+        <meta property="og:url" content="https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="数独唯一矩形技巧详解：类型1/2/3/4完整攻略">
+        <meta property="twitter:description" content="详解数独唯一矩形（Unique Rectangle）四种类型：Type 1基础型、Type 2同余型、Type 3数组型、Type 4强链型。利用数独唯一解原则排除候选数，高级数独解题必备技巧。">
+    
+        <link rel="canonical" href="https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+    
+            <link rel="alternate" hreflang="en" href="https://sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="zh-CN" href="https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="zh-TW" href="https://zh-tw.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="ja" href="https://jp.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="ko" href="https://ko.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="fr" href="https://fr.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="de" href="https://de.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="es" href="https://es.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="pt" href="https://pt.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="it" href="https://it.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="nl" href="https://nl.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="tr" href="https://tr.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="hi" href="https://hi.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="th" href="https://th.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="vi" href="https://vi.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="id" href="https://id.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="pl" href="https://pl.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+        <link rel="alternate" hreflang="uk" href="https://uk.sudokupuzzle.org/sudoku-guide/unique-rectangle/">
+    
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="/assets/css/font.css?v=20260417.1" rel="stylesheet">
+    <link href="/assets/css/style.css?v=20260417.1" rel="stylesheet">
+    <link href="/assets/css/guide.css?v=20260417.1" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Noto Sans SC, sans-serif;
+        }
+    </style>
+
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4194102731911926"
+            crossorigin="anonymous"></script>
+    </head>
+<body class="theme-light">
+
+<div class="main-container">
+    <aside class="sidebar d-none d-lg-block">
+    <div class="sidebar-content">
+        <div class="logo-container mb-4">
+            <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+            <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+            <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href='/' class='nav-item '>首页</a><a href='/how-to-play-sudoku/' class='nav-item '>游戏操作指南</a><a href='/how-to-solve-sudoku/' class='nav-item '>数独的解法</a><a href='/sudoku-solver/' class='nav-item '>数独解题器</a><a href='/sudoku-print/' class='nav-item '>打印题目</a><a href='/sudoku-answer/' class='nav-item '>查看答案</a><a href='#' class='nav-item active'><i class="bi bi-lightbulb me-1"></i>数独知识库</a>
+            <div class="nav-section mt-4">外部链接</div>
+            <a href="https://sudoku.today" target="_blank" class="nav-item external-link">
+                今日数独                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            <a href="https://samuraisudoku.com" target="_blank" class="nav-item external-link">
+                武士数独                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            
+            <a href="https://sudokuprintout.com" target="_blank" class="nav-item external-link">
+                Sudoku Printout                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            
+            <a href="https://play.google.com" target="_blank" class="nav-item external-link">
+                Android 应用                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+        </nav>
+
+        <div class="theme-switcher mt-4">
+            <button class="btn btn-sm btn-theme active" data-theme="light" title="Light Theme">
+                <i class="bi bi-sun"></i>
+            </button>
+            <button class="btn btn-sm btn-theme" data-theme="medium" title="Medium Theme">
+                <i class="bi bi-cloud-sun"></i>
+            </button>
+            <button class="btn btn-sm btn-theme" data-theme="dark" title="Dark Theme">
+                <i class="bi bi-moon"></i>
+            </button>
+        </div>
+    </div>
+</aside>
+
+    <main class="main-content">
+        <nav class="navbar navbar-expand-lg d-lg-none top-menu">
+  <div class="container-fluid flex-nowrap">
+    <div class="navbar-brand me-auto d-flex align-items-center">
+      <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+      <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+      <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+    </div>
+
+    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-2 py-1" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-globe"></i>
+          <span class="lang-name d-none d-sm-inline">
+            简体中文          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item" href="https://sudokupuzzle.org">
+              English            </a></li>
+                      <li><a class="dropdown-item" href="https://cn.sudokupuzzle.org">
+              简体中文            </a></li>
+                      <li><a class="dropdown-item" href="https://zh-tw.sudokupuzzle.org">
+              繁體中文            </a></li>
+                      <li><a class="dropdown-item" href="https://jp.sudokupuzzle.org">
+              日本語            </a></li>
+                      <li><a class="dropdown-item" href="https://ko.sudokupuzzle.org">
+              한국어            </a></li>
+                      <li><a class="dropdown-item" href="https://fr.sudokupuzzle.org">
+              Français            </a></li>
+                      <li><a class="dropdown-item" href="https://de.sudokupuzzle.org">
+              Deutsch            </a></li>
+                      <li><a class="dropdown-item" href="https://es.sudokupuzzle.org">
+              Español            </a></li>
+                      <li><a class="dropdown-item" href="https://pt.sudokupuzzle.org">
+              Português            </a></li>
+                      <li><a class="dropdown-item" href="https://it.sudokupuzzle.org">
+              Italiano            </a></li>
+                      <li><a class="dropdown-item" href="https://nl.sudokupuzzle.org">
+              Nederlands            </a></li>
+                      <li><a class="dropdown-item" href="https://tr.sudokupuzzle.org">
+              Türkçe            </a></li>
+                      <li><a class="dropdown-item" href="https://hi.sudokupuzzle.org">
+              हिन्दी            </a></li>
+                      <li><a class="dropdown-item" href="https://th.sudokupuzzle.org">
+              ไทย            </a></li>
+                      <li><a class="dropdown-item" href="https://vi.sudokupuzzle.org">
+              Tiếng Việt            </a></li>
+                      <li><a class="dropdown-item" href="https://id.sudokupuzzle.org">
+              Bahasa Indonesia            </a></li>
+                      <li><a class="dropdown-item" href="https://pl.sudokupuzzle.org">
+              Polski            </a></li>
+                      <li><a class="dropdown-item" href="https://uk.sudokupuzzle.org">
+              Українська            </a></li>
+                  </ul>
+      </div>
+
+      <button class="btn btn-outline-secondary px-2 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Menu">
+        <i class="bi bi-list" style="font-size:1.35rem;"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">
+            <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+            <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+            <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a href="/" class='nav-item '>首页</a><a href="/how-to-play-sudoku/" class='nav-item '>游戏操作指南</a><a href="/how-to-solve-sudoku/" class='nav-item '>数独的解法</a><a href="/sudoku-solver/" class='nav-item '>数独解题器</a><a href="/sudoku-print/" class='nav-item '>打印题目</a><a href="/sudoku-answer/" class='nav-item '>查看答案</a><span class='nav-item active'><i class="bi bi-lightbulb me-1"></i>数独知识库</span>
+                <div class="nav-section mt-4">外部链接</div>
+                <a href="https://sudoku.today" target="_blank" class="nav-item">
+                    今日数独                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+                <a href="https://samuraisudoku.com" target="_blank" class="nav-item">
+                    武士数独                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+                <a href="https://play.google.com" target="_blank" class="nav-item">
+                    Android 应用                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+            </nav>
+
+            <div class="theme-switcher mt-4">
+                <button class="btn btn-sm btn-theme active" data-theme="light" title="Light Theme">
+                    <i class="bi bi-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-theme" data-theme="medium" title="Medium Theme">
+                    <i class="bi bi-cloud-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-theme" data-theme="dark" title="Dark Theme">
+                    <i class="bi bi-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="language-selector d-none d-lg-block">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-globe"></i> 简体中文                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="https://sudokupuzzle.org">
+                            English                        </a></li>
+                                            <li><a class="dropdown-item" href="https://cn.sudokupuzzle.org">
+                            简体中文                        </a></li>
+                                            <li><a class="dropdown-item" href="https://zh-tw.sudokupuzzle.org">
+                            繁體中文                        </a></li>
+                                            <li><a class="dropdown-item" href="https://jp.sudokupuzzle.org">
+                            日本語                        </a></li>
+                                            <li><a class="dropdown-item" href="https://ko.sudokupuzzle.org">
+                            한국어                        </a></li>
+                                            <li><a class="dropdown-item" href="https://fr.sudokupuzzle.org">
+                            Français                        </a></li>
+                                            <li><a class="dropdown-item" href="https://de.sudokupuzzle.org">
+                            Deutsch                        </a></li>
+                                            <li><a class="dropdown-item" href="https://es.sudokupuzzle.org">
+                            Español                        </a></li>
+                                            <li><a class="dropdown-item" href="https://pt.sudokupuzzle.org">
+                            Português                        </a></li>
+                                            <li><a class="dropdown-item" href="https://it.sudokupuzzle.org">
+                            Italiano                        </a></li>
+                                            <li><a class="dropdown-item" href="https://nl.sudokupuzzle.org">
+                            Nederlands                        </a></li>
+                                            <li><a class="dropdown-item" href="https://tr.sudokupuzzle.org">
+                            Türkçe                        </a></li>
+                                            <li><a class="dropdown-item" href="https://hi.sudokupuzzle.org">
+                            हिन्दी                        </a></li>
+                                            <li><a class="dropdown-item" href="https://th.sudokupuzzle.org">
+                            ไทย                        </a></li>
+                                            <li><a class="dropdown-item" href="https://vi.sudokupuzzle.org">
+                            Tiếng Việt                        </a></li>
+                                            <li><a class="dropdown-item" href="https://id.sudokupuzzle.org">
+                            Bahasa Indonesia                        </a></li>
+                                            <li><a class="dropdown-item" href="https://pl.sudokupuzzle.org">
+                            Polski                        </a></li>
+                                            <li><a class="dropdown-item" href="https://uk.sudokupuzzle.org">
+                            Українська                        </a></li>
+                                    </ul>
+            </div>
+        </div>
+
+        <div class="guide-content">
+
+<!-- 文章头部 -->
+<div class="guide-header">
+    <div class="guide-category">
+        <i class="bi bi-lightbulb"></i> 解题技巧    </div>
+    <h1 class="guide-title">数独唯一矩形技巧详解：类型1/2/3/4完整攻略</h1>
+    <div class="guide-meta">
+        <i class="bi bi-calendar3"></i> 2025-06-11        <span class="mx-2">·</span>
+        <i class="bi bi-clock"></i> 15 分钟阅读    </div>
+</div>
+
+<!-- 面包屑导航 -->
+<div class="guide-breadcrumb">
+    <a href="../"><i class="bi bi-house-door"></i> 知识库</a>
+    <span class="separator">/</span>
+    <a href="../sudoku-strategies/">技巧目录</a>
+    <span class="separator">/</span>
+    <span class="current">唯一矩形</span>
+</div>
+
+<!-- 文章正文 -->
+<div class="guide-body">
+    <p><strong>唯一矩形</strong>（Unique Rectangle，简称UR）是数独高级技巧中非常重要的一类方法，它利用了<strong>数独必须有且仅有一个解</strong>的规则来推导。当盘面中出现可能形成"致死模式"（Deadly Pattern）的矩形结构时，我们可以据此排除某些候选数，从而保证唯一解的存在。</p>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-info-circle"></i> 核心原理：</strong><br>
+        如果四个格子（位于两行两列的交叉处，且恰好分布在两个宫中）都只剩下相同的两个候选数{a, b}，那么这四个格子的填法将有两种可能（形成致死模式），导致数独出现<strong>多解</strong>。由于正规数独必须唯一解，所以<strong>这种模式不可能出现</strong>，我们可以利用这一点来排除候选数。
+    </div>
+
+    <!-- 原理图 -->
+    <div class="image-container" style="margin: 25px 0;">
+        <object type="image/svg+xml" data="unique-rectangle-principle.svg" style="width: 100%; max-width: 520px; display: block; margin: 0 auto;">
+            唯一矩形原理示意图
+        </object>
+    </div>
+
+    <p>唯一矩形技巧根据矩形中格子的候选数分布情况，分为多种类型。本文将详细讲解最常见的<strong>四种类型</strong>：Type 1（基础型）、Type 2（同余型）、Type 3（数组型）和Type 4（强链型）。</p>
+
+    <div class="method-box">
+        <h4><i class="bi bi-diagram-3"></i> 术语说明</h4>
+        <ul style="margin-bottom: 0;">
+            <li><strong>地板格（Floor）</strong>：矩形中只有两个候选数{a, b}的格子，这些格子如果全部保留原样会形成致死模式</li>
+            <li><strong>屋顶格（Roof）</strong>：矩形中除了{a, b}还有其他候选数的格子，这些额外候选数是打破致死模式的关键</li>
+            <li><strong>UR对角数（UR Pair）</strong>：形成唯一矩形的两个候选数{a, b}</li>
+        </ul>
+    </div>
+
+    <p>在阅读本文前，建议先掌握<a href="../naming-convention/" style="color: #667eea;">数独行列宫的命名规则</a>和基本的候选数技巧。</p>
+
+    <!-- ============ Type 1 ============ -->
+    <h2><i class="bi bi-1-circle"></i> 类型1：基础型（Type 1）</h2>
+
+    <p><strong>Type 1</strong>是最简单、最直观的唯一矩形类型。它的特征是：矩形四格中，<strong>三个是地板格</strong>（只含{a, b}），<strong>一个是屋顶格</strong>（含{a, b}和其他候选数）。</p>
+
+    <div class="method-box">
+        <h4><i class="bi bi-check2-square"></i> Type 1 规则</h4>
+        <p><strong>如果</strong>唯一矩形的四个格子中，三个只含{a, b}，一个含{a, b, x...}，<br>
+        <strong>那么</strong>该屋顶格必须填入x...中的某个数（不能填a或b），因此可以从屋顶格删除a和b。</p>
+    </div>
+
+    <h3>实例分析</h3>
+
+    <div class="image-container">
+        <img src="unique-rectangle-type-1.png" alt="唯一矩形Type 1示例">
+        <div class="image-caption">图：唯一矩形Type 1 - R1C4, R1C8, R3C4, R3C8 形成包含4, 5的唯一矩形</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=MTIsMTIsZzgsNDUsZzYsZzcsYjMsNDUsZzksZzQsZzUsYjMsYjgsYjEsYjksYjIsZzcsYjYsZzcsYjksYjYsNDUsZzMsYjIsMTgsMTQ1OCwxNDUsMjM5LDI2LGI1LGcxLDI5LGc4LGc0LDM2OSxiNywyODksYjQsZzcsMjYsYjUsZzMsMTg5LDE2ODksMTIsMjM4OSwyNjgsYjEsYjcsMjQ5LDQ2LGc1LDM2ODksMjMsMTUsZzMsYjQsZzksZzcsNTYsMTYsZzIsZzgsNTgsNzgsZzksMjYsMjQ4LGcxLDY3LDM0NSwzNDUsZzYsMTc4LGcyLGIzLDQ4LDQ1LDE3OSwxNDU5LDE0NQ==" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <p>观察盘面，我们发现以下四个格子形成矩形结构：</p>
+    <ul>
+        <li><span class="coord">R1C4</span>：候选数 <span class="highlight-num">{4, 5}</span>（地板格）</li>
+        <li><span class="coord">R1C8</span>：候选数 <span class="highlight-num">{4, 5}</span>（地板格）</li>
+        <li><span class="coord">R3C4</span>：候选数 <span class="highlight-num">{4, 5}</span>（地板格）</li>
+        <li><span class="coord">R3C8</span>：候选数 <span class="highlight-num">{1, 4, 5, 8}</span>（屋顶格，含额外候选数1, 8）</li>
+    </ul>
+
+    <p>这四个格子位于第1行、第3行与第4列、第8列的交叉处，且分布在宫2和宫3中，满足唯一矩形的条件。</p>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>识别致死模式：</strong>如果R3C8也变成只有{4, 5}，那么这四个格子都只含{4, 5}。此时R1C4=4, R1C8=5, R3C4=5, R3C8=4 与 R1C4=5, R1C8=4, R3C4=4, R3C8=5 都是合法填法，导致多解。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>推理结论：</strong>为避免多解，R3C8<strong>不能</strong>只剩下{4, 5}，它必须填入1或8。因此可以从R3C8删除候选数4和5。
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 操作结果：</strong><br>
+        唯一矩形Type 1：<span class="coord">R1C4</span>、<span class="coord">R1C8</span>、<span class="coord">R3C4</span>、<span class="coord">R3C8</span> 包含 {4, 5}<br>
+        从 <span class="coord">R3C8</span> 删除候选数 <span class="delete-highlight">4</span> 和 <span class="delete-highlight">5</span>，保留 {1, 8}
+    </div>
+
+    <!-- ============ Type 2 ============ -->
+    <h2><i class="bi bi-2-circle"></i> 类型2：同余型（Type 2）</h2>
+
+    <p><strong>Type 2</strong>的特征是：矩形四格中，<strong>两个是地板格</strong>（只含{a, b}），<strong>两个是屋顶格</strong>，且两个屋顶格包含<strong>相同的额外候选数x</strong>。</p>
+
+    <div class="method-box">
+        <h4><i class="bi bi-check2-square"></i> Type 2 规则</h4>
+        <p><strong>如果</strong>唯一矩形有两个地板格{a, b}和两个屋顶格{a, b, x}（额外候选数相同），<br>
+        <strong>那么</strong>两个屋顶格中至少有一个必须填x（否则变成致死模式），因此能同时看到两个屋顶格的其他格子可以删除候选数x。</p>
+    </div>
+
+    <h3>实例分析</h3>
+
+    <div class="image-container">
+        <img src="unique-rectangle-type-2.png" alt="唯一矩形Type 2示例">
+        <div class="image-caption">图：唯一矩形Type 2 - R2C4, R2C7, R3C4, R3C7 形成包含6, 8的唯一矩形，额外候选数9</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=ZzgsYjUsYjYsZzMsYjEsZzIsZzcsYjksZzQsNzksZzQsYjIsNjg5LGc1LDY3OSw2OCxnMyxiMSxiMyw3OSxiMSw2ODksNjc4OSxiNCw2OCxiMixiNSxiMSw2NyxnOSxiNSxnNCxiMyxnMiw2NyxnOCw2NyxnMyxnNSxiMSxiMixiOCxiOSxiNCw2NyxnMixiOCxiNCxnNyw2OSw2OSxnMSxiNSxiMyw0NjksNjksYjcsNDY4OSxiMyxnMSxnNSw2OCxnMixiNSxnMSxnMyxiMiw2NzgsNjcsYjQsNjc4LGc5LDQ2OSxiMixnOCw0NjksNjc5LGc1LGIzLGIxLDY3" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <p>观察盘面中的唯一矩形结构：</p>
+    <ul>
+        <li><span class="coord">R2C4</span>：候选数 <span class="highlight-num">{6, 8, 9}</span>（屋顶格）</li>
+        <li><span class="coord">R2C7</span>：候选数 <span class="highlight-num">{6, 8}</span>（地板格）</li>
+        <li><span class="coord">R3C4</span>：候选数 <span class="highlight-num">{6, 8, 9}</span>（屋顶格）</li>
+        <li><span class="coord">R3C7</span>：候选数 <span class="highlight-num">{6, 8}</span>（地板格）</li>
+    </ul>
+
+    <p>两个屋顶格R2C4和R3C4都有额外候选数<span class="highlight-num">9</span>，且它们在同一列（第4列）。</p>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>推理逻辑：</strong>为避免致死模式，R2C4和R3C4中<strong>至少有一个</strong>必须填9。也就是说，候选数9在第4列中被"锁定"在R2C4和R3C4。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>执行排除：</strong>第4列的其他格子，以及能同时看到R2C4和R3C4的格子，都不能填9。具体来说：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li><span class="coord">R2C6</span>（第2行能看到R2C4）：删除候选数 <span class="delete-highlight">9</span></li>
+            <li><span class="coord">R3C5</span>（第3行能看到R3C4，宫2能看到R2C4）：删除候选数 <span class="delete-highlight">9</span></li>
+            <li><span class="coord">R7C4</span>（第4列）：删除候选数 <span class="delete-highlight">9</span></li>
+            <li><span class="coord">R9C4</span>（第4列）：删除候选数 <span class="delete-highlight">9</span></li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 操作结果：</strong><br>
+        唯一矩形Type 2：<span class="coord">R2C4</span>、<span class="coord">R2C7</span>、<span class="coord">R3C4</span>、<span class="coord">R3C7</span> 包含 {6, 8}，额外候选数 9<br>
+        从 <span class="coord">R2C6</span>、<span class="coord">R3C5</span>、<span class="coord">R7C4</span>、<span class="coord">R9C4</span> 删除候选数 <span class="delete-highlight">9</span>
+    </div>
+
+    <!-- ============ Type 3 ============ -->
+    <h2><i class="bi bi-3-circle"></i> 类型3：数组型（Type 3）</h2>
+
+    <p><strong>Type 3</strong>结合了唯一矩形和<strong>隐性/显性数组</strong>技巧。两个屋顶格有<strong>不同的额外候选数</strong>，这些额外候选数与同一单元内的其他格子形成数组关系。</p>
+
+    <div class="method-box">
+        <h4><i class="bi bi-check2-square"></i> Type 3 规则</h4>
+        <p><strong>如果</strong>两个屋顶格分别含{a, b, x}和{a, b, y}（或{a, b, x, y}等组合），<br>
+        <strong>并且</strong>这些额外候选数{x, y...}与同行/列/宫中的其他格子形成显性数组，<br>
+        <strong>那么</strong>该单元中其他格子可以按数组规则删除相应候选数。</p>
+    </div>
+
+    <h3>实例分析</h3>
+
+    <div class="image-container">
+        <img src="unique-rectangle-type-3.png" alt="唯一矩形Type 3示例">
+        <div class="image-caption">图：唯一矩形Type 3 - R4C1, R4C2, R8C1, R8C2 形成包含7, 8的唯一矩形</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=ZzIsZzUsNjcsYjksZzEsNjgsZzQsMzgsMzc4LDQ5LDQ5LGc4LGc3LGczLGI1LGI2LGIyLGIxLGIzLGcxLDY3LDY4LGIyLGc0LGI5LGc1LDc4LDc4LDI3OCwyNSxiNCxnNixnMyxnMSxiOSwyNTgsYjYsMjM4LGc5LDE1LDU3LDE3LDIzLDM4LGc0LDQ1LDM0LGIxLGcyLGc4LGI5LGI3LGI2LDM1LGcxLDI2Nzg5LDI1LDM1NjgsNTc5LDI2NzgsMjM1LGI0LDIzNiw3OCwyNjc4LGczLDU2OCxiNCwyNjc4LDI1LGcxLGc5LDU5LDI2LGI0LDEzNiw1OSwxMjYsZzgsZzcsMjM2" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <p>观察唯一矩形结构：</p>
+    <ul>
+        <li><span class="coord">R4C1</span>：候选数 <span class="highlight-num">{7, 8}</span>（地板格）</li>
+        <li><span class="coord">R4C2</span>：候选数 <span class="highlight-num">{2, 7, 8}</span>（屋顶格，额外候选数2）</li>
+        <li><span class="coord">R8C1</span>：候选数 <span class="highlight-num">{7, 8}</span>（地板格）</li>
+        <li><span class="coord">R8C2</span>：候选数 <span class="highlight-num">{2, 6, 7, 8}</span>（屋顶格，额外候选数2, 6）</li>
+    </ul>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>分析屋顶格：</strong>两个屋顶格R4C2和R8C2都在第2列。为避免致死模式，它们至少有一个必须填入额外候选数（2或6）。换句话说，R4C2和R8C2"合起来"必须包含{2, 6}中的至少一个。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>发现数组关系：</strong>观察第2列的<span class="coord">R9C2</span>，其候选数为{2, 6}。由于R4C2和R8C2必须占用{2, 6}中的数字，与R9C2一起，这三个格子在第2列形成了对{2, 6}的"锁定"。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>执行排除：</strong>第2列的其他格子不能包含2或6：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li><span class="coord">R5C2</span>：删除候选数 <span class="delete-highlight">2</span></li>
+            <li><span class="coord">R7C2</span>：删除候选数 <span class="delete-highlight">2</span> 和 <span class="delete-highlight">6</span></li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 操作结果：</strong><br>
+        唯一矩形Type 3：<span class="coord">R4C1</span>、<span class="coord">R4C2</span>、<span class="coord">R8C1</span>、<span class="coord">R8C2</span> 包含 {7, 8}<br>
+        屋顶格必须保留 {2, 6} 中至少一个，与 <span class="coord">R9C2</span> 形成数组，锁定第2列的 {2, 6}<br>
+        从 <span class="coord">R5C2</span> 删除 <span class="delete-highlight">2</span>，从 <span class="coord">R7C2</span> 删除 <span class="delete-highlight">2</span> 和 <span class="delete-highlight">6</span>
+    </div>
+
+    <!-- ============ Type 4 ============ -->
+    <h2><i class="bi bi-4-circle"></i> 类型4：强链型（Type 4）</h2>
+
+    <p><strong>Type 4</strong>利用了<strong>强链</strong>的概念。当两个屋顶格在同一行/列/宫中，且UR对角数中的某一个在该单元只出现在这两个屋顶格时，可以进行特殊的排除。</p>
+
+    <div class="method-box">
+        <h4><i class="bi bi-check2-square"></i> Type 4 规则</h4>
+        <p><strong>如果</strong>两个屋顶格在同一单元（行/列/宫），且UR对角数a在该单元<strong>只出现在这两个屋顶格</strong>，<br>
+        <strong>那么</strong>这两个屋顶格中必有一个填a（强链关系），不能两个都填b，因此可以从两个屋顶格删除另一个UR对角数b。</p>
+    </div>
+
+    <h3>实例分析</h3>
+
+    <div class="image-container">
+        <img src="unique-rectangle-type-4.png" alt="唯一矩形Type 4示例">
+        <div class="image-caption">图：唯一矩形Type 4 - R5C1, R5C7, R6C1, R6C7 形成包含3, 6的唯一矩形</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=MjU4LGczLGcxLGc5LDI2OCw0NTY4LDI4LDQ2LGI3LGI3LDI1OCxnNiwyNDU4LDEyMzgsMzQ1OCwyOCwxNCxnOSxnNCwyODksMjg5LDI4LDE2Nyw2NywxNixnNSxnMywyNTg5LDEyNTg5LDI1ODksZzMsNjgsNDY4LDE0NTksZzcsMTQ1OCwzNiwxNTgsYjcsNDgsZzksZzIsMTM0NTYsMTYsMTQ1NjgsMzYsODksZzQsYjcsZzUsZzEsMzY5LGcyLDY4LDEyNTgsZzcsMjU4LGc2LDIzOCwzNTgsMTQ1LGc5LDEyNDUsMjU5LGc2LGczLGcxLGc0LDU5LGc3LGI4LDI1LDEyNTg5LGI0LDI1ODksMjU4LDI3OCw1Nzg5LDE1NixnMywxMjU2" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <p>观察唯一矩形结构：</p>
+    <ul>
+        <li><span class="coord">R5C1</span>：候选数 <span class="highlight-num">{3, 6}</span>（地板格）</li>
+        <li><span class="coord">R5C7</span>：候选数 <span class="highlight-num">{1, 4, 5, 6, 8}</span>（含3, 6的屋顶格？实际需检查）</li>
+        <li><span class="coord">R6C1</span>：候选数 <span class="highlight-num">{3, 6}</span>（地板格）</li>
+        <li><span class="coord">R6C7</span>：候选数 <span class="highlight-num">{1, 4, 5, 6, 8}</span>（屋顶格）</li>
+    </ul>
+
+    <p>实际上根据题目，四个格子 R5C1, R5C7, R6C7, R6C1 包含候选数 {3, 6}，两个屋顶格 R5C7 和 R6C7 在<strong>第7列</strong>中都含有3和6。</p>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>检查强链条件：</strong>在第7列中，候选数<span class="highlight-num">3</span>只出现在R5C7和R6C7两个格子。这意味着第7列的3必须填在这两格之一（形成强链）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>推理逻辑：</strong>由于R5C7和R6C7中<strong>必有一个填3</strong>，它们<strong>不可能都填6</strong>。如果两个都填6，第7列就没有3的位置了。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>执行排除：</strong>既然两个屋顶格不能都填6，而为避免致死模式它们必须"破坏"只含{3, 6}的状态，可以从两个屋顶格删除候选数6：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li><span class="coord">R5C7</span>：删除候选数 <span class="delete-highlight">6</span></li>
+            <li><span class="coord">R6C7</span>：删除候选数 <span class="delete-highlight">6</span></li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 操作结果：</strong><br>
+        唯一矩形Type 4：<span class="coord">R5C1</span>、<span class="coord">R5C7</span>、<span class="coord">R6C1</span>、<span class="coord">R6C7</span> 包含 {3, 6}<br>
+        第7列中 <span class="coord">R5C7</span>、<span class="coord">R6C7</span> 必含3（强链），不能都填6<br>
+        从 <span class="coord">R5C7</span>、<span class="coord">R6C7</span> 删除候选数 <span class="delete-highlight">6</span>
+    </div>
+
+    <!-- ============ 总结 ============ -->
+    <h2><i class="bi bi-collection"></i> 四种类型对比</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered" style="background: white;">
+            <thead style="background: #f8f9fa;">
+                <tr>
+                    <th>类型</th>
+                    <th>地板格数量</th>
+                    <th>屋顶格数量</th>
+                    <th>特征</th>
+                    <th>删除位置</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Type 1</strong></td>
+                    <td>3个</td>
+                    <td>1个</td>
+                    <td>唯一的屋顶格有额外候选数</td>
+                    <td>从屋顶格删除UR对角数</td>
+                </tr>
+                <tr>
+                    <td><strong>Type 2</strong></td>
+                    <td>2个</td>
+                    <td>2个</td>
+                    <td>两个屋顶格有相同的额外候选数x</td>
+                    <td>从能看到两个屋顶格的格子删除x</td>
+                </tr>
+                <tr>
+                    <td><strong>Type 3</strong></td>
+                    <td>2个</td>
+                    <td>2个</td>
+                    <td>屋顶格的额外候选数与其他格形成数组</td>
+                    <td>按数组规则从同单元其他格删除</td>
+                </tr>
+                <tr>
+                    <td><strong>Type 4</strong></td>
+                    <td>2个</td>
+                    <td>2个</td>
+                    <td>UR对角数之一在屋顶格所在单元形成强链</td>
+                    <td>从两个屋顶格删除另一个UR对角数</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2><i class="bi bi-search"></i> 如何发现唯一矩形？</h2>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>寻找双值格：</strong>首先找出盘面中只有两个候选数的格子（双值格）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>检查矩形结构：</strong>看看是否有两个双值格含有相同的候选数{a, b}，且它们可以与另外两个格子形成矩形（两行两列，跨两个宫）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>验证另外两格：</strong>检查矩形的另外两个格子是否都包含{a, b}作为候选数（可以有其他候选数）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>判断类型并执行：</strong>根据地板格和屋顶格的数量和特征，判断属于哪种类型，然后执行相应的排除操作。
+    </div>
+
+    <div class="warning-box">
+        <strong><i class="bi bi-exclamation-triangle"></i> 重要条件：</strong><br>
+        <ul style="margin-bottom: 0;">
+            <li>唯一矩形的四个格子必须<strong>恰好分布在两个宫</strong>中（不能在同一个宫，也不能在三个或四个宫）</li>
+            <li>UR对角数{a, b}必须是所有四个格子的<strong>共同候选数</strong></li>
+            <li>唯一矩形技巧的前提是<strong>数独有唯一解</strong>，对于可能有多解的题目不适用</li>
+        </ul>
+    </div>
+
+    <h2><i class="bi bi-lightbulb"></i> 技巧总结</h2>
+
+    <ul>
+        <li><strong>核心思想：</strong>利用"数独必须唯一解"的规则，避免出现致死模式</li>
+        <li><strong>识别条件：</strong>四格形成矩形，跨两行两列两宫，都含相同的两个候选数</li>
+        <li><strong>类型选择：</strong>根据地板格/屋顶格的数量和额外候选数的分布选择处理方式</li>
+        <li><strong>应用场景：</strong>高级数独解题，特别是当其他技巧难以突破时</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-star"></i> 实战建议：</strong><br>
+        唯一矩形是非常强大的高级技巧，但需要一定的练习才能熟练识别。建议：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li>从Type 1开始练习，它最容易识别和理解</li>
+            <li>习惯标记候选数，这样更容易发现潜在的矩形结构</li>
+            <li>记住关键判断：四格、两行两列、两宫、相同双值</li>
+            <li>Type 3和Type 4需要结合其他技巧知识（数组、强链），建议先掌握这些基础</li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-play-circle"></i> 立即练习：</strong><br>
+        <a href="/" style="color: #667eea; font-weight: bold;">开始一局困难难度的数独游戏</a>，尝试发现和应用唯一矩形技巧！
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="../xy-chain/" class="nav-link">
+            <i class="bi bi-arrow-left"></i> XY链
+        </a>
+        <a href="../bug/" class="nav-link">
+            BUG技巧 <i class="bi bi-arrow-right"></i>
+        </a>
+        <a href="../sudoku-strategies/" class="nav-link">
+            <i class="bi bi-list"></i> 技巧目录
+        </a>
+    </div>
+</div>
+
+        </div><!-- /.guide-content -->
+
+        <footer class="footer">
+    <p class="mb-0">© 2025 SudokuPuzzle.org - 版权所有</p>
+</footer>
+    </main>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/assets/js/main.js?v=20260417.1"></script>
+
+<script>
+console.log('%c📚 Sudoku Guide', 'font-size:20px;font-weight:bold;color:#667eea;');
+console.log('%cVersion: 20260417.1', 'color:#764ba2;');
+console.log('%cEnvironment: Production', 'color:#51cf66;');
+</script>
+</body>
+</html>

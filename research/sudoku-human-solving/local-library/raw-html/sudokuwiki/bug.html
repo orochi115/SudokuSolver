@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>BUG - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. BUG stands for Bi-Value Universal Grave. It is a formation that relies on the uniqueness of the solution and an array of bi-value cells."/>
+<meta name="twitter:description" content="Sudoku Strategy. BUG stands for Bi-Value Universal Grave. It is a formation that relies on the uniqueness of the solution and an array of bi-value cells.">
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'BUG';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_BUG">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<div class="SRCell"><h1>BUG+1</h1>BUG stands for <b>Bi-Value Universal Grave</b><br><br>The principle behind BUG is the observation that any Sudoku where all remaining cells contain just two candidates is fatally flawed. There would have been a last remaining cell with three candidates. The odd number that couldn't be paired with another cell would have to be the solution for that cell in order to prevent the bi-value 'Graveyard'.<br><br>Thanks to Peter Hopkins for re-engaging me with BUG (July 2015). He has found the original discussion which goes back to November 2005. <a href="http://forum.enjoysudoku.com/is-there-a-simpler-way-to-solve-this-t2277.html">Here is the link</a>. From my testing of large data sets I believe that every instance of BUG can be solved by an <a href="XY_Chains">XY-Chain</a>. Hence it is positioned just before that strategy in the solver - it is an easy solution if you can recognise the pattern. Other simpler strategies may also do the same job but not as completely as XY-Chains.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/BUG1b.png" alt="BUG Example" /><figcaption>BUG Example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030000000109000008008007560900020057000080000520070006073800400800000901000000080">Load Example</a>
+</figcaption></figure>
+Here is an example written up by Peter<br><br>The BUG cell is <span class="hy">F8</span>. <br><ol><li>If the solution was 4 we'd have two 4s in column 8 and row F</li><br><li>If the solution was 6 we'd also have two 6s in column 8 and row F.</li><br><li>Putting 3 in <span class="hy">F8</span> sets up three 3s in column 8 and three in row F.</li></ol>Thus, in order to kill the BUG, <span class="hy">F8</span> must be 3. All alternatives allow two solutions since there are two of everything across all remaining rows and columns.<br><br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/BUG2.png" alt="27 Clue minimal BUG" /><figcaption>27 Clue minimal BUG
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=001000706736000005500000082000078000000520000000139000392000500600000137050000400">From the Start</a>
+</figcaption></figure>
+<br>It is possible for the BUG to exist in a sea of bi-value cells, such as this one discovered by Klaus Brenner. It is also notable for having two whole boxes with only bi-value cells.</div>
+
+<h2>Sudoku X BUGs - careful!</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FalseBUG.png" alt="False Positive BUG" /><figcaption>False Positive BUG
+: <a rel="nofollow" href="https://www.sudokuwiki.org/SudokuX.aspx?bd=X9B035u010b0d8206b69u0b0d0f82080g0c0a82b6822q0c0f015u04020e0b09080g0d01060c040f5u0a020c0e9eb60a5u03828206040b5u07014i060c0b0i4i0db60c0b0d0a825u2q0f0f82040g820h020c01">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/SudokuX.aspx?bd=301000600000080000000001042009800160400020000003006400710600000000000000004000201">From the Start</a>
+</figcaption></figure>
+<br>While testing I found this interesting false positive. <br><br>This is a Sudoku X puzzle so there are extra constraints on the diagonals. But the remaining candidates form a BUG pattern.  Or do they? <span class="hy">A9</span> contains 5,7,9. How to decide which candidate is the solution?<br><br>At this point I was not checking the diagonals so I missed that 9 would leave a single 9 in the diagonal on <span class="hy">F4</span>. So none of the candidates 5,7 and 9 qualify for the criteria even though 5 is the solution to <span class="hy">A9</span>.<br><br>The puzzle can be resolved with Simple Colouring on 5.</div>
+
+<div class="SRCell"><h2>BUG Exemplars</h2>
+These puzzles require the Bi-Value Universal Grave strategy at some point.<br>
+Only the first is somewhat trivial. They make good practice puzzles.
+<ul>
+<li><a href="/sudoku.htm?bd=200400501001038090030000708070002003060090005040000009004000060620300800810047000">Exemplar 1 (score 3.2)</a> (by David Filmer)</li>
+<li><a href="/sudoku.htm?bd=000009004000000015832000070100703060900080003060102009010000647490000000700800000">Exemplar 2 (score 3.3)</a></li>
+<li><a href="/sudoku.htm?bd=560904000002003000100070080000302500090000020000106000040030009000600700000709056">Exemplar 3 (score 3.6)</a></li>
+<li><a href="/sudoku.htm?bd=200039005107500042000000000004008200050000000006400900000000000620004108700950004">Exemplar 4 (score 3.6)</a></li>
+<li><a href="/sudoku.htm?bd=000001007040007093700200005005020604000080000308010700400002009510600020200900000">Exemplar 5 (score 3.7)</a></li>
+<li><a href="/sudoku.htm?bd=002090003000000010000600002007029000001000800000530600600001000030000000400080500">Exemplar 6 (score 5.3)</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Avoidable_Rectangles">Avoidable Rectangles</a></td><td class="w50pc cright">Continue to <a href="Gurths_Theorem">Gurths Theorem</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=76&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="BUG" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(76,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17433"><div class="w100pc"><div class="w60pc"><h2>... by: Hexameron</h2></div><div class="w40pc datepost">Sunday 31-May-2026</div></div>
+<div class="w100pc">I'm looking at the first example on this page (BUG+1) to understand the theory.  Am I right that the explanation is misworded?<br><br>- if cell F8 were a 4, it would trigger a 3 in D8, leaving two naked SIXES (not 4's) in column 8.  And, via the chain two naked 6's in row F.<br><br>Likewise, if F8 were a 6, you'd end up with two FOURS in column 8 and row F.<br><br>Thus, the solution to cell F8 must be 3 to avoid either of these dead ends.</div>
+<div class="w100pc" id="blog-reply17433"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,17433,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17043"><div class="w100pc"><div class="w60pc"><h2>... by: Charles R Cochems</h2></div><div class="w40pc datepost">Friday 22-Dec-2023</div></div>
+<div class="w100pc">The simple way to find and remove a BUG is.<br>1) is the unsolved number of cells odd? if not you do not have a situation you can apply this to.<br>2) is there exactly ONE cell left with three?  If not, you need to make more eliminations.<br>3) are all the other numbers penciled in in no more than 2 cells in each row, column or box? If no, you need to eliminate more until you are within the limits.<br>4) this all being true, one of the numbers in that cell will be in one row, column, and box three times instead of two.  This is the number that has to be placed there to kill the BUG, and it will create at least four naked singles. two in the row, and two in the column.  I believe it is always four, because the only way I see for there to be three in a box, row, and column is if the box and row or column share a set of 3 of the number.<br><br><br></div>
+<div class="w100pc" id="blog-reply17043"></div>
+</div><div id="blog-reply0" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,17043,0)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16978"><div class="w100pc"><div class="w60pc"><h2>... by: domP</h2></div><div class="w40pc datepost">Monday 31-Jul-2023</div></div>
+<div class="w100pc">It seems that when we get BUG, the sudoku can only have one or three solutions. Never two solutions and never more than 3.<br>Can you confirm ? If not, maybe you have a counter-example ?<br><br>So we need to check the number of solutions before using 'BUG'. <br>As I don't know uniqueness of solution, I never use 'BUG'. It's the same as all the unique rectangle methods. <br>Is it a correct method to check a new puzzle ?<br><br>It seems also that, if we put this BUG test, after XYchains, it will never be usefull. Right ?<br><br>Thanks a lot for all explainations.<br>DomP  <br><br><br>  </div>
+<div class="w100pc" id="blog-reply16978"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16978,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16916"><div class="w100pc"><div class="w60pc"><h2>... by: NeutrinoAnt</h2></div><div class="w40pc datepost">Wednesday 22-Mar-2023</div></div>
+<div class="w100pc">Intreresting 'decisive technique' for hard sudoku. Be careful to check if there's another candidates to be removed by naked pair/triple, otherwise it may not be a BUG.</div>
+<div class="w100pc" id="blog-reply16916"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16916,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16816"><div class="w100pc"><div class="w60pc"><h2>... by: Kasper D</h2></div><div class="w40pc datepost">Sunday 12-Jun-2022</div></div>
+<div class="w100pc">I don't think this is a good explanation for a bug. When I tried to use it in a puzzle I got the wrong result. I obviously didn't understand the bug method but I still don't, so I think a better explanation is required. Further, when the puzzle is loaded in the solver it doesn't actually find a bug. Yes, 2 is the right answer for D8, but why? Maybe not caused by a bug? </div>
+<div class="w100pc" id="blog-reply16816"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16816,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16696"><div class="w100pc"><div class="w60pc"><h2>... by: Jonathan Handojo</h2></div><div class="w40pc datepost">Wednesday 4-Aug-2021</div></div>
+<div class="w100pc">Alright, this strategy is now proven flawed. I've come across a puzzle where all cells are bi-value cells and can still consist of a unique solution. It's a puzzle that I purchased from the Extreme Pack, so I'm not permitted to sharing it here. Andrew Stuart, I've sent you an email with the puzzle and the step at which I took to make all cells bi-value. I actually played this far myself and wanted to check whether I'm doing the right eliminations. When I thought I saw an XY-Chain that made everything bi-value cells after that, I thought I made a mistake somewhere. So, I used the solver and it happened to also deduced to the same elimination.</div>
+<div class="w100pc" id="blog-reply16696"></div>
+<div class="post-reply" id="reply2950"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Sunday 6-Feb-2022</td></tr>
+<tr><td colspan="2">Jonathan, the BUG pattern requires not only bivalue cells, but also every row, column and box having at most two instances of each candidate.</td></tr>
+</table></div>
+</div><div id="blog-reply2950" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,16696,2950)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16550"><div class="w100pc"><div class="w60pc"><h2>... by: Jan</h2></div><div class="w40pc datepost">Monday 17-Feb-2020</div></div>
+<div class="w100pc">This technique isn't right because in yellow cell (1.2.3) on first pattern it is missing number 4 candidate.</div>
+<div class="w100pc" id="blog-reply16550"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That is removed by a previous strategy. Two steps are required to clear off enough candidates to use BUG</div></div><div id="blog-reply2609" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,16550,2609)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16433"><div class="w100pc"><div class="w60pc"><h2>... by: David Filmer</h2></div><div class="w40pc datepost">Monday 21-Jan-2019</div></div>
+<div class="w100pc">I have found a very simple example of a BUG which has only 13 unsolved cells of which 12 have 2 candidates and one has 3 as follows:-<br>2..4..5.1..1.38.9..3....7.8.7...2..3.6..9...5.4......9..4....6.62.3..8..81..47...<br>I entered it into the Brent Knoll News February 2019 edition and called it Valentine, as the clues are in the shape of a heart with a Cupid's Arrow piercing it!<br><br>All the other illustrations  of a BUG (above) had many more. Can anyone else find a BUG with less than 13 unsolved cells?</div>
+<div class="w100pc" id="blog-reply16433"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16433,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16112"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Australia</h2></div><div class="w40pc datepost">Monday 4-Jan-2016</div></div>
+<div class="w100pc">Happy New Year Andrew!<br>AS a person reading about BUG for the first time may I make these suggestions to make this brief explanation clearer:<br>1. As noted by strmckr on 26/10/15, BUG "requires knowledge of unique rectangles and deadly patterns to apply its technique correctly". Since BUG is applied before URs in the solver, I think a reference should be made (in the first paragraph) to UR's strategy explanation for the novice to get an explanation of "deadly patterns". <br>2. "Removing candidate 1 from the cell ... " OR candidate 3<br>3. Adding a numbered point 5. something like "Hence the whole of the unsolved part of the puzzle becomes a deadly bi-value pattern". Not obvious to a BUG novice.  ;-)<br><br>All the best for the new year!<br><br>Ciao<br>Pieter</div>
+<div class="w100pc" id="blog-reply16112"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16112,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16086"><div class="w100pc"><div class="w60pc"><h2>... by: strmckr</h2></div><div class="w40pc datepost">Monday 26-Oct-2015</div></div>
+<div class="w100pc">your placing bug strategies way to high in the hierarchy: most bugs are solvable from a <br><br>finned/sashimi x-wing  { fish pattern's } <br><br><br>out side of that it requires knowledge of unique rectangles and deadly patterns to apply its technique correctly. <br><br>Bug<br>http://forum.enjoysudoku.com/the-bug-bivalue-universal-grave-principle-t2352.html#p14899<br><br>bug lite <br>http://forum.enjoysudoku.com/between-uniqueness-and-bug-bug-lite-t3056.html<br><br>for reference to the other type of uniqueness based solving techniques also not covered on this site<br><br> http://forum.enjoysudoku.com/collection-of-solving-techniques-t3315.html<br><br>look up: <br>reverse bug,<br>reverse bug lite<br>mug<br><br>here is another one that is surprising powerful but often missed,  <br>the unique rectangle 1.1<br><br>http://forum.enjoysudoku.com/how-do-ars-arise-t31045.html#p226670<br>{there is early posts this one sums it up the best} <br>U.R 1.1   <br><br>    Definition: an a/b/b/a pattern in a solution grid is anything isomorphic to that shown below:<br><br>    Code: Select all<br>         .  .  . | .<br>         a  .  . | b<br>         b  .  . | a<br>        ---------+---<br>         .  .  . | .<br><br><br>    Fact: if a solution grid (not necessarily unique) contains an a/b/b/a pattern on four unclued cells, C, then C=b/a/a/b is also a solution.<br><br>    Theorem: if a puzzle-in-progress (that does not necessarily have a unique solution) has pencilmarks as shown below on four unclued cells then the bottom right value resolves to '3':<br><br>    Code: Select all<br>         .  .  . | .<br>         1  .  . | 2<br>         2  .  . | 13<br>        ---------+---<br>         .  .  . | .<br><br><br>    Proof: suppose to the contrary the bottom right value resolves to '1'. Then (vacuously) the solution grid contains the 1/2/2/1 pattern on four unclued cells, C. So, by the Fact above, C=2/1/1/2 is also a solution. But wait! - the pencilmarks do not allow that other solution - contradiction.<br><br><br>    denis_berthier wrote:<br>    Thanks, RedEd, for this very smart proof.<br><br>    Before it, UR1.1 was only a conjecture, a matter of belief or disbelief. It is now a valid theorem (we'll see later under what implicit conditions). It shows that a short and clean proof can do what pages of repeated but unsustained claims can't.<br><br><br><br></div>
+<div class="w100pc" id="blog-reply16086"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16086,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16081"><div class="w100pc"><div class="w60pc"><h2>... by: mike</h2></div><div class="w40pc datepost">Wednesday 14-Oct-2015</div></div>
+<div class="w100pc">can the bug method also be used to solve str8ts puzzles thank you</div>
+<div class="w100pc" id="blog-reply16081"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Interesting question, I'd have to test it to be sure. There exists in Str8ts the idea of deadly rectangles - double solutions based on rectangles, but if this spans two compartments then the deadly pattern might not occur.  A positive example would be nice, lots of negative ones don’t really prove it</div></div><div id="blog-reply2518" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,16081,2518)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16050"><div class="w100pc"><div class="w60pc"><h2>... by: Strmckr</h2></div><div class="w40pc datepost">Sunday 2-Aug-2015</div></div>
+<div class="w100pc">Technically most bugs contain a finned or sashimi X- wing (skyscraper)  on a single digit. <br>Which are easier to spot then xy wings and even this. <br>Not to mention bugs and bug lite patterns only function based on  uniqueness assumed. </div>
+<div class="w100pc" id="blog-reply16050"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,16050,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15999"><div class="w100pc"><div class="w60pc"><h2>... by: Brett Yarberry</h2></div><div class="w40pc datepost">Wednesday 11-Mar-2015</div></div>
+<div class="w100pc">I have found a good example of a solution easily solved by the BUG. <br><PRE>  4-6-7 | 18-9-3 | 18-2-5 <br>  9- 2-8 | 17-5-4 | 3-6-17<br>  1- 3-5 | 2-6-78 | 4-78-9<br> -------------------------------<br>  3- 1-4 | 78-78-5 | 2-9-6<br>  2- 5-6 | 3-4-9 | 17-17-8<br> 78-78-9 | 6-1-2 | 5-4-3<br> -------------------------------<br> 78- 9-3 | 4-78-1 | 6-5-2<br>  6- 4-2 | 5-3-78 | 9-178-17<br>  5-78-1 | 9-2-6 | 78-3-4</pre><br>The initial position of the board (loaded in solver) is: <a href="/sudoku.htm?bd=000093000008004060105200400314000000200000008000000543003001602040500900000920000">LOAD HERE</a><br><br></div>
+<div class="w100pc" id="blog-reply15999"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Requires that Simple Colouring, Y-Chains and X-Cycles are turned off to find this example - just because of the ordering of the strategies in the solver.</div></div><div id="blog-reply2498" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,15999,2498)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15601"><div class="w100pc"><div class="w60pc"><h2>... by: Arthur Lurvey</h2></div><div class="w40pc datepost">Thursday 15-Mar-2012</div></div>
+<div class="w100pc">When you write up this technique, consider using <a href="sudoku.htm?bd=196327854547800213283514769914003605052400900608950400469138572801045396005600148">the following example</a><br><br>I got it from http://homepages.cwi.nl/~aeb/games/sudoku/solving18.html.  It can be solved using other methods, but they are of the diabolical class.  So this makes for a good application of this technique.<br><br>Art</div>
+<div class="w100pc" id="blog-reply15601"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,15601,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15496"><div class="w100pc"><div class="w60pc"><h2>... by: Peru Boro</h2></div><div class="w40pc datepost">Tuesday 17-May-2011</div></div>
+<div class="w100pc">Does Bug+1 system always work? Usually it does work but twice it failed me so I want to be sure.Thank you.</div>
+<div class="w100pc" id="blog-reply15496"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Don't know BUG+1, do share a link to someone's explanation if you can.</div></div><div id="blog-reply2323" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,15496,2323)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15371"><div class="w100pc"><div class="w60pc"><h2>... by: Sean Forbes</h2></div><div class="w40pc datepost">Wednesday 24-Mar-2010</div></div>
+<div class="w100pc">Andrew, While I agree that a more astute player will more than likely identify and utilize some other solving technique before resorting to this one, I find this method very handy in real-time online competitions, especially if I've overlooked one of the more effective solving techniques up to the point when I can recognize the BUG pattern.<br><br>Thanks.  Sean</div>
+<div class="w100pc" id="blog-reply15371"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(76,15371,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15370"><div class="w100pc"><div class="w60pc"><h2>... by: Harmen Dijkstra</h2></div><div class="w40pc datepost">Friday 19-Mar-2010</div></div>
+<div class="w100pc">i have a sudoku with this strategy:<br><pre><br>+--------------+--------------+--------------+<br>|    4   2   1 |    5   8   6 |    9   3   7 |<br>|    5   9  38 |    1  34   7 |    2  48   6 |<br>|    6   7  38 |    2  34   9 |   14 148   5 |<br>+--------------+--------------+--------------+<br>|    7   1   9 |    8   2   3 |    5   6   4 |<br>|    2   5   6 |    4   7   1 |    8   9   3 |<br>|    8   3   4 |    9   6   5 |   17  17   2 |<br>+--------------+--------------+--------------+<br>|    1   6   5 |    3   9   2 |   47  47   8 |<br>|    3   4   2 |    7   1   8 |    6   5   9 |<br>|    9   8   7 |    6   5   4 |    3   2   1 |<br>+--------------+--------------+--------------+<br><br>with this strategy, we will get this solution:<br><br>+--------------+--------------+--------------+<br>|    4   2   1 |    5   8   6 |    9   3   7 |<br>|    5   9   3 |    1   4   7 |    2   8   6 |<br>|    6   7   8 |    2   3   9 |    1   4   5 |<br>+--------------+--------------+--------------+<br>|    7   1   9 |    8   2   3 |    5   6   4 |<br>|    2   5   6 |    4   7   1 |    8   9   3 |<br>|    8   3   4 |    9   6   5 |    7   1   2 |<br>+--------------+--------------+--------------+<br>|    1   6   5 |    3   9   2 |    4   7   8 |<br>|    3   4   2 |    7   1   8 |    6   5   9 |<br>|    9   8   7 |    6   5   4 |    3   2   1 |<br>+--------------+--------------+--------------+<br><br>However, there are other solutions, for example:<br><br>+--------------+--------------+--------------+<br>|    4   2   1 |    5   8   6 |    9   3   7 |<br>|    5   9   8 |    1   3   7 |    2   4   6 |<br>|    6   7   3 |    2   4   9 |    1   8   5 |<br>+--------------+--------------+--------------+<br>|    7   1   9 |    8   2   3 |    5   6   4 |<br>|    2   5   6 |    4   7   1 |    8   9   3 |<br>|    8   3   4 |    9   6   5 |    7   1   2 |<br>+--------------+--------------+--------------+<br>|    1   6   5 |    3   9   2 |    4   7   8 |<br>|    3   4   2 |    7   1   8 |    6   5   9 |<br>|    9   8   7 |    6   5   4 |    3   2   1 |<br>+--------------+--------------+--------------+<br></pre></div>
+<div class="w100pc" id="blog-reply15370"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes, <a href="sudoku.htm?bd=421586937590107206670209005719823564256471893834965002165392008342718659987654321">this puzzle</a> has three solutions so it is most likely faulty or has been entered incorrectly</div></div><div id="blog-reply2295" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(76,15370,2295)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 287447<br>
+			This page was last modified on 9-March-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3c52981ace32',t:'MTc4MDMwNjYwMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

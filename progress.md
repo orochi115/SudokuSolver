@@ -23,3 +23,6 @@
 - Validation counts: 40 Markdown source files, 40 raw HTML files, 13 technique cards, and 6 index/mapping files.
 - Audited source coverage and associations; fixed manifest/mapping gaps and restored missing local files.
 - Added `research/sudoku-human-solving/local-library/audit-report.md` with verification results, coverage assessment, and optional download recommendations.
+- Supplemental download pass: added SudokuWiki pages for XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with URs.
+- Supplemental download pass: added Chinese/Sudoku.com specialty pages for Swordfish, Y-Wing, XY-Wing, and Unique Rectangle.
+- Updated manifest, citation map, bibliography, and source/technique mappings for 56 source entries.

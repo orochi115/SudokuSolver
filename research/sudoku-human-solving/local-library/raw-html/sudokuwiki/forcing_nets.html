@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Forcing Nets - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Explanation of Forcing Nets - an expansion of Forcing Chains using Alternating Inference Chains. "/>
+<meta name="twitter:description" content="Explanation of Forcing Nets - an expansion of Forcing Chains using Alternating Inference Chains. ">
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Forcing_Nets';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Forcing_Nets">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Forcing Nets</h1><div class="SRCell">
+<figure style="width:260px"><img src="PuzImages/link4.png" alt="" /></figure>
+<div style="color:#6f6">20-March-2026. Forcing Nets released!</div><br>Forcing Nets extend <b>Forcing Chain</b> patterns like <a href="/Digit_Forcing_Chains">Digit Forcing Chains</a>. Forcing Chains are linear or made up of several linear chains. A 'net' suggests two dimensions rather than one. We start with an <span class="hg">ON</span> or <span class="hr">OFF</span> and follow the consequences. All candidates that can see the target candidate are flipped. An <span class="hg">ON</span> will effect all it can see. An <span class="hr">OFF</span> will propagate only if one other candidate is present in the row, column, box or cell (essence of a Stong Link).  In a 'net' two chain parts may converge on a cell and turn off two candidates leaving a third that must be <span class="hg">ON</span>. This third kicks off another chain fragment. If you go deep enough many if not most candidates will be assigned one state or another.<br><br>A successful Forcing Net finds one of these contradictions:<ol><li>All candidates in a cell turned <span class="hr">OFF</span></li><li>Two candidates in a cell turned <span class="hg">ON</span></li><li>All candidates in a unit turned <span class="hr">OFF</span></li><li>Two candidates in a unit turned <span class="hg">ON</span></li></ol>There is one more condition - not a contradiction - but a perfect cover of the board:<br><ol start="5"><li>All candidates are linked and one <span class="hg">ON</span> remains in each cell. This is <a href="Bowmans_bingo">Bowman's Bingo</a> and has it's own page and it is placed in the solver order as a 'last resort'.</li></ol>Given the contradiction cell(s) it is possible to back-track up the tree to the root node and claim it is <span class="hg">ON</span> (can be placed) or <span class="hr">OFF</span> (can be removed). The solver searches with an initial <span class="hr">OFF</span> and if none are found it tries <span class="hg">ON</span> . An <span class="hg">ON</span> candidate is attractive as the placement is more bottleneck breaking but there are many fewer. If I do both the search time gets too long. </div>
+
+<h2>Speed vs Utility</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ForcingNetEg7.png" alt="Unsolvable #689 showing a 3-chain FN" /><figcaption>Unsolvable #689 showing a 3-chain FN
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B849k140h86042d13065m5y5q021y012i092m987s018y0792081a0wbf0662a28f5y7v028b03052k9m7x9e8r1n08bhb94c9625ci03078b1h0p093e0836051r0x5f045e038y02ab4z9f07485k01968y8s5a80">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000004006000201090001070800060000020350000008000000370009080500040302000700100000">From the Start</a>
+</figcaption></figure>
+The algorithm is pretty fast if it is allowed to return the first Forcing Net it finds but I think the solver should work a little harder than that. Instead I let it finish checking all candidates and return the Forcing Net with the shortest combined Chain length which is also related to the search depth. If I find an elimination at depth 6 I don't look deeper.<br><br>It will be a program of work for the future to expand Forcing Nets by using exotic links such as ALSs, Unique Rectangles and other building blocks which are a feature of Forcing Chains.<br><br>There are three levels of Forcing Net complexity<ol><li>Chains which are completely linear, no grouped cells. These ought to mirror 3D Medusa so not sure why 3D Medusa doesn’t get there first. These are solely bi-value and bi-location links. The example above is of this type.</li><li>Chains with Grouped Cells. It detects that two or three <span class="hr">OFF</span> candidates are present and can make an <span class="hg">ON</span> candidate if it is the last remaining. The Off cells are accumulated by previous links in one or both of the chains. The result can be expressed as chains which I can display.</li><li>Chains with Grouped Cells + sub chains. Some Forcing Nets pick up links based on certain candidates being <span class="hr">OFF</span> but are <span class="hr">OFF</span> because of other branches off the main chains. I don’t know how to include these sub branches in the output so I am putting a note to the user to say the chains may reply on sub-chains not spelt out explicitly. It is possible to view them using the manual Forcing Nets I built earlier.</li></ol>So while 1) and 2) can be well illustrated 3) leaves something to be desired.<br><br>Forcing Nets is available in all Sudoku, Jigsaw, Sudoku X and all Windoku solvers.</div>
+
+<h2>Interpreting the net start</h2>
+<div class="SRCell">
+<figure style="width:200px"><img src="PuzImages/fn_fragment.png" alt="" /></figure>
+The root candidate can be a bit confusing at times. To kick things off in this forcing net <span class="hy">G9</span> is <span class="hr">OFF</span>. But the results have two display conflicts:<ul><li>The 9 is correct for being OFF and the start of the chain. But also because of the contradiction it wants to be ON as that is result of the contradiction. Can’t do both</li><li>The four wants to be ON because -9[G9] and is drawn green. But as a result of the contradiction +9 is ON and that eliminates 4 in G9. So it draws yellow+red text</li></ul>I might try and get around this by adding a ring or larger circle that can indicate these states.<br></div>
+
+<h2>Testing and Implications</h2>
+<div class="SRCell">I have a bit of a dilemma because it is so powerful I’m not sure where to put it in the order. I imagined it should go just before Bowmans but it finds many simpler and useful solutions I am wondering if some of my other chaining strategies are complete. <br><br>I ran some tests where I put it at the start of the extremes, just before Exocet<ol><li>Solved 70% of the <a href="/Weekly-Sudoku.aspx">weekly unsolvables</a>. That’s 221/228 of my puzzles. David Filmer’s: 129/333 (39%)</li><li>It solves 100% of Ruud’s top 50,000. I was missing only about 60 so not too surprising. </li><li>It solves 95% of a 119,000 unsolvables by Roger Kroger. A list he sent me about 5 years ago. I’ve been using some for the weekly when I run out.</li><li>It solves <s>9%</s> <b>now 34%</b> of the puzzles5_forum_hardest_1905_11 set which doesn’t sound much but is a big upgrade. This is the current frontier test set. This set has a lot of Exocets in addition.</li><li>If you manually enter the eliminations for steps 5, 6 and 8 the <a targe="_blank" href="https://sudoku.allanbarker.com/sweb/extra/easter/a_em.htm">Easter Monster</a> solves.</li></ol>Forcing Nets are currently just after Grouped Cells. 99% of all strategy instances after Forcing Nets seem to be replaced by Forcing Nets. The exception is set 4) above with Exocets also dominating. I could drop almost everything in the strategy 'extremes' but they solve puzzles differently and maybe with more clarity than every Forcing Net. So they will be retained.<br><br>If I use a greedy approach and get it to return the first instance it is extremely fast. It solved Ruuds 50k it in 4% of the time, like 10 mins as opposed to 4 hours. However I prefer if it searches for the shortest combined length of all chains. This does not lead to an optimal or quick solution but I think the user would expect/prefer these to much longer chains.<br><br>While testing Forcing Nets it duplicated a simple <a href="/Intersection_Removal">Pointing Pair</a> which I was missing from <a href="/Windoku.aspx">Windoku</a> – a window pointing at a window, which I've now added to Pointing Pairs. I hope I can find other instances.<br><br>I tried to make a single unsolvable on my main PC but after 24 hours it found not one. I have flagged all the weekly unsolvables that are broken. Not checked Jigsaw unsolvables yet.</div><br>
+
+<h2>Second round of testing - choice of search order</h2>
+<div class="SRCell">The time to compute Forcing Nets and the number of Forcing Nets outputted can be improved. Up to 27th of March the solver only looked for Forcing Nets beginning with a candidate being turned <span class="hg">ON</span>. However I've noticed many solve paths have long series of nets compared to using Forcing Chains making them seem less efficient. <br><br>I tested the first 50 unsolvables which produced 1,044 Forcing Nets in the released solver. Interesting results. Degrees of freedom are: <ol><li>It can choose to start with a candidate ON or OFF or check both</li><li>It can return the first one or the shortest</li><li>It can look for cells with fewest candidates first</li></ol>The short of it is that allowing the solver to return the FIRST forcing net is not only much faster but the solve path is much shorter – but the forcing nets are big and ugly (compared to shortest ones). That’s not going to impress users of the solver.</div><br>
+
+<div class="SRCell"><table class="defstrtable">
+<tr>	<td></td>	<td class="tpr">FNs</td>	<td class="tpr">Compared</td>	<td class="tpr">Reduction</td>	</tr>
+<tr>	<td class="thb">(Previously) Shortest <span class="hg">ON</span></td>	<td class="tpr">1044</td>	<td class="tpr">100%</td>	<td class="tpr">0%</td>	</tr>
+<tr>	<td class="thb">Shortest <span class="hg">ON</span> Only but bi-value cells first</td>	<td class="tpr">983</td>	<td class="tpr">94%</td>	<td class="tpr">6%</td>	</tr>
+<tr>	<td class="thb">Shortest of either</td>	<td class="tpr">1007</td>	<td class="tpr">96%</td>	<td class="tpr">4%</td>	</tr>
+<tr>	<td class="thb">(How it is now) Shortest <span class="hr">OFF</span> cand, if <span class="hr">OFF</span> Ignore <span class="hg">ON</span></td>	<td class="tpr">389</td>	<td class="tpr">37%</td>	<td class="tpr">63%</td>	</tr>
+<tr>	<td class="thb">First <span class="hg">ON</span></td>	<td class="tpr">376</td>	<td class="tpr">36%</td>	<td class="tpr">64%</td>	</tr>
+<tr>	<td class="thb">First <span class="hg">ON</span> rotated 180 degress</td>	<td class="tpr">410</td>	<td class="tpr">39%</td>	<td class="tpr">61%</td>	</tr>
+<tr>	<td class="thb">First <span class="hg">ON</span> rotated 90 degress</td>	<td class="tpr">417</td>	<td class="tpr">40%</td>	<td class="tpr">60%</td>	</tr>
+<tr>	<td class="thb">First <span class="hr">OFF</span>, if none then First <span class="hg">ON</span></td>	<td class="tpr">281</td>	<td class="tpr">27%</td>	<td class="tpr">73%</td>	</tr></table></div><br>
+
+<div class="SRCell">In this table <span class="hg">ON</span> means the state of the candidate chosen to kick off a Forcing Net. If a contradiction is found then we remove it. Likewise if an <span class="hr">OFF</span> is contradictory it must be the solution.<br><br>Choosing emptier cells in order makes a 6% improvement but that is not good enough. I think is searches the same space just in a different order, no 6% is not surprising.<br><br>I wanted to check if there was a top-left to bottom right bias in the puzzle if you allow it to only return the first one. I rotated all 50 by 90 degrees and then 180 degrees. Approximately a third reduction in number of nets required.<br><br>So my compromise sweet spot is “return the Shortest ON and only check OFF if none found”. These are still big forcing nets and sometimes they loop back to the origin cell. They are also rarely as previous tests found. But the advantage of validating an ON is that it busts open that cell with a solution rather than chipping away at a mass of candidates. I might add some options so the user can choose but I have to consider complicated the solver interface.</div><br>
+
+<h2>Why Now?</h2>
+<div class="SRCell"><b>Forcing Nets</b> has been in my job queue for the longest. The reason for my hesitation is, while the concept is not too difficult, creating an efficient implementation has been daunting as the potential search space is enormous. Any extra strategies need to take a reasonable amount of time to compute as the CPU resources are finite.<br><br>The second reason I've been hesitant to introduce them is they are border-line "trial and error" and my solver is devoted to "pattern-based" strategies. I don't believe in back tracking as a final resort. It is more interesting to leave those puzzles as an open question. However it is possible to reduce a Forcing Net to the essential chain fragments and express them as Alternating Inference Chains. <br><br>The third reason I've been hesitant is that it is far from a human pen and paper method and I was always hoping something better would come along first.<br><br>Forcing Nets have busted open almost all of my existing 'unsolvables' so making future ones much harder, but that's progress.<br></div><br>
+
+<h2>Manually looking for Forcing Nets</h2>
+<div class="SRCell">
+<figure style="width:470px"><img src="PuzImages/ChainsFeatureb.png" alt="" /></figure>
+Take Step may find a Forcing Chain if the puzzle is hard but at any stage you can manually test and view Forcing Nets as have an implication simulator you can play with. Choose "Chains" above the main solver board. There is a slider allowing you to set the depth of the search. This will dynamically re-size the displayed Forcing Net.<br><br><br><br></div>
+
+<div class="SRCell">
+<figure style="width:400px"><img src="PuzImages/ForcingNetEg1.gif" alt="" /></figure>
+<br>Lets take a very trivial example to start with. <br><br>We know just from glancing at the board that 5 must go in <span class="hy">A6</span> as it is the last space for a 5. But we're going to ignore that and click on 5 in <span class="hy">F6</span> to turn it <span class="hg">ON</span>. <br><br>The slider level is depth 1 - the default. Immediately it turns off all the 5s it can see.<br><br>Moving the slider to depth 2 sets a bunch of candidates green as they are bi-value cells and must be the solutions if the other candidate is turned off.<br><br>Moving the slider to depth 3 turns <span class="hr">OFF</span> even more candidates because of the new green ones turned on.<br><br>And so on. The yellow cell indicates a contradiction telling us our original choice was wrong and we can eliminate that candidate. At the end it find that all 2s are removed from column 6, a compounded error.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ForcingNetEg02c.png" alt="" />: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0903080b04050f2b2j0h05067q0n7u2f0b020r067r070e7u0n0h0c020a0g060i0h040e8i1m7u020e080c2b2b0e070h0n040n0b090f0h0e7u7u010f070b030r0v0g7y0h02060e7u8i1q02057q0701087u">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=093804500005600000206070000020060040000208000070040090000010703000002600002507180">From the Start</a>
+</figcaption></figure>
+<br>Here is a more complicated but real example. I targeted <span class="hy">B7</span> and got: "Forced Net: Two candidates in <span class="hy">H2</span> are <span class="hg">ON</span> so <span class="hy">B7</span> must be 9"<br><br>The candidate I clicked on was the 9 in B7 but I clicked twice to get the negative assertion -9[B7]. Unlike the positve +9[B7] this led to result by slider depth 6.<br><br>'But Andrew, this looks suspiciously like the first example in <a href="/3D_Medusa">3D Medusa</a>. What trick is this. Aren't you treading on old ground here?'<br><br>Well spotted and yes and no. Firstly I wanted an example that wasn't just a 'all candidates emptied a cell'. But also I wanted an intermediate example and yes 3D Medusa is a partial subset of Forcing Nets and we trace them in a similar way. But 3D Medusa is restricted to bi-value and bi-location links and we are going to go well beyond that. Interesting not every candidate in the example will find a contradiction and when it does it might be in a different part of the pattern. We are allowed to try out different 3D Medusa patterns in the same space with this feature. Try clicking on 1 in <span class="hy">C2</span>.<br><br><div id="resultdiv">Forced Net: Two candidates in <span class="hy">H2</span> are <span class="hg">ON</span> so <span class="hy">B7</span> must be 9</div><div id="resultdiv"><span class="hc">-9[<span class="hy">B7</span>]+9[<span class="hy">C7</span>]-4[<span class="hy">C7</span>]+4[<span class="hy">C2</span>]-1[<span class="hy">C2</span>]+1[<span class="hy">H2</span>]</span></div><div id="resultdiv"><span class="hc">-9[<span class="hy">B7</span>]+9[<span class="hy">B5</span>]-9[<span class="hy">J5</span>]+3[<span class="hy">J5</span>]-3[<span class="hy">J2</span>]+3[<span class="hy">H2</span>]</span></div><br>Some of the other rules of 3D Medusa do not pop out in the current version of Forcing Nets and I need to research further the exact overlap.<br><br></div>
+
+<h2>Grouped Cells</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ForcingNetEg3.gif" alt="" /></figure>
+Grouped cells also play a part in Forcing Nets just as they do in Forcing Chains. This illustration on a net fragment shows how the initial placement of 9 in <span class="hy">D2</span> removes the 9s from the rest of box 4.  The simulator detects there is only one 9 left in the row and adds it to the net to allow the net to continue growing. This example is in a relatively simple puzzle that doesn't need a Forcing Net but I teased it out as a clear example. Unlike the AICs draw on the board I don't add a box and just draw arrow from one of grouped cells to the next part of the link. <br><br>Unless the board has a very high density of candidates in most cases most nets will expand without using Grouped Cells. But I need to explain it here in case it looks like parts of a network appear disconnected.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><a href="Unsolvable 592"><img  src="PuzImages/ForcingNetEf4c.png" alt="" /></a></figure>
+<br>Can I use Forcing Nets to break open a weekly unsolvable? I clicked around on <a href="/sudoku.htm?bd=800000070040000005001000903002006000070050400300900080090070000600002010005300008">Unsolvable #592</a> and yes I found a bottleneck. Asserting 7 on <span class="hy">C1</span> caused <span class="hy">D2</span> to empty. So did 2 on the same cell so 5 was the solution. After still too many Bowmans and Pattern Overlays it solved :)<br><br>Feedback and comments appreciated.<br><br>Andrew Stuart</div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Quad_Forcing_Chains">Quad Forcing Chains</a></td><td class="w50pc cright">Continue to <a href="Bowmans_Bingo">Bowman's Bingo</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=256&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Forcing_Nets" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(256,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17419"><div class="w100pc"><div class="w60pc"><h2>... by: hepa</h2></div><div class="w40pc datepost">Thursday 16-Apr-2026</div></div>
+<div class="w100pc">Hi Andrew,<br>above  you state<br>"An OFF will propagate only if one other candidate is present in the row, column, box or cell (essence of a Stong Link)"<br><br>In the first example given here there is a chain<br>+9[F6]-9[F1]+9[D1]-9[A1]<br><br>-9[F1]+9[D1] is drawn as STRONG link although 9 is in other cells of the column and box.<br>So, am I missing something regarding strong/weak links ?</div>
+<div class="w100pc" id="blog-reply17419"></div>
+<div class="post-reply" id="reply3077"><table class="w100pc"><tr><td class="post-writes">hepa replies:</td><td class="datepost">Sunday 19-Apr-2026</td></tr>
+<tr><td colspan="2">Meanwhile, I think, I can answer my question myself ... the state of the puzzle once a chain reaches a house or cell is relevant whether or not a strong link can be applied :)</td></tr>
+</table></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Perhaps not the best example to open with. The solver Forcing Net doesn't show all the chain parts that might be necessary to turn off enough candidates so that a link may continue, and only the direct path from root candidate to contradiction is reported. Weakness of the current implementation. </div></div><div id="blog-reply3078" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(256,17419,3078)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17414"><div class="w100pc"><div class="w60pc"><h2>... by: Don Vickrey</h2></div><div class="w40pc datepost">Wednesday 8-Apr-2026</div></div>
+<div class="w100pc">Isn't Forcing Nets  (FN) based on guessing, If not, what are the criteria used to decide which candidate you should apply FN to? If there are no solid criteria, you can just shop around until you have found a contradictory or successful outcome.  That is, assuming your chosen canidate's outcome is one or the other (which probably would be the case miany instances in a given puzzle). In this regard, FN provides very valuable results when you apply it to a candidate of a pair. But, this sort of practice has always been considered to be guessing, right? <br><br>Regardless, I like using FN in conjunction with XY Chains. I choose a member of a pair to hope for valid elimination. Then, I apply FN to the candidate to be eliminated. I assume that this candidate's elimination is valid and use FN to say yes or no. Here I have a criterion. Choose the candidate to be eliminated to apply FN to. I don't think that is guessing. But, XY Chains does not live up to its guarantees. Indeed, IMO, XY Chains yield nothing but guesses. So, I have a criterion to apply to a guess.</div>
+<div class="w100pc" id="blog-reply17414"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>A computer will scan exhaustively from top left to bottom right or in whatever order you specify so guessing doesn’t really translate to what a computer does. In a strict sense it is the opposite – thoroughly deterministic. But I get what you mean – does the strategy feel wrong because it is so hard to find the pattern. That’s a problem with a lot of strategies and quite extreme for Forcing Nets but we can prove that it does find a pattern with some logic attached. So while these extreme strategies are in a grey area touching trial and error I think Forcing Nets merely extend what people have been doing with chains for a long time. (There is a problem with my implementation in that I can’t write out all the sub chains that allow main line chains to be justified but they are there).  Obviously we’d like a simpler proof of a pattern and maybe we can replace Nets with something more elegant. A proof also needs to be minimal – containing only the necessary parts. Trial and error is much messier because it lacks explanatory power. Brute Force is the ultimate simple and deterministic solution but comes with no reason why so we only use it for checking solutions, not explaining them.</div></div><div id="blog-reply3074" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(256,17414,3074)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17408"><div class="w100pc"><div class="w60pc"><h2>... by: osiguy</h2></div><div class="w40pc datepost">Saturday 21-Mar-2026</div></div>
+<div class="w100pc">I have a weird feeling that Andrew just needs to implement 1 technique! Just one technique to solve the other 90% of the hardest puzzles! What will Andrew name it!  I call it DeepResonance but I think Andrew will come up with a cooler name for it! <br><br>Let's Go!!!</div>
+<div class="w100pc" id="blog-reply17408"></div>
+<div class="post-reply" id="reply3065"><table class="w100pc"><tr><td class="post-writes">osiguy replies:</td><td class="datepost">Saturday 21-Mar-2026</td></tr>
+<tr><td colspan="2">Or two other Paths! I don't know i'm super interested in what you implement for the 100% Andrew! Let's go!  2: FPF 	or  Path 3: GF(2)+FPF</td></tr>
+</table></div>
+<div class="post-reply" id="reply3066"><table class="w100pc"><tr><td class="post-writes">osiguy replies:</td><td class="datepost">Saturday 21-Mar-2026</td></tr>
+<tr><td colspan="2">oh i just did recursive forcing Nets Andrew! 100% !!! You can do recursive Forcing Nets to get 100%!!!<br><br></td></tr>
+</table></div>
+</div><div id="blog-reply3066" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(256,17408,3066)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17398"><div class="w100pc"><div class="w60pc"><h2>... by: osiguy</h2></div><div class="w40pc datepost">Tuesday 10-Mar-2026</div></div>
+<div class="w100pc">I just got dizzy looking at this! but yes this is looking excellent! </div>
+<div class="w100pc" id="blog-reply17398"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks! Still much work to do. I've figured out a way to collapse then net to essential chains. Now to implement.</div></div><div id="blog-reply3061" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(256,17398,3061)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 9-March-2026. Views: 4259<br>
+			This page was last modified on 6-April-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3c27ce7032c1',t:'MTc4MDMwNjU5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

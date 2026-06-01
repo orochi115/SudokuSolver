@@ -39,3 +39,10 @@ Collect enough reliable internet material to support a later synthesis of a full
 4. Create technique-level local cards and source mappings - complete
 5. Update research index and progress files - complete
 6. Validate files, JSON, and git status - complete
+
+## Phase 3: Supplemental Advanced Source Expansion
+1. Commit audit fixes - complete
+2. Download optional SudokuWiki advanced pages - complete
+3. Download optional Chinese specialty pages - complete
+4. Update manifest, citations, bibliography, and mappings - complete
+5. Validate associations and commit supplemental sources - in_progress

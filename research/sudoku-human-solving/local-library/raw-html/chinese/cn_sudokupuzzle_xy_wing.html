@@ -1,0 +1,542 @@
+﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>XY翼技巧详解：三个双值格子的巧妙排除</title>
+        <meta name="description" content="详解数独XY翼（XY-Wing）技巧：当轴心格与两个翼格形成特殊的候选数链时，可对翼格公共可见区域进行候选数排除。配图解析实战案例。">
+            <meta name="keywords" content="XY翼,XY-Wing,数独技巧,数独解题,候选数排除,数独高级,双值格,轴心,翼格">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="XY翼技巧详解：三个双值格子的巧妙排除">
+        <meta property="og:description" content="详解数独XY翼（XY-Wing）技巧：当轴心格与两个翼格形成特殊的候选数链时，可对翼格公共可见区域进行候选数排除。配图解析实战案例。">
+        <meta property="og:url" content="https://cn.sudokupuzzle.org/sudoku-guide/xy-wing/">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="XY翼技巧详解：三个双值格子的巧妙排除">
+        <meta property="twitter:description" content="详解数独XY翼（XY-Wing）技巧：当轴心格与两个翼格形成特殊的候选数链时，可对翼格公共可见区域进行候选数排除。配图解析实战案例。">
+    
+        <link rel="canonical" href="https://cn.sudokupuzzle.org/sudoku-guide/xy-wing/">
+    
+            <link rel="alternate" hreflang="en" href="https://sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="zh-CN" href="https://cn.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="zh-TW" href="https://zh-tw.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="ja" href="https://jp.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="ko" href="https://ko.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="fr" href="https://fr.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="de" href="https://de.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="es" href="https://es.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="pt" href="https://pt.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="it" href="https://it.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="nl" href="https://nl.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="tr" href="https://tr.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="hi" href="https://hi.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="th" href="https://th.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="vi" href="https://vi.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="id" href="https://id.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="pl" href="https://pl.sudokupuzzle.org/sudoku-guide/xy-wing/">
+        <link rel="alternate" hreflang="uk" href="https://uk.sudokupuzzle.org/sudoku-guide/xy-wing/">
+    
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="/assets/css/font.css?v=20260417.1" rel="stylesheet">
+    <link href="/assets/css/style.css?v=20260417.1" rel="stylesheet">
+    <link href="/assets/css/guide.css?v=20260417.1" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Noto Sans SC, sans-serif;
+        }
+    </style>
+
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4194102731911926"
+            crossorigin="anonymous"></script>
+    </head>
+<body class="theme-light">
+
+<div class="main-container">
+    <aside class="sidebar d-none d-lg-block">
+    <div class="sidebar-content">
+        <div class="logo-container mb-4">
+            <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+            <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+            <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href='/' class='nav-item '>首页</a><a href='/how-to-play-sudoku/' class='nav-item '>游戏操作指南</a><a href='/how-to-solve-sudoku/' class='nav-item '>数独的解法</a><a href='/sudoku-solver/' class='nav-item '>数独解题器</a><a href='/sudoku-print/' class='nav-item '>打印题目</a><a href='/sudoku-answer/' class='nav-item '>查看答案</a><a href='#' class='nav-item active'><i class="bi bi-lightbulb me-1"></i>数独知识库</a>
+            <div class="nav-section mt-4">外部链接</div>
+            <a href="https://sudoku.today" target="_blank" class="nav-item external-link">
+                今日数独                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            <a href="https://samuraisudoku.com" target="_blank" class="nav-item external-link">
+                武士数独                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            
+            <a href="https://sudokuprintout.com" target="_blank" class="nav-item external-link">
+                Sudoku Printout                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            
+            <a href="https://play.google.com" target="_blank" class="nav-item external-link">
+                Android 应用                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+        </nav>
+
+        <div class="theme-switcher mt-4">
+            <button class="btn btn-sm btn-theme active" data-theme="light" title="Light Theme">
+                <i class="bi bi-sun"></i>
+            </button>
+            <button class="btn btn-sm btn-theme" data-theme="medium" title="Medium Theme">
+                <i class="bi bi-cloud-sun"></i>
+            </button>
+            <button class="btn btn-sm btn-theme" data-theme="dark" title="Dark Theme">
+                <i class="bi bi-moon"></i>
+            </button>
+        </div>
+    </div>
+</aside>
+
+    <main class="main-content">
+        <nav class="navbar navbar-expand-lg d-lg-none top-menu">
+  <div class="container-fluid flex-nowrap">
+    <div class="navbar-brand me-auto d-flex align-items-center">
+      <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+      <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+      <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+    </div>
+
+    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-2 py-1" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-globe"></i>
+          <span class="lang-name d-none d-sm-inline">
+            简体中文          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item" href="https://sudokupuzzle.org">
+              English            </a></li>
+                      <li><a class="dropdown-item" href="https://cn.sudokupuzzle.org">
+              简体中文            </a></li>
+                      <li><a class="dropdown-item" href="https://zh-tw.sudokupuzzle.org">
+              繁體中文            </a></li>
+                      <li><a class="dropdown-item" href="https://jp.sudokupuzzle.org">
+              日本語            </a></li>
+                      <li><a class="dropdown-item" href="https://ko.sudokupuzzle.org">
+              한국어            </a></li>
+                      <li><a class="dropdown-item" href="https://fr.sudokupuzzle.org">
+              Français            </a></li>
+                      <li><a class="dropdown-item" href="https://de.sudokupuzzle.org">
+              Deutsch            </a></li>
+                      <li><a class="dropdown-item" href="https://es.sudokupuzzle.org">
+              Español            </a></li>
+                      <li><a class="dropdown-item" href="https://pt.sudokupuzzle.org">
+              Português            </a></li>
+                      <li><a class="dropdown-item" href="https://it.sudokupuzzle.org">
+              Italiano            </a></li>
+                      <li><a class="dropdown-item" href="https://nl.sudokupuzzle.org">
+              Nederlands            </a></li>
+                      <li><a class="dropdown-item" href="https://tr.sudokupuzzle.org">
+              Türkçe            </a></li>
+                      <li><a class="dropdown-item" href="https://hi.sudokupuzzle.org">
+              हिन्दी            </a></li>
+                      <li><a class="dropdown-item" href="https://th.sudokupuzzle.org">
+              ไทย            </a></li>
+                      <li><a class="dropdown-item" href="https://vi.sudokupuzzle.org">
+              Tiếng Việt            </a></li>
+                      <li><a class="dropdown-item" href="https://id.sudokupuzzle.org">
+              Bahasa Indonesia            </a></li>
+                      <li><a class="dropdown-item" href="https://pl.sudokupuzzle.org">
+              Polski            </a></li>
+                      <li><a class="dropdown-item" href="https://uk.sudokupuzzle.org">
+              Українська            </a></li>
+                  </ul>
+      </div>
+
+      <button class="btn btn-outline-secondary px-2 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Menu">
+        <i class="bi bi-list" style="font-size:1.35rem;"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">
+            <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+            <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+            <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a href="/" class='nav-item '>首页</a><a href="/how-to-play-sudoku/" class='nav-item '>游戏操作指南</a><a href="/how-to-solve-sudoku/" class='nav-item '>数独的解法</a><a href="/sudoku-solver/" class='nav-item '>数独解题器</a><a href="/sudoku-print/" class='nav-item '>打印题目</a><a href="/sudoku-answer/" class='nav-item '>查看答案</a><span class='nav-item active'><i class="bi bi-lightbulb me-1"></i>数独知识库</span>
+                <div class="nav-section mt-4">外部链接</div>
+                <a href="https://sudoku.today" target="_blank" class="nav-item">
+                    今日数独                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+                <a href="https://samuraisudoku.com" target="_blank" class="nav-item">
+                    武士数独                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+                <a href="https://play.google.com" target="_blank" class="nav-item">
+                    Android 应用                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+            </nav>
+
+            <div class="theme-switcher mt-4">
+                <button class="btn btn-sm btn-theme active" data-theme="light" title="Light Theme">
+                    <i class="bi bi-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-theme" data-theme="medium" title="Medium Theme">
+                    <i class="bi bi-cloud-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-theme" data-theme="dark" title="Dark Theme">
+                    <i class="bi bi-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="language-selector d-none d-lg-block">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-globe"></i> 简体中文                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="https://sudokupuzzle.org">
+                            English                        </a></li>
+                                            <li><a class="dropdown-item" href="https://cn.sudokupuzzle.org">
+                            简体中文                        </a></li>
+                                            <li><a class="dropdown-item" href="https://zh-tw.sudokupuzzle.org">
+                            繁體中文                        </a></li>
+                                            <li><a class="dropdown-item" href="https://jp.sudokupuzzle.org">
+                            日本語                        </a></li>
+                                            <li><a class="dropdown-item" href="https://ko.sudokupuzzle.org">
+                            한국어                        </a></li>
+                                            <li><a class="dropdown-item" href="https://fr.sudokupuzzle.org">
+                            Français                        </a></li>
+                                            <li><a class="dropdown-item" href="https://de.sudokupuzzle.org">
+                            Deutsch                        </a></li>
+                                            <li><a class="dropdown-item" href="https://es.sudokupuzzle.org">
+                            Español                        </a></li>
+                                            <li><a class="dropdown-item" href="https://pt.sudokupuzzle.org">
+                            Português                        </a></li>
+                                            <li><a class="dropdown-item" href="https://it.sudokupuzzle.org">
+                            Italiano                        </a></li>
+                                            <li><a class="dropdown-item" href="https://nl.sudokupuzzle.org">
+                            Nederlands                        </a></li>
+                                            <li><a class="dropdown-item" href="https://tr.sudokupuzzle.org">
+                            Türkçe                        </a></li>
+                                            <li><a class="dropdown-item" href="https://hi.sudokupuzzle.org">
+                            हिन्दी                        </a></li>
+                                            <li><a class="dropdown-item" href="https://th.sudokupuzzle.org">
+                            ไทย                        </a></li>
+                                            <li><a class="dropdown-item" href="https://vi.sudokupuzzle.org">
+                            Tiếng Việt                        </a></li>
+                                            <li><a class="dropdown-item" href="https://id.sudokupuzzle.org">
+                            Bahasa Indonesia                        </a></li>
+                                            <li><a class="dropdown-item" href="https://pl.sudokupuzzle.org">
+                            Polski                        </a></li>
+                                            <li><a class="dropdown-item" href="https://uk.sudokupuzzle.org">
+                            Українська                        </a></li>
+                                    </ul>
+            </div>
+        </div>
+
+        <div class="guide-content">
+
+<!-- 文章头部 -->
+<div class="guide-header">
+    <div class="guide-category">
+        <i class="bi bi-lightbulb"></i> 解题技巧    </div>
+    <h1 class="guide-title">XY翼技巧详解：三个双值格子的巧妙排除</h1>
+    <div class="guide-meta">
+        <i class="bi bi-calendar3"></i> 2025-06-05        <span class="mx-2">·</span>
+        <i class="bi bi-clock"></i> 8 分钟阅读    </div>
+</div>
+
+<!-- 面包屑导航 -->
+<div class="guide-breadcrumb">
+    <a href="../"><i class="bi bi-house-door"></i> 知识库</a>
+    <span class="separator">/</span>
+    <a href="../sudoku-strategies/">技巧目录</a>
+    <span class="separator">/</span>
+    <span class="current">XY-Wing</span>
+</div>
+
+<!-- 文章正文 -->
+<div class="guide-body">
+    <p><strong>XY翼</strong>（英文称 XY-Wing）是数独高级技巧中一种优雅的排除方法。它利用三个<strong>双值格子</strong>（只有两个候选数的格子）之间的特殊关系，通过逻辑推理进行候选数排除。</p>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-info-circle"></i> 核心原理：</strong><br>
+        XY翼由三个双值格子组成：一个<strong>轴心（Pivot）</strong>和两个<strong>翼（Wing）</strong>。轴心格子必须能同时"看到"两个翼格子（即在同一行、列或宫）。如果轴心是{X,Y}，一个翼是{X,Z}，另一个翼是{Y,Z}，那么<strong>Z一定在某个翼格子中</strong>。因此，能同时看到两个翼格子的位置可以删除候选数Z。
+    </div>
+
+    <!-- XY-Wing 原理动画 -->
+    <div class="image-container" style="margin: 25px 0;">
+        <object type="image/svg+xml" data="xy-wing-animation.svg" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;">
+            XY-Wing 原理动画
+        </object>
+        <div class="image-caption">XY翼原理示意图：轴心{X,Y}与两个翼{X,Z}、{Y,Z}的关系，Z必在翼1或翼2中</div>
+    </div>
+
+    <p>在阅读本文前，建议先了解<a href="../naming-convention/" style="color: #667eea;">数独行列宫的命名规则</a>和<a href="../naked-pairs/" style="color: #667eea;">数对法</a>的基本概念。</p>
+
+    <h2><i class="bi bi-diagram-3"></i> XY翼的结构</h2>
+
+    <p>XY翼包含三个关键元素：</p>
+
+    <ul>
+        <li><strong>轴心（Pivot）</strong>：中心格子，候选数为{X,Y}，必须能同时看到两个翼格子</li>
+        <li><strong>翼1（Wing 1）</strong>：候选数为{X,Z}，与轴心在同一行、列或宫</li>
+        <li><strong>翼2（Wing 2）</strong>：候选数为{Y,Z}，与轴心在同一行、列或宫</li>
+    </ul>
+
+    <p>关键特征：三个格子的候选数共享三个数字X、Y、Z，每个数字恰好出现两次。</p>
+
+    <h2><i class="bi bi-lightbulb"></i> 为什么XY翼有效？</h2>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>轴心只能是X或Y：</strong>轴心格子{X,Y}最终只能填入X或Y中的一个。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>如果轴心是X：</strong>翼1{X,Z}不能是X（同单元内不能重复），所以翼1必须是<strong>Z</strong>。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>如果轴心是Y：</strong>翼2{Y,Z}不能是Y（同单元内不能重复），所以翼2必须是<strong>Z</strong>。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>结论：</strong>无论轴心是X还是Y，<strong>Z一定在翼1或翼2中</strong>。因此，能同时看到两个翼格子的位置不能有Z。
+    </div>
+
+    <h2><i class="bi bi-1-circle"></i> 实例一：R7C5为轴心的XY翼</h2>
+
+    <p>我们来看第一个例子，展示一个典型的XY翼结构。</p>
+
+    <div class="image-container">
+        <img src="../image/xy-wing-1.png" alt="XY翼示例1">
+        <div class="image-caption">图1：轴心R7C5{6,9}，翼R8C4{5,6}和R7C7{5,9}，删除R8C8的候选数5</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=ZzQsYjcsNjksZzEsYjUsYjgsNjksYjIsYjMsNjgsYjMsMTY4LGIyLGc0LGc5LDE2LGI3LGc1LDE5LGI1LGIyLGc3LGIzLGI2LGI0LGc4LDE5LDE1LGc5LDE1LDY4LDY4LGI0LGI3LGczLGcyLGIyLDY4LGczLGI5LGc3LGc1LDE4LGI0LDE2LGc3LGI0LDY4LGczLGIyLGIxLDU4OSw1OSw2OSw1NjksZzIsYjcsZzQsNjksZzMsNTksZzEsYjgsNTY4OSw2OCxnNCw1NixiMSxnMixiMyw1OSxnNyxiMyxnMSw1OSw1OCw4OSxiNyxiMixnNixiNA==" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <h3>分析过程</h3>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>识别轴心：</strong><span class="coord">R7C5</span> 是双值格子，候选数为 <span class="highlight-num">{6, 9}</span>。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>找到翼格子：</strong>
+        <ul>
+            <li><span class="coord">R8C4</span>（翼1）：候选数 <span class="highlight-num">{5, 6}</span>，与轴心在同一宫（宫8）</li>
+            <li><span class="coord">R7C7</span>（翼2）：候选数 <span class="highlight-num">{5, 9}</span>，与轴心在同一行（第7行）</li>
+        </ul>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>验证XY翼结构：</strong>
+        <ul>
+            <li>轴心{6,9} + 翼1{5,6} + 翼2{5,9} = 三个数字5、6、9各出现两次 ✓</li>
+            <li>轴心能看到两个翼格子（宫8和第7行）✓</li>
+            <li>公共数字Z = <span class="highlight-num">5</span></li>
+        </ul>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>推理过程：</strong>
+        <ul>
+            <li>如果R7C5=6 → R8C4不能是6 → R8C4=<strong>5</strong></li>
+            <li>如果R7C5=9 → R7C7不能是9 → R7C7=<strong>5</strong></li>
+            <li>无论哪种情况，<strong>R8C4或R7C7中必有一个是5</strong></li>
+        </ul>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">5</span>
+        <strong>找到删除目标：</strong><span class="coord">R8C7</span> 能同时看到两个翼格子（与R8C4同行，与R7C7同宫）。
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 结论：</strong><br>
+        XY翼：轴心 <span class="coord">R7C5</span>，翼 <span class="coord">R8C4</span> 和 <span class="coord">R7C7</span>。<br>
+        可从 <span class="coord">R8C7</span> 删除候选数 <span class="delete-highlight">5</span>。
+    </div>
+
+    <h2><i class="bi bi-2-circle"></i> 实例二：R6C3为轴心的XY翼</h2>
+
+    <p>接下来我们看另一个例子，展示不同位置关系的XY翼。</p>
+
+    <div class="image-container">
+        <img src="../image/xy-wing-2.png" alt="XY翼示例2">
+        <div class="image-caption">图2：轴心R6C3{6,8}，翼R1C3{6,9}和R6C7{8,9}，删除R1C7的候选数9</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=ZzQsYjcsNjksZzEsYjUsYjgsNjksYjIsYjMsNjgsYjMsMTY4LGIyLGc0LGc5LDE2LGI3LGc1LDE5LGI1LGIyLGc3LGIzLGI2LGI0LGc4LDE5LDE1LGc5LDE1LDY4LDY4LGI0LGI3LGczLGcyLGIyLDY4LGczLGI5LGc3LGc1LDE4LGI0LDE2LGc3LGI0LDY4LGczLGIyLGIxLDg5LGI1LDY5LDY5LGcyLGI3LGc0LDY5LGczLGI1LGcxLGI4LDU2OCw2OCxnNCw1NixiMSxnMixiMyxiOSxnNyxiMyxnMSw1OSw1OCw4OSxiNyxiMixnNixiNA==" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <h3>分析过程</h3>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>识别轴心：</strong><span class="coord">R6C3</span> 是双值格子，候选数为 <span class="highlight-num">{6, 8}</span>。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>找到翼格子：</strong>
+        <ul>
+            <li><span class="coord">R1C3</span>（翼1）：候选数 <span class="highlight-num">{6, 9}</span>，与轴心在同一列（第3列）</li>
+            <li><span class="coord">R6C7</span>（翼2）：候选数 <span class="highlight-num">{8, 9}</span>，与轴心在同一行（第6行）</li>
+        </ul>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>验证XY翼结构：</strong>
+        <ul>
+            <li>轴心{6,8} + 翼1{6,9} + 翼2{8,9} = 三个数字6、8、9各出现两次 ✓</li>
+            <li>轴心能看到两个翼格子（第3列和第6行）✓</li>
+            <li>公共数字Z = <span class="highlight-num">9</span></li>
+        </ul>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>推理过程：</strong>
+        <ul>
+            <li>如果R6C3=6 → R1C3不能是6 → R1C3=<strong>9</strong></li>
+            <li>如果R6C3=8 → R6C7不能是8 → R6C7=<strong>9</strong></li>
+            <li>无论哪种情况，<strong>R1C3或R6C7中必有一个是9</strong></li>
+        </ul>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">5</span>
+        <strong>找到删除目标：</strong><span class="coord">R1C7</span> 能同时看到两个翼格子（与R1C3同行，与R6C7同列）。
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 结论：</strong><br>
+        XY翼：轴心 <span class="coord">R6C3</span>，翼 <span class="coord">R1C3</span> 和 <span class="coord">R6C7</span>。<br>
+        可从 <span class="coord">R1C7</span> 删除候选数 <span class="delete-highlight">9</span>。
+    </div>
+
+    <h2><i class="bi bi-search"></i> 如何发现XY翼？</h2>
+
+    <p>寻找XY翼需要系统化的方法：</p>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>找到所有双值格子：</strong>首先标记出所有只有两个候选数的格子。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>选择潜在轴心：</strong>对于每个双值格子{X,Y}，检查它能看到的其他双值格子。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>寻找配对的翼：</strong>找两个双值格子，一个包含X和第三个数Z，另一个包含Y和Z。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>验证结构：</strong>确认轴心能同时看到两个翼格子。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">5</span>
+        <strong>找删除目标：</strong>找能同时看到两个翼格子且包含候选数Z的格子。
+    </div>
+
+    <div class="warning-box">
+        <strong><i class="bi bi-exclamation-triangle"></i> 注意事项：</strong><br>
+        <ul style="margin-bottom: 0;">
+            <li>轴心必须能<strong>同时看到</strong>两个翼格子（在同一行、列或宫）</li>
+            <li>两个翼格子<strong>不需要</strong>能互相看到</li>
+            <li>删除的是<strong>公共数字Z</strong>，即两个翼格子共有的那个数字</li>
+            <li>删除目标必须能<strong>同时看到两个翼格子</strong></li>
+        </ul>
+    </div>
+
+    <h2><i class="bi bi-lightbulb"></i> 技巧总结</h2>
+
+    <p>XY翼的应用要点：</p>
+
+    <ul>
+        <li><strong>识别条件：</strong>三个双值格子，候选数分别为{X,Y}、{X,Z}、{Y,Z}</li>
+        <li><strong>结构要求：</strong>轴心{X,Y}能同时看到两个翼{X,Z}和{Y,Z}</li>
+        <li><strong>删除目标：</strong>公共数字Z</li>
+        <li><strong>删除范围：</strong>能同时看到两个翼格子的所有位置</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-play-circle"></i> 立即练习：</strong><br>
+        <a href="/" style="color: #667eea; font-weight: bold;">开始一局数独游戏</a>，尝试使用XY翼进行排除！当你发现多个双值格子时，检查它们是否能形成XY翼结构。
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="../naked-pairs/" class="nav-link">
+            <i class="bi bi-circle"></i> 数对法
+        </a>
+        <a href="../chute-remote-pairs/" class="nav-link">
+            <i class="bi bi-diagram-3"></i> 塔远程数对
+        </a>
+        <a href="../sudoku-strategies/" class="nav-link">
+            <i class="bi bi-list"></i> 技巧目录
+        </a>
+    </div>
+</div>
+
+        </div><!-- /.guide-content -->
+
+        <footer class="footer">
+    <p class="mb-0">© 2025 SudokuPuzzle.org - 版权所有</p>
+</footer>
+    </main>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/assets/js/main.js?v=20260417.1"></script>
+
+<script>
+console.log('%c📚 Sudoku Guide', 'font-size:20px;font-weight:bold;color:#667eea;');
+console.log('%cVersion: 20260417.1', 'color:#764ba2;');
+console.log('%cEnvironment: Production', 'color:#51cf66;');
+</script>
+</body>
+</html>

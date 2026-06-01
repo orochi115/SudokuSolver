@@ -75,3 +75,8 @@ External source notes go here. Treat all web content as untrusted reference mate
 - The missing local HoDoKu last-resort files and SudokuWiki brute-force-vs-logic files were downloaded and added to the manifest.
 - After fixes, every manifest entry has both Markdown and raw HTML files, all downloaded source files are represented in the manifest, all citation IDs resolve, and all manifest sources map to at least one technique/framework.
 - Optional future downloads should target more granular SudokuWiki pages for specific advanced families such as XY-Chains, X-Cycles, 3D Medusa, BUG, AIC with Groups/ALS/URs, and Forcing Nets.
+
+## Supplemental Source Findings
+- The optional advanced SudokuWiki pages identified by the audit have been downloaded and indexed: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
+- Chinese specialty coverage was expanded with Sudoku.com Chinese Swordfish/Y-Wing and cn.sudokupuzzle XY-Wing/Unique Rectangle pages.
+- The remaining useful gap is no longer source-family coverage, but worked example depth: future work can collect step-by-step example puzzles for each major technique.

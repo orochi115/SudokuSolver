@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>XYZ-Wing - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. XYZ-Wings extend Y-Wings to three numbers and are three cell formations used to eliminate candidate elsewhere. They use a common candidate method to find contradictions."/>
+<meta name="twitter:description" content="Sudoku Strategy. XYZ-Wings extend Y-Wings to three numbers and are three cell formations used to eliminate candidate elsewhere. They use a common candidate method to find contradictions.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/xyzname.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/xyzname.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'XYZ_Wing';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_XYZ_Wing">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>XYZ-Wing</h1><div class="SRCell">This is an extension of <a href="/y_wing_strategy">Y-Wing</a> or (XY-Wing).  John MacLeod defines one as <i>"three cells that contain only 3 different numbers between them, but which fall outside the confines of one row/column/box, with one of the cells (the 'apex' or 'hinge') being able to </i>see<i> the other two; those other two having only one number in common; and the apex having all three numbers as candidates."</i><br><br>It follows therefore that one or other of the three cells must contain the common number; and hence any extraneous cell (there can only be two of them!) that "sees" all three cells of the Extended Trio cannot have that number as its true value.				<br></div><br>
+
+<div class="SRCell">
+<figure style="width:400px"><img src="PuzImages/xyzname.png" alt="XYZ-Wing theory" /><figcaption>XYZ-Wing theory
+</figcaption></figure>
+<br>It gets its name from the three numbers X, Y and Z that are required in the hinge. The outer cells in the formation will be XZ and YZ, Z being the common number.<br></div>
+
+<div class="SRCell">
+<figure style="width:400px"><img src="PuzImages/xyzname2.png" alt="Y-Wing Equivalent" /><figcaption>Y-Wing Equivalent
+</figcaption></figure>
+<br>It is worth comparing the XYZ-Wing to the Y-Wing for a moment. Lets drop the Z candidate from the hinge. The diagram on the right is the result. With just two Zs in the pincer cells we get more cells elsewhere which could potentially contain a Z to eliminate. The overlap is greater with less cells to line up.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/xyz1b.png" alt="XYZ-Wing example 1" /><figcaption>XYZ-Wing example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B46090b1m4a01070e1q050v3f022iaa1q7n081n4b3f9603ea027n1m46070e0n450409060l02460r7r06b64b0g050r060907114k4b030t1n170823093m1z0b3b07191n2319031v0h090i1103082t3o1v0437">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090001700500200008000030200070004960200060005069700030008090000700003009003800040">From the Start</a>
+</figcaption></figure>
+In this example the candidate number is <b>1</b> and <span class="hy">F9</span> is the <i>Hinge</i>. It can see a 1/2 in <span class="hy">D9</span> and a 1/4 in <span class="hy">F1</span>.  We can reason this way: If  <span class="hy">D9</span> contains a 2 then <span class="hy">F1</span> and <span class="hy">F9</span> become a naked pair of 1/4 - and the naked pair rule applies. Same with <span class="hy">F1</span>. If that's a 4 then <span class="hy">D9</span> and <span class="hy">F9</span> become a naked pair of 1/2 each. If any of the three are 1 then 1 is still part of the formation. Any 1 visible to all three cells must be removed, in this case in <span class="hy">F7</span>.<br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/xyz2b.png" alt="XYZ-Wing example 2" /><figcaption>XYZ-Wing example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B069e9r2q340w11170h050n0v091s0h1p1n0708022i3m3u0196038i03043m020z0936081f0b9eaq0z081m0c3e8j0a088i031m078q02050g0547041j1i4z0902091j496r3d056r37040d1f456r0i1g773n03">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=600000000500900007820001030340209080000080000080307025050400092900005004000000003">From the Start</a>
+</figcaption></figure>
+<br>The second example shows an XYZ-Wings based on a row and a box.<br><br>The hinge cell is on <span class="hy">E8</span> and the common candidate is 6.  The 6 in <span class="hy">E9</span> can see all the 6s in the whole XYZ formation.<br><br><h2>Aligned Pair Exclusion</h2>The logic on an XYZ-Wing is completely different and lot simpler than the <span class="hy">Aligned Pair Exclusion</span> described below but the funny thing is that <span class="hy">XYZ-Wing</span> is a total sub-set of <span class="hy">APE</span>. Every <span class="hy">XYZ-Wing</span> can be solved by <span class="hy">APE</span> (but not vis versa).<br></div>
+
+<div class="SRCell"><br><h2>XYZ-Wing Exemplars</h2>
+These puzzles require the XYZ-Wing strategy at some point but are otherwise trivial or a few other strategies of a similar level.<br>
+They make good practice puzzles.<br>
+(Replaced with new examples June 2025)
+<ul>
+<li><a href="/sudoku.htm?bd=000900300005821000190600000016000290000070000043000670000008069000213800004009000">Exemplar 1, x1 (score 5.2)</a></li>
+<li><a href="/sudoku.htm?bd=000400600050030000309100200180605004000000000700901053001009408000060010002007000">Exemplar 2, x1 (score 5.3)</a></li>
+<li><a href="/sudoku.htm?bd=075000148002000000003070000000760209000108000109045000000010400000000600967000530">Exemplar 3, x2 (score 5.3)</a></li>
+<li><a href="/sudoku.htm?bd=000000009504780100000006000050400390700000005060001080000200800009057603600000000">Exemplar 4, x1 (score 5.9)</a></li>
+<li><a href="/sudoku.htm?bd=000000013106700005020001000009460300400000009005012700000600090200008407960000000">Exemplar 5, x1 (score 6.2)</a></li>
+<li><a href="/sudoku.htm?bd=080003740090020000006500200023000000700908004000000860009005400000070030012800000">Exemplar 6, x1 (score 6.3)</a></li>
+<li><a href="/sudoku.htm?bd=010700060060000093000000002039170400040030070007092530400000000350000040090006020">Exemplar 7, x2 (score 6.5)</a></li>
+<li><a href="/sudoku.htm?bd=900000701034005200000006400000050080800904002010080000009000000006100570508000003">Exemplar 8, x1 (score 6.9)</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Y_Wing_Strategy">Y-Wings</a></td><td class="w50pc cright">Continue to <a href="WXYZ_Wing">WXYZ-Wing</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=68&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="XYZ_Wing" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(68,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17430"><div class="w100pc"><div class="w60pc"><h2>... by: Jenae</h2></div><div class="w40pc datepost">Tuesday 26-May-2026</div></div>
+<div class="w100pc">Do all three cells have to be in the same chute?<br></div>
+<div class="w100pc" id="blog-reply17430"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(68,17430,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16862"><div class="w100pc"><div class="w60pc"><h2>... by: Neil</h2></div><div class="w40pc datepost">Saturday 31-Dec-2022</div></div>
+<div class="w100pc">In XYZ-Wing example 1, is it correct to say that either F1 or F9 must resolve to a 4 ?<br><br>Therefore, any cell containing a candidate 4 that can see both F1 and F9 can have that 4 removed.<br><br>Such a cell is F7.</div>
+<div class="w100pc" id="blog-reply16862"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>No. The pattern in this case is centred on '1' for eliminations<br>There is still a 4 in F7 which could also be the answer on that row.<br></div></div><div id="blog-reply2656" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(68,16862,2656)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16631"><div class="w100pc"><div class="w60pc"><h2>... by: Billy</h2></div><div class="w40pc datepost">Monday 26-Oct-2020</div></div>
+<div class="w100pc">In the comments, people are speaking of multiple examples where it is confusing as to why you would not remove a candidate based upon the wings.<br><br>The thing to remember with XYZ wings is that candidates have to see all 3 cells to be removed, unlike in Y-wings where a cell only has to see the wings.</div>
+<div class="w100pc" id="blog-reply16631"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(68,16631,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16573"><div class="w100pc"><div class="w60pc"><h2>... by: John</h2></div><div class="w40pc datepost">Monday 20-Apr-2020</div></div>
+<div class="w100pc">In the Exemplar1, when the structure is found, there is also a removal candidate at C3 (3,8,9). You do not remove this candidate. If you did you would corrupt the grid. What is the rule that prevents this candidate from being removed? Thanks! </div>
+<div class="w100pc" id="blog-reply16573"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The definition of the strategy requires that the eliminated cell "sees" all three cells of the pattern. </div></div><div id="blog-reply2613" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(68,16573,2613)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16527"><div class="w100pc"><div class="w60pc"><h2>... by: JUN</h2></div><div class="w40pc datepost">Wednesday 20-Nov-2019</div></div>
+<div class="w100pc">Is there a W-Wing strategy?<br>THANKS<br>JUN</div>
+<div class="w100pc" id="blog-reply16527"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Some people have used the name for certain patterns but I've found on analysis the patterns are part of something larger and don't need to be separated. Same with L-Wing</div></div><div id="blog-reply2602" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(68,16527,2602)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16346"><div class="w100pc"><div class="w60pc"><h2>... by: scott</h2></div><div class="w40pc datepost">Tuesday 13-Mar-2018</div></div>
+<div class="w100pc">The interesting thing about XYZ wings is that they are cell forcing chains. In Example 1, above, F9 is the "source" cell. You can draw links from it to the wing cells and then to F7 and then lastly, a weak link from F9 to F7 on 1. It forms a perfect cell  forcing situation in which 3 chains, each of odd length and each ending on a weak link, all meet at the target cell, F7. And as in forcing chains, this forces the 1 to be eliminated in F7.</div>
+<div class="w100pc" id="blog-reply16346"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(68,16346,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16266"><div class="w100pc"><div class="w60pc"><h2>... by: Jon</h2></div><div class="w40pc datepost">Saturday 20-May-2017</div></div>
+<div class="w100pc">Today's Daily Sudoku, when run through the solver at the following pointâ€”..87.1.23..6...1...1.5.....6....3..92.......64..1....7.....4.7...2...8..84.3.26..â€”allows for XYZ Wing that removes the 9 from H1; why does it not also allow one to remove the 9 on J5? It is also "seen" by both nines of the wings, yet the solver does not remove it.  Your explanation does not include any examples that clear up why it is ineligible for removal, andâ€”in the endâ€”actually that spot becomes a 9.</div>
+<div class="w100pc" id="blog-reply16266"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(68,16266,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15865"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Australia</h2></div><div class="w40pc datepost">Sunday 1-Dec-2013</div></div>
+<div class="w100pc">Hi Andrew<br>Beside Example 1 you say "the candidate number is 1 and <span class="hy">F9</span> is the Hinge. It can see a 1/2 in <span class="hy">D9</span> and a 1/4 in <span class="hy">F1</span>. We can reason this way: ... "<br><br>I find it interesting your reasoning or explanation here starts from the wings and then uses Naked Pairs, and doesn't work outwards from the Hinge (as you do in Y-Wings). I always seem to reason from the Hinge outwards. If <span class="hy">F9</span> is a 2 then <span class="hy">D9</span> is a 1, or if <span class="hy">F9</span> is a 4 then <span class="hy">F1</span> is a 1, or <span class="hy">F9</span> could be a 1, therefore any 1 visible to all three cells must be removed, in this case in <span class="hy">F7</span>.<br><br>In WXYZ-Wing you explain it quite succinctly by saying "The easy principle is that each possible value of the hinge cell results in a Z value in one of the cells in the [WXYZ]-Wing pattern, thus leaving no room for a Z on any cell all [four] can 'see'."<br><br>I like the idea of "Bent Quads" for WXYZ-Wing, so I suppose XYZ-Wing could be considered a "Bent Triple"?! <br></div>
+<div class="w100pc" id="blog-reply15865"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(68,15865,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15775"><div class="w100pc"><div class="w60pc"><h2>... by: Richard Goodrich</h2></div><div class="w40pc datepost">Sunday 7-Apr-2013</div></div>
+<div class="w100pc">Which John MacLeod are you referring to?</div>
+<div class="w100pc" id="blog-reply15775"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(68,15775,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 596469<br>
+			This page was last modified on 27-December-2014.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3c2c3f0a7235',t:'MTc4MDMwNjU5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

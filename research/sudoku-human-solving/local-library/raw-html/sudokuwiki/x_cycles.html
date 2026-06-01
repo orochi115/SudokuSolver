@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>X-Cycles - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. X-Cycles are simple chaining strategies that stick to candidate N. They are Alternating Inference Chains based on following the consequences of turning candidates on and off."/>
+<meta name="twitter:description" content="Sudoku Strategy. X-Cycles are simple chaining strategies that stick to candidate N. They are Alternating Inference Chains based on following the consequences of turning candidates on and off.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/NICEL1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/NICEL1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'X_Cycles';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_X_Cycles">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>X-Cycles</h1><div class="SRCell">X-Cycles are the start of a large family of 'chaining strategies' which are fundamental to solving the harder Sudoku puzzles. X-Cycles are strongly related to <a href="/Simple_Colouring">Simple Coloring</a>.<br><br>A 'chain' is a series of links hopping from one candidate to another following very simple rules.  A candidate can either be <font color=#00FF00>ON</font> or <font color=red>OFF</font>. That is, we either think it is a possible solution to that cell, or we do not. There are consequences to the rest of the board when we 'link' these two states.<br><br><div style="color:#afa">Note: February 2026. Usually there are many chains with eliminations at any one step. The solver searches for all of them and sorts them into a list using some criteria such as number of eliminations, whether they lead to a solved cell, how many exotic links they have (more to lower priority) but the big one is how short the chain is. As of February 2026 shorter chains always take priority over longer ones. This ensures that patterns like <b>Kites</b> and S<b>kyscrapers</b> are returned. These are X-Cycles with five cells in certain patterns (The solvers says 6 as it double counts the first and last) and are relatively easy to spot. I intend to add them earlier in the strategy order. </div></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/NiceL1.png" alt="Figure 1: Nice Loop on 9" /><figcaption>Figure 1: Nice Loop on 9
+</figcaption></figure>
+<br>In the X-Wing structure in Figure 1, as an example, we can consider B3 to be <span class="hr">OFF</span>. This forces the the 9 in B8 to be <span class="hg">ON</span> since it's the only remaining 9 in the row. If B8 is <span class="hg">ON</span> then that removes the 9 in H8. Again, the consequence is to turn <span class="hg">ON</span> the 9 in H3 - and that closes the loop by confirming the 9 in B3 is <span class="hr">OFF</span>. <br><br>In this X-Wing example three things are apparent. I went round clock-wise, but I could easily make the same logical chain going round from B3 to H3 to H8 to B8 and back to B3. Also, could decide that the start cell was <span class="hg">ON</span> and follow the loop round. And lastly, B3 is arbitrary, I could start on any of those four cells.<br></div>
+
+<div class="SRCell">Another important way of thinking about this situation is from the point of view of the links. When a candidate is turned <font color=red>OFF</font> AND there are only two candidates in the unit, then we can create a <b>Strong</b> link, as between B3 and B8 (marked in a thick blue line) and H8 and H3. Because there are just two 9s in each row, we know that if one is not a 9, the other must be. A strong link is where:<br>!A => B (if not A, then B)<br><br><b>Weak</b> links are the opposite:<br><br>A => !B (if A, then not B)<br><br><b>Strong</b> and <b>Weak</b> links <i>alternate</i> just as candidates are turned <font color=red>OFF</font> and <font color=#00ff00>ON</font>. When we turn a candidate X <font color=#00ff00>ON</font> we effectively remove ALL other candidates of X in ALL other units. However, when we turn a candidate X <font color=#F0000>OFF</font> it has no effect unless the unit has only two of X in it. <br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/NiceL2.png" alt="Figure 2: Nice Loop on 4" /><figcaption>Figure 2: Nice Loop on 4
+</figcaption></figure>
+<br><br>A "Cycle", as the name implies, is a loop or joined-up chain of single digits with alternating strong and weak links, as the X-Wing in Figure 1 shows. <br><br>In Figure 2, we have a 2-2-2-formation Swordfish re-drawn to show the strong and weak links. The loop characterises the X-Cycle, and the strong/weak links alternate.<br></div>
+
+<div class="SRCell">Nice Loops have evolved a notation which is useful when accompanying a diagram or as part of an explanation. X is, of course, the digit, and we use the row letter and column number notation to identify cells (e.g., B2, F8). The cells in the loop are linked with a minus to indicated X has been turned <font color=#FF0000>OFF</font>, and a + to indicated X has been turned <font color=#00FF00>ON</font> - you will see these colours on the solver. An example:<br><br><span class="hc">+x[cell 1]-x[cell 2]+x[cell 3]-x[cell 4]</span><br><br>The 2-2-2 Swordfish above can be expressed as:<br><br><span class="hc">+4[B2]-4[B4]+4[H4]-4[H8]+4[F8]-4[F2]</span><br><br>The only thing not explicit in this notation is that the last cell joins back onto the first cell. Thus, 4[F2]+[B2]. <br>Loops can be of any length but they don't re-use any candidate.<br><br>Chains like these that go in a loop are called <span class="hy">Continuous</span>. They have three characteristics:<ul><li>Firstly, it doesn't matter which way you walk round the loop - clockwise or anti-clockwise</li><li>Secondly, it doesn't matter which cell you start with (although the convention is to start with the top left-most cell)</li><li>Thirdly, each cell could be ON or OFF - as long as you alternate. </li></ul><br>Even with the convention of starting with the top left-most cell, there are four ways we could write down a chain:<ul><li>Clockwise with B2 <span class="hg">ON</span>   <span class="hc">+4[B2]-4[B4]+4[H4]-4[H8]+4[F8]-4[F2]</span></li><li>Clockwise with B2 <span class="hr">OFF</span>   <span class="hc">-4[B2]+4[B4]-4[H4]+4[H8]-4[F8]+4[F2]</span></li><li>Anti-clockwise with B2 <span class="hg">ON</span>   <span class="hc">+4[B2]-4[F2]+4[F8]-4[H8]+4[H4]-4[B4]</span></li><li>Anti-clockwise with B2 <span class="hr">OFF</span>   <span class="hc">-4[B2]+4[F2]-4[F8]+4[H8]-4[H4]+4[B4]</span></li></ul><br>I've deliberately used neutral colours in the diagram above (yellow and blue) not to given the impression there only one way to write the same chain. However, the solver will return very positive red and green highlighting but that's because it has discovered one of those four ways first and discarded the other three identical ways.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:600px"><img src="PuzImages/NiceL3b.png" alt="Figure 3: Nice Loop on 8" /><figcaption>Figure 3: Nice Loop on 8
+</figcaption></figure>
+<br>In this example of an 8-Cycle in Figure 3, I have split the two possible states into two diagrams. <br><br><br><br><br><br><br><br><br>This shows how each pair of strong links (that have only two candidates in the shared unit) can be set overall. No other combination of <span class="hg">ON</span> or <span class="hr">OFF</span> is possible.<br><br>The notation can either be, left<br><span class="hc">+8[B3]-8[B4]+8[C6]-8[D6]+8[F5]-8[F3]+8[B3]</span><br>or right<br><span class="hc">-8[B3]+8[B4]-8[C6]+8[D6]-8[F5]+8[F3]-8[B3]</span><br><br>The <span class="hy">yellow</span> cells are units where other 8s can be eliminated, which in this case correspond to the third column and boxes 2 and 5 because that's where the weak links are located. <span class="hy">C4</span> is eliminated because of either <span class="hy">B4</span>  or <span class="hy">C6</span> </div>
+
+<h2>Nice Loops Rule 1</h2>
+<div class="SRCell">Nice Loops that alternate all the way round are said to be 'continuous', and they must have an even number of nodes. With a continuous X-Cycle, candidates are not removed from the loop since the loop does not have any flaws.  Instead we are looking to eliminate on the units that can be seen by two or more cells that belong to the loop. </div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/NiceL4b.png" alt="Figure 4: Nice Loop on 8" /><figcaption>Figure 4: Nice Loop on 8
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4a0f030e0b4a010i0g054b0i06074f0b4a0u074b0b434e094e0e060a0304070i05060b0h0f0i0e0b46462i2i0a0b0g08040a0609030e090e36035663626z020u4a36430502663f094e0b010i5662056y0u">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=003000100500670000700009006034705600000000000008406930900300002000052009001000500">From the Start</a>
+</figcaption></figure>
+<br>Figure 4 is a real-life example of an X-Cycle based on 8. The chain links are 8s drawn in <font color=red>red</font> and <font color=#0f0>green</font> circles. <span class="hy">A1</span> to <span class="hy">A6</span> is strong meaning that if <span class="hy">A1</span> is <font color=red>OFF</font> then <span class="hy">A6</span> is <font color=#0f0>ON</font>. That removes (potentially) all other 8s in box 2 but we must find a loop before we can eliminate. We take the <font color=red>OFF</font> 8 in <span class="hy">C4</span> and go down to <span class="hy">H4</span> turning it <font color=#0f0>ON</font>. Now we have a second weak link in row H. We can continue the chain to either <span class="hy">H2</span> or <span class="hy">H7</span> but <span class="hy">H2</span> is more fruitful. <span class="hy">H2</span> allows us to link strongly to <span class="hy">J1</span> and weakly to <span class="hy">A1</span> completing the loop.<br><br>So any 8s found in any units which contain weak links - and are NOT part of the chain - can be eliminated - which makes it a powerful technique. We end up with a loop containing only strong links – a result identical to a Colouring (<a href="/Simple_Colouring">Simple Colouring</a>) solution. <br><br>The output from the solver will contain the following information:<br><pre><br>X-Cycle Rule 1: -8[A1]+8[A6]-8[C4]+8[H4]-8[H2]+8[J1]-8[A1]<br>- Off-chain 8 taken off B6 - weak link: (8)A6 - to (8)C4 =<br>- Off-chain 8 taken off C5 - weak link: (8)A6 - to (8)C4 =<br>- Off-chain 8 taken off H7 - weak link: (8)H4 - to (8)H2 =</pre><br></div>
+
+<div class="SRCell">In summary we can see that <br><ul><br><li>X-Wing is a Continuous X-Cycle with the length of four.<br><li>Swordfish of the 2-2-2 formation is a Continuous X-Cycle with the length of six.<br></ul><br>Although there are many other parallels as well.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/NiceNiceLb.png" alt="Cool Off Chain Nice Loop" /><figcaption>Cool Off Chain Nice Loop
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B014m82dad27y029u0fdw5g90cyd17p039v049k047o059l06cy9f5v1k071x8m93088204141k2008ae0486019k2w0u0917022v136a066e8s1g8s012007220814055107cec8801m0p0p585103565g183u2d09">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100000200000000304040506000070008040008040100090200060000107080507000000003000009">From the Start</a>
+</figcaption></figure>
+<br>This very attractive Nice Loop with off-chains is from Denis Berthier's supplements to <i>The Hidden Logic of Sudoku</i>, a web page I can only find on the <a href="http://web.archive.org/web/20170615112444/http://denis.berthier.pagesperso-orange.fr/HLS/Whips.html">Internet Archive</a>. <span style="color:#afa">Note: Choose the 5th chain in the 'explore' options as this is one cell longer than the earlier chains.</span> It is the Second Whip Example - a beast of a puzzle. I have been trying to understand what these are all about (and struggling). Apparently Nice Loops are an old-fashioned way of thinking about such things. Berthier breaks this one up into NRC chains (or "Not Rule out Candidates"). I implemented an NRC alternative to loops quite some while ago but since it was memory intensive I've not thought it suitable for the online solver. Only marginally more efficient. Going to have to cover Whips and NRC chains soon.</div>
+
+<h2>Part 2 ...</h2>
+<div class="SRCell">This article continues - for documentation on discontinuous Nice Loops <a href="/X_Cycles_Part_2">click HERE</a></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Remote_Pairs">Remote Pairs</a></td><td class="w50pc cright">Continue to <a href="X_Cycles_Part_2">X-Cycles (Part 2)</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=77&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="X_Cycles" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(77,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17317"><div class="w100pc"><div class="w60pc"><h2>... by: Visitor</h2></div><div class="w40pc datepost">Thursday 13-Nov-2025</div></div>
+<div class="w100pc">Hello!<br><br>Maybe I have only a problem with understanding, but reading this article (part 1) and looking at the figure at the bottom of this page, after figure 5, in my opinion the link between A2 and C1 is a strong link (for which the definition is !A => B, meaning if not A, then B), because here is no other possibility for the "3" in the first block to exist.<br>But that would break the requirement because in this case strong and weak links do not alternate AND the cycle DOES have an even number of nodes.<br><br>What do you think?</div>
+<div class="w100pc" id="blog-reply17317"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>You are correct that -3[A2] to +3[C1] is a strong link and you can continue from +3[C1] to -3[C5] but you can’t go any further. Too many 3s in column 5 and you came in with the wrong parity.<br><br>However you can reverse the chain by going +3[A2]- to 3[C1]+ and the whole chain is:<br>+3[A2]-3[C1]+3[C5]-3[G5]+3[G9]-3[H8]+3[E8]-3[E2]+3[A2]<br>All Nice Loops can be reversed but the solver is biased to one rather than the other because it searches top-left to bottom right. If you bear in mind they are reversible with the on/off also reversed it doesn’t matter as the same eliminations can be made.<br></div><div class="post-reply" id="reply3056"><table class="w100pc"><tr><td class="post-writes">Eduad Koryagin replies:</td><td class="datepost">Wednesday 18-Feb-2026</td></tr>
+<tr><td colspan="2">2 strong links here: +3[A2]-3[C1]+3[C5]-<br>But we have to alternate strong and weak link&</td></tr>
+</table></div>
+</div><div id="blog-reply3056" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,17317,3056)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16864"><div class="w100pc"><div class="w60pc"><h2>... by: Gere</h2></div><div class="w40pc datepost">Monday 2-Jan-2023</div></div>
+<div class="w100pc">Hello <br>I am trying to learn more about solutions for Sudokus. I am really a newbie.<br>Is it necessary that a strong link is always followed by a weak link, or can two strong links follow each other? </div>
+<div class="w100pc" id="blog-reply16864"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes in short.<br>You might not have read as far as this page: <a href="https://www.sudokuwiki.org/Weak_and_Strong_Links">Weak and Strong Links</a><br>Which I hope will set everything straight regards the two types of link<br></div></div><div id="blog-reply2657" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16864,2657)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16623"><div class="w100pc"><div class="w60pc"><h2>... by: Ed Logg</h2></div><div class="w40pc datepost">Friday 9-Oct-2020</div></div>
+<div class="w100pc">Your x-cycle code seems to miss some cases:<br>..3...9.11967..5.....19..6....479613.19...7.83.78.129..71945..6..5.871.99..61....<br>proceed until you get to the xy-chain.  Notice you missed the x-cycle case 3 with 5 at E8 F9 F5 E4 A4 A5 that eliminating the 5 at F5,  I suspect that is because you took the branch at F9 to J9 and J8 without going back and trying the F9-E8 strong link.</div>
+<div class="w100pc" id="blog-reply16623"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><a href="sudoku.htm?bd=003000901196700500000190060000479613019000708307801290071945006005087109900610000">Here is a link to your puzzle</a>. But I can't see the X-Cycle.</div></div><div id="blog-reply2825" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16623,2825)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16589"><div class="w100pc"><div class="w60pc"><h2>... by: Jim</h2></div><div class="w40pc datepost">Friday 5-Jun-2020</div></div>
+<div class="w100pc">Hi Andrew,<br>You have a great site - I have learned a lot. It seems to me there is a slight bug in one of the Simple Coloring examples (the one with 2...41..6 in row A). After the 4th SC there is an X-Cycle, but the link from E9 to F8 is a strong link, not a weak link as shown. So it isn't a true X-cycle with 3 strong links in a row, or am I missing something? The puzzle solves OK, and if you remove the X-Cycle check box, the puzzle also solves using an XY-Chain.<br><br>Thought you would want to know.<br><br>Best</div>
+<div class="w100pc" id="blog-reply16589"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Can't find this, the example only has one X-Cycle.</div></div><div id="blog-reply2616" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16589,2616)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16476"><div class="w100pc"><div class="w60pc"><h2>... by: Jim</h2></div><div class="w40pc datepost">Wednesday 12-Jun-2019</div></div>
+<div class="w100pc">Hi Andrew, I can get my head around most of the logic of your excellent  illustrations of "x cycles" except how to select either a +(x) or -(x) candidate in the start cell of a Discontinuous Alternating Nice Loop. If you select (-x) to start you end with +(x) and the contradiction that (x) cannot be (-) and other candidates must be removed from the start cell. The opposite is true if you start if you start  with (+x) and with the contradiction that (x) cannot be (+) and must be removed. Clearly one or other is the solution but how do you decide which to opt for.<br><br>Keep up the excellent work, your illustrations are second to none<br>  </div>
+<div class="w100pc" id="blog-reply16476"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(77,16476,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16435"><div class="w100pc"><div class="w60pc"><h2>... by: Arno</h2></div><div class="w40pc datepost">Monday 4-Feb-2019</div></div>
+<div class="w100pc">Hi Andrew,<br><br>Near Fig.1 example, you wrote "Also, could decide that the start cell was ON and follow the loop round." But, in this case (startcell B3 ON), then B8 is off, but it will not mean that H8 is ON (B8-H8is weak link), so chain is not built. <br>I think that you can't go any direction (cw ot ccw) with both states (ON/OFF) on start cell:<br>If start cell is OFF, it must go thru a strong link; and if start cell is ON, then the first move should be thru a weak link.<br>If you agree with this, the 4th paragraph near fig.1 should have more restrictions, since it's little confusing.<br></div>
+<div class="w100pc" id="blog-reply16435"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(77,16435,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16434"><div class="w100pc"><div class="w60pc"><h2>... by: Justin</h2></div><div class="w40pc datepost">Thursday 24-Jan-2019</div></div>
+<div class="w100pc">Hi, in your explanation of x-cycles you show an illustration using an 8 x-cycle, labelled Figure 3. I am still learning these techniques but if, as you say, this strategy elimates candidates that can be seen by 2 or more cells in the loop why in figure 3 is the 8 in C2 also not eliminated, please? It can see b3 and c6. Is it that it is not enough merely to see 2 cells in the loop, is it also necessary for the candidate we are looking to eliminate to be in the same unit as the cells it can see in the loop? <br>Sorry if this is a sill question. I really enjoy studying these strategies and consider your site to be excellent. I have spent many hours on it and have recommended it to friends, who are similarly impressed with it.</div>
+<div class="w100pc" id="blog-reply16434"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This example is about off-chain eliminations. There are no eliminations on strong links because those units already have the minimum 2 candidates. Weak links have three or more. Since the loop identifies two of the set that must be true (on or the other) the remainder are redundant. But they must exist in the unit the ends of the link share. C2 may be seen by B3 and C6 but we can't be sure B4 and C6 are solutions. The opposite candidates may be true, eg B4 and D6. Nice Loop Rule 1 works on the adjacent cells and the unit they share.<br><br>I have re-drawn Figure 3 and added some more text, to be more clear.<br></div></div><div id="blog-reply2581" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16434,2581)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16431"><div class="w100pc"><div class="w60pc"><h2>... by: britanico</h2></div><div class="w40pc datepost">Sunday 16-Dec-2018</div></div>
+<div class="w100pc">Dear Sir<br>Refering fig. 2 :nice loop on 4 it seems to me you can't start B2 OFF clockwise as you have a weak link to B4, that must start with ON state to provide any inference.Only if there's a strong link can then B2 start with a OFF state, clockwise.<br>Please, continue your good work and thank you for your kind attention.</div>
+<div class="w100pc" id="blog-reply16431"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is correct, but you can start OFF on B2 if you go south to F2. Not every direction and every state will work, it is sufficient that one state does.</div></div><div id="blog-reply2580" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16431,2580)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16271"><div class="w100pc"><div class="w60pc"><h2>... by: Kavala</h2></div><div class="w40pc datepost">Monday 29-May-2017</div></div>
+<div class="w100pc">This from puzzle 27th May 2017.<br>X-Cycle<br>X-CYCLE on 2 (Discontinuous Alternating Nice Loop, length 6):<br> +2[C7]-2[C5]+2[E5]-2[E8]+2[F7]-2[C7]<br> - Contradiction: When C7 is set to 2 the chain implies it cannot be 2 - it can be removed <br>I follow this but I see only five links and five nodes. Except you count the start and end nodes, which are the same, as two nodes ?</div>
+<div class="w100pc" id="blog-reply16271"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Some notators don't bother to but I choose to to make the closure of the loop explicit.</div></div><div id="blog-reply2547" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16271,2547)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16170"><div class="w100pc"><div class="w60pc"><h2>... by: Ian</h2></div><div class="w40pc datepost">Friday 22-Apr-2016</div></div>
+<div class="w100pc">I don't understand how you selected the 8s to begin with, and which ones to link to. Further explanation would be useful.</div>
+<div class="w100pc" id="blog-reply16170"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I usually start by looking for the Strong Links - You can find them on the solver by ticking the Strong Links under the strategies list. They have just two 8s in the row, column or box</div></div><div id="blog-reply2535" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16170,2535)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16156"><div class="w100pc"><div class="w60pc"><h2>... by: Bob Rodes</h2></div><div class="w40pc datepost">Tuesday 15-Mar-2016</div></div>
+<div class="w100pc">I think there's an error here in Fig. 1, (and so also with your X-wing article which uses the same diagram).  If B8 is on, that removes the 9's in BOTH H8 and F8.  The consequence is to turn both F3 and H3 on, which is a contradiction.   </div>
+<div class="w100pc" id="blog-reply16156"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That would be true if all the 9s where known and plotted but I have placed just a few to illustrate a chain. But I've added another 9 in F1 to confound your point - which is better as its more realistic</div></div><div id="blog-reply2532" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16156,2532)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16108"><div class="w100pc"><div class="w60pc"><h2>... by: Buzz</h2></div><div class="w40pc datepost">Monday 28-Dec-2015</div></div>
+<div class="w100pc">Hi Andrew<br><br>Been away for a while--Frank Longo put out his follow up to the Mensa books - titled "Beyond Black Belt Sudoku"---  I bought it--puzzles really quite easy though-- 300 puzzles-- I have only completed around 20 so far--randomly chosen from 1 to 300--- but strategies like rectangles, x- wings, XY chains, Y- wings, X-cycles,  XYZWINGS, ETC-- are about all you need--<br><br>Have not run into a single one yet that needed forcing chains etc etc -- I understand the forcing chain strategies but fail to be able to recognize them when they are present--maybe that is part if the intended fun--- like looking and the thinking<br><br>AT ANY RATE-- as I have told you before-- doing the basics-- singles, pairs,triples, box line reduction, pointing pairs etc etcetc is so damn boring I let the Solver do all of that--Then I print and solve the puzzle--<br><br>Soooooooooo<br><br>--First-- can you make an "auto button" to take any puzzle through the basics rapidly so that you do not have to keep tapping "take step"--- which is what I do -- until I get to no solutions ( all other strategies I have turned off-- thanks to your "off" buttons) -- then I print and enjoy looking for those strategies that will solve<br><br>-- Next--since I do the above for all puzzles no matter where I get them from---CAN YOU PUT A BOX ON THE PUZZLE WHICH SHOWS UP AFTER YOU SELECT THE PRINT BUTTON--- that WILL ALLOW YOU TO IDENTIFY THAT PUZZLE<br><br>-- for example--a comment box-- or puzzle name box-- for things like date, where puzzle from, number of puzzle, etc etc-- that will be on the print out?<br><br><br>Hope your well --love the site-- studying the BUG STRATEGY-- new to me--<br>Cheers,<br>Buzz</div>
+<div class="w100pc" id="blog-reply16108"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Buzz. The "Solve Path" will do that. Uncheck the strategies you don't want. Scroll down to the last entry in the Solve Path results (or any other point) and click on Load. That will give you the position with candidates. Print<br><br>As of 2025: Hover your mouse over the title on the print page - it will allow you to edit it.</div></div><div id="blog-reply2911" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16108,2911)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16063"><div class="w100pc"><div class="w60pc"><h2>... by: Mike Van Emmerik</h2></div><div class="w40pc datepost">Thursday 3-Sep-2015</div></div>
+<div class="w100pc">I don't get why this technique is any more powerful than simple colouring. In one puzzle where I needed the solver to help me with, it went to an X-cycle, but presumably that means that all the simpler techniques like simple colouring must have failed. But I can see by eye that simple colouring (one of my favourite techniques) could solve it, I had just not spotted it. I would like to think that your solver is exhaustive. Can you show a definitive example where simple colouring won't work? It seems to me that any eliminatable cell can see both ends of a weak link, and in a nice cycle, if you take away any weak link, you are left with a chain of alternating strong and weak links that constitutes a simple colouring chain.<br><br>What am I missing?</div>
+<div class="w100pc" id="blog-reply16063"></div>
+<div class="post-reply" id="reply2912"><table class="w100pc"><tr><td class="post-writes">Mike Van Emmerik replies:</td><td class="datepost">Sunday 6-Sep-2015</td></tr>
+<tr><td colspan="2">I can answer part of my own question in my last post: the second X-cycle in the third X-cycle exemplar is not a straight simple-colouring problem.<br><br>However, it seems to me that it can be solved with a simple extension of the simple-colouring technique. If you start on a particular square and end up on that same square at the end of a strong link (with an odd square count, starting as I do with zero), then it seems to me you have a Discontinuous Alternating Nice Loop situation, and the candidate in question (in this case, an 8) must be the solution, so other candidates in the start/end cell (in this case, one candidate, a 6) can be eliminated. I'll grant you that this is enough different from simple colouring to warrant a separate name.<br><br>I maintain however that all the other situations where the X-cycle has found the "first" solution, should have been found by the simple colouring solver.<br><br>I also note that simple colouring can be extended to grouped simple colouring, so the same comments apply to the grouped X-cycles. As a result, I don't believe that grouped X-cycles deserve to be in the "extreme" strategy category.<br><br>I'm guessing that the naÃ¯ve belief that a small group of general strategies (like simple colouring) can solve almost all Sudoku problems happens to most beginners like me :-O</td></tr>
+</table></div>
+</div><div id="blog-reply2912" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,16063,2912)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15723"><div class="w100pc"><div class="w60pc"><h2>... by: snaponit</h2></div><div class="w40pc datepost">Friday 25-Jan-2013</div></div>
+<div class="w100pc">I second this question:<br><br>MONDAY 26-NOV-2012<br>... by: Hilary<br>Your site is very helpful. The main problem I have with the puzzles that require diabolical strategies is that I don't know how to pick 'x' for the x-cycle for example. So I usually pick 'x' at random. But to me, that's trial and error and I was wondering if you had suggestions for a systematic approach <br><br>Thanks !</div>
+<div class="w100pc" id="blog-reply15723"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That's true, it isn’t always obvious where to start looking and sometimes it jumps out. I'd go for numbers that are thin on the ground. The solver can highlight individual numbers which makes it clearer how to spot the two-per-unit links you need. </div></div><div id="blog-reply2403" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,15723,2403)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15725"><div class="w100pc"><div class="w60pc"><h2>... by: Hilary</h2></div><div class="w40pc datepost">Monday 26-Nov-2012</div></div>
+<div class="w100pc">Your site is very helpful. The main problem I have with the puzzles that require diabolical strategies is that I don't know how to pick 'x' for the x-cycle for example. So I usually pick 'x' at random. But to me, that's trial and error and I was wondering if you had suggestions for a systematic approach <br><br>Thanks !</div>
+<div class="w100pc" id="blog-reply15725"></div>
+<div class="post-reply" id="reply2913"><table class="w100pc"><tr><td class="post-writes">LeProf replies:</td><td class="datepost">Sunday 9-Feb-2014</td></tr>
+<tr><td colspan="2">This comment expands upon Hilary's basic question; these same questions apply to simple coloring, and onward to the rest of chaining strategies. (If you address this comment  in a revision of the simple coloring text, the basic pedagogy will likely allow us to understand how to begin and proceed with *all* chaining strategies.)<br><br>As a preface, I would note that dead-ends are what consume time and differentiate the best from the competent players,and so knowing when to try a strategy, and what number to try it with first, and how to ignore obviously dead end paths within a strategy, are all key to the highest level play.  E.g., in today's Sudoku, reviewing the puzzle post hoc using the automated solver showed the automated skipping many early to mid-level strategies, jumping instead to a chaining strategy early.  The overarching question is how one knows the direction to take at each decision point, so all dead-ends are not attempted. How does one know, at a glance, to skip early listed strategies, and within each, know when to punt, rather than continue with a strategy will in the end not be productive?<br><br>The specifics for this strategy, per Hilary (in part):  It is  not at all clear   [1] what it is about the appearance of the board that suggests it might actually be time to choose a chaining strategy attempt,  [2] relatedly, how you choose the actual number to begin the attempt,  [3]  where on the puzzle it is best to begin the attempt—how to choose a starting point, and  [4] what it is, subtly, about a particular direction, that clues one in to going in that direction.  <br><br>Then, aggravatingly—and here, cut-and-paste and expand upon existing text if this statement indicates I have missed what you believed to be an already clear, existing bit of teaching—it is not always at all clear, during the course of creating chains, why at each given node you proceed to the particulate next match that you choose.  The rampant selections between alternative directions that could be taken in Figure 4 (and less easily seen, in the three preceding figures) make clear you are making decisions based on criteria that are unspoken (perhaps of which you a re unaware).  (The statement "We can immediately see that C2/C7 is a weak link across the row because of the 8 in C3." is an example of an over simplistic summary of several logical steps that you are applying in deciding the course of creating the chain.  Etc.)<br><br>Bottom line, I find I can easily understand the explanations of the strategies I already understand, or have independently hit upon, but when I wish to understand a completely novel strategy that you present, it is near impossible, using your text alone, esp.  with regard to understanding the full sequence of choices (next steps ignored over next steps taken) that you make to end up with a chain that you present.  Better one simpler example, with thorough and complete decisions at each node, presented absolutely clearly, than  a series of more complex examples presuming "facts not in evidence" (basic understanding not really in place).  [LeProf]</td></tr>
+</table></div>
+<div class="post-reply" id="reply2995"><table class="w100pc"><tr><td class="post-writes">LeProf replies:</td><td class="datepost">Sunday 9-Feb-2014</td></tr>
+<tr><td colspan="2">In re: previous lengthy Comment:<br><br>A simple example of what I was getting at regarding the choices made in construction a cycle that are passed over in explanation, but result in dead-ends / wasted time (or strategies bypassed as unnecessarily opaque):  In Figure 1 above, in moving off of B8, a decision was made that H8 would  be the next node, and F8 was skipped / passed over, thought it too could have resulted in a complete cycle. This type of decision-between-next nodes is made continuously in constructing a cycle, but the criteria for the choices required are not always completely clear.  [LeProf]</td></tr>
+</table></div>
+</div><div id="blog-reply2995" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,15725,2995)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15623"><div class="w100pc"><div class="w60pc"><h2>... by: Dolores</h2></div><div class="w40pc datepost">Tuesday 1-May-2012</div></div>
+<div class="w100pc">I am working on Andrew Stuart 8 Ex.1. I do not understand this explanation: X-CYCLE on 5 (Discontinuous Alternating Nice Loop, length 8):<br>-5[E8]+5[J8]-5[J7]+5[B7]-5[A6]+5[A4]-5[E4]+5[E8]<br>- Contradiction: When 5 is removed from E8 the chain implies it must be 5 - other candidates 2/4/8/9 can be removed<br><br>Also,  how do you choose which 5's to include and which to exclude in the chain.  Because most of the squares had a 5.</div>
+<div class="w100pc" id="blog-reply15623"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That elimination is an X-Cycle "Nice Loops Rule 2", two string links. An example is at the top of <a href="/X_Cycles_Part_2">this page</a>.<br><br>Basically, if 5 is removed the knock on effect - if you trace it all the way round the chain - is that 5 is put back in that starting place - which is a contradiction. So we can deduce 5 must be the solution to that cell and we can remove everything else.<br></div></div><div id="blog-reply2367" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,15623,2367)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15595"><div class="w100pc"><div class="w60pc"><h2>... by: Cathy</h2></div><div class="w40pc datepost">Monday 27-Feb-2012</div></div>
+<div class="w100pc">Figure 1 is missing from your article (the url in the page's source ends in .jpg, but the actual image ends with .png)</div>
+<div class="w100pc" id="blog-reply15595"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Try refreshing your cache or hitting F5 a few times. I've replaced a great number of GIF/JPG image files with PNG. Some are so old they are heavily cached by the server and intermediate servers and probably your browser. I can see requests for the old files in the logs but I am pretty sure all the new images are in place.</div></div><div id="blog-reply2354" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(77,15595,2354)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15444"><div class="w100pc"><div class="w60pc"><h2>... by: JimS</h2></div><div class="w40pc datepost">Friday 31-Dec-2010</div></div>
+<div class="w100pc">Laura,<br><br>Maybe Andrew answered your question privately or maybe it is posted somewhere else on this site but I thought that I would try to answer your question.<br><br>As you follow a continuous, alternating nice loop along the path some of the weak links can actually be strong links -- they just don't have any digits that can be eliminated.  Imagine an X Wing which only has digits that can be eliminated in one unit not two.<br><br>Andrew might be more accurate if he said "weak or strong links" instead of just "weak links" but that would be cumbersome and wouldn't really help the understanding of the concepts.<br><br>Hope this helps.</div>
+<div class="w100pc" id="blog-reply15444"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(77,15444,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15342"><div class="w100pc"><div class="w60pc"><h2>... by: Laura</h2></div><div class="w40pc datepost">Friday 12-Feb-2010</div></div>
+<div class="w100pc">I thought only strong links could have weak interference - not the other way around. I have come across several puzzles in which your solver showed a weak link and it should have been strong- there were only 2 of that number in the square. Is there a special circumstance where this could happen? Please advise thanks</div>
+<div class="w100pc" id="blog-reply15342"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(77,15342,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15211"><div class="w100pc"><div class="w60pc"><h2>... by: ECC</h2></div><div class="w40pc datepost">Saturday 11-Apr-2009</div></div>
+<div class="w100pc">The missing detail in the explanation is that any odd length sequence of strong links counts as a single strong link, except that it cannot close the loop.  That is, two consecutive strong links in a loop gives you an answer as described under discontinuous loops, but four does not.</div>
+<div class="w100pc" id="blog-reply15211"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(77,15211,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15208"><div class="w100pc"><div class="w60pc"><h2>... by: Elleda Katan</h2></div><div class="w40pc datepost">Sunday 5-Apr-2009</div></div>
+<div class="w100pc">I'm finding again a problem I have encountered before : what seems like a contradiction between your explanation here and how x-cycles are 'used' in some of the daily puzzles. I'll use 4/5 [todays] as my example but I hit the same problem in 2/28 & elsewhere. <br>[1] In none of  the x-cycle demos  is the digit removed from the cells forming the loop. Instead it is eliminated " from cells that can be seen by two or more [loop] cells."  In the 4/5 puzzle 7 is eliminated from E1, the beginning and end of the loop.<br>[2] The end result says your explanation is a loop containing strong links. However, in 4/5, eliminating 7 from E1 destroys the loop. <br>[3] In the documentation under the 4/5 puzzle, the loop is described as : 7[E1]-7[E4]=7[J4]-7[J3]=7[G1]-7[E1] "Discontinuity is two weak links joined……" However, 7[G1] to 7[E1] is a strong link, not a weak one, no? Shouldn't it read : 7[G1]=7[E1]?<br>Please I love love love your puzzles and am trying to get smarter at understanding the more advanced strategies, but this confusion has me X-ing out x-cycles from solutions because I am so baffled by them. Thank you for your time.</div>
+<div class="w100pc" id="blog-reply15208"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(77,15208,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 428769<br>
+			This page was last modified on 25-February-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3ca84dc5afe4',t:'MTc4MDMwNjYxNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

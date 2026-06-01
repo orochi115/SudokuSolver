@@ -40,5 +40,19 @@
   "CHINESE-JWANGL5-ADVANCED": ["technique.turbot-family", "technique.aic"],
   "CHINESE-KAZUSA-WING-CONSTRUCTION": ["technique.wings", "technique.aic"],
   "CHINESE-KAZUSA-UR": ["technique.uniqueness"],
-  "CHINESE-CN-SUDOKUPUZZLE-XWING": ["technique.fish-base-cover"]
+  "CHINESE-CN-SUDOKUPUZZLE-XWING": ["technique.fish-base-cover"],
+  "SUDOKUWIKI-XY-CHAINS": ["technique.aic"],
+  "SUDOKUWIKI-X-CYCLES": ["technique.turbot-family", "technique.aic"],
+  "SUDOKUWIKI-3D-MEDUSA": ["technique.simple-coloring", "technique.aic"],
+  "SUDOKUWIKI-W-WING": ["technique.wings"],
+  "SUDOKUWIKI-XYZ-WING": ["technique.wings"],
+  "SUDOKUWIKI-BUG": ["technique.uniqueness"],
+  "SUDOKUWIKI-FORCING-NETS": ["technique.forcing-vs-enumeration"],
+  "SUDOKUWIKI-AIC-GROUPS": ["technique.aic"],
+  "SUDOKUWIKI-AIC-ALSS": ["technique.aic", "technique.als"],
+  "SUDOKUWIKI-AIC-URS": ["technique.aic", "technique.uniqueness"],
+  "SUDOKUCOM-ZH-SWORDFISH": ["technique.fish-base-cover"],
+  "SUDOKUCOM-ZH-YWING": ["technique.wings"],
+  "CHINESE-CN-SUDOKUPUZZLE-XYWING": ["technique.wings"],
+  "CHINESE-CN-SUDOKUPUZZLE-UR": ["technique.uniqueness"]
 }

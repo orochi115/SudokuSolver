@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>AIC with ALSs - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script>
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/AICALS1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/AICALS1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'AIC_with_ALSs';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_AIC_with_ALSs">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>AIC with ALSs</h1><div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALSLink1.png" alt="Naked Pair and Almost Locked Set" /><figcaption>Naked Pair and Almost Locked Set
+</figcaption></figure>
+<br>A <span class="hy">Locked Set</span> is a group of cells (that can all see each other) of size N where the number of candidates in those cells is equal to the size of the group. That is N cells contain N candidates. A solved cell or a clue is a Locked Set where N=1, but such a cell is not useful. The smallest useful Locked Set is a Naked Pair (where N=2) as in the [2,8] set in the diagram. The next smallest Locked Set is a Naked Triple (N=3) and so on.<br></div>
+
+<div class="SRCell">An <span class="hy">Almost Locked Set</span> (ALS) is N cells containing N+1 candidates.  In the context of Alternating Inference Chains in this solver, an ALS is of size N=2 and the number of different candidates in those cells is 3, although bigger ALS groups are possible.  So an ALS of size 2 will be a two Conjugate Pairs plus one other candidate. In the diagram above the [2,8] pair are joined by a stray 6 which stops it being a useful Naked Pair.
+</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALSLink2.png" alt="ALS in an AIC fragment" /><figcaption>ALS in an AIC fragment
+</figcaption></figure>
+<br>Lets continue with this ALS. <br><br>While solving a puzzle I am hunting around for Inference Chains and perhaps I find my chain turns <span class="hg">ON</span> the 6 in cell <span class="hy">C4</span>.  That will remove all other 6s in the box including the 6 in our ALS.  If that 6 is <span class="hr">OFF</span> then we create an on-the-fly Naked Pair. <br><br>Now, a Naked Pair eliminates candidates in the row or column (or box) it is aligned on so we can use this elimination property as part of our chain. This is the trick!  By removing the 6 in <span class="hy">B5</span> we fix 2 and 8 into those two cells so we can look along the row at other 2s and 8s and turn them <span class="hr">OFF</span>. This I do in cell <span class="hy">B9</span>. From there I can continue the inference chain. You get two cracks of the whip: check both branches - the 2s and the 8s in the pseudo Naked Pair.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AICALS2.png" alt="AIC with ALS" /><figcaption>AIC with ALS
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B06030918071810080143430710060309160s020504080901060307b6cy052i0l060p7u0o041h03090l08071f059f381f03052i088r1o2r040806032q0z02099y9e0201089u043m1i9zab1f2s049w132r08">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=600070000007003900250090030005006000403000705000300800040030029002100400000040008">From the Start</a>
+</figcaption></figure>
+A real life example now. This chain contains an ALS on the cells <span class="hy">{G6,H6}</span> (I used squiggly brackets to denote ALS as opposed to square brackets for <a href="/Grouped_X_Cycles">Grouped Cells</a>). 9s in row H are the entry point. We turn 9 <span class="hg">ON</span> in <span class="hy">H2</span> which turns <span class="hr">OFF</span> the 9 in <span class="hy">H6</span> - the extra candidate that makes the ALS an ALS.  This gives us a Naked Pair of [5,7] that points up column 6 turning <span class="hr">OFF</span> the 7 in <span class="hy">F6</span> and the chain continues. <br><br>Ultimately we use <a href="/Alternating_Inference_Chains">Nice Loop Rule 2</a> to place 4 in <span class="hy">A4</span><br><span class="hc">AIC on 4 (Discontinuous Alternating Nice Loop, length 12):<br>-4[A4]+4[D4]-7[D4]+7[D2]<br>-7[H2]+9[H2]-9[H6]<span class="hy">+7{H6|G6}</span><br>-7[F6]+4[F6]-4[A6]+4[A4]<br>- Contradiction: When 4 is removed from A4 the chain implies it must be 4 - other candidates 2/5 can be removed</span><br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AICALS3b.png" alt="Off Chain eliminations" /><figcaption>Off Chain eliminations
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=759800030200000700016070098097250000600798003000046900532610840060080302070000650">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=059000030200000000010070098007250000600708003000046900530010040000000002070000650">From the Start</a>
+</figcaption></figure>
+<br>This second example uses a chain to kill off-chain candidates, which is Nice Loop Rule 1.  The ALS is in <span class="hy">{F1,F4}</span> and consists of [1/3/8] and [1/3] respectively.  We turn off the extra candidate, 8 in <span class="hy">F1</span> to enable the Naked Pair to be formed. <br></div>
+
+<div class="SRCell"><span class="hc">Alternating Inference Chain<br>AIC Rule 1: -3[B5]+6[B5]-6[B8]+6[D8]-8[D8]+8[D1]-8[F1]+3{F1|F4}-3[F3]+3[B3]-3[B5]<br>- Off-chain 6 taken off B9 - weak link: B5 to B8<br>- Off-chain candidates 1 taken off cell D8, link is between 6 and 8 in D8<br>- Off-chain 8 taken off F2 - weak link: D1 to F1<br>- Off-chain 8 taken off F3 - weak link: D1 to F1<br>- Off-chain 8 taken off J1 - weak link: D1 to F1<br>- Off-chain 3 taken off B4 - weak link: B3 to B5</span><br></div><br>
+
+<h2>Enchancements December 2025 <a name="part2"></a></h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AICALS4b.png" alt="Missing chain revealed" /><figcaption>Missing chain revealed
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bckbm0a22030g8s8s8k8m7u1q020a0h8u050707181s22828i08011k0164090c0f050s2k444k06107n0g047p03bp122y1a7n08028rai8z90850807848m0n8k0404851w1u848m0g080n8k03070h0d01058k8k">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000030000000200057700000810109005000060004030000082000008700004400000080037001500">From the Start</a>
+</figcaption></figure>
+I've noticed some missing eliminations having tried some examples from Hodokus exellent page on <a href="https://hodoku.sourceforge.net/en/tech_chains.php" target="_blank">Chains and Loops</a>. Here is one. Coming out of an ALS in a loop the solver wasn't detecting that the exit landed on the starting candidate. Now does.<br><br>AIC on 5 ((w.Groups) Discontinuous Alternating Nice Loop, length 8):<br><span class="hc">+5[H2]-5[G1|G2]+5[G5]-2[G5]+2[H5]-2[H3]+5{H3|H4}-5[H2]</span><br>- Contradiction: When H2 is set to 5 the chain implies it cannot be 5 - it can be removed<br><br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AICALS5b.png" alt="Extra off-chain eliminations" /><figcaption>Extra off-chain eliminations
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B5u0e0204030a090f5u4a030f077o7o4a010501092i4y5e5e0u022m022b5z7rdmdq4n4m0609045z53767a4p4m490e0f4749444807040i032d095070704t6a4d062c0ebc01dc4g5y4g2i082j052c2g06090p">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=052431960036700015190000020200000006940000000560000749309000000605010000080500690">From the Start</a>
+</figcaption></figure>
+A more important observation is that an ALS produces a Naked Pair and both candidates in the pair can contribute to off-chain eliminations. Provided the loop connects and we can be sure of the normal eliminations we should also look at the whole Naked Pair.<br><br>In Hodoku's example the chain is coming in from +3 in <span class="hy">J6</span> to knock  off the 3 in <span class="hy">F6</span>. Using the 2s in <span class="hy">F56</span> which are now necessary for those cells, the chain continues to -2<span class="hy">F4</span> and onwards before finishing on <span class="hy">J9</span> where it started.<br><br>There are already many off-chain eliminations of 2s and 3s. Strictly speaking the weak link between <span class="hy">F56</span> and <span class="hy">F4</span> is on 2 but there are no 2s to remove off-chain. But because we know 2 must exist in <span class="hy">F56</span> so to must 8. That allows eliminations of 8 in every cell that can see it. The red box and arrows shows the pair part eliminations.<br><br>Note: To view this example it is necessary to go to the 7th out of 10.<br><br></div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="AIC_with_Groups">AICs with Grouped Cells</a></td><td class="w50pc cright">Continue to <a href="Using_Unique_Rectangles_as_Links_in_Chains">Using Unique Rectangles as Links in Chains</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=87&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="AIC_with_ALSs" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(87,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment16986"><div class="w100pc"><div class="w60pc"><h2>... by: Himself</h2></div><div class="w40pc datepost">Sunday 13-Aug-2023</div></div>
+<div class="w100pc">In the last example, I believe the chain should also eliminate the 1s in F8 and F9, since 1 will always be contained within the naked pair.</div>
+<div class="w100pc" id="blog-reply16986"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is correct, logically. The solver however is doing a lot of work here but is not sophisticated to nab those eliminations. Might be too much to explain in one step!</div></div><div id="blog-reply2804" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(87,16986,2804)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16970"><div class="w100pc"><div class="w60pc"><h2>... by: Ymiros</h2></div><div class="w40pc datepost">Friday 7-Jul-2023</div></div>
+<div class="w100pc">Wouldn't this strategy also work with almost locked hidden sets?<br>Specifically for N=2 this would be a set of 2 digits that within a specific unit have only 2 possible positions, but one of them is allowed to have a 3rd possible position within that unit so if that 3rd possibility gets eliminated we can get rid of all other candidates from the hidden pair and possibly continue with a strong link from there.</div>
+<div class="w100pc" id="blog-reply16970"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(87,16970,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16925"><div class="w100pc"><div class="w60pc"><h2>... by: tebo</h2></div><div class="w40pc datepost">Thursday 11-May-2023</div></div>
+<div class="w100pc">I'm curious why this Strategy is not in your solver's Extreme Strategies list.  I have not worked through any examples of this with any solver, nor have I examined Robert's "almost fish", "forcing net", or "AALS" logic.  However, from your examples, it seems like the objective is to remove the N+1 Digit, leaving a Naked Subset.  The regular AIC Strategy would still Eliminate the N+1 Candidate, leaving the Naked Subset to be found by a following step in the Solution Path.  I completely agree with removal of AIC with ALSs if it's simply an intellectual exercise.</div>
+<div class="w100pc" id="blog-reply16925"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>It is in the solver! It is just not a partitioned strategy. It is implemented for all strategies that use alternating inference chains. It is a type of chain link and there are other ones: grouped cells and URs for example. I don't think there is a simpler two-part process to using a chain with these elements, but would be interested in an example<br></div></div><div id="blog-reply2663" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(87,16925,2663)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16737"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Monday 6-Dec-2021</div></div>
+<div class="w100pc">I have worked a bit more on this.<br><br>An AIC with "almost locked sets" and also "almost fish" can solve the "unsolvables" #92 and #115 (and possibly others - I don't have all the unsolvables in my database).<br><br>A fish is basically the same thing as a locked set (which is itself the same thing as a hidden locked set).<br><br>If you think of a "fish" as consisting of "base sets" and "cover sets", where each set contains nine candidates, one of which must be true, then there are four kinds of such sets of candidates:<br><br>row-val: the nine candidates occurring in a particular row and with a particular value, but occurring in different columns.<br><br>col-val: the nine candidates occurring in a particular column and with a particular value, but occurring in different rows.<br><br>blk-val: the nine candidates occurring in a particular block and with a particular value, but occurring in different cells within that block.<br><br>row-col: the nine candidates occurring in a particular row and a particular column (so a cell), but having different values.<br><br>So a "fish" is then a group of base sets, and a group of cover sets, the same number of each type.  If all the candidates in the base sets that have not already been eliminated, also occur in the cover sets, then any candidates remaining in the cover sets but outside the base sets, can be eliminated.<br><br>If base sets are row-cols with the same row and different columns (so cells), and the cover sets are row-vals with the same row and different values, the "fish" is a locked set (within a row).  Same idea for columns and blocks.<br><br>If base sets are row-vals with the same row and different values, and the cover sets are row-cols with the same row and different columns, the "fish" is a hidden locked set (within a row).  Same idea for columns and blocks.<br><br>If base sets are row-vals with the same value and different rows, and the cover sets are col-vals with the same value and different columns, then this is a traditional fish.  Same idea with rows and columns switched.<br><br>So since there is really no conceptual difference between a locked set, a hidden locked set, and a fish, the concept of "almost locked sets" in an AIC extends to the other two as well.  Hidden locked sets are not so important, because if there is an "almost hidden locked set", there is also a conjugate "almost locked set".  But the "almost fish" are not redundant with "almost locked sets" in an AIC.</div>
+<div class="w100pc" id="blog-reply16737"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(87,16737,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16690"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 20-Jul-2021</div></div>
+<div class="w100pc">And following up - I have implemented an "Almost Fish" feature in my AIC/forcing net software.  That is, there is no fish, but as you start to follow the "off" implications of an AIC, a fish appears, and can be used to turn some other candidates "off".<br><br>In my database of 235 "difficult" puzzles (of which 166 can already be solved), this does not get me any additional solved puzzles.  However, it does get a small number of additional eliminations - just not enough to solve fully the puzzles.  So I think the idea of an "almost fish" being used as a link in an AIC is valid, although in practice it may not be found very often.  (It's actually found quite a lot in my sample, but most of the eliminations I get would eventually have been found anyway by other methods.)<br><br>I am now tending to use the terminology "dynamic locked set" or "dynamic fish" instead of "almost locked set" or "almost fish", to allow for their more general use in a forcing net.  It can be that there are multiple extra candidates preventing the existence of a locked set or a fish, but following the implications of the forcing net, those multiple extra candidates bring the locked set or fish into existence (conditional on the initial assumption behind the forcing net).</div>
+<div class="w100pc" id="blog-reply16690"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(87,16690,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16689"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 20-Jul-2021</div></div>
+<div class="w100pc">I think the idea can be extended a bit.<br><br>The most obvious one would be to allow ALSs with more than two cells and more than three values.  The description above is quite general, but from the comments, "In the context of Alternating Inference Chains in this solver, an ALS is of size N=2 and the number of different candidates in those cells is 3, although bigger ALS groups are possible." I take it the implementation in the solver is limited to two-cell ALSs.  The current "unsolvable", #461, can be solved if larger ALSs are allowed.<br><br>There is another possible generalisation though.  Suppose you have an AALS, two cells with four values.  You begin by assuming some candidate somewhere is "on", and follow the implications through weak and strong links.  If *two* of the values in the AALS are eliminated, then (conditional on the initial assumption) it becomes an ALS, and we can draw further inference by eliminating the two values in other cells in the same unit.  This is even more likely to occur if we move to a "forcing net" way of doing things instead of a linear chain (related to the "AICs with Exotic Links" topic).  Unsolvables #411 and #412 can be solved in this way.<br><br>I have a database of 235 advanced puzzles (which cannot be solved using naked/hidden singles/pairs/triples/quads, box-line reduction and pointing pairs/triples), many of which have come from this site, including the unsolvables, but some from other sources.  I can now solve (with my own solver) 166 of them.  15 of those require a "forcing net" technique, sometimes including the generalisation of the ALS technique as described above.  However, my "forcing net with dynamic LS" algorithm is so slow it is painful - I need to improve it.</div>
+<div class="w100pc" id="blog-reply16689"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(87,16689,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15799"><div class="w100pc"><div class="w60pc"><h2>... by: Nono</h2></div><div class="w40pc datepost">Tuesday 4-Jun-2013</div></div>
+<div class="w100pc">Question like Str8tsFan.<br>the last solver version 1.95 does not  eliminate the 8 in J1. <br>No problem for good sudoku players !<br><br><br></div>
+<div class="w100pc" id="blog-reply15799"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Quite correct. There was some very odd code in there that stopped J1 from being eliminated because the link had already eliminated in the box. Can't say why, must have had a brain fart that day. Diagram and solver updated.</div></div><div id="blog-reply2427" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(87,15799,2427)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15672"><div class="w100pc"><div class="w60pc"><h2>... by: Str8tsFan</h2></div><div class="w40pc datepost">Wednesday 3-Oct-2012</div></div>
+<div class="w100pc">I hope Andrew will ever read (and answer) these comments... About the second example:<br><br>(1) Using the link to the solver leads to a sudoku with a tiny little difference: B9 has an additional candidate 6, which is missing at the example. At the solver this candidate will be eliminated with the very same example:<br>"- Off-chain candidate 6 taken off B9 - weak link: B5 to B8"<br><br>(2) What about the candidate 8 at J1? As far as I can understand the theory, the weak link "D1 to F1" should not only eliminate the 8s at F2 and F3 (weak link in same box) but also the 8 at J1 (weak link in same column). More interesting: the solver doesn't eliminate that 8 at J1 either. Why? Did I make any mistake, or is it a flaw of the solver? As far as I understood, a weak link can be part of two entities (box and row or box and column) and thus should be able to eliminate candidates at both entities, maybe the solver fails to check the second entity?<br></div>
+<div class="w100pc" id="blog-reply15672"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks for the detailed hints. Both points correct. I've updated the diagram and solver.</div></div><div id="blog-reply2383" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(87,15672,2383)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15649"><div class="w100pc"><div class="w60pc"><h2>... by: Mr Turner</h2></div><div class="w40pc datepost">Tuesday 10-Jul-2012</div></div>
+<div class="w100pc">The last paragraph seems flawed since there is an 8 at F8.  The 8s at F2 and F3 could be colored off as an inference from D1 being on.  This implies F8 is on.  F8 is also inferred to be on from D8 being off.</div>
+<div class="w100pc" id="blog-reply15649"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Correct. I've removed that paragraph now. Doh.</div></div><div id="blog-reply2374" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(87,15649,2374)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15215"><div class="w100pc"><div class="w60pc"><h2>... by: Mr Archibald</h2></div><div class="w40pc datepost">Wednesday 22-Apr-2009</div></div>
+<div class="w100pc">I call this the 6 pack.<br><br>the first three in a line on rows 1,2 is the some as the last six on row 3. this can work upsidedown and backtofront and sideways.<br><br> a b c  d e f   g h i<br> i h g   f e d   c b a <br> d e f   a b c  i h g</div>
+<div class="w100pc" id="blog-reply15215"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(87,15215,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 82440<br>
+			This page was last modified on 1-December-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3d352892347c',t:'MTc4MDMwNjY0MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

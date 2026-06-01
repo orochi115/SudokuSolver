@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>XY-Chains - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. XY-Chains are the work-horse of chaining strategies and are very easy to use when the board contains many bi-value cells. When the start and end cells can see a common candidate eliminations can be made."/>
+<meta name="twitter:description" content="Sudoku Strategy. XY-Chains are the work-horse of chaining strategies and are very easy to use when the board contains many bi-value cells. When the start and end cells can see a common candidate eliminations can be made.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/XYC1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/XYC1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'XY_Chains';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_XY_Chains">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>XY-Chains</h1><div class="SRCell">XY-Chains is a way to connect two parts of the board that can't directly "see" each other. The "X" and the "Y" in the name represent these two values in each chain link. If we can connect the ends we can make inferences and eliminate candidates.</div><br>
+
+<div class="SRCell">
+<figure style="width:440px"><img src="PuzImages/XYC1.png" alt="XY-Chain example 1" /><figcaption>XY-Chain example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1g0818017o038207222e0i0s0e2c0f430r4e2e1u01049e0886021y05070h0b0d010f03090a0d0c060e090g0h0b09020f080c0g0d05014y030g091f05020r4a501u100c1f0d430i0g0d010i070h02120612">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=080103070000000000001408020570001039000609000920800051030905200000000000010702060">From the Start</a>
+</figcaption></figure>
+Originally these were found by extending <a href="/Y_Wing_Strategy">Y-Wings</a> into so-called <a href="/Y_Wing_Chains">Y-Wing Chains</a> but it was quickly transformed into this more encompassing strategy.  The same pincer-like attack on candidates that both ends can see by chaining bi-value cells.  With Y-Chains the hinge relied on identical bi-value cells but in an XY-Chain the candidate can differ by one on each hop.<br><br>The example here is a very simple XY-Chain of length 4 which removed all 5's highlighted in yellow. The chain ends are 5 <span class="hy">A7</span> and <span class="hy">C2</span> - so all cells that can see both of these are under fire. It's possible to start at either end but lets follow the example from <span class="hy">A7</span>. We can reason as follows<ul><br><li>If A7 is 5 then A3/C7/C9 cannot be.<br><li>if A7 is NOT 5 then it's 9, so A5 must be 2, which forces A1 to be 6. If A1 is 6 then C2 is 5.<br></ul><br></div>
+
+<div class="SRCell">Which ever choice in <span class="hy">A7</span> the 5's in A3/C7/C9 cannot be 5. The same logic can be traced from <span class="hy">C2</span> to <span class="hy">A7</span> so the strategy is bi-directional, in the jargon.<br><br>This strategy cannot predict which end of the chain will have the solution 5 just that at least one end will do so. Testing on a large set of puzzles (>10,000) reveals that in 57% of XY-Chains found the solution is at both ends of the chain. <br></div><br>
+
+<h2>Chain Notation</h2>
+<div class="SRCell">The solver uses relatively simple chain notation with cells identified with [Row Letter+Column]. (There is an option to change to rYcX coordinates). In a chain we're alternating between strong and weak links but also turning candidates <span class="hg">ON</span> and <span class="hr">OFF</span>. To symbolise that the chain uses <span class="hg">plus</span> and <span class="hr">minus</span>. The number being turned on or off follows the symbol. The above example is<br><span class="hc">-5[A7]+9[A7]-9[A5]+2[A5]-2[A1]+6[A1]-6[C2]+5[C2]<br>5 taken off A3<br>5 taken off C7<br>5 taken off C9</span><br><br>In later documentation on <a href="/Grouped_X_Cycles">Grouped X-Cycles</a> you will see grouped cells denoted as <span class="hc">+4[D4|E4]</span> and when ALSs are used to make a link curly brackets are used: <span class="hc">+7{H6|G6}</span>.  Rare exotic links like <a href="/Using_Unique_Rectangles_as_Links_in_Chains">Unique Rectangles</a> are named <span class="hc">-9(UR[DF28])</span> as is an <a href="/AICs_with_Exotic_Links">X-Wing</a> <span class="hc">-8(XW[-E3/-B3+B2-E2])</span></div><br>
+
+<h2>Example 2</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XYC2b.png" alt="XY-Chain example 2" /><figcaption>XY-Chain example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f46040g4609020a0e0b07b646010e067q04057q0a1m1m0b0g7q0h0g010b050i0u0u080f4a06460102070u050i7u057q4a4e060a070b7n7u0e1q1q0v0h0b07030b060i070h0e040a434a07020e0r090f0c">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=004009200070010604500000000010500080060127050050006070000000007306070040007200900">From the Start</a>
+</figcaption></figure>
+<br>This relatively easy Sudoku puzzle contains contains a nice XY-Chain near the end. It proves 4 must be in either <span class="hy">E1</span> or <span class="hy">D7</span> and therefore we can remove the 4 in <span class="hy">E7</span> since that cell can see both ends.</div>
+
+<h2>Detection Changes August 2025</h2>
+<div class="SRCell">XY-Chains go way back to the earliest instance of the solver and had separate code for this strategy because the pattern is very simple and it pre-dates my work on AICs. But the selection of the “best” XY-Chain was very crude. I’d look for length 3 and return the first, then any length 4 and finally any length 5-12 and return the first. (Length here is the number of cells, not the chain links which are double the 'length').<br><br>I decided to see if I could use the AIC code to look for this pattern and re-use some code. The AIC Chain detection builds a list of the best 50 chains and allows the solver to “explore” other chains at the same step. This means XY-Chains share the same priorities: number of eliminations before length, length before same number of eliminations and so on. Same preference order as AIC and other chaining. This may change the score and solve order of puzzles that require XY-Chains.<br><br>Also the old XY-Chain code was not using Windoku and Sudoku X diagonal units which was a big miss.<br><br>Currently XY-Chains do not use exotic links as this would turn a 'diabolical' strategy into an 'extreme' one.<br><!--There is also a side effect that URs and ALSs might be used in the links making a chain although it will be rare. In two minds about this since they are not part of the pattern but are logically fine. David Hollenberg <a href="/sudoku.htm?bd=S9B9h069h0h2q822c030d0c5u0d0201060e5u09d0cy050u2i7q0f5w019f0e9j0f08029i042e0602460g090d460105cy04cy05030ad09g0f05czd00n0f46049e5w04430f0902070n0e46d003d00r164i9f065w">found an example</a> (choose second chain nect to 'explore').--><br></div><br>
+
+<h2>Closed XY-Chains</h2>
+<div class="SRCell">September 2025. Here is a great observation I wished I'd picked up many years ago. Certainly dates from <a href="http://jcbonsai.free.fr/sudoku/JSudokuUserGuide/chainsTechniques.html" targe="_blank">at least 2008</a> but other references please let me know! I'm grateful to <b>Stefan</b> in the Netherlands for emphasising how relevant it is and why it was missing from the solver. This is a good boost for XY-Chains and in testing I've found around 8%-10% additional eliminations. Indeed the old example 2 has the property described and I've moved it to this section. XY-Chains of this type now have no start or end cells highlighted.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XYC_Rule2_Ani.gif" alt="" /></figure>
+It all rests on whether the ends of the chain can see each other.<br><br>In this animation I've pulled out the essential parts of an XY-Chain from the following example. The chain starts on <span class="hy">B3</span> and ends on <span class="hy">B7</span>. The old strategy would have eliminated the 7 in <span class="hy">B5</span> and no more - since the rule is <i>"at least one end of the chain or the other must be the solution"</i>.<br><br>But if the two ends of the chains can see each other we get a continuous loop. The blue arrow bridges the gap since the 7s in <span class="hy">B3</span> and <span class="hy">B7</span> connect. We are going to see this a lot in <a href="/X_Cycles">X-Cycles</a> and later in <A href="/Weak_and_Strong_Links">Alternating Inference Chains</a>. The difference is that Strong Links are all on the bi-value cells. The arrows in the diagram illustrate the direction of inferences.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XYC4.png" alt="Closed XYC example 1" /><figcaption>Closed XYC example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B022y0i1a3q3q08011i0f012i4e66092e050b082q030z3n02360d090z095w4o6g041j0o1i0d2g060p9l2f057s080z0o4406bs4m7n070d030f0r09170z020h070i0s0l074f470u060e0g08050w1s1i7y7q01">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=200000810010009050803002009090004000006000508000600070300900207000700060085000001">From the Start</a>
+</figcaption></figure>
+<br>The alternating red and green candidates show us that all round the chain the solution must be one colour or another. We don't know which but we do know they form two distinct sets. All Weak Links become Strong Links which means we can eliminate along every link in the chain. So the 4 in <span class="hy">H5</span> is knocked out by the link <span class="hy">H27</span> and two 3s in <span class="hy">D7</span> and <span class="hy">J7</span> are knocked out by the link <span class="hy">BH7</span>.<br><br>This is <a href="/Alternating_Inference_Chains">Nice Loop Rule 1</a> This neatly ties together the family of chaining strategies.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XYC4b.png" alt="Closed XYC example 2" /><figcaption>Closed XYC example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4a0i0217434j03070662014yak03c405444c0c3m5e3g6s440a094c090c1m08051g0g0s015u3m5f031h04c24kb8021u5n1f09074y4q030f080i2s2c0c0d0a2q0e0b039f04b7b606cy0104078y4yci020cbm">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=002000376010030500000000090900850001000304000200097003080000000003040060147000200">From the Start</a>
+</figcaption></figure>
+<br>This Sudoku puzzle contains three XY-Chains, starting with this short rectangular one. Although this loop is continuous the solver needs to start somewhere and that is <span class="hy">B3</span>. That cell is either 8 or 6. <br><br>If it is 6 then <span class="hy">D3</span> must be 4 which pushes 2 into <span class="hy">D8</span> which in turn makes <span class="hy">B8</span> 8. <br><br>You can trace this from back round the other way:<br><br>If <span class="hy">B3</span> is 8 then <span class="hy">B8</span> must be 2 which pushes 4 into <span class="hy">D8</span> which in turn makes <span class="hy">B8</span> 6 confirming <span class="hy">B3</span> is 8.<br><br>So three of the four links that span rows and columns contain candidates we can remove, as shown.</div>
+
+<div class="SRCell"><h2>XY-Chains Exemplars</h2>
+These puzzles require the XY-Chains strategy at some point but are otherwise trivial.<br>
+New examples added here as of August 2025<br>
+They make good practice puzzles.
+<ul>
+<li><a href="/sudoku.htm?bd=001005004060080057072900000004000060009060400030000700000007840610050030300200100"">Exemplar 1 (x5, score 81)</a></li>
+<li><a href="/sudoku.htm?bd=020080600000500007078000340000290006050000090600037000042000570300009000009050030"">Exemplar 2 (x2, score 88)</a></li>
+<li><a href="/sudoku.htm?bd=000007001790006085500800000020063000009000600000740030000005008350900074100300000"">Exemplar 3 (x2, score 89)</a></li>
+<li><a href="/sudoku.htm?bd=010027050020600400800000007000004070006708900070300000700000009005009010030160020"">Exemplar 4 (x2, score 90)</a></li>
+<li><a href="/sudoku.htm?bd=090060000310000702050000080900007008003000900200500001080000020105080004000020060"">Exemplar 5 (x2, score 93)</a></li>
+<li><a href="/sudoku.htm?bd=080309050005000300009072000300800060200090005060005001000780400002000600090204070"">Exemplar 6 (x2, score 98)</a></li></ul>
+<br>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Y_Wing_Chains">Y-Wing Chains</a></td><td class="w50pc cright">Continue to <a href="3D_Medusa">3D Medusa</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=67&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="XY_Chains" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(67,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17284"><div class="w100pc"><div class="w60pc"><h2>... by: Eric Bryant</h2></div><div class="w40pc datepost">Saturday 23-Aug-2025</div></div>
+<div class="w100pc">I noticed the Detection Changes from earlier this month:<br>> There is also a side effect that URs and ALSs might be used in the links<br>> making a chain although it will be rare. In two minds about this since they<br>> are not part of the pattern but are logically fine.<br><br>Here's a potential argument for leaving URs out, or having the option to disable them:<br><br>https://www.sudokuwiki.org/sudoku.htm?bd=S9B4712060n070409024j43040709050203064309130206080n040z07040705080206010903060901050307020804020803040109050706130n0807091306040207060902041308130z1302040n0608071309<br><br>This is a partially generated puzzle from some software I've been developing. The program has yet to randomly add in enough clues to make a complete puzzle.<br><br>The Solution Count of 3 can quickly be verified by "solving" by hand; plug a 1, 3 or 8 into A1 and you'll quickly end up with a complete valid grid.<br><br>BUG and Unique Rectangles don't apply here, because the puzzle is not yet at the point of having a unique solution.<br>Accordingly, uncheck both these strategies (along with XY-Chain) and the puzzle won't be solvable.<br><br>Check off XY-Chain again though, and we do get a unique solution, due to XY-Chains now including URs.<br>It would be nice to not have XY-Chains include URs if Unique Rectangles are unchecked, to not come across "false positives" for a puzzle's solvability.<br><br>Don't know how doable this is in the solver though; depends on how everything works under the hood.<br>Would it be feasible to alter one strategy's implementation based on whether another strategy is checked or unchecked?<br>Would this even be a good idea, or counterintuitive & against the solver's design principles?<br>Another possibility could be to have separate checkboxes for XY-Chains with & without URs, similar to how X-Wing & Swordfish have both finned & unfinned variants.<br><br>Of course, it could be that incomplete puzzles like this example are outside the scope of what the solver is intended to do, and I shouldn't be trying to "solve" the unsolvable. :)</div>
+<div class="w100pc" id="blog-reply17284"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Eric. There is a tick box under the list of strategies on the right hand side, on the solver. That will disable URs in all chains.</div></div><div id="blog-reply3003" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,17284,3003)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17255"><div class="w100pc"><div class="w60pc"><h2>... by: BeyelerStudios</h2></div><div class="w40pc datepost">Tuesday 15-Jul-2025</div></div>
+<div class="w100pc"><a href="sudoku.htm?bd=903001000800000000751009060187000294000792186200148573670913000002684000410257630">Example 5</a> contains two type 1 WXYZ-Wings your solver doesn't detect:<br><br>The first one with hinge in B4 and wings {B3,B6} and {D4} and non-restricted common digit 5. Note that the 5 is present in the hinge like your example 1 for a type 1 WXYZ-Wing but isn't present in B3 similar to example 3 for a type 1 WXYZ-Wing: "we don't have to worry about the common digit 'seeing' the brown cells as they don't have a common digit in them." This eliminates the 5 in A4.<br><br>The second one with hinge C7 and wings {C5,C9} and {G7} and non-restricted common digit 8 eliminates the 8 in A7.<br><br>Cheers and thanks for all your great explanations!</div>
+<div class="w100pc" id="blog-reply17255"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Very useful analysis, thank-you very much. Solver can now detect this type.</div></div><div id="blog-reply2958" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,17255,2958)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17210"><div class="w100pc"><div class="w60pc"><h2>... by: VladFein</h2></div><div class="w40pc datepost">Monday 24-Mar-2025</div></div>
+<div class="w100pc">I think I found an example with 18 XY-Chains, one of them is 14-long:<br>.....5..84.....3......312.6...56...12.4....3..17....9.8...5.76..7........92..3...<br><br>Thank you for your great site!</div>
+<div class="w100pc" id="blog-reply17210"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Whopper! Thanks very much for sharing ;)</div></div><div id="blog-reply2966" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,17210,2966)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17200"><div class="w100pc"><div class="w60pc"><h2>... by: Wolfgang M.</h2></div><div class="w40pc datepost">Friday 28-Feb-2025</div></div>
+<div class="w100pc">Hello Andrew, <br>thanks for documenting these variety of possibilties to eliminate candidates.<br>When I was studying the XY-chain explanation,<br>I found a sentence, which is contradicting the examples  shown as explanation:<br>"With Y-Chains the hinge was expanded to a chain of identical bi-value cells but in an XY-Chain these can be different - as long as there is one candidate to make all the links."<br>In all 3 examples only the first and last cell in a chain are having one common candidate.<br>Maybe that was a more restrictive version in the past, which has been simplyfied lateral. <br>Could you please include this to the rule, as it confused me, when I read the text the first times, until I recognized, that the limitation to all members of the chain isn't really neccesary. <br>Wolfgang</div>
+<div class="w100pc" id="blog-reply17200"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Good point. A very old piece of text at the top. I've reworded it to include links to Y-Wings and the deprecated Y-Wing Chains page.</div></div><div id="blog-reply2894" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,17200,2894)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17035"><div class="w100pc"><div class="w60pc"><h2>... by: Regan</h2></div><div class="w40pc datepost">Thursday 14-Dec-2023</div></div>
+<div class="w100pc">Found an exemplar for 12 length chain (link opens straight to the point where you need the chain): <a href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1n1g0r0807090l05030n2c2e0405060l0809090805030201070604050r4b090u0246070607030605010804090202094a060u07050n434f0r0207091a060v4j1r362e02081a090v0z4e050901060u460207">Load Puzzle</a><br><br></div>
+<div class="w100pc" id="blog-reply17035"></div>
+<div class="post-reply" id="reply2842"><table class="w100pc"><tr><td class="post-writes">Pete replies:</td><td class="datepost">Tuesday 25-Jun-2024</td></tr>
+<tr><td colspan="2">https://www.sudokuwiki.org/sudoku.htm?bd=006080005005603900384951276030100050501030002060005010219378564658412700003569020<br><br>I think there's a very long XY chain linker in this puzzle to get the original 47 pair to a 4 in the bottom left corner <br>47-71-19-92-27-74-43-39-93-39-97-94-42-27-74-47 cancels the 7<br><br>Am I right?</td></tr>
+</table></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I can't see it Pete</div></div><div id="blog-reply2974" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,17035,2974)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17020"><div class="w100pc"><div class="w60pc"><h2>... by: Nick </h2></div><div class="w40pc datepost">Friday 10-Nov-2023</div></div>
+<div class="w100pc">I’m struggling to complete puzzles that need a y wing or xy chain to complete ,    How do you spot these ? Are there any tips ?</div>
+<div class="w100pc" id="blog-reply17020"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,17020,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16866"><div class="w100pc"><div class="w60pc"><h2>... by: Andy Potvin</h2></div><div class="w40pc datepost">Tuesday 3-Jan-2023</div></div>
+<div class="w100pc">For Exemplar 5, in its current orientation, my solver only needed 6 XYchain's.<br><br>RU S# DL Technique Details (only showing steps requiring Dlevel>=UR1=9)<br>37 18 45 XYchain:8  eliminated 6 from p25 via chain p23 p53 p73 p93 p99 p39 p35 p45.<br>37 19 45 XYchain:8  eliminated 8 from p79 via chain p73 p53 p23 p26 p46 p45 p35 p39.<br>37 20 37 XYchain:5  eliminated 5 from p78 via chain p73 p93 p99 p39 p79.<br>37 21 37 XYchain:5  eliminated 2 from p19 p29 via chain p39 p99 p93 p73 p79.<br>37 22 37 XYchain:5  eliminated 8 from p19 via chain p39 p79 p73 p93 p99.<br>37 23 37 XYchain:5  eliminated 7 from p17 p27 p89 via chain p87 p99 p39 p79 p19.<br><br>And if I transform the matrix/puzzle (in MATLAB notation to transpose(fliplr(Mp))) my solver needs only 4 XYchain's: one 8-link followed by 3 5-link.<br><br>I haven't yet developed a function to find the "simplest" solution possible. (And I don't have any plans to develop such a function.)<br><br>Best,<br>Andy<br><br><br><br><br></div>
+<div class="w100pc" id="blog-reply16866"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16866,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16827"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Saturday 30-Jul-2022</div></div>
+<div class="w100pc">Hi Andrew<br>Where has my head been at? Only just discovered the new Fireworks strategy 8 months later!!!  <br>Anyway, this comment is re a possible bug!? In your daily example for 2022-07-16, we reach <a href="/sudoku.htm?bd=000682403640050020302074006020090004904237008800410002400020307250740080701069245">this board</a> which finds an XY-Chain length 9 eliminating the 6 in F7. However, the solver does so via 3 sides of a previously discovered X-Wing "box", whereas it could have simply gone via one side and been of length 7. Curious! <br> <br>Kudos as always for your fantastic and always expanding Solver!!!<br> <br>Ciao, Pieter<br></div>
+<div class="w100pc" id="blog-reply16827"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><a href="sudoku.htm?bd=S9B0z9f9u060802049f0306045u7q050n5u027n03b7027n07044j83060z023q4i095e2b3b04091f040203070z1v08083a3q04011u8iae0204c2c24j024i038j0702058m07040n8i087n074601460609020405">Testing</a> as of August 2025 I think the three variants of the XY-Chain at this point are around the shorter length, so I think it does as you suggest. </div></div><div id="blog-reply2965" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16827,2965)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16797"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Friday 1-Apr-2022</div></div>
+<div class="w100pc">Hi! I was trying to make a sudoku with a XY-Chain of length 4, and accidentally found a puzzle with one of length 12! <a href="https://www.sudokuwiki.org/sudoku.htm?bd=652...38.7....856..3.65.4.2985...1...7..2.......18..5.42...3...5..........6..9...">Here is the link if you are interested</a></div>
+<div class="w100pc" id="blog-reply16797"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks!</div></div><div id="blog-reply2647" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16797,2647)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16719"><div class="w100pc"><div class="w60pc"><h2>... by: ush</h2></div><div class="w40pc datepost">Wednesday 13-Oct-2021</div></div>
+<div class="w100pc">Today's XY chain stated: 10/13/21<br>XY-Chain<br>length=4, chain ends: B7 and J8<br>This proves 8 is the solution at one end of the chain or the other<br>-8[B7]+9[B7]-9[F7]+7[F7]-7[F8]+9[F8]-9[J8]+8[J8]<br>8 taken off A8<br>8 taken off G7<br>8 taken off J7<br><br>However cell B6 was also 89...so why can it be ignored as not the start or end of the '8 ' chain? I thought a chain has to go as far as it can before you decide where it started or ends. </div>
+<div class="w100pc" id="blog-reply16719"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16719,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16675"><div class="w100pc"><div class="w60pc"><h2>... by: Bondye</h2></div><div class="w40pc datepost">Saturday 3-Jul-2021</div></div>
+<div class="w100pc">I have crafted a puzzle that includes 10 xy-chains (and several wings and 3Dmedusa). <a href="https://www.sudokuwiki.org/sudoku.htm?bd=500040060004020003006010700800000000070500002005000900460000050019000800008003601">check it out here</a><br></div>
+<div class="w100pc" id="blog-reply16675"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16675,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16620"><div class="w100pc"><div class="w60pc"><h2>... by: Gordon</h2></div><div class="w40pc datepost">Sunday 27-Sep-2020</div></div>
+<div class="w100pc">I have noticed that in XY chains, if the two pincers share the same 2 numbers, and these numbers are also contained in the target cell, then both can be eliminated. I don't know if you have this mentioned elsewhere, but your solver missed such an opportunity on a puzzle I ran through it this morning, and only eliminated the first number -  (4)  and not the second one (7).</div>
+<div class="w100pc" id="blog-reply16620"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Easy enough to test your observation but <a href="sudoku.htm?bd=S9B2w1c0w0n090h2j10062w1c0i060n2i2j10080h010f052i020i0c2i0d090a0h2q2q020f0c0f0h077p0l0c05047n0o0o057v0r060h077n141c0h070f0a0u090s01060w0w1c092m0h30090g0w0w08160f0a10">this example</a> blanks the cell C5. So unless there is a refinement I don’t think it holds. Hurts my head trying to disprove it logically. <br></div></div><div id="blog-reply2964" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16620,2964)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16616"><div class="w100pc"><div class="w60pc"><h2>... by: AB</h2></div><div class="w40pc datepost">Sunday 13-Sep-2020</div></div>
+<div class="w100pc">I'm not sure if I'm understanding this correctly, but isn't this just a special case of X-Cycles Rule 3, where all the strong links are within cells, and the candidates to be eliminated can be joined to the two ends of the XY-Chain by weak links (thus forming a loop with a discontinuity of two weak links)? Or does X-Cycles in your solver not consider links between candidates in the same cell?</div>
+<div class="w100pc" id="blog-reply16616"></div>
+<div class="post-reply" id="reply2755"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Sunday 9-Jan-2022</td></tr>
+<tr><td colspan="2">Strong links within cells are outside the scope of X-cycles, as X-cycles is a single digit technique.</td></tr>
+</table></div>
+</div><div id="blog-reply2755" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16616,2755)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16609"><div class="w100pc"><div class="w60pc"><h2>... by: Mike Hopkins</h2></div><div class="w40pc datepost">Wednesday 2-Sep-2020</div></div>
+<div class="w100pc">I am rather proud of the output from my solver program when fed the first of the examples on your page:<br><br>XY chain: initial candidates X and Y are (5) and (3). <br>Chain is: A7(5,9), A5(2,9), A1(2,6), C2(5,6), <br>No other cell in the common scope of the two ends of that chain can be (5).<br>C7 was (3,5,9) is now (3,9)<br><br>XY chain: initial candidates X and Y are (5) and (6). <br>Chain is: C2(5,6), A1(2,6), A5(2,9), A7(5,9), <br>No other cell in the common scope of the two ends of that chain can be (5).<br>A3 was (2,4,5) is now (2,4)<br>C9 was (3,5,6) is now (3,6)<br><br>Happy to share the source code, it is (Ada)<br><br></div>
+<div class="w100pc" id="blog-reply16609"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16609,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16598"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Sunday 21-Jun-2020</div></div>
+<div class="w100pc">Thought about this one, it seems to be a somewhat strange special case of alternating inference chains.<br><br>We can define links in two ways - they can be between the same value in two different cells in the same row, column, or box, or they can be between different values within the same cell.  We get three of the strategies described at this website by using different definitions for strong and weak links.<br><br>(1) Strong links required to be between different cells, weak links also required to be between different cells - original "nice loops".  In the database of 100 puzzles I am using, 60 are solved this way.<br><br>(2) Strong links can be either between different cells or within the same cell, weak links can also be either between different cells or within the same cell - alternating inference chain.  Of my 100 puzzles, 89 are solved this way.<br><br>(3) Strong links required to be within the same cell, weak links required to be between different cells - xy_chain.  Of my 100 puzzles, 45 are solved in this way.<br><br>In (3), "strong links" refer to links that are required to be strong, and "weak links" refer to those that are not required to be strong.  If a "weak" link happens to be strong, it still follows the rule for weak links, not strong links.<br><br>But there are three other combinations of strategies that I don't see described at the website.  However, it was a pretty each job to modify my alternating inference chain software to handle them.<br><br>(4) Strong links required to be between different cells, weak links required to be within the same cell.  Of my 100 puzzles, 21 are solved this way.<br><br>(5) Strong links can be either between different cells or within the same cell, weak links are required to be between different cells.  Of my 100 puzzles, 80 are solved this way.<br><br>(6) Strong links are required to be between different cells, weak links can be either between different cells or within the same cell.  Of my 100 puzzles, 83 are solved this way.<br><br>So there are three additional strategies :)  Although (1), (3), (4), (5), and (6) are also special cases of (2), alternating inference chains.  Simple colouring is also a special case of nice loops, and therefore of alternating inference chains.  Medusa without Rule 6 is also a special case of alternating inference chains.<br></div>
+<div class="w100pc" id="blog-reply16598"></div>
+<div class="post-reply" id="reply2756"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Sunday 9-Jan-2022</td></tr>
+<tr><td colspan="2">It's not at all strange when you think about it. Since there are strong links within cells, they are bivalue cells. Bivalue cells are also ALSs, which allows us to extend this technique to ALSs and not just bivalue cells, which is exactly what the ALS-XY-Chain technique does.<br><br>And it is very useful to split strategies into X-cycles, Colouring, Medusa and all that, as it simplifies things and you can look for the more common patterns first.</td></tr>
+</table></div>
+</div><div id="blog-reply2756" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16598,2756)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16578"><div class="w100pc"><div class="w60pc"><h2>... by: John</h2></div><div class="w40pc datepost">Friday 1-May-2020</div></div>
+<div class="w100pc">In the first example, you stop progressing the chain as soon as you find a confluence, i.e. you could have continued to H2, H5 etc with this chain. Is this just a programmer decision for efficiency, or is there some underlying reason?<br><br>Can an XY-Chain therefore consist of as little as 3 cells?</div>
+<div class="w100pc" id="blog-reply16578"></div>
+<div class="post-reply" id="reply2758"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Sunday 9-Jan-2022</td></tr>
+<tr><td colspan="2">Eliminations depend on the two ends of the chain. You could extend the chain, but it would not get us any more eliminations. And an XY-chain can contain as few as three cells, but that is the same as an XY-wing / Y-wing.</td></tr>
+</table></div>
+</div><div id="blog-reply2758" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16578,2758)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16557"><div class="w100pc"><div class="w60pc"><h2>... by: Eli</h2></div><div class="w40pc datepost">Wednesday 4-Mar-2020</div></div>
+<div class="w100pc">very thankful</div>
+<div class="w100pc" id="blog-reply16557"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16557,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16531"><div class="w100pc"><div class="w60pc"><h2>... by: pie314271</h2></div><div class="w40pc datepost">Sunday 1-Dec-2019</div></div>
+<div class="w100pc">Through attempting to make various sudoku puzzles, I've wondered if the maximum length for an XY-chain is 12. Every time I've seen these chains, most of them only hit 12 at most. Is there a proven maximum on the XY-chain length?</div>
+<div class="w100pc" id="blog-reply16531"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>In fact that is a limit in my solver due to concerns over CPU usage. I cap it. I do have another version of the solver (well, same solver, just a flag) which looks for chains in a breath-first-tree order which has no limit and I've seen chains in the 20 links or more. Uses much more memory and I'm reluctant to make it the default solver on the site. One day maybe.</div></div><div id="blog-reply2604" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16531,2604)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16485"><div class="w100pc"><div class="w60pc"><h2>... by: Kavala</h2></div><div class="w40pc datepost">Thursday 18-Jul-2019</div></div>
+<div class="w100pc">I don't know if this has already been mentioned, however...<br><br>Often you can find an XY Chain, but it is one that does not result in an elimination.<br>This chain can still be useful, however, when combined with a 3D Medusa chain.<br><br>For example, if one end of the XY Chain has a known color that is part of a 3D Medusa<br>Chain, then the other end of the XY Chain can be assumed to be the opposite color.<br>This helps extend the reach of the 3D Medusa in situations where that is not possible <br>following the usual logic of the 3D Medusa.</div>
+<div class="w100pc" id="blog-reply16485"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16485,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16432"><div class="w100pc"><div class="w60pc"><h2>... by: kvnviktor</h2></div><div class="w40pc datepost">Wednesday 2-Jan-2019</div></div>
+<div class="w100pc">Exemplar 3, x4 (score 113) Avoidable Rectangle Type 1: 4/8 in r3c12,r7c12 <br><br>in the third example, the death rectangle c12, g12, numbers 8 and 4 in the corners</div>
+<div class="w100pc" id="blog-reply16432"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16432,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16414"><div class="w100pc"><div class="w60pc"><h2>... by: TG</h2></div><div class="w40pc datepost">Wednesday 17-Oct-2018</div></div>
+<div class="w100pc">You're a really helpful web site; couldn't make it without ya!</div>
+<div class="w100pc" id="blog-reply16414"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16414,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16412"><div class="w100pc"><div class="w60pc"><h2>... by: CH</h2></div><div class="w40pc datepost">Sunday 7-Oct-2018</div></div>
+<div class="w100pc">Just simply needed to emphasize Now i'm pleased I stumbled in your web site.</div>
+<div class="w100pc" id="blog-reply16412"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks!</div></div><div id="blog-reply2577" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,16412,2577)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16144"><div class="w100pc"><div class="w60pc"><h2>... by: Mike Van Emmerik</h2></div><div class="w40pc datepost">Wednesday 17-Feb-2016</div></div>
+<div class="w100pc">> So both ends can be filled in.<br><br>Oops. I don't have time right now to sort out why, but it's not always that both ends can be filled in. So you just get the usual "must be opposite colour" information, and that often allows one end to be filled in, sometimes both.</div>
+<div class="w100pc" id="blog-reply16144"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16144,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16143"><div class="w100pc"><div class="w60pc"><h2>... by: Mike Van Emmerik</h2></div><div class="w40pc datepost">Tuesday 16-Feb-2016</div></div>
+<div class="w100pc">Guy Renaldon posted:<br>"At first I select a bi value cell. Not anyone, but rather one containing two candidates regarding the digits missing the most. "<br><br>I agree that when attempting to solve puzzles manually (say with a phone app), it helps to cut down the forest of possibilities by considering first those bi-valued cells that there are less commonly represented. I now scan through the candidate numbers noting which numbers have the fewest unsolved cells. I'm not sure that both candidates for the initial bi-value cell need to be rare, just one of them. In fact, the last puzzle I did involved one of the rarer numbers paired with the most common unsolved number.<br><br>There is an additional "sanity check" that I like to perform. With the rarer numbers, there are often only a few viable starting pairs, and often some of these can be eliminated by eye as being involved in a strong link, or otherwise already related as opposite in colour. If you start with one such candidate bi-value cell, you are likely, after some effort, to prove something that you knew trivially to be true already. By contrast, if the candidates are already "like coloured" by simple colouring (X chains), meaning that you believe that one or the other is the solution, they make good candidates since if you can prove they are XY-chain linked (e.g.. this cell could be a 6, but if not it's a 4 so that has to be a 2 ... and this has to be a 6, then you've proved that each end is either a 6, or it's a 6. So both ends can be filled in. No doubt you can make stronger general statements about the other elements in the chain, but these tend to take care of themselves.<br><br>With these two checks reducing the effort needed to find these XY-chains, they are becoming more fun and much less of a chore.</div>
+<div class="w100pc" id="blog-reply16143"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16143,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16051"><div class="w100pc"><div class="w60pc"><h2>... by: Steve</h2></div><div class="w40pc datepost">Wednesday 5-Aug-2015</div></div>
+<div class="w100pc">Thanks very much for your website, which has been a delight as well as a great education.<br><br>I believe I have found an alternative solution to Exemplar 3 on www.sudokuwiki.org/XY_Chains that requires only 1 XY-chain (or is it something else?) rather than four.<br><br>After all simpler strategies have been exhausted, I have the following chain:<br>1 on F2 -> 2 on F4 -> 8 on F8 -> 5 on F1 -> 4 on E3 -> 9 on E5<br>Alternatively, a 9 on F2.<br>So, any cell that can see F2 and E5 (i.e. E2 and F5) cannot contain a 9.<br><br>When I remove the 9s in these cells, the remainder of the Sudoku is solved with simple strategies. <br><br>I've checked this in the solver and it works. Have I got it right?<br><br>Cheers,<br><br>Steve Strain<br>Memphis, TN USA</div>
+<div class="w100pc" id="blog-reply16051"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16051,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16010"><div class="w100pc"><div class="w60pc"><h2>... by: Eric</h2></div><div class="w40pc datepost">Monday 6-Apr-2015</div></div>
+<div class="w100pc">Considering example 1 and building an XY-chain starting in A1 and ending in A5, we would be driven to remove candidate 2 from A3. Such a chain is made of bi-value cells and A3 sees both ends of the chain, which show a different color for candidate 2.<br><br>What is the additional condition to be statisfied by an XY-chain that is not met by the A1-A5 chain?</div>
+<div class="w100pc" id="blog-reply16010"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,16010,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15906"><div class="w100pc"><div class="w60pc"><h2>... by: Sherman</h2></div><div class="w40pc datepost">Friday 11-Apr-2014</div></div>
+<div class="w100pc">Shum and Andrew - the number of cells in the chain does NOT have to be even.  See Figure 22.1 on page 62 of "The Logic of Sudoku" for an example with 5 cells: 78, 86, 65, 53, 37 which removes 7 from any cell that sees both ends of this chain.  Also, all Y-Wing chains, which are a subset of XY chains, have an odd number of cells.</div>
+<div class="w100pc" id="blog-reply15906"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15906,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15872"><div class="w100pc"><div class="w60pc"><h2>... by: Shum</h2></div><div class="w40pc datepost">Sunday 29-Dec-2013</div></div>
+<div class="w100pc">This isn't stated, but it seems to me a necessary condition is the length of the chain must be even (referring to the number of cells, not the number of links). All the examples here have length 4 and the alternate coloring seems to imply this restriction. Agree?  </div>
+<div class="w100pc" id="blog-reply15872"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That is a good observation but I fail in my documentation to include longer examples. I think I was hung up on finding short simple ones and now I realise that I should show they can be several lengths. I also believe they will contain an even number of cells in total. I will have a hunt in my 2014 stock for longer ones and also try and find a crazy super length one, there has to be a 'longest'</div></div><div id="blog-reply2454" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,15872,2454)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15856"><div class="w100pc"><div class="w60pc"><h2>... by: suneet shrotri</h2></div><div class="w40pc datepost">Monday 21-Oct-2013</div></div>
+<div class="w100pc">I have discovered a new method to eliminate a possibility by 2 chains with one common end & other 2 ends are part of a set then if common end is not X then if in some cases other ends come to have XY possibilities then possibility X can be eliminated from other remaining members of the set. I am sure that  no other method on this website can do this.<br> </div>
+<div class="w100pc" id="blog-reply15856"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15856,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15800"><div class="w100pc"><div class="w60pc"><h2>... by: gg fuller</h2></div><div class="w40pc datepost">Tuesday 11-Jun-2013</div></div>
+<div class="w100pc">I'm unsure about the description as it mentions it is a more encompassing version of "Y-Wing Chains" and also refers to "Y-chains". Since there are no such strategies described on this site, I don't know if that refers to "Y-wing" or "X-chains" or both. If I just look for XY-chains will that catch all Y-Wings and X-chains, or is X-chains separate?  X-chains seems to require a loop to make any eliminations.</div>
+<div class="w100pc" id="blog-reply15800"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi, yes there is a page, <a href="/Y_Wing_Chains">click here</a> but I subsumed this into the more general chaining strategies and that opening line needs to be edited. This goes way way back to the early days.</div></div><div id="blog-reply2428" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(67,15800,2428)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15498"><div class="w100pc"><div class="w60pc"><h2>... by: Guy Renauldon</h2></div><div class="w40pc datepost">Thursday 2-Jun-2011</div></div>
+<div class="w100pc">The Exclamation Mark Method<br><br>This is to answer to François Tremblay and John Robinson question. <br><br>Yes François, there is a trick to discover an XY chain.<br><br>Recently, I settled a kind of method which I name the “Exclamation Mark Method” <br><br>That is what it is:<br><br>At first I select a bi value cell. Not anyone, but rather one containing two candidates regarding the digits missing the most. <br><br>Let’s say the cell I select contain “a” and “b” as candidates. <br><br>Then I make a double bet.<br>First bet: “a” true, <br>Second bet: “b” true. <br> <br>Regarding the first bet, I draw a small vertical line “I” just under the “a” of the bet cell. Then I consider the other bi values cells only and I mark all the candidates deducted by this first bet by an “I”, drawn just under the candidates.<br><br>Regarding the second bet “b” I do the same but the mark will be a small point “.”under the “b” in the bet cell. <br><br>Most of the time, soon or later, if a XY chain exists, I obtain a cell containing a candidate marked with an exclamation mark “!” (This is the reason of the name of my “method”, although the exclamation mark can be reverse, the point on the top)<br><br>So a candidate , let’s say “k”, will be marked with an exclamation mark. It means it is true in both bets. So “k” is a true digit. (Although I can’t say anything on “a” or “b”). Most of the time, this true digit will solve the Sudoku, when the Sudoku is not difficult too much. <br><br>But I do not consider the job as finished. I have to find my XY chain.<br><br>Let’s see the simplest case at first: the cell where we have the “!”  is a bi value cell too. I consider the other candidate in that cell, the one without the “!”,  let’s say “m”. “m” have to  be eliminated, so “m” must see two other bi value cells containing an “m”, which will be the two ends of my XY chain (to understand that, you have to know what an XY chain is exactly). Then I consider each end of my chain and I follow the reverse itinerary from each end. I draw the links between the bi value cells really, with a pen.  Doing so I’ll automatically reach my double bet cell. And that it is, I’ve drawn my XY chain! Very easily, without the headaches y suffered before I applied that method. And doing so, you can find very long XY chains, containing ten links for example, or more.<br><br>Note that you can find a shorter chain which does not go through the double bet cell, but with the same ends. The reason is that more than one XY chain exists on a same grid most of the time. <br><br>If the cell which sees the two ends of the chain is not a bi value cell, it is a little bit more complicated. But the “method” works too. If the cell contains three candidates, you will have two candidates marked with an exclamation mark. Then the third candidate can be removed. If a cell contains four candidates, you’ll find three exclamation marks in that cell. Generally speaking, if the cell contains N candidates, you’ll find N-1 candidates with an exclamation mark. The other one left without the “!” can be removed. This chain does not give a true digit directly.  <br><br>Sorry, I’ve been little bit long in my explanation, and please excuse my English, being French (perhaps François Tremblay will understand me better, his name sounding very French …)<br><br>I’d like to add some remarks, if Andrew Stuarts give me some more place.<br><br>1/An xy chain is in fact a multi value X Cycle in three dimension, containing bi values cells only from one end to the other. The strong links are located inside the bi value cells. The other links can be either strong or weak, except the links between “m”, which must be weak. In fact it is a special AIC, with bi value cells only. <br>3/ This “method” is not mine…in fact it is the well known Forcing Chain Strategy. But the exclamation mark trick is mine, I think. <br><br>Many thanks to Andrew Stuart if he accepts to publish my comment, which maybe he can find a bit too long and not very clear (it is to me, but may be not to all the readers due to my bad English…). <br><br>Guy Renauldon<br></div>
+<div class="w100pc" id="blog-reply15498"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15498,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15454"><div class="w100pc"><div class="w60pc"><h2>... by: John Robinson</h2></div><div class="w40pc datepost">Sunday 30-Jan-2011</div></div>
+<div class="w100pc">I have the same question as Francois Trembly on 28-Oct-2009</div>
+<div class="w100pc" id="blog-reply15454"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15454,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15448"><div class="w100pc"><div class="w60pc"><h2>... by: S.Monta</h2></div><div class="w40pc datepost">Tuesday 18-Jan-2011</div></div>
+<div class="w100pc">Hello,<br><br>First i would like to thank you very much for your great website witch made me dramatically improve my Sudoku skills.<br>I have a question : could the chain 56-67-67-78-83-89-96  be an XY-Chain?</div>
+<div class="w100pc" id="blog-reply15448"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15448,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15418"><div class="w100pc"><div class="w60pc"><h2>... by: Marshal L. Merriam</h2></div><div class="w40pc datepost">Wednesday 8-Sep-2010</div></div>
+<div class="w100pc">I think I have another type of xy chain.  In a sudoku I'm doing now (not one of these examples), I find the sequence 28-87-73-36-68-82 where the first pair and the last are the same cell!  If its value were 8, then xy chain logic demands that it also be 2, a contradiction.  No such contradiction prevents it being 2.  <br><br>Alternatively we could argue that the xy chain demands that at least one of the endpoints be a 2.  Since they are the same, the cell must be a 2.</div>
+<div class="w100pc" id="blog-reply15418"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15418,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15415"><div class="w100pc"><div class="w60pc"><h2>... by: Marshal L. Merriam</h2></div><div class="w40pc datepost">Monday 30-Aug-2010</div></div>
+<div class="w100pc">I now understand Anton's confusion.   It stems from the explanation of example 1.  I would add one more bullet:<br>  <br>If C2 is not 5 then it must be 6.  A1 cannot be 6, A5 cannot be 2 and A7 cannot be 9. Ergo, if C2 is not 5, then A7 must be 5.  As noted in the first bullet, if A7 is not 5 then C2 must be 5.  So either A7 or C2 must be 5.  <br><br>When stated this way, the chain does not require locked sets.  If C2 is not 5, then no other cell in box 1 can be 6, so even if there were a 6 at B3(say), all of the bullets would still hold.</div>
+<div class="w100pc" id="blog-reply15415"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15415,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15414"><div class="w100pc"><div class="w60pc"><h2>... by: Marshal L. Merriam</h2></div><div class="w40pc datepost">Saturday 28-Aug-2010</div></div>
+<div class="w100pc">Is it fair to say that this technique exposes a new strong link?  That is, in the first example 5a7 = 5 c2.   In the second, 6A2 = 6C8.   <br><br>If I haven't overlooked something, this allows XY chains to connect to other single number techniques that use strong link information (eg x- cycles, red-black) </div>
+<div class="w100pc" id="blog-reply15414"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15414,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15298"><div class="w100pc"><div class="w60pc"><h2>... by: Matt Lala</h2></div><div class="w40pc datepost">Monday 16-Nov-2009</div></div>
+<div class="w100pc">I read something on a different site (if I understand this correctly) is that when you reach the end of the chain, you are using the "leftover" value to make your elimination. In the first example, the last green arrow is to a 6, and the leftover in that cell is a 5, which is what gets eliminated. If the last link had been to the 5, then the leftover is 6, and you cannot use that to end the chain and eliminate the 5's. Not sure what conditions are needed for the start. I may be wrong on this.<br><br>Francois, I don't think you need a solver, but it does help to have a program that highlights all of them. I glance at the 'busiest' groupings of bivalue cells and then pick one and just start driving. If a fork presents itself I'll choose whichever option seems to steer me back towards the start of the chain.<br><br>Anton, I don't think they have to be locked, they just need to be bivalue. Try plugging in a 2 at the start of that chain in the 2nd example, and follow the links, and you'll see how the green cell at the end becomes a 6 (despite the unlocked cells used). And plugging in a 6 at the start makes the eliminations pretty obvious.</div>
+<div class="w100pc" id="blog-reply15298"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15298,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15295"><div class="w100pc"><div class="w60pc"><h2>... by: Francois Tremblay</h2></div><div class="w40pc datepost">Wednesday 28-Oct-2009</div></div>
+<div class="w100pc">I understand the logic but my problem is how do you spot this without the help of a solver?  Visually, the start and end of such a chain are tough to find.  Do you go through all the grid to start the chain at all possible bi-value cells?  In the "simple" cases above, you have respectively 21 & 22 bi-value cells (even your book's example on page 62, figure 22.1 shows 21 of them) which would represent a lot of permutations that only a computer could run through.  As a human solver, is there a trick to find those chains?<br></div>
+<div class="w100pc" id="blog-reply15295"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15295,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15236"><div class="w100pc"><div class="w60pc"><h2>... by: Anton Delprado</h2></div><div class="w40pc datepost">Thursday 18-Jun-2009</div></div>
+<div class="w100pc">Maybe I am missing something but it looks like 4E and 8E are not locked for the value 6 because 9E is potentially 6 as well.<br><br>An XY-Chain is possible from this although it would have the pivot chain below:<br>3A - 3C - 3H - 6H - 6F - 5F - 9F</div>
+<div class="w100pc" id="blog-reply15236"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(67,15236,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 422490<br>
+			This page was last modified on 12-September-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3c3b2ff7445e',t:'MTc4MDMwNjYwMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>AIC with Groups - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy.Alternating Inference Chains can take advantage of grouped cells to make links. This article explains how."/>
+<meta name="twitter:description" content="Sudoku Strategy.Alternating Inference Chains can take advantage of grouped cells to make links. This article explains how.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/GAIC1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/GAIC1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'AIC_with_Groups';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_AIC_with_Groups">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>AIC with Groups</h1><div class="SRCell">Grouped nodes were discussed on the <a href="/Grouped_X_Cycles">Grouped X-Cycles page</a> and it is very relevant to Alternating Inference Chains. Luckily, there’s nothing too scary about them although they may be harder to spot.<br><br>Note: Examples here will show up if <a href="/Forcing_nets">Forcing Nets</a> are turned off. <br><br></div><br>
+
+<h2>Rule 1 - Off-Chain Elimination</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/GAIC1b.png" alt="Grouped AIC" /><figcaption>Grouped AIC
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B050f2e0i46015y020466026212064i0a095u0i4601070b0d4m0f4m4a4j4q027n03bu0g06360936164a4i0o010o02474u067n07bu4q4i464i0b0u0g09064q0a4y040i0a051g5w035w01071y080u1g181609">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=500001024020060090001700000000203006090000010200607000000009600040050030170800009">From the Start</a>
+</figcaption></figure>
+Kicking off with a relatively short and 'continuous' loop. This means there is no start or end, nor any 'discontinuity' where two weak links join or two strong links join - and where we'd be looking for an elimination. Instead one can trace a route in either direction and the <span class="hg">ON</span> and <span class="hr">OFF</span> could be swapped. This type of loop allows us to make eliminations on all weak links, shown in yellow/red. One end or other of each link must be the highlighted candidate.<br><br>What makes this a <b>'Grouped'</b> AIC chain is the double cell <span class="hy">D3/F3</span>. If you start with +8[<span class="hy">D1</span>] that potentially removes all other 8s in box 4. If that were so the only remaining 8 in column 3 is on <span class="hy">B3</span>. In order to make that link we combine <span class="hy">D3</span> and <span class="hy">F3</span> into a single pseudo-cell <span class="hy">DF3</span>. Note that if we use two or three cells in a group it has a specific orientation or alignment. It can only be useful in the direction the cells are aligned on. In this case it points along the column. The solver gives us:<br><br>AIC (w.Groups) Rule 1:<br><span class='hc'>+4[B1]-4[D1]+8[D1]-8[D3|F3]+8[B3]-4[B3]+4[B1]</span><span style="font-size:9pt"><br> - Off-chain 8 taken off <span class='hy'>D2</span> - weak link: (8)D1 -  to (8)D3|F3 = <br> - Off-chain 8 taken off <span class='hy'>F2</span> - weak link: (8)D1 -  to (8)D3|F3 = <br> - Off-chain 7 taken off <span class='hy'>B3</span> - weak link between 8 and 4 in <span class='hy'>B3</span></span><br><br></div>
+
+<h2>Rule 2 - Strong Link Assertion</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/GAIC2b.png" alt="Grouped Cell AIC" /><figcaption>Grouped Cell AIC
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B091o014y055a0u1g073u3u0c8i1m02178z082224088m070a1a8410082m062c0w2i090z0z2i0i0b014a050f5u0c2b2f0536520i0b5u041v1v0d3o0936080c11035f0g041g4y0z0l09024i0i4m0146070d06">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=901050007000002008008070000806000900000105000005000004000090800300400009200010706">From the Start</a>
+</figcaption></figure>
+Rule 2 loops are 'discontinuous' in that they have a kink or point where the alternating weak/strong inferences break down. The thick blue line from 2[<span class='hy'>H5</span>] to 2[<span class='hy'>H8</span>] is very visible. A bit harder to see is the other link between 2 and 6 in the same cell <span class='hy'>H5</span>. Rule 2 says we can assert that 2 must be the solution to <span class='hy'>H5</span>.<br><br>But making this a <b>'Grouped'</b> AIC is the pseudo-cell <span class='hy'>GH6</span>. If <span class='hy'>A6</span> is not 6 then one/either 6s in <span class='hy'>G6</span> or  <span class='hy'>H6</span> must be  <span class='hg'>ON</span>. The orientation coming in from the column means we must continue the loop by looking in the box. We can turn  <span class='hr'>OFF</span> 6s there including  <span class='hy'>H5</span>. The logic on those links works in reverse as well, box to column. The solver gives us:<br><br>AIC on 2 ((w.Groups) Discontinuous Alternating Nice Loop, length 8):<br><span class='hc'>-2[H5]+2[H8]-2[A8]+6[A8]-6[A6]+6[G6|H6]-6[H5]+2[H5]</span><span style="font-size:9pt"><br>     - Contradiction: When 2 is removed from <span class='hy'>H5</span> the chain implies it must be 2 - other candidates 6 can be removed</span></span><br><br><br></div>
+
+<h2>Rule 3 - Weak Link Elimination</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/GAIC3.png" alt="Rule 3 Grouped Link example" /><figcaption>Rule 3 Grouped Link example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bbe060g7u7w0o4f050v03b6bu07960156021m020a1622081i1q0g098r058r02070h8u1q1q1m2e1s011u093g0h24c2cyc41u0304ac011w077q8n8q8t1g0e1q08c302c3038r051n1m070e041j0h1f0g1l091l">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=060000050300701020200080009050270000000109000000034010700000008020305007040000090">From the Start</a>
+</figcaption></figure>
+Finally we have the weak-link version of the 'discontinuous' loop where we can remove the candidate which forms the discontinuity. This is probably the most common type of elimination, followed by Rule 1 off-chains.  <br><br>There is a very clear Grouped Cell in <span class='hy'>AC7</span>. We can follow the solver's chain which comes in from the box and <span class='hy'>A3</span> with a -3. The 3s in <span class='hy'>AC7</span> are the only ones left in box 3 so we can combine them into a link cell if we follow their alignment down the column. This takes us to the -3 in <span class='hy'>J7</span>.<br><br>To figure out we have a discontinuity we note we started with asserting <span class='hy'>J7</span> was 3 and the loop proves this assertion didn't work out. So the assertion was wrong and we can remove 3 from <span class='hy'>J7</span>.<br><br>AIC on 3 ((w.Groups) Discontinuous Alternating Nice Loop, length 8):<br><span class='hc'>+3[J7]-2[J7]+2[J9]-1[J9]+1[A9]-3[A9]+3[A7|C7]-3[J7]</span><span style="font-size:9pt"><br>     - Contradiction: When <span class='hy'>J7</span> is set to 3 the chain implies it cannot be 3 - it can be removed</span><br><br></div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Alternating_Inference_Chains">Alternating Inference Chains</a></td><td class="w50pc cright">Continue to <a href="AIC_with_ALSs">AICs with ALSs</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=86&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="AIC_with_Groups" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(86,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17268"><div class="w100pc"><div class="w60pc"><h2>... by: Rick</h2></div><div class="w40pc datepost">Sunday 27-Jul-2025</div></div>
+<div class="w100pc">On the 20-7-2025 puzzle I was using the solver to compare with the route I took to solve the puzzle (as I had to resort to cell forcing chains at one point) and have come across an air where it jumps from a 4 in one cell to a pair of 9s in the same box.  I can’t see how this is possible.  <br><br>I have a screenshot but can’t see how to post it.  Can anyone explain / help?</div>
+<div class="w100pc" id="blog-reply17268"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(86,17268,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16649"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Saturday 23-Jan-2021</div></div>
+<div class="w100pc">I've thought about this one quite a lot.<br><br>Specifically - is there any kind of sensible group other than the same value candidate appearing two or three times within the intersection of a row and a box, or within a column and a box?  Answer: no.  You can contemplate other sorts of groups, but you don't get any sort of inference you can't get beyond what you get with these sorts of groups, which consist of the same valued candidate two or three times.<br><br>And - is it ever convenient to consider a group that consists only of two candidates, even when that would be a "sub group" of one containing three candidates?  That is, does it ever make sense to have the group exclude candidates it could otherwise include?  Answer: yes.   Suppose the candidate "8" appears in A1, A2, A3, B1, and C1, and nowhere else in the box.  There are other occurrences of the candidate "8" in the first column, and in the first row.  Then you can break the five candidates in the box into two groups, either (A1 A2 A3), and (B1 C1), or (A2 A3) and (A1 B1 C1) - it doesn't matter which way you do it.  Then the two groups are strongly linked.  If there are weak links between (A1 B1 C1) and another candidate in column 1 and between (A1 A2 A3) and another candidate in row 1, the chain can use these two groups, connected by a strong link.  If you included A1 in both groups, you couldn't do this - the two groups could both be "on".</div>
+<div class="w100pc" id="blog-reply16649"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(86,16649,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16532"><div class="w100pc"><div class="w60pc"><h2>... by: smmcroberts</h2></div><div class="w40pc datepost">Tuesday 3-Dec-2019</div></div>
+<div class="w100pc">In example 1, in cell B7, why isn't the bi-value link between candidates 1 and 3 a strong link?</div>
+<div class="w100pc" id="blog-reply16532"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>It is a strong link but we can use it as a weak link for the sake of the chain. See <a href="/Weak_and_Strong_Links">Weak and Strong Links</a></div></div><div id="blog-reply2605" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(86,16532,2605)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16387"><div class="w100pc"><div class="w60pc"><h2>... by: Atomic</h2></div><div class="w40pc datepost">Saturday 7-Jul-2018</div></div>
+<div class="w100pc">Are overlapping groups of different candidates allowed?<br>In other words, let's say you visit a block and find a vertical group of 1's, but the uppermost cell in that group also has 2 as a possibility. Now you revisit the block again in the chain and find a horizontal group of 2's... but the leftmost cell is shared with the 1's group. Will this still be a valid Grouped AIC?</div>
+<div class="w100pc" id="blog-reply16387"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Good question. I say no, you should not re-use any candidate in a chain. I extend that to using any other candidate in a cell or unit as part of a chain. It might work if you can see that the ON and OFF are complimentary, ie the links don't contradict each other. But the solver does not allow itself to compute this.</div></div><div id="blog-reply2565" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(86,16387,2565)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 94556<br>
+			This page was last modified on 1-June-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3d12aea5894a',t:'MTc4MDMwNjYzNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

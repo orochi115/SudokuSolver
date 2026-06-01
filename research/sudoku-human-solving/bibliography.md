@@ -24,6 +24,7 @@ Access date for this local library expansion: 2026-06-01.
 - Local Markdown: `local-library/markdown/sudokuwiki/`
 - Local raw HTML: `local-library/raw-html/sudokuwiki/`
 - Coverage: strategy families, logical vs brute force, intersections, subsets, X-Wing, Y-Wing, Swordfish, coloring, AIC, uniqueness, ALS.
+- Supplemental pages added later: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
 - Use: primary taxonomy and explanatory source. Copyright unclear for redistribution, so cite and paraphrase in downstream work.
 
 ### Sudopedia
@@ -73,6 +74,7 @@ Access date for this local library expansion: 2026-06-01.
 - Local Markdown: `local-library/markdown/chinese/`
 - Local raw HTML: `local-library/raw-html/chinese/`
 - Coverage: Chinese terminology, advanced technique summaries, constructed-chain framing, X-Wing, UR.
+- Supplemental Chinese pages added later: Sudoku.com Chinese Swordfish/Y-Wing and cn.sudokupuzzle XY-Wing/Unique Rectangle.
 - Use: terminology normalization and Chinese-language synthesis.
 
 ## Copyright Handling

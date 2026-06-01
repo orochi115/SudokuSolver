@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>W-Wing Strategy - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script>
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'W_Wing_Strategy';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_W_Wing_Strategy">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>W-Wing Strategy</h1><div class="SRCell">W-Wings are part of the '<b>Bent Sets</b>' family have been around for a long time [see <a href="http://www.dailysudoku.com/sudoku/forums/viewtopic.php?t=2008">1</a>, <a href="http://forum.enjoysudoku.com/two-definitions-of-w-wing-terminology-question-t6452.html#p63874">2</a> and <a href="#reek">3</a>]. I was late to the party even in 2014 when I coded them into the solver but I felt they were overlapping with several other chaining strategies so didn&#39;t include it in the main Sudoku solver until now (January 2026). <br><br>But it is helpful to the human solver to know as many stand-out strategies as possible and these are relatively easy and can go early in the &#39;tough&#39; order of strategies. I&#39;ll explain the impact with some stats later in the article. <br><br>For the time being I'm introducing them just to the <a href="/sudoku.htm">Sudoku Solver</a>.<br>W-Wings are named after George Woods (2007) who first noticed the pattern, as recorded in <a href="https://www.dailysudoku.com/sudoku/forums/viewtopic.php?p=6357">this forum thread</a>.</div><br>
+
+<h2>The Double W-Wing or Remote Pair Chain</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WWing01b.png" alt="Remote Pair Chain" /><figcaption>Remote Pair Chain
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f017u020c0e08077u0b050g0i0d0h0c0f017ybibi0a07060e7u0b087u121202070a7u068e807w120f0a7u0h0g010g0f04080i0b0e037y0f8008050w070a7u07bgbw0f0a0s7u034i1a4e010g0i0u0f024i">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=010200870050000001000076000800027006000000000100480003000850700700000030001000020">From the Start</a>
+</figcaption></figure>
+To explain this strategy it is worth discussing the exception rather than the rule. Consider this &#39;tough&#39; puzzle at this point. There happen to be a lot of 4/9 cells on the board. Pairs like this don't appear in isolation - if there are two in the same row, column or box they would be <a href="/Naked_Candidates">Naked Pairs</a> and we'd have used them to remove other 4s and 9s in those units. But we are past that point. <br><br>Instead we can check if there are two cells with 4 and 9 that can't see each other (not a conjugate pair) but can be connected to each other using other 4+9 cells. This is the case with <span class="hy">A3</span> and <span class="hy">H7</span>.  They are connected by strong links via <span class="hy">A9</span> and <span class="hy">G9</span>.  The solver is displaying an alternating strong/weak chain not just <a href="/Weak_and_Strong_Links">because weak links can be strong</a> but because we alternate on and off. The solver is showing one of four possible chains logic: <ul><li><span class="hy">A3</span> is 4 implying <span class="hy">H7</span> must be not 4, so 9.</li><li><span class="hy">A3</span> is 9 implying <span class="hy">H7</span> must be not 9, so 4.</li><li><span class="hy">A3</span> is not 4 (must be 9) implying <span class="hy">H7</span> must be 4.</li><li><span class="hy">A3</span> is not 9 (must be 4) implying <span class="hy">H7</span> must be 9.</li></ul>Any of these are proofs. It means that any cell that can see both ends of the chain cannot have a 4 or a 9. Such as cell is <span class="hy">H3</span></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WWing02b.png" alt="Remote Pair Chain 2" /><figcaption>Remote Pair Chain 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f017u020c0e08077u0b050g0i0d0h0c0f017ybibi0a07060e7u0b087u121202070a7u068e807w120f0a7u0h0g010g0f04080i0b0e037y0f8008050w070a7u07bg4k0f0a0s7u034i1a4e010g0i0u0f024i">Load Example</a>
+</figcaption></figure>
+<br>In the very next step is another elimination of 4s and 9s, this time in <span class="hy">H2</span>. A slightly different set of cells but I'm sure the pattern and logic is clear.<br><br>The name for this pattern is a Remote Pair Chain. A more convoluted explanation for this appears here as <a href="/Remote_Pairs">Remote Pairs</a>. A long time ago I removed it from the solver as it was wholly a subset of <a href="/XY_Chains">XY-Chains</a>. But the length-4 version it is still simple to spot and worth using before the broader XY-Chain logic is invoked.<br><br>Using this pattern three times saves six <a href="/Rectangle_Elimination">Rectangle Eliminations</a>. Untick W-Wings and try.<br><br>Note: Remote Pairs can be more than four cells long. But the next size is six and then eight - so even numbers. The coincidence of so many identical bi-values cells means they are increasingly rare at longer lengths but keep an eye out.<br><br>So what does this have to do with 'W-Wing'?</div>
+
+<h2>The Single W-Wing</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WWing03b.png" alt="W-Wing example 1" /><figcaption>W-Wing example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B7n0h1m1q021i0z82077o1m0c050a07088k8s0l05071m090h1p031p121m08090g20280128070a0i1k0420201w0812021m0h1i01090g260h090a1k051k07041i0d0g02011i091y0h1y060c0e0g080d0l7o7p">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000020007000507800057090030008900010700040008020001900090050740002109000600080000">From the Start</a>
+</figcaption></figure>
+In this puzzle we've found two cells with 3 and 6 in them - cells <span class="hy">A6</span> and <span class="hy">F5</span>. They cannot see each other.  We cannot connect them through 3 but we can connect them through a strong link on 6 (the yellow cells). <br><br>If <span class="hy">A6</span> is not a 3 it must be 6. That gives us a weak link from +6 to -6 in <span class="hy">A3</span>.  -6 in <span class="hy">A3</span> forces +6 in <span class="hy">F3</span> - a strong link (this is the important - it must be strong). +6 in <span class="hy">F3</span> removes 6 in <span class="hy">F5</span> making it 3. Reverse the chain logic and we prove that 3 must be in one of those orange cells. There are two cells that can see both ends and contains 3 - <span class="hy">D6</span> and <span class="hy">E6</span> and we can remove 3 from them.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WWing04b.png" alt="W-Wing example 2" /><figcaption>W-Wing example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B7n0h1m1q021i0z82077o1m0c050a07088k8s0l05071m090h1p031p121m08090g1w280128070a0i1k041w201w0812021m0h1i01090g260h090a1k051k07041i0d0g02011i091y0h1y060c0e0g080d0l7o7p">Load Example</a>
+</figcaption></figure>
+<br>We can go again in the very next step. This time it is {2/9} in <span class="hy">B1</span> connected to <span class="hy">J8</span> via the strong link on 9 between <span class="hy">A1</span> and <span class="hy">A8</span>. Trace the logic in both directions to satisfy yourself that one end of the W-Wing (orange cells) must be 2.<br><br>It might be clear now that if all the cells share the same digits you have two mirrored Single W-Wings and therefore a Double or a Remote Pair Chain. <br><br>There is one further W-Wing after this step. See if you can spot it.</div>
+
+<h2>W-Wings 'Split Double' variety</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WWing05b.png" alt="Split W-Wing example" /><figcaption>Split W-Wing example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0e2i0i0h010c062i0b0c1n1m070b090h0r052b080b0f050d09032b1m053e01030h0b093e0h0c3e0b090e2j373f0i020a0d06070e080c3e09030e080a2i023e020r0h030g060r0e0i3737050i040b0c370h">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000010600000709005080050930050130090000090000020067080093080020200306000005040000">From the Start</a>
+</figcaption></figure>
+There is one more configuration that should be mentioned. It is possible there are two W-Wings using the same start and end cell but they route through different intermediaries. We can catch these at the same time if we are careful. Thanks to Andy Potvin for pointing these out.<br><br>If 6 is going to be the solution in <span class="hy">B1</span> that places 7 in <span class="hy">A7</span> - this is connected through the strong link <span class="hy">G1<=>G7</span><br>Or if 7 is in <span class="hy">B1</span> then 6 must be the solution in <span class="hy">A7</span>. But this inference is connected through a different strong link <span class="hy">H1<=>H7</span><br><br>We have two inference chains allowing simultaneous eliminations on 6 and 7 for all cells that can see <span class="hy">B1</span> and <span class="hy">A7</span>.<br><pre>-6[A7]+7[A7]-7[G7]+7[G1]-7[B1]+6[B1]<br>-7[A7]+6[A7]-6[H7]+6[H1]-6[B1]+7[B1]</pre>(Note because the blue chain is drawn second it asserts the red/green circles of the candidates so might look a bit odd for +6[A7] to -6[H7] to be both red 6s)<br><br><a href="/sudoku.htm?bd=080000070100600003006200000030080010001409700040070090600001400800004009090000050">Here is a diabolical puzzle</a> with two split double W-Wings. See if you can spot them.</div>
+
+<h2>W-Wings evaluated</h2>
+<div class="SRCell">I've tested the strategy on two datasets. Andy Potvin has been a strong advocate for this strategy and I initially placed it just before <a href="/Y_Wing_Strategy">Y-Wings</a>. This is appropriate for the easy-to-spot Remote Pair types but I've now moved it after Y-Wings as at least half of the examples I find are more complex.<br><br>There is the 17-clue set containing all 31,512 sudoku puzzles with 17 clues. Most are easy but it is a fun and useful set to test with. The second is Ruud's top 50,000 from way back when. I might run some stats again on a randomly generated stock.<br><br>The evaluation here is when W-Wings are just after Y-Wings<br><br>The solver distinguishes between Double, Single and Split W-Wings. The double (RP4) type I find about 600 in the 17-clue set so relatively rare. There were 950 proper W-Wings in Just17 and 39 split doubles. In Ruud's set I found 16,053 puzzles with W-Wings and it was used 20,181 times.  The vast majority Single W-Wings, RP4=806 and Split=271.<br><br>The largest declines in other strategies have been Rectangle Eliminations (8%), Simple Colouring (5%), XYZ-Wings (9%) and XY-Chains (12%), 3D Medusa (6%) but this is highly sensitive to ordering. Chute Remote Pairs also go down if evaluated after W-Wings and Y-Wings by 11% if used after W-Wings.<br><br>The top 50k set with W-Wings required 3,022 more strategy steps than without, a 0.1% increase. That suggests most of the W-Wings are contributing to a solve path, but there are always multiple solve paths.<br><br>In terms of score I've used the same points as <a href="/Chute_Remote_Pairs">Chute Remote Pairs</a> and overall I see a score reduction in about 75% of puzzles that use against a 25% increase in score. So mixed results. This is inline with instinct that it is nice to have but not always a better performance.<br><br><hr><br><a name="reek"><sup>3</sup>Ken Reek's (SudoKoach v2.5) User's Guide pp.47-50<br></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Y_Wing_Strategy">Y-Wings</a></td><td class="w50pc cright">Continue to <a href="XYZ_Wing">XYZ-Wings</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=254&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="W_Wing_Strategy" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(254,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17391"><div class="w100pc"><div class="w60pc"><h2>... by: PuzzleBird</h2></div><div class="w40pc datepost">Tuesday 24-Feb-2026</div></div>
+<div class="w100pc">In the single W-wing example "W-wing example 1," the 3s are eliminated from D6 and E6 since 3 must be in either A6 or F5.  Isn't it also true that the 6s can be eliminated from D6 and E6 since the same logic indicates 6 must be in either A6 or F5?  I did run this example through the solver and indeed the 6s are eventually removed from D6 and E6, albeit by other means.<br><br>Thanks for the site - I find it very helpful in learning how to solve!</div>
+<div class="w100pc" id="blog-reply17391"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The answer is no. If you start -6[A6] you can’t form the chain round to +6[F5]. Likewise if you start -6[F5] you cant form a link to +6[F3] it isn’t a strong link either.</div></div><div id="blog-reply3068" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(254,17391,3068)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17389"><div class="w100pc"><div class="w60pc"><h2>... by: Billa</h2></div><div class="w40pc datepost">Thursday 19-Feb-2026</div></div>
+<div class="w100pc">They're named W-Wings after the first person to notice & post one, George Woods. You can see the very moment in the replies on this thread: https://www.dailysudoku.com/sudoku/forums/viewtopic.php?p=6357<br><br>I thought the "Chute remote pairs" inclusion was a bit odd as W-Wings are one of the most well-known intermediate strategies these days, and it's just a trick to spot certain types of Grouped W-Wing. Nice to see this fully implemented. Another one you might want to look at (for the sake of human solving) is ERI-Pair, it's a W-Ring case formed by 2 grouped box strong inferences. Here's a puzzle with an example: 5...6784.7.9.54..664.3..75.19.62357...6571....5749861...5..6..7971.35.6..6.7..1.5<br><br>(2=8)r3c3 - r3c5 = r2c4 - (8=2)r8c4 - r12c4 = (2)r3c6- => Ring, r3c9<>2, r7c4<>28<br><br>The maximal case would involve all 5 of the ERI cells containing {28}, {28} is also eliminated from the intersecting cell, r3c4 here.</div>
+<div class="w100pc" id="blog-reply17389"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Really good to clear that up, thanks very much. <br>I appreciate the tip on ERI. </div><div class="post-reply" id="reply3058"><table class="w100pc"><tr><td class="post-writes">Strmckr replies:</td><td class="datepost">Wednesday 25-Feb-2026</td></tr>
+<tr><td colspan="2">http://forum.enjoysudoku.com/two-definitions-of-w-wing-terminology-question-t6452.html<br><br>yeah its , W- wing type "E" <br><br>and there is W-rings made with it as well. <br><br>brought to you by  yours truly. <br><br>ps.<br> <br>dual w wings look like this : <br><br> (A=B) - (BBB = BBB) - (B=a) - (AAA = AAA) <br><br>       [ these can be a closed circuit{ Ringed} or not}  <br><br>StrmCkr <br><br>ERi's:  where created by me for A.I.C chaining as a Fyi the original threads are lost.  Approx 2007~ <br><br>as i used them to explore bending chains around corners. <br><br>https://www.reddit.com/r/sudoku/wiki/aic/empty-rectangle-intersection/<br><br>most on the forums use it as an important link type, i have re-formalized it above. <br><br><br><br></td></tr>
+</table></div>
+</div><div id="blog-reply3058" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(254,17389,3058)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17387"><div class="w100pc"><div class="w60pc"><h2>... by: Teagan</h2></div><div class="w40pc datepost">Wednesday 11-Feb-2026</div></div>
+<div class="w100pc">Hi Andrew,<br><br>In the W-Wing example 1 of the single w-wing, could you also remove the six from D6 and E6 because we know that one of the orange cells, linked by the sixes in the yellow cells, will contain a six?<br><br>Thanks for all your work, <br>Teagan</div>
+<div class="w100pc" id="blog-reply17387"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The chains in W-Wings start with a OFF. If you try that with -6 in A6 or -6 in F5 it goes nowhere because there are too many 6s in those rows. It is tempting to start with +6 in A6 and F6 and 'prove' both ends must be one or the other, which may be true, but there are other places where 6 may go so it doesn't help. It's a strong links vs weak links subtlety.</div></div><div id="blog-reply3059" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(254,17387,3059)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17380"><div class="w100pc"><div class="w60pc"><h2>... by: Visitor</h2></div><div class="w40pc datepost">Thursday 29-Jan-2026</div></div>
+<div class="w100pc">Hello Andrew,<br><br>please check the colour of the two 4s in A2 and A8.<br>Two green 4s in column 2, two red 4s in column 8 leaving box 3 and column 8 without a 4- that cannot be.<br><br>Thank you for the new article!</div>
+<div class="w100pc" id="blog-reply17380"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yeah this is a problem with two chains that share candidates. The purple chain gets drawn second and it resets the colors of the candidates as it draws. Does look misleading for the first chain, not sure what to do about it. Some kind of half/half maybe.</div><div class="post-reply" id="reply3050"><table class="w100pc"><tr><td class="post-writes">Visitor replies:</td><td class="datepost">Thursday 29-Jan-2026</td></tr>
+<tr><td colspan="2">I tried the "diabolical" puzzle that you mention in the "Split Double" section.<br>The solver works fine, it removes 3 (and in the next step 2) from H5, but highlights 3 twice in green in column 7. Also, it highlights both 3s in row E in red leaving no possibility for any 3 in this row.</td></tr>
+</table></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Same issue as above!</div></div><div id="blog-reply3051" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(254,17380,3051)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17376"><div class="w100pc"><div class="w60pc"><h2>... by: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac9c6cbd8cfc4c9cf84cbdfcfd8c8cbc9c2eacdc7cbc3c684c9c5c7">[email&#160;protected]</a></h2></div><div class="w40pc datepost">Thursday 22-Jan-2026</div></div>
+<div class="w100pc">January 2026 !? <br>And I thought I was learning ancient knowledge going through every strategy from your solver,<br>I'm glad to be proven wrong, and happy your still maintaining your great site !<br><br>It's exciting to discover all of this when all I know about sudoku comes from variant sudokus and ofc CTC.<br><br>Seems like classic sudokus aren't so boring after all.</div>
+<div class="w100pc" id="blog-reply17376"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Cheers Clarence and very true!</div></div><div id="blog-reply3044" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(254,17376,3044)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17375"><div class="w100pc"><div class="w60pc"><h2>... by: Aleksandra Z</h2></div><div class="w40pc datepost">Wednesday 21-Jan-2026</div></div>
+<div class="w100pc">Very nice to see the general Remote Pairs present now; I was close to suggesting it myself, but seems it was already in the works!<br><br>While experimenting a bit with multiple Remote Pairs, I found some strange solver behaviour with this puzzle:<br><br>050060100009300007700004900000100002070409360040005000010000005000002040900700000<br><br>It can be solved with two Remote Pairs, specifically G4/J6 8 causing C4/J2 2 then later G4/J6 6 causing G1/D6 8, but instead examine the solver-chosen path.<br><br>The first special action is a Chute variant with G1/H1 6 causing G4/H7 8; this is fine. Immediately after, it uses (in effect) the first of those pairs I mentioned, G1/G4 8 causing C4/J2 2. A few steps later, despite the second of my pairs being available, it goes straight past Remote Pairs and tries Rectangle Elimination with very dubious logic!<br><br>"If +8[H2] then -8[H1] forcing +8[G1] which removes all 8s from box 7, so H2 cannot be 8"<br><br>That is to say, it claims that breaking the Sudoku rules and placing two 8s into Box 7 would remove all 8s from Box 7, which clearly is nonsense. By what appears to be pure luck, the resulting eliminations are actually not mistakes, but that reasoning seems like it could cause a future accident!<br><br>In summary, there are two spurious events here; ignoring an available Remote Pair, and fumbling a Rectangle Elimination.</div>
+<div class="w100pc" id="blog-reply17375"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I’m very glad you spotted this problem so early after I’d released W-Wings. So I’d made things complicated for myself. I wanted to do a pass which finds only the double remote pair chains types before the main w-wing types. But the conditions for this were not quite right. Your example I hadn’t tested which is a remote pair chain with 4 identical cells but eliminations only by one number not both. So I ended up deleting the candidate but quitting as it didn’t look like a double. That bugged out the rectangle elimination next.<br><br>Fixed now, server version 3.74.<br><br>Would have been ages detecting that as my mass testing didn’t lead to any failed solves. The bad elimination was always legal.<br><br></div></div><div id="blog-reply3043" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(254,17375,3043)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 20-January-2026. Views: 20575<br>
+			This page was last modified on 2-February-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d3c736e6eb206',t:'MTc4MDMwNjYwOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

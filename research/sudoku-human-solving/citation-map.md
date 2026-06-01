@@ -28,24 +28,38 @@ Use stable citation IDs in technique cards and synthesis documents.
 - `SUDOKUWIKI-HIDDEN`: SudokuWiki hidden candidates page.
 - `SUDOKUWIKI-INTERSECTION`: SudokuWiki intersection removal page.
 - `SUDOKUWIKI-AIC`: SudokuWiki AIC page.
+- `SUDOKUWIKI-XY-CHAINS`: SudokuWiki XY-Chains page.
+- `SUDOKUWIKI-X-CYCLES`: SudokuWiki X-Cycles page.
+- `SUDOKUWIKI-3D-MEDUSA`: SudokuWiki 3D Medusa page.
 - `SUDOKUWIKI-XWING`: SudokuWiki X-Wing page.
 - `SUDOKUWIKI-YWING`: SudokuWiki Y-Wing page.
+- `SUDOKUWIKI-W-WING`: SudokuWiki W-Wing page.
+- `SUDOKUWIKI-XYZ-WING`: SudokuWiki XYZ-Wing page.
 - `SUDOKUWIKI-SWORDFISH`: SudokuWiki Swordfish page.
 - `SUDOKUWIKI-SIMPLE-COLOURING`: SudokuWiki Simple Colouring page.
 - `SUDOKUWIKI-UNIQUE-RECTANGLES`: SudokuWiki Unique Rectangles page.
+- `SUDOKUWIKI-BUG`: SudokuWiki BUG page.
 - `SUDOKUWIKI-ALS`: SudokuWiki Almost Locked Sets page.
+- `SUDOKUWIKI-FORCING-NETS`: SudokuWiki Forcing Nets page.
+- `SUDOKUWIKI-AIC-GROUPS`: SudokuWiki AIC with Groups page.
+- `SUDOKUWIKI-AIC-ALSS`: SudokuWiki AIC with ALSs page.
+- `SUDOKUWIKI-AIC-URS`: SudokuWiki AIC with Unique Rectangles page.
 - `SUDOPEDIA-SOLVING-TECHNIQUE`: Sudopedia solving technique index.
 - `SOTD-TECHNIQUES`: Sudoku of the Day technique index.
 - `SOTD-FORCING-CHAINS`: Sudoku of the Day forcing chains.
 - `SUDOKUCOM-POINTING-PAIRS`: Sudoku.com pointing pairs.
 - `SUDOKUCOM-ZH-POINTING-PAIRS`: Sudoku.com Chinese pointing pairs.
 - `SUDOKUCOM-ZH-XWING`: Sudoku.com Chinese X-Wing.
+- `SUDOKUCOM-ZH-SWORDFISH`: Sudoku.com Chinese Swordfish.
+- `SUDOKUCOM-ZH-YWING`: Sudoku.com Chinese Y-Wing.
 - `SUDOKUBLISS-ADVANCED`: Sudoku Bliss advanced strategies.
 - `SUDOKUBLISS-ALS`: Sudoku Bliss ALS page.
 - `CHINESE-JWANGL5-ADVANCED`: JWangL5 advanced techniques.
 - `CHINESE-KAZUSA-WING-CONSTRUCTION`: Kazusa Wing construction.
 - `CHINESE-KAZUSA-UR`: Kazusa Unique Rectangle.
 - `CHINESE-CN-SUDOKUPUZZLE-XWING`: cn.sudokupuzzle X-Wing.
+- `CHINESE-CN-SUDOKUPUZZLE-XYWING`: cn.sudokupuzzle XY-Wing.
+- `CHINESE-CN-SUDOKUPUZZLE-UR`: cn.sudokupuzzle Unique Rectangle.
 
 ## Citation Style
 
