@@ -4,12 +4,15 @@
  * Strategies are registered here ordered by `difficulty` (cheapest first). The
  * solver sorts defensively, but ordering here documents the "systematised flow"
  * (FR-7): singles → intersections → subsets → fish → single-digit patterns →
- * wings. Each entry is a pure module implementing the Strategy contract.
+ * wings → coloring → AIC → ALS → uniqueness → exotic → forcing. Each entry is a
+ * pure module implementing the Strategy contract.
  *
- * The grouped ids required by M2 (full-house, hidden-single, locked-candidates,
+ * The grouped ids required by M2/M3 (full-house, hidden-single, locked-candidates,
  * naked-subset, hidden-subset, basic-fish, single-digit-patterns, xy-wing,
- * xyz-wing, w-wing) each cover their sub-techniques internally (e.g. basic-fish
- * = X-Wing/Swordfish/Jellyfish; naked-subset = pair/triple/quad).
+ * xyz-wing, w-wing, simple-coloring, aic, als, uniqueness, sue-de-coq,
+ * forcing-chain) each cover their sub-techniques internally — e.g. `aic`
+ * subsumes X-Chain/XY-Chain/Nice Loops, `als` covers ALS-XZ/chain/Death Blossom,
+ * `uniqueness` covers UR/AR/BUG+1.
  */
 
 import type { Strategy } from '../strategy.js';
@@ -24,6 +27,12 @@ import { singleDigitPatterns } from './single-digit-patterns.js';
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
+import { simpleColoring } from './simple-coloring.js';
+import { aic } from './aic.js';
+import { als } from './als.js';
+import { uniqueness } from './uniqueness.js';
+import { sueDeCoq } from './sue-de-coq.js';
+import { forcingChain } from './forcing-chain.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   fullHouse, // 5
@@ -37,6 +46,12 @@ export const STRATEGIES: readonly Strategy[] = [
   wWing, // 50
   xyWing, // 50
   xyzWing, // 55
+  simpleColoring, // 60
+  aic, // 70
+  als, // 80
+  uniqueness, // 90
+  sueDeCoq, // 95
+  forcingChain, // 100
 ];
 
 export {
@@ -51,4 +66,10 @@ export {
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  als,
+  uniqueness,
+  sueDeCoq,
+  forcingChain,
 };
