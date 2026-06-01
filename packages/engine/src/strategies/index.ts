@@ -8,12 +8,63 @@
 
 import type { Strategy } from '../strategy.js';
 import { nakedSingle } from './naked-single.js';
+import { fullHouse } from './full-house.js';
+import { hiddenSingle } from './hidden-single.js';
+import { pointing } from './pointing.js';
+import { claiming } from './claiming.js';
+import { nakedPair, nakedTriple, nakedQuad } from './naked-subset.js';
+import { hiddenPair, hiddenTriple, hiddenQuad } from './hidden-subset.js';
+import { xWing, swordfish, jellyfish } from './fish.js';
+import { skyscraper } from './skyscraper.js';
+import { twoStringKite } from './two-string-kite.js';
+import { emptyRectangle } from './empty-rectangle.js';
+import { xyWing } from './xy-wing.js';
+import { xyzWing } from './xyz-wing.js';
+import { wWing } from './w-wing.js';
 
 export const STRATEGIES: readonly Strategy[] = [
+  fullHouse,
   nakedSingle,
-  // M2: hiddenSingle, pointing, claiming, nakedPair/Triple/Quad, hiddenPair/Triple/Quad
-  // M3: xWing, swordfish, jellyfish, skyscraper, twoStringKite, emptyRectangle,
-  //     xyWing, xyzWing, wWing, simpleColoring, aic, alsXz, ... uniqueRectangle, forcingChain
+  hiddenSingle,
+  pointing,
+  claiming,
+  nakedPair,
+  hiddenPair,
+  nakedTriple,
+  hiddenTriple,
+  nakedQuad,
+  hiddenQuad,
+  xWing,
+  swordfish,
+  jellyfish,
+  skyscraper,
+  twoStringKite,
+  emptyRectangle,
+  xyWing,
+  xyzWing,
+  wWing,
 ];
 
-export { nakedSingle };
+export {
+  fullHouse,
+  nakedSingle,
+  hiddenSingle,
+  pointing,
+  claiming,
+  nakedPair,
+  nakedTriple,
+  nakedQuad,
+  hiddenPair,
+  hiddenTriple,
+  hiddenQuad,
+  xWing,
+  swordfish,
+  jellyfish,
+  skyscraper,
+  twoStringKite,
+  emptyRectangle,
+  xyWing,
+  xyzWing,
+  wWing,
+};
+
