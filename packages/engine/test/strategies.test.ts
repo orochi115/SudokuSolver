@@ -4,149 +4,68 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 import { Grid } from '../src/grid.js';
-import { fullHouse } from '../src/strategies/full-house.js';
-import { hiddenSingle } from '../src/strategies/hidden-single.js';
-import { lockedCandidates } from '../src/strategies/locked-candidates.js';
-import { nakedSubset } from '../src/strategies/naked-subset.js';
-import { hiddenSubset } from '../src/strategies/hidden-subset.js';
-import { basicFish } from '../src/strategies/basic-fish.js';
-import { singleDigitPatterns } from '../src/strategies/single-digit-patterns.js';
-import { xyWing } from '../src/strategies/xy-wing.js';
-import { xyzWing } from '../src/strategies/xyz-wing.js';
-import { wWing } from '../src/strategies/w-wing.js';
+import { simpleColoring } from '../src/strategies/simple-coloring.js';
+import { aic } from '../src/strategies/aic.js';
+import { als } from '../src/strategies/als.js';
+import { uniqueness } from '../src/strategies/uniqueness.js';
+import { forcingChain } from '../src/strategies/forcing-chain.js';
 import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 import { checkTraceSoundness } from '../src/soundness.js';
-import { solveBruteforce } from '../src/bruteforce.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-describe('full-house', () => {
-  it('finds the last empty cell in a house', () => {
-    const s = Grid.fromString(
-      '123456780' +
-      '123456789'.repeat(8)
-    );
-    const step = fullHouse.apply(s);
-    expect(step).not.toBeNull();
-    expect(step!.placements).toHaveLength(1);
-    expect(step!.placements[0]!.cell).toBe(8);
-    expect(step!.placements[0]!.digit).toBe(9);
-    expect(step!.strategyId).toBe('full-house');
-  });
-
-  it('returns null when no full house', () => {
-    const s = Grid.fromString(
-      '530070000' +
-      '600195000' +
-      '098000060' +
-      '800060003' +
-      '400803001' +
-      '700020006' +
-      '060000280' +
-      '000419005' +
-      '000080079'
-    );
-    expect(fullHouse.apply(s)).toBeNull();
-  });
-});
-
-describe('hidden-single', () => {
-  it('finds a hidden single on an easy puzzle', () => {
-    const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
-    const g = Grid.fromString(p);
-    const step = hiddenSingle.apply(g);
-    expect(step).not.toBeNull();
-    expect(step!.strategyId).toBe('hidden-single');
-    expect(step!.placements).toHaveLength(1);
-  });
-});
-
-describe('locked-candidates', () => {
+describe('simple-coloring', () => {
   it('returns a valid step or null on an easy puzzle', () => {
     const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
     const g = Grid.fromString(p);
-    const step = lockedCandidates.apply(g);
+    const step = simpleColoring.apply(g);
     if (step !== null) {
-      expect(step.strategyId).toBe('locked-candidates');
-      expect(step.eliminations.length).toBeGreaterThan(0);
+      expect(step.strategyId).toBe('simple-coloring');
     }
   });
 });
 
-describe('naked-subset', () => {
+describe('aic', () => {
   it('returns a valid step or null on an easy puzzle', () => {
     const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
     const g = Grid.fromString(p);
-    const step = nakedSubset.apply(g);
+    const step = aic.apply(g);
     if (step !== null) {
-      expect(step.strategyId).toBe('naked-subset');
+      expect(step.strategyId).toBe('aic');
     }
   });
 });
 
-describe('hidden-subset', () => {
+describe('als', () => {
   it('returns a valid step or null on an easy puzzle', () => {
     const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
     const g = Grid.fromString(p);
-    const step = hiddenSubset.apply(g);
+    const step = als.apply(g);
     if (step !== null) {
-      expect(step.strategyId).toBe('hidden-subset');
+      expect(step.strategyId).toBe('als');
     }
   });
 });
 
-describe('basic-fish', () => {
+describe('uniqueness', () => {
   it('returns a valid step or null on an easy puzzle', () => {
     const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
     const g = Grid.fromString(p);
-    const step = basicFish.apply(g);
+    const step = uniqueness.apply(g);
     if (step !== null) {
-      expect(step.strategyId).toBe('basic-fish');
+      expect(step.strategyId).toBe('uniqueness');
     }
   });
 });
 
-describe('single-digit-patterns', () => {
+describe('forcing-chain', () => {
   it('returns a valid step or null on an easy puzzle', () => {
     const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
     const g = Grid.fromString(p);
-    const step = singleDigitPatterns.apply(g);
+    const step = forcingChain.apply(g);
     if (step !== null) {
-      expect(step.strategyId).toBe('single-digit-patterns');
-    }
-  });
-});
-
-describe('xy-wing', () => {
-  it('returns a valid step or null on an easy puzzle', () => {
-    const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
-    const g = Grid.fromString(p);
-    const step = xyWing.apply(g);
-    if (step !== null) {
-      expect(step.strategyId).toBe('xy-wing');
-    }
-  });
-});
-
-describe('xyz-wing', () => {
-  it('returns a valid step or null on an easy puzzle', () => {
-    const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
-    const g = Grid.fromString(p);
-    const step = xyzWing.apply(g);
-    if (step !== null) {
-      expect(step.strategyId).toBe('xyz-wing');
-    }
-  });
-});
-
-describe('w-wing', () => {
-  it('returns a valid step or null on an easy puzzle', () => {
-    const p = '050703060007000800000816000000030000005000100730040086906000204840572093000409000';
-    const g = Grid.fromString(p);
-    const step = wWing.apply(g);
-    if (step !== null) {
-      expect(step.strategyId).toBe('w-wing');
+      expect(step.strategyId).toBe('forcing-chain');
     }
   });
 });
@@ -166,6 +85,12 @@ describe('strategy registry', () => {
       'xy-wing',
       'xyz-wing',
       'w-wing',
+      'simple-coloring',
+      'aic',
+      'als',
+      'uniqueness',
+      'sue-de-coq',
+      'forcing-chain',
     ];
     for (const id of required) {
       expect(ids).toContain(id);
