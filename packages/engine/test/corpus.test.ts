@@ -4,14 +4,18 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { parseOpenSudoku } from '../src/parser.js';
 import { findGroundTruth } from '../src/bruteforce.js';
+import { Grid } from '../src/grid.js';
+import { solve } from '../src/solver.js';
+import { checkTraceSoundness } from '../src/soundness.js';
+import { STRATEGIES } from '../src/strategies/index.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(here, '../../..');
 const EASY = resolve(REPO_ROOT, 'puzzles/easy.opensudoku');
+const GT_DIR = resolve(REPO_ROOT, 'data/ground-truth');
 
-// Integration check against the real corpus. Skipped automatically when the
-// LFS-backed puzzle files are not materialised (e.g. a shallow/lfs-less clone).
 const hasCorpus = existsSync(EASY) && readFileSync(EASY, 'utf8').includes('<game');
+const hasGroundTruth = existsSync(resolve(GT_DIR, 'easy.json'));
 
 describe.skipIf(!hasCorpus)('corpus integration (AC-1)', () => {
   it('parses real puzzles and brute-force-solves a sample to unique solutions', () => {
@@ -28,4 +32,24 @@ describe.skipIf(!hasCorpus)('corpus integration (AC-1)', () => {
       expect(gt.unique).toBe(true);
     }
   });
+});
+
+describe.skipIf(!hasGroundTruth)('soundness regression (AC-3)', () => {
+  const difficulties = ['easy', 'medium', 'hard', 'diabolical'] as const;
+
+  for (const diff of difficulties) {
+    it(`zero soundness violations on ${diff} puzzles`, () => {
+      const file = resolve(GT_DIR, `${diff}.json`);
+      const records: { puzzle: string; solution: string; unique: boolean }[] = JSON.parse(readFileSync(file, 'utf8'));
+
+      let totalViolations = 0;
+      for (const r of records) {
+        const grid = Grid.fromString(r.puzzle);
+        const trace = solve(grid, STRATEGIES);
+        const result = checkTraceSoundness(trace, r.solution);
+        totalViolations += result.violations.length;
+      }
+      expect(totalViolations).toBe(0);
+    });
+  }
 });
