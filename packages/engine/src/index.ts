@@ -11,9 +11,13 @@ export * from './solver.js';
 export * from './soundness.js';
 export * from './parser.js';
 export * from './bruteforce.js';
+export * from './strategy-options.js';
 export {
   STRATEGIES,
+  aic,
+  als,
   basicFish,
+  forcingChain,
   fullHouse,
   hiddenSingle,
   hiddenSubset,
@@ -21,6 +25,9 @@ export {
   nakedSingle,
   nakedSubset,
   singleDigitPatterns,
+  simpleColoring,
+  sueDeCoq,
+  uniqueness,
   wWing,
   xyWing,
   xyzWing,
