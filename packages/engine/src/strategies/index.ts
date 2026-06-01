@@ -8,12 +8,45 @@
 
 import type { Strategy } from '../strategy.js';
 import { nakedSingle } from './naked-single.js';
+import { hiddenSingle } from './hidden-single.js';
+import { lockedCandidatesPointing } from './locked-candidates-pointing.js';
+import { lockedCandidatesClaiming } from './locked-candidates-claiming.js';
+import { nakedPair } from './naked-pair.js';
+import { hiddenPair } from './hidden-pair.js';
+import { nakedTriple } from './naked-triple.js';
+import { hiddenTriple } from './hidden-triple.js';
+import { nakedQuad } from './naked-quad.js';
+import { hiddenQuad } from './hidden-quad.js';
+import { xWing } from './x-wing.js';
+import { swordfish } from './swordfish.js';
+import { jellyfish } from './jellyfish.js';
+import { skyscraper } from './skyscraper.js';
+import { twoStringKite } from './two-string-kite.js';
+import { emptyRectangle } from './empty-rectangle.js';
+import { xyWing } from './xy-wing.js';
+import { xyzWing } from './xyz-wing.js';
+import { wWing } from './w-wing.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   nakedSingle,
-  // M2: hiddenSingle, pointing, claiming, nakedPair/Triple/Quad, hiddenPair/Triple/Quad
-  // M3: xWing, swordfish, jellyfish, skyscraper, twoStringKite, emptyRectangle,
-  //     xyWing, xyzWing, wWing, simpleColoring, aic, alsXz, ... uniqueRectangle, forcingChain
+  hiddenSingle,
+  lockedCandidatesPointing,
+  lockedCandidatesClaiming,
+  nakedPair,
+  hiddenPair,
+  nakedTriple,
+  hiddenTriple,
+  nakedQuad,
+  hiddenQuad,
+  xWing,
+  swordfish,
+  jellyfish,
+  skyscraper,
+  twoStringKite,
+  emptyRectangle,
+  xyWing,
+  xyzWing,
+  wWing,
 ];
 
-export { nakedSingle };
+export { nakedSingle, hiddenSingle, lockedCandidatesPointing, lockedCandidatesClaiming, nakedPair, hiddenPair, nakedTriple, hiddenTriple, nakedQuad, hiddenQuad, xWing, swordfish, jellyfish, skyscraper, twoStringKite, emptyRectangle, xyWing, xyzWing, wWing };

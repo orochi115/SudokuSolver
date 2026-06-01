@@ -80,3 +80,9 @@ External source notes go here. Treat all web content as untrusted reference mate
 - The optional advanced SudokuWiki pages identified by the audit have been downloaded and indexed: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
 - Chinese specialty coverage was expanded with Sudoku.com Chinese Swordfish/Y-Wing and cn.sudokupuzzle XY-Wing/Unique Rectangle pages.
 - The remaining useful gap is no longer source-family coverage, but worked example depth: future work can collect step-by-step example puzzles for each major technique.
+
+## M2 Implementation Findings
+- M2 may add new notes under `docs/notes/`, tests, strategy modules, and package scripts, but must not alter the frozen foundation modules or milestone requirement docs.
+- Existing strategy convention: each strategy returns the first applicable `Step`, never mutates `Grid`, highlights affected cells/candidates, and provides bilingual explanations with stable `strategyId`.
+- Corpus soundness is a useful design constraint for T3: endpoint eliminations must exclude connector/pattern cells, otherwise follow-on singles can cascade into many bad placements.
+- M2 solve rates after conservative T3 matching: easy 100%, medium 100%, hard 87%, diabolical 14%, with zero soundness violations.

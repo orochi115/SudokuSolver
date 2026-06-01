@@ -46,3 +46,12 @@ Collect enough reliable internet material to support a later synthesis of a full
 3. Download optional Chinese specialty pages - complete
 4. Update manifest, citations, bibliography, and mappings - complete
 5. Validate associations and commit supplemental sources - complete
+
+## Phase 4: M2 Human Strategy Implementation
+1. Read M2 requirements, Strategy contract, and existing reference strategy - complete
+2. Add failing tests for T1-T3 strategy deductions and corpus soundness - complete
+3. Implement independent pure strategy modules under `packages/engine/src/strategies/` - complete
+4. Register strategies by increasing difficulty in `strategies/index.ts` - complete
+5. Add `packages/engine/scripts/solve-rate.ts` and generate `data/reports/solve-rate.json` - complete
+6. Run `npm run typecheck`, `npm test`, corpus soundness, and solve-rate until green - complete
+7. Write `docs/notes/m2.md` with implementation notes, tradeoffs, and solve-rate results - complete

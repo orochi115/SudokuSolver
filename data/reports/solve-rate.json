@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-06-01T13:11:39.829Z",
+  "strategies": [
+    {
+      "id": "naked-single",
+      "difficulty": 10
+    },
+    {
+      "id": "hidden-single",
+      "difficulty": 10
+    },
+    {
+      "id": "locked-candidates-pointing",
+      "difficulty": 20
+    },
+    {
+      "id": "locked-candidates-claiming",
+      "difficulty": 20
+    },
+    {
+      "id": "naked-pair",
+      "difficulty": 30
+    },
+    {
+      "id": "hidden-pair",
+      "difficulty": 30
+    },
+    {
+      "id": "naked-triple",
+      "difficulty": 30
+    },
+    {
+      "id": "hidden-triple",
+      "difficulty": 30
+    },
+    {
+      "id": "naked-quad",
+      "difficulty": 30
+    },
+    {
+      "id": "hidden-quad",
+      "difficulty": 30
+    },
+    {
+      "id": "x-wing",
+      "difficulty": 40
+    },
+    {
+      "id": "swordfish",
+      "difficulty": 40
+    },
+    {
+      "id": "jellyfish",
+      "difficulty": 40
+    },
+    {
+      "id": "skyscraper",
+      "difficulty": 50
+    },
+    {
+      "id": "two-string-kite",
+      "difficulty": 50
+    },
+    {
+      "id": "empty-rectangle",
+      "difficulty": 50
+    },
+    {
+      "id": "xy-wing",
+      "difficulty": 50
+    },
+    {
+      "id": "xyz-wing",
+      "difficulty": 50
+    },
+    {
+      "id": "w-wing",
+      "difficulty": 50
+    }
+  ],
+  "byDifficulty": {
+    "easy": {
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "soundnessViolations": 0,
+      "averageSteps": 50.62,
+      "maxSteps": 58
+    },
+    "medium": {
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "soundnessViolations": 0,
+      "averageSteps": 53.93,
+      "maxSteps": 64
+    },
+    "hard": {
+      "total": 100,
+      "solved": 87,
+      "stuck": 13,
+      "solveRate": 0.87,
+      "soundnessViolations": 0,
+      "averageSteps": 54.18,
+      "maxSteps": 72
+    },
+    "diabolical": {
+      "total": 100,
+      "solved": 14,
+      "stuck": 86,
+      "solveRate": 0.14,
+      "soundnessViolations": 0,
+      "averageSteps": 25.52,
+      "maxSteps": 70
+    }
+  }
+}
