@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Unique Rectangles - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Unique Rectangles takes advantage of the fact that published Sudokus have only one solution. There are many formations and strategies based on this notion and they are explained here."/>
+<meta name="twitter:description" content="Sudoku Strategy. Unique Rectangles takes advantage of the fact that published Sudokus have only one solution. There are many formations and strategies based on this notion and they are explained here.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/urect2.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/urect2.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Unique_Rectangles';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Unique_Rectangles">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Unique Rectangles</h1><div class="SRCell">Unique Rectangles takes advantage of the fact that published Sudokus have only one solution. If your Sudoku source does not guarantee this then this strategy will not work.  But it is very powerful and there are quite a few interesting variants. <br><br><b><u>Credits first</u></b>: The initial ideas for these strategies I lifted wholesale from <b>MadOverLord</b>'s description (11 Jun 05) on the forum at www.sudoku.com. (Sadly the thread is no longer hosted). Many others have since added to and improved them. I have provided my own examples. (please email me for other credit requests). I will stick to MadOverLord's nomenclature.<br><br><p><img src="puzimages/showURCycle.png" style="padding-left:20px;float:right"><span class="hc">27th January 2025</span><br>Added the ability to cycle through all <b>Unique Rectangles</b> found when the first is displayed.<br>Similar to how chains can cycle.</p></div><br>
+
+<h2>Noticing the 'Deadly Pattern'</h2>
+<div class="SRCell">
+<figure style="width:320px"><img src="PuzImages/urect1.png" alt="The 'Deadly Pattern'" /><figcaption>The 'Deadly Pattern'
+</figcaption></figure>
+In Figure 1 we have two example rectangles formed by four cells each. The pattern in red marked A consists of four conjugate pairs of 4/5.  They reside on two rows, two columns and two boxes.  Such a group of four pairs is impossible in a Sudoku with one solution. The reason?  Pick any cell with 4/5. If the cell solution was 4 then we quickly know what the other three cells are. But it would be equally possible to have 5 in that cell and the others would be the reverse.  There are two solutions to any Sudoku with this <span class="hy">deadly pattern</span>. If you have achieved this state in your solution something has gone wrong.<br><br>The pattern ringed in green looks like a deadly pattern but there is a crucial difference. The 7/9 still resides on two rows and two columns, but instead of two boxes it is spread over four boxes. Now, such a situation is fine since you can't guarantee that swapping the 7 and 9 in an alternate manner will produce two valid Sudokus. One of them is the real solution, the other a mess.  Why?  Swapping the 7 and 9 around places them in different boxes and 1 to 9 must exist in each box only once. In the red example, swapping within the box does not change the content of that box.<br><br></div>
+
+<h2>Type 1 Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect2.png" alt="Unique Rectangle Figure 2" /><figcaption>Unique Rectangle Figure 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e9e06030204080a0e08050o0f090a0s0g0u0s0w0a070h0e7o8m1i857p04820c0706087o030h82820f0b0a0d077o0607040a0h030e7o987w840a0g038a8i0h9u9i860h040f8202011n0r08020509071i1q">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006324800850090000000700000004007680300000007067400300000003000000040021008259700">From the Start</a>
+</figcaption></figure>
+For all Unique Rectangles we are going to look for <i>potential</i> <span class="hy">deadly patterns</span> and take advantage of them.  A <b>Type 1 Unique Rectangle</b> is illustrated in Figure 2. The three yellow cells marked contain 2/9.  The fourth corner marked in orange also contains 2/9 and two other candidates.  If the 1/5 were removed from that cell we would have a Deadly Pattern.  This cannot be allowed to happen so its safe to remove 2 and 9 from that cell. <br><br>The proof is pretty straightforward once you get your head around the basic idea. Assume <span class="hy">D1</span> is 2. That forces <span class="hy">D9</span> to be 9, <span class="hy">F9</span> to be 2, and <span class="hy">F1</span> to be 9. That's the deadly pattern; you can swap the 2's and 9's and the puzzle still can be filled in. So if the Sudoku is valid, <span class="hy">D1</span> cannot be 2. The exact same logic applies if you assume <span class="hy">D1</span> is 9.<br>So <span class="hy">D1</span> can't be a 2, and can't be a 9 <br>- it must be either 1 or 5.<br><br></div>
+
+<h2>Type 2 Unique Rectangles</h2>
+<div class="SRCell">In Figure 3 we have a similar pattern, but this time, <span class="hy">A5</span> and <span class="hy">A6</span> (cells which are also in the same box) both have a single extra possibility - in this case, 7. <br><br>To make subsequent discussion easier to follow, we will refer to the two squares that only have two possibilities as the <span class="hy">floor</span> squares (because they form the foundation of the Unique Rectangle); the other two squares, with extra possibilities shall be called the <span class="hy">roof</span> squares.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect3.png" alt="Unique Rectangle Figure 3" /><figcaption>Unique Rectangle Figure 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d022r0i2r2r0c0h0f1306130b4n4j070904082e090u062i020e0a070r4z56be037n0b0e09164i0162020f2i030b0v1j059mai7n2i080n7r044602b6050f070608020g0z0z0d030i129u2q1q7y8q0h010b">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=020000000060000794809060200700003000900102003000500008004020507682000030000000010">From the Start</a>
+</figcaption></figure>
+In this <b>"Type-2 Unique Rectangle"</b>, one of the boxes contains the <span class="hy">floor</span> squares, and the other contains the <span class="hy">roof</span> squares. In order to avoid the deadly pattern, 7 must appear in either <span class="hy">A5</span> or <span class="hy">A6</span> (the <span class="hy">roof</span> squares). Therefore, it can be removed from all other cells in the units (row, column and box) that contain <i>both</i> of the <span class="hy"><b>roof</b></span> cells (in this case, row 1 and box 2). <br><br>Now that you've gotten your head around the basic unique rectangle concept, the proof should come clear:<br><br>If neither <span class="hy">A5</span> or <span class="hy">A6</span> contains an 7, then they both become cells with possibilities 1/5. This results in the deadly pattern - so one of those cells must be the 7, and none of the other squares in the intersecting units can contain 7. So <span class="hy">A3</span> and <span class="hy">C6</span> can have 7 removed. This cracks the Sudoku.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URECT2_2.png" alt="Unique Rectangle Figure 4" /><figcaption>Unique Rectangle Figure 4
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B17071n091v032208024vcm8v5f024zb29y2m02cm8m045e07928601060u055u4602012m090n027r2q86045y065y077y081f7q1f020u0509462m024b05662f064u1y024z074zby874e4q013e0356096i0262">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070903080000020000200407001605000109020000060708000205900205006000070000010309020">From the Start</a>
+</figcaption></figure>
+<br>I couldn't resist adding this example which I found while looking for <a href="Empty_Rectangles">Empty Rectangles</a>. It's as clear as day how the 8s in <span class="hy">H4</span> and <span class="hy">H6</span> combine with the [1,6] Deadly Pattern. 8's aligned with the brown cells are eliminated. I need say no more. <br><br>To view this puzzle in the solver uncheck Rectangle Elimination and choose the second Unique Rectangle after the Type 5 which is found first.</div>
+
+<h2>Type 2B Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect4.png" alt="Unique Rectangle Figure 5" /><figcaption>Unique Rectangle Figure 5
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2c0d0a080f050c0i2c5w092s0n040n6a065w4y031u0g090b0d4i011i0b08132u2f0i041u050a0i060b045u5u031q071m0i120h020a1u010e2m0u082e0f0b092k062k16010i6a03620i0h2m022u060a2q2i">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000805000090040060030090001008000040500604003070000200100080009060010030000206000">From the Start</a>
+</figcaption></figure>
+There is a second variant of Type-2 Unique Rectangles as illustrated In Figure 5.  <br><br>In this puzzle, we have the same pattern of 4 squares in 2 boxes, 2 rows and 2 columns. The <span class="hy">floor</span> squares are <span class="hy">A1</span> and <span class="hy">A9</span>, and the <span class="hy">roof</span> squares are <span class="hy">B1</span> and <span class="hy">B9</span>. However, in this Unique Rectangle, each of the boxes contains one <span class="hy">floor</span> and one <span class="hy">roof</span> cell. This is perfectly fine, but it means that the only unit (row/column/box) that contains both of the <span class="hy">roof</span> cells is row 2, so that is the only unit that you can attempt to reduce; in this case, <span class="hy">B7</span> cannot contain a 8. This is called at <b>"Type-2B Unique Rectangle"</b>.<br><br>You will need to untick 3D-Medusa to see this example.<br><br></div>
+
+<h2>Type 2C Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URect2Cb.png" alt="Unique Rectangle Figure 6" /><figcaption>Unique Rectangle Figure 6
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0h2k090w1n1g2e053b0e031f081n078k1p7o1n0s371c091w081n3b0b090d062q0h01032q070h1i0914011w1g041i01052c2g0438090h7z2i022y088y121f937u0e0h011m037o078k7r062f2s2c84040h87">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=009000050030807000000090800090600130700901004015004090002080000000103070060000400">From the Start</a>
+</figcaption></figure>
+HoDoKu <a href="http://hodoku.sourceforge.net/en/tech_ur.php#u5">records this as a Type 5</a> but since it's a variation on Type 2 I'm going to categorize it as 2C. It is fairly rare but easy to understand.<br><br>This variation again has the extra candidate but in cells diagonally opposite. You can see the extra 6 in cells <span class="hy">B7</span> and <span class="hy">H9</span> (marked as <span class="hc">C</span> and <span class="hc">D</span>).  6 Must exist in one of those two cells so any 6 not in the deadly rectangle pattern that can 'see' <span class="hc">C</span> and <span class="hc">D</span> can be removed.<br><br>Not shown in the example is the chance that <span class="hc">A</span> or <span class="hc">B</span> can also contain the extra candidate 6. Lets say <span class="hc">B</span> did - the eliminations hold since those cells can see <span class="hy">B9</span>. But if the third extra candidate was in <span class="hy">H7</span> then we could not look in box 3.</div>
+
+<h2>Type 2D Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URectType2D.png" alt="Naked Quint + UR" /><figcaption>Naked Quint + UR
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2i0h10391p1o2s030i060a102c09032y0h2y032i0i08050s2c0a060h060a140o070904100i0c041w1g0h012q2s0b0507090r0r0h060c017u1i1k07051q7o082q9e1i04088k3q9w012y020h1j1j8j3y9u2y">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000030600093000300850006060007940004000100057900060100075008000480001020000000">From the Start</a>
+</figcaption></figure>
+David Hollenberg kindly brought to my attention to this example (turn off 3D Medusa to see) which he initially analysed as a Naked Quint with values {2,4,5,7,9) allowing {4,5,7} to be removed from <span class="hy">J7</span>. Stefan Boumans simplified this into a pattern I think is worth separating out. At least half the Type 3b below and some Type 4 are reduced to this pattern avoiding unnecessary complication.<br><br>We have a potential Deadly Rectangle on <span class="hy">GH37</span> but if you look carefully 3 and 6 are only found in one cell outside the DR in box 9 (and in column 7). To avoid the Deadly Rectangle we must use candidates outside of it but 3 and 6 only occur in <span class="hy">J7</span>. That fact allows us to remove all other candidates from <span class="hy">J7</span>.<br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URectType2D_2.png" alt="Type 2d example 2" /><figcaption>Type 2d example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1f0b1v43030d6q8ydu08090d0e0f070o0o0103071v430i020d1u4y2c045u030e0f0a7ob80l060n0g080i0e040o0i0e460b0d01520752360c0i040b0h360105050a02060g0c0i08040d0h360i010e3c1k3c">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000030000890007001370002000040300000060080040000001070000400015502600084000010000">From the Start</a>
+</figcaption></figure>
+<br>
+I include this example to illustrate the overlap with Type 3b. I coloured the cyan cell <span class="hy">J3</span> to show where the locked cell is when combined with the roof cells <span class="hy">J78</span> but all this is unnecessary. 2 and 3 only exist in <span class="hy">J9</span> outside the roof tiles so we can go straight to the elimination of 6 and 7 there.</div>
+
+<h2>Type 3 Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect3a.png" alt="Unique Rectangle Figure 7" /><figcaption>Unique Rectangle Figure 7
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B8i8i45050l03040743052e0l082d047r067q042e432b09064705020805070p0n09060l040302040643070509437n7n060s4a054403070208052e06019i047q371f092m2m082h0l052b04030905022b0806">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000503470500800000000090002850000600024607590006000037200060000000008005043902000">From the Start</a>
+</figcaption></figure>
+Choose the second after the Type 5 to see this in the solver.<br><br>In this variant we have a floor with a pair as before but the roof contains two different candidates (occurring once or twice in each cell of the roof). In the Figure 7 the floor and roof contain [3/9] and the extra candidates in the roof are 1 and 7.  Removing both the 1 and 7 from the roof would leave the deadly pattern so either the 1 in <span class="hy">B7</span> must be a solution or the 7 in <span class="hy">G7</span> is a solution. Knowing this does not get us as far as an elimination, however, but we can say that the 1 in <span class="hy">B7</span> and the 7 in <span class="hy">G7</span> act as a pseudo-cell in their own right.  The clever bit is using this pseudo-cell with a bi-value cell containing the same candidates.  Such a cell is circled on the board – <span class="hc">J7</span>.  We effectively have a “locked set” like a Naked Pair.  1 will occur in <span class="hy">B7</span> or <span class="hc">J7</span> or 7 will occur in <span class="hy">G7</span> or <span class="hc">J7</span>, we just don’t know which way round.  </div>
+
+<div class="SRCell">Such reasoning allows us to remove other 1s and 7s on the unit shared by the roof cells (but not the cell we’re using to create a locked set with).  There are 1s and 7s in <span class="hy">C7</span> and <span class="hy">H7</span> which can be eliminated.<br><br></div><br>
+
+<h2>Type 3b Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect3b_v2.png" alt="Unique Rectangle Figure 8" /><figcaption>Unique Rectangle Figure 8
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e2b83020z06080d030u43020i470v3605360u064i074m1a0b0a09380d034z092d374y05aa05c253372f3b020d015w4y5i042w095236050i0d1j1l081i070l1g031f0z2t2r040i0h080l070d1i090e1i0l">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000206803002000050060700009003090005050000020100040900500008070030000400807009000">From the Start</a>
+</figcaption></figure>
+<br>There is a compliment to Type 3, where the roof cells share the same box and that means the floor must be in a different box. Cells <span class="hy">B1</span> and <span class="hy">B2</span> form a pair with 3 and 4. These can see two cells in column 6 which also contain 3/4 as well as a 1 and an 5. We need to match this 1 and 5 in the roof cells with a bi-value cell to make a locked set (effectively a Hidden Pair). This can be along the row or column the roof cells are align with or in the same box. The cell we want is <span class="hy">A5</span>. No other 1s and 5s can exist in the same box so we remove 1 from <span class="hy">B5</span> and 5 from <span class="hy">C5.</span><br><br>I'd like to credit Hervé Gérard for the first example which he sent to me in November 2013 and later Tom Morrin for stating the box should be used as well.</div>
+
+<h2>Type 3/3b with Triple Pseudo-Cells</h2>
+<div class="SRCell">So far Type 3 and 3b have worked with a pseudo-cell linking with a bi-value cell to make a pseudo pair. This is a valid locked set. Well, locked sets don't have to be pairs, they can involve three candidates over three cells.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URectType3B_1.png" alt="Type 3b with a Triple " /><figcaption>Type 3b with a Triple 
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4o04014k1y5e070i484o0f0i6c126a0d48014846077n047n0f05482e09102y082y010o0f0d5v1006830382445w5z5z069v029v82045y0f050d0c070b080a0i09020h0r1f1n0c0g052b2b03bm82bm02060d">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=800900000020070050019500600200000970100000008054000002001009720090050060000006004">From the Start</a>
+</figcaption></figure>
+In this nicely symmetric example we have a deadly rectangle based on 1 and 9. The remaining candidates in the Roof are 5 and 8.  Whether there are one or two of either 5 and 7 in the Roof is not important. We know 5 OR 7 has to appear in <span class="hy">F46</span>. Members of a Locked Set must all see each other, so we are looking at other cells that align with the roof, namely row F or box 5.  For a Triple cell Locked Set we need two other cells that contain 5 and 7 and one other candidate not present in the Roof. <span class="hy">D4</span> and <span class="hy">D6</span> contain {4,5,7}. With our pseudo-cell that makes a Naked Triple. Naked Triple rules apply so 5 and 7 can be removed from <span class="hy">E5</span> - the only other cell to see all parts of the locked set.<br><br>All credit to David Hollenberg for working this insight that nicely expands the strategy. </div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URectType3B_2.png" alt="UR 3B example 2" /><figcaption>UR 3B example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B7u060c0e2i0h01029e7u070b031m01cic2820e0h0a09381g3a043a0g0a161o0390968i080h03091m0a1u020722060b160g08828e7q0a0a054y5009075a521s0c0i4y011g046q05380b04074y0e0cc2018i">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=060000120070301000000900040000030008039000270600080000050097000000104050047000010">From the Start</a>
+</figcaption></figure>
+<br>Here is a triple with a slightly different pattern, also from David Hollenberg.<br><br>There are three candidates {3, 6, 7} in the pseudo-cell (the extra candidates in the roof). Instead of looking for an extra candidate to make up the triple in two other cells we look for all three candidates {3, 6, 7} in those two cells. These are in <span class="hy">D8</span> and <span class="hy">F8</span>. These form a triple with the pseudo-cell in <span class="hy">DF7</span>. Naked Triple rules apply so we can eliminate the 6 in <span class="hy">E9</span>. <br><br><span class="hc">Uniqueness Type 3b (Col) at DF37<br>- removing 6 at E9 (triple with D8+F8)</span></div>
+
+<h2>Type 4 Unique Rectangles <a name=type4></a></h2>
+<div class="SRCell"> - Cracking the Rectangle with Conjugate Pairs. (See also <a href="/Extended_Unique_Rectangles#type4">Extended UR Type 4</a>.)<br><br>An interesting observation is that it is sometimes possible to remove one of the original pair of possibilities from the roof squares. Consider the following puzzle in Figure 10 which is a continuation of the Sudoku puzzle used in the first example.<br><br>Look closely at the roof squares, <span class="hy">A4</span> and <span class="hy">A6</span>, but this time, don't look at their extra possibilities; look at the possibilities they share with the floor squares. <br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect5new.png" alt="Unique Rectangle Figure 10" /><figcaption>Unique Rectangle Figure 10
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d032s3o0937435u5x10432s462s47060i04094306642c6303052d14061001087o070d7q46090a3604360e0246440g047o0305b6010f0a04087q367q023605071003181w4c7n4y7n0f100i6c015w0d035u">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030090000000000604906000350060180700090040020004035010048000205703000000000010030">From the Start</a>
+</figcaption></figure>
+<br>If you look carefully, you'll see that in box 2, the roof squares are the only squares that can contain a 6. This means that, no matter what, one of those squares must be 6 - and from this you can conclude that neither of the squares can contain a 7, since this would create the "deadly pattern"! So you can remove 7 from <span class="hy">A4</span> and <span class="hy">A6</span>. <br><br><u>Nomenclature</u>: When two squares are the only two squares in a unit that can have a particular value, they are referred to as a <span class="hy">conjugate pair</span> on that value. <br><br>This is an example of a <b>"Type-4 Unique Rectangle"</b>. As you have probably realised, since the roof squares are in the same box, you can search for conjugate pairs in both of their common units (the row and the box, in this case). <br></div>
+
+<h2>Type 4B Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/urect6.png" alt="Unique Rectangle Figure 11" /><figcaption>Unique Rectangle Figure 11
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0g0d0h030e09010b0686820a070b0f0h047q7q0b060d4343077q05021u7q8j040z8608071u0g0dc20c4k848j7n01087q8i0710108m04047q020z7n0g06870h8i010g4ic2030d820b088m05028j047q0g7r">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000309106000700040006000705200040087000000000180070004402000600010003000805204000">From the Start</a>
+</figcaption></figure>
+And, as you might expect, there is a <b>Type-4B Unique Rectangle</b> variant, in which the floor squares are not in the same box, and you can only look for the <span class="hy">conjugate pair</span> in their common row or column. For example:<br><br>In this case, since 2 can only appear in row E in the roof squares, 5 can be removed from both of them. <br><br>As Type-4 Unique Rectangle solutions "destroy" the Unique Rectangle, it is usually best to look for them only after you've done any other possible Unique Rectangle reductions.</div>
+
+<h2>Type 5 Unique Rectangles</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URType5.png" alt="Unique Rectangle Type 5" /><figcaption>Unique Rectangle Type 5
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B07bmbq0484064448017u028m089f2b3e3a05015m5e0c2s2c70093g038j049g2d056s6s38b8071u7o034422011m440z11062l65032s097w039h0e3g2k7n380805b7d12c6s037n0438064a5w0164092s2s03">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=700406001020800005100000090304005000070030010000600309030000008500003040600109003">From the Start</a>
+</figcaption></figure>
+<br>As of January 2021 we have a new Unique Rectangle elimination! Thanks to Ivar Agy from Norway who shared an example with me. Not to say that it might have been discovered elsewhere, I can't check, but please come forward if there are earlier references. Since it is vaguely related to Type 1 (in that it attacks candidates in the rectangle, not outside), and is quite simple to spot, the solver searches for it after Type 1 and before the others. However, I am obliged to call Type 5 since I don't want to re-number everything. <br><br>Any rectangle across two boxes that contains two candidates in all four cells might have two opposite corners containing only two candidates, like the {2,8} in <span class="hy">E6</span> and <span class="hy">F1</span>. If one of those candidates is linked to the other corners with strong links (ie no other 2s or 8s in the two rows and two columns of the rectangle), it could create a Deadly Rectangle. We are looking for a diagonal Naked Pair - each cell can't see the other, but it is locked. If 2 (the weakly linked candidate in the pair) was <span class="hg">ON</span> in either <span class="hy">E6</span> or <span class="hy">F1</span> it would force 8 to be in the other corners. This is not allowed so 2 can be removed from the Naked Pair. Very cool.<br><br><a href="/sudoku.htm?bd=008950304094030000000824009050300090387269541000508023105082930000005480806093005">Ivar's example</a> can be found if you turn off 3D Medusa first.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/URType5b.png" alt="Type 5 Example 2<br>(untick XY-Chains)" /><figcaption>Type 5 Example 2<br>(untick XY-Chains)
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1m091g0t080e0l070c034c051p071m8lb74z440g011k0i1i1w4i04070604090c0b0z4j4j050a0i5u0f5u0d0c0244440c0e0d010706090918383i0a3i08161u1n164y5602ca038b071n036q6y05e28j021f">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090080070305070000001000004764900000500000002000001769900000800000020307030050020">From the Start</a>
+</figcaption></figure>
+<br>Up to 2024 I was detecting a pattern where all four candidates (8 in the example above) had strong links forming a loop all the way round. This was too restrictive. If just one pair of strong links exists we can eliminate on the pivot or mid-cell, provided that cell is one of the bi-value ones. In this example there are strong links from <span class="hy">H2</span> to <span class="hy">G2</span> and from <span class="hy">H2</span> to <span class="hy">H8</span>. So if <span class="hy">H2</span> is 4 then both <span class="hy">G2</span> and <span class="hy">H8</span> are 5, causing <span class="hy">G8</span> to be 4. But this is a deadly pattern, so <span class="hy">H2</span> cannot be 4.<br><br><span class="hc">Uniqueness Type 5: removing 4 from H2 because if true it would create a Deadly Rectangle with G2 and H2</span><br></div>
+
+<div class="SRCell"><h2>Unique Rectangle Exemplars</h2>
+These puzzles require two Unique Rectangle strategies at some point but are otherwise trivial and only requires singles.<br>
+They make good practice puzzles.<br>
+Created by Klaus Brenner
+<ul>
+<li><a href="/sudoku.htm?bd=000806000200010074009700010006000201300000600020000000030005000002000080810002953">Exemplar 1, Type 1 + Type 2</a></li>
+<li><a href="/sudoku.htm?bd=000000000074180060020004030080000000600009000200356000000203100000001640065000900">Exemplar 2, Type 1 + Type 2</a></li>
+<li><a href="/sudoku.htm?bd=080720013000000000100300000000006031030504060020910700200100908005008004000000000">Exemplar 3, Type 1 + Type 4</a></li>
+<li><a href="/sudoku.htm?bd=100000040060010000070900056000009000009005030510070090000000200806000307204000000">Exemplar 4, Type 1 + Type 4</a></li>
+<li><a href="/sudoku.htm?bd=009006002045003008000010030080001050004000080100760000000207500000090000000000023">Exemplar 5, Type 2 + Type 4</a></li>
+<li><a href="/sudoku.htm?bd=650708000020060000000300042800002001100490000090030000080009050000500080000000300">Exemplar 6, Type 2 + Type 4</a></li>
+<li><a href="/sudoku.htm?bd=910240000000080600000006700500004902030000070704800006005300000003020000000079043">Exemplar 7, Type 3b</a> Uses two sets of cells for 6 eliminations</li>
+<li><a href="/sudoku.htm?bd=300200640005040000000050900002000090050000006090000051400863000060007800000400302">Exemplar 8, Type 4 + Type 4</a></li>
+<li><a href="/sudoku.htm?bd=000024000200005310800070020060000000000000095004090002001009000000600000007501064">Exemplar 9, Type 4 + Type 4b</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Jelly_Fish_Strategy">Jelly-Fish</a></td><td class="w50pc cright">Continue to <a href="Extended_Unique_Rectangles">Extended Unique Rectangles</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=72&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Unique_Rectangles" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(72,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17431"><div class="w100pc"><div class="w60pc"><h2>... by: d.harper</h2></div><div class="w40pc datepost">Thursday 28-May-2026</div></div>
+<div class="w100pc">HI Andrew,<br>Type 3b, looks like a typo in text copied below.... expecting {3, 6, 9} but reads {3, 6, 7}<br><br>"There are three candidates {3, 6, 7} in the pseudo-cell (the extra candidates in the roof). Instead of looking for an extra candidate to make up the triple in two other cells we look for all three candidates {3, 6, 7} ....."<br><br>regards, d harper</div>
+<div class="w100pc" id="blog-reply17431"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,17431,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17354"><div class="w100pc"><div class="w60pc"><h2>... by: Howard Weiss</h2></div><div class="w40pc datepost">Friday 19-Dec-2025</div></div>
+<div class="w100pc">I have been working for a while on a SUdoku solver patterned on your web site.<br><br>I have implemented the logic in the section on Uniquerectangles, but I am finding that there are many more possible DeadlyPatterns in the examples for UniqueRectangle that are not found per this section<br><br>I took a different approach.  For each cell which contained one of the values in the floor cells, I set that cell that value and then "solved" using Naked Pairs, triples etc.  This turned up a number of additional deadly pairs<br><br>For instance, in the first example, setting cells H1 or H2 to 9 create deadly patterns with cells A1 and A2<br><br>In the second example, setting F5 to 4 create a deadly pattern with E5, E8 and F8 (but, interestingly setting E5 to 4 does not create a deadly pattern)<br><br>Do you agree?</div>
+<div class="w100pc" id="blog-reply17354"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,17354,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17353"><div class="w100pc"><div class="w60pc"><h2>... by: Howard Weiss</h2></div><div class="w40pc datepost">Wednesday 17-Dec-2025</div></div>
+<div class="w100pc">Please confirm that in the Type 1 Example<br><br>Rectangle wtih floor A1 and A2 and roof H1 and H2 is also a Type 4 rectangle (eliminate 9's)</div>
+<div class="w100pc" id="blog-reply17353"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,17353,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17351"><div class="w100pc"><div class="w60pc"><h2>... by: Wolfgang M.</h2></div><div class="w40pc datepost">Tuesday 16-Dec-2025</div></div>
+<div class="w100pc">Hi Andrew,<br>when I was studying your explanation of UR Type5, I struggled over the enclosed sentence :<br>(ie no other n in the two rows and two columns of the rectangle)<br><br>where I could not imagine what you meant by the placeholder "n"<br>in this sentence.<br>Could this please be explainded more specific - thank you.<br><br>Thanks to Autoclear I'm now able to solve all 4/5 levels each Day.<br><br>Regards Wolfgang</div>
+<div class="w100pc" id="blog-reply17351"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>How about “no other 2s or 8s in the two rows and two columns”<br>It refers to the possibility that the corner candidates (in this example 2 and 8) might be strong links and I was reminding the reader what a strong link was (probably unnecessary at this advanced level)<br><br>Glad to see you solving high grade puzzles</div></div><div id="blog-reply3039" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,17351,3039)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17279"><div class="w100pc"><div class="w60pc"><h2>... by: Cerberus</h2></div><div class="w40pc datepost">Sunday 17-Aug-2025</div></div>
+<div class="w100pc">Surely, your Unique Rectangles, Type 5 are just plain Hidden Rectangles , that may or may not, have the home cell in either, or both, diagonal bi value cells</div>
+<div class="w100pc" id="blog-reply17279"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,17279,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17205"><div class="w100pc"><div class="w60pc"><h2>... by: Alan</h2></div><div class="w40pc datepost">Friday 7-Mar-2025</div></div>
+<div class="w100pc">I don't understand the following with reference to type 4 rectangles:<br>"As you have probably realised, since the roof squares are in the same box, you can search for conjugate pairs in both of their common units (the row and the box, in this case)"<br>I assume that the conjugate pair in figure 10 are the 6s in the roof squares, which have to be in the same row or we wouldn't have a unique rectangle, so how can the box come into it?  I'm probably misunderstanding something.</div>
+<div class="w100pc" id="blog-reply17205"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,17205,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17164"><div class="w100pc"><div class="w60pc"><h2>... by: martin</h2></div><div class="w40pc datepost">Friday 22-Nov-2024</div></div>
+<div class="w100pc">There are some peculiar properties of URs (and other 'deadly' patterns) which should be pointed out:<br>1. A deadly patter remains 'alive' even if some of the corners of the UR have been resolved.<br>   Up to three corners can be resolved.  Once the fourth corner is resolved, obviously<br>   the result is either deadly or avoided.  With three resolved corners, the fourth corner<br>   therefore (to avoid) needs to discard the candidate found in the diagonally opposite cell.<br>2. Since many interactive solvers do not distinguish in their display between resolved and<br>  preset cells:  That distinction is vital!!  A preset cell by definition can never be part of a<br>  deadly UR!!  In fact, that is what presets are all about: avoiding these deadly patterns.<br>  Think of the empty board as a humongous deadly pattern!<br>  Similarly, when posting examples, the distinction could be very important.<br></div>
+<div class="w100pc" id="blog-reply17164"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Reasonable observations, good to make<br>If you’ve not see it, <a href="https://www.sudokuwiki.org/Avoidable_Rectangles">Avoidable Rectangles</a> use this information<br></div></div><div id="blog-reply2875" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,17164,2875)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17162"><div class="w100pc"><div class="w60pc"><h2>... by: martin</h2></div><div class="w40pc datepost">Friday 22-Nov-2024</div></div>
+<div class="w100pc">it was already mentioned that Hodoku has a type 6, which can be applied multiple times<br>when there is the same pair present at different positions.<br>Applying Hodoku type 6 multiple times resolves the Types 4, 4B and 5 here.<br>The same is true for Type 1, with the caveat of the extra condition checks, which are,<br>however, trivially fulfilled.</div>
+<div class="w100pc" id="blog-reply17162"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I've checked this. Hodoku's "Type 6" is my "Type 5" although I go about detecting it backwards to Hodoku and I eliminated the other number in the pair. For example, in his example, I remove 2 and not 5. Two approaches, same result. <a href="sudoku.htm?bd=039500008500000002000020400041905000900070030000008570008006700000000000190000000">Load example</a> (You have to turn off quite a few intermediary strategies to trigger it).</div></div><div id="blog-reply2876" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,17162,2876)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17154"><div class="w100pc"><div class="w60pc"><h2>... by: Aleksandra Z</h2></div><div class="w40pc datepost">Monday 28-Oct-2024</div></div>
+<div class="w100pc">After noticing it recently in the puzzle below, I have started using a pattern which resembles a weaker but more common version of Type 5; in short, an elimination still is possible even if only a single strong link is present, as opposed to the full rectangle being linked strongly.<br><br>If a rectangle across two boxes has opposing corners with only the same two candidates X/Y, and if one candidate X has just one strong link to an adjacent corner, then X can be removed from the other corner. The reason is that placing X there would force adjacent double Y, but then the strong link demands opposite X, which is the ambiguous pattern we are trying to avoid.<br><br>This is an example puzzle, which reaches that scenario if XY-Chain and 3D Medusa are disabled:<br>000000025002753004900800000280010050030408010010020078000009007300586200690000000<br><br>It occurs in the rectangle AC37, and it becomes available immediately after A7 becomes 3/7 along with its opposite C3, also immediately before the solver finds other unique rectangles. From here, it suffices to note that 7 is strong in row C—that alone is enough to remove 7 from A3. Independently of that, because the other candidate 3 is strong in row A it can be eliminated from C7.<br><br>As it happens, 7 was also strong in column 7 (and 3 strong in column 3), but I emphasise that only one of those strong links are required for an elimination. The reduced need for strong links makes this partial pattern much more common; unlike the full Type 5 pattern (or the very useful Hidden Unique Rectangle pattern!), neither candidate is required to form an X-Wing.<br><br>Personally I imagine it as a "partial unique rectangle" or perhaps a "unique rectangle edge elimination" given that demanding uniqueness risks eliminating a candidate from one edge, but in the context here it is described very well as a lighter version of Type 5!</div>
+<div class="w100pc" id="blog-reply17154"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,17154,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16995"><div class="w100pc"><div class="w60pc"><h2>... by: Mika</h2></div><div class="w40pc datepost">Saturday 26-Aug-2023</div></div>
+<div class="w100pc">It seems like Type 5 Unique Rectangles is a variation of Type 4 (Not entirely sure).</div>
+<div class="w100pc" id="blog-reply16995"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes. Hodoku has documented it on his site as "Type 6" and states it is a variation UR Type 4 (his and mine)</div></div><div id="blog-reply2877" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16995,2877)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16993"><div class="w100pc"><div class="w60pc"><h2>... by: David Harkness</h2></div><div class="w40pc datepost">Thursday 24-Aug-2023</div></div>
+<div class="w100pc">Type 3 can be extended to hidden pairs/triples/quads similar to how it works with naked tuples by treating the floor cells as a single pseudo cell. Might this become type 3c?<br><br>In this example, the UR is in BC69. Since 347 form a hidden triple in C4, C5, and C69 (the pseudo cell), 5 and 6 may be eliminated from C4 and C5. It does not allow eliminating  56 from the floor cells, however.<br><pre>+-----------------+------------------+--------------+<br>| 7    5   2      | 9     36   8     | 16  4   136  |<br>| 3    48  48     | 2     1    56    | 79  79  56   |<br>| 69   1   69     | 34567 3456 3567  | 2   8   356  |<br>+-----------------+------------------+--------------+<br>| 145  6   3      | 457   8    2     | 147 17  9    |<br>| 14   2   7      | 346   9    36    | 5   16  8    |<br>| 8    49  459    | 1     456  567   | 467 3   2    |<br>+-----------------+------------------+--------------+<br>| 2    7   1      | 356   356  9     | 8   56  4    |<br>| 4569 489 45689  | 56    2    1     | 3   569 7    |<br>| 569  3   569    | 8     7    4     | 169 2   156  |<br>+-----------------+------------------+--------------+</pre><a href="https://www.sudokuwiki.org/sudoku.htm?bd=411105g12881220h2a098g8g050330k0k030i003i07o3o780581381i21095g81054i42g10i05412og12811228181gghg033g706g09050541033838g181300hjgogrg30050309j041j009j081410hi20532">Load Sudoku</a><br><br>Unfortunately, the naked pair 56 in C1 and C3 eliminates the 6 from C6 and C9, breaking the UR.</div>
+<div class="w100pc" id="blog-reply16993"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16993,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16992"><div class="w100pc"><div class="w60pc"><h2>... by: David Harkness</h2></div><div class="w40pc datepost">Wednesday 23-Aug-2023</div></div>
+<div class="w100pc">Greetings, Andrew.<br><br>It seems type 3b should extend to naked quads and hidden pairs/triples/quads as well.<br><br>Cheers,<br>David<br></div>
+<div class="w100pc" id="blog-reply16992"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16992,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16961"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Sunday 25-Jun-2023</div></div>
+<div class="w100pc">Just to follow up - in the first graphic on this page, the "deadly pattern" only remains deadly in Killer Sudoku if either<br><br>a) B2 and B3 are in the same cage, and D2 and D3 are in the same cage, or<br><br>b) B2 and D2 are in the same cage, and B3 and D3 are in the same cage.<br><br>We could also have all four in the same cage, but this is precluded if we are using the "killer cage convention".</div>
+<div class="w100pc" id="blog-reply16961"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16961,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16960"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Sunday 25-Jun-2023</div></div>
+<div class="w100pc">I've just sent a detailed email, but the short summary here is - be careful applying the Unique Rectangle strategies to Killer Sudokus.  It all depends on the particular "cages" the four points of the rectangle are in.<br><br>So this idea that all regular Sudoku strategies also work on Killer Sudokus - I don't think it extends to "uniqueness" strategies, at least not without some additional assumptions on the cages.<br><br>This can be seen in Killer #5768 (June 22).  Use the solver until it decides to remove "5" from cell J7.  This is based on a "UR" strategy, and ultimately finds one solution.  However, this is another solution that does have a "5" in J7 - the inference, that the 5 can be removed, is only valid in one of the two solutions.<br></div>
+<div class="w100pc" id="blog-reply16960"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16960,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16912"><div class="w100pc"><div class="w60pc"><h2>... by: Steve Benoit</h2></div><div class="w40pc datepost">Thursday 16-Mar-2023</div></div>
+<div class="w100pc">Hi,<br>I think I've seen your type 5 Unique Rectangles before.  It took me a while to remember where...  Check out Sudoku Swami's "Unique Rectangles Part 2 / Sudoku Tutorial #21" on Youtube beginning at time-stamp 12:32.  He refers to them as UR-Type 6.<br><br>Fantastic website by the way!  I wish I had found it much sooner...<br><br>Steve</div>
+<div class="w100pc" id="blog-reply16912"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16912,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16854"><div class="w100pc"><div class="w60pc"><h2>... by: Tapio Ranta-aho</h2></div><div class="w40pc datepost">Tuesday 6-Dec-2022</div></div>
+<div class="w100pc">Hello . <br>I wonder if this can be a version of unique rectangles? This happened once and candidate 5 appeared to be correct, but I don't know that wasn't just a coincidence.<div class="hc"><br>___ ___ ___   ___ ___ ___   ___ ___ ___<br>___ ___ ___   ___ ___ ___   ___ ___ ___<br>___ 12_ 12_   ___ ___ ___   ___ ___ ___<br><br>___ 12_ ___   ___ ___ 12_   ___ ___ ___<br>___ ___ ___   ___ ___ ___   ___ ___ ___<br>___ ___ 12_   ___ ___ 125   ___ ___ ___</div><br><br>Thanks, <br>Tapsa</div>
+<div class="w100pc" id="blog-reply16854"></div>
+<div class="post-reply" id="reply2749"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Tuesday 17-Jan-2023</td></tr>
+<tr><td colspan="2">The given example is correct, but the solver doesn't search for this pattern.</td></tr>
+</table></div>
+<div class="post-reply" id="reply2752"><table class="w100pc"><tr><td class="post-writes">Pieter, Newtown, Oz replies:</td><td class="datepost">Thursday 2-Feb-2023</td></tr>
+<tr><td colspan="2">@Tapio Ranta-aho.<br>Assuming the "12" pairs are Naked Pairs (no other candidates), this is virtually a "stretched" Type 1 UR. <br> <br>Also @Andrew<br>I refer you to Jonathan Handojo's comment on 2021-06-9 finding that the Solver skips UR's and jumps to WXYZ, similar to my earlier comment on 2019-12-16. <br> <br>I also found a sorta Type 5 in your daily puzzle for 2023-01-21 but not in the Solver order, which I will try to retrieve and send separately. <br> <br>As always thanks for a fabulous website! <br> <br>Ciao, Pieter   <br></td></tr>
+</table></div>
+</div><div id="blog-reply2752" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16854,2752)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16799"><div class="w100pc"><div class="w60pc"><h2>... by: Maggie Mc</h2></div><div class="w40pc datepost">Tuesday 5-Apr-2022</div></div>
+<div class="w100pc">I played a game of brainium sudoku in which the four corners of a square had the same two numbers could only have those two numbers because they were the only spaces left in their respective rows.  This should not be possible. I can send a screen shot. Can you explain?</div>
+<div class="w100pc" id="blog-reply16799"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Please do</div><div class="post-reply" id="reply2750"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Tuesday 17-Jan-2023</td></tr>
+<tr><td colspan="2">Are the cells falling in two boxes?</td></tr>
+</table></div>
+</div><div id="blog-reply2750" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16799,2750)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16764"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Monday 10-Jan-2022</div></div>
+<div class="w100pc"><a href="http://hodoku.sourceforge.net/en/tech_ur.php#u6">HoDoKu</a> already has a documentation of Type 5 (under the name Type 6), <i>and</i> it mentions that it is the same as two HUR type 1's.<br>Seeing the website hasn't been updated for about 8-9 years, this type has been known for a long time already.</div>
+<div class="w100pc" id="blog-reply16764"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16764,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16754"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Friday 31-Dec-2021</div></div>
+<div class="w100pc">Isn't a Type 5 UR just two Type 1 HURs on the same spot?</div>
+<div class="w100pc" id="blog-reply16754"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16754,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16723"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Thursday 4-Nov-2021</div></div>
+<div class="w100pc">Hi Andrew<br>Re Type 5 URs<br>1. The output from the solver says, for example, "Uniqueness Type 5: removing 2 from E6 and F1 because if true it would create a Deadly Rectangle with E1 and F1". It should read "... would create a Deadly Rectangle with E1 and ***F6***".<br>2. I've noticed odd characters in some places in the text, such as "Thanks to Ivar Agï¿½y from Norway" in Type 5 above. Also in the Digit Forcing Chains strategy - Second Example "DIGIT FORCING CHAIN: because â€¦ -5[G9]+5[F9]-5[F1]+5[C1] ï¿½ï¿½-4[C1]+4[B1". <br> <br>I find it curious that you "updated" version 2.08, twice, rather than naming them 2.09, 2.10?<br> <br>Thanks as always<br> <br>Ciao<br>Pieter</div>
+<div class="w100pc" id="blog-reply16723"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16723,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16702"><div class="w100pc"><div class="w60pc"><h2>... by: alpreucil</h2></div><div class="w40pc datepost">Wednesday 18-Aug-2021</div></div>
+<div class="w100pc">Andrew!  Where is your Solver???  The wonderful one with the black background.  I've used this solver for years to solve the puzzles that puzzled me, and I found it very user-friendly and helpful.  NONE of the other solvers I've tried hold a candle to it.  I want it back!  Any reason why it has disappeared from the site???    Thanks!  Al Preucil</div>
+<div class="w100pc" id="blog-reply16702"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Always at https://www.sudokuwiki.org/sudoku.htm<br>Never been down except for server migrations</div></div><div id="blog-reply2636" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16702,2636)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16683"><div class="w100pc"><div class="w60pc"><h2>... by: Tunner</h2></div><div class="w40pc datepost">Monday 12-Jul-2021</div></div>
+<div class="w100pc">Through out this section you repeatedly state that the "rectangle" consists of 2 rows, 2 columns, and 2 boxes.  But, is it not true that the process is the same if there are 2 rows, 3 columns, and 2 boxes?  Or 3 rows, 2 columns, and 2 boxes?  I think the boxes are the important link.  This may not be true for all types but it seems to work for type 1.</div>
+<div class="w100pc" id="blog-reply16683"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Sounds like an <a href="/Extended_Unique_Rectangles">Extended Unique Rectangle</a></div></div><div id="blog-reply2631" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16683,2631)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16680"><div class="w100pc"><div class="w60pc"><h2>... by: SG</h2></div><div class="w40pc datepost">Tuesday 6-Jul-2021</div></div>
+<div class="w100pc">There is a Sudoku board I would like you to look at for another example of Type5.<br><br><a href="sudoku.htm?bd=000005302006030900080009070000100800070000095001060200054000000002000000810000006">Click on this link</a><br></div>
+<div class="w100pc" id="blog-reply16680"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Nice one</div></div><div id="blog-reply2630" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16680,2630)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16673"><div class="w100pc"><div class="w60pc"><h2>... by: BobW</h2></div><div class="w40pc datepost">Saturday 19-Jun-2021</div></div>
+<div class="w100pc">Hi Andrew,<br>I believe the new type 5 that you posted (January 2021), has been known for some time.<br>It is described on the enjoysudoku forum, along with many other variations of UR's having two extra candidate cells, located diagonally. That post is dated April 2006. I ran across it while implementing UR's in my own solver last year.<br>http://forum.enjoysudoku.com/post26448.html#p26448<br><br>If I'm not mistaken, the one that you refer to as Type 5 is referred to as UR+2D/1SL (not to be confused with UR+2D or UR+2d).<br><br>I spent many hours going through that post and many others in the same thread. The logic for many of them is so convoluted that it made my head spin. It occurred to me that it would be much simpler just to work out the truth tables for them. One day, having nothing better to do, that's exactly what I did. I worked out the truth tables for every possible combination of UR's with 2, 3 or 4 extra candidate cells ("Guardian cells" in my notation) with every possible combination of strong links between the various cells. Summarizing only patterns that give eliminations of internal UR candidates, I found 8 different UR+2 patterns with adjacent guardians, 11 different UR+2 patterns with diagonal guardians, 18 different UR+3 patterns, and 5 different UR+4 patterns.<br>When I refer to the number of patterns found, I've excluded reflections and rotations of the basic patterns. I implemented the resulting rules using a lookup table in my solver.<br><br>There's not enough room here to give all of my results, but if you contact me by email, I'd be happy to share what I've done.</div>
+<div class="w100pc" id="blog-reply16673"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Bob<br>That sounds like thorough work, well done. I should take it all in and completely redo the UR. Big job though. </div></div><div id="blog-reply2626" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16673,2626)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16664"><div class="w100pc"><div class="w60pc"><h2>... by: Jonathan Handojo</h2></div><div class="w40pc datepost">Wednesday 9-Jun-2021</div></div>
+<div class="w100pc">Here's a puzzle that I purchased from one of your Diabolical packs (and I have been enjoying a lot of these. I hope it's fine with sharing one of those puzzles here.) <a href="/sudoku.htm?bd=000000075000301040060002090000080300070000080003740000040000020010608000930200000">load here</a><br><br>If you use the Solve Path with every checkbox ticked, you get a WXYZ-Wing evaluation. It seems to have skipped through the Unique Rectangles strategy when there's one in B7, B9, J7 and J9 that allows the eliminations: 8 from J7, 6 from J9, and 8 from B9. Either value you force into them forms the deadly pattern, so I solved the puzzle quite with ease after using this. Now I'm not too sure of the rules with this, but I only saw it through forcing.</div>
+<div class="w100pc" id="blog-reply16664"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Something happening here. Will have to investigate.</div><div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>2025. This puzzle no longer finds a WXYZ wing and I have to turn off XY-Chains, 3DM and HUR to get one. The <a href="sudoku.htm?bd=S9B0c440r4a0f0i450705440e0i030g015004502j062j4a0e0243090c0t7o1p7n081u031v0g0z071v7n0b0c0d088i43b60307041u1w1v8k0f040h0e0c0g0i020a2s012s060i082q0c0d09032q020a0d761u4y">position at that point</a> looks too candidate dense to reveal a UR in BJ79 (to me) but can anyone else spot it? </div></div><div id="blog-reply2959" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16664,2959)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16538"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Monday 16-Dec-2019</div></div>
+<div class="w100pc">Hi Andrew<br>As always thanks for a fabulous website!<br> <br>Solving your <a href = "https://www.sudokuwiki.org/sudoku.htm?bd=..5......69.8..4..8..9....65....9.8...32.79...7.1....34....2..7..1..3.68......3..">Daily Sudoku for 2019-11-15</a> I believe it has a Type 4 UR which the solver does not find.<br> <br>After solving the basics we are left with <a href = "https://www.sudokuwiki.org/sudoku.htm?bd=305000800690800400800900006500309781103207900970100623430002007751493268200000300">this board</a> and the solver next finds an XYZ-Wing.<br> <br>If you backstep and turn XYZ and X-Cycles off, I would expect the solver to find what I believe to be a Type 4 UR in EJ89, with the floor in E8/9, and the conjugate pair of 4's in J8/9, eliminating the 5's in J8/9. However, the solver skips all URs and finds a WXYZ. <br> <br>Is this correct/a bug?<br> <br>Ciao, Pieter </div>
+<div class="w100pc" id="blog-reply16538"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16538,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16406"><div class="w100pc"><div class="w60pc"><h2>... by: Niki</h2></div><div class="w40pc datepost">Friday 7-Sep-2018</div></div>
+<div class="w100pc">I'm curious why the Unique Rectangle strategy isn't included in the Jigsaw Sudoku solver. Do other strategies there render it irrelevant?<br><br>I ask because I just spotted one for the first time in an extreme jigsaw puzzle - it was a 3/3b (triple), and it made the rest of the puzzle collapse nicely. Despite the jigsaw shape, it still fell in two rows, two columns, and two boxes just like it ought. But I was hesitant to follow up on it, having never seen the Unique Rectangle strategy mentioned in conjunction with jigsaws.</div>
+<div class="w100pc" id="blog-reply16406"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is on my to-do list. Merely satisfying the criteria may not be enough to be a true elimination in all cases. This is my intuition but I need to find some counter-examples.  I believe that the potential distortions do not allow it in most cases.  Can you send me the puzzle? (use the email button). I should be able to run my library through with UR turned on and see if a rule can be devised, but it will be a qualified one I suspect<br></div></div><div id="blog-reply2574" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16406,2574)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16388"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Thursday 12-Jul-2018</div></div>
+<div class="w100pc">Hi Andrew<br>I am confused by the solvers handling of URs in this <a href="https://www.sudokuwiki.org/sudoku.htm?bd=793400000261070940845000002658701400309040006402609800904067201027000364006004000">partially solved puzzle</a><br><br>I have spotted what I believe to be a clear Type 4 UR in CH45, on 1/9. However, the solver finds a Type 3b combining with the 5/8 in H6 and then the puzzle solves. <br><br>I tried unchecking URs and the solver finds a Hidden UR Type 1 and eliminates the 1 in H5. Why does it not eliminate the 1 in H4? Taking Steps to try again, even re-checking the UR box, the solver moves to a HUR in EF28. <br><br>A 1 in H4 would create the Deadly Pattern. Why isn't it eliminated? Bug?<br><br>Ciao, Pieter</div>
+<div class="w100pc" id="blog-reply16388"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I tested this position and yes the Type 4 does get detected, well spotted. It's the ordering of the URs which means 3B will get tested and return first. Thinking of adding a toggle for them all in the strategy list</div></div><div id="blog-reply2566" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16388,2566)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16315"><div class="w100pc"><div class="w60pc"><h2>... by: digituer</h2></div><div class="w40pc datepost">Thursday 2-Nov-2017</div></div>
+<div class="w100pc">It's a pleasure reading your pages. I've learned a lot. Thanks Andrew!<br>The pseudo-cell concept in Type 3 is great! I think based on this pseudo-cell concept, a hidden pair strategy can also be applied.<br>12  .  . |  .  .  12AC<br>  .   .  . |  .  .   .<br>12  .  . |  .  .  12AB<br>---------------------------<br>  .   .  . |  .  .  12FE<br>If the 2 roof cells and that extra cell are the only three cells holding 12 in the unit, then FE can be removed (ABCFE can be any numbers).</div>
+<div class="w100pc" id="blog-reply16315"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16315,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16259"><div class="w100pc"><div class="w60pc"><h2>... by: AAHoffman</h2></div><div class="w40pc datepost">Monday 17-Apr-2017</div></div>
+<div class="w100pc">I often extend this strategy to 3, 4, or even more naked pairs forming multiple "floors" or a multi-story structure, i.e.,<br>A1=A2={2,4}<br>D1=D2={2,5}<br>G1=G2={4,5}<br>as a simple example. Solutions devolving to this can be eliminated.<br>Multiple floors can be bent and don't have to be in a straight line, i.e.,<br>A1=A2={2,4} (row)<br>D1=E2={2,4} (note: forms a diagonal that "bends" the structure)<br>D4=E4={2,4} (column)<br>Another possibility uses naked triples in three rows, i.e.,<br>{A1,A2,A3}={2,3,4}  (in any combination (except naked single or pair), i.e., {23},{24},{34})<br>{D1,D2,D3}={2,3,4}  (i.e., {24},{34},{23})<br>{G1,G2,G3}={2,3,4}  (i.e., {34},{23},{24}).<br>All these patterns occur often enough to be useful.<br>By the way, not sure how nomenclatures are standardized but I have named these "meta" strategies instead of naked rectangles... because they are a rule dependent on a rule of the game.  When three digits are involved as above, I call them "triple meta".<br></div>
+<div class="w100pc" id="blog-reply16259"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16259,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16184"><div class="w100pc"><div class="w60pc"><h2>... by: Barry</h2></div><div class="w40pc datepost">Wednesday 13-Jul-2016</div></div>
+<div class="w100pc">Using the type 1 example, couldn't the removal of just the 2 or just the 9 prevent a deadly pattern? Of course, you wouldn't necessarily know which one to eliminate at that point, but isn't it possible that another solving technique might eventually eliminate one of the primary candidates thus no longer making it part of a unique rectangle? I know the methodology works and that neither candidate will be part of the final solution, but just don't see the logic of being able to say that both candidates should be eliminated.</div>
+<div class="w100pc" id="blog-reply16184"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16184,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16172"><div class="w100pc"><div class="w60pc"><h2>... by: Thinkist</h2></div><div class="w40pc datepost">Friday 29-Apr-2016</div></div>
+<div class="w100pc">Hello again...<br><br>I came to a clearer realization on why I dislike uniqueness strategies: they mess with the solution count if a sudoku happens to have multiple solutions, erroneously decimating otherwise valid solutions.  I point you to an example of mine <a href="/sudoku.htm?bd=805307094073109206901000703100090400240031000507000010350000001010970000000010038"><u>here</u></a>.  It has 63 solutions, but 4 URs erroneously deduce it to 3, and then one use of the BUG strategy erroneously deduces it to 1.  So, this makes the puzzle appear valid when in fact it should have 63 solutions all along and the solver should fail to complete correctly.  The chaining, netting, and simple combinatoric strategies don't mess with the solution count.  In those cases, simply because there is more than one solution, the solver will merely fail to complete correctly rather than throw up an error.  I believe that any puzzle (or "puzzle", if you will) that throws up a contradiction should have 0 solutions from the start, not because of a uniqueness strategy.<br><br>Re-reading your reply to my first comment, I'm glad that you've not decided to add a solution count before any logical solving takes place, as that would of course ruin the purpose of using the solver, which is to showcase a bottom-up approach to sudoku solving rather than cheat it with a brute-force top-down approach.<br><br>And for the record, I realize that any valid sudoku puzzle should have only a single solution.  The point I'm trying to make is that uniqueness strategies aren't the best way to find it (which is why I still have them unchecked in the solver).  In essence, they assume what you are trying to prove (via chaining, netting, and simple combinatoric strategies): that the puzzle has a unique solution.</div>
+<div class="w100pc" id="blog-reply16172"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I'm interested in your assertion "The chaining, netting, and simple combinatoric strategies don't mess with the solution count". If true it would be one way of showing that a puzzle might be valid (by completing using such strategies) but it would require some kind of proof to show that all a) all valid sudoku puzzles can be solved using only these strategies minus uniqueness strategies and b) that all multi-solution (non-valid) puzzles cannot complete.<br>The problem with a) is that I don’t know of a solver that claims to solve all puzzles (certainly I don't pretend mine is the most advanced and I have a long job queue of improvements) and the problem with b) is that I'm sure a non-valid puzzle could accidentally complete giving the impression of a single solution solved logically. Wish I had one to hand, but I strongly suppose it. <br><br><img style="float:right" src="PuzImages/strattime.png" alt="Strategy Time">I think there are good reasons to set aside uniqueness strategies especially from a purist POV but I've always considered muli-solution puzzles to be broken or mis-defined puzzles. They look like ducks, walk like ducks, but are not in fact ducks. They are another class of object, to be filtered away. That's not to deny they are interesting in their own right but they are outside the scope of the solver (mine at least).<br><br>However there is a good practical reason for using logic rather than brute force for solution counting, as the attached graph tries to show. It’s a crude diagram I knocked up to illustrate a point in a previous correspondence, but there is a point at which brute force becomes much slower than logic and it’s a function of clue density.<br></div></div><div id="blog-reply2537" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16172,2537)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15985"><div class="w100pc"><div class="w60pc"><h2>... by: Master Shuriken</h2></div><div class="w40pc datepost">Tuesday 27-Jan-2015</div></div>
+<div class="w100pc">You could have another strategy which is an extension of unique rectangles (extension of both 2x2 and 3x3).<br><br>If you have, for example empty boxes in A1, A2, H1, J2, H9, J9 with 2 clues (1,2) in each box, this wouldn't be possible.<br><br>You could extend this *uniqueness chain* as long as you like through the puzzle and extend it to triples, too, (as long as you make sure that there would be 2 solutions if everything else was filled in).<br><br>Like the unique rectangle, it would tell you something which is not possible, and could help eliminate clues, etc.</div>
+<div class="w100pc" id="blog-reply15985"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Like <a href="/Extended_Unique_Rectangles">Extended Unique Rectangles</a>?</div></div><div id="blog-reply2492" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,15985,2492)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15947"><div class="w100pc"><div class="w60pc"><h2>... by: dshaps</h2></div><div class="w40pc datepost">Tuesday 29-Jul-2014</div></div>
+<div class="w100pc">Under Type 4, following comment appears.<br><br>Quote<br>If you look carefully, you'll see that in box 7, the roof squares are the only squares that can contain a 7. This means that, no matter what, one of those squares must be 7 - and from this you can conclude that neither of the squares can contain a 9, since this would create the "deadly pattern"! So you can remove 9 from H1and H2. <br>Unquote<br><br>How is it that deadly pattern will get created, if either of roof squares contains  9.  Can you please elaborate?<br></div>
+<div class="w100pc" id="blog-reply15947"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15947,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15936"><div class="w100pc"><div class="w60pc"><h2>... by: PCForrest</h2></div><div class="w40pc datepost">Sunday 6-Jul-2014</div></div>
+<div class="w100pc">@Random Sudoku Enthusiast<br><br>"In the 'Type 1 Unique Rectangles' example (Unique Rectangle Figure 2), can't the same explanation be used for the 2 and the 9 in D2? Logically, it doesn't make sense to eliminate the 2 and the 9 in D1, but not in D2. It seems that by eliminating the 2 and the 9 in D1, we move the deadly rectangle corner over to D2. Should we then use the same logic to eliminate the 2 and the 9 from D2? Or are we ignoring that square for the sake of the example?"<br><br>D2 does not a rectangle make, let alone a unique rectangle. To be valid, all four cells must occupy exactly 2 rows, 2 columns and 2 boxes. Logically, it makes perfect sense to eliminate both 2 and 9 from D1 but not from D2, for the simple reason D2 must take the value 2 in the final solution. If you eliminate the 2, you immediately invalidate the puzzle. The logic that applies to D1 does not apply to D2. We are ignoring D2 for the simple reason it plays no part in this unique rectangle.<br><br><br></div>
+<div class="w100pc" id="blog-reply15936"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15936,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15896"><div class="w100pc"><div class="w60pc"><h2>... by: Sherman</h2></div><div class="w40pc datepost">Friday 28-Mar-2014</div></div>
+<div class="w100pc">Two of the Unique Rectangle examples on this page can also have the Hidden Unique Rectangle logic applied to them, resulting in even more eliminations.<br><br>For example, figure 7 in the Type3b UR discussion has strong links between all four 6's in the UR. If 7 is placed in cell E6, 6's must be placed in cells E4 and J6, forcing a 7 in J4 - a deadly pattern. So 7 cannot go in E6. Likewise, 7 cannot go in E4.<br><br>The HUR logic can also be applied to figure 6, removing a couple of 3's.<br><br>Type 4/4b can be analyzed with HUR, which results in the same eliminations as UR. So in some sense Type 4/4b is really part of the HUR logic.<br><br>When you find a Type 2/2b or 3/3b UR, it pays to look at the strong links in it to see if HUR can also be applied. Apply HUR after UR, as it destroys the deadly pattern.</div>
+<div class="w100pc" id="blog-reply15896"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15896,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15893"><div class="w100pc"><div class="w60pc"><h2>... by: Dan, UK</h2></div><div class="w40pc datepost">Monday 17-Mar-2014</div></div>
+<div class="w100pc">type 3 can be extended to search for 'triples', even 'quads'. In your examples just a pairs are used - 17 in first one, 83 in second one.<br>how about this:<br>http://www.sudokuwiki.org/sudoku.htm?bd=000764381364010572187235000013082607000601035000090018200000159001020700070150820<br>my solver says:<br>Unique rectangle type 3 at r2c4, r2c6, r8c4 and r8c6 allows 4 and 6 to be eliminated from r8c1, r8c2<br>you can see a screenshots from my solver here:<br>http://danhen.xf.cz/pics/shared/su_ur3_01.jpg<br>http://danhen.xf.cz/pics/shared/su_ur3_02.jpg<br><br>explanation: floor if clearly defined. As the roof contains additional candidates defined as 346, we can search for TWO cells, which contains some of these candidates, but only them, as defined in naked triple rule. As we found two cells 46 and 346, we can consider this as triple (two found cells and two cells from the roof of unique rectangle) and eliminate candidates 346 from the other cells in the unit (as seen on screenshots).  <br>HODOKU solver can recognize this 'triple-extended-type 3' as well :)<br>http://hodoku.sourceforge.net/en/show_example.php?file=u301&tech=Unique+Rectangle+Type+3<br><br>The same logic can be used for searching for 'quad', that means four additional candidates in the roof of rectangle, and we'll be looking for THREE cells in a unit, which contains some of those candidates, defined by the rule of naked quad. My solver should be able to solve such a problem, but unfortunatelly I didn't find any game to match this problem :( If ANYONE is able to share game with such a kind of unique rectangle, feel free to post it :)<br><br>Dan<br></div>
+<div class="w100pc" id="blog-reply15893"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15893,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15859"><div class="w100pc"><div class="w60pc"><h2>... by: Random Sudoku Enthusiast</h2></div><div class="w40pc datepost">Wednesday 6-Nov-2013</div></div>
+<div class="w100pc">In the 'Type 1 Unique Rectangles' example (Unique Rectangle Figure 2), can't the same explanation be used for the 2 and the 9 in D2 ?<br><br>Logically, it doesn't make sense to eliminate the 2 and the 9 in D1, but not in D2.<br><br>It seems that by eliminating the 2 and the 9 in D1, we move the deadly rectangle corner over to D2. Should we then use the same logic to eliminate the 2 and the 9 from D2?<br><br>Or are we ignoring that square for the sake of the example?</div>
+<div class="w100pc" id="blog-reply15859"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15859,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15857"><div class="w100pc"><div class="w60pc"><h2>... by: jaswant  singh =sriganganagar  INDIA</h2></div><div class="w40pc datepost">Tuesday 22-Oct-2013</div></div>
+<div class="w100pc">ref.sudoku puzzle creater UR type 4 =focuses on UR candidates --       U R of 3,9     see row J  =I  remove the 3,3 ofJ2 J3 OTHERWAY= J2,J3,J78  form subset  triplet   [157].hence 5 of J5 will be removed leaving there inJ5 the 2. In turn J4 will become 3. & in turn3 will be removed from J2andJ3...</div>
+<div class="w100pc" id="blog-reply15857"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15857,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15825"><div class="w100pc"><div class="w60pc"><h2>... by: DanielKlaus</h2></div><div class="w40pc datepost">Saturday 3-Aug-2013</div></div>
+<div class="w100pc">I found a wonderful UR type 2 example in my own created sudokus:<br><a href="https://www.sudokuwiki.org/sudoku.htm?bd=000090027030107800600000400001304680080009730003800900379000208000902070452738100">there are 7 eliminations</a>.<br><br><br></div>
+<div class="w100pc" id="blog-reply15825"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15825,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15794"><div class="w100pc"><div class="w60pc"><h2>... by: JesseChisholm</h2></div><div class="w40pc datepost">Wednesday 15-May-2013</div></div>
+<div class="w100pc">I didn't see the pattern on your site, but there is a "Nested Deadly Squares" that is quite rare, but could also be looked for and avoided with much the same techniques as Unique Rectangles.<br><br>Picture the group "B" in figure one (where "A" is the Deadly Pattern)<br>Add an expanded copy of group "B" such that:<br>* there are four boxes with a pair of 7/9 cells<br>* there are four rows with a pair of 7/9 cells<br>* there are four cols with a pair of 7/9 cells<br>These eight 7/9 cells together form a Nested Deadly Squares pattern.<br><br>-Jesse</div>
+<div class="w100pc" id="blog-reply15794"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15794,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15739"><div class="w100pc"><div class="w60pc"><h2>... by: gerp124</h2></div><div class="w40pc datepost">Sunday 10-Feb-2013</div></div>
+<div class="w100pc">OH! And while I have your attention, I would like to say that I dislike unique rectangles.<br><br>I can accept that they're part of the game, and may be the only way to solve a board sometimes, but it seems like such an arbitrary rule. What's so special about singularity? Yes, that was intended as a joke, but I've never seen any aesthetic offense in a puzzle with more than one solution. Except that a single solution cannot then be published. But I've already made my case regarding published solutions :-)</div>
+<div class="w100pc" id="blog-reply15739"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15739,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15738"><div class="w100pc"><div class="w60pc"><h2>... by: gerp124</h2></div><div class="w40pc datepost">Sunday 10-Feb-2013</div></div>
+<div class="w100pc">Thanks very much for the reply Andrew.<br><br>And thanks very much for such a wonderful website- for years, until I discovered this website, I was completely befuddled as to the solutions that are always published- they are not needed, and they are not helpful. If you can finish, you don't need the solution, and if you _can't_ finish, you don't need the solution, rather, you need to know _how_ to get the solution. And this website has provided an wonderful practical education in reasoning via sudoku!</div>
+<div class="w100pc" id="blog-reply15738"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15738,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15737"><div class="w100pc"><div class="w60pc"><h2>... by: gerp124</h2></div><div class="w40pc datepost">Sunday 10-Feb-2013</div></div>
+<div class="w100pc">I don't see much recent activity, but I hope this gets seen- I believe I have found a published contradiction, and so I'm wondering about the phrase above: 'published Sudokus have only one solution'.<br><br>In the Sudoku of the Variety section of Minneapolis Star Tribune for Sunday has these values _given_:<br><br>2D=9<br>2E=7<br>7D=7<br>7E=9<br><br>Does it make a difference, that the values were _given_, as opposed to being values that needed _solving_? The entire puzzle constitutes the _solution_, doesn't it? And these values could move, yielding a second solution, true?<br><br>Here is the board as published, and thanks for in any thoughts.<br><br>http://www.sudokuwiki.org/sudoku.htm?bd=800002000004000009060908003090004700075801930006300010500403090900000200000700008</div>
+<div class="w100pc" id="blog-reply15737"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I get these posts directly, so no worries, I try reply as soon as possible and Sundays are good days for this. You are correctly identifying the deadly pattern in two rows, two columns and two boxes and the numbers are swappable - except as I think you've suggested, it doesn't apply if these are clues. Since clues are fixed they can't be swapped around so the problem of duplicate solutions doesn't arise. Keep an eye out for the simpler URs, they are quite common and useful.</div></div><div id="blog-reply2409" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,15737,2409)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15648"><div class="w100pc"><div class="w60pc"><h2>... by: Sonalita</h2></div><div class="w40pc datepost">Monday 9-Jul-2012</div></div>
+<div class="w100pc">@Thinkist<br>A fundamental premise of Andrew's excellent solver (and any algorithm based solver) is that the puzzle MUST have a unique solution. <br><br>It is generally accepted that the definition of a valid sudoku puzzle includes the constraint that there must be a single solution, so your statement of "not believing in uniqueness strategies" makes no sense.</div>
+<div class="w100pc" id="blog-reply15648"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15648,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15611"><div class="w100pc"><div class="w60pc"><h2>... by: Thinkist</h2></div><div class="w40pc datepost">Thursday 5-Apr-2012</div></div>
+<div class="w100pc">Harmen Dijkstra has a fully valid point.  This is why I don't believe in uniqueness strategies and have them unchecked in the solver.  If a Sudoku has multiple solutions, so be it.<br><br></div>
+<div class="w100pc" id="blog-reply15611"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>A Sudoku with more than one solution is not a valid puzzle and more than uniqueness strategies will cause it to either a) go down one particular path, or b) create a logical contradiction and get nowhere. Even with uniqueness unticked the solver will not be 'logical' in any real sense. The proof of this is to consider an empty board. What 'logical' strategy is appropriate to solve an empty board?<br><br>I am thinking of adding a solution count to the start of the solve "take step" and stop any further progress until the puzzle is fixed. Mostly it is data entry and it causes confusion is people don’t check the solution count first.<br></div></div><div id="blog-reply2362" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,15611,2362)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15609"><div class="w100pc"><div class="w60pc"><h2>... by: B.N.Hobson</h2></div><div class="w40pc datepost">Sunday 1-Apr-2012</div></div>
+<div class="w100pc">A word of caution.  The Unique Rectangle doesn't work with Samurai Sudoku (five interlocking Sudoku puzzles).    One section may have two answers, but one of them is wrong in relation to rest of the puzzle.   i have recently had two cases where the Unique Rectangle gave the wrong answer.</div>
+<div class="w100pc" id="blog-reply15609"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The most probable reason for the solver not working on Samurai is that each individual Sudoku lacks all the clues necessary to solve it individually. The overlap provides the extra information necessary to complete the puzzle. It would be necessary to partially solve two overlapping parts before completing them both.  Otherwise you might as well have five separate sudokus.</div></div><div id="blog-reply2361" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,15609,2361)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15493"><div class="w100pc"><div class="w60pc"><h2>... by: Anton Delprado</h2></div><div class="w40pc datepost">Saturday 14-May-2011</div></div>
+<div class="w100pc">There seems to be a lot of room for extension of type 3 or at least the concept of treating the two roof cells as a single virtual. This virtual cell has the union of values in the two roof cells excluding the deadly values.<br><br>If we look at type 2 cells from this concept then the virtual cell has a single value and is "solved". This can then be used to eliminate that value in any cell that can see both cells. So type 2 are kinds of type 3 in a sense.<br><br>This can also be extended to naked multiples in the joined row/col. For example if roof cells are in the same row and have three non-deadly values that are shared in two other cells in the row then those values can be removed in other cells in the row.</div>
+<div class="w100pc" id="blog-reply15493"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Anton<br>Yes, I have a feeling it might be possible to generalize and extend UR types. I'm in touch with someone else who has a good idea about re-organizing the families under different rules. I think you are on a similar track<br></div></div><div id="blog-reply2321" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,15493,2321)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15445"><div class="w100pc"><div class="w60pc"><h2>... by: Chuck Bruno - Virginia</h2></div><div class="w40pc datepost">Thursday 6-Jan-2011</div></div>
+<div class="w100pc">Isn't the example for type 3 also a type 4B, allowing us to remove the 4's from cells B2 and B9?<br></div>
+<div class="w100pc" id="blog-reply15445"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15445,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15438"><div class="w100pc"><div class="w60pc"><h2>... by: Alan Freberg</h2></div><div class="w40pc datepost">Saturday 18-Dec-2010</div></div>
+<div class="w100pc">Hi Andrew,<br><br>Here's one that I had on hand when I wrote my previous post, but had yet to logic it out.  It's fairly straight forward, though.  It appears to be a Type 5b as there are three candidates in the ceiling instead of two as in Type 3 or my previous examples. <br><br>In the Daily Nightmare for Dec. 29, 2005 the floor cells contain 3/4 in 2 B/D.  The ceiling is in Col. 1 where the unsolved cells contain:  6/7/9 (A1), 3/4/7/9 (B1), 3/4/6/7 (D1), 4/7 (E1) and 6/7/9 (H1).  The ceiling in cells B/D1 contain the Strong Links (if we can still call them that) 6/7/9.  As you explain two cell tri-values on pg. 124, A1 and H1 will be reduced to a Naked Pair whichever of the three is the true value in the ceiling cells .  Delete 7(E1). <br><br>Thanks again,<br><br>Alan Freberg</div>
+<div class="w100pc" id="blog-reply15438"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15438,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15437"><div class="w100pc"><div class="w60pc"><h2>... by: Alan Freberg</h2></div><div class="w40pc datepost">Thursday 16-Dec-2010</div></div>
+<div class="w100pc">Hi Andrew,<br><br>A few months ago I purchased "The Book" with the intention of first reading it and then trying to solve all of Ruud's Daily Sudoku Nightmares.  "The Book" was an excellent read.  It illuminated several dark corners.  There are still some dark corners left, but they are my failings and not yours.<br><br>One thing I'm always trying to do with a Sudoku is to find something new or somehow push the envelope past what I know.  Having read your book lead me to something of that nature while working on the Nightmares.<br><br>My solutions for the Daily Nightmares for March 30, 2006, Feb. 15, 2006, Feb. 2, 2006, Dec, 19 2005 and Dec. 16, 2005 contain a pattern that I have not seen before.  They are based on a combined application of Unique Rectangles and Aligned Pair Exclusion.  At first I thought they were a variant of your Type 3 URs, but, since they allow for more deletions than Type 3 would, it appears that they are a new variation.  I call them UR Type 5 or UR APE App(lication).<br><br>In the March 30 DN (please pardon my reverse chronological order, but if you choose to look them up it is the order in which you will find them.) the floor pair are 4/5 in Col. 5 A/C.  The ceiling is in Col. 2 where the unsolved cells contain the following candidates: 4/5/6/(A2), 6/8 (B2), 4/5/9 (C2), 4/5/8/9 (E2) and 8/9 (J2).  6/9 are the Strong Link pair in the ceiling.  According to the Type 3 rule there are no deletions possible.  However, on pg. 122 of the chapter on APE the following rule is given--"Any two cells with only abc exclude combinations ab, ac and bc..."  Applying this rule to this formation we find that the two cells B2 and J2 contain 6/8/9.  However one looks at it, the values for the extra candidates in the ceiling cells are accounted for and 8/9 can be deleted from E2.  Notice that 8(E2) is not one of the Strong Link candidates. <br><br>In the Feb. 15 DN the floor pair are 3/7 in Row E 1/2.  The ceiling is in Row B.  The unsolved cells in B contain: 1/3/7 (B1), 3/7/8 (B2), 8/9 (B4), 1/9 (B5) and 3/9 (B9).  1/8 are the Strong Link candidates in the ceiling and 1/8/9 in B4/5 fulfill the APE rule requirements.  Delete 9 (B9).<br><br>In the Feb. 2 DN the floor pair are 7/8 in Col. 2 G/J.  The ceiling is in Col. 6.  The unsolved cells in Col. 6 contain:  3/6 (C6), 4/6/8 (D6), 4/6 (E6), 4/7/8 (G6) and 3/4/7/8 (H6).  3/4 are the strong links in the ceiling.  3/4/6 in C/E fulfill the APE rule requirements.  Delete 4/6 (D6).<br><br>In the Dec. 19 DN the floor pair are 2/6 in Row H 2/3.  The ceiling is in Row B.  The unsolved cells in Box 1 are:  5/7 (A1), 1/5/7 (A3) and 6/7 (C2).  1/5 are the Strong Link pair in the ceiling with 1/5/7 in A 1/3 completing the APE requirements.  Delete 7 (C2).<br><br>In the Dec. 16 DN the floor pair are 4/6 in Row D 1/2.  The ceiling is in Row G.  The unsolved cells in Row G contain:  4/6/7 (G3), 3/5/7 (G7) and 3/5 (G8).  5/7 are the Strong Link pair in the ceiling with 3/5/7 (G7/8) fulfilling the APE rule requirements.  Delete 7 (G3).<br><br>If this is indeed a new application then you are the godfather of this baby as your explanation of the APE rule pointed the way for me.<br><br>Thank you very much,<br><br>Alan Freberg<br><br></div>
+<div class="w100pc" id="blog-reply15437"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15437,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15410"><div class="w100pc"><div class="w60pc"><h2>... by: JCS</h2></div><div class="w40pc datepost">Friday 6-Aug-2010</div></div>
+<div class="w100pc">Andi and John_Ha<br><br>I am new to this site but I end to agree with Andi. There is no deadly pattern if R5C6 contains candidates 356.<br><br>Applying simple colouring technique to the puzzle will show that 2s can be removed from R2C8 R7C2 R8C7 and R8C9. That causes R2C8 to be a 9, R7C8 a 2, R7C3 a 9, R1C1 a 9, R1C5 a 4, R4C5 a 9, R4C6 a 7. At this stage that leaves 356 as candidates for R5C6. The puzzle can then easily be solved without applying that "unique rectangle" technique ending with a 6 in R5C6.</div>
+<div class="w100pc" id="blog-reply15410"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15410,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15409"><div class="w100pc"><div class="w60pc"><h2>... by: csvidyasagar</h2></div><div class="w40pc datepost">Friday 6-Aug-2010</div></div>
+<div class="w100pc">Dear Denis, <br>1.   You are absolutely correct. Type 4 and Type 4 B rely one logic that roof cell may contain a digit which is confined to that row or column or block and can not be removed. So the other digit can be easily removed from thase two  cells in Roof Row. In Type 4 example, the Roof Row C has 1,5,6 in cell C1 and C3. Either digit 1 or 5 can be removed to ensure Deadly Pattern does not result leading to two solutions. But 5 is confined both  in Row C and in Block Top Left or Block 1. So digit 1 can be removed from both cells in Roof Row C.<br><br><br>  Have I confused you further ?<br><br>with regards,<br>CS Vidyasagar</div>
+<div class="w100pc" id="blog-reply15409"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15409,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15408"><div class="w100pc"><div class="w60pc"><h2>... by: csvidyasagar</h2></div><div class="w40pc datepost">Friday 6-Aug-2010</div></div>
+<div class="w100pc">Dear Andi,<br>1.   When you have three out of four corners in a unique rectangle have two digits (in this case 5,7), then the fourth corner can not have 5,7 as this will have all four corners having 5,7.This is a Deadly pattern as you can have two different solutions. But for a pure Sudoku you have to have only one or unique solution. That is possible only if you remove digits 5,7 which other three corner cells of Unique Rectangle have. <br><br>2.   You aim must be to reduce  maximum number of digits from cells containing multiple candidates. When you can remove 5,7 from 3,5,6,7, of cell R5 C6, you are reducing time to solve the puzzle but also reducing complexity. More candidates in ells mean more complexity and require more time to solve.<br><br>3.   When you remove 5,7 from cell R5 C6, you see in column 6 you have digit 5 in cell R2C6 and digit 7 in cell R4C6. So the rule of all columns, rows and boxes to contain all digits from 1 to 9 is met.<br><br>4.   I could only think of three reasons as to why you can remove 5,7 from cell R5 C6.<br><br>  Have I confused you further ?<br><br>with regards,<br>CS Vidyasagar</div>
+<div class="w100pc" id="blog-reply15408"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15408,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15407"><div class="w100pc"><div class="w60pc"><h2>... by: csvidyasagar</h2></div><div class="w40pc datepost">Friday 6-Aug-2010</div></div>
+<div class="w100pc">Dear Lea,<br>The four cells you have mentioned have the following pattern:<br><br>                  Col 1                    Col 4<br>Row A         1,5,6                    1,5,6<br><br>Row D        1, 5                       1,5.<br><br>  This is similar to Unique Rectangle Pattern 2B. That is floor cells are 1,5 and Roof cells are 1,5,6. Since these form a unique rectangle with 1,5 being common in all the four cells to avoid Deadly Pattern ( of all cells having 1,5), you have to keep 6 in Row A i.e. Roof cells. That means 1,5 will be removed later from Roof Cells in Row A. <br>   But you can not have two 6s in Row A (Roof Row) as any row can have only one digit in one cell. So remove 6 from any other cell in Roof Row A or in the Block /Box of Roof cells.<br><br>  Have I confused you further ?<br>with regards,<br>CS Vidyasagar</div>
+<div class="w100pc" id="blog-reply15407"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15407,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15388"><div class="w100pc"><div class="w60pc"><h2>... by: Harmen Dijkstra</h2></div><div class="w40pc datepost">Saturday 15-May-2010</div></div>
+<div class="w100pc">Yes the point is, that there are indeed more solutions. So, if you use unique triangles, and get a solution, you will not know that your solution is a unique solution. </div>
+<div class="w100pc" id="blog-reply15388"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15388,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15382"><div class="w100pc"><div class="w60pc"><h2>... by: Wiking 48</h2></div><div class="w40pc datepost">Sunday 2-May-2010</div></div>
+<div class="w100pc">Hi  Harmen Dijkstra,<br>I'm quite new on this.<br><br>why do you bother with such a non-defined sudoku?<br>There are many more than 17 sulotions! Check for yourself, you see that 24, 42 in the left of your grid can be excanged.<br>Is there any idea to fight against non-defined?<br><br>Upper left corner can also be 1, 2 or 3 which gives a lot of solutions..<br>Down left corner in your example is 7 in one example which is quite common among the sulotions, 1 is more rare but possible...<br></div>
+<div class="w100pc" id="blog-reply15382"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15382,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15362"><div class="w100pc"><div class="w60pc"><h2>... by: Harmen Dijkstra</h2></div><div class="w40pc datepost">Friday 5-Mar-2010</div></div>
+<div class="w100pc">I made this sudoku:<br><br>.  9  . | 5 .  . | 6 4 7<br>6  . 5 | .  . 7 | .  9 3<br>.  7 .  | .  .  . | 2 5 8<br>-----------------------<br>.  5 6 | .  7 . | 9 .  .<br>.  .  7 |9  .  5| 3 8 6<br>.  .  3 |8  .  2| 4 7 5<br>-----------------------<br>.  .  . | .  5  .| 8 3 9<br>5 6 . | .  .   .| 7 2  .<br>.  .  . | .  .  8| 5 6 4<br><br>If you filling this sudoku in the sudoku solver, the solution Count will say that there are 17 solutions. But if you try TAKE STEP then you will get only this sudoku (with Unique Rectangles):<br><br>2 9 1 | 5 8 3 | 6 4 7<br>6 8 5 | 2 4 7 | 1 9 3<br>3 7 4 | 1 9 6 | 2 5 8<br>-----------------------<br>8 5 6 | 3 7 4 | 9 1 2<br>4 2 7 | 9 1 5 | 3 8 6<br>9 1 3 | 8 6 2 | 4 7 5<br>-----------------------<br>7 4 2 | 6 5 1 | 8 3 9<br>5 6 8 | 4 3 9 | 7 2 1<br>1 3 9 | 7 2 8 | 5 6 4<br> <br>But there are more solutions, for example:<br><br>1 9 2 | 5 8 3 | 6 4 7<br>6 8 5 | 2 4 7 | 1 9 3<br>3 7 4 | 6 9 1 | 2 5 8<br>-----------------------<br>8 5 6 | 3 7 4 | 9 1 2<br>2 4 7 | 9 1 5 | 3 8 6<br>9 1 3 | 8 6 2 | 4 7 5<br>-----------------------<br>4 2 1 | 7 5 6 | 8 3 9 <br>5 6 8 | 4 3 9 | 7 2 1<br>7 3 9 | 1 2 8 | 5 6 4<br><br>The sudoku solver said that (because of Unique Rectangles) R7C4 has to be a 6, but in this example you see that you get an other solution with a 7.<br>Is this a fault in the sudoku solver? </div>
+<div class="w100pc" id="blog-reply15362"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15362,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15360"><div class="w100pc"><div class="w60pc"><h2>... by: CS Vidyasagar</h2></div><div class="w40pc datepost">Wednesday 3-Mar-2010</div></div>
+<div class="w100pc">1.  You have given very simple and lucid explanation of difficult concept of Unique Rectangles of four types.  One comes across such situations in number of Sudoku puzzles of varying degrees of difficulty. The clear understanding of unique rectangles helps one to get out of log jam one is subjected to frequently in these interesting puzzles.  I do not know whether any more explanation can be given to what you have done. Only one has to read your article may be twice but keep the most important lesson you brought out loud and clear that " DO NOT HAVE DEADLY PATTERN OF HAVING FOUR CONJUGATE PAIRS" as that leads to multple solutions. Sudoku permits only unique solution. <br><br>2.  One has to understand the logic and solution becomes quite clear. You  have seleted many good illustrations which have explained the logic clearly and unambiguosly.<br><br>3.   Looking forward to more such illustrations. <br><br>Kudos for wonderful work you are doing.<br>with regards,<br>Vidyasagar</div>
+<div class="w100pc" id="blog-reply15360"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15360,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15349"><div class="w100pc"><div class="w60pc"><h2>... by: Lea Hayes</h2></div><div class="w40pc datepost">Tuesday 23-Feb-2010</div></div>
+<div class="w100pc">Just to clarify my question:<br><br>Rectangle Cells:<br>A(1,5,6)  B(1,5,6)<br>C(1,5)    D(1,5)<br><br>Why remove 1 from both A and B and not either of the following:<br><br>A(5,6)    B(1,5)<br>C(1,5)    D(1,5)<br><br>or<br><br>A(1,5)    B(5,6)<br>C(1,5)    D(1,5)</div>
+<div class="w100pc" id="blog-reply15349"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15349,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15348"><div class="w100pc"><div class="w60pc"><h2>... by: Lea Hayes</h2></div><div class="w40pc datepost">Tuesday 23-Feb-2010</div></div>
+<div class="w100pc">Re: Type 4 Unique Rectangles - Cracking the Rectangle with Conjugate Pairs<br><br>I do not understand how you came to the conclusion that 1 can be removed? Why not remove 6 instead?</div>
+<div class="w100pc" id="blog-reply15348"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15348,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15325"><div class="w100pc"><div class="w60pc"><h2>... by: John_Ha</h2></div><div class="w40pc datepost">Friday 22-Jan-2010</div></div>
+<div class="w100pc">Andi<br><br>I too was puzzling over that but I think the answer is simple.  See Fig 2.  (5 and 7) are unsolved in Col 4 otherwise they wouldn't be candidates in R2C4.  Similarly (5 and 7) are unsolved in Col 6.  Similarly (5 and 7) are unsolved in Row 5.  Because the cell at R5C4 is unsolved for 5 and 7, then the centre 3x3 must be unsolved for (5 and 7).<br><br>There is therefore no way before now that the cell at R5C6 could have had either 5 or 7 eliminated as candidates because there are no solved (5 or 7) that it can see.  The 5 and 7 at R5C6 could not have been eliminated by something happening on R5, nor on C6, nor in its 3x3.<br><br>So, the cell at R5C6 MUST have BOTH 5 and 7 as candidates (as well as possibly others, in this case 3 and 6).<br><br>Now assume R5C6 is 5 - we get the deadly pattern. So R5C6 cannot be 5.  Now assume R5C6 is 7 - we get the deadly pattern. So R5C6 cannot be 7.  <br><br>So R5C6 cannot be 5 or 7 and both can be eliminated.<br><br></div>
+<div class="w100pc" id="blog-reply15325"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15325,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15324"><div class="w100pc"><div class="w60pc"><h2>... by: Andi</h2></div><div class="w40pc datepost">Friday 22-Jan-2010</div></div>
+<div class="w100pc">I do not understand this strategy. In the first example for Type 1 UR, I understand that if 3 or 6 would be removed from R5C6, you would end up with a deadly pattern. That's fine so far. <br><br>But I do not see why you can eliminate 5 AND 7 for this reason from R5C6. IMHO, if in R5C6 3,5,6 would be possible, well then this would just imply R5C4 and R2C6 being 7 and R2C4 being 5. An "ordinary" solution. OTOH, if in R5C6 3,6,7 would be possible, R5C4 and R2C6 would be 5 and R2C4 would be 7. Quite straightforward, too. My point is: both possibilities would be valid. But I cannot spot a "deadly pattern" here because to remove the ambiguity in this sitatuation, all you can postulate is that *either* 5 *or* 7 must be removed from the possibilities in R5C6. With either number removed, the ambiguity is removed, thus no deadly pattern anymore. But I just don't see why you eliminate *both* 5 and 7 in R5C6?<br><br>Am I missing something?</div>
+<div class="w100pc" id="blog-reply15324"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15324,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15219"><div class="w100pc"><div class="w60pc"><h2>... by: Dennis Daft</h2></div><div class="w40pc datepost">Tuesday 5-May-2009</div></div>
+<div class="w100pc">Shouldn't your Type 4B example be "solved" using the Type 2A method?  Using this method the 6 in R1C3 and R3C5 would be eliminated, forcing one of the "roof" cells to be a 6.  I believe the end result is the same.  This would be consistant with only using Type 4 when no other solution is possible.<br><br>Dennis</div>
+<div class="w100pc" id="blog-reply15219"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,15219,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 619123<br>
+			This page was last modified on 27-December-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d25f59e558401',t:'MTc4MDMwNTY4Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

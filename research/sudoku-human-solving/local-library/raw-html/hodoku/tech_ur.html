@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Uniqueness (Unique Rectangle, Avoidable Rectangle, BUG+1)</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Uniqueness (Unique Rectangle, Avoidable Rectangle, BUG+1)">
+    <meta name="keywords" content="sudoku,java,hodoku,uniqueness,unique rectangle,ur type 1,ur type 2,hidden rectangle,avoidable rectangle,binary universal grave,bug+1">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechUn a, #menu ul li ul li.mTechUn a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_ur.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_ur.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Uniqueness</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#in">Introduction</a></li>
+        <li class="ni"><ul>
+            <li><a href="#un1">Uniqueness in Sudoku</a></li>
+            <li><a href="#un2">Unique Rectangle</a></li>
+            <li><a href="#un3">Binary Universal Grave (BUG)</a></li>
+        </ul></li>
+        <li><a href="#u1">Unique Rectangle Type 1</a></li>
+        <li><a href="#u2">Unique Rectangle Type 2</a></li>
+        <li><a href="#u3">Unique Rectangle Type 3</a></li>
+        <li><a href="#u4">Unique Rectangle Type 4</a></li>
+        <li><a href="#u5">Unique Rectangle Type 5</a></li>
+        <li><a href="#u6">Unique Rectangle Type 6</a></li>
+        <li><a href="#hr">Hidden Rectangle</a></li>
+        <li><a href="#ar">Avoidable Rectangle</a></li>
+        <li class="ni"><ul>
+            <li><a href="#ar1">Avoidable Rectangle Type 1</a></li>
+            <li><a href="#ar2">Avoidable Rectangle Type 2</a></li>
+        </ul></li>
+        <li><a href="#bug1">BUG+1 - Binary Universal Grave + 1</a></li>
+        <li><a href="#umc">Unique Rectangles with missing candidates</a></li>
+    </ul>
+    <hr>
+
+    <h1><a name="in"></a>Introduction</h1>
+    <h2><a name="un1"></a>Uniqueness in Sudoku</h2>
+    <p>Uniqueness Techniques are based on the fact that practically every Sudoku sudoku ever published
+    has only one solution. More than that: Most Sudoku players consider sudokus with more than one
+    solution invalid!
+    Thus any constellation, that would lead to two or more solutions,
+    that don't violate the Sudoku rule, must be avoided. The problem is, that uniqueness in
+    published sudokus is not part of the Sudoku rule itself ("any row, column, and block must contain the digits
+    1 through 9"). This has led to a very heated argument, whether Uniqueness Techniques are valid or not
+    (see <a href="http://www.sudopedia.org/wiki/Uniqueness_Controversy">Uniqueness Controversy</a>
+    at <a href="http://www.sudopedia.org">Sudopedia</a>).</p>
+    <p>Whether you want to use Uniqueness Techniques or not, is entirely a matter of taste.
+    If you solve sudokus published in books or newspapers, you can be reasonably safe
+    that they have a unique solution (for a few exceptions see the <a href="http://forum.enjoysudoku.com/viewtopic.php?t=3071">Hall of Shame</a>).
+    If you use a computer program like HoDoKu, the number of solutions will be checked automatically and you
+    will get a warning, if you try to solve an invalid sudoku (see the <a href="docs_play.php#create_enter_2">User Manual</a>).</p>
+    <p>Uniqueness Techniques are easy to find, versatile, and often advance sudokus that without them would require very
+    complicated techniques. HoDoKu has therefore built in support for an extensive number of different techniques.
+    If you don't want to use them (despite their obvious advantages), you can disable all Uniqueness Techniques
+    with a single mouse click by going to "Edit|Preferences|Steps" (switch to tree view).</p>
+    <h2><a name="un2"></a>Unique Rectangle</h2>
+    <p>A "Unique Rectangle" (UR) consists of four cells that occupy exactly two rows, two columns, and two boxes. All
+        four cells have the same two candidates left (in real sudokus not all cells have to hold all of the UR candidates, see <a href="#umc">below</a>).</p>
+    <a href='show_example.php?file=ur01&amp;tech=Unique+Rectangle+%28Invalid+sudoku%21%29'><img class='scr_l' src='../examples/ur01.png' alt='Sudoku technique: Example for Unique+Rectangle+%28Invalid+sudoku%21%29'></a>    <p>The example on the left is taken from <a href="http://www.sudopedia.org/wiki/Unique_Rectangle">Unique Rectangle</a>
+    at <a href="http://www.sudopedia.org">Sudopedia</a>. Take a look at cells r2c13 and r4c13: They satisfy all
+    necessary constraints. Two rows (row 2 and 4), two columns (column 1 and 3), two blocks
+    (blocks 1 and 4) and two candidates (candidates 6 and 8).</p>
+    <p>A situation like this is invalid, because the candidates in the cells could be exchanged, thus resulting
+    in two different solutions that both satisfy the sudoku rule (see below). If the sudoku has only
+    one solution, any situation that could lead to a Unique Rectangle must be avoided.</p>
+    <p class="clear">The two (valid) solutions to the UR above:</p>
+    <a href='show_example.php?file=ur02&amp;tech=Unique+Rectangle+-+Solution+1+%28Invalid+sudoku%21%29'><img class='scr_l' src='../examples/ur02.png' alt='Sudoku technique: Example for Unique+Rectangle+-+Solution+1+%28Invalid+sudoku%21%29'></a>    <a href='show_example.php?file=ur03&amp;tech=Unique+Rectangle+-+Solution+2+%28Invalid+sudoku%21%29'><img class='scr_l' src='../examples/ur03.png' alt='Sudoku technique: Example for Unique+Rectangle+-+Solution+2+%28Invalid+sudoku%21%29'></a>    <p>A common mistake when looking for URs is to violate the "2 blocks" rule (see the
+    <a href="http://www.sudopedia.org/wiki/Unique_Rectangle">Sudopedia article</a> for an example).</p>
+    <h2 class="clear"><a name="un3"></a>Binary Universal Grave (BUG)</h2>
+    <p>A Binary Universal Grave (BUG) is a generalization of an UR: A BUG exists if all unsolved cells have only two candidates
+    and if every candidate appears exactly twice in any row, column, and box. Such a sudoku has
+    two solutions as well.</p>
+    <hr>
+
+    <h1><a name="u1"></a>Unique Rectangle Type 1</h1>
+    <p>A UR Type 1 exists, if one of the four cells of a possible UR has
+    additional candidates. If those candidates were eliminated, the UR would exist,
+    causing two solutions. It is therefore absolutely necessary, that one of the additional
+    candidates has to be true. That means, that the UR candidates can be eliminated from
+    the cell with the additional candidates. If only one additional candidate exists,
+    it can be placed in that cell immediately.</p>
+    <a href='show_example.php?file=u101&amp;tech=Unique+Rectangle+Type+1'><img class='scr_l' src='../examples/u101.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+1'></a>    <a href='show_example.php?file=u102&amp;tech=Unique+Rectangle+Type+1'><img class='scr_l' src='../examples/u102.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+1'></a>    <p>In the example on the left candidates 8 and 9 nearly form an UR in r2c23 and
+    r6c23. The UR is only prevented by the additional candidate 3 in r2c2. 8 and
+    9 can be eliminated from r2c2 (or 3 can be placed in r2c2).</p>
+    <p>On the right: 2/3 in r2c46,r9c46 => r9c6&lt;&gt;23 (or r9c6=1).</p>
+    <hr>
+
+    <h1><a name="u2"></a>Unique Rectangle Type 2</h1>
+    <p>If in a possible UR two non diagonal cells have only one extra candidate, and that
+    candidate is the same in both cells, all candidates seeing both extra candidates can be eliminated.</p>
+    <p>The logic is simple: To avoid the UR one of the extra candidates must be true, thus
+    any cell seeing both candidates cannot have the same value placed.</p>
+    <a href='show_example.php?file=u201&amp;tech=Unique+Rectangle+Type+2'><img class='scr_l' src='../examples/u201.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+2'></a>    <a href='show_example.php?file=u202&amp;tech=Unique+Rectangle+Type+2'><img class='scr_l' src='../examples/u202.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+2'></a>    <p>Look at the example on the left: We have a possible UR on 3 and 7 in r7c29 and
+    r8c29. The two non diagonal cells r78c9 have an extra candidate 8. One of those cells must be 8,
+    or the sudoku would have two solutions. Thus 8 can never be placed in r9c9.</p>
+    <p>An UR Type 2 can eliminate candidates in more than one house as can be seen in the
+    example on the right: The additional 7s in r8c56 eliminate all other 7s from both row 8
+    and block 8.</p>
+    <hr>
+
+    <h1><a name="u3"></a>Unique Rectangle Type 3</h1>
+    <p>This is a combination of UR with <a href="tech_naked.php">Naked/Locked Subsets</a>. We look for two non diagonal cells
+    in a possible UR that have extra candidates. Since one of those candidates has to be set
+    to avoid the UR, we can treat both cells as one virtual cell containing only
+    the extra candidates and try to build a Naked Subset (all additional cells have
+    to see both UR cells with extra candidates). If such a UR/Naked Subset is found,
+    all subset candidates can be eliminated from all cells outside the subset (but in the same house of course).</p>
+    <a href='show_example.php?file=u301&amp;tech=Unique+Rectangle+Type+3'><img class='scr_l' src='../examples/u301.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+3'></a>    <a href='show_example.php?file=u302&amp;tech=Unique+Rectangle+Type+3'><img class='scr_l' src='../examples/u302.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+3'></a>    <p>On the left: Possible UR on 1/5 in r4c28 and r6c28. Cell r6c8 has additional
+    candidates 6 and 9 and cell r4c8 has additional candidates 4 and 6. If we treat cells r46c8
+    as one cell containing only candidates 4, 6 and 9, we can build a <a href="tech_naked.php#n3n3">Naked Triple</a> on
+    those three candidates in r1c8, r2c8, and r46c8. Since these three candidates are locked
+    into those four cells, they cannot be placed in r8c8 or r9c8.</p>
+    <p>The example on the right shows an UR Type 3 with a <a href="tech_naked.php#n2l2">Locked Pair</a>:
+    The additional candidates 1 and 3 in r6c23 form the Locked Pair with r6c1 (locked in row 6 and block 4).</p>
+    <hr>
+
+    <h1><a name="u4"></a>Unique Rectangle Type 4</h1>
+    <p>We look for additional candidates in two non diagonal cells again, but this time we ignore
+    those extra candidates and concentrate on the UR candidates themselves: If one of the UR candidates
+    is not possible anymore in any other cell of a house that contains both cells with the extra candidates,
+    the other UR candidate can be eliminated from those UR cells.</p>
+    <a href='show_example.php?file=u401&amp;tech=Unique+Rectangle+Type+4'><img class='scr_l' src='../examples/u401.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+4'></a>    <a href='show_example.php?file=u402&amp;tech=Unique+Rectangle+Type+4'><img class='scr_l' src='../examples/u402.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+4'></a>    <p>To see how this works, let us take a look at the example on the left: Possible UR on 6/7 in r3c79
+    and r6c79. r3c7 and r3c9 have additional candidates (meaning: those are the only cells of the UR
+    that could possible contain neither a 6 nor a 7). There are two houses that see both cells r3c7
+    and r3c9: Row 3 and block 3. Row 3 has candidate 6 only in the UR cells (so does block 3, but this is not
+    necessary - one house is sufficient), so 6 must go in either r3c7 or r3c9. But that means that 7 can
+    be neither in r3c7 nor in r3c9 or we would have two solutions. We can therefore eliminate 7 from
+    r3c79.</p>
+    <p>The same logic applies to the example on the right: UR candidate 8 is nowhere in column 8
+    (or block 9), so 2 can be eliminated. Note that additional candidates 8 could be in one of
+    the houses (column 8 or block 9) but not in both. Such a situation is not very likely, however, because
+    the additional 8 would most probably have been eliminated before
+    using a <a href="tech_intersections.php">Locked Candidates</a> move.</p>
+    <hr>
+
+    <h1><a name="u5"></a>Unique Rectangle Type 5</h1>
+    <p>UR Type 5 is a variation of UR Type 2, but now the additional candidate can be in diagonal cells
+    as well. Suppose we have a possible UR with one extra candidate in either two diagonal cells or in three cells.
+    All occurences of that candidate can be eliminated in all cells that see all UR cells
+    containing the additional candidate. The logic behind that move is the same as in a <a href="#u2">UR Type 2</a>.</p>
+    <a href='show_example.php?file=u501&amp;tech=Unique+Rectangle+Type+5'><img class='scr_l' src='../examples/u501.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+5'></a>    <a href='show_example.php?file=u502&amp;tech=Unique+Rectangle+Type+5'><img class='scr_l' src='../examples/u502.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+5'></a>    <p>The example on the left is the only published example for a UR Type 5 with only two
+    additional candidates so far: 1 must be set in either r7c8 or r8c5 to avoid the UR. Cell
+    r7c4 sees both UR cells and cannot be 1 itself.</p>
+    <p>The UR Type 5 on the right has three additional candidates: 6 must be in r8c6, r8c9, or r9c9. It
+    can be eliminated from r8c7.</p>
+    <hr>
+
+    <h1><a name="u6"></a>Unique Rectangle Type 6</h1>
+    <p>UR Type 6 is a variation of UR Type 4. It is not very common, but highly effective, because it always leads to
+    two placements: Suppose we have a possible UR with two diagonal cells containing
+    extra candidates. If one of the UR candidates is nowhere else in the two rows and
+    two columns building the UR, it can be eliminated from the cells with the extra candidates.</p>
+    <a href='show_example.php?file=u601&amp;tech=Unique+Rectangle+Type+6'><img class='scr_l' src='../examples/u601.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+6'></a>    <a href='show_example.php?file=u602&amp;tech=Unique+Rectangle+Type+6'><img class='scr_l' src='../examples/u602.png' alt='Sudoku technique: Example for Unique+Rectangle+Type+6'></a>    <p>Look at the example on the left: In rows 4 and 5 and columns 3 and 4 candidate 5
+    appears only within the UR: It forms an <a href="tech_fishb.php#bf2">X-Wing</a>. If 5 was placed
+    in one of the cells r4c3/r5c4 that contain the extra candidates, it had to
+    be placed in the other cell too, thus forcing the UR and causing two solutions. It is therefore
+    safe to assume that it cannot be in either of those cells.</p>
+    <p>The example on the right shows an UR Type 6 on candidate 7. Note that every UR Type 6 is accompanied by
+    a pair of <a href="#hr">Hidden Rectangles</a>, each of them leading to the same placements.</p>
+    <hr>
+
+    <h1><a name="hr"></a>Hidden Rectangle</h1>
+    <p>Hidden Rectangles are very versatile, because they can be used in possible URs
+    that contain up to three cells with arbitrary additional candidates (the UR is <em>hidden</em> under a clutter
+    of additional candidates - not to be confused with Almost Unique Rectangles).</p>
+    <p>We need a possible UR with two or three cells containing additional candidates (with only
+    one cell the UR Type 1 should be used). Now take one UR cell without additional candidates and
+    check the row and the column containing the opposite corner of the UR. If one UR candidate is nowhere
+    outside the UR in those two houses, the other UR candidate can be eliminated from the opposite corner.</p>
+    <a href='show_example.php?file=hr01&amp;tech=Hidden+Rectangle'><img class='scr_l' src='../examples/hr01.png' alt='Sudoku technique: Example for Hidden+Rectangle'></a>    <a href='show_example.php?file=hr02&amp;tech=Hidden+Rectangle'><img class='scr_l' src='../examples/hr02.png' alt='Sudoku technique: Example for Hidden+Rectangle'></a>    <p>To see how this works, let us look at the example on the left: We have only one cell
+    without additional candidates: r7c7, which becomes our starting point. The opposite
+    corner is cell r9c5 contained in row 9 and column 5. Candidate 5 is nowhere
+    outside the UR in those two houses, so 9 can be eliminated from r9c5. Why?
+    If we look at column 5, we see that candidate
+    5 has to be placed in r7c5 or in r9c5. If it is placed in r9c5, that cell cannot be 9.
+    If it is placed in r7c5, it cannot be in r9c5, and therefore has to be placed in r9c7
+    too. This forces r7c7 to be 9, and that means that r9c5 cannot be 9 as well or we would have
+    two solutions. Since both possible placements of candidate 5 in column 5 lead to r9c7&lt;&gt;9,
+    9 can be eliminated from that cell.</p>
+    <p>The example on the right has only two cells with additional candidates, which means two possible
+    starting cells to check: r2c9 and r3c2. Lets try r2c9 first: The opposite corner is contained in row 3 and
+    column 2. We see that row 3 has a 4 and a 5 outside the UR, so no Hidden Rectangle is possible.</p>
+    <p>Now r3c2: The houses to check are row 2 and column 9. Candidate 4 appears nowhere in these houses (except in the UR
+    of course), so 5 can be eliminated from r2c9.</p>
+    <hr>
+
+    <h1><a name="ar"></a>Avoidable Rectangle</h1>
+    <p>Avoidable Rectangles differ from Unique Rectangles in that some cells of the
+    UR have already been placed. If placing the remaining cell(s) would cause an UR, the sudoku maker
+    would have had to supply one of the four cells as a given to <em>avoid</em> a possible second
+    solution (hence the name). If therefore none of the already placed cells in the UR are givens, all UR Type x rules
+    can be applied without change.
+    There is one important difference though: Due to the placements sometimes only one of the
+    UR candidates remains possible for the target cell. This can be confusing, but the logic still holds.</p>
+    <p>HoDoKu currently only supports Avoidable Rectangles Type 1 and 2.</p>
+
+    <h2><a name="ar1"></a>Avoidable Rectangle Type 1</h2>
+    <p>Similar to <a href="#u1">Unique Rectangle Type 1</a>.</p>
+    <a href='show_example.php?file=ar101&amp;tech=Avoidable+Rectangle+Type+1'><img class='scr_l' src='../examples/ar101.png' alt='Sudoku technique: Example for Avoidable+Rectangle+Type+1'></a>    <a href='show_example.php?file=ar102&amp;tech=Avoidable+Rectangle+Type+1'><img class='scr_l' src='../examples/ar102.png' alt='Sudoku technique: Example for Avoidable+Rectangle+Type+1'></a>    <p>On the left: The possible UR is for candidates 7 and 9 in cells r12c19. The only cell
+    not placed already is r2c9, all other cells are not givens. If we put 9 in r2c9 we
+    could interchange digits 7 and 9 in the four UR cells, thus getting two solutions. Since we
+    know this is not possible, r2c9 cannot be 9.</p>
+    <p>Please note that the logic only applies, if none of the UR cells are givens. If only one
+    of the cells was a given, the digits could not be exchanged and the sudoku still had only one solution.</p>
+    <p>On the right: Avoidable Rectangle Type 1: 6/3 in r57c78 => r5c7&lt;&gt;3</p>
+    <hr>
+
+    <h2><a name="ar2"></a>Avoidable Rectangle Type 2</h2>
+    <p>Similar to <a href="#u2">Unique Rectangle Type 2</a>. Type 2 is easier to spot, because both
+    UR candidates are visible as candidates.</p>
+    <a href='show_example.php?file=ar201&amp;tech=Avoidable+Rectangle+Type+2'><img class='scr_l' src='../examples/ar201.png' alt='Sudoku technique: Example for Avoidable+Rectangle+Type+2'></a>    <a href='show_example.php?file=ar202&amp;tech=Avoidable+Rectangle+Type+2'><img class='scr_l' src='../examples/ar202.png' alt='Sudoku technique: Example for Avoidable+Rectangle+Type+2'></a>    <p>On the left: UR on candidates 3 and 7 in r78c37, neither r7c7 nor r8c7 is a given.
+    Additional candidate 9 in r78c3, 9 can be eliminated from all cells seeing both
+    r8c3 and r9c3.</p>
+    <p>On the right: Avoidable Rectangle Type 2: 2/8 in r45c37 => r18c7,r456c9,r56c8&lt;&gt;9</p>
+    <hr>
+
+    <h1><a name="bug1"></a>BUG+1 - Binary Universal Grave + 1</h1>
+    <p>A BUG+1 is a possible BUG, where exactly one cell has one additional candidate. That candidate
+    has to be placed to avoid the BUG.</p>
+    <a href='show_example.php?file=bug101&amp;tech=BUG+%2B+1'><img class='scr_l' src='../examples/bug101.png' alt='Sudoku technique: Example for BUG+%2B+1'></a>    <a href='show_example.php?file=bug102&amp;tech=This+is+not+a+BUG%2B1%21'><img class='scr_l' src='../examples/bug102.png' alt='Sudoku technique: Example for This+is+not+a+BUG%2B1%21'></a>    <p>Left side: The additional candidate is candidate 6 in r1c8 (it appears more than
+    two times in at least one house). It can be placed (or 3 and 5 can be eliminated).</p>
+    <p>Right side: <b>This is not a BUG+1!</b> We have only cells with two candidates
+    left (exception: r7c6), but the BUG condition is not satisfied: In row 7 candidate 9
+    appears three times (r7c147). The same is true for column 6.</p>
+    <hr>
+
+    <h1><a name="umc"></a>Unique Rectangles with missing candidates</h1>
+    <p>For a Unique rectangle to work, it is not necessary, that all UR cells hold all UR candidates.
+    The only real necessary condition is, that any UR cell <b>could have held</b> all UR candidates 
+    (meaning: no UR candidate in an UR cell may be blocked by a given). This can be important, when
+    UR candidates have already been eliminated by a prior step, which would invalidate the UR.</p>
+    <p>HoDoKu allows for missing candidates, when the "Allow missing candidates in URs" option is set
+    in "Preferences|Steps" (see <a href="docs_solv.php#options">Solver options</a> in the User Manual).</p>
+    <p>Some examples:</p>
+    <a href='show_example.php?file=u101a&amp;tech=UR+Type+1+with+missing+candidate'><img class='scr_l' src='../examples/u101a.png' alt='Sudoku technique: Example for UR+Type+1+with+missing+candidate'></a>    <a href='show_example.php?file=u201a&amp;tech=UR+Type+2+with+missing+candidate'><img class='scr_l' src='../examples/u201a.png' alt='Sudoku technique: Example for UR+Type+2+with+missing+candidate'></a>    <p>Left side: r3c4 doesn't contain the UR candidate 2, but 2 is not blocked by any given in this cell,
+    so the UR Type 1 is still valid. Right side: UR candidate 5 is missing from r3c8.</p>
+    <a href='show_example.php?file=u601a&amp;tech=UR+Type+6+with+missing+candidate'><img class='scr_l' src='../examples/u601a.png' alt='Sudoku technique: Example for UR+Type+6+with+missing+candidate'></a>    <a href='show_example.php?file=h101a&amp;tech=Hidden+Rectangle+with+missing+candidate'><img class='scr_l' src='../examples/h101a.png' alt='Sudoku technique: Example for Hidden+Rectangle+with+missing+candidate'></a>    <p>Left side: UR Type 6, UR candidate 8 is missing from r3c9 and r6c7; the eliminations are still valid.
+    Right side: Hidden Rectangle, candidate 3 missing from r2c9 and r3c6.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

@@ -14,3 +14,10 @@
 - Searched and fetched Chinese resources; saved terminology and Chinese-source digest.
 - Built `research/sudoku-human-solving/index.md` with source table, technique coverage map, preliminary synthesis direction, and next-phase gaps.
 - Verified local research markdown files exist under `research/sudoku-human-solving/`.
+- Expanded local library structure under `research/sudoku-human-solving/local-library/`.
+- Downloaded source pages as Markdown into `local-library/markdown/` and raw HTML into `local-library/raw-html/`.
+- Added `README.md`, `bibliography.md`, `source-manifest.json`, `citation-map.md`, and `glossary.zh-en.md`.
+- Added technique-level cards for foundations, singles, locked candidates, subsets, fish, Turbot family, wings, coloring, AIC, ALS, uniqueness, Sue de Coq, and forcing/enumeration boundary.
+- Added local retrieval indexes under `local-library/indexes/`.
+- Validation: `source-manifest.json`, `technique-to-source.json`, and `source-to-technique.json` parse successfully with `python3 -m json.tool`.
+- Validation counts: 40 Markdown source files, 40 raw HTML files, 13 technique cards, and 6 index/mapping files.

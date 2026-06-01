@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Sue de Coq</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Sue de Coq">
+    <meta name="keywords" content="sudoku,java,hodoku,sue de coq,disjoint subset,subset counting">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechMi a, #menu ul li ul li.mTechMi a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_misc.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_misc.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Miscellaneous</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#sdc">Sue de Coq</a></li>
+        <li class="ni"><ul>
+            <li><a href="#sdc1">Basic Variants</a></li>
+            <li><a href="#sdc2">Extended Types</a></li>
+        </ul></li>
+    </ul>
+    <hr>
+
+    <h1><a name="sdc"></a>Sue de Coq</h1>
+    <p>Sue de Coq is a variant of <a href="http://www.sudopedia.org/wiki/Subset_Counting">Subset Counting</a>
+    and was first introduced by a user
+    with nickname "Sue de Coq" under the somewhat cumbersome name of
+    <a href="http://forum.enjoysudoku.com/viewtopic.php?t=2033">"Two-Sector Disjoint Subsets"</a>.
+    Other users soon started to call the technique by the inventor's nickname "Sue de Coq" (SDC),
+    and that name has been used ever since. The technique in its basic form is rather simple,
+    but it has been enhanced several times. These enhanced versions can be found
+    under <a href="#sdc2">Extended Types</a> in this guide.</p>
+
+    <h2><a name="sdc1"></a>Basic Variants</h2>
+    <p>The basic variant is rather simple: Look for cells at the intersection of a row and a block.
+    You have to find either two cells containing 4 candidates
+    or three cells containing 5 candidates. Now find a bivalue cell in the row
+    outside of the intersection whose candidates are draw entirely from the
+    intersection candidates. Find another bivalue cell in the block with candidates drawn
+    from the intersection too, but different from the candidates in the row cell.</p>
+    <p>This constellation is a Sue de Coq: You can eliminate all row cell candidates from
+    the rest of the cells in the row, all block cell candidates from the rest of the cells in the block
+    and any intersection candidate that is left from both the row and the block. This can amount
+    in some rather impressive steps.</p>
+    <p>The term "row" in the definition above can be replaced throughout with "column".</p>
+    <a href='show_example.php?file=sdc01&amp;tech=Sue+de+Coq+%28basic+variant%29'><img class='scr_l' src='../examples/sdc01.png' alt='Sudoku technique: Example for Sue+de+Coq+%28basic+variant%29'></a>    <a href='show_example.php?file=sdc02&amp;tech=Sue+de+Coq+%28basic+variant%29'><img class='scr_l' src='../examples/sdc02.png' alt='Sudoku technique: Example for Sue+de+Coq+%28basic+variant%29'></a>    <p>Example on the left: The intersection cells are r7c13. They contain the
+    candidates {3459}. The row cell is r7c7 containing {45}, the block cell is
+    r8c3 containing {39}. 4 and 5 can be eliminated from the rest of the row
+    and 3 and 9 can be eliminated from the rest of the block.</p>
+    <p>If we look at the intersection alone, we find we have two candidates
+    to many (4 candidates for only 2 cells). But since the row cell r7c7
+    has to contain one of those candidates, we are left with only
+    3 candidates for 2 cells (3, 9, and 4 or 5). The block cell r8c3
+    removes another possibility: The intersection cells can now be
+    3 or 9 and 4 or 5 (2 candidates in 2 cells).</p>
+    <p>The SDC more or less produces two overlapping locked sets: Candidates 3 and 9
+    are locked into (r7c13, r8c3). Since all those cells are in block 6,
+    3 and 9 cannot be in another cell of that block. Candidates 4 and 5 are locked into
+    (r7c13,r7c7). Since all of those cells are in the same row, 4 and 5 cannot be
+    elsewhere in that row.</p>
+    <p>The example on the right shows an intersection with three cells containing five
+    candidates: Cells r789c9 contain candidates {24567}. The column cell r2c9 contains
+    candidates {56}, the block cell r9c7 contains candidates {27}. The logic is the same
+    as above, but the result is three candidates in three cells: The intersection cells
+    can be {2 or 7, 4, and 5 or 6}. That means that candidate 4 gets locked within the
+    intersection and can be eliminated from both block and column.</p>
+
+    <h2><a name="sdc2"></a>Extended Types</h2>
+    <p>Sue de Coq can be enhanced in two possible ways:</p>
+    <ol>
+        <li>The intersection cells can contain additional candidates. For every additional candidate
+        an additional cell in the row/column or in the block must be found.</li>
+        <li>The row cells (column cells) and the block cells can contain candidates not drawn from
+        the intersection set. For any such additional candidate one additional cell is necessary.</li>
+    </ol>
+    <p>It is important to note, that the SDC can have only two cells in the intersection with
+    the possible third cell being part of either the row or the block cells. Likewise, if additional
+    candidates are used, that are not drawn from the intersection set, the same candidate can be
+    used in row cells and block cells.</p>
+    <p>A more formal definition of SDC is given in the original Two-Sector Disjoint Subsets thread:</p>
+    <p>Consider the set of unfilled cells C that lies at the intersection of Box B and Row (or Column) R.
+    Suppose |C|&gt;=2. Let V be the set of candidate values to occur in C. Suppose |V|&gt;=|C|+2.
+    The pattern requires that we find |V|-|C|+n cells in B and R, with at least one cell in each,
+    with at least |V|-|C| candidates drawn from V and with n the number of candidates not drawn from V.
+    Label the sets of cells CB and CR and their candidates VB and VR. Crucially, no candidate from V is
+    allowed to appear in VB and VR. Then C must contain V\(VB U VR) [possibly empty], |VB|-|CB| elements
+    of VB and |VR|-|CR| elements of VR. The construction allows us to eliminate candidates VB U (V\VR) from B\(C U CB),
+    and candidates VR U (V\VB) from R\(C U CR).</p>
+    <p>Some examples:</p>
+    <a href='show_example.php?file=sdc04&amp;tech=Sue+de+Coq+%28extended+variant%29'><img class='scr_l' src='../examples/sdc04.png' alt='Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29'></a>    <a href='show_example.php?file=sdc03&amp;tech=Sue+de+Coq+%28extended+variant%29'><img class='scr_l' src='../examples/sdc03.png' alt='Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29'></a>    <p>On the left: Intersection cells r46c8 with candidates {3578}, column cell r8c8
+    {35} and block cells r4c7,r5c9 {789}. This is pretty much our standard case, except that
+    the block cells contain candidate 9, which is not drawn from the intersection. That's why two
+    block cells are necessary.</p>
+    <p>On the right: Intersection r456c1 - {123479}. 6 candidates in three cells is one to many.
+    One of the additional sets has to be three candidates in two cells. In the example it is the
+    column: r89c1 containing {234}. The block set has an additional candidate 5 not drawn from
+    the intersection.</p>
+
+    <a href='show_example.php?file=sdc05&amp;tech=Sue+de+Coq+%28extended+variant%29'><img class='scr_l' src='../examples/sdc05.png' alt='Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29'></a>    <a href='show_example.php?file=sdc06&amp;tech=Sue+de+Coq+%28extended+variant%29'><img class='scr_l' src='../examples/sdc06.png' alt='Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29'></a>    <p>The example on the left was posted on the Player's Forum: It is a standard 4 candidates in
+    two cells variant, but both additional sets (column cells and block cells) contain an additional
+    candidate, which is the same in both cases (candidate 1).</p>
+    <p>The example on the right is 5 candidates in two cells, but it demonstrates a combination
+    of all enhancements:</p>
+    <ol>
+        <li>Although the intersection of column 4 with block 2 has three unsolved cells, only two
+        of them form the intersection set: r23c4 - {13689}. Cell r1c4 is part of the block cells.</li>
+        <li>The column cell r5c2 has two candidates {39} drawn from the intersection set: This is
+        standard.</li>
+        <li>We still have two candidates too many, so we need two block cells. Unfortunately
+        a fitting set that covers candidates {168} can only be found by including an additional digit 7.
+        The block set thus consists of three cells: r1c46,r2c6 with candidates {1678}.</li>
+    </ol>
+    <p>The resulting Sue de Coq eliminates 13 candidates.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

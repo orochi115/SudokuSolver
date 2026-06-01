@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Introduction</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Introduction">
+    <meta name="keywords" content="sudoku,java,hodoku,cell,row,column,block,candidate,house,chute,pencil mark grid,pm">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechIntro a, #menu ul li ul li.mTechIntro a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_intro.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_intro.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Introduction</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#ss">Preface</a></li>
+        <li><a href="#te">Terminology</a></li>
+<!--        <li class="ni"><ul>
+            <li><a href="#display_mode_1">Sudoku only view (standard)</a></li>
+            <li><a href="#display_mode_2">Summary view</a></li>
+        </ul></li> -->
+    </ul>
+    <hr>
+
+    <h1><a name="ss"></a>Preface</h1>
+    <p><b>Every</b> sudoku program claims to be able to solve <em>all</em> sudokus ...
+    well, big deal! Since for every sudoku the number of ways in which digits can
+    be inserted into the grid is finite a computer can just try all of them
+    and see which one fits (this approach is usually called "Brute Force" or "Guessing") -
+    and a good implementation on a modern computer should only need a few milliseconds to do that.</p>
+    <p>The real challenge is of course to solve the sudoku using only logic. For all but the
+    easiest sudokus that requires more than just staring at the grid and hoping for a revelation.
+    Many techniques have been developed to aid humans in finding possible next steps. Most of these
+    techniques focus on reducing the number of candidates in order to find Singles that really
+    advance the sudoku towards the solution.</p>
+    <p>The best source for all kinds of information concerning Sudoku (including solving techniques) is still
+    <a href="http://www.sudopedia.org/wiki/Solving_Technique">Sudopedia's Solving Technique Index</a>
+    which has not only in depth descriptions of a large number of different techniques but lot's
+    of additional information not easily found elsewhere too (e.g. descriptions and techniques for Sudoku variants).</p>
+    <p>In this guide about <b>70 techniques</b> and variants are described in detail and illustrated with over <b>170 examples</b>.</p>
+    <hr>
+
+    <h1><a name="te"></a>Terminology</h1>
+    <p>Throughout this guide the following terms are used: A sudoku consists of <b>cells</b>, cells are grouped into
+    <b>houses</b>. There are three different types of houses: <b>rows</b>, <b>columns</b> and <b>boxes</b>
+    (under certain circumstances a cell
+    can be seen as a house as well). Three boxes in a row are called a <b>chute</b> (a horizontal chute is a
+    <b>floor</b>, a vertical chute is a <b>tower</b>) or a <b>band</b>. Cells are filled with <b>values</b>,
+    the values present at the beginning
+    of the game are called <b>givens</b>, possible values for unfilled cells are <b>candidates</b>.
+    The whole sudoku area is sometimes called <b>grid</b>. If pencil and paper players write
+    candidates into the grid these are sometimes called <b>pencil marks</b>, a grid with all candidates
+    filled in is therefore a <b>pencil mark grid</b> or <b>PM</b>.</p>
+    <p>Rows and columns are numbered from 1 to 9 (left to right/top to bottom), a cell is specified
+    by it's row and column (e.g.: r5c2 means the cell at row 5 and column 2; r57c2 means cells r5c2 and r7c2). Blocks are numbered from
+    1 to 9 too (top most floor from left to right, then the next floor and so on).</p>
+    <p>If two cells are in the same house (same row, same column, or same block) they are said to
+    <b>see</b> each other, or to be <b>peers</b>. This is important in many techniques since two cells that see
+    each other cannot have the same value.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

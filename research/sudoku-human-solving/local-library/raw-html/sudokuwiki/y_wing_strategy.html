@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Y-Wing Strategy - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Y-Wings are simple three cell formations used to eliminate a candidate in a fourth cell. They are also the shortest versions of certain types of Alternating Inference Chains."/>
+<meta name="twitter:description" content="Sudoku Strategy. Y-Wings are simple three cell formations used to eliminate a candidate in a fourth cell. They are also the shortest versions of certain types of Alternating Inference Chains.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/ywing1.jpg"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/ywing1.jpg" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Y_Wing_Strategy';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Y_Wing_Strategy">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Y-Wing Strategy</h1><div class="SRCell">
+<figure style="width:350px"><img src="PuzImages/YWing1.png" alt="Y-Wing Figure 1" /><figcaption>Y-Wing Figure 1
+</figcaption></figure>
+This is an excellent candidate eliminator. The name derives from the fact that it looks like an X-Wing - but with three corners, not four.  The fourth corner is where the candidate can be removed but it leads us to much more as we'll see in a minute.<br><br>Lets look at Figure 1 for the theory.  <br><br><span class="hy">A, B</span> and <span class="hy">C</span> are three different candidate numbers in a rectangular formation. Three of the corners have two candidates <span class="hy">AC</span>, <span class="hy">AB</span> and <span class="hy">BC</span>. The cell marked <span class="hy">AB</span> is the key.  If the solution to that cell turns out to be <span class="hy">A</span> then <span class="hy">C</span> will definitely occur in the lower left corner.If <span class="hy">AB</span> turns out to be <span class="hy">B</span> then <span class="hy">C</span> is certain to occur in the top right corner. <span class="hy">C</span> is a <i>complementary</i> pair.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/YWing2.png" alt="Y-Wing Figure 2" /><figcaption>Y-Wing Figure 2
+</figcaption></figure>
+So whatever happens, <span class="hy">C</span> is certain in one of those two cells marked <span class="hy">C</span>. The red <span color=red>C</span> can be 'seen' by both <span class="hy">C</span>s - the cell is a confluence of both <span class="hy">BC</span> and <span class="hy">AC</span>.<br>It's impossible for a <span class="hy">C</span> to live there and it can be removed.<br> <br>In Figure 2 I'm demonstrating the sphere of influence two example cells have, marked red and blue.  <span class="hy">X</span> can 'see' all the red cells, <span class="hy">Z</span> can 'see' all the blue ones. In this case there are two cells which overlap and these are 'seen' by both.</div>
+
+<div class="SRCell">
+<figure style="width:350px"><img src="PuzImages/YWing1b.png" alt="Y-Wing Figure 3" /><figcaption>Y-Wing Figure 3
+</figcaption></figure>
+If our <span class="hy">A</span>, <span class="hy">B</span> and <span class="hy">C</span> are aligned more closely they can 'see' a great deal more cells than just the corner of the rectangle they make. In Figure 3 <span class="hy">BC</span> can see <span class="hy">AB</span> because they share the same box. <span class="hy">AC</span> can see <span class="hy">AB</span> because they share the same row.  <span class="hy">BC</span> and <span class="hy">AC</span> can see all the cells marked with a red <span color=red>C</span> where this Y-Wing can eliminate whatever number <span class="hy">C</span> is.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/YWing3b.png" alt="Y-Wing Example 1" /><figcaption>Y-Wing Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f069f0e0d2c082g0n9h2d2b03090h0l0e0f040l050h0f2g0d2g092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=034500000802060400600008000003900004050000090900005800000300008001040605000007120">From the Start</a>
+</figcaption></figure>
+<br>I have found (June 2025) a new 'tough' Sudoku puzzle with a sequence of five Y-Wings to illustrate the full range of this strategy. The first three are pictured here but you can load the puzzle into the solver to see the remaining examples.<br><br>The first Y-Wing is a rectangular alignment which is close to the theory diagram. The AB cell in <span class="hy">A1</span> links 7 with the pair on <span class="hy">A7</span> and the 1 in <span class="hy">E1</span>.  The number common to both the <i>pincer</i> cells is 2 which must go in either <span class="hy">A7</span> or <span class="hy">E1</span> so 2 in <span class="hy">E7</span> can be removed.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/YWing4c.png" alt="Y-Wing Example 2" /><figcaption>Y-Wing Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f069f0e0d2c082g0n9f2d2b03090h0l0e0f040l050h0f2g0d2e092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c">Load Example</a>
+</figcaption></figure>
+<br>The second Y-Wing has four target cells show in <font color=#ff88ff>pink</font> but three of them are solved cells so of no use. But there is a 7 in <span class="hy">C2</span> that can be eliminated.  The 7s in <span class="hy">A1</span> and <span class="hy">C5</span> are linked to <span class="hy">A6</span> by 1 and 2 respectively. One end of the pincer or the other must be 7.<br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/YWing5c.png" alt="Y-Wing Example 3" /><figcaption>Y-Wing Example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f067n0e0d2c082g0n9f2d2b03090h0l0e0f040l050h0f2g0d2e092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c">Load Example</a>
+</figcaption></figure>
+<br>The third step is a similar pincer movement. <span class="hy">A6</span> is connected to <span class="hy">A7</span> by 2 and to <span class="hy">B4</span> by 1. Looking along row B we can remove 7 from <span class="hy">B9</span></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/YWing6.png" alt="Double y-Wing" /><figcaption>Double y-Wing
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=607945023395062000402037569743516298569283741821000635970650312136020050250301006">From the Start</a>
+</figcaption></figure>
+<br>So here is a tricky situation. Doesn't seem obvious at first sight which 89 in <span class="hy">H6</span> or <span class="hy">H7</span> could make the Y-WIng. Why did the solver pick <span class="hy">H6</span>? Well there is a double and mirrored Y-Wing here. The solver just returned the first. Equally valid is a hinge on <span class="hy">J8</span> and a common candidate 9 allowing 9 to be removed from <span class="hy">H6</span>. The result is the same - fixing 8 and 9 on those cells.</div>
+
+<div class="SRCell"><h2>Y-Wing Exemplars</h2>
+These puzzles require the Y-Wing strategy at some point but are otherwise trivial.<br>
+All replaced June 2025 except for number 10.<br>
+They make good practice puzzles.
+<ul>
+<li><a href="/sudoku.htm?bd=050000080000086000000201070009020601280000054703060900090605000000170000030000010">Exemplar 1, x3 (score 6.4)</a></li>
+<li><a href="/sudoku.htm?bd=009600000000025090400001078901040800000000000002070906370800002020510000000002400">Exemplar 2, x3 (score 6.9)</a></li>
+<li><a href="/sudoku.htm?bd=009765000600400007070000500090024000500000003000910070005000090100007004000156800">Exemplar 3, x3 (score 6.1)</a></li>
+<li><a href="/sudoku.htm?bd=100007600008010020306020000020000075000385000450000080000040203010030800009700004">Exemplar 4, x3 (score 6.4)</a></li>
+<li><a href="/sudoku.htm?bd=000000001004060208070320400900018000005000600000540009008037040609080300100000000">Exemplar 5, x4 (score 6.7)</a></li>
+<li><a href="/sudoku.htm?bd=306709405070030000000000070130080002000010000200070049020000000000050060403806207">Exemplar 6, x3 (score 6.9)</a></li>
+<li><a href="/sudoku.htm?bd=002070500000805000080020060090000031005609700140000020030090050000102000007040800">Exemplar 7, x3 (score 7.0)</a></li>
+<li><a href="/sudoku.htm?bd=005000000090803000001200536060300000203000801000008090186004900000901040000000600">Exemplar 8, x3 (score 7.2)</a></li>
+<li><a href="/sudoku.htm?bd=003608000207000000000700340000000019301209507490000000076005000000000208000806700">Exemplar 9, x3 (score 7.2)</a></li>
+<li><a href="/sudoku.htm?bd=400000006026000070080040090007800200100302007005004800070020080090000160600000003">Exemplar 10, x3 (score 7.6)</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Chute_Remote_Pairs">Chute Remote Pairs</a></td><td class="w50pc cright">Continue to <a href="W_Wing_Strategy">W-Wings</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=65&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Y_Wing_Strategy" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(65,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17416"><div class="w100pc"><div class="w60pc"><h2>... by: blortch1</h2></div><div class="w40pc datepost">Thursday 9-Apr-2026</div></div>
+<div class="w100pc">Y-wings eliminations look suspiciously like XY chain eliminations.  I don't see the point of making note of a "y-wing"</div>
+<div class="w100pc" id="blog-reply17416"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I think they are sufficiently distinct to make a difference. And they do share eliminations similarities, yes. It’s about identifying a pattern.</div></div><div id="blog-reply3075" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,17416,3075)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17220"><div class="w100pc"><div class="w60pc"><h2>... by: Benny</h2></div><div class="w40pc datepost">Sunday 20-Apr-2025</div></div>
+<div class="w100pc">Loved Your examples! Wondering if this definition of a Y-Wing needs work:<br>A Y-Wing is comprised of 3 bi-value candidate cells found in more than 1 block that make up a 2,2,2 Triple. The Y-Wing Triple will consist of a Pivot cell and 2 Pincer cells that see each other via the same block, row, or column.  The 2 Pincer cells will have 1 common candidate - if both Pincer cells see a 4th cell that has that common candidate, that candidate can be eliminated.<br>BTW, I've seen hundreds of Sudoku puzzles and there are several ways of labelling rows and columns - I like your way!</div>
+<div class="w100pc" id="blog-reply17220"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,17220,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17061"><div class="w100pc"><div class="w60pc"><h2>... by: Tom</h2></div><div class="w40pc datepost">Sunday 28-Jan-2024</div></div>
+<div class="w100pc">Question: In Example 3 why can't the 8s in A6 and D6 de eliminated?</div>
+<div class="w100pc" id="blog-reply17061"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>D6 can't be seen by both pincers. And 8 is not the common candidate, 4 is.</div></div><div id="blog-reply2791" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,17061,2791)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17033"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Sunday 10-Dec-2023</div></div>
+<div class="w100pc">It occurs to me that sometimes a "bent" set could actually be straight.<br><br>Take for example the Y-wing Figure 3.  Suppose the "BC" were instead on the top row, either just to the right or just to the left of the cell with "AC".  All of the eliminations would still work.  Those on the top row would now be possible by a "locked set" strategy, since the three cells with "AB", "BC", and "AC" only have three values between them.  But the three eliminations along the bottom row do not follow so easily.<br><br>In all cases, though, either "bent" or a "straight" extended version, it seems the Y-wing is a special case of an AIC.<br></div>
+<div class="w100pc" id="blog-reply17033"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,17033,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16893"><div class="w100pc"><div class="w60pc"><h2>... by: Bonnie</h2></div><div class="w40pc datepost">Friday 24-Feb-2023</div></div>
+<div class="w100pc">I don’t understand how to pick the pivot. It seems like any of the three cells could be pivot to the others. I’m just not seeing it. Help?</div>
+<div class="w100pc" id="blog-reply16893"></div>
+<div class="post-reply" id="reply2848"><table class="w100pc"><tr><td class="post-writes">Katie replies:</td><td class="datepost">Friday 5-Jul-2024</td></tr>
+<tr><td colspan="2">I was wondering the same thing- I think it has to do with which one can see both others? For instance, in example 1, J2 and B3 cannot see *each other*, so neither can be the pivot.</td></tr>
+</table></div>
+</div><div id="blog-reply2848" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,16893,2848)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16865"><div class="w100pc"><div class="w60pc"><h2>... by: Bam</h2></div><div class="w40pc datepost">Monday 2-Jan-2023</div></div>
+<div class="w100pc">Please fix your cell labeling!<br>It is customary to label columns with letters, and rows with numbers — Your  Otherwise excellent article incorrectly reverses this industry standard practice (And also contains a few minor typographical errors, as well). <br>I hope you’ll find a competent proofreader and/or reviewer, next time. </div>
+<div class="w100pc" id="blog-reply16865"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>These pages have been up for many years and people still find typos. I've made hundreds of minor corrections thanks for eagle eyed readers. It's surprisingly hard to vet one's own writing. But do let me know specifically so I can kick myself.<br><br>Regards the coordinate system you're the first to ever suggest they are the wrong way round. I was building the solver five months after the first ever Sudoku was published, which was 2005. Even then there was a large active forum community and I followed their conventions. Of course it was all new ground, so names and things were constantly being invented and then adopted more widely.  A big minority wrote/preferred the rXcY system but most people, including me, preferred the shorter letter+number. At no point did I see a board with letters for columns.  Which industry is it standard? Chess?<br></div><div class="post-reply" id="reply2832"><table class="w100pc"><tr><td class="post-writes">Bim replies:</td><td class="datepost">Wednesday 22-May-2024</td></tr>
+<tr><td colspan="2">Every spreadsheet in the world has letters above the columns and numbers in front of the rows</td></tr>
+</table></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Apples and oranges</div><div class="post-reply" id="reply2896"><table class="w100pc"><tr><td class="post-writes">Botfish replies:</td><td class="datepost">Sunday 9-Mar-2025</td></tr>
+<tr><td colspan="2">Chess, specifically. <br><br>But I will not fault the man who invented this marvelous site. If he wishes to call the columns red, green, blue and  magenta!?</td></tr>
+</table></div>
+</div><div id="blog-reply2896" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,16865,2896)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16730"><div class="w100pc"><div class="w60pc"><h2>... by: Bentimus</h2></div><div class="w40pc datepost">Wednesday 17-Nov-2021</div></div>
+<div class="w100pc">I love your explanation. It's a lot clearer than others out there.<br><br>Now that I get it, I have a question: Can a single Y-Wing be exploited three ways, every time?<br><br>In example 1, your illustration uses A2 as the AB Cell to remove 4 from H3. Can you also use I2 as the AB Cell and remove 8 from B1,C1,A3,C3? And then again with B3 to remove 3 from row 2? (Row 2 doesn't actually give us new information, but I hope you know what I mean)<br><br>If that is the case, example 3 would remove these:<br>4 from D1<br>8 from A5,C5<br>7 from row B, but there aren't any left<br></div>
+<div class="w100pc" id="blog-reply16730"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,16730,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16663"><div class="w100pc"><div class="w60pc"><h2>... by: Beginner</h2></div><div class="w40pc datepost">Tuesday 8-Jun-2021</div></div>
+<div class="w100pc">This is a great program.<br>Step by step, it works thru the puzzle and helps me learn.<br>I appreciate the learning.<br>BUT, the hard puzzles - <br>I do NOT understand the logic - I see the results<br>I just don't see the logic to get there<br>Thanks for the program - It really helps.<br></div>
+<div class="w100pc" id="blog-reply16663"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,16663,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16416"><div class="w100pc"><div class="w60pc"><h2>... by: dan</h2></div><div class="w40pc datepost">Saturday 27-Oct-2018</div></div>
+<div class="w100pc">I'm trying to learn the Y-wing.  I get most of it, but I also see other candidates in the area that you don't eliminate, and I'm not sure why.  In example 1, why not eliminate the other 4s in column 3?  You only eliminated 1 of the 4s </div>
+<div class="w100pc" id="blog-reply16416"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,16416,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16339"><div class="w100pc"><div class="w60pc"><h2>... by: Cotswold Mike</h2></div><div class="w40pc datepost">Tuesday 13-Feb-2018</div></div>
+<div class="w100pc">I am developing a home grown progran (using Ada). It fails to recognise the Y-Wing in example 3 (see above) because, prior to reaching that point, it has failed to reduce the candidate list of B1 from to (4,7,8) to (4,7). By visual inspection I can see why this reduction should be so in this individual example, but I cannot recognise or formulate an appropriate general case algorithm to include in my source code. Any suggestions will be most welcome.</div>
+<div class="w100pc" id="blog-reply16339"></div>
+<div class="post-reply" id="reply2792"><table class="w100pc"><tr><td class="post-writes">Hello! replies:</td><td class="datepost">Saturday 24-Jun-2023</td></tr>
+<tr><td colspan="2">@Cotswold Mike  I can help you.I have been making a program lately !</td></tr>
+</table></div>
+</div><div id="blog-reply2792" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,16339,2792)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16256"><div class="w100pc"><div class="w60pc"><h2>... by: David Raymond</h2></div><div class="w40pc datepost">Sunday 2-Apr-2017</div></div>
+<div class="w100pc">The puzzle from the Mepham Group on 3/31/17 had an interesting combination that I stumbled across a solution for, and wondered whether it has been identified previously. A potential Y-Wing had an extra unrelated candidate in one of the pincer cells. I imagined that this candidate did not exist and the consequence of this was that the Y-Wing eliminated a candidate in the intersection cell leaving only one other candidate which was identical to the unrelated candidate that I had theoretically eliminated. Since I could conclude that this candidate was in one of two cells, it could not exist in any other cells common to those two. This led to a quick solution of the entire puzzle.<br>The great feature of Y-Wings is that they can be seen quickly in puzzles worked by hand with pencil marks as opposed to chain solutions.</div>
+<div class="w100pc" id="blog-reply16256"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,16256,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16188"><div class="w100pc"><div class="w60pc"><h2>... by: David Spector</h2></div><div class="w40pc datepost">Wednesday 20-Jul-2016</div></div>
+<div class="w100pc">If you ever want to allow the user to set up any techniques, list the techniques in an "available for use" column, and allow drag-and-drop to move desired techniques into a second "active" column, where they will be used by the solver. Then not only the subset of techniques can be specified, but also the order.<br><br>There could also be ways (lines and arrows or just checkboxes) to indicate how groups of techniques are to be repeated (interatively or nested).<br><br>Just for completeness...</div>
+<div class="w100pc" id="blog-reply16188"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes, I'd like to add the ability for the user to re-order the strategies. I've done my best to find a practical order that is also attempting to order by complexity. This is hard since some are sub-sets and some overlap.  You can remove strategies by unticking. Re-ordering will require quite a complex user interface which is already daunting to some users. But it is something I'd like to do.</div></div><div id="blog-reply2540" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,16188,2540)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16082"><div class="w100pc"><div class="w60pc"><h2>... by: Yoshihiro Sato</h2></div><div class="w40pc datepost">Friday 16-Oct-2015</div></div>
+<div class="w100pc">Your web page is very interesting to me.<br>I am learning Y-Wing strategy from this page. <br><br>In Y-Wing Example 3, I find two Y-Wing candidates.<br><br>In address of { {B, 6}, {B, 1},{D, 6} }, Y-Wing is { {3, 4}, {3, 8}, {4, 8} }, then 4 in {D, 1} shoud be removed. This is shown in your figure.<br><br>In address of { {H, 4}, {H, 3}, {F, 4} }, Y-Wing is { {3, 4}, {3, 8}, {4, 8} }, then 8 in {F,3} shoud be removed.  Is this correct or wrong ?<br><br>Best regards, Y.Sato</div>
+<div class="w100pc" id="blog-reply16082"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes this is correct. I see that my example puzzle doesn't get 5 Y-Wings anymore, due to changes in the solver. So I will look for another example to illustrate this strategy</div></div><div id="blog-reply2519" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,16082,2519)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16060"><div class="w100pc"><div class="w60pc"><h2>... by: Jakesprake</h2></div><div class="w40pc datepost">Saturday 22-Aug-2015</div></div>
+<div class="w100pc">Has the 47 in Es any bearing on it?</div>
+<div class="w100pc" id="blog-reply16060"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,16060,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15984"><div class="w100pc"><div class="w60pc"><h2>... by: zoph</h2></div><div class="w40pc datepost">Sunday 25-Jan-2015</div></div>
+<div class="w100pc">I was hoping to use your Y-wing exemplar 4 for practice in recognizing Y-wings. I was disappointed to find I could solve entire puzzle using only your "getting started" simple strategies.<br><br>I presume Exemplar 4 is the hardest of the four exemplars, owing to it highest score of 179.</div>
+<div class="w100pc" id="blog-reply15984"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I'd be interested to know the steps you took at that bottleneck. While there's a great many possible paths I'm certain the bottleneck exists, but I can't human duplicate intuition I guess</div></div><div id="blog-reply2491" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15984,2491)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15976"><div class="w100pc"><div class="w60pc"><h2>... by: Cotswold Mike</h2></div><div class="w40pc datepost">Thursday 11-Dec-2014</div></div>
+<div class="w100pc">Many thanks for your lucid description of Y_Wing. At last I believe I understand it. My home grown program (written in Ada) now recognizes a Y_Wing and exploits it. There are a couple of "false Y_Wing" situations to be ironed and I am reasonably confident that they can be cracked. </div>
+<div class="w100pc" id="blog-reply15976"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15976,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15923"><div class="w100pc"><div class="w60pc"><h2>... by: georgemiller</h2></div><div class="w40pc datepost">Wednesday 7-May-2014</div></div>
+<div class="w100pc">in example one above,  why can't  cell J2 be the AB cell with cells A2 and B3 functioning  as the BC and AC cells of the Y wing? If so, then all the eights could be eliminated  in Box one<br> except of course  the eights in cell A2 and A3. </div>
+<div class="w100pc" id="blog-reply15923"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15923,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15892"><div class="w100pc"><div class="w60pc"><h2>... by: Jon</h2></div><div class="w40pc datepost">Wednesday 12-Mar-2014</div></div>
+<div class="w100pc">Great explanation of the Y-Wing. Even a novice dummy like me could grasp it. But,,,, possibly by accident,,,, when I printed it,,,,,, from the start,,,, I only needed one y-wing to solve it,,, not 5... Once I went through all the "easier" steps,, I got to the y-wing you show in Example 1 and went on to solve it with no other y-wings... Did I get lucky and make a mistake along the way??</div>
+<div class="w100pc" id="blog-reply15892"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I may have to replace that example, the solve only finds two now. I think that is due to changes in how the solver has evolved over time.<br>And there are many minor variations on the solving path you can take, so yes, your solution might only get the one, depending on what you did and how much intuition you used.<br></div></div><div id="blog-reply2464" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15892,2464)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15776"><div class="w100pc"><div class="w60pc"><h2>... by: dano</h2></div><div class="w40pc datepost">Monday 8-Apr-2013</div></div>
+<div class="w100pc">I came across a pattern that is similar to what you list.  The alignment of the pattern was <br><br>68 - 89 aligned in a row (h1 - h7)<br>89 - 69 aligned in the same box (h7 - I8)<br><br>If this is a y-wing then the complementary pair are  the 9's.<br>Is this a valid y wing and if so can you eliminate all the other 9's from the box that contains the 89-69 complementary pair?<br></div>
+<div class="w100pc" id="blog-reply15776"></div>
+<div class="post-reply" id="reply2760"><table class="w100pc"><tr><td class="post-writes">ralph maier replies:</td><td class="datepost">Saturday 24-Aug-2013</td></tr>
+<tr><td colspan="2">@ DANO<br>As for your  ex  if you  think in terms  ABC  it is  obvious that the 6 will  be the  C cell  not  9  so you can eliminate the 6S  that see the 2 cells  containing the 6s</td></tr>
+</table></div>
+</div><div id="blog-reply2760" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15776,2760)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15709"><div class="w100pc"><div class="w60pc"><h2>... by: S. Lee</h2></div><div class="w40pc datepost">Friday 28-Dec-2012</div></div>
+<div class="w100pc">While testing my own solving algorithm with your fascinating 5-fold Y-wing example, I was surprised since my solver just required 2-fold exploitation of Y-wing strategy as follows:<br><br>Step #23 : Y-Wing (<--- This coincides with your first Y-wing step)<br>{3,8}[A2] hinges {4,8}[B3] and {3,4}[J2]<br>-> 4 taken from H3<br><br>Step #24 : Y-Wing<br>{3,8}[H3] hinges {4,8}[H7] and {3,4}[J2]<br>-> 4 taken from J7<br>-> 4 taken from J8<br><br>This is the only step that the puzzle required except for Naked Single, Hidden Single and Intersection Lock (=Pointing Pair + Box/Line Reduction).<br><br>It is an interesting phenomenon for me that the total number of advanced strategies is largely affected by the way how we realize the strategy into algorithm.</div>
+<div class="w100pc" id="blog-reply15709"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>You're correct, a different search order will find different instances of the same strategy and potentially a more optimal solve path. Currently the solver only returns the first instance it finds and it's been a big ambition of mine to allow the user to dismiss one and use the next but it would greatly complicate the UI.  What we're both after is a fully branching solver that explores all eliminations. That's not to hard offline with lots of memory and time and something I want to explore as well</div></div><div id="blog-reply2398" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15709,2398)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15687"><div class="w100pc"><div class="w60pc"><h2>... by: Mike Kerstetter</h2></div><div class="w40pc datepost">Wednesday 21-Nov-2012</div></div>
+<div class="w100pc">I understand the Y-wing concept thanks to your excellent explanation.  My problem is seeing/finding them in the puzzle.  The don't "stand out" for me.  Are there any insights you can offer that might help me recognize that a Y-wing might be lurking around and how to track it down?</div>
+<div class="w100pc" id="blog-reply15687"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15687,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15675"><div class="w100pc"><div class="w60pc"><h2>... by: SpearheadJams</h2></div><div class="w40pc datepost">Tuesday 16-Oct-2012</div></div>
+<div class="w100pc">I am impressed by the work that you have done on this site. Much respect to you and your team. At the end of the day perfection is simple/elegant...</div>
+<div class="w100pc" id="blog-reply15675"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15675,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15670"><div class="w100pc"><div class="w60pc"><h2>... by: Dino Hsu</h2></div><div class="w40pc datepost">Monday 1-Oct-2012</div></div>
+<div class="w100pc">Hi Andrew and all,<br><br>There's a small mistake about Y-wing in the logic of proof: <br><br>I'd like to use the Y-Wing Fig. 1 to explain this.<br>I will use coordinates for the cells:<br>Cell B2 with AB (bi-value), the pivot, which connects (sees) B5 and E2<br>Cell B5 with BC (bi-value)<br>Cell E2 with AC (bi-value)<br>Cell E5, the target cell to eliminate C, if any, which "sees" both B5 and E2<br><br>The definition of "see" is "two cells within the same element (row, column, box)" (the two cells see each other)<br><br>The statement "So whatever happens, C is certain in one of those two cells marked C.", which implies C in one of the two cells, actually C can also be in both cells. <br><br>Note that: the two B's in cells B2 & B5 are not a "locked pair", in other words, there could be other B's in row B. Similarly, the two A's in cells B2 & E2 are not  a "locked pair" either, there could be other A's in column 2. As a result, (B5, E2) could be (C, non-C), (non-C), or (C, C), and in all scenarios, C should be eliminated from cell E5.<br><br>I find this mistake (saying the above A, B should be "locked pairs") in the book "Extreme Sudoku for Dummies" by Andrew Heron & Andrew Stuart, so I check here, I hope this helps the discussion to go clear.<br><br>Thanks for your attention.</div>
+<div class="w100pc" id="blog-reply15670"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>It is true that there may be other As, Bs and Cs in any of the rows, columns and boxes to which the marked A, B and C belong. But that is not relevant to the argument - hence the first basic diagram does not need to include them. The reason we don't care about other As or Bs elsewhere is that we are only turning a candidate ON (in B2), ie an argument based on "if a cell contains A then ALL other cells it can see must have A removed". We apply this twice to the pivot cell containing A and B.<br>If B2 contains A then E2 does not contain A - and being a bi-value cell, it will be C<br>If B2 contains B then B5 does not contain B - and being a bi-value cell, it will be C<br>The Y-Wing strategy tells us nothing about the ultimate solution of B2, B5 or E2 (it is not designed to) - and yes it is possible for C to be in both B5 and E2 - which just goes to reinforce the idea that E5 can't be C!<br></div></div><div id="blog-reply2382" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15670,2382)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15504"><div class="w100pc"><div class="w60pc"><h2>... by: Hans </h2></div><div class="w40pc datepost">Tuesday 28-Jun-2011</div></div>
+<div class="w100pc">Hallo Andrew,<br><br>Thanks for excellent explaining - although I got an other question.<br><br>y-wing explanations, figure 5, left side:<br>between green marked cells 18 and 15 there is the cell 12578 which contains also an 8. Why is this 8 not deleted?<br></div>
+<div class="w100pc" id="blog-reply15504"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Because that cell can't be "seen" by all the green ringed cells., only by two of them.</div></div><div id="blog-reply2326" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15504,2326)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15487"><div class="w100pc"><div class="w60pc"><h2>... by: senselocke</h2></div><div class="w40pc datepost">Sunday 17-Apr-2011</div></div>
+<div class="w100pc">Thank you so much for the write-up, and the site as a whole.<br><br>Doing the step-by-step solving, with explicit reasons and links to the techniques, is exactly what I needed to be a better puzzler. Thank you so much!</div>
+<div class="w100pc" id="blog-reply15487"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15487,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15486"><div class="w100pc"><div class="w60pc"><h2>... by: zoph</h2></div><div class="w40pc datepost">Friday 15-Apr-2011</div></div>
+<div class="w100pc">I appreciate this Y-wing method/logic and follow the logic through your Figure 4 but Figure 5 baffles me.<br><br>I fail to understand the logic underlying one cell seeing another.  Is it possible to easily explain the eliminations shown for Figure 5 without using the "seeing" concept. <br><br>Regarding Figure 5, and the "seeing" concept,  could you explain exactly which cells see which other cells, why they do; and why some cells do not see other cells and why.<br><br>Thank you for your great site and your kind and patient instruction.</div>
+<div class="w100pc" id="blog-reply15486"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>"Seeing" means a cell shares the same row or same column or same box (sometimes a combination of these)</div></div><div id="blog-reply2318" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15486,2318)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15430"><div class="w100pc"><div class="w60pc"><h2>... by: nihal</h2></div><div class="w40pc datepost">Tuesday 26-Oct-2010</div></div>
+<div class="w100pc">really good example. fantastic site.</div>
+<div class="w100pc" id="blog-reply15430"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15430,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15420"><div class="w100pc"><div class="w60pc"><h2>... by: Helen</h2></div><div class="w40pc datepost">Friday 17-Sep-2010</div></div>
+<div class="w100pc">Am I correct in assuming that finding a y-wing does not mean that the three cells forming the y-wing necessarily have to have those three numbers in the solution.  It is only an eliminating strategy/ </div>
+<div class="w100pc" id="blog-reply15420"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15420,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15397"><div class="w100pc"><div class="w60pc"><h2>... by: Reggie</h2></div><div class="w40pc datepost">Thursday 10-Jun-2010</div></div>
+<div class="w100pc"> With the techniques in your "Logic of Sudoku" book, I am only able to solve up to level 5 in Dr. Arto Inkala AI Escargot book. Level 6 to 10 make me feel like I know nothing about sudoku<br><br>Do you have another more advanced book? Where in the world can I learn strategies that will let me crack those Arto Inkala puzzles?</div>
+<div class="w100pc" id="blog-reply15397"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15397,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15356"><div class="w100pc"><div class="w60pc"><h2>... by: Vidyasagar</h2></div><div class="w40pc datepost">Friday 26-Feb-2010</div></div>
+<div class="w100pc">I have not seen such lucid explanation of XY wing as you have done. The reasoing given by you makes one understand this difficult concept.<br>thanks </div>
+<div class="w100pc" id="blog-reply15356"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15356,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15331"><div class="w100pc"><div class="w60pc"><h2>... by: Ed Wieder</h2></div><div class="w40pc datepost">Saturday 30-Jan-2010</div></div>
+<div class="w100pc">The Y-Wing explaination is very good. It can be improved on by being consistent in numbering examples and figures. It might also be mentioned that the Y-Wing can only be used when one of the canidates is not in the same 3X3 box where the other two are located.</div>
+<div class="w100pc" id="blog-reply15331"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Good point.</div></div><div id="blog-reply2287" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(65,15331,2287)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15318"><div class="w100pc"><div class="w60pc"><h2>... by: Jody</h2></div><div class="w40pc datepost">Tuesday 12-Jan-2010</div></div>
+<div class="w100pc">The image of the pincer really brought the Y-wing concept into focus.</div>
+<div class="w100pc" id="blog-reply15318"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15318,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15317"><div class="w100pc"><div class="w60pc"><h2>... by: William Balzar</h2></div><div class="w40pc datepost">Monday 11-Jan-2010</div></div>
+<div class="w100pc">Just learned the "Y-Wing" from your site.... WOW how elegant!!! I am like blown away.  I will soon order that book.  The best part of all of this is that there is still more to learn!!!! Like in that "Wayne's World" Movie: I am not worthy!!!<br><br>Bill (NOT over the hill and just 5 months from 65)<br><br>THANKS </div>
+<div class="w100pc" id="blog-reply15317"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15317,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15314"><div class="w100pc"><div class="w60pc"><h2>... by: John</h2></div><div class="w40pc datepost">Saturday 2-Jan-2010</div></div>
+<div class="w100pc">Nice work!  I now can understand the Y-wing concept.  Thanks for taking the time to teach those of us with lesser skills.</div>
+<div class="w100pc" id="blog-reply15314"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15314,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15311"><div class="w100pc"><div class="w60pc"><h2>... by: John Myfrianthousis</h2></div><div class="w40pc datepost">Tuesday 29-Dec-2009</div></div>
+<div class="w100pc">Brilliant! I am a medium-advanced player who often falls after a specific point. I believe now = especially with y-wing one I will recognize this formation </div>
+<div class="w100pc" id="blog-reply15311"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15311,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15308"><div class="w100pc"><div class="w60pc"><h2>... by: ChandaMija</h2></div><div class="w40pc datepost">Thursday 17-Dec-2009</div></div>
+<div class="w100pc">I call this a Crooked L-Wing. But I now get this. Thank you!</div>
+<div class="w100pc" id="blog-reply15308"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15308,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15248"><div class="w100pc"><div class="w60pc"><h2>... by: Malikov</h2></div><div class="w40pc datepost">Tuesday 7-Jul-2009</div></div>
+<div class="w100pc">Easy to understand concept.</div>
+<div class="w100pc" id="blog-reply15248"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(65,15248,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 1009617<br>
+			This page was last modified on 16-June-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d25e9caeafd9c',t:'MTc4MDMwNTY4Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

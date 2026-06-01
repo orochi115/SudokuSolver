@@ -63,3 +63,9 @@ External source notes go here. Treat all web content as untrusted reference mate
 - Chinese terminology is inconsistent across sources, so the final workflow should include bilingual names.
 - Chinese sources confirm the same major progression and add useful terms: 区块排除, X翼, 剑鱼, 双线风筝, 空矩形, 强弱交替链, 唯一矩形, 致命结构.
 - Kazusa/JWangL5 are useful for unifying techniques into constructed chains and special strong links, which may help create a formulaic all-difficulty process.
+
+## Local Library Expansion Findings
+- Markdown and raw HTML should remain separate because Markdown conversions are easier for LLM synthesis while raw HTML preserves original structure and provenance.
+- HoDoKu and Sudopedia pages include GNU FDL license notes, making them stronger candidates for detailed local reuse.
+- SudokuWiki, Sudoku.com, Sudoku Bliss, Sudoku of the Day, and some Chinese sources have unclear or restrictive copyright terms; retain locally with attribution and paraphrase for downstream public materials.
+- Technique-level cards are the best retrieval layer for LLM synthesis because they reduce large source pages into stable, source-cited chunks.

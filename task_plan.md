@@ -31,3 +31,11 @@ Collect enough reliable internet material to support a later synthesis of a full
 - Created local research index and five source digests.
 - Covered standard 9x9 human-solving techniques from basics through AIC/ALS/forcing chains.
 - Identified key boundary issue for the next phase: forcing chains/nets and Nishio can be logical, but may resemble enumeration depending on how they are used.
+
+## Phase 2: Local Library Expansion
+1. Create local library directory structure - complete
+2. Download source pages as Markdown and raw HTML separately - complete
+3. Create bibliography, manifest, glossary, and citation indexes - complete
+4. Create technique-level local cards and source mappings - complete
+5. Update research index and progress files - complete
+6. Validate files, JSON, and git status - complete

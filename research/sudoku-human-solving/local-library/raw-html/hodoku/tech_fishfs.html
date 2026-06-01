@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Finned/Sashimi Fish</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Finned/Sashimi Fish - Finned X-Wing, Sashimi X-Wing, Finned Swordfish, Sashimi Swordfish">
+    <meta name="keywords" content="sudoku,java,hodoku,finned fish, sashimi fish,fin,finned x-wing,finned swordfish,finned jellyfish,sashimi x-wing,sashimi swordfish,sashimim jellyfish">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechFS a, #menu ul li ul li.mTechFS a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_fishfs.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_fishfs.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Finned/Sashimi Fish</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#fbf2">Finned/Sashimi X-Wing</a></li>
+        <li><a href="#fbf3">Finned/Sashimi Swordfish</a></li>
+<!--        <li class="ni"><ul>
+            <li><a href="#display_mode_1">Sudoku only view (standard)</a></li>
+            <li><a href="#display_mode_2">Summary view</a></li>
+        </ul></li> -->
+        <li><a href="#fbf4">Finned/Sashimi Jellyfish</a></li>
+        <li><a href="#fbf567">Larger Finned/Sashimi Fish</a></li>
+    </ul>
+    <hr>
+
+    <p>For a detailed discussion of Finned/Sashimi Fishes please see <a href="tech_fishg.php#ff">here</a>.</p>
+    <h1><a name="fbf2"></a>Finned/Sashimi X-Wing</h1>
+    <p>A Finned X-Wing is a regular X-Wing, where one or more base candidates are not covered
+    by a cover set. As explained in <a href="tech_fishg.php#ff">Fish (general)</a>, only those
+    cover candidates can be eliminated that see all the fins (and are of course not base candidates).</p>
+    <p>A Finned Fish becomes Sashimi, if the remaining fish is incomplete (or degenerate), when all
+    fins are false.</p>
+    <a href='show_example.php?file=fbf201&amp;tech=Finned+X-Wing'><img class='scr_l' src='../examples/fbf201.png' alt='Sudoku technique: Example for Finned+X-Wing'></a>    <a href='show_example.php?file=sbf201&amp;tech=%28Finned%29+Sashimi+X-Wing'><img class='scr_l' src='../examples/sbf201.png' alt='Sudoku technique: Example for %28Finned%29+Sashimi+X-Wing'></a>    <p>In the left example we have an X-Wing in r24/c35. Unfortunately we have an additional base candidate
+    in r2c1, which is not contained in one of the cover sets (c35). This candidate is the fin. If the fin
+    was not true, we would have a regular X-Wing that could eliminate 9 from r35c3 and r5c5 (the
+    possible eliminations). If the fin is true, it eliminates 9 from r1c1, r2c35 and r3c3. Since one
+    of the two possibilities has to be true (either the fin is false, then we have the X-Wing, or it
+    is true), the intersection of the two sets of deleteable candidates can be eliminated
+    (in other words: all possible eliminations that see all the fins). In our example only one
+    cell is part of both sets: r3c3.</p>
+    <p>On the right we have a (Finned) Sashimi X-Wing in c36/r37 with two fins at r89c3. If none of
+    the fins were true, an X-Wing would remain. On further inspection we see, that the remaining
+    X-Wing could be replaced by a single in r3c3 (followed by another in r7c6): The X-Wing is
+    degenerate. That's what makes this fish Sashimi. The logic is the same as with a normal
+    Finned X-Wing: r7c1 is the only cover candidate that can see both fins, it can be eliminated.</p>
+    <hr>
+
+    <h1><a name="fbf3"></a>Finned/Sashimi Swordfish</h1>
+    <p>Finned/Sashimi Swordfish works exactly like Finned/Sashimi X-Wing only with three
+    base/cover sets instead of two.</p>
+    <a href='show_example.php?file=fbf301&amp;tech=Finned+Swordfish'><img class='scr_l' src='../examples/fbf301.png' alt='Sudoku technique: Example for Finned+Swordfish'></a>    <a href='show_example.php?file=sbf301&amp;tech=%28Finned%29+Sashimi+Swordfish'><img class='scr_l' src='../examples/sbf301.png' alt='Sudoku technique: Example for %28Finned%29+Sashimi+Swordfish'></a>    <p>The left is a Swordfish c159/r357, the "leftover" base cell r1c9 is the fin. The possible eliminations
+    of the Swordfish without the fin are r3c7, r5c3, and r7c6. Of those only r3c7 sees the fin (same box)
+    and can be eliminated.</p>
+    <p>The right Swordfish is a Swordfish in the rows: r269/c258, fin in r6c4. The only two cover cells that
+    see the fin are r45c5, thus two eliminations. Without the fin in r6c4 we would have a single in r6c2,
+    therefore Sashimi.</p>
+    <hr>
+
+    <h1><a name="fbf4"></a>Finned/Sashimi Jellyfish</h1>
+    <p>If we add another base/cover set combination we get a Finned/Sashimi Jellyfish.</p>
+    <a href='show_example.php?file=fbf401&amp;tech=Finned+Jellyfish'><img class='scr_l' src='../examples/fbf401.png' alt='Sudoku technique: Example for Finned+Jellyfish'></a>    <a href='show_example.php?file=sbf401&amp;tech=%28Finned%29+Sashimi+Jellyfish'><img class='scr_l' src='../examples/sbf401.png' alt='Sudoku technique: Example for %28Finned%29+Sashimi+Jellyfish'></a>    <p>Left example: Finned Jellyfish r2479/c1348, fin in r4c9. Cover cells r56c8 see the fin. If
+    the fin is false, the fish would degenerate into a Swordfish (r479/c134) eliminating
+    9 from r26c3. This Finned Jellyfish could therefore be called Sashimi too.</p>
+    <p>Right example: Jellyfish r1469/c1289, fin in r9c3, eliminations r7c12, r8c12. Without fin
+    we get a single in r9c9 thus Sashimi.</p>
+    <hr>
+
+    <h1><a name="fbf567"></a>Larger Finned/Sashimi Fish</h1>
+    <p>For larger Finned/Sashimi Fish a complementary fish will exist for the same
+    eliminations. Searching for larger fishes is not necessary.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

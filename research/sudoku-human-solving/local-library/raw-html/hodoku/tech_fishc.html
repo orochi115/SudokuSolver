@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Complex Fish (Franken/Mutant Fish)</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Complex Fish (Franken X-Wing, Mutant X-Wing, Franken Swordfish, Mutant Swordfish)">
+    <meta name="keywords" content="sudoku,java,hodoku,complex fish,franken fish,mutant fish,finned franken fish,finned mutant fish,cannibalistic fish,endo fin,siamese fish">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechCF a, #menu ul li ul li.mTechCF a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_fishc.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_fishc.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Complex Fish</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#ff">(Finned) Franken Fish</a></li>
+        <li><a href="#mf">(Finned) Mutant Fish</a></li>
+<!--        <li class="ni"><ul>
+            <li><a href="#display_mode_1">Audoku only view (standard)</a></li>
+            <li><a href="#display_mode_2">Summary view</a></li>
+        </ul></li> -->
+        <li><a href="#sf">Siamese Fish</a></li>
+    </ul>
+    <hr>
+
+    <p>Note: The techniques and examples on this page are meant for advanced players. Most
+    sudokus would not need them.</p>
+
+    <h1><a name="ff"></a>(Finned) Franken Fish</h1>
+    <p>If at least one of the base or cover sets is a box, the resulting fish is called a
+    Franken Fish. The fish rules remain unchanged.</p>
+    <a href='show_example.php?file=ff401&amp;tech=Franken+Jellyfish'><img class='scr_l' src='../examples/ff401.png' alt='Sudoku technique: Example for Franken+Jellyfish'></a>    <a href='show_example.php?file=fff301&amp;tech=Finned+Franken+Swordfish'><img class='scr_l' src='../examples/fff301.png' alt='Sudoku technique: Example for Finned+Franken+Swordfish'></a>    <p>The image on the left above shows a Franken Jellyfish: r125b7/c1257
+    leads to the following eliminations: r3c257,r4c12,r6c257<>8. On first sight it looks
+    like a Basic Jellyfish in the rows. The only difference is that the fourth base set
+    is not a row but a block: This makes it a Franken Fish.</p>
+    <p>The right side shows exactly the same sudoku state as the left but a different
+    fish: c34b6/r346. There are three base/cover sets, so Swordfish. The base sets contain a block,
+    so Franken Swordfish. And one base candidate is "left over": r5c7. This is a fin, so Finned
+    Franken Swordfish. The elimination is r3c8.</p>
+    <p>Many advanced fish produce patterns that have been described under a different name.
+    Most of these different patterns are easier to spot. The additional possibilities introduced
+    by the use of boxes as base or cover sets lead to fishes with endo fins and cannibalism.
+    The possible varieties are really endless, below are two examples of these types of fish:</p>
+    <a href='show_example.php?file=fff201&amp;tech=Finned+Franken+X-Wing'><img class='scr_l' src='../examples/fff201.png' alt='Sudoku technique: Example for Finned+Franken+X-Wing'></a>    <a href='show_example.php?file=fff302&amp;tech=Cannibalistic+Finned+Franken+Swordfish+with+Endo+Fins'><img class='scr_l' src='../examples/fff302.png' alt='Sudoku technique: Example for Cannibalistic+Finned+Franken+Swordfish+with+Endo+Fins'></a>    <p>The left example shows a Finned Franken X-Wing: Base sets are row 6 and block 1, cover sets
+    are columns 3 and 5. 2 in r2c1 is not covered by a cover set and is therefore a fin.
+    The only possible elimination of the Unfinned Franken Fish is in r2c5. Since it happens to see
+    the fin, it becomes a real elimination. That pattern is better known as an
+    <a href="tech_sdp.php#er">Empty Rectangle</a>.</p>
+    <p>The example on the right is a more complex fish type: Base sets are rows 1 and 5 and box 3,
+    cover sets are columns 6 and 8 and box 2. Three base/cover sets means Swordfish, boxes
+    in base/cover sets mean Franken Swordfish. Possible eliminations are r2c4, r24c6, and r4c8.
+    On closer look we see, however, that base candidates r1c89 are not only in base set row 1,
+    but in base set box 3 too: They have to be treated as fins ("endo fins"). Since none of the
+    possible eliminations sees all the fins that leaves us with nothing to do. Fortunately, however,
+    base candidate r1c6 is contained in two cover sets: cover set column 6 and cover set box 2, it
+    is therefore a possible cannibalistic elimination. It does see all fins, so it becomes
+    the real elimination for this fish (a Cannibalistic Finned Franken Swordfish).</p>
+    <hr>
+
+    <h1><a name="mf"></a>(Finned) Mutant Fish</h1>
+    <p>If we allow all possible types of houses in the base and cover sets of our fishes, the
+    results get even more complicated. Again the smaller exemplars are often known
+    under a different name.</p>
+    <a href='show_example.php?file=fmf201&amp;tech=Finned+Mutant+X-Wing'><img class='scr_l' src='../examples/fmf201.png' alt='Sudoku technique: Example for Finned+Mutant+X-Wing'></a>    <a href='show_example.php?file=fmf401&amp;tech=Finned+Mutant+Jellyfish'><img class='scr_l' src='../examples/fmf401.png' alt='Sudoku technique: Example for Finned+Mutant+Jellyfish'></a>    <p>Let's again start with the left side: Base sets are row 6 and column 2, cover sets are
+    column 6 and block 4. Two sectors each means X-Wing, rows and columns mixed in the base sets
+    means Mutant X-Wing. Base cell r7c2 is not covered so Finned Mutant X-Wing. The elimination
+    is r7c6. This particular pattern is also known as a <a href="tech_sdp.php#t2sk">2-String-Kite</a>
+    or as <a href="tech_sdp.php#tf">Turbot Fish</a> (which incidentally is not a fish, but a chain...).</p>
+    <p>The example above on the right side shows a Finned
+    Mutant Jellyfish: r16c47/c1b358, fins in r1c6 and r7c7, the elimination is r7c6.</p>
+    <a href='show_example.php?file=fmf601&amp;tech=Finned+Mutant+Whale'><img class='scr_l' src='../examples/fmf601.png' alt='Sudoku technique: Example for Finned+Mutant+Whale'></a>    <p>The example on the left doesn't look much more complicated than the Jellyfish above, but it is.
+    It is the smallest available fish in the grid, a Finned Mutant Whale: 4 r35c89b49 r69c347b3
+    fr4c1 efr9c8 => r9c1<>4. Although it is funny to look at those monsters, it is highly unlikely
+    that a human solver should find such a fish. It isn't even necessary: The elimination can be
+    reproduced by a <a href="tech_chains.php#gnl">Grouped Nice Loop</a> or a
+    <a href="tech_last.php#fc">Forcing Chain</a>.</p>
+    <hr class="clear">
+
+    <h1><a name="sf"></a>Siamese Fish</h1>
+    <p>If at a given sudoku state two fishes of the same type exist, that occupy the same cells, but lead
+    to different eliminations, those two fishes can be combined into one Siamese Fish. For a
+    Siamese Fish to be possible, the fishes building it must be some kind of finned fish that differ
+    in one cover set. The easiest form of a Siamese Sashimi X-Wing is better known as
+    <a href="tech_sdp.php#sk">Skyscraper</a>.</p>
+    <a href='show_example.php?file=sfbf301&amp;tech=Siamese+Sashimi+Swordfish'><img class='scr_l' src='../examples/sfbf301.png' alt='Sudoku technique: Example for Siamese+Sashimi+Swordfish'></a>    <a href='show_example.php?file=sfbf401&amp;tech=Siamese+Sashimi+Jellyfish'><img class='scr_l' src='../examples/sfbf401.png' alt='Sudoku technique: Example for Siamese+Sashimi+Jellyfish'></a>    <p>The example on the left (posted on the Player's Forum) is a Siamese Sashimi Swordfish on 1: The first fish is in r358 c259, fin in r8c6,
+    that eliminates 1 from r7c5, the second is in r358 c269, fin in r5c5, eliminating 1 from r4c6.</p>
+    <p>The second example is a Siamese Sashimi Jellyfish on 8 (each fish has two fins): The first fish is in
+    r4678 c1689, fins in r4c2 and r6c2, eliminating 8 from r5c1 (note that although the second eliminated candidate
+    r9c2 sees both fins, it is not a cover candidate and can therefore not be eliminated by the first fish alone).
+    The second fish is in r4678 c2689, fins in r7c1 and r8c1, eliminating 8 from r9c2.</p>
+    <p>HoDoKu does support Siamese Fish, but only if option "Allow Duals/Siamese" is enabled.</p>
+    <hr class="clear">
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

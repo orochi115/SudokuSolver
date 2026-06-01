@@ -1,0 +1,567 @@
+﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>数独X-Wing技巧详解：跨行列的高级排除法</title>
+        <meta name="description" content="详解数独X-Wing技巧：当某个候选数在两行中各只出现在两列的相同位置时，可以从这两列中排除该候选数。高级数独解题策略，配图解析实战案例。">
+            <meta name="keywords" content="数独X-Wing,X-Wing技巧,数独高级技巧,数独解题,候选数排除,数独专家级,X翼技巧">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="数独X-Wing技巧详解：跨行列的高级排除法">
+        <meta property="og:description" content="详解数独X-Wing技巧：当某个候选数在两行中各只出现在两列的相同位置时，可以从这两列中排除该候选数。高级数独解题策略，配图解析实战案例。">
+        <meta property="og:url" content="https://cn.sudokupuzzle.org/sudoku-guide/x-wing/">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="数独X-Wing技巧详解：跨行列的高级排除法">
+        <meta property="twitter:description" content="详解数独X-Wing技巧：当某个候选数在两行中各只出现在两列的相同位置时，可以从这两列中排除该候选数。高级数独解题策略，配图解析实战案例。">
+    
+        <link rel="canonical" href="https://cn.sudokupuzzle.org/sudoku-guide/x-wing/">
+    
+            <link rel="alternate" hreflang="en" href="https://sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="zh-CN" href="https://cn.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="zh-TW" href="https://zh-tw.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="ja" href="https://jp.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="ko" href="https://ko.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="fr" href="https://fr.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="de" href="https://de.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="es" href="https://es.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="pt" href="https://pt.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="it" href="https://it.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="nl" href="https://nl.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="tr" href="https://tr.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="hi" href="https://hi.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="th" href="https://th.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="vi" href="https://vi.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="id" href="https://id.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="pl" href="https://pl.sudokupuzzle.org/sudoku-guide/x-wing/">
+        <link rel="alternate" hreflang="uk" href="https://uk.sudokupuzzle.org/sudoku-guide/x-wing/">
+    
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="/assets/css/font.css?v=20260417.1" rel="stylesheet">
+    <link href="/assets/css/style.css?v=20260417.1" rel="stylesheet">
+    <link href="/assets/css/guide.css?v=20260417.1" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Noto Sans SC, sans-serif;
+        }
+    </style>
+
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4194102731911926"
+            crossorigin="anonymous"></script>
+    </head>
+<body class="theme-light">
+
+<div class="main-container">
+    <aside class="sidebar d-none d-lg-block">
+    <div class="sidebar-content">
+        <div class="logo-container mb-4">
+            <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+            <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+            <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href='/' class='nav-item '>首页</a><a href='/how-to-play-sudoku/' class='nav-item '>游戏操作指南</a><a href='/how-to-solve-sudoku/' class='nav-item '>数独的解法</a><a href='/sudoku-solver/' class='nav-item '>数独解题器</a><a href='/sudoku-print/' class='nav-item '>打印题目</a><a href='/sudoku-answer/' class='nav-item '>查看答案</a><a href='#' class='nav-item active'><i class="bi bi-lightbulb me-1"></i>数独知识库</a>
+            <div class="nav-section mt-4">外部链接</div>
+            <a href="https://sudoku.today" target="_blank" class="nav-item external-link">
+                今日数独                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            <a href="https://samuraisudoku.com" target="_blank" class="nav-item external-link">
+                武士数独                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            
+            <a href="https://sudokuprintout.com" target="_blank" class="nav-item external-link">
+                Sudoku Printout                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+            
+            <a href="https://play.google.com" target="_blank" class="nav-item external-link">
+                Android 应用                <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+        </nav>
+
+        <div class="theme-switcher mt-4">
+            <button class="btn btn-sm btn-theme active" data-theme="light" title="Light Theme">
+                <i class="bi bi-sun"></i>
+            </button>
+            <button class="btn btn-sm btn-theme" data-theme="medium" title="Medium Theme">
+                <i class="bi bi-cloud-sun"></i>
+            </button>
+            <button class="btn btn-sm btn-theme" data-theme="dark" title="Dark Theme">
+                <i class="bi bi-moon"></i>
+            </button>
+        </div>
+    </div>
+</aside>
+
+    <main class="main-content">
+        <nav class="navbar navbar-expand-lg d-lg-none top-menu">
+  <div class="container-fluid flex-nowrap">
+    <div class="navbar-brand me-auto d-flex align-items-center">
+      <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+      <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+      <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+    </div>
+
+    <div class="d-flex align-items-center gap-2 flex-shrink-0">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-outline-secondary dropdown-toggle px-2 py-1" type="button" data-bs-toggle="dropdown">
+          <i class="bi bi-globe"></i>
+          <span class="lang-name d-none d-sm-inline">
+            简体中文          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item" href="https://sudokupuzzle.org">
+              English            </a></li>
+                      <li><a class="dropdown-item" href="https://cn.sudokupuzzle.org">
+              简体中文            </a></li>
+                      <li><a class="dropdown-item" href="https://zh-tw.sudokupuzzle.org">
+              繁體中文            </a></li>
+                      <li><a class="dropdown-item" href="https://jp.sudokupuzzle.org">
+              日本語            </a></li>
+                      <li><a class="dropdown-item" href="https://ko.sudokupuzzle.org">
+              한국어            </a></li>
+                      <li><a class="dropdown-item" href="https://fr.sudokupuzzle.org">
+              Français            </a></li>
+                      <li><a class="dropdown-item" href="https://de.sudokupuzzle.org">
+              Deutsch            </a></li>
+                      <li><a class="dropdown-item" href="https://es.sudokupuzzle.org">
+              Español            </a></li>
+                      <li><a class="dropdown-item" href="https://pt.sudokupuzzle.org">
+              Português            </a></li>
+                      <li><a class="dropdown-item" href="https://it.sudokupuzzle.org">
+              Italiano            </a></li>
+                      <li><a class="dropdown-item" href="https://nl.sudokupuzzle.org">
+              Nederlands            </a></li>
+                      <li><a class="dropdown-item" href="https://tr.sudokupuzzle.org">
+              Türkçe            </a></li>
+                      <li><a class="dropdown-item" href="https://hi.sudokupuzzle.org">
+              हिन्दी            </a></li>
+                      <li><a class="dropdown-item" href="https://th.sudokupuzzle.org">
+              ไทย            </a></li>
+                      <li><a class="dropdown-item" href="https://vi.sudokupuzzle.org">
+              Tiếng Việt            </a></li>
+                      <li><a class="dropdown-item" href="https://id.sudokupuzzle.org">
+              Bahasa Indonesia            </a></li>
+                      <li><a class="dropdown-item" href="https://pl.sudokupuzzle.org">
+              Polski            </a></li>
+                      <li><a class="dropdown-item" href="https://uk.sudokupuzzle.org">
+              Українська            </a></li>
+                  </ul>
+      </div>
+
+      <button class="btn btn-outline-secondary px-2 py-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Menu">
+        <i class="bi bi-list" style="font-size:1.35rem;"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">
+            <img src="/assets/images/logo-light.svg" alt="Sudoku Puzzle" class="logo logo-light">
+            <img src="/assets/images/logo-medium.svg" alt="Sudoku Puzzle" class="logo logo-medium d-none">
+            <img src="/assets/images/logo-dark.svg" alt="Sudoku Puzzle" class="logo logo-dark d-none">
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="sidebar-content">
+            <nav class="sidebar-nav">
+                <a href="/" class='nav-item '>首页</a><a href="/how-to-play-sudoku/" class='nav-item '>游戏操作指南</a><a href="/how-to-solve-sudoku/" class='nav-item '>数独的解法</a><a href="/sudoku-solver/" class='nav-item '>数独解题器</a><a href="/sudoku-print/" class='nav-item '>打印题目</a><a href="/sudoku-answer/" class='nav-item '>查看答案</a><span class='nav-item active'><i class="bi bi-lightbulb me-1"></i>数独知识库</span>
+                <div class="nav-section mt-4">外部链接</div>
+                <a href="https://sudoku.today" target="_blank" class="nav-item">
+                    今日数独                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+                <a href="https://samuraisudoku.com" target="_blank" class="nav-item">
+                    武士数独                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+                <a href="https://play.google.com" target="_blank" class="nav-item">
+                    Android 应用                    <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.75rem;"></i>
+                </a>
+            </nav>
+
+            <div class="theme-switcher mt-4">
+                <button class="btn btn-sm btn-theme active" data-theme="light" title="Light Theme">
+                    <i class="bi bi-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-theme" data-theme="medium" title="Medium Theme">
+                    <i class="bi bi-cloud-sun"></i>
+                </button>
+                <button class="btn btn-sm btn-theme" data-theme="dark" title="Dark Theme">
+                    <i class="bi bi-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="language-selector d-none d-lg-block">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-globe"></i> 简体中文                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="https://sudokupuzzle.org">
+                            English                        </a></li>
+                                            <li><a class="dropdown-item" href="https://cn.sudokupuzzle.org">
+                            简体中文                        </a></li>
+                                            <li><a class="dropdown-item" href="https://zh-tw.sudokupuzzle.org">
+                            繁體中文                        </a></li>
+                                            <li><a class="dropdown-item" href="https://jp.sudokupuzzle.org">
+                            日本語                        </a></li>
+                                            <li><a class="dropdown-item" href="https://ko.sudokupuzzle.org">
+                            한국어                        </a></li>
+                                            <li><a class="dropdown-item" href="https://fr.sudokupuzzle.org">
+                            Français                        </a></li>
+                                            <li><a class="dropdown-item" href="https://de.sudokupuzzle.org">
+                            Deutsch                        </a></li>
+                                            <li><a class="dropdown-item" href="https://es.sudokupuzzle.org">
+                            Español                        </a></li>
+                                            <li><a class="dropdown-item" href="https://pt.sudokupuzzle.org">
+                            Português                        </a></li>
+                                            <li><a class="dropdown-item" href="https://it.sudokupuzzle.org">
+                            Italiano                        </a></li>
+                                            <li><a class="dropdown-item" href="https://nl.sudokupuzzle.org">
+                            Nederlands                        </a></li>
+                                            <li><a class="dropdown-item" href="https://tr.sudokupuzzle.org">
+                            Türkçe                        </a></li>
+                                            <li><a class="dropdown-item" href="https://hi.sudokupuzzle.org">
+                            हिन्दी                        </a></li>
+                                            <li><a class="dropdown-item" href="https://th.sudokupuzzle.org">
+                            ไทย                        </a></li>
+                                            <li><a class="dropdown-item" href="https://vi.sudokupuzzle.org">
+                            Tiếng Việt                        </a></li>
+                                            <li><a class="dropdown-item" href="https://id.sudokupuzzle.org">
+                            Bahasa Indonesia                        </a></li>
+                                            <li><a class="dropdown-item" href="https://pl.sudokupuzzle.org">
+                            Polski                        </a></li>
+                                            <li><a class="dropdown-item" href="https://uk.sudokupuzzle.org">
+                            Українська                        </a></li>
+                                    </ul>
+            </div>
+        </div>
+
+        <div class="guide-content">
+
+<!-- 文章头部 -->
+<div class="guide-header">
+    <div class="guide-category">
+        <i class="bi bi-lightbulb"></i> 解题技巧    </div>
+    <h1 class="guide-title">数独X-Wing技巧详解：跨行列的高级排除法</h1>
+    <div class="guide-meta">
+        <i class="bi bi-calendar3"></i> 2025-01-24        <span class="mx-2">·</span>
+        <i class="bi bi-clock"></i> 9 分钟阅读    </div>
+</div>
+
+<!-- 面包屑导航 -->
+<div class="guide-breadcrumb">
+    <a href="../"><i class="bi bi-house-door"></i> 知识库</a>
+    <span class="separator">/</span>
+    <a href="../sudoku-strategies/">技巧目录</a>
+    <span class="separator">/</span>
+    <span class="current">X-Wing</span>
+</div>
+
+<!-- 文章正文 -->
+<div class="guide-body">
+    <p><strong>X-Wing</strong>（X翼）是数独高级技巧中最经典的方法之一，也是解决困难和专家级数独的必备技巧。它的名字来源于《星球大战》中的X翼战斗机，因为这个技巧形成的模式在视觉上像一个X形。其核心思想是：当某个候选数在<strong>两行中各只出现在相同的两列位置</strong>时，可以从这<strong>两列的其他格子</strong>中排除该候选数。</p>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-info-circle"></i> 核心原理：</strong><br>
+        如果某个数字在行A只出现在列X和列Y，同时在行B也只出现在列X和列Y，那么这个数字在行A和行B中必定分别占据列X和列Y的某个位置。因此，列X和列Y的其他格子（不在行A和行B上的）都不可能填入这个数字。
+    </div>
+
+    <div class="method-box">
+        <h4><i class="bi bi-diagram-3"></i> X-Wing 规则</h4>
+        <p><strong>如果</strong>某个候选数在两行中各只出现在相同的两列位置，<br>
+        <strong>那么</strong>该候选数在这两列的其他行（不在X-Wing的两行上）都可以删除。</p>
+    </div>
+
+    <p>在阅读本文前，建议先掌握<a href="../naming-convention/" style="color: #667eea;">数独行列宫的命名规则</a>和中级技巧，这将帮助你理解下面的分析示例。</p>
+
+    <!-- X-Wing 原理图 -->
+    <div class="image-container" style="margin: 25px 0;">
+        <object type="image/svg+xml" data="x-wing-pattern.svg" style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">
+            X-Wing原理示意图
+        </object>
+        <div class="image-caption">X-Wing原理：四个候选数6形成矩形顶点，X形交叉线展示消除逻辑</div>
+    </div>
+
+    <h2><i class="bi bi-diagram-3"></i> 实例分析：行基X-Wing</h2>
+
+    <p>我们来看一个经典的X-Wing例子，涉及<strong>第3行</strong>和<strong>第9行</strong>中的候选数 <span class="highlight-num">6</span>。</p>
+
+    <div class="image-container">
+        <img src="x-wing.png" alt="数独X-Wing技巧示例">
+        <div class="image-caption">图：第3行和第9行的候选数6形成X-Wing模式</div>
+    </div>
+
+    <div style="margin: 15px 0;">
+        <a href="/sudoku-solver/?p=MTIzNiwxMjM2LDI2LGI4LGc3LDEyNDksNDY5LGc1LDE5LGc5LGI3LGI4LGc2LDE0LGc1LGcyLDEzNCwxMyxiNSwxMjYsZzQsZzMsMTIsMTI5LGc3LDE2OSxnOCwyMzYsMjM0NiwyNjksMTI0OSwxMjMsZzgsNDksZzcsYjUsYjgsZzUsZzEsNDksYjYsYjcsMzQ5LDIzNDksMjM5LGI3LDIzNCwyOSwyNDksYjUsMjMsZzEsZzgsZzYsMTIsMTI4LGI1LGI3LGc5LGc2LDM4LDEyMyxnNCwxMjYsMTI2ODksZzcsZzUsMzQsMzQsNjg5LDEyNjksMTI5LGc0LDY5LGczLDEyLGI4LDEyLGI1LDY5LGI3" target="_blank" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-calculator"></i> 在计算器中打开此例
+        </a>
+    </div>
+
+    <h3>当前盘面数据</h3>
+
+    <p>根据CSV81格式的候选数数据，我们关注<strong>第3行</strong>和<strong>第9行</strong>中候选数6的分布：</p>
+
+    <p><strong>第3行各格子：</strong></p>
+    <ul>
+        <li><span class="coord">R3C1</span>：已填数字 5</li>
+        <li><span class="coord">R3C2</span>：候选数 <span class="highlight-num">{1, 2, 6}</span></li>
+        <li><span class="coord">R3C3</span>：已填数字 4（给定）</li>
+        <li><span class="coord">R3C4</span>：已填数字 3（给定）</li>
+        <li><span class="coord">R3C5</span>：候选数 {1, 2}</li>
+        <li><span class="coord">R3C6</span>：候选数 {1, 2, 9}</li>
+        <li><span class="coord">R3C7</span>：已填数字 7（给定）</li>
+        <li><span class="coord">R3C8</span>：候选数 <span class="highlight-num">{1, 6, 9}</span></li>
+        <li><span class="coord">R3C9</span>：已填数字 8（给定）</li>
+    </ul>
+
+    <p><strong>第9行各格子：</strong></p>
+    <ul>
+        <li><span class="coord">R9C1</span>：已填数字 4（给定）</li>
+        <li><span class="coord">R9C2</span>：候选数 <span class="highlight-num">{6, 9}</span></li>
+        <li><span class="coord">R9C3</span>：已填数字 3（给定）</li>
+        <li><span class="coord">R9C4</span>：候选数 {1, 2}</li>
+        <li><span class="coord">R9C5</span>：已填数字 8</li>
+        <li><span class="coord">R9C6</span>：候选数 {1, 2}</li>
+        <li><span class="coord">R9C7</span>：已填数字 5</li>
+        <li><span class="coord">R9C8</span>：候选数 <span class="highlight-num">{6, 9}</span></li>
+        <li><span class="coord">R9C9</span>：已填数字 7</li>
+    </ul>
+
+    <p><strong>第2列中需要检查的格子（排除目标）：</strong></p>
+    <ul>
+        <li><span class="coord">R1C2</span>：候选数 <span class="delete-highlight">{1, 2, 3, 6}</span></li>
+        <li><span class="coord">R4C2</span>：候选数 <span class="delete-highlight">{2, 3, 4, 6}</span></li>
+        <li><span class="coord">R8C2</span>：候选数 <span class="delete-highlight">{1, 2, 6, 8, 9}</span></li>
+    </ul>
+
+    <p><strong>第8列中需要检查的格子（排除目标）：</strong></p>
+    <ul>
+        <li><span class="coord">R8C8</span>：候选数 <span class="delete-highlight">{1, 2, 6, 9}</span></li>
+    </ul>
+
+    <h3>分析过程</h3>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>观察第3行：</strong>在<strong>第3行</strong>中，候选数 <span class="highlight-num">6</span> 只出现在两个位置：<span class="coord">R3C2</span>（候选数1,2,6）和 <span class="coord">R3C8</span>（候选数1,6,9）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>观察第9行：</strong>在<strong>第9行</strong>中，候选数 <span class="highlight-num">6</span> 也只出现在两个位置：<span class="coord">R9C2</span>（候选数6,9）和 <span class="coord">R9C8</span>（候选数6,9）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>发现X-Wing模式：</strong>候选数6在第3行和第9行都只出现在第2列和第8列，形成了一个矩形的四个顶点：<span class="coord">R3C2</span>、<span class="coord">R3C8</span>、<span class="coord">R9C2</span>、<span class="coord">R9C8</span>。这就是<strong>X-Wing模式</strong>。
+    </div>
+
+    <div class="pattern-box">
+        <div class="pattern-title">X-Wing 矩形模式</div>
+        <div style="display: flex; justify-content: center; padding: 20px 0;">
+            <img src="x-wing-pattern.svg" alt="X-Wing Pattern" style="max-width: 100%; height: auto;">
+        </div>
+        <p style="text-align: center; color: #666; font-size: 0.9rem; margin-top: 5px;">四个6形成矩形顶点，X形交叉线展示消除逻辑，红色箭头表示可消除的方向</p>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>理解推理逻辑：</strong>因为第3行的6只能填在R3C2或R3C8，第9行的6只能填在R9C2或R9C8，所以存在两种情况：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li><strong>情况1：</strong>R3C2是6，那么第9行只能在R9C8填6</li>
+            <li><strong>情况2：</strong>R3C8是6，那么第9行只能在R9C2填6</li>
+        </ul>
+        <p style="margin-top: 10px; margin-bottom: 0;">无论哪种情况，<strong>第2列和第8列的6都被第3行和第9行占据</strong>。</p>
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">5</span>
+        <strong>执行排除：</strong>因此，<strong>第2列中除了第3行和第9行以外的格子</strong>都不能填6，<strong>第8列中除了第3行和第9行以外的格子</strong>也都不能填6。具体来说：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li><span class="coord">R1C2</span>：删除候选数 <span class="delete-highlight">6</span>（保留1,2,3）</li>
+            <li><span class="coord">R4C2</span>：删除候选数 <span class="delete-highlight">6</span>（保留2,3,4）</li>
+            <li><span class="coord">R8C2</span>：删除候选数 <span class="delete-highlight">6</span>（保留1,2,8,9）</li>
+            <li><span class="coord">R8C8</span>：删除候选数 <span class="delete-highlight">6</span>（保留1,2,9）</li>
+        </ul>
+    </div>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-check-circle"></i> 结论：</strong><br>
+        X-Wing：在第3行和第9行中，候选数 <span class="highlight-num">6</span> 只在 <span class="coord">R3C2</span>、<span class="coord">R3C8</span>、<span class="coord">R9C2</span>、<span class="coord">R9C8</span>（都在第2列和第8列）。<br>
+        操作：从 <span class="coord">R1C2</span>、<span class="coord">R4C2</span>、<span class="coord">R8C2</span>、<span class="coord">R8C8</span> 删除候选数 <span class="delete-highlight">6</span>。
+    </div>
+
+    <h2><i class="bi bi-arrows-angle-expand"></i> X-Wing的两种形式</h2>
+
+    <p>X-Wing可以有两种对称的形式：</p>
+
+    <h3>1. 行基X-Wing（Row-based X-Wing）</h3>
+    <p>就是上面示例的情况：</p>
+    <ul>
+        <li><strong>观察对象：</strong>两行</li>
+        <li><strong>模式特征：</strong>某个候选数在这两行中各只出现在相同的两列</li>
+        <li><strong>排除目标：</strong>从这两列的其他行中删除该候选数</li>
+    </ul>
+
+    <h3>2. 列基X-Wing（Column-based X-Wing）</h3>
+    <p>形式相反但原理相同：</p>
+    <ul>
+        <li><strong>观察对象：</strong>两列</li>
+        <li><strong>模式特征：</strong>某个候选数在这两列中各只出现在相同的两行</li>
+        <li><strong>排除目标：</strong>从这两行的其他列中删除该候选数</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-lightbulb"></i> 记忆技巧：</strong><br>
+        <strong>行基X-Wing删列，列基X-Wing删行。</strong><br>
+        如果X-Wing是在两行中发现的，就从列中删除；如果是在两列中发现的，就从行中删除。这是因为候选数在行（或列）中的位置固定后，对应的列（或行）就被占据了。
+    </div>
+
+    <h2><i class="bi bi-search"></i> 如何发现X-Wing？</h2>
+
+    <p>寻找X-Wing需要系统化的观察：</p>
+
+    <div class="analysis-step">
+        <span class="step-number">1</span>
+        <strong>选择一个候选数：</strong>专注于某个候选数（1-9中的一个），逐个分析。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">2</span>
+        <strong>寻找只有两个候选位置的行（或列）：</strong>找出该候选数只出现在两个格子中的行（或列）。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">3</span>
+        <strong>寻找配对：</strong>看看是否有另一行（或列）也是该候选数只出现在两个格子，<strong>且位置在相同的两列（或行）上</strong>。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">4</span>
+        <strong>确认X-Wing模式：</strong>如果找到这样的两行（或两列），就形成了X-Wing模式，形成一个矩形的四个顶点。
+    </div>
+
+    <div class="analysis-step">
+        <span class="step-number">5</span>
+        <strong>执行排除：</strong>从相应的列（或行）的其他格子中删除该候选数。
+    </div>
+
+    <div class="warning-box">
+        <strong><i class="bi bi-exclamation-triangle"></i> 注意事项：</strong><br>
+        <ul style="margin-bottom: 0;">
+            <li>X-Wing需要<strong>恰好两行（或两列）</strong>，每行（或列）中候选数<strong>恰好出现在两个位置</strong></li>
+            <li>这两行（或列）中候选数的列（或行）位置必须<strong>完全相同</strong></li>
+            <li>如果一行中候选数出现在3个或更多位置，不能形成X-Wing</li>
+            <li>X-Wing是跨行列的技巧，不涉及宫的概念</li>
+            <li>寻找X-Wing比较耗时，建议在中级技巧都用过之后再尝试</li>
+        </ul>
+    </div>
+
+    <h2><i class="bi bi-diagram-2"></i> X-Wing与其他技巧的关系</h2>
+
+    <h3>X-Wing vs 区块排除法</h3>
+    <p>两者都涉及行列关系，但层次不同：</p>
+    <ul>
+        <li><strong>区块排除法：</strong>在一个单元（行/列/宫）内部观察，利用行列与宫的交集</li>
+        <li><strong>X-Wing：</strong>跨越两个单元观察，利用两行（或两列）之间的对称关系</li>
+    </ul>
+
+    <h3>X-Wing的扩展</h3>
+    <p>X-Wing可以扩展到更复杂的形式：</p>
+    <ul>
+        <li><strong>Swordfish（剑鱼）：</strong>三行三列的扩展版本</li>
+        <li><strong>Jellyfish（水母）：</strong>四行四列的扩展版本</li>
+    </ul>
+    <p>这些技巧的原理与X-Wing相同，只是涉及的行列数量更多，识别难度也更大。</p>
+
+    <h2><i class="bi bi-lightbulb"></i> 技巧总结</h2>
+
+    <p>X-Wing技巧的应用要点：</p>
+
+    <ul>
+        <li><strong>观察维度：</strong>跨行列观察，寻找矩形对称模式</li>
+        <li><strong>识别条件：</strong>某个候选数在两行（或两列）中各只出现在相同的两列（或两行）</li>
+        <li><strong>形成模式：</strong>四个候选位置形成矩形的四个顶点</li>
+        <li><strong>排除规则：</strong>行基X-Wing删列，列基X-Wing删行</li>
+        <li><strong>应用场景：</strong>中级技巧无法突破时的高级解题手段</li>
+        <li><strong>识别难度：</strong>需要系统地分析每个候选数的分布，比较费时</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong><i class="bi bi-star"></i> 实战建议：</strong><br>
+        X-Wing在实战中并不常见，但在困难题目中往往是突破的关键。建议：
+        <ul style="margin-top: 10px; margin-bottom: 0;">
+            <li>先用完所有中级技巧（数对、三数组、隐性数对等）</li>
+            <li>选择候选数较少的数字进行分析（如只剩5-6个候选位置的数字）</li>
+            <li>使用候选数标记功能，更容易看出分布模式</li>
+            <li>可以借助笔记或草稿纸记录每个数字在各行列的分布</li>
+        </ul>
+    </div>
+
+    <h2><i class="bi bi-trophy"></i> 练习建议</h2>
+
+    <p>要熟练运用X-Wing技巧，建议：</p>
+
+    <ul>
+        <li>解题时<strong>系统地</strong>检查每个候选数在各行列的分布</li>
+        <li>使用<strong>不同颜色</strong>标记候选数，帮助视觉识别对称模式</li>
+        <li>遇到高难度题目时，先用中级技巧，再<strong>主动寻找</strong>X-Wing机会</li>
+        <li>理解<strong>原理</strong>比记住术语更重要，明白"为什么能排除"</li>
+    </ul>
+
+    <div class="tip-box">
+        <strong><i class="bi bi-play-circle"></i> 立即练习：</strong><br>
+        <a href="/" style="color: #667eea; font-weight: bold;">开始一局困难难度的数独游戏</a>，专门寻找和应用X-Wing技巧！
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="../box-line-reduction/" class="nav-link">
+            <i class="bi bi-arrow-left"></i> 区块排除法
+        </a>
+        <a href="../hidden-triples/" class="nav-link">
+            隐性三数组 <i class="bi bi-arrow-right"></i>
+        </a>
+        <a href="../sudoku-strategies/" class="nav-link">
+            <i class="bi bi-list"></i> 技巧目录
+        </a>
+    </div>
+</div>
+
+        </div><!-- /.guide-content -->
+
+        <footer class="footer">
+    <p class="mb-0">© 2025 SudokuPuzzle.org - 版权所有</p>
+</footer>
+    </main>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="/assets/js/main.js?v=20260417.1"></script>
+
+<script>
+console.log('%c📚 Sudoku Guide', 'font-size:20px;font-weight:bold;color:#667eea;');
+console.log('%cVersion: 20260417.1', 'color:#764ba2;');
+console.log('%cEnvironment: Production', 'color:#51cf66;');
+</script>
+</body>
+</html>

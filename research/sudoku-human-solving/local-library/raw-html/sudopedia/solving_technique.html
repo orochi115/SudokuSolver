@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solving Techniques - Sudopedia.org</title>
+
+            <meta name="description" content="A categorized index of Sudoku solving techniques, organized by family — singles, intersections, subsets, fish, single-digit patterns, coloring, uniqueness, chai">
+    
+    <meta property="og:title" content="Solving Techniques - Sudopedia.org">
+        <meta property="og:description" content="A categorized index of Sudoku solving techniques, organized by family — singles, intersections, subsets, fish, single-digit patterns, coloring, uniqueness, chai">
+        <meta property="og:url" content="https://www.sudopedia.org/wiki/Solving_Technique">
+        <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sudopedia.org">
+
+    <!-- Favicon -->
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind Theme Config -->
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary-50: #eef2ff;
+            --color-primary-100: #e0e7ff;
+            --color-primary-200: #c7d2fe;
+            --color-primary-300: #a5b4fc;
+            --color-primary-400: #818cf8;
+            --color-primary-500: #6366f1;
+            --color-primary-600: #4f46e5;
+            --color-primary-700: #4338ca;
+            --color-primary-800: #3730a3;
+            --color-primary-900: #312e81;
+            --color-primary-950: #1e1b4b;
+        }
+    </style>
+
+    <!-- Alpine.js (CDN) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.14.8/dist/cdn.min.js"></script>
+
+    <!-- Bootstrap Icons (CSS-only, no Bootstrap dependency) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Theme custom CSS -->
+    <link href="https://www.sudopedia.org/themes/tailwind/css/custom.css" rel="stylesheet">
+
+    <!-- Theme additional styles -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        .rich-text img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+    <!-- Custom CSS from site settings -->
+        <style>
+        /* Reset platform chrome — make header/main/footer transparent passthroughs */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-size: 13px;
+  color: #000;
+  background: #f6f6f6 !important;
+}
+body {
+  display: block !important;
+  min-height: 100vh;
+}
+
+/* Kill the platform's structural wrappers so our layout takes over */
+body > header,
+body > main,
+body > footer {
+  display: contents !important;
+}
+body > header > *,
+body > main > *,
+body > footer > * {
+  display: contents !important;
+}
+.site-header,
+.footer-wrapper,
+.page-content,
+.page-body,
+article.page-content {
+  display: contents !important;
+}
+/* Defeat the Tailwind container around <main> content */
+main > div.mx-auto,
+main > .mx-auto {
+  display: contents !important;
+}
+/* Hide the gray Tailwind footer band */
+footer.bg-gray-100 {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+a { color: #0645ad; text-decoration: none; }
+a:visited { color: #0b0080; }
+a:hover { text-decoration: underline; }
+a.new, a.redlink { color: #ba0000; }
+a.new:visited { color: #a55858; }
+
+/* TOP STRIP */
+.mw-top-strip {
+  height: 5px;
+  background: linear-gradient(to bottom, #fff 0%, #f6f6f6 100%);
+  border-bottom: 1px solid #a7d7f9;
+}
+
+/* MAIN GRID — sidebar + content */
+.mw-body-wrapper {
+  display: grid;
+  grid-template-columns: 176px 1fr;
+  min-height: calc(100vh - 60px);
+  background: #f6f6f6;
+}
+
+/* LEFT PANEL */
+#mw-panel {
+  background: #f6f6f6;
+  padding: 0;
+  font-size: 12px;
+}
+#mw-panel .portal {
+  margin: 0 0 0 14px;
+  padding: 0.25em 0 0 0;
+}
+#mw-panel .portal h3 {
+  font-size: 0.75em;
+  font-weight: normal;
+  color: #444;
+  padding: 0.25em 0 0.25em 1em;
+  margin: 0;
+  text-transform: lowercase;
+  cursor: default;
+}
+#mw-panel .portal .body {
+  padding-top: 0.5em;
+  margin: 0 0 0 1.25em;
+}
+#mw-panel .portal .body ul {
+  list-style: square;
+  margin: 0 0 0 1.5em;
+  padding: 0;
+}
+#mw-panel .portal .body li {
+  padding: 0.25em 0;
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.125em;
+  word-wrap: break-word;
+}
+#mw-panel .portal .body li a {
+  color: #0645ad;
+}
+
+/* SEARCH BOX */
+#p-search .body {
+  margin: 0 0.6em 0 0.7em;
+}
+#p-search input[type="search"],
+#p-search input[type="text"] {
+  width: 100%;
+  font-size: 13px;
+  padding: 2px;
+  border: 1px solid #aaa;
+  margin-bottom: 4px;
+}
+#p-search .search-buttons {
+  text-align: center;
+}
+#p-search button,
+#p-search input[type="submit"] {
+  font-size: 11px;
+  padding: 1px 6px;
+  margin: 0 1px;
+  border: 1px solid #aaa;
+  background: #f6f6f6;
+  cursor: pointer;
+  font-family: sans-serif;
+}
+#p-search button:hover { background: #e6e6e6; }
+
+/* LOGO */
+#p-logo {
+  height: 160px;
+  width: 10em;
+  margin-bottom: 1em;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#p-logo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+#p-logo img {
+  max-width: 135px;
+  max-height: 155px;
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+/* CONTENT AREA */
+#content {
+  background: #fff;
+  border-left: 1px solid #a7d7f9;
+  padding: 1em;
+  position: relative;
+  min-height: 600px;
+}
+
+/* PERSONAL TOOLS (top right) */
+#p-personal {
+  position: absolute;
+  top: 6px;
+  right: 0.75em;
+  z-index: 100;
+}
+#p-personal ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.75rem;
+}
+#p-personal li {
+  display: inline-block;
+  margin-left: 0.75em;
+}
+#p-personal a { color: #0645ad; }
+
+/* TAB BAR */
+#left-navigation {
+  margin-top: 2.5em;
+  margin-bottom: 0;
+  padding-left: 0.5em;
+}
+.vectorTabs {
+  border-bottom: 1px solid #a7d7f9;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 1px;
+  height: 2.5em;
+  margin-bottom: -1px;
+}
+.vectorTabs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+}
+.vectorTabs li {
+  display: inline-block;
+  background: linear-gradient(to top, #77c1f6 0%, #e8f2f8 100%);
+  border: 1px solid #a7d7f9;
+  border-bottom: none;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  padding: 0;
+  margin: 0 -1px 0 0;
+  height: 2.2em;
+  line-height: 2.2em;
+  font-size: 0.8rem;
+  position: relative;
+}
+.vectorTabs li.selected {
+  background: #fff;
+  border-bottom: 1px solid #fff;
+  z-index: 2;
+}
+.vectorTabs li a {
+  display: block;
+  padding: 0 0.7em;
+  color: #0645ad;
+  font-size: 13px;
+  text-decoration: none;
+}
+.vectorTabs li.new a { color: #ba0000; }
+.vectorTabs li.selected a { color: #000; }
+.vectorTabs li a:hover { text-decoration: underline; }
+
+/* CONTENT TYPOGRAPHY */
+#bodyContent {
+  font-size: 13px;
+  line-height: 1.5em;
+  color: #000;
+  padding: 0.75em 0 0 0;
+}
+#bodyContent h1,
+#bodyContent h2,
+#bodyContent h3 {
+  font-family: sans-serif;
+  font-weight: normal;
+  color: #000;
+  margin: 0;
+}
+#bodyContent h1.firstHeading {
+  font-size: 1.6em;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 0.17em;
+  margin-bottom: 0.6em;
+  font-weight: normal;
+  line-height: 1.2;
+  font-family: serif;
+}
+#bodyContent h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 0.17em;
+  margin: 1em 0 0.25em 0;
+  font-family: serif;
+}
+#bodyContent h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+  margin: 0.3em 0 0 0;
+  padding-bottom: 0;
+}
+#bodyContent p { margin: 0.4em 0 0.5em 0; line-height: 1.5em; }
+#bodyContent ul, #bodyContent ol { margin: 0.3em 0 0 1.6em; padding: 0; line-height: 1.5em; }
+#bodyContent li { margin-bottom: 0.1em; }
+#bodyContent dl { margin: 0.4em 0 0.5em 1.6em; }
+#bodyContent dt { font-weight: bold; margin-top: 0.4em; }
+#bodyContent dd { margin: 0.1em 0 0.3em 1.6em; }
+#bodyContent b, #bodyContent strong { font-weight: bold; }
+
+/* LEAD SECTION */
+.lead-section {
+  margin: 0 0 1em 0;
+}
+/* When the lead-section contains a floated image, prevent the section's bottom margin
+   from collapsing before the floated image clears */
+.lead-section::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Wiki images (in-article figures, default centered) */
+#bodyContent p.wiki-image {
+  text-align: center;
+  margin: 1em 0;
+}
+#bodyContent p.wiki-image a.image {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 3px;
+  background: #fff;
+  line-height: 0;
+}
+#bodyContent p.wiki-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Float variants — image floats out of the text column, text wraps around it.
+   Override the centered defaults above when the image carries .floatright/.floatleft. */
+#bodyContent .floatright,
+#bodyContent p.wiki-image.floatright {
+  float: right;
+  clear: right;
+  text-align: center;
+  margin: 0 0 1em 1.4em;
+}
+#bodyContent .floatleft,
+#bodyContent p.wiki-image.floatleft {
+  float: left;
+  clear: left;
+  text-align: center;
+  margin: 0 1.4em 1em 0;
+}
+#bodyContent .floatright a.image,
+#bodyContent .floatleft a.image {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 3px;
+  background: #fff;
+  line-height: 0;
+}
+#bodyContent .floatright img,
+#bodyContent .floatleft img {
+  display: block;
+  height: auto;
+}
+
+/* PRE and CODE blocks for wiki content */
+#bodyContent pre {
+  font-family: monospace, monospace;
+  font-size: 13px;
+  line-height: 1.3;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  color: #000;
+  padding: 1em;
+  margin: 1em 0;
+  overflow: auto;
+  white-space: pre;
+  word-wrap: normal;
+}
+#bodyContent code {
+  font-family: monospace, monospace;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 0 0.2em;
+  font-size: 0.95em;
+}
+
+/* TOC (MediaWiki Contents box) */
+#bodyContent #toc.toc {
+  display: table;
+  background: #f9f9f9;
+  border: 1px solid #aaa;
+  padding: 7px;
+  margin: 1em 0;
+  font-size: 95%;
+}
+#bodyContent #toc .toctitle {
+  text-align: center;
+}
+#bodyContent #toc .toctitle h2 {
+  display: inline;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+#bodyContent #toc ul {
+  list-style: none;
+  margin: 0.3em 0 0 0;
+  padding: 0;
+}
+#bodyContent #toc ul ul {
+  margin: 0 0 0 2em;
+}
+#bodyContent #toc li {
+  margin: 0;
+}
+#bodyContent #toc .tocnumber {
+  color: #000;
+  margin-right: 0.4em;
+}
+
+/* Fish concept diagrams — 9x9 grid rendered as 3x3 of 3x3 mini-tables.
+   Outer table has thicker box separators, inner cells are 20px monospace squares. */
+#bodyContent table.fish-grid {
+  border-collapse: collapse;
+  margin: 1em 0 1em 1em;
+  background: #fff;
+  border: 2px solid #888;
+}
+#bodyContent table.fish-grid > tbody > tr > td.fish-box {
+  border: 2px solid #888;
+  padding: 0;
+  vertical-align: top;
+}
+#bodyContent table.fish-grid table.fish-mini {
+  border-collapse: collapse;
+  margin: 0;
+  background: #f8f8f8;
+}
+#bodyContent table.fish-grid table.fish-mini td {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #c0c0c0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+  line-height: 1;
+}
+#bodyContent table.fish-grid td.blank {
+  color: #999;
+}
+#bodyContent table.fish-grid td.excluded {
+  color: #888;
+}
+#bodyContent table.fish-grid td.elim {
+  color: #c00;
+  font-weight: bold;
+}
+#bodyContent table.fish-grid td.x {
+  color: #003;
+  font-weight: bold;
+  background: #e8f2f8;
+}
+#bodyContent table.fish-grid td.label {
+  color: #060;
+  font-weight: bold;
+  background: #f0f8e8;
+}
+
+/* FOOTER */
+#footer {
+  background: #fff;
+  border-top: 1px solid #a7d7f9;
+  padding: 1em 1em 0.75em 12em;
+  margin: 0;
+  font-size: 0.7rem;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  grid-column: 1 / -1;
+}
+#footer .footer-left,
+#footer .footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+#footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1.5em;
+}
+#footer ul li { display: inline; }
+#footer a { color: #0645ad; }
+#footer .gnu-license-icon {
+  width: 88px;
+  height: 31px;
+  background: #fff;
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 7px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+  flex-direction: column;
+}
+#footer .mw-badge {
+  width: 88px;
+  height: 31px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 8px;
+  color: #333;
+  text-align: center;
+  line-height: 1.1;
+}
+
+a.redlink, a.new {
+  color: #ba0000 !important;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .mw-body-wrapper {
+    grid-template-columns: 1fr;
+  }
+  #mw-panel {
+    border-bottom: 1px solid #a7d7f9;
+    padding: 0.5em;
+  }
+  #content {
+    border-left: none;
+  }
+  #p-personal {
+    position: static;
+    text-align: right;
+    padding: 0.5em;
+  }
+  #left-navigation {
+    margin-top: 0.5em;
+  }
+  .vectorTabs li a {
+    padding: 0 0.5em;
+    font-size: 12px;
+  }
+  #footer {
+    padding: 1em;
+    flex-direction: column;
+    text-align: center;
+  }
+  #p-logo {
+    height: auto;
+    padding: 1em 0;
+  }
+  #bodyContent pre {
+    font-size: 11px;
+    padding: 0.6em;
+  }
+  /* On mobile, drop floats so the image just stacks normally */
+  #bodyContent .floatright,
+  #bodyContent .floatleft,
+  #bodyContent p.wiki-image.floatright,
+  #bodyContent p.wiki-image.floatleft {
+    float: none;
+    clear: both;
+    margin: 1em auto;
+    display: block;
+  }
+  /* Shrink fish diagrams a touch on narrow screens */
+  #bodyContent table.fish-grid table.fish-mini td {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+  }
+}
+
+    </style>
+    
+    <!-- Page-specific styles -->
+    
+    <!-- Custom head scripts from site settings -->
+        
+    
+    
+        <script defer
+        src="https://analytics.xwm.app/script.js"
+        data-website-id="5e81cff0-91c6-4e10-bad8-c6f47d141d56">
+    </script>
+    </head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+    <header>
+            </header>
+
+    <main>
+        
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+            <article class="page-content">
+                        <div class="page-body">
+                <div class="mw-top-strip"></div>
+<div class="mw-body-wrapper">
+  <div id="mw-panel">
+    <div id="p-logo" role="banner">
+      <a href="/" title="Visit the main page">
+        <img src="https://xwmsys.b-cdn.net/sudologo.gif" alt="Sudopedia">
+      </a>
+    </div>
+    <div class="portal" id="p-navigation">
+      <h3>navigation</h3>
+      <div class="body">
+        <ul>
+          <li><a href="/">Main page</a></li>
+          <li><a href="/wiki/Special:RecentChanges">Recent changes</a></li>
+          <li><a href="/wiki/Special:Random">Random page</a></li>
+          <li><a href="/wiki/Help:Contents">Help about MediaWiki</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="portal" id="p-search">
+      <h3>search</h3>
+      <div class="body">
+        <form action="/wiki/Special:Search" method="get">
+          <input type="search" name="search" placeholder="">
+          <div class="search-buttons">
+            <input type="submit" name="go" value="Go">
+            <input type="submit" name="fulltext" value="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="portal" id="p-tb">
+      <h3>tools</h3>
+      <div class="body">
+        <ul>
+          <li><a href="/wiki/Special:WhatLinksHere/Solving_Technique">What links here</a></li>
+          <li><a href="/wiki/Special:RecentChangesLinked/Solving_Technique">Related changes</a></li>
+          <li><a href="/wiki/Special:SpecialPages">Special pages</a></li>
+          <li><a href="/wiki/Solving_Technique?printable=yes">Printable version</a></li>
+          <li><a href="/wiki/Solving_Technique">Permanent link</a></li>
+          <li><a href="/wiki/Solving_Technique?action=info">Page information</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="content">
+    <div id="p-personal">
+      <ul>
+        <li><a href="/login">log in</a></li>
+      </ul>
+    </div>
+
+    <div id="left-navigation">
+      <div class="vectorTabs">
+        <ul>
+          <li class="selected"><a href="/wiki/Solving_Technique">page</a></li>
+          <li><a href="/wiki/Talk:Solving_Technique">discussion</a></li>
+          <li><a href="/wiki/Solving_Technique?action=edit">view source</a></li>
+          <li><a href="/wiki/Solving_Technique?action=history">history</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="bodyContent">
+      <h1 class="firstHeading">Solving Technique</h1>
+
+      <div class="lead-section">
+        <p>These are the methods used to solve a Sudoku. There are many different solving techniques discovered in the last few years, mainly because there is a large community of puzzlers who share their knowledge on the various <a href="/wiki/Sudoku_Forums">Sudoku Forums</a>.</p>
+        <p>Because there are so many, a rough subclassification has been made:</p>
+      </div>
+
+      <div id="toc" class="toc">
+        <div class="toctitle"><h2>Contents</h2></div>
+        <ul>
+          <li class="toclevel-1"><a href="#Singles"><span class="tocnumber">1</span> <span class="toctext">Singles</span></a></li>
+          <li class="toclevel-1"><a href="#Intersections"><span class="tocnumber">2</span> <span class="toctext">Intersections</span></a></li>
+          <li class="toclevel-1"><a href="#Subsets"><span class="tocnumber">3</span> <span class="toctext">Subsets</span></a></li>
+          <li class="toclevel-1"><a href="#Fish"><span class="tocnumber">4</span> <span class="toctext">Fish</span></a></li>
+          <li class="toclevel-1"><a href="#Single_Digit_Patterns"><span class="tocnumber">5</span> <span class="toctext">Single Digit Patterns</span></a></li>
+          <li class="toclevel-1"><a href="#Coloring"><span class="tocnumber">6</span> <span class="toctext">Coloring</span></a></li>
+          <li class="toclevel-1"><a href="#Uniqueness"><span class="tocnumber">7</span> <span class="toctext">Uniqueness</span></a></li>
+          <li class="toclevel-1"><a href="#Chains_and_Loops"><span class="tocnumber">8</span> <span class="toctext">Chains and Loops</span></a></li>
+          <li class="toclevel-1"><a href="#Wings"><span class="tocnumber">9</span> <span class="toctext">Wings</span></a></li>
+          <li class="toclevel-1"><a href="#Almost_Locked_Sets"><span class="tocnumber">10</span> <span class="toctext">Almost Locked Sets</span></a></li>
+          <li class="toclevel-1"><a href="#Enumeration_on_Selected_Cells"><span class="tocnumber">11</span> <span class="toctext">Enumeration on Selected Cells</span></a></li>
+          <li class="toclevel-1"><a href="#Miscellaneous"><span class="tocnumber">12</span> <span class="toctext">Miscellaneous</span></a></li>
+          <li class="toclevel-1"><a href="#Techniques_of_Last_Resort"><span class="tocnumber">13</span> <span class="toctext">Techniques of Last Resort</span></a></li>
+          <li class="toclevel-1"><a href="#Brute_Force"><span class="tocnumber">14</span> <span class="toctext">Brute Force</span></a></li>
+        </ul>
+      </div>
+
+      <h2 id="Singles"><a href="/wiki/Single">Singles</a></h2>
+      <dl>
+        <dt><a href="/wiki/Full_House">Full House</a></dt>
+        <dd>A <a href="/wiki/House">house</a> with a single empty <a href="/wiki/Cell">cell</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Last_Digit">Last Digit</a></dt>
+        <dd>The last instance of a <a href="/wiki/Digit">digit</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Hidden_Single">Hidden Single</a> | <a href="/wiki/Pinned_Digit">Pinned Digit</a></dt>
+        <dd>A single candidate remaining for a digit in a house.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Naked_Single">Naked Single</a> | <a href="/wiki/Forced_Digit">Forced Digit</a> | <a href="/wiki/Sole_Candidate">Sole Candidate</a></dt>
+        <dd>A single candidate remaining in a cell.</dd>
+      </dl>
+
+      <h2 id="Intersections"><a href="/wiki/Intersection">Intersections</a></h2>
+      <dl>
+        <dt><a href="/wiki/Locked_Candidates">Locked Candidates</a> | Intersection Removal | Line-Box Interaction | Pointing (Pair, Triple) | Claiming</dt>
+        <dd><a href="/wiki/Candidate">Candidates</a> are locked in the <a href="/wiki/Intersection">intersection</a> of a <a href="/wiki/Line">line</a> and a <a href="/wiki/Box">box</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Locked_Pair">Locked Pair</a></dt>
+        <dd>A <a href="/wiki/Naked_Pair">Naked Pair</a> located in a single intersection.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Locked_Triple">Locked Triple</a></dt>
+        <dd>A <a href="/wiki/Naked_Triple">Naked Triple</a> located in a single intersection.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Almost_Locked_Candidates">Almost Locked Candidates</a></dt>
+        <dd>A box-line intersection where the line or the box contains an <a href="/wiki/Almost_Locked_Set">Almost Locked Set</a>, and the remaining cells in the line or box outside the intersection does not contain digits from the Almost Locked Set.</dd>
+      </dl>
+
+      <h2 id="Subsets"><a href="/wiki/Subset">Subsets</a></h2>
+      <dl>
+        <dt><a href="/wiki/Naked_Subset">Naked Subset</a></dt>
+        <dd><b>N</b> cells with candidates for <b>N</b> digits.</dd>
+        <dd>
+          <dl>
+            <dt><a href="/wiki/Naked_Pair">Naked Pair</a></dt>
+            <dd><b>2</b> cells with candidates for <b>2</b> digits.</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Naked_Triple">Naked Triple</a></dt>
+            <dd><b>3</b> cells with candidates for <b>3</b> digits.</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Naked_Quad">Naked Quad</a></dt>
+            <dd><b>4</b> cells with candidates for <b>4</b> digits.</dd>
+          </dl>
+        </dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Hidden_Subset">Hidden Subset</a></dt>
+        <dd><b>N</b> digits with candidates in <b>N</b> cells.</dd>
+        <dd>
+          <dl>
+            <dt><a href="/wiki/Hidden_Pair">Hidden Pair</a></dt>
+            <dd><b>2</b> digits with candidates in <b>2</b> cells.</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Hidden_Triple">Hidden Triple</a></dt>
+            <dd><b>3</b> digits with candidates in <b>3</b> cells.</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Hidden_Quad">Hidden Quad</a></dt>
+            <dd><b>4</b> digits with candidates in <b>4</b> cells.</dd>
+          </dl>
+        </dd>
+      </dl>
+
+      <h2 id="Fish"><a href="/wiki/Fish">Fish</a></h2>
+      <dl>
+        <dt>Basic Fish</dt>
+        <dd>Rows and columns only.</dd>
+        <dd>
+          <dl>
+            <dt><a href="/wiki/X-Wing">X-Wing</a></dt>
+            <dd>2 rows vs. 2 columns</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Swordfish">Swordfish</a></dt>
+            <dd>3 rows vs. 3 columns</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Jellyfish">Jellyfish</a></dt>
+            <dd>4 rows vs. 4 columns</dd>
+          </dl>
+          <dl>
+            <dt><a href="/wiki/Squirmbag">Squirmbag</a></dt>
+            <dd>5 rows vs. 5 columns</dd>
+          </dl>
+        </dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Finned_Fish">Finned Fish</a></dt>
+        <dd>Fish patterns with additional candidates in a single box.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Sashimi_Fish">Sashimi Fish</a></dt>
+        <dd>Incomplete basic fish patterns with a <a href="/wiki/Fin">fin</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Franken_Fish">Franken Fish</a></dt>
+        <dd>Fish patterns that include box constraints.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Mutant_Fish">Mutant Fish</a></dt>
+        <dd>Fish patterns with mixed sets of constraints.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Kraken_Fish">Kraken Fish</a></dt>
+        <dd>A fish pattern with indirect connections to a candidate which can be eliminated.</dd>
+      </dl>
+
+      <h2 id="Single_Digit_Patterns">Single Digit Patterns</h2>
+      <dl>
+        <dt><a href="/wiki/Skyscraper">Skyscraper</a></dt>
+        <dd>Two parallel strong links, weakly connected at the base.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/2-String_Kite">2-String Kite</a></dt>
+        <dd>Two crossing strong links, weakly connected in a box.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Empty_Rectangle">Empty Rectangle</a></dt>
+        <dd>A single-digit technique that makes use of a <a href="/wiki/Box">box</a> whose <a href="/wiki/Candidate">candidates</a> for that <a href="/wiki/Digit">digit</a> are contained within the union of a <a href="/wiki/Boxrow">boxrow</a> and a <a href="/wiki/Boxcol">boxcol</a>.</dd>
+      </dl>
+
+      <h2 id="Coloring"><a href="/wiki/Coloring">Coloring</a></h2>
+      <dl>
+        <dt><a href="/wiki/Simple_Colors">Simple Colors</a></dt>
+        <dd>Uses only 2 colors to form a single color <a href="/wiki/Cluster">cluster</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Multi-Colors">Multi-Colors</a> | <a href="/wiki/Supercoloring">Supercoloring</a></dt>
+        <dd>Uses multiple colors (4, 6 or a higher multiple of 2) to form multiple color clusters.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Weak_Colors">Weak Colors</a></dt>
+        <dd>Extends Simple-Colors by the use of <a href="/wiki/Hinge">hinge</a> linkages.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/X-Colors">X-Colors</a></dt>
+        <dd>Uses only 2 colors, but also takes the <a href="/wiki/Implication">implications</a> for each color into account.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Color_Trap">Color Trap</a></dt>
+        <dd>A technique that uses a single cluster to eliminate candidates outside the cluster.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Color_Wrap">Color Wrap</a></dt>
+        <dd>A technique that uses a single cluster to detect a <a href="/wiki/Contradiction">contradiction</a> in one of the colors.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Color_Wing">Color Wing</a></dt>
+        <dd>A technique that uses multiple clusters to eliminate candidates outside these clusters. Same as Multi-Colors.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/3D_Medusa">3D Medusa</a> Coloring | <a href="/wiki/Advanced_Coloring">Advanced Coloring</a> | <a href="/wiki/Ultracoloring">Ultracoloring</a></dt>
+        <dd>A set of techniques that uses colors on multiple digits.</dd>
+      </dl>
+
+      <h2 id="Uniqueness">Uniqueness</h2>
+      <dl>
+        <dt><a href="/wiki/Uniqueness_Test">Uniqueness Test</a></dt>
+        <dd>A set of techniques that avoids the <a href="/wiki/Unique_Rectangle">Unique Rectangle</a> <a href="/wiki/Deadly_pattern">deadly pattern</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Avoidable_Rectangle">Avoidable Rectangle</a></dt>
+        <dd>A set of techniques that avoids the <a href="/wiki/Unique_Rectangle">Unique Rectangle</a> <a href="/wiki/Deadly_pattern">deadly pattern</a>. Perhaps unique in solving techniques in that it employs solved <a href="/wiki/Cell">cells</a> as well as those unsolved.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Bivalue_Universal_Grave">Bivalue Universal Grave</a></dt>
+        <dd>A set of techniques that avoids the <a href="/wiki/Bivalue_Universal_Grave">Bivalue Universal Grave</a> <a href="/wiki/Deadly_pattern">deadly pattern</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/BUG_Lite">BUG Lite</a></dt>
+        <dd>A set of techniques that avoids the <a href="/wiki/BUG_Lite">BUG Lite</a> <a href="/wiki/Deadly_pattern">deadly pattern</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Uniqueness_Controversy">Uniqueness Controversy</a></dt>
+        <dd>These solving techniques assume that the <a href="/wiki/Sudoku">Sudoku</a> puzzle has a unique solution. It is not universally accepted that this assumption is a valid one.</dd>
+      </dl>
+
+      <h2 id="Chains_and_Loops"><a href="/wiki/Chain">Chains</a> and <a href="/wiki/Loop">Loops</a></h2>
+      <dl>
+        <dt><a href="/wiki/Forcing_Chain">Forcing Chain</a></dt>
+        <dd>Generic term for any type of chain.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/X-Chain">X-Chain</a></dt>
+        <dd>Single digit chain of cells.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/XY-Chain">XY-Chain</a></dt>
+        <dd>Chain of <a href="/wiki/Bivalue">bivalue</a> cells.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Remote_Pairs">Remote Pairs</a></dt>
+        <dd>Simplified form of XY-Chain, involving only two digits.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Fishy_Cycle">Fishy Cycle</a> | X-Cycle</dt>
+        <dd>Single digit <a href="/wiki/Continuous">continuous</a> loop.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Broken_Wing">Broken Wing</a></dt>
+        <dd>Eliminations caused by loops of odd length.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Nice_Loop">Nice Loops</a></dt>
+        <dd>Several types of loops formed by cells following strict rules and a notation system.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Double_Implication_Chain">Double Implication Chain</a> | DIC</dt>
+        <dd>There are 2 interpretations circulating. The first originates from a reliable source.</dd>
+      </dl>
+      <ul>
+        <li>A Forcing Chain that has implications in both directions.</li>
+        <li>2 Forcing Chains starting from a bivalue cell or a <a href="/wiki/Bilocal">bilocal</a> unit showing a <a href="/wiki/Verity">verity</a>.</li>
+      </ul>
+      <dl>
+        <dt><a href="/wiki/Alternating_Inference_Chain">Alternating Inference Chain</a> | AIC</dt>
+        <dd>A chain where each node is a candidate, with alternating strong and weak inference.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Oriented_Chains">Oriented Chains</a></dt>
+        <dd>Oriented chains are generalisations of the basic xy-chains. The central idea is that the information collected from previous candidates in a chain (and/or from the target) can be used to select the next candidates. Oriented chains are either 2D or 3D:</dd>
+        <dd>- oriented 2D chains: xyt-chains, xyz-chains and xyzt-chains, together with their "hidden" counterparts: hxyt-chains, hxyz-chains and hxyzt-chains;</dd>
+        <dd>- <a href="/wiki/Oriented_3D_chains">oriented 3D chains</a>: nrct-chains, nrcz-chains, nrczt-chains.</dd>
+        <dd>(The original reference to all these chains is the book "The Hidden Logic of Sudoku". Further web references forthcoming)</dd>
+      </dl>
+
+      <h2 id="Wings">Wings</h2>
+      <dl>
+        <dt><a href="/wiki/XY-Wing">XY-Wing</a></dt>
+        <dd>Three <a href="/wiki/Cell">cells</a> with <a href="/wiki/Pivot">pivot</a> cell <b>XY</b> and two <a href="/wiki/Pincer">pincer</a> cells <b>XZ</b> and <b>YZ</b>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/XYZ-Wing">XYZ-Wing</a></dt>
+        <dd>Three <a href="/wiki/Cell">cells</a> with <a href="/wiki/Pivot">pivot</a> cell <b>XYZ</b> and two <a href="/wiki/Pincer">pincer</a> cells <b>XZ</b> and <b>YZ</b>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/WXYZ-Wing">WXYZ-Wing</a></dt>
+        <dd>Four <a href="/wiki/Cell">cells</a> with <a href="/wiki/Pivot">pivot</a> cell <b>WXYZ</b> and three <a href="/wiki/Pincer">pincer</a> cells <b>WZ</b>, <b>XZ</b> and <b>YZ</b>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/W-Wing">W-Wing</a></dt>
+        <dd>Four <a href="/wiki/Cell">cells</a> in a <a href="/wiki/Chain">chain</a>: a cell <b>WX</b>, a cell with <b>X</b> as a <a href="/wiki/Candidate">candidate</a>, another cell with <b>X</b> as a <a href="/wiki/Candidate">candidate</a>, another cell <b>WX</b>, such that the two cells containing <b>X</b> as a <a href="/wiki/Candidate">candidate</a> have a <a href="/wiki/Strong_link">strong link</a>.</dd>
+      </dl>
+
+      <h2 id="Almost_Locked_Sets"><a href="/wiki/Almost_Locked_Set">Almost Locked Sets</a></h2>
+      <dl>
+        <dt><a href="/wiki/ALS-XZ">ALS-XZ</a> rule</dt>
+        <dd>2 Almost Locked Sets with <a href="/wiki/Restricted_common">restricted common</a> digit <b>X</b> perform eliminations for common digit <b>Z</b>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/ALS-XY-Wing">ALS-XY-Wing</a> rule</dt>
+        <dd>3 Almost Locked Sets with 2 restricted common digits <b>Y</b> and <b>Z</b> perform eliminations for common digit <b>X</b>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/ALS-XY-Chain">ALS-XY-Chain</a></dt>
+        <dd>Very similar to <a href="/wiki/XY-Chain">XY-Chain</a>, except that the <a href="/wiki/Node">nodes</a> in the <a href="/wiki/Chain">chain</a> are Almost Locked Sets.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Death_Blossom">Death Blossom</a></dt>
+        <dd>A stem cell of N candidates pointing to N petals, each an Almost Locked Set.</dd>
+      </dl>
+
+      <h2 id="Enumeration_on_Selected_Cells">Enumeration on Selected Cells</h2>
+      <dl>
+        <dt><a href="/wiki/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></dt>
+        <dd>Checks combinations of <a href="/wiki/Digit">digits</a> in a pair of <a href="/wiki/Cell">cells</a> located in an <a href="/wiki/Intersection">intersection</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Aligned_Triple_Exclusion">Aligned Triple Exclusion</a></dt>
+        <dd>Checks combinations of <a href="/wiki/Digit">digits</a> in a triple of <a href="/wiki/Cell">cells</a> located in an <a href="/wiki/Intersection">intersection</a>.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Subset_Exclusion">Subset Exclusion</a></dt>
+        <dd>Extension of <a href="/wiki/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a> to arbitrary sets that need not be aligned.</dd>
+      </dl>
+
+      <h2 id="Miscellaneous">Miscellaneous</h2>
+      <dl>
+        <dt><a href="/wiki/Sue_de_Coq">Sue de Coq</a></dt>
+        <dd>Uses two intersecting sets <b>A</b> and <b>B</b>, where <b>A</b> is a set of N cells with N candidates in a line, <b>B</b> is a set of N cells with N candidates in a box, and the sets <b>A - B</b> and <b>B - A</b> have no common candidates.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Subset_Counting">Subset Counting</a> | <a href="/wiki/Extended_Subset_Principle">Extended Subset Principle</a></dt>
+        <dd>Considers the number of times a digit can be placed in a selected subset of cells.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Braid_Analysis">Braid Analysis</a> | <a href="/wiki/Braiding">Braiding</a> | <a href="/wiki/Traveling_Pairs">Traveling Pairs</a></dt>
+        <dd>Analyzes the distribution of digits in a <a href="/wiki/Chute">chute</a>, especially how pairs repeat in a chute.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Constraint_Subsets">Constraint Subsets</a></dt>
+        <dd>Generalized view of <a href="/wiki/Subset">subset</a> and <a href="/wiki/Fish">fish</a> techniques.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Equivalence_Marks">Equivalence Marks</a></dt>
+        <dd>Similar to <a href="/wiki/Coloring">coloring</a>, but uses marks instead of colors to represent parity.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Gurth%27s_Symmetrical_Placement">Gurth's Symmetrical Placement</a></dt>
+        <dd>Technique for puzzles with rotational symmetry.</dd>
+      </dl>
+
+      <h2 id="Techniques_of_Last_Resort">Techniques of Last Resort</h2>
+      <p>Most of these techniques are controversial. They are either too complex to be used by human solvers, or they require a lot of extra work, or they are not based on logic.</p>
+      <dl>
+        <dt><a href="/wiki/Forcing_Net">Forcing Net</a></dt>
+        <dd>A general term for techniques that investigate branching chains.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Tabling">Tabling</a> | Trebor's Tables</dt>
+        <dd>All implications for each move are collected in tables.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Graded_Equivalence_Marks">Graded Equivalence Marks</a> | GEM</dt>
+        <dd>A system of marking candidates starting from 2 complementary starting positions.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Bowman_Bingo">Bowman Bingo</a></dt>
+        <dd>A systematic approach to investigate implications.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Trial_%26_Error">Trial &amp; Error</a> | <a href="/wiki/Ariadne%27s_Thread">Ariadne's Thread</a> | <a href="/wiki/Bifurcation">Bifurcation</a></dt>
+        <dd>The implications for a single move are investigated.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Nishio">Nishio</a></dt>
+        <dd>Trial &amp; Error limited to single digit.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Templating">Templating</a> | <a href="/wiki/Pattern_Overlay_Method">Pattern Overlay Method</a> | POM</dt>
+        <dd>All possible ways to place a digit in the remaining candidate space are investigated.</dd>
+      </dl>
+      <dl>
+        <dt><a href="/wiki/Guess">Guessing</a></dt>
+        <dd>Random moves are made, without any logic behind them.</dd>
+      </dl>
+
+      <h2 id="Brute_Force">Brute Force</h2>
+      <p>These are primarily designed for computer solver programs.</p>
+      <ul>
+        <li><a href="/wiki/Backtracking_Algorithms">Backtracking Algorithms</a>.</li>
+      </ul>
+
+      <div id="catlinks" class="catlinks">
+        <div class="mw-normal-catlinks">
+          <a href="/wiki/Special:Categories">Category</a>:
+          <ul><li><a href="/wiki/Category:Solving_Techniques">Solving Techniques</a></li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="footer-left">
+      <div class="gnu-license-icon">
+        <span>GNU FDL</span>
+        <span style="font-size:6px; margin-top:1px;">FREE DOC<br>LICENSE</span>
+      </div>
+      <ul>
+        <li>This page was last edited on 20 August 2022, at 21:31.</li>
+        <li>Content is available under <a href="/wiki/Sudopedia:Copyrights">GNU Free Documentation License 1.3 or later</a> unless otherwise noted.</li>
+      </ul>
+    </div>
+    <div class="footer-right">
+      <ul>
+        <li><a href="/wiki/Sudopedia:Privacy_policy">Privacy policy</a></li>
+        <li><a href="/wiki/Sudopedia:About">About Sudopedia</a></li>
+        <li><a href="/wiki/Sudopedia:General_disclaimer">Disclaimers</a></li>
+      </ul>
+      <a href="https://www.mediawiki.org/" class="mw-badge">
+        <span>[[[ )) ]]<br>Powered By<br>MediaWiki</span>
+      </a>
+    </div>
+  </div>
+</div>
+            </div>
+        </article>
+    </div>
+    </main>
+
+    <footer class="bg-gray-100 pt-8 mt-8">
+            </footer>
+
+    <!-- Highlight.js for code blocks -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+
+    <!-- Global Form Handler -->
+    <script src="https://www.sudopedia.org/js/form-handler.js"></script>
+
+    <!-- Page-specific scripts -->
+    
+    <!-- Custom footer scripts from site settings -->
+    
+</body>
+</html>

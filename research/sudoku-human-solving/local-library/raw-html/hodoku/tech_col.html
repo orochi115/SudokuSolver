@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Coloring (Simple Colors, Multi Colors, Color Wrap, Color Trap)</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Coloring (Simple Colors, Multi Colors, Color Wrap, Color Trap)">
+    <meta name="keywords" content="sudoku,java,hodoku,coloring,conjugate pair,simple colors,multi colors,color wrap,color trap">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechCo a, #menu ul li ul li.mTechCo a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_col.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_col.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Coloring</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#sc">Simple Colors (Color Wrap/Color Trap)</a></li>
+        <li><a href="#mc">Multi Colors</a></li>
+<!--        <li class="ni"><ul>
+            <li><a href="#display_mode_1">Sudoku only view (standard)</a></li>
+            <li><a href="#display_mode_2">Summary view</a></li>
+        </ul></li> -->
+    </ul>
+    <p>Coloring is a single digit technique that has spawned a number of variants in various
+    degrees of complexity. Two easy variants are explained here. The principle is always the same:
+    The player looks for houses, in which the color digit has only two possible cells left
+    (the house contains a <a href="tech_chains.php#strong_link">strong link</a> for that digit). In coloring terms such a strong link
+    is called a conjugate pair. The two candidates of the conjugate pair are assigned opposite
+    colors (see <a href="docs_play.php#keyboard_2">Coloring</a> in the <a href="docs.php">Users Manual</a>).
+    After the coloring is complete, the grid is searched for contradictions that can lead to eliminations.</p>
+    <p>When two opposite colors are applied to a grid (say color 1 and color2), either all cells with color 1
+    are true and all cells with color 2 are false or vice versa. It is impossible that two cells with opposite colors
+    can be true at the same time. If more than two colors are used, the above is true for every color pair.</p>
+    <p>All coloring techniques are simply methods for finding <a href="tech_chains.php">chains</a>. Using
+    coloring is normally much easier than searching the grid for possible chains.</p>
+    <hr>
+
+    <h1><a name="sc"></a>Simple Colors</h1>
+    <p>Simple Colors uses only two different colors. Starting with one cell of a conjugate pair, the colors are applied,
+    until no colored cell has a conjugate partner cell left. After that the grid is scanned for one of two possible
+    contradictions:</p>
+    <ol>
+        <li>An uncolored cell that sees cells of opposite colors (Color Trap): Since the cells with
+        the same color are either all true or all false, one of the two colored cells has to be true, and
+        the uncolored cell can never have the color candidate placed.</li>
+        <li>Two cells with the same color seeing each other (Color Wrap): The cells with that
+        color are either all true or all false. All true is impossible (we would get the same
+        digit twice in the same house), so they must all be false.</li>
+    </ol>
+    <a href='show_example.php?file=sc01&amp;tech=Simple+Colors'><img class='scr_l' src='../examples/sc01.png' alt='Sudoku technique: Example for Simple+Colors'></a>    <a href='show_example.php?file=sc02&amp;tech=Simple+Colors'><img class='scr_l' src='../examples/sc02.png' alt='Sudoku technique: Example for Simple+Colors'></a>    <p>The example on the left shows a Color Trap: Cell r1c9 sees cells r1c4 and r8c9 and those cells have
+    opposite colors. Candidate 3 can be eliminated from r1c9. The same argument holds for r3c9 and r8c1.</p>
+    <p>The example on the right shows a Color Wrap: Filters have been applied to paint all cells containing a candidate 8
+    with green background (two of those cells are still green; they don't belong to a conjugate pair). Then coloring started
+    at r1c6 and continued, until no further strong link could be found. Now look at column 4: r2c4 and r4c4 have
+    both the same color and are in the same house. 8 can be eliminated from all cells with that color, which solves the
+    sudoku (meaning: leaves only singles).</p>
+    <hr>
+
+    <h1><a name="mc"></a>Multi Colors</h1>
+    <p>Multi Colors uses more than one pair of colors to color regions formed by conjugate pairs
+    that are not connected. When the coloring is done, we again have two situations that can lead to eliminations:</p>
+    <ol>
+        <li>Two colored cells of different color pairs are in the same house (they form a <a href="tech_chains.php#weak_link">weak link</a>). Since
+        they share a house, they can't be both true (and the same holds for all cells with these colors). But
+        it also means that either the opposite color of pair one or the opposite color of pair two has to be true.
+        The color candidate can be eliminated from any cell that sees at least two cells with these opposite colors.</li>
+        <li>Two cells with the same color (say color 1) see cells with opposite colors of another color pair. One of the cells of the other
+        color pair must be true (see <a href="#sc">Simple Colors</a>), which means that one of the cells which color 1
+        has to be false. Since all cells with the same color have to have the same state regarding the color digit, all cells
+        with color 1 cannot contain the color candidate.</li>
+    </ol>
+    <p>Multi Colors have the same power as <a href="tech_chains.php#x">X-Chains</a>. HoDoKu currently supports only
+    two color pairs in its Multi Colors implementation, so not all X-Chains produce the equivalent
+    Multi Colors step in HoDoKu.</p>
+    <a href='show_example.php?file=mc01&amp;tech=Multi+Colors'><img class='scr_l' src='../examples/mc01.png' alt='Sudoku technique: Example for Multi+Colors'></a>    <a href='show_example.php?file=mc02&amp;tech=Multi+Colors'><img class='scr_l' src='../examples/mc02.png' alt='Sudoku technique: Example for Multi+Colors'></a>    <p>The example on the left shows type 1 for candidate 1: We use two colors. r1c5 has color 1a, r1c7 has color 1b;
+    r2c9 has 2a and r5c9 has 2b. r1c7 and r2c9 belong two different color pairs, but share
+    the same house (block 3). Since only one of them can possibly be true (they can both be false!),
+    either all cells with color 1a or all cells with color 2b have to be true. Cells r5c23 see
+    both colors and cannot therefore contain the color candidate.</p>
+    <p>The example on the right shows type 2 for candidate 3 (we use the same color designators as above):
+    Cell r6c2 (color 1b) sees cell r6c9 (color 2b) and cell r8c6 (color 1b as well) sees cell
+    r2c6 (color 2a). Since all cells with color 2a or all cells with color 2b must be true, one of
+    r6c2 or r8c6 has to be false. But since those two cells have the same color, all cells
+    with that color cannot contain a 3.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

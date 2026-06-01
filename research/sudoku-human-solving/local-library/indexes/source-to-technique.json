@@ -1,0 +1,21 @@
+{
+  "HODOKU-INTRO": ["technique.candidates-and-links"],
+  "HODOKU-SINGLES": ["technique.singles"],
+  "HODOKU-INTERSECTIONS": ["technique.locked-candidates"],
+  "HODOKU-NAKED": ["technique.naked-hidden-subsets"],
+  "HODOKU-HIDDEN": ["technique.naked-hidden-subsets"],
+  "HODOKU-FISH-GENERAL": ["technique.fish-base-cover"],
+  "HODOKU-BASIC-FISH": ["technique.fish-base-cover"],
+  "HODOKU-SDP": ["technique.turbot-family"],
+  "HODOKU-WINGS": ["technique.wings"],
+  "HODOKU-COLORING": ["technique.simple-coloring"],
+  "HODOKU-CHAINS": ["technique.candidates-and-links", "technique.aic"],
+  "HODOKU-ALS": ["technique.als"],
+  "HODOKU-UNIQUENESS": ["technique.uniqueness"],
+  "HODOKU-MISC": ["technique.sue-de-coq"],
+  "HODOKU-LAST": ["technique.forcing-vs-enumeration"],
+  "SUDOKUWIKI-AIC": ["technique.candidates-and-links", "technique.aic"],
+  "SUDOKUCOM-POINTING-PAIRS": ["technique.locked-candidates"],
+  "SUDOKUBLISS-ALS": ["technique.als"],
+  "CHINESE-JWANGL5-ADVANCED": ["technique.turbot-family", "technique.aic"]
+}

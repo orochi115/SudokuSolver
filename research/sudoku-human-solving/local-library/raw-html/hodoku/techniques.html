@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Human Style Solving Techniques for Sudoku</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Human Style Solving Techniques for Sudoku implemented in HoDoKu - a sudoku generator/solver/analyzer written in Java">
+    <meta name="keywords" content="sudoku,java,hodoku,german,human style solving techniques,hint,fish,uniqueness,coloring,chains,als,wings,subsets">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu li.mTech a, #menu li.mTech a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/techniques.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/techniques.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Implemented Techniques</h1>
+    <ul>
+        <li><a href="/en/tech_intro.php">Introduction</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_intro.php#ss">Preface</a></li>
+            <li><a href="/en/tech_intro.php#te">Terminology</a></li>
+        </ul></li>
+        <li><a href="/en/tech_singles.php">Singles</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_singles.php#fh">FullHouse/Last Digit</a></li>
+            <li><a href="/en/tech_singles.php#h1">Hidden Single</a></li>
+            <li><a href="/en/tech_singles.php#n1">Naked Single</a></li>
+            <li><a href="/en/tech_singles.php#fnh1">How to find them</a></li>
+        </ul></li>
+        <li><a href="/en/tech_intersections.php">Intersections</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_intersections.php#lc1">Locked Candidates Type 1 (Pointing)</a></li>
+            <li><a href="/en/tech_intersections.php#lc2">Locked Candidates Type 2 (Claiming)</a></li>
+            <li><a href="/en/tech_intersections.php#lc12">How to find them</a></li>
+        </ul></li>
+        <li><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_hidden.php#h2">Hidden Pair</a></li>
+            <li><a href="/en/tech_hidden.php#h3">Hidden Triple</a></li>
+            <li><a href="/en/tech_hidden.php#h4">Hidden Quadruple</a></li>
+            <li><a href="/en/tech_hidden.php#h234">How to find them</a></li>
+        </ul></li>
+        <li><a href="/en/tech_naked.php">Naked Subsets</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_naked.php#n2">Naked Pair/Locked Pair</a></li>
+            <li><a href="/en/tech_naked.php#n3">Naked Triple/Locked Triple</a></li>
+            <li><a href="/en/tech_naked.php#n4">Naked Quadruple</a></li>
+            <li><a href="/en/tech_naked.php#n234">How to find them</a></li>
+        </ul></li>
+        <li><a href="/en/tech_fishg.php">Fish (general explanation)</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_fishg.php#fi">Introduction</a></li>
+            <li><a href="/en/tech_fishg.php#fs">Shapes and Sizes</a></li>
+            <li><a href="/en/tech_fishg.php#ff">Fins and Sashiminess</a></li>
+            <li><a href="/en/tech_fishg.php#fc">Endo Fins and Cannibalism</a></li>
+        </ul></li>
+        <li><a href="/en/tech_fishb.php">Basic Fish</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_fishb.php#bf2">X-Wing</a></li>
+            <li><a href="/en/tech_fishb.php#bf3">Swordfish</a></li>
+            <li><a href="/en/tech_fishb.php#bf4">Jellyfish</a></li>
+            <li><a href="/en/tech_fishb.php#bf5">Larger Basic Fish</a></li>
+        </ul></li>
+        <li><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_fishfs.php#fbf2">Finned/Sashimi X-Wing</a></li>
+            <li><a href="/en/tech_fishfs.php#fbf3">Finned/Sashimi Swordfish</a></li>
+            <li><a href="/en/tech_fishfs.php#fbf4">Finned/Sashimi Jellyfish</a></li>
+            <li><a href="/en/tech_fishfs.php#fbf567">Larger Finned Fish</a></li>
+        </ul></li>
+        <li><a href="/en/tech_fishc.php">Complex Fish</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_fishc.php#ff">(Finned) Franken Fish</a></li>
+            <li><a href="/en/tech_fishc.php#mf">(Finned) Mutant Fish</a></li>
+            <li><a href="/en/tech_fishc.php#sf">Siamese Fish</a></li>
+        </ul></li>
+        <li><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_sdp.php#sk">Skyscraper</a></li>
+            <li><a href="/en/tech_sdp.php#t2sk">2-String Kite</a></li>
+            <li><a href="/en/tech_sdp.php#tf">Turbot Fish</a></li>
+            <li><a href="/en/tech_sdp.php#er">Empty Rectangle</a></li>
+        </ul></li>
+        <li><a href="/en/tech_ur.php">Uniqueness</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_ur.php#in">Introduction</a></li>
+            <li><a href="/en/tech_ur.php#u1">Unique Rectangle Type 1</a></li>
+            <li><a href="/en/tech_ur.php#u2">Unique Rectangle Type 2</a></li>
+            <li><a href="/en/tech_ur.php#u3">Unique Rectangle Type 3</a></li>
+            <li><a href="/en/tech_ur.php#u4">Unique Rectangle Type 4</a></li>
+            <li><a href="/en/tech_ur.php#u5">Unique Rectangle Type 5</a></li>
+            <li><a href="/en/tech_ur.php#u6">Unique Rectangle Type 6</a></li>
+            <li><a href="/en/tech_ur.php#hr">Hidden Rectangle</a></li>
+            <li><a href="/en/tech_ur.php#ar">Avoidable Rectangle</a></li>
+            <li><a href="/en/tech_ur.php#bug1">BUG+1 - Binary Universal Grave + 1</a></li>
+            <li><a href="/en/tech_ur.php#umc">Unique Rectangles with missing candidates</a></li>
+        </ul></li>
+        <li><a href="/en/tech_wings.php">Wings</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_wings.php#xy">XY-Wing</a></li>
+            <li><a href="/en/tech_wings.php#xyz">XYZ-Wing</a></li>
+            <li><a href="/en/tech_wings.php#w">W-Wing</a></li>
+        </ul></li>
+        <li><a href="/en/tech_misc.php">Miscellaneous</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_misc.php#sdc">Sue de Coq</a></li>
+        </ul></li>
+        <li><a href="/en/tech_col.php">Coloring</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_col.php#sc">Simple Colors (Color Wrap/Color Trap)</a></li>
+            <li><a href="/en/tech_col.php#mc">Multi Colors</a></li>
+        </ul></li>
+        <li><a href="/en/tech_chains.php">Chains and Loops</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_chains.php#in">Introduction</a></li>
+            <li><a href="/en/tech_chains.php#rp">Remote Pair</a></li>
+            <li><a href="/en/tech_chains.php#x">X-Chain</a></li>
+            <li><a href="/en/tech_chains.php#xyc">XY-Chain</a></li>
+            <li><a href="/en/tech_chains.php#nl">Nice Loop/AIC</a></li>
+            <li><a href="/en/tech_chains.php#gnl">Grouped Nice Loop</a></li>
+        </ul></li>
+        <li><a href="/en/tech_als.php">ALS - Almost Locked Sets</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_als.php#in">Introduction</a></li>
+            <li><a href="/en/tech_als.php#axz">ALS-XZ</a></li>
+            <li><a href="/en/tech_als.php#axy">ALS-XY-Wing</a></li>
+            <li><a href="/en/tech_als.php#ach">ALS Chain</a></li>
+            <li><a href="/en/tech_als.php#db">Death Blossom</a></li>
+        </ul></li>
+        <li><a href="/en/tech_last.php">Methods of Last Resort</a></li>
+        <li class="ni"><ul>
+            <li><a href="/en/tech_last.php#ts">Templates</a></li>
+            <li><a href="/en/tech_last.php#fc">Forcing Chain</a></li>
+            <li><a href="/en/tech_last.php#fn">Forcing Net</a></li>
+            <li><a href="/en/tech_last.php#kf">Kraken Fish</a></li>
+            <li><a href="/en/tech_last.php#bf">Brute Force</a></li>
+        </ul></li>
+    </ul>
+  <div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

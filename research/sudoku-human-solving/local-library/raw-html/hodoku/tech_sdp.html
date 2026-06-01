@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Single Digit Patterns (Skyscraper, 2-String-Kite, Turbot Fish, Empty Rectangle)</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Single Digit Patterns (Skyscaper, 2-String-Kite, Turbot Fish, Empty Rectangle)">
+    <meta name="keywords" content="sudoku,java,hodoku,single digit pattern,skyscraper,2-string kite,dual,turbot fish,empty rectangle">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechSD a, #menu ul li ul li.mTechSD a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_sdp.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_sdp.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Single Digit Patterns</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#sk">Skyscraper</a></li>
+        <li><a href="#t2sk">2-String Kite</a></li>
+        <li class="ni"><ul>
+            <li><a href="#t2sk1">Standard Pattern</a></li>
+            <li><a href="#t2sk2">Dual 2-String Kite</a></li>
+        </ul></li>
+        <li><a href="#tf">Turbot Fish</a></li>
+        <li><a href="#er">Empty Rectangle</a></li>
+        <li class="ni"><ul>
+            <li><a href="#er1">Standard Pattern</a></li>
+            <li><a href="#er2">ERs with only two candidates</a></li>
+            <li><a href="#er3">Dual Empty Rectangle</a></li>
+        </ul></li>
+    </ul>
+    <hr>
+
+    <h1><a name="sk"></a>Skyscraper</h1>
+    <p>A Skyscraper is a simple pattern that occurs rather often in sudokus and can be
+    easily spotted. It is nothing really new: A Skyscraper is a special form of <a href="#tf">Turbot Fish</a>
+    and it can be seen as two <a href="tech_fishfs.php#fbf2">Sashimi X-Wings</a>.</p>
+    <p>The description of the pattern sounds more complicated than it really is:
+    Concentrate on one digit. Find two rows (or columns) that contain only
+    two candidates for that digit. If two of those candidates are in the same column (or row),
+    one of the other two candidates must be true. All candidates that see both of those
+    cells can therefore be eliminated. Let's look at examples:</p>
+    <a href='show_example.php?file=sk01&amp;tech=Skyscraper'><img class='scr_l' src='../examples/sk01.png' alt='Sudoku technique: Example for Skyscraper'></a>    <a href='show_example.php?file=sk02&amp;tech=Skyscraper'><img class='scr_l' src='../examples/sk02.png' alt='Sudoku technique: Example for Skyscraper'></a>    <p>Take the left example: In column 6 digit 1 can only be placed in row 1 or row 5.
+    In column 9 digit 1 can only be placed in row 3 or row 5. r5c6 and r5c9 are in the same
+    row (the "base" of the skyscraper). We can now reason as follows: If r1c6 is not true, then
+    r5c6 must be true (only two possible values, one of them must be true: <a href="tech_chains.php#strong_link">strong link</a>). But if
+    r5c6 is true, r5c9 cannot be true since they are in the same row (<a href="tech_chains.php#weak_link">weak link</a>). And if r5c9 is
+    not true, r3c9 has to be true (<a href="tech_chains.php#strong_link">strong link</a>). We have thus proved, that r3c9 has to be true,
+    if r1c6 is not true. The same argument holds if we start with r3c9 not true: It follows, that
+    r1c6 has to be true. Since one of r1c6 and r3c9 has to be true, all candidates that can see
+    both cells can be eliminated (in our example: r1c78 and r3c45).</p>
+    <p>Luckily for you it is not necessary to follow through the logic everytime you look
+    for a Skyscraper: You only have to identify the pattern.</p>
+    <p>It can be seen, that the places of the candidates are subject to a restriction:
+    The two top cells have to be in the same band or nothing can be eliminated.</p>
+    <p>The example on the right shows a Skyscraper, that has been rotated 90 degrees clock wise:
+    Skyscraper on 4 in r2c5,r8c4 (connected by r28c1) => r1c4<>4</p>
+    <p>If we look at the left example again we can easily identify the two Sashimi
+    X-Wings that are contained in it: The first is c59/r35, fin in r1c6, eliminating 1 from r3c45.
+    The second is c59/r15, fin in r3c9, eliminating 1 from r1c78.</p>
+    <hr>
+
+    <h1><a name="t2sk"></a>2-String Kite</h1>
+    <h2><a name="t2sk1"></a>Standard Pattern</h2>
+    <p>A 2-String Kite is a second special form of <a href="#tf">Turbot Fish</a>, that can be found
+    in lots of sudokus. The description: Concentrate again on one digit. Find a row and a column
+    that have only two candidates left (the "strings"). One candidate from the row and one candidate from the
+    column have to be in the same block. The candidate that sees the two other cells can be
+    eliminated.</p>
+    <p>2-String Kites work similar to Skyscrapers: One of the two ends of the strings must be true.</p>
+    <a href='show_example.php?file=2sk01&amp;tech=2-String+Kite'><img class='scr_l' src='../examples/2sk01.png' alt='Sudoku technique: Example for 2-String+Kite'></a>    <a href='show_example.php?file=2sk02&amp;tech=2-String+Kite'><img class='scr_l' src='../examples/2sk02.png' alt='Sudoku technique: Example for 2-String+Kite'></a>    <p>Left example: Candidate is 5. The first string is in column 7 (candidates r29c7), the other is in row 8 (candidates r8c49).
+    The end points r9c7 and r8c9 are both in box 9. If r2c7 is not true, then r9c7 has to be true,
+    r8c9 has to be false, and r8c4 has to be true. If r8c4 is not true, the same argument leads to
+    r2c7 true. Either way r2c4, that sees both r2c7 and r8c4, cannot be true.</p>
+    <p>Right example: Candidate 9, strings r6c16 and r47c2, connected in box 4: r7c6 cannot be 9.</p>
+
+    <h2><a name="t2sk2"></a>Dual 2-String Kite</h2>
+    <p>Sometimes the same two connecting candidates in the common box can be tied two four different
+    strings, forming effectively two 2-String Kites, that eliminate two candidates. Those two 2-String Kites
+    can be considered to be one move only and can be called Dual 2-String Kite. HoDoKu supports dual forms
+    only as an option (they can always be replicated by the two kites that build the dual form).</p>
+    <a href='show_example.php?file=d2sk01&amp;tech=Dual+2-String+Kite'><img class='scr_l' src='../examples/d2sk01.png' alt='Sudoku technique: Example for Dual+2-String+Kite'></a>    <a href='show_example.php?file=d2sk02&amp;tech=Dual+2-String+Kite'><img class='scr_l' src='../examples/d2sk02.png' alt='Sudoku technique: Example for Dual+2-String+Kite'></a>    <p>Left example: The common candidates are r1c3 and r3c1 in box 1. The two kites that can be built with them
+    are: r1c38/r36c1 (r6c8<>1) and r3c19/r14c3 (r4c9<>1).</p>
+    <p>Right example: Common candidates r7c2 and r9c1 in box 7. Kites: r29c1/r7c28 (r2c8<>4) and
+    r17c2/r9c19 (r1c9<>4).</p>
+    <hr>
+
+    <h1><a name="tf"></a>Turbot Fish</h1>
+    <p>A Turbot Fish is really a chain and not a fish. For a detailled description of the various
+    techniques and terms regarding chains please see <a href="tech_chains.php#in">Chains: Introduction</a>.</p>
+    <p>A Turbot Fish is an <a href="tech_chains.php#x">X-Chain</a> that is exactly four candidates long.
+    Various shapes can be built with such a chain. One of them resembles a fish, which gave the technique its name
+    (look at the right example: draw two lines from the red candidate to the nearest green and blue
+    candidates to see the fish shape).</p>
+    <p>Turbot Fishes have gone a bit out of style. One of the reasons is, that most of the principle
+    turbot patterns have been described as seperate patterns with their own names: Skyscraper, 2-String Kite and
+    Empty Rectangle (only two candidates in the empty rectangle itself).</p>
+    <a href='show_example.php?file=tf01&amp;tech=Turbot+Fish'><img class='scr_l' src='../examples/tf01.png' alt='Sudoku technique: Example for Turbot+Fish'></a>    <a href='show_example.php?file=tf02&amp;tech=Turbot+Fish'><img class='scr_l' src='../examples/tf02.png' alt='Sudoku technique: Example for Turbot+Fish'></a>    <p>The examples above show two of the possibilities: On the left is an Empty Rectangle, on the right a 2-String Kite.</p>
+    <a href='show_example.php?file=tf03&amp;tech=Turbot+Fish'><img class='scr_l' src='../examples/tf03.png' alt='Sudoku technique: Example for Turbot+Fish'></a>    <a href='show_example.php?file=tf04&amp;tech=Turbot+Fish'><img class='scr_l' src='../examples/tf04.png' alt='Sudoku technique: Example for Turbot+Fish'></a>    <p>The examples above: On the left a Skyscraper, on the right an Empty Rectangle again (the right example really contains a
+    Dual Empty Rectangle)</p>
+    <hr>
+
+    <h1><a name="er"></a>Empty Rectangle</h1>
+    <h2><a name="er1"></a>Standard Pattern</h2>
+    <p>Empty Rectangles have been used in lots of different forms in very advanced techniques.
+    The pattern described here is a very basic variant.</p>
+    <p>Let's start with a definition of the Empty Rectangle (ER) itself: If one candidate is restricted
+    to exactely one row and one column within a box, the remaining cells form an ER. Look at the two
+    examples below: On the left candidate 9 in box 5 is restricted to row 4 and column 6. The ER is
+    r5c45 and r6c45. On the right candidate 1 in box 5 is restricted to row 4 and column 5. The ER
+    is r5c46 and r6c46.</p>
+    <p>If an ER has been found, it can be checked for eliminations: Find a conjugate pair (a
+    row or column containing only two candidates) where one of the candidates is in the row (column)
+    forming the ER. If the column (row) of the ER contains a candidate, that can see the second candidate of the
+    conjugate pair, it can be eliminated.</p>
+    <p>An ER pattern that follows the description above can always be seen as a <a href="tech_fishc.php#mf">Finned Mutant X-Wing</a>
+    or as a <a href="tech_chains.php#gnl">Grouped Nice Loop</a>.</p>
+    <a href='show_example.php?file=er01&amp;tech=Empty+Rectangle'><img class='scr_l' src='../examples/er01.png' alt='Sudoku technique: Example for Empty+Rectangle'></a>    <a href='show_example.php?file=er02&amp;tech=Empty+Rectangle'><img class='scr_l' src='../examples/er02.png' alt='Sudoku technique: Example for Empty+Rectangle'></a>    <p>On the left: Row 4 and column 6 form an ER in box 5. r48c2 form a conjugate pair. One side of
+    the conjugate pair is in the ER row (r4c2), the other can see a candidate in the ER column (r8c6).
+    9 can be eliminated from r8c6.</p>
+    <p>To see why this works, let us start with candidate 9 in r8c2: If r8c2 is 9, r8c6 cannot be 9
+    (same row). If r8c2 is not 9, r4c2 has to be 9 (conjugate pair/strong link), which means that
+    neither r4c5 nor r4c6 can be 9. This leaves r6c6 as last candidate 9 in box 5, it must be true and
+    r8c6 must be false again. Since both possibilities in r8c2 lead to the same result (r8c6&lt;&gt;9),
+    9 can be eliminated from r8c6.</p>
+    <p>The equivalent Finned Mutant X-Wing: 9 c2b5 r4c6 fr8c2 => r8c6&lt;&gt;9.</p>
+    <p>The equivalent Grouped Nice Loop: r8c6 -9- r8c2 =9= r4c2 -9- r4c56 =9= r6c6 -9- r8c6 => r8c6&lt;&gt;9.</p>
+    <p>In the example on the right row 4 and column 5 form the ER, r7c59 is the conjugate pair, and r4c9 can be eliminated.</p>
+
+    <h2><a name="er2"></a>ERs with only two candidates</h2>
+    <p>If the ER contains only two candidates the Empty Rectangle is not clearly defined. The eliminations
+    are of course still valid. The move can be replicated as <a href="#tf">Turbot Fish</a> or as
+    <a href="tech_chains.php#x">X-Chain</a>. Some sudoku players don't consider ERs with
+    only two candidates valid, therefore HoDoKu supports them only optionally.</p>
+    <p><b>Note:</b> Since Turbot Fish is before ER in the standard solving order, ERs with
+    two candidates are always found as Turbot Fishes, even if they are enabled. Please move Turbot
+    Fish behind ER (or disable it) to find the ERs below.</p>
+    <a href='show_example.php?file=er201&amp;tech=Empty+Rectangle+%28only+two+candidates+in+the+ER%29'><img class='scr_l' src='../examples/er201.png' alt='Sudoku technique: Example for Empty+Rectangle+%28only+two+candidates+in+the+ER%29'></a>    <a href='show_example.php?file=er202&amp;tech=Empty+Rectangle+%28only+two+candidates+in+the+ER%29'><img class='scr_l' src='../examples/er202.png' alt='Sudoku technique: Example for Empty+Rectangle+%28only+two+candidates+in+the+ER%29'></a>    <p>Left Example: Empty Rectangle: 6 in b8 (r69c1) => r6c4&lt;&gt;6</p>
+    <p>Right example: Empty Rectangle: 5 in b3 (r8c49) => r2c4&lt;&gt;5</p>
+
+    <h2><a name="er3"></a>Dual Empty Rectangle</h2>
+    <p>Sometimes the eliminated candidate and the end of the conjugate pair form a conjugate
+    pair as well. If that is the case, both strong links can play the role of "conjugate pair"
+    thus leading to two different eliminations. The result is called a Dual Empty Rectangle.</p>
+    <p>Dual Empty Rectangles are supported as an option in HoDoKu.</p>
+    <a href='show_example.php?file=der01&amp;tech=Dual+Empty+Rectangle'><img class='scr_l' src='../examples/der01.png' alt='Sudoku technique: Example for Dual+Empty+Rectangle'></a>    <a href='show_example.php?file=der02&amp;tech=Dual+Empty+Rectangle'><img class='scr_l' src='../examples/der02.png' alt='Sudoku technique: Example for Dual+Empty+Rectangle'></a>    <p>In the example on the left the ER is formed by row 2 and column 3. r6c35 is a conjugate
+    pair eliminating 2 from r2c5. But r26c5 is a conjugate pair as well eliminating 2 from r6c3.</p>
+    <p>On the right: Dual Empty Rectangle: 9 in b5 (r67c8/r7c48) => r6c8,r7c4&lt;&gt;9</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

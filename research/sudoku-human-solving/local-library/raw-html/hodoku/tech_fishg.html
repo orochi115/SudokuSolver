@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Fish (General Explanation) - X-Wing, Swordfish, Jellyfish</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Fish (General Explanation) - X-Wing, Swordfish, Jellyfish">
+    <meta name="keywords" content="sudoku,java,hodoku,fish,terminology,fin,endo fin,exo fin,sashimi,cannibalistic fish,base set,cover set">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechFi a, #menu ul li ul li.mTechFi a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_fishg.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_fishg.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Fish (General Explanation)</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#fi">Introduction </a></li>
+        <li class="ni"><ul>
+            <li><a href="#princ">Principle</a></li>
+            <li><a href="#how">How it Works</a></li>
+        </ul></li>
+        <li><a href="#fs">Shapes and Sizes</a></li>
+        <li><a href="#ff">Fins and Sashiminess</a></li>
+        <li class="ni"><ul>
+            <li><a href="#exofin">(Exo) Fins</a></li>
+            <li><a href="#sashimi">Sashiminess</a></li>
+        </ul></li>
+        <li><a href="#fc">Endo Fins and Cannibalism</a></li>
+        <li class="ni"><ul>
+            <li><a href="#endofin">Endo Fins</a></li>
+            <li><a href="#cannibal">Cannibalism</a></li>
+        </ul></li>
+    </ul>
+    <hr>
+
+    <h1><a name="fi"></a>Introduction</h1>
+    <p>The term fish denotes a group of techniques that work from the same principle, but
+    have spawned an incredible amount of varieties (as real fish have). They start with simple
+    X-Wings (can be found in any tutorial) and go as far as Cannibalistic Finned Mutant Leviathans.
+    The larger species are rather cumbersome to find manually and are more commonly used by
+    computer programs, but the simpler ones are rather easy to spot and can advance a sudoku pretty 
+    quickly.</p>
+    <p>This sections tries to completely cover all types of fish. If you are only interested
+    in the basic variants and find the explanations here rather cumbersum, proceed directly
+    to the descriptions of the <a href="tech_fishb.php">Basic Fishes</a>.</p>
+    <p>Fish are single digit patterns. "Single digit" means, that only candidates of the same
+    digit are considered when looking at fish. "Pattern" means, that the location of the candidates in
+    the grid is important. The term is used to differentiate them from <a href="tech_chains.php">chains</a>.</p>
+
+    <h2><a name="princ"></a>Principle</h2>
+    <p>The principle behind fish is very simple: Look for a certain number of non overlapping
+    houses. Those houses are called the <b>base sets</b> (set is synonymous for house here),
+    the candidates contained within them
+    are the <b>base candidates</b>. Non overlapping means, that any base candidate is contained only in one base set, the sets themselves
+    can overlap.
+    Now look for an equal number of different non overlapping houses that <i>cover</i>
+    all base candidates. These new sets are the <b>cover sets</b> containing the <b>cover candidates</b>.
+    If such a combination exists, all cover candidates that are not base candidates can be eliminated.</p>
+
+    <h2><a name="how"></a>How it Works</h2>
+    <p>Fishes use the fact that a digit can only appear once in a house. Since we only consider
+    candidates of the same digit, any base set must contain exactly one cell with the fish value.
+    The same is true for the cover sets. Since all base candidates are part of a cover set
+    as well as a base set, the possible placements of the candidates become very restricted. If we
+    have N base sets and N cover sets, exactly N cells have to contain the fish digit. The sudoku rule
+    ensures that in every cover set exactly one base candidate has to be set. As usually we don't know
+    which of course, but we know it must be one, so none of the cover candidates that are not base
+    candidates are possible placements. They can be eliminated.</p>
+    <hr>
+
+    <h1><a name="fs"></a>Shapes and Sizes</h1>
+    <p>The number of base/cover sets define the <b>size</b> of the fish. The following
+    names are normally used to describe the size:</p>
+    <ul>
+        <li>Size 2: X-Wing (X-Wing is a fish and not a wing!)</li>
+        <li>Size 3: Swordfish</li>
+        <li>Size 4: Jellyfish</li>
+        <li>Size 5: Squirmbag</li>
+        <li>Size 6: Whale</li>
+        <li>Size 7: Leviathan</li>
+    </ul>
+    <p>Examples can be found in the chapter on <a href="tech_fishb.php">Basic Fish</a>.</p>
+    <p>The combinations of house types (rows, columns, blocks) used to build the base and
+    cover sets determine the type of the fish (types are given as [base sets]/[cover sets]):</p>
+    <ul>
+        <li>[rows]/[columns] or [columns]/[rows]: Basic Fish (the term "Basic" is normally omitted)</li>
+        <li>[rows and boxes]/[columns and boxes] or [columns and boxes]/[rows and boxes]: Franken Fish
+        (normally only one of the sets contains at least one box)</li>
+        <li>arbitrary combinations of rows/columns/boxes in one or both sets: Mutant Fish</li>
+    </ul>
+    <p>When describing fishes, the base and cover sets are usually written down and determine the
+    type of the fish. Examples:</p>
+    <ul>
+        <li>4 c39 r46: Fish for digit 4, base sets are columns 3 and 9, cover sets are rows 4 and 6 ->
+        (Basic) X-Wing</li>
+        <li>4 c39b8 r469: Fish for digit 4, base sets are columns 3 and 9 and box 8, cover sets
+        are rows 4, 6, and 9 -> Franken Swordfish</li>
+        <li>4 r159c9 c45b36: Fish for digit 4, base sets row 1, 5, 9 and column 9, cover sets
+        column 4, 5 and blocks 3, 6 -> Mutant Jellyfish</li>
+    </ul>
+    <p>Examples for Franken and Mutant Fish can be found in <a href="tech_fishc.php">Complex Fish</a>.</p>
+    <hr>
+
+    <h1><a name="ff"></a>Fins and Sashiminess</h1>
+    <h2><a name="exofin"></a>(Exo) Fins</h2>
+    <p>The trick with fishing is of course to find cover sets that contain really all
+    base candidates. Unfortunately more often then not base candidates are left over. This
+    destroys the fish premise ("in any cover set exactly one base candidate must be true") because
+    anyone of the extra base candidates could be true. Those extra candidates are called
+    <b>fins</b> (or more exactly: <b>exo fins</b> to differentiate them from <b>endo fins</b>
+     - see <a href="#endofin">below</a>), the fish becomes a Finned Fish.</p>
+     <p>The good news is that eliminations are still possible under certain circumstances.
+     The logic goes as follows: Either all fins are false, then we have a fish that eliminates all
+     cover candidates that are not base candidates (the <b>possible eliminations</b>), or one of the
+     fins is true thus eliminating all candidates that can see the fin cell. If we combine the
+     two possibilities we get the following rule: In a finned fish all possible eliminations that
+     see all the fins can be eliminated.</p>
+    <p>Examples for Finned Fish can be found in <a href="tech_fishfs.php">Finned/Sashimim Fish</a>.</p>
+    <h2><a name="sashimi"></a>Sashiminess</h2>
+    <p>In descriptions available on the internet many additional conditions about
+    fish candidates can be found (so and so many candidates at least in this or that
+    base set). They are all unnecessary. Every fish that has an equal number of base and
+    cover sets, where all base candidates are within the cover sets, does work. The reason
+    for these additional rules is a discussion that is still not settled in the sudoku
+    community: The question of degeneration. Certain types of patterns meet the fish
+    rules, but they contain a smaller fish that could eliminate something first or they could be
+    simulated by easier moves (normally singles and locked candidates moves). Some sudoku
+    players call those fish "degenerate" and don't think them valid.</p>
+    <p>In some respect the discussion is academic. Whether the fish is degenerate or not,
+    the eliminations drawn from it are always valid. There is a special case, where
+    the difference is important to understand the various fish names: If a degenerate fish
+    has fins, the easier moves contained in the fish cannot be executed because they
+    are prevented by the fins. What we get is a Finned Fish, that would not even be a fish,
+    if it were not for the fins. Such a fish is often called <b>Sashimi</b>.</p>
+    <p>A discussion is still not settled whether the term Sashimi should replace the term Finned
+    (regularly seen in various forums) or whether it should be an additional attribute to
+    the fish name describing its <b>Sashiminess</b>. Depending on what side of the argument
+    you decide to be, it is either Sashimi X-Wing or Finned Sashimi X-Wing (you could of
+    course skip the argument and stick with Finned Fish - this is exactly what HoDoKu
+    does for all non basic fish types).</p>
+    <hr>
+
+    <h1><a name="fc"></a>Endo Fins and Cannibalism</h1>
+    <p>One important condition for fishes was, that neither the base sets nor the cover sets
+    are allowed to overlap (and overlap means here: no base candidate may be in more than one base set
+    and no cover candidate may be in more than one cover set). If we lower that restriction, we get
+    two advanced techniques: Endo Fins and Cannibalism.</p>
+
+    <h2><a name="endofin"></a>Endo Fins</h2>
+    <p>If a base candidate is contained in more than one base sector our calculations are
+    not adding up any more. If that candidate was true, we had only (N-1) candidates placed for
+    N cover sets: One cover set would be without a placed base candidate thus destroying
+    the fish. On the other hand we already had base candidates that when set destroy the fish: We
+    called them fins.</p>
+    <p>The above means, that we can allow base candidates that are contained in more than one base set
+    as long as we treat them as fins. To differentiate these new fins from the regular ones, we
+    call them <b>endo fins</b>.</p>
+    <p>Endo Fins greatly enhance the number of possible fishes (and thus the number of eliminations
+    possible by fish) but they greatly enhance the number of possible combinations of base sets too. Combine
+    that with the fact that endo fins can only exist in Franken or Mutant Fish and you will see that
+    the number of possible combinations to search for Finned Franken/Mutant Fish with endo fins makes
+    them very hard to find for human players.</p>
+
+    <h2><a name="cannibal"></a>Cannibalism</h2>
+    <p>Now let's see what happens, if a base candidate is part of not only one cover set but of
+    two cover sets. If that candidate were placed, we would still need N base candidates to satisfy
+    the sudoku rule for the base sets. Unfortunately we would also get N candidates placed within the cover
+    sets. This means that we would get one cover set with two cells containing the fish digit thus violating
+    the sudoku rule.</p>
+    <p>Conclusion: If we have a valid fish, a base candidate contained in two
+    cover sets must be false, or to put it the other way round, it can be eliminated. Because it is
+    a part of the base set, the fish is quasi eating itself. Such a fish is consequently called
+    a Cannibalistic Fish.</p>
+    <p>The same logic holds, if a cannibalistic fish has fins. As in any finned fish, however, the base
+    candidate can only be eliminated, when it sees all the fins.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Alternating Inference Chains - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy.Alternating Inference Chains are explained. This is the fundamental chaining strategy used to find eliminations on cells that can see the start and end of a chain."/>
+<meta name="twitter:description" content="Sudoku Strategy.Alternating Inference Chains are explained. This is the fundamental chaining strategy used to find eliminations on cells that can see the start and end of a chain.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/AIC1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/AIC1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Alternating_Inference_Chains';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Alternating_Inference_Chains">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Alternating Inference Chains</h1><div class="SRCell">Chaining strategies now take a new leap with <b>Alternating Inference Chains</b>.  These extend <a href="/X_Cycles">X-Cycle</a> into a new dimension - where X-Cycles stuck to a single number, AICs use any candidate number.<br><br>For those interested in the origins of this strategy and a great deal more detail, <a href="http://forum.enjoysudoku.com/alternating-inference-chains-t3865.html" target="_blank">this post from 2006</a> by Myth Jellies is worth a visit.<br><br>AICs encapsulate all the discussion of chaining strategies so far. It's very useful to split out chain-like strategies into X-Wings, XY-Chains, Forcing Chains, XYZ-Wings, X-Cycles, Nice Loops and so on, since they have special characteristics which make them spottable. But it turns out they are all part of a larger extended family.<br><br>As we saw in the <a href="/X_Cycles">previous chapter</a>, alternation is just what X-Cycles are about. However, you'll remember that X-Cycles are applied only to a single candidate number. AICs, on the other hand, take everything from an X-Cycle and extend the logic to as many different candidate numbers as necessary.<br><br>AICs ask the question "How many ways are there to make a strong or a weak link?" If there is more than one way, we can join them up in an alternating manner and make deductions leading to eliminations. Let's look back on the previous chain-like strategies and note the following:<ul><br><li>We can link two candidates of the same value in a unit - this is called "bi-location" (X-Cycles).<br><li>We can link two different candidates in the same cell - this is called "bi-value".</ul><br>There are also other ways (see later articles), but for now let's keep it simple and stick to these two dimensions - links between cells and within cells.<br><br><div style="color:#ddf">You should also be armed with the ideas of <a href="/Weak_and_Strong_Links">Strong and Weak links</a> - and how they alternate and how some bi-value links can be used as weak links despite looking strong.</div><br></div><br>
+
+<h2>Nice Loops Rule 1</h2>
+<div class="SRCell">Nice Loops that alternate all the way round are said to be 'continuous', and they must have an even number of nodes. With a continuous AIC, candidates are not removed from the loop since the loop does not have any flaws.  Instead we are looking to eliminate on the units that can be seen by two or more cells that belong to the loop. </div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AIC1c.png" alt="AIC Rule 1" /><figcaption>AIC Rule 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1v8j4i6a046b83030b020c074j0z09060d4j0z7v4q02030683074j090r0c4j0f4q020z071v3f162b0b2i0h0i0c082b020c0i2r0z0f040c050a0907020d0h0f0g0h06040z0z030b090d020i0f080c0g0z0z">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000040030207009600000236070900000207000000000802000004050972000006400309020080000">From the Start</a>
+</figcaption></figure>
+<br>Specifically, if  a unit has an <span class="hg">ON</span> number X and an <span class="hr">OFF</span> number X then one or other will be the solution. All other candidates X in that unit can be removed. These are called <i>off-chain</i> eliminations. Take this example:<br>(Now the 4th in the 'explore' options)<br>AIC (Alternating Inference Chain) Rule 1:<br><span class="hc">-5[A3]+8[A3]-8[A6]<br>+8[D6]-4[D6]+4[E6]<br>-4[E3]+5[E3]-5[A3]</span><br>- Off-chain 8 taken off A4 - weak link: +8[A3] to -8[A6]<br>- Off-chain 5 taken off D6 - weak link between 8 and 4 in D6<br>- Off-chain 4 taken off E2 - weak link: +4[E6] to -4[E3]<br>- Off-chain 5 taken off C3 - weak link: +5[E3] to -5[A3]<br>Four off-chain eliminations occur on the weak links including the weak link between candidates on  cell <span class="hy">D6</span>.</div>
+
+<div class="SRCell">This is a classic and pleasingly short Continuous Alternating Inference Chain. <br>Starting a <span class="hy">A3</span> we turn 8 <span class="hg">ON</span>. <br>This removes the 8 in <span class="hy">A6</span> turning on forcing 8 in <span class="hy">D6</span> <span class="hg">ON</span>.<br>That turns <span class="hr">OFF</span> 4 in the same cell.<br>4 in <span class="hy">E6</span> must be 6  <span class="hg">ON</span>.<br>That turns on 4 in <span class="hy">E3</span> making 5 in <span class="hy">E3</span><br>Which confirms 5 must be <span class="hr">OFF</span> in <span class="hy">A3</span><br><br>Thus...there is no contradiction in the loop. The nice thing about Nice Loops is they can be reversed. Try starting with 5 ON in <span class="hy">A3</span> and turning 5 OFF in <span class="hy">E3</span> - it will come back round with the same conclusion. In fact, the loop is especially "Nice" because you can start with any candidate in the loop and work your way round, provided it is the same On/Off state as described in the example.<br><br>So having proved the loop we can look for extra candidates on any unit linked by the chain - or indeed, extra candidates in the same cell where an ON/OFF has occurred.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AIC5b.png" alt="Off-chain eliminations in cells" /><figcaption>Off-chain eliminations in cells
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B05be8q4d074c0t8s037q019q061a1c3008a25262024v4v092z223v0p061b6o4v6o091a2y078a8f1b9b260826027s8c08349a3232013u456c2r094u6m061c17c4038y4q5m0118078a049uar2u023q138608">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=500070003010600080002009000060000900700000002008000010000900600030001070400020008">From the Start</a>
+</figcaption></figure>
+Off-chain eliminations can also occur within a cell. In this excellent example sent to me by <b>Andreas von Delius</b>, there is a fine Nice Loop. It can start anywhere and can be traced in either direction, but the solver picks it up on <span class="hy">A3</span>.  The loop picks out a series of 6s and 2s that alternate on and off. All the links between cells are strong links, but there are two switches between 2 and 6 in the loop. In those cells, <span class="hy">A8</span> and <span class="hy">H1</span>, other candidates exist. 2 or 6 will be the answer - we don't know which yet, but one or other, so other candidates in those cells can be removed.<br><br><span class="hc">AIC (Alternating Inference Chain) Rule 1:<br>+6[A3]-6[C1]+6[H1]-2[H1]<br>+2[H7]-2[G8]+2[A8]-6[A8]+6[A3]<br>- Off-chain candidates 8/9 taken off cell H1, link is between 6 and 2 in H1<br>- Off-chain candidates 4/9 taken off cell A8, link is between 2 and 6 in A8<br></span></div>
+
+<h2>Nice Loops Rule 2</h2>
+<div class="SRCell">Now we turn to flawed loops - ones that show a discontinuity. In terms of strong/weak links, there are two types, as described in the article on <a href="/X_Cycles">X-Cycles</a>. Those where two strong links join up and those where two weak links join up. <br><br><b>If the adjacent links are links with strong inference (solid line), a candidate can be fixed in the cell at the discontinuity.</b> It removes all other candidates as is the solution to that cell. This type is unfortunately much rarer than the Nice Loop Rule 3, two weak links.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AIC2c.png" alt="AIC Rule 2" /><figcaption>AIC Rule 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0504037n0h7n0b0g060bdudu0c2216014q82b60ac2072202be4q0c074o4i11090z4y52047y86010616080g7q0b06b8be0s030g05b6017uaaay080b038q0a82464602820a968q220g018y968a0g96030208">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=543000006000000100000702000700090004001608000600030501000803000002000000100000328">From the Start</a>
+</figcaption></figure>
+<br>This AIC starts and ends in <span class="hy">B9</span>. Setting 9 to be <span class="hr">OFF</span> creates a loop and a contradiction - that 9 must be <span class="hg">ON</span> if 9 is <span class="hr">OFF</span>. So removing the 9 forces it to reappear!  We can safely place 9 in B9 - removing the other candidate 5.<br><br><span class="hc">AIC on 9 (Discontinuous Alternating Nice Loop, length 10):<br>-9[B9]+9[G9]-5[G9]+5[G3]<br>-5[D3]+8[D3]-8[D7]+8[C7]<br>-9[C7]+9[B9]<br>- Contradiction: When 9 is removed from B9 the chain implies it must be 9 - other candidates 5 can be removed</span><br><br>In terms of strong/weak links, we have a candidate where two strong link join up, hence the thick lines drawn by the solver.</div>
+
+<h2>Nice Loops Rule 3</h2>
+<div class="SRCell">Our third rule dictates what happens when two weak links form a discontinuity in a loop:<br>If the adjacent links are links with weak inference (broken line), a candidate can be eliminated from the cell at the discontinuity. In terms of <span class="hg">ON</span>/<span class="hr">OFF</span> this is where you try and set a candidate to be <span class="hg">ON</span> but the loop comes round and shows that doing so forces that candiate to be turned <span class="hr">OFF</span>. </div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AIC3.png" alt="AIC Rule 3" /><figcaption>AIC Rule 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bbu4q060a039m2q02cyb6030a9e0e020604cy070b8a8i0h8q0c820102067u050g01087q0u832q080d0f0c029f9e0r2i03020i082j0605034q18cy0l9u2z2r06220907030l1u17080s5e01106q043m092u0o">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006030020030002640700000001260501800008000200003208065300000006097300080010040900">From the Start</a>
+</figcaption></figure>
+<br>We'll consider <span class="hy">A2</span> the start and end of the loop. By setting A2 to be 5 (+5[A2]) we turn off 5 in <span class="hy">A7</span>. That leaves 7 in <span class="hy">A7</span> turning off 7 in <span class="hy">F7</span>. The strong (bi-location) link makes 7 on in <span class="hy">F2</span>. That removes 7 in <span class="hy">E2</span> making 5 the solution in that cell. If 5 is <span class="hg">ON</span> in <span class="hy">E2</span> it has to be <span class="hr">OFF</span> in <span class="hy">A2</span>....<br>Contradiction!<br><br><span class="hc">AIC on 5 (Discontinuous Alternating Nice Loop, length 8):<br>+5[A2]-5[A7]+7[A7]<br>-7[F7]+7[F2]-7[E2]<br>+5[E2]-5[A2]<br>- Contradiction: When A2 is set to 5 the chain implies it cannot be 5 - it can be removed<br></span></div>
+
+<h2>In summary...</h2>
+<div class="SRCell">AICs are chains of links going across a unit and within a cell.  <br><br>If a candidate is turned <span class="hg">ON</span> you create a weak link turning <span class="hr">OFF</span> any other candidates in that cell and across the units it can see.<br><br>If you turn a candidate <span class="hr">OFF</span> you can turn <span class="hg">ON</span> other candidates in that cell (if there are only two candidates in the cell - <b>bi-value</b>) or across the unit if candidate X occurs just twice (bi-location). <br><br>Note: Since we must alternate a strong link will be weak if the previous link was strong even if they all look 'strong'.<br><br>However, bi-value and bi-location are just two ways of making chain links. There are other interesting ways of making chain links: <a href="/AIC_with_Groups">Grouped Cells</a> and <a href="/AIC_with_ALSs">Almost Locked Sets</a> are documented here and other patterns as well can be made into links, even <a href="/Unique_Rectangles">Unique Rectangles</a>.</div><br>
+
+<div class="SRCell"><h2>AIC Exemplars</h2>
+These puzzles require an Alternating Inference Chain strategy at some point but are otherwise trivial.<br>
+They make good practice puzzles.<br>
+<ul>
+<li><a href="/sudoku.htm?bd=000001000040280910001003068003000107080000000600047300008000002095030000000004000">Exemplar 1, x1 (score 112)</a></li>
+<li><a href="/sudoku.htm?bd=000020000002008300007090004004201007105000000080030000039800500000905040070010000">Exemplar 2, x1 (score 112)</a></li>
+<li><a href="/sudoku.htm?bd=903004000000000004080010000100000860000500300600090005008900000000070043054002006">Exemplar 3, x1 (score 116)</a></li>
+<li><a href="/sudoku.htm?bd=405000300302107000000800140000006008170000400600000015007009000009000000000030500">Exemplar 4, x1 (score 122)</a></li>
+<li><a href="/sudoku.htm?bd=700000500008400000100089700050000000004002008000004050000020800430760000010300009">Exemplar 5, x1 (score 142)</a></li>
+</ul>
+All are non-syemtrical but valid Sudoku puzzles.<br>
+Thanks for Klaus Brenner for these examples<br><br><br></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Grouped_X_Cycles">Grouped X-Cycles</a></td><td class="w50pc cright">Continue to <a href="AIC_with_Groups">AICs with Grouped Cells</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=85&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Alternating_Inference_Chains" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(85,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17428"><div class="w100pc"><div class="w60pc"><h2>... by: Lucas Thimoteo</h2></div><div class="w40pc datepost">Thursday 21-May-2026</div></div>
+<div class="w100pc">Hello, I'm still strying to understand how and why in the second example, the digit 6 cells A3 and C1 are weak links if there are only 2 candidates in that entire block. Same happens in block 9, with digit number 2 where we have candidates at H8 and G7 connected by weak links, but there's no other 2's in that block. <br><br>I also saw the same pattern in example #3 here and I have seen the solver considers that as well. <br><br>Reason I'm asking is because in my mind, those candidates should be connected through a strong link, either invalidating the chain or making a discontinuous chain. <br><br>Can someone help me understand what I'm failing to see? <br><br>Thanks!</div>
+<div class="w100pc" id="blog-reply17428"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><a href="/Weak_and_Strong_Links">Check this article</a>. But basically a strong link will be weak if the previous link was strong. All about alternating. <br></div></div><div id="blog-reply3081" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(85,17428,3081)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17215"><div class="w100pc"><div class="w60pc"><h2>... by: nono</h2></div><div class="w40pc datepost">Friday 11-Apr-2025</div></div>
+<div class="w100pc">Found this during research AIC’s for a sdk. Not found in the explanations of the strategy. -7(UR(EF19)) </div>
+<div class="w100pc" id="blog-reply17215"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>True. I need to figure out a way of highlighting which of four AIC docs pages are relevant. Could be several in one chain. However it is <a href="/Using_Unique_Rectangles_as_Links_in_Chains">explained here</a>.</div></div><div id="blog-reply2902" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(85,17215,2902)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17143"><div class="w100pc"><div class="w60pc"><h2>... by: Richard</h2></div><div class="w40pc datepost">Monday 26-Aug-2024</div></div>
+<div class="w100pc">A question from a beginner - Why does your discussion about AIC consider only loops and not open chains  ( called sometimes AIC Type 1 and Type 2)?</div>
+<div class="w100pc" id="blog-reply17143"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Mainly because we use both ends of the chain so that creates a loop. AICs are loops essentially. It’s true we can use chains not as loops like the forcing chains but that’s because we use different conditions at each end. But happy to look at an example if you found one written up elsewhere. Always looking for expand this area.</div></div><div id="blog-reply2858" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(85,17143,2858)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16793"><div class="w100pc"><div class="w60pc"><h2>... by: Oluwadarasimi Ogunshote</h2></div><div class="w40pc datepost">Saturday 19-Feb-2022</div></div>
+<div class="w100pc">Hey, I am coding a sudoku solver and I wanted to ask a question.<br><br>What do you think is a reasonable depth to stop extending the chain? </div>
+<div class="w100pc" id="blog-reply16793"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That is a very good question. If you are coding a depth-first algorithm you need to set a limit otherwise it takes to long going down rabbit holes. I have a limit of 12. Reasonable compromise. However I have also coded the NRC algorithm which is breadth first and does not need a limit. But due to memory limits it is not used for the online solver.</div></div><div id="blog-reply2646" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(85,16793,2646)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16711"><div class="w100pc"><div class="w60pc"><h2>... by: Peter Hopkins</h2></div><div class="w40pc datepost">Thursday 9-Sep-2021</div></div>
+<div class="w100pc">In the first Nice Loops 1 example above, you say:<br><br>The nice thing about Nice Loops is they can be reversed. Try starting with 4 ON in B7 and turning 4 OFF in H7 - it will come back round with the same conclusion.<br><br>I believe you mean that we can start with 4 OFF in B7 and ON in H7. This gives us:<br><br>-4[B7]+4[H7]-4[H5]+6[H5]-6[B5]+7[B5]-7[B2]+4[B2]-4[B7] completing the loop.<br><br>If we start with 4 ON in B7 and reverse the direction in the example, we get stuck, because 6 is OFF at H5, and there is no strong link allowing us to turn 6 ON in another cell in column 5.<br><br>The ability to reverse a Nice Loop is important, because it proves the strategy allows candidate elimination. In the example puzzle, whether B7 is 4 or not, the Nice Loop working in both directions proves that either B2 or B5 is 7, and either B5 or H5 is 6, and that is the basis for the eliminations. If the Nice Loop could not be reversed, all it would prove is that B2 or B5 is 7, and B5 or H5 is 6 on the condition that B7 is 4.</div>
+<div class="w100pc" id="blog-reply16711"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,16711,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16648"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Thursday 21-Jan-2021</div></div>
+<div class="w100pc">D4 - the link between A3 and C1 is a strong link.  However, every strong link is also a weak link, and a weak link is what is needed at that position in the AIC.  So it is treated as weak, even though it is strong.<br><br>The logic of the weak link is that "on" at one end implies "off" at the other, but this is also true for strong links.  What is true *only* for strong links is that "off" at one end implies "on" at the other, but this is not needed in the example.</div>
+<div class="w100pc" id="blog-reply16648"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,16648,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16638"><div class="w100pc"><div class="w60pc"><h2>... by: D4</h2></div><div class="w40pc datepost">Wednesday 25-Nov-2020</div></div>
+<div class="w100pc">Quick question.<br>In the second example, why is a3 to c1 a weak link if those places are the only two places for a 6?</div>
+<div class="w100pc" id="blog-reply16638"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,16638,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16596"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Saturday 20-Jun-2020</div></div>
+<div class="w100pc">This one was quite challenging, but I did manage to get software working to find alternating inference chains.  My original version was so slow as to be unusable; my latest version is about 12,000 times as fast.<br><br>There must be some theoretical maximum for the longest possible chain - does anyone know what it is?  There are only 729 possible combinations of cells/values even if a puzzle has no clues at all, so there cannot be a chain longer than this.  But the requirement to have strong links must cut the maximum possible length down a bit.  I'm just not sure how much.<br><br>In my database of 100 puzzles that cannot be solved using the most basic techniques, the longest chain I found was 47 links.  That's when I used only basic techniques and AIC.  When I add other techniques, the longest chain found in my sample is 33 links.  It's one thing to have the computer search for these, but trying to find a chain of this length manually is, well, challenging</div>
+<div class="w100pc" id="blog-reply16596"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,16596,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16148"><div class="w100pc"><div class="w60pc"><h2>... by: ATheorist</h2></div><div class="w40pc datepost">Friday 26-Feb-2016</div></div>
+<div class="w100pc">Nice Loops Rule 1  becomes a lot more simple to understand if one notes that when  a continuous loop (of any sort) is found, all links within it become strong - of course, as noted below, strong links also count as weak links, when you need them to. </div>
+<div class="w100pc" id="blog-reply16148"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,16148,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16006"><div class="w100pc"><div class="w60pc"><h2>... by: Stephen Carman</h2></div><div class="w40pc datepost">Friday 27-Mar-2015</div></div>
+<div class="w100pc">AIC rule three shows an example which violates the first rule of chains that there be an even number of nodes.  I'm not sure why it works in every example and with the solver but when I try to do it on my own I fail almost every time.  The 7 nodes in this example thus leave me more confused.  So basically what is the reason for the even node rule and why doesn't it matter in this example for RULE 3??</div>
+<div class="w100pc" id="blog-reply16006"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,16006,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15957"><div class="w100pc"><div class="w60pc"><h2>... by: gerp124</h2></div><div class="w40pc datepost">Thursday 25-Sep-2014</div></div>
+<div class="w100pc">So... I can follow the reasoning when the solver shows me the way, but I can't for the life of me figure out how to spot them!<br><br>Any advice?<br><br>Thanks in advance!</div>
+<div class="w100pc" id="blog-reply15957"></div>
+<div class="post-reply" id="reply2739"><table class="w100pc"><tr><td class="post-writes">Brett replies:</td><td class="datepost">Tuesday 23-Aug-2016</td></tr>
+<tr><td colspan="2">I know it's a little late to reply to gerp124's question, but since it's likely someone else will have the same question in the future, I'll give my method here.<br><br>First I look through all bi-valued cells (then tri-valued, then quad-valued, etc.) until I see one with strong links to a candidate in another cell with a in the same box/row/column. If I find one I'll mark that candidate. Then I'll look through all the strong links to that candidate and alternate between two markings around them creating a 3D medusa.<br><br>Once I find one of these 3D medusas (and do any eliminations it creates), I look through each of the candidates seen by the 3D medusa and see if it can make any strong links, and if so, create a 3D medusa with it using 2 more alternating markings. Off to the side of the sudoku grid, I'll draw the markers and how they see each other, using those to represent the chains (= for weak, - for strong, like in the article).<br><br>I'll then look through each marking seeing either 3D medusa above and do the same.<br><br>After doing this, I can see both Nice loops 1 and 3 (and some 2) using my diagram on the side. (Nice loop 3s reduce to Nice loop 2s in the diagram). In the case of nice loop 1s, after marking the eliminations, I'll re-mark all the 3D medusa involved and redraw the diagram.<br><br>Then, I'll separate each sequence of chains of =-=-...-=-= from the diagram and look through the entire puzzle to see if there are any candidates not included in any of the 3D medusas that see the markings at both ends of the chains. This'll find the remainder of the nice loop 2s.<br><br>After finding all possible eliminations with this, I'll look through each 3D medusa and see if I can create additional links using grouped cells, ALSs and Empty Rectangles, as described in other articles on this site.<br><br>After finding all the possible eliminations, I will mark all the candidates to notify that no more AICs can be found using them. If there are any unmarked candidates which can be used to create 3D medusas, I will repeat the process with those.<br><br>Although it's a tedious process (and not very efficient), it should find all AICs within the puzzle.</td></tr>
+</table></div>
+</div><div id="blog-reply2739" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(85,15957,2739)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15643"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Australia</h2></div><div class="w40pc datepost">Wednesday 27-Jun-2012</div></div>
+<div class="w100pc">In your first example in AIC's/Nice Loops Rule 1, the chain quoted above starts & ends in a different cell to the graphic. The solver quotes the chain as:<br>-4[B2]+7[B2]-7[B5]+6[B5]-6[H5]+4[H5]-4[H7]+4[B7]-4[B2].<br><br>In the example in AIC/Nice Loops Rule 2, the chain quoted goes the opposite way around to the graphic. The solver quotes:<br> -5[A2]+5[G2]-3[G2]+3[G8]-3[B8]+3[A9]-5[A9]+5[A2]. <br><br>I'll bet you updated the graphics Andrew after a solver version update, but didn't realise the solver now did them differently!<br></div>
+<div class="w100pc" id="blog-reply15643"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,15643,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15573"><div class="w100pc"><div class="w60pc"><h2>... by: Anton Delprado</h2></div><div class="w40pc datepost">Wednesday 1-Feb-2012</div></div>
+<div class="w100pc">It is interesting to note that 3D Medusas (or should that be gorgons?) are expressible as AICs as well. <br><br>You have to note that strong links are also weak links. Then you have cells with opposing colours have alternating links starting and ending strong. Cells of the same colour start strong and end weak.<br><br>Type 1-6 Medusas are then AICs rule 3. I'll leave the specifics to the reader.<br><br>Oh, Finned X-Wings and if you really want to push it Naked Pairs, Hidden Pairs and Pointing Pairs (although not triples) are too.</div>
+<div class="w100pc" id="blog-reply15573"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,15573,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15424"><div class="w100pc"><div class="w60pc"><h2>... by: Fred</h2></div><div class="w40pc datepost">Monday 27-Sep-2010</div></div>
+<div class="w100pc">I am just learning about strong and weak links.Your last example is confusing to me since they all look like strong links.  what makes some of them weak.</div>
+<div class="w100pc" id="blog-reply15424"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(85,15424,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15288"><div class="w100pc"><div class="w60pc"><h2>... by: Laura</h2></div><div class="w40pc datepost">Saturday 17-Oct-2009</div></div>
+<div class="w100pc">On the aic strategy, is there a limit to how many strong links having weak interference you can use on 1 example? Also, when you go from 1 number to another in the same cell and there are 3 numbers in that cell, is that a weak link or strong? Thank-you <br><br>Laura</div>
+<div class="w100pc" id="blog-reply15288"></div>
+<div class="post-reply" id="reply3019"><table class="w100pc"><tr><td class="post-writes">Uwe replies:</td><td class="datepost">Monday 17-Nov-2025</td></tr>
+<tr><td colspan="2">Hello Laura,  <br>When you have more then to numers in a cell and you go from one number to another that is always a weak link, which combines to Strong X-Links with each other. <br>Why: In the chain your first number in that cell is set ON and shuts the other numbers in that cell OUT. If one  (or more) of them belong(s) to a Strong X-link, the opposite partner(s) of that number is/are set ON.</td></tr>
+</table></div>
+<div class="post-reply" id="reply3020"><table class="w100pc"><tr><td class="post-writes">Guy Renauldon replies:</td><td class="datepost">Monday 7-Mar-2011</td></tr>
+<tr><td colspan="2">This is to reply to Laura question dated Saturday 17-Oct-2009<br><br>When three numbers, ore more, are in a cell, this is a weak link. Yes, if one number is true, each one of the others is wrong. But  one number wrong does not implies one of the two other numbers true. We don't know which one is true. This is very important to understand the chain strategies.<br><br>A strong link in on bivalues cells only.<br><br>Guy<br><br>To Andrew Stuart<br>Thank you for your excellent site.<br>Guy</td></tr>
+</table></div>
+</div><div id="blog-reply3020" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(85,15288,3020)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 236294<br>
+			This page was last modified on 5-January-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d25f16cba9aaf',t:'MTc4MDMwNTY4Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

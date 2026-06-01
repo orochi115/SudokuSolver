@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>HoDoKu: Solving Techniques - Naked Subsets (Naked Pair, Naked Triple, Naked Quadruple, Locked Pair, Locked Triple)</title>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <meta name="description" content="Solving Techniques for sudoku - Naked Subsets (Naked Pair, Naked Triple, Naked Quadruple, Locked Pair, Locked Triple)">
+    <meta name="keywords" content="sudoku,java,hodoku,naked set,naked subset,locked set,locked subset,naked pair,locked pair,naked triple,locked triple,naked quadruple">
+    <meta name="author" content="Bernhard Hobiger">
+    <link rel="stylesheet" href="../hodoku.css" type="text/css" media="all">
+    <link rel="stylesheet" href="../print.css" type="text/css" media="print">
+<style type="text/css" media="all">
+<!--
+#menu ul li ul li.mTechNa a, #menu ul li ul li.mTechNa a:hover {
+    font-style: italic;
+    background-color:#fceabe;
+}
+-->
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33728899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></head>
+<body>
+<div id="wrapper">
+<div id="header"></div>
+<div id="menu">
+    <ul>
+        <li class="mHome"><a href="/en/index.php">Home</a></li>
+        <li class="mTech"><a href="/en/techniques.php">Solving techniques</a></li>
+        <li><ul class="sub1">
+                <li class="mTechIntro"><a href="/en/tech_intro.php">Introduction</a></li>
+                <li class="mTechSi"><a href="/en/tech_singles.php">Singles</a></li>
+                <li class="mTechIn"><a href="/en/tech_intersections.php">Intersections</a></li>
+                <li class="mTechHi"><a href="/en/tech_hidden.php">Hidden Subsets</a></li>
+                <li class="mTechNa"><a href="/en/tech_naked.php">Naked Subsets</a></li>
+                <li class="mTechFi"><a href="/en/tech_fishg.php">Fish (general)</a></li>
+                <li class="mTechBa"><a href="/en/tech_fishb.php">Basic Fish</a></li>
+                <li class="mTechFS"><a href="/en/tech_fishfs.php">Finned/Sashimi Fish</a></li>
+                <li class="mTechCF"><a href="/en/tech_fishc.php">Complex Fish</a></li>
+                <li class="mTechSD"><a href="/en/tech_sdp.php">Single Digit Patterns</a></li>
+                <li class="mTechUn"><a href="/en/tech_ur.php">Uniqueness</a></li>
+                <li class="mTechWi"><a href="/en/tech_wings.php">Wings</a></li>
+                <li class="mTechMi"><a href="/en/tech_misc.php">Miscellaneous</a></li>
+                <li class="mTechCo"><a href="/en/tech_col.php">Coloring</a></li>
+                <li class="mTechCh"><a href="/en/tech_chains.php">Chains/Loops</a></li>
+                <li class="mTechAl"><a href="/en/tech_als.php">ALS</a></li>
+                <li class="mTechLa"><a href="/en/tech_last.php">Last Resort</a></li>
+    </ul></li>
+            <li class="mDocs"><a href="/en/docs.php">User Manual</a></li>
+            <li class="mDown"><a href="http://sourceforge.net/projects/hodoku/files/">Download</a></li>
+        <li class="mChange"><a href="/en/changelog.php">Changelog</a></li>
+        <li class="mForum"><a href="http://sourceforge.net/p/hodoku/discussion/907403/">Support</a></li>
+        <li class="mSummary"><a href="http://sourceforge.net/projects/hodoku/">Project Summary</a></li>
+        <li class="mBug"><a href="http://sourceforge.net/p/hodoku/bugs-and-feature-requests/">Bug tracker</a></li>
+        <li class="mLibs"><a href="/en/libs.php">Libraries</a></li>
+        <li class="mLinks"><a href="/en/links.php">Links</a></li>
+</ul>
+
+<div class="logos">
+<a href="/de/tech_naked.php"><img src="../img/de.gif" alt="Zur deutschen Version wechseln"></a><a href="/de/tech_naked.php">Deutsche Version</a></div>
+
+<div class="logos">
+    <a href="http://sourceforge.net/projects/hodoku"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=250484&amp;type=4" width="125" height="37" alt="SourceForge.net Logo"></a>
+    <a href="http://www.gnu.org/licenses/gpl-3.0.html"><img src="../img/gplv3-88x31.png" alt="GPLv3 logo"></a>
+</div>
+</div>
+<div id="content">
+    <h1>Naked Subsets</h1>
+    <h2>Table of Contents</h2>
+    <ul class="toc">
+        <li><a href="#n2">Naked Pair/Locked Pair</a></li>
+        <li class="ni"><ul>
+            <li><a href="#n2n2">Naked Pair</a></li>
+            <li><a href="#n2l2">Locked Pair</a></li>
+        </ul></li>
+        <li><a href="#n3">Naked Triple/Locked Triple</a></li>
+        <li class="ni"><ul>
+            <li><a href="#n3n3">Naked Triple</a></li>
+            <li><a href="#n3l3">Locked Triple</a></li>
+        </ul></li>
+        <li><a href="#n4">Naked Quadruple</a></li>
+        <li><a href="#n234">How to find them</a></li>
+    </ul>
+    <hr>
+
+    <h1><a name="n2"></a>Naked Pair/Locked Pair</h1>
+    <p>Naked Subsets are similar to Hidden Subsets, the only difference is that it is
+    not about candidates being confined to cells (as in Hidden Subsets), but about
+    cells containing only a certain number of candidates.</p>
+    <h2><a name="n2n2"></a>Naked Pair</h2>
+    <p>If you can find two
+    cells, both in the same house, that have only the same two candidates left,
+    you can eliminate that two candidates from all other cells in that house.</p>
+    <a href='show_example.php?file=n201&amp;tech=Naked+Pair'><img class='scr_l' src='../examples/n201.png' alt='Sudoku technique: Example for Naked+Pair'></a>    <a href='show_example.php?file=n202&amp;tech=Naked+Pair'><img class='scr_l' src='../examples/n202.png' alt='Sudoku technique: Example for Naked+Pair'></a>    <p>Left example: cells r8c3 and r8c4 are both in the same house (row 8) and have
+    both only candidates 3 and 9 left. It follows immediately that on of the cells
+    has to be 3 and the other 9 (which is which is yet unknown). But we can safely say
+    that r8c2 can not be 3. The sudoku solves with singles after that.</p>
+    <p>The example on the right shows a Naked Pair in a box: r4c5, r5c6 form a
+    Naked Pair in box 5 thus eliminating candidates 8 and 9 from all other cells in that
+    box.</p>
+    <h2><a name="n2l2"></a>Locked Pair</h2>
+    <p>If the two cells that form the Naked Pair are not only confined to one but to
+    two houses (a row and a block or a column and a block), they are sometimes called
+    a Locked Pair. Candidates can be eliminated from both houses.</p>
+    <a href='show_example.php?file=l201&amp;tech=Locked+Pair'><img class='scr_l' src='../examples/l201.png' alt='Sudoku technique: Example for Locked+Pair'></a>    <a href='show_example.php?file=l202&amp;tech=Locked+Pair'><img class='scr_l' src='../examples/l202.png' alt='Sudoku technique: Example for Locked+Pair'></a>    <p>On the left side r3c79 is a Locked Pair in row 3 and block 3, it therefore eliminates
+    2 from r3c3 (row 3) and from r1c9 (block 3). The right side shows a Locked Pair
+    in row 8 and block 8 eliminating 18 candidates.</p>
+    <hr>
+
+    <h1><a name="n3"></a>Naked Triple/Locked Triple</h1>
+    <h2><a name="n3n3"></a>Naked Triple</h2>
+    <p>If you can find three
+    cells, all in the same house, that have only the same three candidates left,
+    you can eliminate that candidates from all other cells in that house. It is important
+    to note that not all cells must contain all three candidates, but there must not be
+    more than three candidates in the three cells all together.</p>
+    <a href='show_example.php?file=n301&amp;tech=Naked+Triple'><img class='scr_l' src='../examples/n301.png' alt='Sudoku technique: Example for Naked+Triple'></a>    <a href='show_example.php?file=n302&amp;tech=Naked+Triple'><img class='scr_l' src='../examples/n302.png' alt='Sudoku technique: Example for Naked+Triple'></a>    <p>Left example: cells r2c2, r4c2, and r5c2 are all in the same house (column 2) and together
+    have only candidates 3, 6, and 9 left. It follows immediately, that one of the cells
+    has to be 3, another 6, and the last 9 (which is which is yet unknown). But we can safely say
+    that r1c2 cannot be 6. The sudoku solves with singles after that.</p>
+    <p>The example on the right shows a Naked Triple in a box: r3c45, r1c5 form a
+    Naked Triple in box 2 thus eliminating candidates 1, 2, and 6 from all other cells in that
+    box.</p>
+    <h2><a name="n3l3"></a>Locked Triple</h2>
+    <p>If the three cells that form the Naked Triple are not only confined to one but to
+    two houses (a row and a block or a column and a block), they are sometimes called
+    a Locked Triple. Candidates can be eliminated from both houses.</p>
+    <a href='show_example.php?file=l301&amp;tech=Locked+Triple'><img class='scr_l' src='../examples/l301.png' alt='Sudoku technique: Example for Locked+Triple'></a>    <a href='show_example.php?file=l302&amp;tech=Locked+Triple'><img class='scr_l' src='../examples/l302.png' alt='Sudoku technique: Example for Locked+Triple'></a>    <p>On the left side r789c5 is a Locked Triple in column 5 and block 8, it therefore eliminates
+    9 from r8c4 (block 8) and from r2c5 (column 5). The right side shows a Locked Triple
+    on 5, 6, 7 in row 5 and block 6 eliminating 18 candidates.</p>
+    <hr>
+
+    <h1><a name="n4"></a>Naked Quadruple</h1>
+    <p>Naked Quadruples work in exactly the same way as Naked Pairs and Triples, just
+    with four candidates in four cells. Since an intersection between a row or column and
+    a box can have only three cells, a Locked Quadruple doesn't exist.</p>
+    <a href='show_example.php?file=n401&amp;tech=Naked+Quadruple'><img class='scr_l' src='../examples/n401.png' alt='Sudoku technique: Example for Naked+Quadruple'></a>    <a href='show_example.php?file=n402&amp;tech=Naked+Quadruple'><img class='scr_l' src='../examples/n402.png' alt='Sudoku technique: Example for Naked+Quadruple'></a>    <p>The left side shows a Naked Quadruple in row 8: candidates 3, 4, 8, 9 in cells
+    r8c1346, eliminating 3 and 8 from r8c7 and 9 from r8c8. The right side has the Naked
+    Quadruple in block 7: candidates 4, 6, 7, 9 in cells r8c2, r789c3.</p>
+    <hr>
+
+    <h1><a name="n234"></a>How to find them</h1>
+    <p>Finding Naked Subsets is best done, when all remaining candidates have been penciled
+    in. If that is the case, they are rather easy to spot and very efficient.</p>
+    <hr>
+
+<div id="impressum">
+    <p>Copyright &copy; 2008-12 by Bernhard Hobiger<br>
+    All material on this page is licensed under the <a href="http://www.gnu.org/licenses/fdl-1.3.html">GNU FDLv1.3</a>.</p>
+</div><!-- impressum -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://apps.sourceforge.net/piwik/hodoku/" : "http://apps.sourceforge.net/piwik/hodoku/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+piwik_action_name = '';
+piwik_idsite = 1;
+piwik_url = pkBaseURL + "piwik.php";
+piwik_log(piwik_action_name, piwik_idsite, piwik_url);
+</script>
+<object><noscript><p><img src="http://apps.sourceforge.net/piwik/hodoku/piwik.php?idsite=1" alt="piwik"/></p></noscript></object>
+<!-- End Piwik Tag -->
+</div><!-- content -->
+</div><!-- wrapper -->
+</body>
+</html>

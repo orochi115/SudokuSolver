@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>X-Wing Strategy - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. X-Wings are the simplest of the chaining formations and are very easy to spot. They use four cells in a rectangle to make eliminations in the row or column."/>
+<meta name="twitter:description" content="Sudoku Strategy. X-Wings are the simplest of the chaining formations and are very easy to spot. They use four cells in a rectangle to make eliminations in the row or column.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/XWing1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/XWing1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'X_Wing_Strategy';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_X_Wing_Strategy">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>X-Wing Strategy</h1><div class="SRCell">This strategy is looking at single numbers in rows and columns. It should be easier to spot in a game as we can concentrate on just one number at a time. </div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XWingAnni.gif" alt="X-Wing example 1" /><figcaption>X-Wing example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B015y2e685w68050609040i022e0e0f0a2e085y050f0a5u090b042e2u2e0i06042c0810012q0f0dd0015w9i102e020a089e03050f9e0d5y042e05d0609i010f095y0e5y0f0a045y0206020166cy669id205">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100000569402000008050009040000640801000010000208035000040500010900000402621000005">From the Start</a>
+</figcaption></figure>
+The picture on the right shows a classic X-Wing, this example being based on the number <b>seven</b>. The X is formed from the diagonal correspondence of cells marked <span class="hy">A, B, C</span> and <span class="hy">D</span>.  What's special about them?<br><br>Well, <span class="hy">A</span> and <span class="hy">B</span> are a locked pair of <b>7</b>s. So are <span class="hy">C</span> and <span class="hy">D</span>.  They are locked because they are the only <b>7</b>s in rows B and F. We know therefore that if <span class="hy">A</span> turns out to be a <b>7</b> then <span class="hy">B</span> cannot be a <b>7</b>, and vice versa. Likewise if <span class="hy">C</span> turns out to be a <b>7</b> then <span class="hy">D</span> cannot be, and vice versa. <br><br>What is interesting is the <b>7</b>s present elsewhere in the fourth and eighth columns. These have been highlighted with green boxes. </div>
+
+<div class="SRCell">Think about the example this way. <span class="hy">A, B, C</span> and <span class="hy">D</span> form a rectangle. If <span class="hy">A</span> turns out to be a <b>7</b> then it rules out a <b>7</b> at <span class="hy">C</span> as well as <span class="hy">B</span>. Because <span class="hy">A</span> and <span class="hy">CD</span> are 'locked' then <span class="hy">D</span> must be a <b>7</b> if <span class="hy">A</span> is.  Or vice versa. So a 7 MUST be present at <span class="hy">AD</span> or <span class="hy">BC</span>. If this is the case then any other <b>7</b>s along the edge of our rectangle are redundant. We can remove the <b>7</b>s marked in the green squares. <br><br>The rule is<br><I>When there are <br><ul><li>only two possible cells for a value in each of two different rows,</li><li>and these candidates lie also in the same columns,</li>then all other candidates for this value in the columns can be eliminated.</Ii></ul></i><br>The reverse is also true for 2 columns with 2 common rows. Since this strategy works in the other direction as well, we will look at an example next.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XWing2b.png" alt="X-Wing example 2" /><figcaption>X-Wing example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4n144p5i6q7a360i0407064a0i014a0o050o1a091a263e023608011q078w580556bk01bc2714290758094w0o4816088c0s030a8c060g02045i014y5iba07c652016u54096u48040509127a5s707i0a0o54">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000004760010050090002081070050010000709000080030060240100070010090045900000000">From the Start</a>
+</figcaption></figure>
+<br>In this second example I've chosen a Sudoku puzzle where an enormous number of candidates can be removed using two X-Wings. The first is a '2-Wing'.  The orange high lighted cells show the X-Wing formation. Note that the orientation is in the columns this time, as opposed to rows as above. Looking at columns we can see that candidate 2 only occurs twice - in the orange cells. Which ever way the 2s could be placed (<span class="hy">E5/J8</span> or <span class="hy">E8/J5</span>) six other 2s in the rows can be removed - the yellow highlighted numbers.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XWing3b.png" alt="X-Wing example 3" /><figcaption>X-Wing example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4n0b4n5i6q7a360i0407064a0i014a0o050o1a091a263e023608011q077o580556bk01bc2712270758094u0o4616087o0s030a8c060g02045i014y5iba07c652016u54096u48040509127a5q707i0a0o52">Load Example</a>
+</figcaption></figure>
+<br>A few steps later the second X-Wing is found on candidate 3 in the same rows.  Whichever way round the 3 can be placed in those rows (<span class="hy">E2/J8</span> or <span class="hy">E8/J2</span>) there can be no other 3 in rows E and J except in those orange cells.</div>
+
+<h2>Generalising X-Wing</h2>
+<div class="SRCell">X-Wing is not restricted to rows and columns. We can also extend the idea to boxes as well.<br>If we generalise the rule above we get:<br><br><I>When there are <br><ul><li>only 2 candidates for a value, in each of 2 different units of the same kind,</li><br><li>and these candidates lie also on 2 other units of the same kind,</li></ul><br>then all other candidates for that value can be eliminated from the latter two units.</i><br>		<br>Now we have 6 combinations: <br></div><br>
+
+<div class="SRCell"><table width="100%" cellspacing=0 cellpadding="0" border="0">
+<tr>
+	<td class="SRCell">
+		<ol>
+		<LI>Starting from 2 rows and eliminating in 2 columns</li>
+		<LI>Starting from 2 columns and eliminating in 2 rows</li>
+		<LI>Starting from 2 boxes and eliminating in 2 rows</li>
+		<LI>Starting from 2 boxes and eliminating in 2 columns</li>
+		<LI>Starting from 2 rows and eliminating in 2 boxes</li>
+		<LI>Starting from 2 columns and eliminating in 2 boxes</li>
+		</ol><br>
+	</td>
+	<td class="SRCell">
+		<ul>
+		<li><font color="#88ff88">Classic X-Wing</font></li>
+		<li><font color="#88ff88">Classic X-Wing</font></li>
+		<li><font color="#88ff88">Same effect as</font> <a href="Intersection_Removal">line/box reduction</a></li>
+		<li><font color="#88ff88">Same effect as</font> <a href="Intersection_Removal">line/box reduction</a></font></li>
+		<li><font color="#88ff88">Same effect as</font> <a href="Intersection_Removal">pointing pairs</a></li>
+		<li><font color="#88ff88">Same effect as</font> <a href="Intersection_Removal">pointing pairs</a></li>		
+		</ul><br>
+	</td>
+</tr>
+</table></div><br>
+
+<div class="SRCell">Here is an example of combination 5. Starting from 2 rows and eliminating in 2 boxes, in this case the last two boxes in the Sudoku. The rows are 7 and 8 and they each have two <b>7</b>s. Our x-Wing is now a trapezoid but the logic is the same. We can be certain that 7 can be eliminated in the red circled cells.<br><br><center><img src="PuzImages/xwingG1.png" alt="X-Wing Example"></center><br>But HOLD UP one moment. There is a simpler strategy that does the same job!<br><br><center><img src="PuzImages/xwingG2.png" alt="X-Wing Example"></center><br><span class="hy">A</span> and <span class="hy">B</span> above are a pointing pair. This removes the same 7s in the same place.  Combination 6 is also the complement of a pointing pair. Combinations 3 and 4 are also complements of the Line/Box Reduction. Our generalisation of X-Wing to boxes hasn't profited us at all. We learn that<br><br><center><b>X-Wings containing boxes are the inverse of the <a href="Intersection_Removal">Intersection Removal</a> strategies</b></center><br></div><br>
+
+<div class="SRCell"><h2>X-Wing Exemplars</h2>
+These puzzles require the X-Wing strategy at some point but are otherwise trivial.<br>
+They make good practice puzzles.<br>
+(All replaced June 2025 with new examples)
+<ul>
+<li><a href="/sudoku.htm?bd=000001008700030009020000061080009003001040900900300020240000080600090005100600000">Exemplar 1, x3 (score 74)</a></li>
+<li><a href="/sudoku.htm?bd=000001408000206030720000009030700000400605003000002040900000062060903000502400000">Exemplar 2, x3 (score 94)</a></li>
+<li><a href="/sudoku.htm?bd=000080000000901084209040006790000800040000050006000042900060501160704000000030000">Exemplar 3, x3 (score 117)</a></li>
+<li><a href="/sudoku.htm?bd=900020000506000109007501000000008060601000507090400000000602700409000806000080004">Exemplar 4, x3 (score 133)</a></li>
+<li><a href="/sudoku.htm?bd=029010400000506090080000000002060300060701080005080100000000010070402000004070250">Exemplar 5, x3 (score 136)</a></li>
+<li><a href="/sudoku.htm?bd=840000001107050290000100300000003000500090002000400000001004000038020105900000027">Exemplar 6, x3 (score 139)</a></li>
+<li><a href="/sudoku.htm?bd=400002000800690000070000060001920008090106070300054900080000090000031005000500006">Exemplar 7, x3 (score 142)</a></li>
+<li><a href="/sudoku.htm?bd=100000408200010000009305000005070001090000020400050900000709100080030002903000006">Exemplar 8, x3 (score 144)</a></li>
+<li><a href="/sudoku.htm?bd=004708600080000070000069005070050000000906000060070090400100000050000010001403800">Exemplar 9, x3 (score 152)</a></li>
+<li><a href="/sudoku.htm?bd=200305000008240300700000002500400080003020900020008001800000009007082100000501004">Exemplar 10, x3 (score 153)</a></li>
+</ul>
+
+The next strategy in this 'family' is <a href="/Sword_Fish_Strategy">Sword-Fish</a></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Intersection_Removal">Intersection Removal</a></td><td class="w50pc cright">Continue to <a href="Rectangle_Elimination">Rectangle Elimination</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=59&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="X_Wing_Strategy" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(59,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17320"><div class="w100pc"><div class="w60pc"><h2>... by: geezerpk</h2></div><div class="w40pc datepost">Tuesday 18-Nov-2025</div></div>
+<div class="w100pc">Thanks, you explanations are so much easier to follow than the bulk of the information I've seen on other source.CW2</div>
+<div class="w100pc" id="blog-reply17320"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,17320,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17152"><div class="w100pc"><div class="w60pc"><h2>... by: paul</h2></div><div class="w40pc datepost">Sunday 27-Oct-2024</div></div>
+<div class="w100pc">hi andrew, thanks for a fantastic website.<br><br>you suggested an Xwing in a step to the solution of my sudoku.<br>the 3 was identified...<br>D2 [2,3,8] - D7 [2,3,5,8]<br>H2 [3,5,8] - H7 [3,5,8]<br><br>however the 3 was also on line J and made the X as well... <br>J2 [2,3,5,8] - J7 [3,4,5,8,9]<br><br>why did you choose line H instead of line J?<br><br>I can send a pic to you if you want clarification. Just email me.<br><br>cheers<br><br></div>
+<div class="w100pc" id="blog-reply17152"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,17152,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17140"><div class="w100pc"><div class="w60pc"><h2>... by: Aleksandar</h2></div><div class="w40pc datepost">Friday 2-Aug-2024</div></div>
+<div class="w100pc">I just found out that there are known techniques in Sudoku and I'm trying to learn them for the first time. Your explanations are great. <br>Did <a href="https://www.sudokuwiki.org/sudoku.htm?bd=005000400020940000900700008003000290100203007079000300400008001000014060006000700">Exemplar 2</a>, x1 (score 82)  in a few minutes and I didn't spot any X-wing there. It simply resolved 1 by 1</div>
+<div class="w100pc" id="blog-reply17140"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>That might happen on very easy puzzles<br>Can you spot it <a href="https://www.sudokuwiki.org/sudoku.htm?bd=4028118028020h04g0280580g10h30024038g10g0241380430188130800902304005g10g03300g05g0093080410441g10g80300902300h1804204081g0180318g04018030h8021048002211804g0410g18">on this step</a>?<br><br></div><div class="post-reply" id="reply2852"><table class="w100pc"><tr><td class="post-writes">Aleksandar replies:</td><td class="datepost">Thursday 15-Aug-2024</td></tr>
+<tr><td colspan="2">Yes I can. On so filled board and knowing what to look for is easy to spot.<br>Thank you for the attention :)</td></tr>
+</table></div>
+</div><div id="blog-reply2852" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,17140,2852)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17131"><div class="w100pc"><div class="w60pc"><h2>... by: Digdoug</h2></div><div class="w40pc datepost">Friday 21-Jun-2024</div></div>
+<div class="w100pc">It looks like there are a couple of typos (or perhaps it was written before you settled on yellow as the colour for candidate eliminations) in the paragraphs talking about the very first picture.<br><br>In paragraphs four and five, it says that the candidates which can be eliminated are highlighted in green, but they're actually highlighted in yellow - the green ones are the 7s in the orange boxes which make up the x-wing.</div>
+<div class="w100pc" id="blog-reply17131"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>True. Fixed. Was worth putting the green highlighted cells just for emphasis on the first diagram.</div></div><div id="blog-reply2841" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,17131,2841)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17100"><div class="w100pc"><div class="w60pc"><h2>... by: fred</h2></div><div class="w40pc datepost">Monday 19-Feb-2024</div></div>
+<div class="w100pc">in the first diagram can the x wing also go in j 4 and j 8 </div>
+<div class="w100pc" id="blog-reply17100"></div>
+<div class="post-reply" id="reply2828"><table class="w100pc"><tr><td class="post-writes">Chio replies:</td><td class="datepost">Sunday 19-May-2024</td></tr>
+<tr><td colspan="2">the number has to be present in the row only in those 2 cells<br>in this case 7 is also in j5 j6 j7.</td></tr>
+</table></div>
+</div><div id="blog-reply2828" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,17100,2828)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16972"><div class="w100pc"><div class="w60pc"><h2>... by: Rodney Lindenmayer</h2></div><div class="w40pc datepost">Monday 10-Jul-2023</div></div>
+<div class="w100pc">Great explanation❗️ I visited several other sites where they just said "Do this" without the underlying logic, and the X-Wing remains impossible to properly use. Bravo for this: cogent, succinct.</div>
+<div class="w100pc" id="blog-reply16972"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16972,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16965"><div class="w100pc"><div class="w60pc"><h2>... by: Ymiros</h2></div><div class="w40pc datepost">Tuesday 27-Jun-2023</div></div>
+<div class="w100pc">Not directly concerning the text, but shouldn't the next page after this be Swordfish rather than Single's Chains? At least Swordfish says "Go back to X-Wing" and Jellyfish which comes after Swordfish says "Continue to Singles Chains".</div>
+<div class="w100pc" id="blog-reply16965"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16965,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16923"><div class="w100pc"><div class="w60pc"><h2>... by: kauaikarl</h2></div><div class="w40pc datepost">Monday 1-May-2023</div></div>
+<div class="w100pc">Ran a Sudoku I was stuck on through a solver that indicated the next step is a "simple contradiction" but it didn't explain how it worked.  Never heard of this strategy and couldn't find any info about it on the web.  Appreciate any help  </div>
+<div class="w100pc" id="blog-reply16923"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Poor ;) Hoping better on the solver here</div></div><div id="blog-reply2662" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,16923,2662)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16920"><div class="w100pc"><div class="w60pc"><h2>... by: hawkeye</h2></div><div class="w40pc datepost">Saturday 15-Apr-2023</div></div>
+<div class="w100pc">I have stupidly underestimated the logic of sudoku. Your explanation of X WING is excellent ,<br>since  a   multiplicity of examples helped me to  understand ! <br>I am embarrassed that I didn't catch on before. <br>   </div>
+<div class="w100pc" id="blog-reply16920"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16920,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16813"><div class="w100pc"><div class="w60pc"><h2>... by: Hexameron</h2></div><div class="w40pc datepost">Friday 13-May-2022</div></div>
+<div class="w100pc">Only just found this site and excited to explore it and learn new techniques. I'm hoping it's going to give me strategies that mean I no longer need to use trial-and-error for diabolical/extreme sudokus. And I disagree with those comments saying the explanations aren't clear - so far I've found the reverse to be true. One point to amend: vice versa is not spelt vis versa - you're thinking of vis-a-vis, which is something different.</div>
+<div class="w100pc" id="blog-reply16813"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thank you and thanks for spell check. Appreciated</div></div><div id="blog-reply2649" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,16813,2649)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16736"><div class="w100pc"><div class="w60pc"><h2>... by: Marja Glas</h2></div><div class="w40pc datepost">Monday 6-Dec-2021</div></div>
+<div class="w100pc">X-Wing example 1: why is the x-wing not between B4-8 and J4-8</div>
+<div class="w100pc" id="blog-reply16736"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16736,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16615"><div class="w100pc"><div class="w60pc"><h2>... by: Jim Birch</h2></div><div class="w40pc datepost">Sunday 6-Sep-2020</div></div>
+<div class="w100pc">Great piece of work, thanks</div>
+<div class="w100pc" id="blog-reply16615"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16615,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16614"><div class="w100pc"><div class="w60pc"><h2>... by: Thurstan</h2></div><div class="w40pc datepost">Sunday 6-Sep-2020</div></div>
+<div class="w100pc">There is another (mixed) combination: if we look at the digit 1 in the puzzle https://www.7sudoku.com/view-puzzle?date=20200717 we see that the four examples at A5, B5 (common column) and B8,A9 (common block) lie in two rows, and remove the rest of the ones in the first two rows,<br></div>
+<div class="w100pc" id="blog-reply16614"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16614,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16875"><div class="w100pc"><div class="w60pc"><h2>... by: Tom</h2></div><div class="w40pc datepost">Monday 10-Aug-2020</div></div>
+<div class="w100pc">These pages are superb - they clarified the various techniques and have lifted my own solving powers. <br><br>In response to David Spector: because the trial-and-error method of solving sudokus isn't so interesting. Somewhere on Andrew's site he says this: his interest is in the logic, not the brute force methodologies. I've done diabolical and extreme sudokus using the "try-one-number-in-a-cell-with-two-remaining-possibilities-and-if-it-doesn't-work-try-the-other-one" technique (targeted trial-and-error), and whilst it gets the solution I'm left dissatisfied, thinking how did that work? </div>
+<div class="w100pc" id="blog-reply16875"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16875,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16399"><div class="w100pc"><div class="w60pc"><h2>... by: Jayaprakash</h2></div><div class="w40pc datepost">Thursday 16-Aug-2018</div></div>
+<div class="w100pc">The X Wing tells AD or BC to have 7 in your first example. But once you spotted an X Wing, we can eliminate other cells. But how do you solve it? Put 7 at A and proceed to find out or any other way?</div>
+<div class="w100pc" id="blog-reply16399"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16399,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16370"><div class="w100pc"><div class="w60pc"><h2>... by: Riddlemethisbatman</h2></div><div class="w40pc datepost">Sunday 13-May-2018</div></div>
+<div class="w100pc">I'll be back to this page. Nice graphics and good explanation. You gotta do these a few times to get an understanding. To David who asks about the necessity for these techniques - more challenging puzzles can only be solved using techniques like x-wing; though I suppose you could use the guessing technique, sometimes referred to as 'forcing chain' but it is surprisingly inefficient as you will usually have to go ahead and almost complete the puzzle  to find out if the number you tried was correct. Good fluke if it is, but the problem is that finding that one correct number will still not be enough to solve the difficult sudoku. So then you gotta guess again. I feel like using logic techniques is much more satisfying, efficient and far more likely to yield correct solutions. </div>
+<div class="w100pc" id="blog-reply16370"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16370,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16317"><div class="w100pc"><div class="w60pc"><h2>... by: Vinod K Chandran</h2></div><div class="w40pc datepost">Tuesday 7-Nov-2017</div></div>
+<div class="w100pc">Hi, <br>Thanks for this page. Its really very helpful. </div>
+<div class="w100pc" id="blog-reply16317"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16317,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16183"><div class="w100pc"><div class="w60pc"><h2>... by: David Spector</h2></div><div class="w40pc datepost">Tuesday 12-Jul-2016</div></div>
+<div class="w100pc">It seems to me that once applying the basic strategies yields no further change, usually there are only 2 or 3 candidates in each unresolved cell. At this point, instead of doing difficult searches for patterns such as wings and fish, why not just save the puzzle state as a backtracking point and select any cell that contains 2 candidates (they will all switch together). Just pick one of the candidates to delete. Then apply the same basic strategies (naked singles, etc.) until either the puzzle is solved or an inconsistency is found. In the latter case, restore the puzzle from the backtracking saved state and choose the other candidate. The puzzle will now be easy to solve.<br><br>This is so much simpler than all those advanced strategies, so complex, which may or may not apply.</div>
+<div class="w100pc" id="blog-reply16183"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16183,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16096"><div class="w100pc"><div class="w60pc"><h2>... by: Bill</h2></div><div class="w40pc datepost">Thursday 10-Dec-2015</div></div>
+<div class="w100pc">I think, perhaps, I answered my own question:  There is more than one solution to the puzzle;  there are two.  Does this sound correct?  I was told long ago that there was only one solution to each Sudoku puzzle.  Maybe not.</div>
+<div class="w100pc" id="blog-reply16096"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Broken multi-solution puzzles are easy to make. They mess up the solver and the logic</div></div><div id="blog-reply2521" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,16096,2521)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16095"><div class="w100pc"><div class="w60pc"><h2>... by: Bill</h2></div><div class="w40pc datepost">Thursday 10-Dec-2015</div></div>
+<div class="w100pc">I have a puzzle in which all squares are filled except in the four boxes forming the x-wing.  In each of these four boxes, the same pair of numbers appear.  Is it possible to solve this puzzle situation?</div>
+<div class="w100pc" id="blog-reply16095"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16095,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16022"><div class="w100pc"><div class="w60pc"><h2>... by: JuanBeegAhs</h2></div><div class="w40pc datepost">Sunday 26-Apr-2015</div></div>
+<div class="w100pc">Still confuses me.  Take the first example, why go for ABCD?  Why not take, say... CD and any of the four 7s that appear below, or any other combination of X Wing there?<br><br>Looking at the other examples just seems to reinforce this haze for me.  It doesn't seem like there has to be a fixed number of squares between or anything, as long as four similar numbers can be in a square or even trapezoid apparently.</div>
+<div class="w100pc" id="blog-reply16022"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,16022,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16011"><div class="w100pc"><div class="w60pc"><h2>... by: gcrupa</h2></div><div class="w40pc datepost">Monday 6-Apr-2015</div></div>
+<div class="w100pc">I used your solver (the Best !) to crack a puzzle beyond my pwers yet and, at some point I got in Step 14 - X-Wing  docs<br><br>(Row->Col) 7 taken off D1, based on DH29<br>(Row->Col) 7 taken off H1, based on DH29<br>(Row->Col) 7 taken off H8, based on DH29<br><br>I do not know what DH29 stands for and also did not know where to look for it.<br>Can you tell me, please ?<br><br>Have a nice day<br><br>gcrupa</div>
+<div class="w100pc" id="blog-reply16011"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>DH29 is compact notation for the four cells D2, D9, H2 and H9</div></div><div id="blog-reply2500" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,16011,2500)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15969"><div class="w100pc"><div class="w60pc"><h2>... by: June K</h2></div><div class="w40pc datepost">Sunday 9-Nov-2014</div></div>
+<div class="w100pc">Thank-you! Finally an explanation that outlines the logic used and also utilizes plain language to do it. Best I've read so far.</div>
+<div class="w100pc" id="blog-reply15969"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15969,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15962"><div class="w100pc"><div class="w60pc"><h2>... by: Simon Davitt</h2></div><div class="w40pc datepost">Thursday 16-Oct-2014</div></div>
+<div class="w100pc">Great pages and great explanation.<br><br>Please can you give some un-worked samples for each page to allow people to test their understanding.</div>
+<div class="w100pc" id="blog-reply15962"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15962,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15961"><div class="w100pc"><div class="w60pc"><h2>... by: Richard</h2></div><div class="w40pc datepost">Thursday 16-Oct-2014</div></div>
+<div class="w100pc">I'm a little confused when x wings apply.  Is it a requirement that all four candidates be in four spearate boxes?  In examples one through three, all of the candidates are in different boxes.  However, in your fourth example, the candidates are in two boxes.  </div>
+<div class="w100pc" id="blog-reply15961"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Try this partially <a href="/sudoku.htm?bd=009002374004070590700904001861349257090761438437825169900407003070000940048290715">completed puzzle</a>. The first strategy used is Pointing Pairs using cells C7 and C8 - removing 8 in C2. But if you look at cells G7 and G8 you can make an X-Wing with C7 and C8 on 8. The pattern is perfectly correct for an X-Wing in the columns eliminating in the rows. (Pity there is no eliminations in row G). But why use a more complex explanation than the original Pointing Pair?  So in one sense "all four candidates need to be in four separate boxes" is true - but only if you have exhausted all Pointing Pairs, which is the reduced explanation if the X-Wing isn't in four boxes.  </div></div><div id="blog-reply2481" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15961,2481)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15831"><div class="w100pc"><div class="w60pc"><h2>... by: fdan</h2></div><div class="w40pc datepost">Wednesday 28-Aug-2013</div></div>
+<div class="w100pc">Thanks, trying to work at creating suduko puzzles</div>
+<div class="w100pc" id="blog-reply15831"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15831,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15821"><div class="w100pc"><div class="w60pc"><h2>... by: Lydia</h2></div><div class="w40pc datepost">Sunday 28-Jul-2013</div></div>
+<div class="w100pc">Best explanation ever of x-wing!</div>
+<div class="w100pc" id="blog-reply15821"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15821,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15815"><div class="w100pc"><div class="w60pc"><h2>... by: sajan</h2></div><div class="w40pc datepost">Wednesday 24-Jul-2013</div></div>
+<div class="w100pc">In the second example above, showing the 2-Wing, why has column 8 been selected , and not column 9?. Why is  X -wing not between E5/J9 and E9/J5 ? Similarly, in the next example, that of the 3-wing, whu again column 8 in preference to column 9?<br>Thanks<br>Sajan</div>
+<div class="w100pc" id="blog-reply15815"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>E9 and J9 on 2 can't be part of an X-Wing since 2s occur four times in the column. We're looking for pairs in one direction (in this case columns) so we can eliminate in the other direction (rows)</div></div><div id="blog-reply2434" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15815,2434)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15782"><div class="w100pc"><div class="w60pc"><h2>... by: Trophy</h2></div><div class="w40pc datepost">Saturday 13-Apr-2013</div></div>
+<div class="w100pc">I've been doing sudoku for years and still having trouble with the most difficult ones. After using many of the "hint" I still get to a point where I'm stymied. I end up having to guess at the right # for a box in some cases (usually where there are two #s the same in 2 boxes in a row or a colume ) If I guess wrong I have to go back and use the other # and it then usually works to solve the puzzle. Is this a common thing, or should there always be a way to solve the pussle without guessing?</div>
+<div class="w100pc" id="blog-reply15782"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The reason I got into Sudoku strategies was because I was unsatisfied with having to guess and I thought there must be some underlying rule that I was missing. However, Sudoku has proved to be extremely deep and there are still examples which even the most advanced strategies cannot crack with logic alone. I publish <a href="/Weekly_Sudoku.asp">these here</a>.<br><br>Now, people do come up with logical methods and it's usually by combining several ideas in one go. This is the coal face I'm picking at now, trying to generalise these ideas and get them into code.<br><br>However, it will be a rare puzzle in the newspapers that can't be solved logically. We really have to search for a long time to find unsolvables (currently they are 1/10,000) from my generator. <br><br>Computers can't mimic inspiration and there's still a place for that in Sudoku, if you get stuck<br></div></div><div id="blog-reply2419" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15782,2419)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15758"><div class="w100pc"><div class="w60pc"><h2>... by: Daran</h2></div><div class="w40pc datepost">Wednesday 13-Mar-2013</div></div>
+<div class="w100pc">sir can i apply the same strategies for 16X16 and 25X25 grid sudokus...or i need to change any conditions to select the possibilites for the strategies</div>
+<div class="w100pc" id="blog-reply15758"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes, exactly the same strategies, although some need to scale differently. I’m pretty sure there are no specific strategies for higher order Sudoku the don’t occur for 9x9.</div></div><div id="blog-reply2415" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15758,2415)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15744"><div class="w100pc"><div class="w60pc"><h2>... by: Complex sudoku newbie</h2></div><div class="w40pc datepost">Saturday 16-Feb-2013</div></div>
+<div class="w100pc">Loved your explanations! The illustrations make it especially easy and simple to follow for a non-mathematician but a sudoko fan. It is nice to find methods to improve my game that I can follow and use. Thank you!</div>
+<div class="w100pc" id="blog-reply15744"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15744,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15713"><div class="w100pc"><div class="w60pc"><h2>... by: M Bakhtian</h2></div><div class="w40pc datepost">Friday 4-Jan-2013</div></div>
+<div class="w100pc">Great site for technique. But choice of black as a background color and the size of print for this venue is compromising the quality of reading about these lovely intricacies!</div>
+<div class="w100pc" id="blog-reply15713"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15713,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15661"><div class="w100pc"><div class="w60pc"><h2>... by: RLets</h2></div><div class="w40pc datepost">Tuesday 28-Aug-2012</div></div>
+<div class="w100pc">Should "...the only 7's in the first and last rows" in paragraph 3 be "...the only 7's in the 2nd and 6th rows"?  Great web site.  Love the solver.  Now, I need to read your book!</div>
+<div class="w100pc" id="blog-reply15661"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Typo fixed, thanks! Textual hangover from old diagram</div></div><div id="blog-reply2380" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15661,2380)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15615"><div class="w100pc"><div class="w60pc"><h2>... by: Dino Hsu</h2></div><div class="w40pc datepost">Friday 20-Apr-2012</div></div>
+<div class="w100pc">To further Konrad's study of single column (or a single row) scenario, the problem is that the two X-wing locations in the 'single column' can be both non-X, without the 'other column' also aligned, resulting in failure to lock in the two locaitons for X in the 'single column'.</div>
+<div class="w100pc" id="blog-reply15615"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15615,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15580"><div class="w100pc"><div class="w60pc"><h2>... by: Konrad M Kritzinger</h2></div><div class="w40pc datepost">Tuesday 7-Feb-2012</div></div>
+<div class="w100pc">It seems that I was over-hasty with my comment on 2-Feb-2012.  The proposition works in some cases but not others. </div>
+<div class="w100pc" id="blog-reply15580"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15580,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15575"><div class="w100pc"><div class="w60pc"><h2>... by: Konrad M Kritzinger</h2></div><div class="w40pc datepost">Thursday 2-Feb-2012</div></div>
+<div class="w100pc">X-Wing doesn't seem to require an X.  The same principle seems applicable to a single column (or a single row).  If there is a locked pair in one row, and the same locked pair occurs in another row, then, if at least one cell from each locked pair is in the same column, all other occurrences of that number in that column can be eliminated.  The same principle applies if rows and columns are exchanged.</div>
+<div class="w100pc" id="blog-reply15575"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15575,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15477"><div class="w100pc"><div class="w60pc"><h2>... by: Yves Sioui</h2></div><div class="w40pc datepost">Saturday 26-Mar-2011</div></div>
+<div class="w100pc">In X-wing example 2, using cells CJ59 instead CJ58 would 'erased' the 2's in column 8.  Since that new choice respect the same conditions as the one you choose, the results are  in conflict with each other.  In one instance the value 2  in column 8 is possible and the other decline that.  I find it disturbing.</div>
+<div class="w100pc" id="blog-reply15477"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>CJ59 is not a valid X-Wing since column 9 contains more than two 2s - so the conflict you highlight does not arise</div></div><div id="blog-reply2315" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15477,2315)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15441"><div class="w100pc"><div class="w60pc"><h2>... by: Ted L</h2></div><div class="w40pc datepost">Thursday 30-Dec-2010</div></div>
+<div class="w100pc">In X Wing example 1, you state that after elimination only a 9 remains in cell G9.  Is this incorrect, for it looks that a 2 and a 9 remain in this cell.  I loaded the example to confirm this, and found that simple colouring is still required before the puzzle can be completed.<br>A wonderful site which gives great pleasure and instruction - thank you very much.</div>
+<div class="w100pc" id="blog-reply15441"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thx for this prompt. I believe I left a sentence about a completed cell in the paragraph because of the old diagram. You are correct a 2 remains in G9 so I've removed that sentence.</div></div><div id="blog-reply2309" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15441,2309)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15439"><div class="w100pc"><div class="w60pc"><h2>... by: William Mann</h2></div><div class="w40pc datepost">Sunday 19-Dec-2010</div></div>
+<div class="w100pc">Your answer to Colin Pearce, June 30, doesn't make sense.  It isn't because "the blue boxes contain other 6s in the row".  I think what you should have told him is that both pairs (A/B and C/D) are the only two squares with sixes in their rows (locked pairs), therefore, either A or B must be a six, and either C or D must be a six.  All other sixes in those columns can be eliminated.</div>
+<div class="w100pc" id="blog-reply15439"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15439,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15428"><div class="w100pc"><div class="w60pc"><h2>... by: Harold Binley</h2></div><div class="w40pc datepost">Saturday 16-Oct-2010</div></div>
+<div class="w100pc">Marv Rowe, 9th April, has made the same mistake as I used to. The X-wing only works as a trapezoid if each pair of the four cells share the same units; they share columns 3 and 4, but although r8c3 & r8c4 share the same row  r5c4 & r6c3 have nothing in common.<br>H</div>
+<div class="w100pc" id="blog-reply15428"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15428,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15406"><div class="w100pc"><div class="w60pc"><h2>... by: Rohan</h2></div><div class="w40pc datepost">Friday 6-Aug-2010</div></div>
+<div class="w100pc">As a complete beginner and coming to grasp with the logic of X-Wing, it seems there are certain conditions that need to apply before this strategy can be applied. Amongst which are:<br>1. No occurrence of the number (in this case 6) can occur in the rows between A and B or C and D;<br>2. the classic X-Wing uses only the extreme boxes at the edges of the puzzle since otherwise, as Colin Pierce pointed out why could one not use the blue boxes above C and D? Because if one did there would be a very different result.<br>Whatever, thanks for your very useful site, it has helped me greatly!</div>
+<div class="w100pc" id="blog-reply15406"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Your condition 2 is false. I've added another example - which I hope is very illustrative of the strategy.</div></div><div id="blog-reply2305" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15406,2305)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15405"><div class="w100pc"><div class="w60pc"><h2>... by: Elmer Schartow</h2></div><div class="w40pc datepost">Tuesday 3-Aug-2010</div></div>
+<div class="w100pc">Regarding X-Wing Strategy:<br>I'm being picky but the second para after the first illus points out the boxes BETWEEN AB and CD which are highlighted in yellow.  On my computer the boxes ABCD themselves are yellow and the boxes BETWEEN ABCD are highlighted in cyan.<br><br>I believe the first question posed by colin pearce is a valid one and needs to be answered.  Also the situation regarding the 7 in cell X posed by CS Vidyasager appears to be completely valid IF there are no 7's in A and B.</div>
+<div class="w100pc" id="blog-reply15405"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Fixed the 'yellow' word in the second para. thx (refered to an old diagram)</div></div><div id="blog-reply2304" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15405,2304)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15403"><div class="w100pc"><div class="w60pc"><h2>... by: colin pearce</h2></div><div class="w40pc datepost">Wednesday 30-Jun-2010</div></div>
+<div class="w100pc">Hi Andrew,<br>thank you for this extraordinary and marvellous site.<br>I have a question on your X-wing principle. The top diagram with the yellow boxes ABCD... (and I hope I;m not being obtuse here), but why couldn't the four yellow boxes include, instead of C and D, the two blue boxes above them, this eliminating C and D as options?<br><br>Thanks again.. I love this resource,<br>cheers<br>colin</div>
+<div class="w100pc" id="blog-reply15403"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>because the blue boxes contain other 6s in the row</div></div><div id="blog-reply2303" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15403,2303)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15379"><div class="w100pc"><div class="w60pc"><h2>... by: Marv Rowe</h2></div><div class="w40pc datepost">Friday 9-Apr-2010</div></div>
+<div class="w100pc">Stopped using X-Wing on anything but squares and rectangles after I did www.websudoku.com Extreme Puzzle 80,052,202,927 - Had only two instances of 7's in Columns 3 & 4 - Cells r5c4, r6c3, r8c3 & r8c4 --> thought I could eliminate all other 7's from row 8 - wrong assumption - 7 in r8c7 was the correct answer - at lower levels (easy, medium, hard and evil) could always eliminate numbers is cells if the x-wing was a trapizoid - not so in this case</div>
+<div class="w100pc" id="blog-reply15379"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15379,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15354"><div class="w100pc"><div class="w60pc"><h2>... by: CS Vidyasagar</h2></div><div class="w40pc datepost">Thursday 25-Feb-2010</div></div>
+<div class="w100pc">X wing is traditionally diaognal. In the trapezoidal like you explained, If 7 is present in cell A, then it can not be in cell B and vice versa. So any other 7 under the influence of cell A or B can be eliminated. Same logic applies to C and D. That way 7 in cells Y and Z can be eliminated by this logic. But 7 in Cell X can not be eliminated as it it not controlled by A or B or C or D.<br>thanks </div>
+<div class="w100pc" id="blog-reply15354"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15354,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15334"><div class="w100pc"><div class="w60pc"><h2>... by: Kantilal M Mane</h2></div><div class="w40pc datepost">Wednesday 3-Feb-2010</div></div>
+<div class="w100pc">Excellent technique !!!</div>
+<div class="w100pc" id="blog-reply15334"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15334,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15309"><div class="w100pc"><div class="w60pc"><h2>... by: John Mathews</h2></div><div class="w40pc datepost">Friday 18-Dec-2009</div></div>
+<div class="w100pc">If I am understanding this right, then the pattern can only be a square, rectangle, or trapezoid shape for any of these X-wing solutions.  Is that correct?</div>
+<div class="w100pc" id="blog-reply15309"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Correct. To be trapizoid the connections between the cells are through the box they share - not just the rows and columns - which alone would produce a rectangulat pattern.</div></div><div id="blog-reply2286" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(59,15309,2286)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15302"><div class="w100pc"><div class="w60pc"><h2>... by: Faris</h2></div><div class="w40pc datepost">Wednesday 2-Dec-2009</div></div>
+<div class="w100pc">I love your graphics though I do agree with Pannel that the explnations are not easy to follow at times. Keep the nice work!</div>
+<div class="w100pc" id="blog-reply15302"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15302,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15285"><div class="w100pc"><div class="w60pc"><h2>... by: Nick Pannell</h2></div><div class="w40pc datepost">Sunday 4-Oct-2009</div></div>
+<div class="w100pc">I'm a mathematician and I'm really intrigued at the setting of patterned sudokus and the decision as to what makes one easy, medium or hard. Your soultion strategies are very interesting, although the explanations are a bit difficult to follow: but your graphics are excellent. Thank you</div>
+<div class="w100pc" id="blog-reply15285"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(59,15285,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 10-April-2008. Views: 1945004<br>
+			This page was last modified on 27-December-2014.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d25f86906fd88',t:'MTc4MDMwNTY4OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Almost Locked Sets - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Almost Locked Sets are complex building blocks that all allow one to continue a chain. They are groups of cells of size N with N+1 candidates in them."/>
+<meta name="twitter:description" content="Sudoku Strategy. Almost Locked Sets are complex building blocks that all allow one to continue a chain. They are groups of cells of size N with N+1 candidates in them.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/ALS1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/ALS1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Almost_Locked_Sets';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Almost_Locked_Sets">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Almost Locked Sets</h1><div class="SRCell">On the occasional Diabolical and most certainly on many Extreme Sudoku puzzles there will be many opportunities to whittle down the candidates by identifying and using <span class="hy">Almost Locked Sets</span>.  Lets think about the terms first. A <span class="hy">set</span> of candidates is <span class="hy">locked</span> if the number of candidates in a group of cells matches the number of cells they are in. For example, a Naked Pair of 3/7 on two cells is a <span class="hy">locked set</span>: two candidates in two cells. They are considered "locked" because we know all the candidates for the cells; we just don't know the solution order. <br><br><b>Any set of cells with exactly one extra candidate is "Almost Locked"</b>. The solver now uses curley {brackets} to denote them bringing them in line with AIC chain links.<br><br>Note: these examples require AICs and Forcing Chains to be unticked in the solver.<br><br>ALS is strongly related to <a href="/XYZ_Wing">XYZ-Wings</a> and <a href="/WXYZ_Wing">WXYZ-Wings</a> which are subsets of ALS.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS1.png" alt="Almost Locked Set example 1" /><figcaption>Almost Locked Set example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=910700003062003709735004086009372060023050070057048932270400300501237690390000027">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=910000003002003709000004086009300000020050070000008900270400000501200600300000027">From the Start</a>
+</figcaption></figure>
+It's one away from being locked down.  All Naked Pairs, Triples, Quads etc are <span class="hy">Locked Sets</span>. Formally, we are interested in groups of cells of size N with N+1 candidates.<br><br>Take this example where two Almost Locked Sets have been coloured in yellow {A3,J3} and brown {B5,J5}.  You can immediately see that the first set has {4,6,8} as members and the brown set has {1,6,8}. So far so good. But since Almost Locked Sets are so common - and you will see them everywhere!, perhaps the greatest difficulty with this strategy is finding ones we can work with. The building blocks are easy enough, but spotting the formations that conform to the rules outlined below can be tricky.</div>
+
+<h2>Rule 1: The Almost Locked Set XZ Rule</h2>
+<div class="SRCell">To make use of Almost Locked Sets, we're going to need two or more of them. Their sizes don't matter, but they ought to be able to 'see' each other   that is, have some cells that share a unit (row J in this example). We also need a mixture of candidates in both sets. If there is a <span class="hy">common candidate</span> found in both sets and this common candidate is among those cells that can 'see' each other, this candidate can exist only in one set or the other. We call this candidate a <span class="hy">restricted common candidate (RCC)</span>. In the two sets in the example above, 6 is a restricted common because 6 in one set will remove it in the other. Let's call any restricted common candidate <span class="hy">X</span>.<br><br>The <span class="hy">Z</span> part of the rule involves any other candidate found in both ALSs but not a restricted common; that, a candidate that still appears in both ALSs and is not exclusive to one or the other. In the above example, Z is number 8. Now, it so happens that <b>any other 8 on the grid that can 'see' all the 8s in both ALSs can be removed</b>. <br><br>Making an interesting observation is one thing, but what's the proof? Think of the 8 in A5 in the example above. If 8 were the solution, we'd quickly get a contradiction in at least one of the two sets. A3 would become 4, forcing J3 to be 6 and that removed 6 from J5.  B5 would become 1 and since 6 and 8 are removed form J5 as well we are left with a 1 also in J5 - two 1s in the column.  So following the consequences through shows the 8 in A5 must go.</div><br>
+
+<h2>A 1 Cell + 3 cell Example</h2>
+<div class="SRCell">The N+1 definition also applies to single cells - they simply must have two candidates in them - the natural bi-value cell.  This next example uses a 3-cell ALS in combination with the 1-cell ALS.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS2.png" alt="Almost Locked Set example 2" /><figcaption>Almost Locked Set example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030680105601503000000001060004805630860000051057000980070408000000700008408050020">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030080105600003000000001060004000630860000051057000900070400000000700008408050020">From the Start</a>
+</figcaption></figure>
+The yellow cell F1 is our first ALS.  The 1 and 3 in F1 can see F4 which is part of the brown 3-cell ALS. 1 and 3 are common to both ALS but only 1 is <span class="hy">restricted common</span> because all the cells in both ALSs can see each other.  3 can't be restricted because the 3 in E4 cannot see the 3 in F1.  <br><br>The XZ rules says we can use that 3 to look for other 3s that share units with both ALSs. The sole 3 on F5 can see F1 (row) and the 3s in E4 and F4 (because of the box).  That 3 can be removed.</div>
+
+<h2>More Complex Examples</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS3.png" alt="Almost Locked Set example 3" /><figcaption>Almost Locked Set example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600850580000010893100400000090003000000901300000040075003160648201390">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600050000000010803000400000090000000000901000000000075003160040201300">From the Start</a>
+</figcaption></figure>
+Both these next examples come from the same puzzle and almost follow on from each other. The definition of example 3 is <br><br><span class="hc">Rule 1: [J5] and {D5|D6|E4|E6|F6}, 5 is restricted common, other common candidate 7 can be removed from F5 </span><br><br>We have an enormous 5-cell ALS in brown with 5 as the <span class="hy">restricted common</span>. You can see that 5 occurs only in D5 and aligns with the yellow ALS J5.  Its pretty hard to pick out a 5-cell ALS but if you add the numbers available in the brown cells you can see there are 6 possibilities.  7 is shared by both ALSs and is not restricted so it can be removed.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS4.png" alt="Almost Locked Set example 4" /><figcaption>Almost Locked Set example 4
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600850580000010893100400000090003000000901300000040075003160648201390">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600050000000000803000400000090000000000901000000000075003160040201300">From the Start</a>
+</figcaption></figure>
+Still on number 7 the next step is another ALS combination, this time a 2-cell and a 4-cell. The {1,2,7} in the top yellow ALS is matched with a set of {1,2,6,7,8} in row G. 1 is linked by A2 and G2 so it is <span class="hy">restricted common</span>.  The only interesting cell that is not part of any ALS and contains common candidates is G7.  Apart from 5 it contains 2 and 7.  The 7 can see the 7 in A7 and all the 7s in the brown ALS.  It can be removed.  2 looks like it could be eliminated but there is a 2 in A2 which it cannot directly see.  To be eliminated the X must see all the candidates X in both ALSs, which is not the case with 2.<br><br><span class="hc">Rule 1: {A2|A7} and {G2|G5|G6|G9}, 1 is restricted common, other common candidate 7 can be removed from G7</span></div>
+
+<h2>Overlap with other strategies</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS_DLL2_wxyz.png" alt="" /></figure>
+There is overlap with other strategies as often noted in the comments on this and other pages. Here I have taken the <a href="sudoku.htm?bd=S9Baa0b050a089e3603049nb7d7039m0605cy02amb6e602a2a20acyaa9i04024y8m01aa0edu9v069f4q0bbu030rcy08837r079a8e0b0r8i1n071n091r0u080b0e0203c25m3u6i9m9e018bbnbf4a2j029m0603">first example</a> from <a href="https://hodoku.sourceforge.net/en/tech_als.php" target="_blank">HoDoKu</a> docs page "Singly Linked ALS-XZ". <br><br>The solver here first finds this as a WXYZ-Wing</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS_DLL2_aic.png" alt="" /></figure>
+<br>The eliminations can be expressed as an Alternating Inference Chain</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS_DLL2_als.png" alt="" /></figure>
+<br>And then it gets to the Almost Locked Set.</div>
+
+<h2>ALS-XZ rule 2 — Double Linked Rule</h2>
+<div class="SRCell">Thanks to David Bird (in 2016) for the extension to the ALS-XZ rule that allows other candidates to be eliminated. And to STRMCKR for the example and <a href="http://forum.enjoysudoku.com/almost-locked-rules-for-now-t2510-15.html#p284617">forum post</a>.  There is earlier discussion (2009) on the <a href="http://forum.enjoysudoku.com/restricted-common-adjacency-rules-t6642.html">same forum here</a>. Sorry this has taken seven years to document!</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/ALS_DLL1b.png" alt="Double Linked Rule example" /><figcaption>Double Linked Rule example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Ba49xa358d8bgay03aq069g9m059s8001089ea208031m017uay023m4d0l0r090507031m4z6n062r0r4e0v6a0902bz9za344541r6a2i6b2e2e0643b6b7020504820408071g1w8i0103838302031m22du36c2">Load Example</a>
+</figcaption></figure>
+<br>When there are two restricted common candidates it will be the case that each one of them will be false in one of the ALSs locking all their other member digits. In practise this means that any candidate in the ALS that is unique to that ALS (and not the other) is a solution somewhere in that ALS set - so other cells that can see all members of the ALS can have that candidate removed.<br><br>In STRMCKR's example 2 and 4 are the restricted common candidates. For ALS {D2|D3} candidate 1 is unique to {D2|D3} and 1 does not appear in {B2|B3|B9}. All thoses 1's in box 4 can be removed.<br><br>Likewise 7 and 9 are only found in row and are 'locked in' to <span class="hy">B239</span> so can be removed from the rest of the row. <i>(Turn off AIC and Forcing Chains)</i></div>
+
+<div class="SRCell"><div class="hc" style="font-size:8pt;line-height:1.2em"><b>Almost Locked Sets</b><br>Rule 1 (Doubly Linked): {D2|D3} and {B2|B3|B9}, 2/4 are restricted common and are locked in to these ALSs. Therefore<br>- 4 can be removed from A3<br>- 4 can be removed from F3<br>Rule 1 (Doubly Linked): {D2|D3} and {B2|B3|B9}, 2/4 are restricted common and are locked in to these ALSs. Therefore<br>- 2 can be removed from A2<br>Rule 2: Set (1) is unique to ALS {D2|D3} and must occur in it, therefore<br>- 1 can be removed from D1<br>- 1 can be removed from D9<br>- 1 can be removed from E1<br>- 1 can be removed from E3<br>- 1 can be removed from F1<br>- 1 can be removed from F2<br>- 1 can be removed from F3<br>Rule 2: Set (7/9) is unique to ALS {B2|B3|B9} and must occur in it, therefore<br>- 7/9 can be removed from B5<br>- 9 can be removed from B6</div></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Unit_Forcing_Chains">Unit Forcing Chains</a></td><td class="w50pc cright">Continue to <a href="Finned_X_Wing">Finned X-Wing</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=84&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Almost_Locked_Sets" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(84,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17358"><div class="w100pc"><div class="w60pc"><h2>... by: LJC</h2></div><div class="w40pc datepost">Monday 29-Dec-2025</div></div>
+<div class="w100pc">Here’s a fairly straightforward extension: If all two candidates (which can be either grouped candidates or single candidates) in an ALS are connected by a strong link in an AIC, then all other candidates in that ALS must be locked within it, allowing eliminations to be made.<br><br>I imagine this situation isn’t too rare, but it’s probably extremely hard to spot.</div>
+<div class="w100pc" id="blog-reply17358"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,17358,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16971"><div class="w100pc"><div class="w60pc"><h2>... by: Ymiros</h2></div><div class="w40pc datepost">Saturday 8-Jul-2023</div></div>
+<div class="w100pc">I think a more generalised proof of rule 1 would go something like this:<br>If 2 ALS have a common restricted digit that means you only have 1 more digits than cells to work with. If you were now to place a digit that completely removes a digit that is not commonly restricted from both ALS you effectively remove 2 digits, leaving 1 fewer digits than cells to work with (which is obviously wrong).<br><br>Also concerning Robert's comments I think his last comment is a correction for his rule 1 and not his rule 2 as the eliminations he describes do not work on sets with any "excess"<br><br><br>All in all I think this can be generalised into having any number of sets that each contain some number N of digits in some lower number C of cells and then some of them are restricted.<br>Now as soon as you look at 3 sets there will be different types of restrictions occuring as a digit could be able to appear only once across all 3 sets or it could be able to only appear once in 2 of the sets but could still appear in the third set in addition.<br>In other words in the first case placing it in one of the sets eliminates it from 2 other sets and in the second case from 1 other set.<br>Thus I call them 2-restricted or 1-restricted respectively.<br><br>If no digit is restricted you just add all N and all C of the sets you are looking at and end up with N digits (digits may repeat here) to put into C cells, in other words you have N - C degrees of freedom.<br><br>Now if digits are restricted commons that effectively reduces your N and it does so by exactly the strength as I have defined it, so a 1-restricted digit reduces N by 1, a 2-restricted by 2 etc.<br>(This is due to it appearing in N as often as you include sets it appears in, but for the sets it is restricted in it should've appeared only once)<br>C stays the same, so your degrees of freedom also go down by that amount.<br><br>If now a candidate would completely remove more digits than the degree of freedom it can be eliminated.<br>(I hope this is obvious as it would result in having to place a number of digits in a larger amount of cells inevitably leaving at least one empty.)<br>You have to be very careful though, let's say you are looking at the sets 1,2,8 and 3,4,8 where 8 is not a restricted digit removing 8 from both sets counts as 2 eliminations while removing it from one set only counts as 1 elimination. If you only remove it from cells within a set but it still can go somewhere in the set that is no elimination at all.<br>However if 8 were a restricted common in both sets eliminating it from just one of the sets would not amount to eliminating one digit, instead it has to be eliminated from all sets it is restricted in at once to count as a single elimination.<br><br>Let us look at the example for the double linked rule in this article to showcase this:<br>We have two sets: 2,4,7,9 and 1,2,4.<br>Thus our N is 7.<br>The sets have 3 and 2 cells respectively adding to C = 5.<br>We have 2 digits that are 1-restricted, so our N decreases by 2.<br>We can see that N - C = 0, so we have no degree of freedom.<br>Thus any cell that removes even just one of the digits from one of the sets can be eliminated.<br>We can also see that only the 2 and 4s get removed that remove the restricted common digits from both sets.<br><br>Of course all this also works with the complementary aka hidden sets, though thinking about that makes my head hurt.<br>I also do not know how many eliminations this generalisation even opens up.<br>Furthermore for a human solver I do not think this strategy is very feasible (Not that I myself am any good at spotting regular ALS eliminations), but I think the best strategy to search for these might just be picking one ALS you can see and then expanding from that by adding other cells / sets of cells that are linked to the original set in a way that the degree of freedom decreases or stays the same to increase the number of eliminations (Though with this approach there will be a LOT of links to pay attention to in the end).<br><br>What StrmCkr proposes here goes in the same direction as what he's mentioning are 3 ALS, which are triply linked.<br>3 ALS means 3 sets which one more digit than cells, so a degree of freedom of 3<br>Triply linked in this case means 3 1-restricted commons, so a reduction of the degree of freedom by 3 to 0.<br>Therefore you can apply the eliminations as discussed above.<br>The same will obviously work with 4 ALS and 4 links<br><br>I don't think the example they make in their comment is a good one cuz that can also just be done with a double linked ALS as they say, but the last example of their forum post has a better example as it contains 3 sets that are distinctly separate and at least your solver fails to solve the puzzle without guessing, but can do it if you put in the eliminations provided in that example (though the puzzle remains absolutely brutal even after that).</div>
+<div class="w100pc" id="blog-reply16971"></div>
+<div class="post-reply" id="reply2838"><table class="w100pc"><tr><td class="post-writes">strmckr replies:</td><td class="datepost">Monday 3-Jun-2024</td></tr>
+<tr><td colspan="2">yes: <br> the N als with N RCC  rule   makes them all a.i.c Rings technically:   <br><br> warning note that the elimination rules can get interesting with als as the internal nodes can also be weak-inferenced to each other more then once through out the chain. {of course depending on how complex & more exacting} <br><br>i do agree the example below isn't great but it show cases the logic is sound:  i did email over better examples to Andrew a while back which should be the forum posts. + others. <br><br> <br><br><br></td></tr>
+</table></div>
+</div><div id="blog-reply2838" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,16971,2838)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16756"><div class="w100pc"><div class="w60pc"><h2>... by: ALSFAIR INLOVEANDWAR</h2></div><div class="w40pc datepost">Friday 7-Jan-2022</div></div>
+<div class="w100pc">Hello Andrew<br><br>I have several examples of two overlapping ALS where one cell can be described as existing is both sets.  If one accepts that this is allowed then eliminations are possible according to the ALS xz rules.  The link to the diagram is below (sorry didn't know how to paste one in)<br>ï¿¼ï¿¼<br><br><a href="https://imgur.com/9qCE336"><img src="https://i.imgur.com/9qCE336.png" title="source: imgur.com" /></a><br><br>Set A {1,3,5,6} is the two green cells plus the yellow cell. n = 4 so n-1 = 3 cells<br>Set B {3,5} ids the yellow cell<br><br>The overlapping cell is the yellow one.<br><br>Restricted common x = 3 which will only end up in A or B<br>Common Candidate z = 5 which is eliminated and shown as the red cell. <br><br>Is this legal ? I have several other of these which worked perfectly for solutions to difficult puzzles. However....<br><br><br><br></div>
+<div class="w100pc" id="blog-reply16756"></div>
+<div class="post-reply" id="reply2810"><table class="w100pc"><tr><td class="post-writes">Cerberus replies:</td><td class="datepost">Thursday 19-Oct-2023</td></tr>
+<tr><td colspan="2">I see no-one answer your post, ALSFAIR INLOVEANDWAR.<br>I understand it is not legal as the restricted common (3) shares the overlap.</td></tr>
+</table></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks for answering!</div></div><div id="blog-reply2811" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,16756,2811)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16751"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Friday 31-Dec-2021</div></div>
+<div class="w100pc">Hi Robert <br><br>I did encounter ALS-XZ Rule 2 when using the solver and it seems that your assumption is actually correct. The solver's implementation seems similar to this here: http://hodoku.sourceforge.net/en/tech_als.php#axz2<br><br>However the solver uses the words 'unique to one ALS' which I think is wrong, as they need not be.</div>
+<div class="w100pc" id="blog-reply16751"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16751,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16710"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 31-Aug-2021</div></div>
+<div class="w100pc">Bugger, I did not describe my idea for an extension to this technique properly.<br><br>My proposed "Rule 2" is correct as far as it goes, but it is incomplete.  If there are two restricted digits in the ALS case, or a number of restricted digits equal to the "excess" (definition in my earlier comment) if we allow AALS or even more "A"s, then all restricted digits must occur in the one set or the other.  Therefore, in any cell outside the two sets, if one of the restricted digits occurs and can "see" all occurrences within the two sets, it can be eliminated.  So there are two types of eliminations - restricted digits need to be able to see all occurrences in both sets, but unrestricted digits only have to see all occurrences in one of the two sets.  Unrestricted digits in this case do not have to occur in both sets; however, if they do, some of them may be eliminated, if they can "see" all occurrences of the same digit in the other set.</div>
+<div class="w100pc" id="blog-reply16710"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16710,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16709"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Thursday 26-Aug-2021</div></div>
+<div class="w100pc">Follow-up to my earlier comment regarding my extension of this strategy.<br><br>In my database of 341 "advanced" puzzles, I run the ALS strategy (with my version of Rule 2, which may or may not be the same as David Bird's) together with basic techniques, and get 66 puzzles fully solved.<br><br>My extended version of the strategy only finds eliminations based on ALSs, AALSs, and AAALSs.  Furthermore, although my solver does find some eliminations involving AAALSs, it finds the same eliminations when restricted to just ALSs and AALSs.<br><br>So I don't know whether there is some general wisdom here that there is no need to check for anything more than an AAALS, or if that is just a specific property of my sample of 341 puzzles.<br></div>
+<div class="w100pc" id="blog-reply16709"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16709,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16708"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Thursday 26-Aug-2021</div></div>
+<div class="w100pc">So the documentation on Rule 2 is still on the to-do list, but I have speculated in a comment last week about what it might be.  I repeat my speculation here, and also offer an extension to this method.<br><br>First, my speculation about Rule 2 - if there are two restricted digits in the pair of ALSs, then any candidate in any cell that can see all of the same digit in just *one* of the ALSs can be eliminated.  This might possibly include occurrences of that digit in the other ALS (so the same value occurring in both ALSs, but it is not restricted, and therefore possible for the same digit to appear in the solved puzzle in both ALSs).  My own solver finds some instances of this occurring in my sample of "advanced" puzzles (now up to 341 puzzles), and can solve 66 of those puzzles using the basic techniques, the ALS Rule 1 above, and my proposed version of the ALS Rule 2.  Using only Rule 1, I get 65 puzzles solved instead of 66, and possibly some additional eliminations in puzzles that are partially solved (I would have to check).<br><br>Rule 1 is a special case of AICs with ALSs, but with the size limitation in the implementation of ALSs that appear in AICs, it is possible that the solver might find some eliminations using this strategy, that is doesn't find using AIC with ALSs.  My version of Rule 2 is also a special case of AICs with ALSs.<br><br>Now, for my extension.  We can use not just ALSs, but AALSs, AAALSs, etc.  So here is how it works.  Find two groups of cells that are not locked sets.  (If they include locked sets as subsets, these should be thrown away - the strategy is still valid, but other strategies can be applied.)  So they might be ALSs, AALSs, AAALSs, or maybe even more Almosts.  Call the "excess" the combined number of "almosts" in the two sets.  For example, if one set is an ALS, and another is an AALS, the "excess" is three.  If there are two AALSs, the "excess" is four.  If there are two ALSs, the "excess" is two.  (I think this strategy probably works with locked sets as well, but in that case, easier strategies can be used instead.)<br><br>The number of restricted digits (same definition used for ALSs) cannot be more than the "excess".  If it is, the puzzle has no solution (or we have made a logical error while trying to solve it).<br><br>Rule 1: if the number of restricted digits is equal to the "excess", then any candidate in any cell that can "see" all occurrences of an unrestricted digit in *either* (not both) of the sets can be eliminated.  This might possibly include candidates in one of the two sets, if it can see all occurrences of an unrestricted digit in the other set.<br><br>Rule 2: If the number of restricted digits is equal to the "excess" minus one, then any candidate in any cell that can "see" all occurrences of an unrestricted digit in *both* of the sets (and the unrestricted digit must occur in both sets) can be eliminated.<br><br>I have implemented this in my own solver.  Once I had the ALS code running smoothly, it probably took me five minutes to make the extension (definitely less than ten).  It adds a lot of processing time, because *every* set of cells within a unit that is not a locked set, is an ALS, an AALS, an AAALS, an AAAALS, an AAAAALS, an AAAAAALS, an AAAAAAALS, or an AAAAAAAALS.  In my database of advanced puzzles, it does not solve any additional puzzles (when combined with basic techniques) than the 66 solved using ALS Rule 1 and my version of Rule 2 (which may or may not match David Bird's Rule 2).  However, it does find some additional eliminations, bring some of the partially solved puzzles a little closer to solution.<br><br>When I combine it with all the other strategies I have implemented, although a number of my "super-ALS" pairs are found, and some eliminations made, all the same eliminations would have been made by other strategies anyway.  So it is possible this extended strategy is a special case of some other strategies (just as Rule 1 of the ALS strategy, and my version of Rule 2, are special cases of AIC with ALSs).</div>
+<div class="w100pc" id="blog-reply16708"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16708,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16703"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Thursday 19-Aug-2021</div></div>
+<div class="w100pc">So no docs on the extension mentioned, but if I may speculate -<br><br>Is it that, if there are two restricted digits, then any candidate that can see all instances of a non-restricted digit in *either* (not necessarily both) ALS can be eliminated?<br></div>
+<div class="w100pc" id="blog-reply16703"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16703,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16678"><div class="w100pc"><div class="w60pc"><h2>... by: Gary</h2></div><div class="w40pc datepost">Monday 5-Jul-2021</div></div>
+<div class="w100pc">Almost Locked Set Example 3: cannot 7 also be removed from D5?</div>
+<div class="w100pc" id="blog-reply16678"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16678,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16650"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Wednesday 27-Jan-2021</div></div>
+<div class="w100pc">I've been implementing my own solver, really just for laughs, and I've gotten as far as AIC with Groups.  Still need to do AIC with ALSs, which is next on my to-do list.  But AIC seems to be an extremely powerful technique.  Mesusa (except for Rule 6), Digit Forcing, Nishio Forcing, and some other strategies are all special cases.<br><br>Which brings me to this one.  All of the examples above look like they could be considered examples of AICs with ALSs, if we define a weak link between certain candidates in the ALSs.  In these examples, the resulting AIC has five links, and the candidate to be eliminated as between two weak links.  If this candidate is "on", then the same candidate must be "off" in both the ALSs.  But because they are ALSs, if one of the candidates is "off", all the other candidates must be "on" (strong link), although if a candidate appears several times within the ALS, we won't know which one is "on".  But for the restricted common, there is a weak link between the two ALSs - "on" in one means "off" in the other.  So we have an AIC.  In the last example shown,<br><br>Candidate 7 in G7<br><i>is weakly linked to</i><br>Candidate 7 in ALS {G2,G5,G6}<br><i>is strongly linked to</i><br>Candidate 1 in ALS {G2,G5,G6}<br><i>is weakly linked to</i><br>Candidate 1 in ALS {A2,A7}<br><i>is strongly linked to</i><br>Candidate 7 in ALS {A2,A7}<br><i>is weakly linked to</i><br>Candidate 7 in G7<br><br>So it is an AIC, Candidate 7 in G7 can be eliminated by Rule 3 (and Rule 1 and Rule 2 are really just special cases of Rule 3 anyway).<br><br>So I think by defining the notion of a "weak link" between ALSs (which is done using the restricted common), we could build more complex inference chains than the five-step ones shown above.<br><br>Whether this is computationally feasible, let alone human-feasible, I do not know at this point.</div>
+<div class="w100pc" id="blog-reply16650"></div>
+</div><div id="blog-reply2811" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,16650,2811)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16607"><div class="w100pc"><div class="w60pc"><h2>... by: Twifty</h2></div><div class="w40pc datepost">Thursday 20-Aug-2020</div></div>
+<div class="w100pc">For rule 1, you state that:<br><br>"any other candidate found in both ALSs but not a restricted common; that, a candidate that still appears in both ALSs and is not exclusive to one or the other."<br><br>but, what if there are two restricted commons?<br><br>Here is an example of a 1 and 4 cell ALS:<br><br>https://www.sudokuwiki.org/sudoku.htm?bd=360020009920000050870009203490750000010000090030918002259400831080090020040080965<br><br>The solver claims that candidates 1,4 can be removed from A8; which contradicts the above statement.</div>
+<div class="w100pc" id="blog-reply16607"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Alas this is nor coming up anymore so I can't reply properly. (Bit late on this one!)</div></div><div id="blog-reply2826" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,16607,2826)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16602"><div class="w100pc"><div class="w60pc"><h2>... by: PAUL</h2></div><div class="w40pc datepost">Saturday 25-Jul-2020</div></div>
+<div class="w100pc">Presently missing an explanation of the doubly linked ALS with two RCCs which becomes cannibalistic and is included in the solver as ALS XZ-Rule 2.  See this link for more info: http://hodoku.sourceforge.net/en/tech_als.php  I think you refer to David Bird about it.  </div>
+<div class="w100pc" id="blog-reply16602"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16602,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16517"><div class="w100pc"><div class="w60pc"><h2>... by: Cerberus</h2></div><div class="w40pc datepost">Saturday 2-Nov-2019</div></div>
+<div class="w100pc">Where are the docs you often refer to?<br>I was looking at the Almost Locked Sets web page, at the bottom  you have a title, ALS-XZ Rule 2, with a thanks to Davis Bird and that Docs were to come. Where can they be found, or do they not exist yet?<br><br>Thanks in advance.</div>
+<div class="w100pc" id="blog-reply16517"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yeaahhhh, looks like that fell by the wayside. I will add it to the job queue!</div></div><div id="blog-reply2599" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,16517,2599)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16222"><div class="w100pc"><div class="w60pc"><h2>... by: strmckr</h2></div><div class="w40pc datepost">Thursday 8-Dec-2016</div></div>
+<div class="w100pc">i'm guessing the missing 2ndary rule  is the double linked rule for ALS <br><br>http://hodoku.sourceforge.net/en/tech_als.php<br><br>{listed half way down the page for easy reference}<br><br>that rule has been on enjoy sudoko forms since 2006 roughly.<br><br><br><br><br><br></div>
+<div class="w100pc" id="blog-reply16222"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,16222,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15921"><div class="w100pc"><div class="w60pc"><h2>... by: Anton Delprado</h2></div><div class="w40pc datepost">Friday 2-May-2014</div></div>
+<div class="w100pc">I have found it quite useful to extend this method with XY-Chains. XY-Chains find weak links between bi-value cells but you can use ALSs in place of XY cells (XY cells are just a simple type of ALS).<br><br>ALS XZs are just a two step chain and a "ALS Chain" is just continuing this logic.<br><br>These may seem hard to find at first, but if you are already looking for XY-Chains I have found it quite easy to include 2 and 3 cell ALSs in the chaining logic.<br><br>Of course all of these are examples of AICs but I find those to be quite hard to find in general.</div>
+<div class="w100pc" id="blog-reply15921"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15921,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15917"><div class="w100pc"><div class="w60pc"><h2>... by: Jan </h2></div><div class="w40pc datepost">Thursday 24-Apr-2014</div></div>
+<div class="w100pc">I found a very interesting example for this strategy. It involves in total 9 cells and they are all in only one unit. I found it in your "18 elimination Jelly-Fish" example (..........7..3.92..19.2563...4...21...........57.9.46..9514.37.7......4..4236759.)<br><br>It all happens in column 9. The first ALS is a 6-cell set {A9, B9, C9, D9, E9, J9} and the second is the single cell set {F9}. The restricted common is 3. This results in the elimination of candidate 8 in cells F9 and H9. The fact that both sets can be in one unit is not so evident, that's why it find it so interesting.<br><br>I also find it interesting for the fact that it illustrates that there can be more than one restricted common in each set. The first ALS has a 3 in both D9 and E9. More explicitly: if all candidates for X in set 1 see all candidates for X in set 2 then X is a restricted common for both sets.<br></div>
+<div class="w100pc" id="blog-reply15917"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15917,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15811"><div class="w100pc"><div class="w60pc"><h2>... by: ralph maier</h2></div><div class="w40pc datepost">Wednesday 10-Jul-2013</div></div>
+<div class="w100pc">LOL <br>Still   interested to  know  whether a  restricted   candidate  is  really   necessary  for an ALS  to work</div>
+<div class="w100pc" id="blog-reply15811"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>In this definition yes. But happy to entertain counter examples. Good to expand patterns.</div></div><div id="blog-reply2983" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,15811,2983)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15783"><div class="w100pc"><div class="w60pc"><h2>... by: sunshine48</h2></div><div class="w40pc datepost">Sunday 14-Apr-2013</div></div>
+<div class="w100pc">A simple explanation, I finally got it. Wonderful site.</div>
+<div class="w100pc" id="blog-reply15783"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15783,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15778"><div class="w100pc"><div class="w60pc"><h2>... by: Douglas Boffey</h2></div><div class="w40pc datepost">Tuesday 9-Apr-2013</div></div>
+<div class="w100pc">There is a second way a set can be almost locked, namely, when N candidates appear in N + 1 cells within a unit.  I call this a Hidden ALS (or HALS), as knocking out one of the cells reduces to a hidden pair/triple/quad/&c.  Likewise, the ALS described on this page would be better called a NALS (Naked ALS).</div>
+<div class="w100pc" id="blog-reply15778"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15778,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15747"><div class="w100pc"><div class="w60pc"><h2>... by: Tokgot</h2></div><div class="w40pc datepost">Monday 18-Feb-2013</div></div>
+<div class="w100pc">I wish to show my appreciation to the witrer just for bailing me out of this particular issue. Just after browsing throughout the world-wide-web and coming across opinions which were not productive, I was thinking my life was gone. Being alive without the solutions to the problems you've resolved all through your entire report is a critical case, as well as ones that might have in a wrong way damaged my entire career if I had not discovered your web site. Your main expertise and kindness in handling all the pieces was very useful. I am not sure what I would have done if I hadn't come upon such a thing like this. I can now look forward to my future. Thanks so much for your high quality and amazing guide. I won't think twice to recommend your blog to any person who wants and needs assistance on this issue.</div>
+<div class="w100pc" id="blog-reply15747"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15747,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15651"><div class="w100pc"><div class="w60pc"><h2>... by: Jason</h2></div><div class="w40pc datepost">Wednesday 25-Jul-2012</div></div>
+<div class="w100pc">Ian,<br><br>If I understand correctly, adding G5 to the brown ALS does no good. You can only use this technique to make eliminations on numbers common to both the ALS.  <br><br>In Example 1, adding G5 to the brown ALS picks up another candidate, the 9, but it will not lead to any more eliminations because the yellow ALS does not have a 9.  If the yellow ALS happened to have a 9, then it could help.<br><br>Essentially, the relationships between the common elements of the two ALS means that the unrestricted common candidate (in Example 1, it's the 8) has to be the correct solution for a cell in at least one of the two ALS.  So at least one of the yellow or brown cells that contain 8 as a candidate must actually be a 8 in the final answer.<br><br>It logically follows that 8 can be removed as a candidate in any cell that can see ALL of the 8s in the yellow and brown squares.</div>
+<div class="w100pc" id="blog-reply15651"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15651,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15645"><div class="w100pc"><div class="w60pc"><h2>... by: Ian Saliba-Curtis</h2></div><div class="w40pc datepost">Saturday 30-Jun-2012</div></div>
+<div class="w100pc">Hi Andrew!<br>Example 1: Could you not also have added G5 to the brown ALS and made it an almost locked triplet over 4 candidates?<br><br>If yes - is there a reason why you didn't?<br>If no - please could you explain why not?<br><br>Many thanks! Your site is fascinating.<br>Kind regards,<br>Ian</div>
+<div class="w100pc" id="blog-reply15645"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15645,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15610"><div class="w100pc"><div class="w60pc"><h2>... by: Marc</h2></div><div class="w40pc datepost">Tuesday 3-Apr-2012</div></div>
+<div class="w100pc">I have two questions:<br><br>If one of the ALS is a bi-value cell, then the other ALS cannot have a cell in the same box of the bi-value cell, is that true?<br><br>If none of the ALS is a bi-value cell, and they both are in a row (or both in a column), can both these rows (or columns) appear in the same band (or stack)? <br><br></div>
+<div class="w100pc" id="blog-reply15610"></div>
+<div class="post-reply" id="reply2998"><table class="w100pc"><tr><td class="post-writes">Marc replies:</td><td class="datepost">Thursday 5-Apr-2012</td></tr>
+<tr><td colspan="2">Ok, I've found out the answers myself...<br><br>Answer 1 = No, it's not true. A bi-value cell ALS can share the same box with one or more cells of the other ALS<br><br>Answer 2= Yes, they can. </td></tr>
+</table></div>
+</div><div id="blog-reply2998" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,15610,2998)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15599"><div class="w100pc"><div class="w60pc"><h2>... by: rlhaben</h2></div><div class="w40pc datepost">Thursday 15-Mar-2012</div></div>
+<div class="w100pc">Andrew must be busy on the mobile solver since I have seen no answer. But I think Grandad is right.  If you load the example, you will not even get to ALS as an example for those cells unless you manually remove the 2.  However, even in that case, the proof doesn't seem to work. If you make F5 a 3, it does not present a contradiction in the two ALSs. It may present a contradiction elsewhere. But this type of example trips me up. I bought the book and I love it. But I often find that I can't prove a path I follow using its rules. I usually import the puzzle that I can't prove and watch what the solver does. Sometimes that helps, sometimes not.</div>
+<div class="w100pc" id="blog-reply15599"></div>
+<div class="post-reply" id="reply2999"><table class="w100pc"><tr><td class="post-writes">rlhaben replies:</td><td class="datepost">Thursday 15-Mar-2012</td></tr>
+<tr><td colspan="2">Actually, sorry. I was wrong on this one. It does present a contradiction. I stared at this for 15 minutes trying to see it. Wrote the comment, then looked again and saw it immediately.  Looking forward to getting this on the iPad. :)</td></tr>
+</table></div>
+</div><div id="blog-reply2999" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,15599,2999)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15516"><div class="w100pc"><div class="w60pc"><h2>... by: Grandad</h2></div><div class="w40pc datepost">Tuesday 23-Aug-2011</div></div>
+<div class="w100pc">I am almost certainly not the first to ask but - in the 2nd example, surely F1 should have possibles 1, 2 and 3 so isn't an ALS ?</div>
+<div class="w100pc" id="blog-reply15516"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15516,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15426"><div class="w100pc"><div class="w60pc"><h2>... by: Terry</h2></div><div class="w40pc datepost">Thursday 14-Oct-2010</div></div>
+<div class="w100pc">Hi Andrew,<br><br>Excellent site ;-)<br>I'm just getting to grips with some of the more difficult strategies. I had a puzzle loaded in the solver and it came up with an ALS that I fail to understand :( The starting point for the puzzle is<br><br>..7...32.1..2.7..6.26.5.71..8...2....19.6.5...6.7......91.2..475..17.....78......<br><br>If you just keep clicking 'Take Step' until it comes to the first ALS, I can't see how 8 is restricted as 6 can also be seen by both ALSs.<br><br>What am I missing in my understanding of the ALS technique?<br><br>Many thanks and best wishes,<br><br>Terry</div>
+<div class="w100pc" id="blog-reply15426"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>You are correct to suspect that 6 is restricted common as well as 8. The problem was my reporting since the 8 is not eliminated due to the 6. I have improved the reporting and this example is a Doubly Linked ALS. The solver will now say<br><pre>Rule 1 (Doubly Linked): {G7} and {H2|H3|H7|H8|H9}, 6/8 are restricted <br>common and are locked in to these ALSs. Therefore<br>- 6 can be removed from J7<br>- 6 can be removed from J8</pre></div></div><div id="blog-reply3000" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,15426,3000)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15358"><div class="w100pc"><div class="w60pc"><h2>... by: Ana</h2></div><div class="w40pc datepost">Sunday 28-Feb-2010</div></div>
+<div class="w100pc">In the last example the {1,2,6,7,8} in row G is not an ALS because it has 5 candidates in 3 cells</div>
+<div class="w100pc" id="blog-reply15358"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The four cells highlighted in brown are the ALS, so thats 5 candidates in 4 cells.</div></div><div id="blog-reply2291" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,15358,2291)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15289"><div class="w100pc"><div class="w60pc"><h2>... by: Luciano</h2></div><div class="w40pc datepost">Tuesday 20-Oct-2009</div></div>
+<div class="w100pc">Having problems with this technique (ALS). It seems that since i started using it I am screwing up a large amount of sudokus. It always happens after using this technique. I can't be sure that it is this technique but it sure seems that way. Anyone else having similar pissues?</div>
+<div class="w100pc" id="blog-reply15289"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(84,15289,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 204932<br>
+			This page was last modified on 1-September-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d25f56e9cfd9f',t:'MTc4MDMwNTY4Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

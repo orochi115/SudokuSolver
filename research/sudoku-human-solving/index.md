@@ -2,6 +2,20 @@
 
 This index tracks internet sources collected for building a complete, formula-like human Sudoku solving workflow.
 
+## Local Library Entry Points
+
+| File | Purpose |
+|---|---|
+| `README.md` | Local library usage guide and storage policy |
+| `bibliography.md` | Source bibliography, URL list, and copyright/license notes |
+| `source-manifest.json` | Machine-readable local source manifest |
+| `citation-map.md` | Stable citation IDs for technique cards and synthesis |
+| `glossary.zh-en.md` | Bilingual terminology map |
+| `local-library/markdown/` | Markdown conversions grouped by source |
+| `local-library/raw-html/` | Raw HTML files grouped by source; kept separate from Markdown |
+| `local-library/techniques/` | Technique-level model-friendly cards |
+| `local-library/indexes/` | Retrieval indexes and JSON source/technique maps |
+
 ## Source Table
 
 | ID | Source | URL | Local File | Coverage | Usefulness |
@@ -49,3 +63,10 @@ The most promising path to a complete human workflow is not a flat list of named
 - Need translate taxonomy into an exact scan order and repeat loop.
 - Need decide how much complexity is still realistically human-solvable by hand.
 - Need examples for each major layer if building a guide rather than only a taxonomy.
+
+## Localized Library Expansion
+
+- Markdown and raw HTML are now stored separately under `local-library/`.
+- Raw HTML is retained for sources where Markdown conversion may omit structure or where later reprocessing is useful.
+- Sources with unclear copyright are retained locally for research/reference and marked in `bibliography.md` and `source-manifest.json`.
+- Technique-level cards now provide a compact retrieval layer for LLM synthesis.

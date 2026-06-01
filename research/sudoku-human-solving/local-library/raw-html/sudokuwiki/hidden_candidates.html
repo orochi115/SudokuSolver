@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Hidden Candidates - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Hidden Pairs, Triples and so on - these are the candidates in cells aligned on a row, column and box which can be used to remove other candidates the formation is aligned with. "/>
+<meta name="twitter:description" content="Sudoku Strategy. Hidden Pairs, Triples and so on - these are the candidates in cells aligned on a row, column and box which can be used to remove other candidates the formation is aligned with. ">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/HP1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/HP1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Hidden_Candidates';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Hidden_Candidates">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Hidden Candidates</h1><div class="SRCell"><h2>Hidden Pairs</h2><br>Looking for <span class="hy">Hidden Pairs</span> is a great way to open up the board. This approach can remove a cluster of candidates from two cells and leave behind simple pairs which are the building blocks of more complex elimination strategies. <br><br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/HP1.png" alt="Hidden Pair example" /><figcaption>Hidden Pair example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000904607000076804100309701080008000300050308702007502610000403208000000000">From the Start</a>
+</figcaption></figure>
+Looking at the top of this moderate puzzle, we see that 6 and 7 have been found in the first two boxes. Along with the 6 and 7 in column 7, this pins the placement of 6 and 7 in the third box to <span class="hy">A8</span> and <span class="hy">A9</span>.  It still appears that there are a great number of other candidates in <span class="hy">A8</span> and <span class="hy">A9</span>, which is true up to a point. However, these extra candidates 'hide' the true values for these cells. We have deduced that 6 and 7 must go in <span class="hy">A8</span> and <span class="hy">A9</span> and therefore we can clear off all the alternatives. This doesn't mean we know which way round the 6 and 7 will go, but we can make 6 and 7 a Naked Pair in those cells and see where it leads us.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/HP2.png" alt="Three Hidden Pairs" /><figcaption>Three Hidden Pairs
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=720408030080000047401076802810739000000851000000264080209680413340000008168943275">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=720400030000000047001076802010039000000801000000260080209680400340000000060003075">From the Start</a>
+</figcaption></figure>
+<br>This is a more interesting and complex set of Hidden Pairs. Three occur simultaneously. In the blue rectangle, [2,4] form a Pair on <span class="hy">D3</span> and <span class="hy">E3</span>, clearing off 3, 5, 6 and 7. The red cells indicate two Hidden Pairs based on [3,7], which form a neat corner of three cells. [3,7] is unique to two cells in row E and two cells in column 7.  The yellow highlighted cells can be removed.</div>
+
+<div class="SRCell"><a name="HT"></a><h1>Hidden Triples</h1><br>We can extend <span class="hy">Hidden Pairs</span> to <span class="hy">Hidden Triples</span> or even <span class="hy">Hidden Quads</span>. A Triple will consist of three pairs of numbers lying in three cells in the same row, column or box, such as [4,8,9], [4,8,9] and [4,8,9]. However, in just the same manner as <a href="/naked_candidates#NT">Naked Triples</a>, we don't need exactly three pairs of numbers in three cells for the rules to apply.  Only that <b>in total</b> there are three numbers remaining in three cells, so [4,8], [4,9] and [8,9] is equally valid. Hidden Triples will be disguised by other candidates on those cells, so we have to prise them out by ensuring the Triple applies to at least one unit.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/HT1.png" alt="Two Hidden Triples" /><figcaption>Two Hidden Triples
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000001030231090000065003100678924300103050006000136700009360570006019843300000000">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000231090000065003100008924000100050006000136700009300570000010843000000000">From the Start</a>
+</figcaption></figure>
+<br>This tough puzzle has two Hidden Triples: the first, marked in red, is in row A.  Cell <span class="hy">A4</span> contains [2,5,6], <span class="hy">A7</span> has [2,6] and cell <span class="hy">A9</span> contains [2,5].  These three cells are the last remaining cells in row A which can contain 2, 5 and 6, so those numbers must go in those cells. Therefore we can remove the other candidates.<br><br>Now that we've removed those candidates from the red cells, we can see in column 9 that [4,7,8] is unique to cells <span class="hy">B9</span>, <span class="hy">C9</span> and <span class="hy">F9</span>. By the same logic we can clear off other candidates in those cells.<br><br>(The solver will not choose the second example as Naked Triples get there first)</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/HiddenQuad1c.png" alt="Hidden Quad" /><figcaption>Hidden Quad
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0i0f070h030b0d0e0a050l0n040i0g0h060o080s0u010f0e0o0g091m0902050r0v070h1q3f174r1g5u0u7s7o1s3e034a1g5u0905011o03170f0i17080l0s070b07170c17067n7u080r0h0i0g020r060c0e">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=007030000500400060800100009092500700000000000030009510300008007070006008000020600">From the Start</a>
+</figcaption></figure>
+<a name="HQ"></a><h1>Hidden Quads</h1><br>Here is the one example of a <span class="hy">Hidden Quad</span> I found in a set of 55,000 Sudoku puzzles.  Four numbers [1/5/7/8] on four cells are hidden by just 4s and 6s in row E. Note how none of the cells need to have all four numbers, as long as only four cells contain all four numbers and are intermingled.<br><br>(example replaced Nov 2025)</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/HiddenQuad3.png" alt="Hidden Quad" /><figcaption>Hidden Quad
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0i2e0a0544442e0d0f0402053a093a2e0h01080f2e2m012m82028205660be75ye67n2eb62e0109606g6g04064i0f6666db6edq832e020a090f5u045u0b0e03021a0u7q0686080a072e6e5y0o1401060i0d">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000500000425090001800010020500000000019000460000000002090040003200060807000001600">From the Start</a>
+</figcaption></figure>
+<br />Klaus Brenner in Germany has found a number of excellent Hidden Quads, and I include one here to show they do exist.<br><br>The Hidden Quad is {1,4,6,9} in Box 5 and exists only in the four cells [<span class="hy">D4,D6,F4,F6</span>]. Therefore other candidates (red text on yellow background) can be removed.<br><br>This very special puzzle also produces a perfectly formed <a href="Empty_Rectangles">Empty Rectangle</a> later on.</div>
+
+<div class="SRCell">We don't consider higher orders of Hidden candidates because there are only 9 cells in a unit. So if we were to suppose a "Hidden Quin" with five candidates there would automatically be a complementary Hidden Quad since 5 + 4 = 9.  Same point arises with Naked sets. It may be viable to look for such beasts in 12x12 or 16x16 Sudokus. </div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Naked_Candidates">Naked Candidates</a></td><td class="w50pc cright">Continue to <a href="Intersection_Removal">Intersection Removal</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=56&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Hidden_Candidates" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(56,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17367"><div class="w100pc"><div class="w60pc"><h2>... by: Jim</h2></div><div class="w40pc datepost">Monday 12-Jan-2026</div></div>
+<div class="w100pc">There is a bit of a 'misstatement' in the final paragraph explanation here, (and in the 'naked' candidate rule).  You list that we do not search for 'larger' hidden because there would automatically be a complementary additional hidden. <br><br>This is not quite true. What is true (and this is ALWAYS the case), is there is a complementary 'naked' at the same time.  This 'always' existence of a complementary part can 'only' be made on the hidden candidate rule.  For the naked candidate rule, this complementary rule (the hidden complement), will only be there 'some times' :)<br><br>The formula for any 'house', is this:   S + Nx + Hy is always 9 (S+x+y == 9).  This means that the count of solved cells (S) plus the count of all different 'naked' x-tuples (any naked singles, naked pairs, trips, etc), + the count of all different 'hidden' y-tuples will always be 9 (it must be, since there is a rule of all of 9, meaning each digit 'must' exist in the house).   The 'value' of these 2 rules (hidden and naked) is the times where x!=0 AND y!=0 at the same time (note, until S==9, x will always be non zero).<br><br>Lets look at your example 1 on this page (great example! :), the 'hidden pair' shown is 6,7.  First off, there is a semi rare condition (in the row), where S == 0 (no solutions). We have been 'shown' a Hidden pair (H2) in a8a9.  However, at the same time, there is its complement, a Naked-7 (1234589) in the other 7 cells. Both the N7 and the H2 cancel out the exact same 9 candidates in the 2 cells: a8a9, they always will, since the H2 and the N7 are purely complementary to each other.<br><br>One nice 'extra' about this first example, is that a8a9 purely lives in box-3, so the same 'observation' can be done for box-3.  Box-3 has 8 unsolved cells (so here S1).  If we look closely at only box 3, we also find that we have a hidden pair (H2 the same one in a8a9 for 67), and a Naked-6 with (234589) (the other 6 cells), and of course the 1 solved cell.  Thus for the box-3 we have S1+N6+H2 == 1+6+2 == 9.<br><br>The whole point of this comment is to simply point out that 'naked' vs 'hidden' is just looking at the other side of the coin (or actually 2 complementary ends of the same constraint).  The important 'information' being discovered by this 'pair of' rules is not the single, or pair, or triple, the 'important' part is the candidates being removed due to the constraint violation. Either way you look at these 2 rules, they 'both' will lead to the exact same conclusion, they always do and always must.<br><br>Now, there 'can' be cases where there are more than 1 naked, or more than 1 hidden 'at the same time' in the house.  There will also be a lot of times where there is 'this' formula (which is not yet useful):   S+NX+H0 (X=9-S and there are no N1 in the house). This simply means that at this time, there are the solved cells, and all other of the 9 cells make up either one or multiple 'naked' groups, and there are no 'left over' cells (and no naked singles).  At this point, we have to 'wait' for this house to be usable by the hidden/naked rules, until some other rule 'helps' our house out and removes 1 or more possible candidates from some cells.</div>
+<div class="w100pc" id="blog-reply17367"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,17367,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17338"><div class="w100pc"><div class="w60pc"><h2>... by: Gwenba</h2></div><div class="w40pc datepost">Thursday 27-Nov-2025</div></div>
+<div class="w100pc">Thank you for your explanation about hidden pairs, triples etc. This has helped me unlock the Sudoku-X which I play in good old fashioned books and have really been struggling with for several months since I found them. Wow your site & your explanations are great. Thank you</div>
+<div class="w100pc" id="blog-reply17338"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thank-you! Enjoy :)</div></div><div id="blog-reply3029" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,17338,3029)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16999"><div class="w100pc"><div class="w60pc"><h2>... by: Michael</h2></div><div class="w40pc datepost">Thursday 7-Sep-2023</div></div>
+<div class="w100pc">I was looking through this page and the discussion in order to gain some insight into finding hidden triples.  I came across the comment by Peter Heichellheim and response from Andrew below on 23 September, 2013.<br><br>It seems like a very useful rule, but tried to validate it by working backwards by starting with a unit with a very simple 1,2 - 2,3 -1,3 triple in the unit.  I then chose 3 cells where I arbitrarily assigned a solved number (other than 1, 2, or 3).  However, I was not able to validate the rule.  Not sure what I am doing wrong, so would appreciate some logical insight to why this rule works.<br><br>"There is a clue which will help someone in spotting hidden triples. If there is a hidden triple it must be in a unit with two or less solved squares.<br>Andrew Stuart writes:<br><br>This is a good insight."</div>
+<div class="w100pc" id="blog-reply16999"></div>
+<div class="post-reply" id="reply2909"><table class="w100pc"><tr><td class="post-writes">Ymiros replies:</td><td class="datepost">Sunday 25-May-2025</td></tr>
+<tr><td colspan="2">The key to resolving this is to realise the naked and hidden always go hand in hand, if you look at all the examples for both of these pages you will see that whenever you have a naked X you have a hidden 9-X.<br>Now if there is a solved cell it is removed from both the hidden and the naked set.<br>Thus with three solved cells a hidden triple must be accompanied by a naked triple, which with the order on this site you would find first.</td></tr>
+</table></div>
+</div><div id="blog-reply2909" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16999,2909)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16958"><div class="w100pc"><div class="w60pc"><h2>... by: Ymiros</h2></div><div class="w40pc datepost">Thursday 22-Jun-2023</div></div>
+<div class="w100pc">Last few sentences isn't a hidden quint automatically accompanied by a naked quad rather than a "complementary Hidden Quad"?<br>Take your final example for example, the hidden quad is 1469 and the complementary naked quint is 23578 in the cross shape section of the middle box.<br><br>Quite neat explanations though, thank you very much for that!</div>
+<div class="w100pc" id="blog-reply16958"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,16958,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16571"><div class="w100pc"><div class="w60pc"><h2>... by: tofubob</h2></div><div class="w40pc datepost">Thursday 16-Apr-2020</div></div>
+<div class="w100pc">In your last example of a Hidden Quad {1,4,6,9}, could you not have picked {3,5,7,8} just as well?</div>
+<div class="w100pc" id="blog-reply16571"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hurts my head to think about it so going with 'first Quad the solver found'</div></div><div id="blog-reply2611" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16571,2611)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16535"><div class="w100pc"><div class="w60pc"><h2>... by: Leo J</h2></div><div class="w40pc datepost">Sunday 8-Dec-2019</div></div>
+<div class="w100pc">In the first Hidden Quad puzzle: <br>- why no "4" in cell J7?  (how did you know it CAN'T be a 4?)<br>- why no "2" in cell G7?<br><br>thanks/i understand if you don't have time to answer this.<br><br></div>
+<div class="w100pc" id="blog-reply16535"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Previous eliminations. This is not an ideal puzzle to show an example from since there are many complex eliminations before the Hidden Quad is shown. I will try and find a better example and replace it.</div></div><div id="blog-reply2606" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16535,2606)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16506"><div class="w100pc"><div class="w60pc"><h2>... by: Nathan</h2></div><div class="w40pc datepost">Tuesday 15-Oct-2019</div></div>
+<div class="w100pc">I have a question. So, I was reading through all of your startegies, and I started finding 12x12, 16x16, even monstorous 20x20 and 25x25 sodukus online. I just want to know if the principles for any of your strategies change when puzzles get larger and/or more complex.</div>
+<div class="w100pc" id="blog-reply16506"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Nothing special or unique pops out with larger Sudoku. Just the alignment of boxes may invalidate certain strategies that reply on certain alignments or overlaps. Personally I find them a chore as they offer nothing new but take much longer.</div></div><div id="blog-reply2597" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16506,2597)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16492"><div class="w100pc"><div class="w60pc"><h2>... by: alan  g</h2></div><div class="w40pc datepost">Monday 26-Aug-2019</div></div>
+<div class="w100pc">is there such a thing as an ambiguous sudoku puzzle?<br>I recently encountered an "easy" puzzle but it proved to be the hardest one I've met.<br>I got as far as I could with it but couldn't make any further progress until I found this page which told me about hidden pairs etc..<br>I eventually solved it but the answer I obtained was slightly different to the one given in the paper.<br>however every row column and mini grid in my solution, each contained the numbers 1-9, which is surely the definition of the correct solution.<br>the trouble with this particular puzzle is that there are many ways to apply the hidden pairs to, and I think the solution depends on where you start</div>
+<div class="w100pc" id="blog-reply16492"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Might be faulty and have several solutions. Always use Solution Count to check first.</div></div><div id="blog-reply2592" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16492,2592)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16449"><div class="w100pc"><div class="w60pc"><h2>... by: Liz</h2></div><div class="w40pc datepost">Tuesday 5-Mar-2019</div></div>
+<div class="w100pc">If "hidden" means that each member of a set of n candidates only occurs in a set of n squares in a unit, then if there are N already solved squares in that unit, does it not follow that the remaining 9 minus N minus n candidates must form a *naked* set? Since, otherwise, one of the n candidates would have to occur in at least one of those remaining squares?<br><br>Is it not generally easier to find a naked set than a hidden one, even if the naked set is a 5, 6, or even 7-tuple?<br><br>In your first example above, I would have noticed first that 4,7,8,9 form a naked quad, making a triple out of 2,5,6. Even in your last example, 2,3,5,7,8 form a fairly obvious naked quint.<br><br>Because of this I'm having trouble understanding why "hidden candidates" is even discussed as a separate strategy.<br><br>Or are there cases where a hidden set does not have a complementary naked set? (which depends, perhaps, on exactly how "hidden" is defined)</div>
+<div class="w100pc" id="blog-reply16449"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,16449,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16322"><div class="w100pc"><div class="w60pc"><h2>... by: pyorokun7</h2></div><div class="w40pc datepost">Friday 24-Nov-2017</div></div>
+<div class="w100pc">Never mind, it does detect it, but only after elminating a lot of candidates in the column with several advanced techniques.<br><br>Also, by the time it detects it, one of the 6 is already eliminated<br><br>Hidden Quad 3/4/5/7 in Col 7, on cells [E7,F7,G7,H7]<br>- removes 6 from H7<br><br>(the other 6 was removed by the APE that eliminated the 4 in J7, creating the Hidden Quad itself)<br><br>So probably it should be updated, or maybe should use another example.<br><br>By the way, is there a reason why the last row is J, instead of I?</div>
+<div class="w100pc" id="blog-reply16322"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Because I looks too much like 1 and this small changes reduces potential confusion.</div></div><div id="blog-reply2553" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16322,2553)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16321"><div class="w100pc"><div class="w60pc"><h2>... by: pyorokun7</h2></div><div class="w40pc datepost">Friday 24-Nov-2017</div></div>
+<div class="w100pc">http://www.sudokuwiki.org/sudoku.htm?bd=650087024000649050040025000570438061000501000310902085000890010000213000130750098<br><br>Your solver (I guess after an update) no longer detects this Hidden Quad in Col 7; after the Naked Pair in Box 3 of 3/7, it jumps to X-Wing</div>
+<div class="w100pc" id="blog-reply16321"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,16321,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16282"><div class="w100pc"><div class="w60pc"><h2>... by: Hamza Zaidi</h2></div><div class="w40pc datepost">Saturday 1-Jul-2017</div></div>
+<div class="w100pc">I don't get the last sentence. What is a complimentary hidden quad?</div>
+<div class="w100pc" id="blog-reply16282"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>If there was such a thing as a 5-number Quin it would have a "complementary" Quad.</div></div><div id="blog-reply2549" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,16282,2549)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16152"><div class="w100pc"><div class="w60pc"><h2>... by: KDot93</h2></div><div class="w40pc datepost">Sunday 13-Mar-2016</div></div>
+<div class="w100pc">***In response to YBB (below)***: I believe a "hidden quad" is just a "naked quad" with an interfering number - in the case of the example, the possibility of a 6 in cells G7 and H7 made that quad into a "hidden quad". However for your question, since there is no interfering number, A7,B7,C7 and C9 form a "naked quad" instead (as well as B9 and C8 forming a "naked pair").<br><br>PS: I'm new to advanced sudoku-ing/this website, so if that's an incorrect explanation/there is a direct "reply" function, please let me know! (somehow...). Or perhaps if Andrew could make an "answer/reply" function so he doesn't have to respond to all the comments, that would be great!<br><br>PPS: Really awesome website!</div>
+<div class="w100pc" id="blog-reply16152"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,16152,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16147"><div class="w100pc"><div class="w60pc"><h2>... by: YBB</h2></div><div class="w40pc datepost">Thursday 25-Feb-2016</div></div>
+<div class="w100pc">With reference to first example on Hidden Quads, why is 1,6,8,9 in the top right box not a hidden quad?</div>
+<div class="w100pc" id="blog-reply16147"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,16147,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16046"><div class="w100pc"><div class="w60pc"><h2>... by: Jwamyr</h2></div><div class="w40pc datepost">Friday 17-Jul-2015</div></div>
+<div class="w100pc">I have made an observation that any time a hidden pair or triple or quad is found, you can also find a naked N in the remaining cells of thathe set. For example, a naked set of 5 can be found in d5, e4, e5, e6, and f5 in the example given for the hidden quad. I have not proven that this is true always but I believe that it is.</div>
+<div class="w100pc" id="blog-reply16046"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,16046,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15953"><div class="w100pc"><div class="w60pc"><h2>... by: Didi</h2></div><div class="w40pc datepost">Saturday 23-Aug-2014</div></div>
+<div class="w100pc">Sorry, I have to correct my last comment a bit:<br>If you can use a single or pair for pointing, it's regardless of whether it's hidden or naked. The thing that I wanted to point out is that if you've found "some stuff" inside a block ("claiming", "pointing", "naked/hidden pair"), then you always should keep your focus where you currently are, to watch out for more of that "stuff" that could be found now, either beeing human, or a computer solving the riddle.<br>P.S.: Your site here is brilliant, thank's a lot!<br></div>
+<div class="w100pc" id="blog-reply15953"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15953,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15952"><div class="w100pc"><div class="w60pc"><h2>... by: Didi</h2></div><div class="w40pc datepost">Friday 22-Aug-2014</div></div>
+<div class="w100pc">I think it should be mentioned that a hidden pair leads always, after processing, to a naked pair. Although this is a platitude, there's reason for being aware of this change. In some cases the resulting naked pair can be used as a pointing pair.<br><br>The fact is also interesting to programmers:  If you want efficient computer code, this check can be done immediately and more effortlessly, rather than checking again with an extra-algorithm.</div>
+<div class="w100pc" id="blog-reply15952"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>A true fact, very worth mentioning</div></div><div id="blog-reply2479" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15952,2479)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15914"><div class="w100pc"><div class="w60pc"><h2>... by: Doc</h2></div><div class="w40pc datepost">Thursday 17-Apr-2014</div></div>
+<div class="w100pc">In your hidden pair example in the blue boxes what determines it is 2,4 and not 2,6 and in the red boxes why 3,7 not 3,9.</div>
+<div class="w100pc" id="blog-reply15914"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>There is a 6 in B3, so a 2/6 pair can't form in the column.<br>Likewise, there are other 9's in column 7 so only 3/7 makes a pair in that column</div></div><div id="blog-reply2467" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15914,2467)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15849"><div class="w100pc"><div class="w60pc"><h2>... by: Peter Heichelheim</h2></div><div class="w40pc datepost">Monday 23-Sep-2013</div></div>
+<div class="w100pc">There is a clue which will help someone in spotting hidden triples. If there is a hidden triple it must be in a unit with two or less solved squares.</div>
+<div class="w100pc" id="blog-reply15849"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is a good insight.</div><div class="post-reply" id="reply2747"><table class="w100pc"><tr><td class="post-writes">curious replies:</td><td class="datepost">Thursday 12-Jan-2017</td></tr>
+<tr><td colspan="2">@Peter Heichelheim<br>>If there is a hidden triple it must be in a unit with two or less solved squares. <br><br>Can anyone explain the reasoning behind this? I feel like it's less an inherent truth and more along the lines of:<br><br>"If a unit has >2 solved squares then the solver probably already indirectly eliminated the hidden triple by using some other strategy elsewhere in that unit".<br><br>I REALLY want to understand this insight.</td></tr>
+</table></div>
+<div class="post-reply" id="reply2799"><table class="w100pc"><tr><td class="post-writes">atn173 replies:</td><td class="datepost">Wednesday 6-Dec-2023</td></tr>
+<tr><td colspan="2">The insight by Peter can be explained as follows.<br>Suppose that there are 3 solved squares, say, 1,2,3, and that there is a hidden triple of 4,5,6, i.e. 3 squares that containing 4,5,6 and at least one of 7,8,9. Look at the other 3 squares. They must be naked triples containing 7,8,9, which would be much easier to spot and would have eliminated 7,8,9 from the original 3 squares in the first place.<br>So the insight is that in order for a unit to contain a true hidden triple (meaning no naked triple in this unit), the unit must contain at most 2 solved squares.</td></tr>
+</table></div>
+</div><div id="blog-reply2799" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15849,2799)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15839"><div class="w100pc"><div class="w60pc"><h2>... by: Y.Sato</h2></div><div class="w40pc datepost">Monday 9-Sep-2013</div></div>
+<div class="w100pc">Your example of sudoku is very interesting, but the logic to find a hidden triple is hard to me.<br><br>In the example of Hidden Triples on this page, <br>I found two candidates of Hidden Triples in column 9 according to my rule.<br><br>A: { {4, 7, 8}, {4, 7, 8}, {4, 8} }<br><br>B: { {4, 8, 9}, {4, 8, 9}, {4, 8} }<br><br>Your solution is the candidate A.<br>Why is the candidate B not a solution ?<br>Would you please teach me the reason ?<br><br>Best regards,<br>Yoshihiro Sato</div>
+<div class="w100pc" id="blog-reply15839"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Maybe a poor example, since the second Hidden Triple cannot work until the first Hidden Triple has removed the candidates. Since this example was published I've stopped these sorts of "knock-on" effects from appearing in the solver</div></div><div id="blog-reply2442" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15839,2442)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15762"><div class="w100pc"><div class="w60pc"><h2>... by: tu_79</h2></div><div class="w40pc datepost">Wednesday 20-Mar-2013</div></div>
+<div class="w100pc">I must agree with Chuck. It is really difficult for a human to detect hidden triples, and otrher strategies like simple chains are more easy to spot. Therefore, I would be great if we could unselect Hidden triples/quads from your solver.</div>
+<div class="w100pc" id="blog-reply15762"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15762,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15726"><div class="w100pc"><div class="w60pc"><h2>... by: ad.joe</h2></div><div class="w40pc datepost">Monday 28-Jan-2013</div></div>
+<div class="w100pc">Hello Andrew, this time a naming suggestion to differentiate between basic and advanced techniques:<br><br>"ONE DIMENSIONAL":<br><br>As can easy be seen in example 2 of the Hidden Pairs, it only deals with column 7!<br><br>So it's like this:<br>Basic strategies deal with only on row, one column OR one box, therefore are working ONEDIMENSIONAL! While advanced techniques/strategies are working moredimensional: in more than one row AND column AND work.<br><br>And I've never read such a sentence "anywhere", what do YOU say?<br>Besides a hidden subset is easier to be understood (for most people) as an x-wing, it can still hard to be found, becaus one has to look up the occurences (2 for instance) of the numbers in this one dimension.</div>
+<div class="w100pc" id="blog-reply15726"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>It's only one-dimensional in a loose, not very practical sense, in that one row or one column or one box may be involved. But in a box, for example, the three cells could be spread out in different rows and columns, spoiling the "one-dimensionality"</div></div><div id="blog-reply2404" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15726,2404)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15712"><div class="w100pc"><div class="w60pc"><h2>... by: m&mjabb</h2></div><div class="w40pc datepost">Tuesday 1-Jan-2013</div></div>
+<div class="w100pc">hidden triples example - this wouldn't be a triple but in row 9 why couldn't the 4,7,8,9....4,7,8....4789....48 be used as quad?  is it because of the 9 in row J?<br>(beginner sudoku player)</div>
+<div class="w100pc" id="blog-reply15712"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes</div></div><div id="blog-reply2400" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15712,2400)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15667"><div class="w100pc"><div class="w60pc"><h2>... by: amarabavani</h2></div><div class="w40pc datepost">Tuesday 18-Sep-2012</div></div>
+<div class="w100pc">Fantastic page. Your explanations are simple and the working user-friendly.  keep up the good work and good luck.</div>
+<div class="w100pc" id="blog-reply15667"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15667,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15565"><div class="w100pc"><div class="w60pc"><h2>... by: adivandhya</h2></div><div class="w40pc datepost">Tuesday 10-Jan-2012</div></div>
+<div class="w100pc">i tried to download the website so that i can read it while im offline, nw it says i am a bot..wht should i do to get the access back?</div>
+<div class="w100pc" id="blog-reply15565"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Sorry you got caught by my anti-hacking, bot-kicking scripts but I have to have some means of detecting non-humans. If I knew your IP address I'd be happy to unblock you. But you may not be able to read this message...</div></div><div id="blog-reply2345" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15565,2345)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15542"><div class="w100pc"><div class="w60pc"><h2>... by: Ritesh</h2></div><div class="w40pc datepost">Saturday 12-Nov-2011</div></div>
+<div class="w100pc">Firstly , thanks 4 Sharing the site ...<br>Give me more examples to understand hidden Quads</div>
+<div class="w100pc" id="blog-reply15542"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15542,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15523"><div class="w100pc"><div class="w60pc"><h2>... by: Chuck Watson</h2></div><div class="w40pc datepost">Sunday 11-Sep-2011</div></div>
+<div class="w100pc">Great site! I have learned to solve much harder puzzles by studying this site.<br><br>What I wanted to point out is your last example of a hidden quad actually  also shows a naked quintuple. To me the naked quintuple is easier to see.</div>
+<div class="w100pc" id="blog-reply15523"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>If the puzzle is 9 by 9 then a quintuple will automatically be the mirror of a quad. Which is why we don't extend this series beyond 4. But i agree it is often possible to identify the mirror side of a set rather than the set itself.</div></div><div id="blog-reply2336" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15523,2336)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15508"><div class="w100pc"><div class="w60pc"><h2>... by: Joseph Badillo</h2></div><div class="w40pc datepost">Wednesday 20-Jul-2011</div></div>
+<div class="w100pc">Very nice site, very helpfull.<br>Question regarding making a mistake:<br>Your almost to the end and you find out that a 6 and a 9 does have been repeated.   Are there short cuts you can take to find out where you made a mistake other than starting over?</div>
+<div class="w100pc" id="blog-reply15508"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15508,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15461"><div class="w100pc"><div class="w60pc"><h2>... by: Walsh</h2></div><div class="w40pc datepost">Saturday 19-Feb-2011</div></div>
+<div class="w100pc">Bill,<br>From that example you can see that the 4 has to be part of the hidden triple since it has to be in one of those two squares. The three and one cannot be used because it has possiblilities in other places in that block. A Hidden triple will have a sequence of numbers that are in only three boxes in a row, column, or block.</div>
+<div class="w100pc" id="blog-reply15461"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15461,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15459"><div class="w100pc"><div class="w60pc"><h2>... by: Jim R</h2></div><div class="w40pc datepost">Thursday 17-Feb-2011</div></div>
+<div class="w100pc">Bill: the idea of the Naked Triple is that the three numbers (4/8/9 in this example) only appear in exactly three squares.  You can find some combination of 1/8/9 in all seven unsolved squares.  1/3/9 also cannot be the triple because there is a 1, 3 or 9 in all seven unsolved squares.</div>
+<div class="w100pc" id="blog-reply15459"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15459,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15455"><div class="w100pc"><div class="w60pc"><h2>... by: Bill</h2></div><div class="w40pc datepost">Monday 31-Jan-2011</div></div>
+<div class="w100pc">I am looking at the hidden triple example. Your results is 4/8/9; however, why can't the hidden triple be 1/8/9 or 1/3/9?</div>
+<div class="w100pc" id="blog-reply15455"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15455,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15431"><div class="w100pc"><div class="w60pc"><h2>... by: David Harkness</h2></div><div class="w40pc datepost">Saturday 30-Oct-2010</div></div>
+<div class="w100pc">Lloyd, this strategy allows you to eliminate the other numbers from the cells containing the hidden pair/triple/etc. It does not allow you to remove the numbers in the pair/triple from other cells.<br><br>The key is that the three numbers involved in the triple must occur in only three cells. In your example, 124 is not a triple because 2 is a possible in 5 cells. Each number must be a possible in at most 3 cells (2 for a hidden pair, 4 for a hidden quad, etc).<br><br>Naked Pairs is where you eliminate the numbers in the pair from other cells.<br><br>Andrew, the section on triples mentions "three pairs" of numbers, but often one of the cells will contain all three numbers. Is "pairs" here simply a copy/paste error from the section above, or does it have some other significance? I understand that sometimes the numbers appear in pairs in 3 cells, but that's not necessary.<br><br>Also, the first paragraph has an extra word: "hidden in in the squares".</div>
+<div class="w100pc" id="blog-reply15431"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15431,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15393"><div class="w100pc"><div class="w60pc"><h2>... by: Lloyd Pape</h2></div><div class="w40pc datepost">Saturday 5-Jun-2010</div></div>
+<div class="w100pc">Hi, I get confused. I have a row: 24,14,1245,257,2567,3,1267,8,9 ,..I would like to group cols 1,2 and 3 with a tripple, 24,14,124,delete the 5 in col 3,...then, delete the 2 incol4, the2 in col 5 and the 12 in col 7,..so that I end up with a tripple ,1,2,4, another tripple 5,6,7 and 3,8,9,...does this work,..if so , are the tripples naked or hidden,...thanks for your info to date,....regards,...lloyd</div>
+<div class="w100pc" id="blog-reply15393"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15393,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15385"><div class="w100pc"><div class="w60pc"><h2>... by: Sarah</h2></div><div class="w40pc datepost">Thursday 6-May-2010</div></div>
+<div class="w100pc">Hi Andrew,<br>Great site.  I'm terrible at spotting hidden triples.  Any tips, hints on becoming better at this?<br>Thanks!<br>Sarah</div>
+<div class="w100pc" id="blog-reply15385"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(56,15385,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15365"><div class="w100pc"><div class="w60pc"><h2>... by: csvidyasagar</h2></div><div class="w40pc datepost">Monday 8-Mar-2010</div></div>
+<div class="w100pc"> You have given an excellent example of Hidden Pairs, Hidden Triples and Hidden Quads. But the example you quoted of Mr Klaus Brenner of Hidden Quad, I suppose is NOT Correct. For hidden pairs, the digits must appear only in two cells like you correctly shown as 58 in your example. The digits 5, 8 do not appear in any other cell of the box. In Hidden Triples of digits 4, 8, 9 lie in only three cells and none of them appear in any other cell in the box.  Similarly in Hidden Quads of your example, the digits 3,5,6,7  appear only in four cells in the Box and do not appear in any other cell of Column 8. But it is not so in the example cited of Mr Klaus Brenner. May be I am wrong or my understanindg of Hiddens is wrong. So can you explain how Hidden Quads are there in the example of which you  have high lighted some cells. </div>
+<div class="w100pc" id="blog-reply15365"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The Hidden Quad is {1,6,7,8} and exists only in those four cells. Therefore other canidates (yellow/red text) can be removed.</div></div><div id="blog-reply2293" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15365,2293)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15343"><div class="w100pc"><div class="w60pc"><h2>... by: robin smith</h2></div><div class="w40pc datepost">Monday 15-Feb-2010</div></div>
+<div class="w100pc">Hi,  What a great site . it's so helpful when I really get stuck with a puzzle. One minor point . . would it not be possible to have the original numbers in the puzzle in a different colour so it is more easy to spot the ones that get added as the solution unfolds.<br><br>Just a thought.<br><br>But it's stil a great site.<br><br>Robin Smith</div>
+<div class="w100pc" id="blog-reply15343"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Orginal colours (clues) are red, solved cells are blue. There may be the odd diagram which I have snapped where this is not the case and i'll be replacing when I spot those</div></div><div id="blog-reply2290" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15343,2290)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15300"><div class="w100pc"><div class="w60pc"><h2>... by: Maurice Popple</h2></div><div class="w40pc datepost">Saturday 21-Nov-2009</div></div>
+<div class="w100pc">I'm new to Sudoku and am quite bewildered when I manage to solve one.<br>Questions: (1)How many unique (ie. one solution) puzzles exist in the 9X9 Sudoku matrix (I tried to calculate and got a brute of a binominal I could not resolve)? (2)What is the minimum number of given entries at the start to uniquely define a puzzle?<br>Many thanks, Maurice</div>
+<div class="w100pc" id="blog-reply15300"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Number of ways to fill a 9x9 grid is 6,670,903,752,021,072,936,960 - so you have to multiply that with all possible blanks. 17 is the minimum number of clues.</div></div><div id="blog-reply2285" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15300,2285)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15269"><div class="w100pc"><div class="w60pc"><h2>... by: Chuck Bruno</h2></div><div class="w40pc datepost">Tuesday 1-Sep-2009</div></div>
+<div class="w100pc">Hello Andrew,<br><br>I have written several times but I must repeat "This is a great site".  That being said, I have a question:<br><br>How do you determine what the difficulty level should be for a given stratagy?<br><br>I personally find that Pointing Pairs, Box/Line Reduction, X-Wing, and Unique Rectangles, are much easier to spot than Hidden Triples.  When I get stumped on a Sudoku, I import it into your Solver, uncheck stratagies I don't usually look for, and step through it.  In most cases, I find that I simply overlooked something silly.  In some cases however, the Solver finds a hidden double or triple.  Because these can't be turned off like the more difficult stratagies, I can't force the Solver around it to see if one of the other stratagies that I normally use, would allow the puzzle to be solved without using the naked double or triple.<br><br>In summary, I would like to be able to selectively turn off the "easier" stratagies just as can be done with the tougher ones.<br><br>Thanks for your time,<br><br>Chuck Bruno</div>
+<div class="w100pc" id="blog-reply15269"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Sorry for the late reply. All valid points, I might have a go at that - but trying not to over complicate an already complex interface.</div></div><div id="blog-reply2281" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15269,2281)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15221"><div class="w100pc"><div class="w60pc"><h2>... by: Roger</h2></div><div class="w40pc datepost">Friday 8-May-2009</div></div>
+<div class="w100pc">Don't understand "from a library of 18,000" </div>
+<div class="w100pc" id="blog-reply15221"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>A stock, or list of Sudoku puzzle definitions. I call such lists "libraries"</div></div><div id="blog-reply2272" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(56,15221,2272)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 9-April-2008. Views: 747810<br>
+			This page was last modified on 24-November-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d25e9cb3297a7',t:'MTc4MDMwNTY4Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

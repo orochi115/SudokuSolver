@@ -1,0 +1,640 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Strategy Families - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="This is the index to the all the fully documented strategies used to solve Sudoku, Jigsaw Sudoku, Sudoku X and Killer Sudoku. "/>
+<meta name="twitter:description" content="This is the index to the all the fully documented strategies used to solve Sudoku, Jigsaw Sudoku, Sudoku X and Killer Sudoku. ">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/SUD_D.gif"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/SUD_D.gif" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Strategy_Families';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku Solver</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw Solver</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X Solver</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku Solver</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer Solver</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku Solver</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer Solver</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen Solver</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku Solver</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li>
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Strategy_Families">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Strategy Families</h1><div class="SRCell">There are two ways one can group all the strategies for Sudoku: by difficulty and by family. Difficulty is rather subjective but necessary, for example, when selecting the order in which strategies are tried by the solver. Some strategies will always be easier for some people to spot than others, but I believe I have chosen an ordering which is not too controversial. So the main documentation has a side menu organised by difficulty. <br><br>Below are these strategies organised into themes.<br><br>There is a new <a href="/Introduction">Introduction</a> to Sudoku and an article on <a href="/Brute_Force_vs_Logical_Strategies">Brute Force vs Logic</a> for those curious. <br><br></div><br>
+
+<div class="SRCell"><div class="w100pc">
+    <div class="w25pc vtop">
+
+        <font color="#aaff00"><b>Basic Strategies</b></font>
+        <ul style="padding-left: 18px;">
+        <li><a href="/Introduction">Introduction</a></li>
+        <li><a href="Getting_Started">Getting Started</a></li>
+        <li><a href="Naked_Candidates#NP">Naked Pairs</a></li>
+        <li><a href="Naked_Candidates#NT">Naked Triples</a></li>
+        <li><a href="Naked_Candidates#NQ">Naked Quads</a></li>
+        <li><a href="Hidden_Candidates#HP">Hidden Pairs</a></li>
+        <li><a href="Hidden_Candidates#HT">Hidden Triples</a></li>
+        <li><a href="Hidden_Candidates#HQ">Hidden Quads</a></li>
+        <li><a href="Intersection_Removal">Pointing Pairs</a></li>
+        <li><a href="Intersection_Removal#LBR">Box/Line Intersection</a></li>
+        </ul>
+        <br>
+        <b>'Bent' Sets</b>
+        <ul style="padding-left: 18px;">
+ <li><a href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a href="/WXYZ_Wing">WXYZ-Wing</a></li>
+        <li><a href="/Almost_Locked_Pair">Almost Locked Pairs/Triples</a></li>
+        <li><a href="/Fireworks">Fireworks</a></li>
+        <li><a href="/Twinned_XY_Chains">Twinned XY-Chains</a></li>
+        </ul>
+
+    </div>
+    <div class="w25pc vtop">
+        <b>Chaining Strategies</b>
+        Articles:
+        <ul style="padding-left: 18px;">
+        <li><a href="/glossary">Glossary</a></li>
+        <li><a href="/Introducing_Chains_and_Links">Introducing Chains and Links</a></li>
+        <li><a href="/Weak_and_Strong_Links">Weak and Strong Links</a></li>
+        <li><a href="/Forcing_Nets">Forcing Nets</a></li>
+        </ul>
+        Strategies:
+        <ul style="padding-left: 18px;">
+        <li><a href="X_Wing_Strategy">X-Wing Family</a></li>
+<li><a href="Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a href="Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a href="Jelly_Fish_Strategy">Jellyfish</a></li>
+        <li><a href="Simple_Colouring">Simple Colouring</a></li>
+        <li><a href="Multi_Colouring_Strategy"><s>Multi-Colouring</s></a></li>
+        <li><a href="Y_Wing_Chains"><s>Y-Wing Chains</s></a></li>
+        <li><a href="XY_Chains">XY-Chains</a></li>
+        <li><a href="3D_Medusa">3D Medusa</a></li>
+        <li><a href="Remote_Pairs"><s>Remote Pairs</s></a></li>
+        <li><a href="X_Cycles">X-Cycles (Part 1)</a></li>
+        <li><a href="X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+        <li><a href="SK_Loops">SK Loops</a></li>
+        <li><a href="Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a href="Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a href="AIC_with_Groups">AIC with Groups</a></li>
+        <li><a href="AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a href="Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a href="AICs_with_Exotic_Links">AIC with exotic links</a></li></ul>
+        Forcing Chains subgroup:
+        <ul style="padding-left: 18px;">
+        <li><a href="Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a href="Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a href="Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a href="Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        </ul>
+
+    </div>
+    <div class="w25pc vtop">
+        <b>Exotic Strategies</b>
+
+        <ul style="padding-left: 18px;">
+        <li><a href="Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a href="Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a href="Finned_SwordFish">Finned Swordfish</a></li>
+        <li><a href="Franken_Sword_Fish">Franken Swordfish</a></li>
+        <li><a href="Pattern_Overlay">Pattern Overlay</a></li>
+        <li><a href="Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+        <li><a href="Empty_Rectangles"><s>Empty Rectangles</s></a></li>
+        <li><a href="/Tridagons">Tridagons</a></li>
+        <li><a href="/Exocet">Exocet</a></li>
+        <li><a href="/Double_Exocet">Double Exocet</a></li>
+        <li><a href="Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a href="Death_Blossom">Death Blossom</a></li>
+        <li><a href="Bowmans_Bingo">Bowman's Bingo</a></li>
+        <li><a href="Multivalue_X_Wing_Strategy"><s>Multivalue X-Wing</s></a></li>
+        <li><a href="Guardians"><s>Guardians</s></a></li>
+        </ul>
+
+        <br><br><br>
+
+        <b>Jigsaw Strategies</b>
+        <ul style="padding-left: 18px;">
+        <li><a href="/Double_Pointing_Sets">Double Pointing Sets</a></li>
+        <li><a href="/Double_Line_Box_Reduction">Double Line/Box Reduction</a></li>
+        <li><a href="/Law_of_Leftovers">Law of Leftovers</a></li>
+        <li>Reference: <a href="/Jigsaw_Shape_List">Jigsaw Shape List</a></li>
+        </ul>	
+
+        <br><br><br>
+
+        <b>Windoku Strategies</b>
+        <ul style="padding-left: 18px;">
+        <li><a href="/Windoku_Strategy">The 9 Windows of Windoku</a></li>
+       <li><a href="/Triple_Pointing_Pairs">Triple Pointing Pairs</a></li>
+        </ul>	
+
+
+    </div>
+    <div class="w25pc vtop">
+        <b>Uniqueness Strategies</b>
+        <ul style="padding-left: 18px;">
+        <li><a href="Unique_Rectangles">Unique Rectangles</a></li>
+        <li><a href="Extended_Unique_Rectangles">Extended Rectangles</a></li>
+        <li><a href="Hidden_Unique_Rectangles">Hidden Rectangles</a></li>
+        <li><a href="Avoidable_Rectangles">Avoidable Rectangles</a></li>
+        <li><a href="BUG">BUG+1</a></li>
+        <li><a href="Gurths_Theorem">Gurth's Theorem</a></li>
+        </ul>	
+
+        <br><br><br>
+
+        <b>Sudoku X Strategies</b>
+        <ul style="padding-left: 18px;">
+        <li><a href="Sudoku_X_Strategies">Sudoku X Pitfalls</a></li>
+        <li><a href="/How_Sudoku_X_Breaks_Symmetries">How Sudoku X breaks symmetries</a></li>
+        </ul>	
+
+        <br><br><br>
+
+        <b>Killer Strategies</b>
+        <ul style="padding-left: 18px;">
+        <li><a href="/The_Killer_Cage_Convention">The Killer Cage Convention</a></li>
+        <li><a href="/Killer_Combinations">Cell Combinations</a><br />
+           - <a href="/Killer_Cage_Combination_Example">An example cage combo</a></li>
+        <li><a href="/Cage_Splitting">Cage Splitting</a></li>
+        <li><a href="/Innies_and_Outies">Innies and Outies</a></li>
+        <li><a href="/Cage_Unit_Overlap">Cage/Unit Overlap</a></li>
+        <li><a href="/Cage_Comparison">Cage Comparison</a></li>
+        </ul>	
+
+        <b>KenKen Strategies</b>
+        <ul style="padding-left: 18px;">
+<li><a href="/Kenken_Combinations">6x6 Cell Combinations</a></li>
+        <li><a href="/Rule_of_21">Rule of 21 (and 42)</a></li>
+        <li><a href="/Rule_of_720">Rule of 720</a></li>
+        <li><a href="/Rule_of_21_large">Rule of 'large' 21 / 720</a></li>
+        <li><a href="/Rule_of_720___With_Divisors">Divisors Extension</a></li>
+        <li><a href="/KenKen_Parity_Strategy">Parity Strategy</a></li>
+         </ul>
+
+    </div>
+</div></div><br>
+
+<div class="SRCell">With chaining strategies, there is definitely a theme going through them. This theme is all about bi-value (only two candidates left in the same cell) and bi-location (only two occurrences of a particular candidate left in the same unit) pairs and the incredible number of deductions one can make from them. You will find, if you read through this group, that earlier strategies become part of a more general theory as the theme develops. Thus, for example, Remote Pairs are a subset of XY-Chains; that is, XY-Chains is a more general approach of which Remote Pairs are a specific instance. Do read the introductory articles <a href="/Introducing_Chains_and_Links">Introducing Chains and Links</a> and <a href="/Weak_and_Strong_Links">Weak and Strong Links</a>.<br><br>Exotic strategies do overlap with chaining ones, but they have a peculiar flavour of their own and some wonderful, if obscure, logic. They are definitely worth presenting as a demonstration of people's ingenuity but you will only need to have recourse to them on the extreme puzzles.<br><br>There are naturally special strategies for Jigsaw and Killers because of their differences. These are now included for the first time on this site.<br><br>This strategy list is by no means complete. Many strategies can be further extended and we do not have a complete theory of all Sudoku puzzles. If you are interested in the concepts behind creation and grading, there is a PDF document here called <a href="Sudoku_Creation_and_Grading.pdf">Sudoku Creation and Grading</a>, while the <a href="/Grading_Puzzles">rating system</a> has evolved a bit further. With the community's help I hope to extend the documentation here. <br><br><hr /><br><br>For those people wondering why "<a href="Escargot">Escargot</a>" cannot be solved by the solver, there is an article on this special Sudoku <a href="Escargot">here</a>. This is an early 'ultimate puzzle' but this crown has been usurped by the puzzle created by <a href="/Arto_Inkala_Sudoku">Arto Inkala</a>, which is also in the example list. <br><br>I've been looking at a new idea for <a href="/A_New_Metric_for_Difficult_Sudoku_Puzzles">measuring the difficulty of very hard puzzles</a> - ones that can't use the standard scoring because they don't complete. <br></div><br>
+
+<h2>Articles</h2>
+<div class="SRCell"><a href="/Interesting_Sudokus">Interesting Sudokus</a> for other reasons.<br><br>Article: <a href="/The_Relative_Incidence_of_Sudoku_Strategies">The Relative Incidence of Sudoku Strategies</a><br><br>Article: <a href="/17_Clue_Proof">The 17 Clue 'Proof'</a> - my take on the January 2012 computerised exhaustive search proof.<br><br>Article: <a href="http://www.i-programmer.info/news/181-algorithms/4598-the-chaos-within-sudoku-a-richter-scale.html">The Chaos Within Sudoku - A Richter Scale</a> on a <a href="http://arxiv.org/pdf/1208.0370v1.pdf">paper by Maria Ercsey-Ravasz and Zoltan Toroczkai</a> at the Faculty of Physics, Babes-Bolyai University, Romania. Very interesting paper.<br><br>Article: <a href="A_Set_Theory_Approach_to_Sudoku_Strategies">Generalizing Sudoku Strategies</a> by Kevin Gromley, March 2014<br><br>My response to <a href="/Crooks_Algorithm">Crooks Algorithm</a> is here.<br><br>James Pike's articles on <a href="/Related_Sets_Algorithm">Related Sets Algorithm</a> and <a href="/Multiples">Multiples</a><br><br><a href="https://www.sudokusnake.com/goldennugget.php" target="_blank">Golden Nugget</a> home page.</div><br>
+
+<div class="SRCell"><hr /><br>Interesting video on Zero Knowledge Proofs tying Sudoku to graphs:<br><iframe width="560" height="315" src="https://www.youtube.com/embed/Otvcbw6k4eo?si=Q6cFiDjvw0HHkLsp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br></div><br>
+
+<h2>40 Clues and Minimal</h2>
+<div class="SRCell">A little nugget of Sudoku lore. In 2014 the first minimal Sudoku puzzle with the most clues <a href="http://forum.enjoysudoku.com/high-clue-tamagotchis-t30020-135.html#p234807" target="_blank">was discovered</a>. A minimal Sudoku is one where no clue can be removed without breaking the puzzle by introducing multiple solutions. The property of minimal gets harder and harder as more clues are assumed.  There no 41 minimal Sudoku puzzles but many with 39. A single variation of the orginal find is all we have:<br>Load in solver: <a href="/sudoku.htm?bd=000000000012034567034506182001058206008600001020007050003705028080060700207083615" target="_blank">..........12.34567.345.6182..1.582.6..86....1.2...7.5...37.5.28.8..6.7..2.7.83615</a><br>Load in solver: <a href="/sudoku.htm?bd=000000000012034567034506182001058206008600001020007850003705020080060700207083615" target="_blank">..........12.34567.345.6182..1.582.6..86....1.2...785...37.5.2..8..6.7..2.7.83615</a><br></div><br>
+
+<h2>Making your own solver? </h2>
+<div class="SRCell">There are a couple of definition files that I use for calibrating and testing mine. These were created a long time ago and were very popular but people may have forgotten about them. Happy to host the files here:
+<ol>
+<li><a href="/top50000.zip">Ruud's top 50,000</a> Most very hard</li>
+<li><a href="/Just17.zip">Just17.zip</a> 31,513 17 clue puzzles. Hard to make these</li><ol></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox cright">Continue to <a href="Introduction">Introduction</a></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=89&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Strategy_Families" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(89,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17137"><div class="w100pc"><div class="w60pc"><h2>... by: George</h2></div><div class="w40pc datepost">Thursday 11-Jul-2024</div></div>
+<div class="w100pc">One of the methods I'm using that isn't shown here. I call the segments method. Where in, a box segment, be it in a row or column, is the only segment in the box to contain a certain number, thereby eliminating it from the segments in the other 2 boxes along the row or column depending.</div>
+<div class="w100pc" id="blog-reply17137"></div>
+<div class="post-reply" id="reply2906"><table class="w100pc"><tr><td class="post-writes">VarPhi replies:</td><td class="datepost">Wednesday 16-Apr-2025</td></tr>
+<tr><td colspan="2">This is listed, it is a strategy called pointed pairs or triples.</td></tr>
+</table></div>
+</div><div id="blog-reply2906" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,17137,2906)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17136"><div class="w100pc"><div class="w60pc"><h2>... by: George</h2></div><div class="w40pc datepost">Thursday 11-Jul-2024</div></div>
+<div class="w100pc">What if I have methods not listed here that make every puzzle easy?  I also have a method for determining starting positions based on the same.  What do I call it?  How do I make it official?  </div>
+<div class="w100pc" id="blog-reply17136"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,17136,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16964"><div class="w100pc"><div class="w60pc"><h2>... by: Hugh Pickering</h2></div><div class="w40pc datepost">Sunday 25-Jun-2023</div></div>
+<div class="w100pc">Love your puzzles, but get stuck on the chains, or anything to complicated. However I am 81 years old and only started sudoku 18 months or so ago, so there maybe an excuse.  You mention rules, but I see no reference to them in strategies. Perhaps you could direct me where I can find them.  It might help me to progress to the next level.<br><br></div>
+<div class="w100pc" id="blog-reply16964"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Hugh. <a href="/Introducing_Chains_and_Links">Start Here</a>. All the best</div></div><div id="blog-reply2669" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16964,2669)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16746"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Friday 17-Dec-2021</div></div>
+<div class="w100pc">It seems that when finding an APE pattern, the solver lists it as an Exocet and vice versa. Is this a bug?</div>
+<div class="w100pc" id="blog-reply16746"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes. Now fixed, as of a day or so ago<br>Cheers<br></div></div><div id="blog-reply2640" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16746,2640)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16740"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Wednesday 8-Dec-2021</div></div>
+<div class="w100pc">Isn't Sue de Coq a Bent Set strategy?</div>
+<div class="w100pc" id="blog-reply16740"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,16740,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16720"><div class="w100pc"><div class="w60pc"><h2>... by: JAVIED AKBAR</h2></div><div class="w40pc datepost">Saturday 16-Oct-2021</div></div>
+<div class="w100pc">Very informative excellent</div>
+<div class="w100pc" id="blog-reply16720"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,16720,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16701"><div class="w100pc"><div class="w60pc"><h2>... by: Wolftrakker</h2></div><div class="w40pc datepost">Tuesday 17-Aug-2021</div></div>
+<div class="w100pc">Is there a way to not require all cages be given in the killer solver? </div>
+<div class="w100pc" id="blog-reply16701"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>2021: Nope<br>2025: The Killer Solver will now accept blank single (1-cell) cages. Some examples are provided in the example list on the Killer Solver</div></div><div id="blog-reply2635" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16701,2635)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16586"><div class="w100pc"><div class="w60pc"><h2>... by: Kim Uildriks</h2></div><div class="w40pc datepost">Sunday 24-May-2020</div></div>
+<div class="w100pc">after all the obvious E2 = 9, F2 = 6, C1= 4</div>
+<div class="w100pc" id="blog-reply16586"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,16586,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16540"><div class="w100pc"><div class="w60pc"><h2>... by: Larry Craig</h2></div><div class="w40pc datepost">Saturday 28-Dec-2019</div></div>
+<div class="w100pc">I have been doing several extreme sudoku puzzles a day for several months now.  I have developed a strategy which helps me solve any puzzle, meaning, I don't need any other techniques.  In the event it doesn't help me, like it didn't right now, that tells me that I am missing something simple, which I was.  Obviously I haven't tried every puzzle.  My only challenge now is to see if there is a puzzle it won't solve.  Is there somewhere I can get extra extreme puzzles to check my theory further.<br>Thank you</div>
+<div class="w100pc" id="blog-reply16540"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,16540,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16502"><div class="w100pc"><div class="w60pc"><h2>... by: Chucker</h2></div><div class="w40pc datepost">Tuesday 1-Oct-2019</div></div>
+<div class="w100pc">Has this solver been written in C++?<br>If C# or C++, is the source code available?<br>Thanks!</div>
+<div class="w100pc" id="blog-reply16502"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>C mainly with a few C++ classes thrown in.<br>Source code is propriety but I have orientated this site to programmers, there are enough information to code the strategies up. That's the fun part anyway. </div></div><div id="blog-reply2594" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16502,2594)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16470"><div class="w100pc"><div class="w60pc"><h2>... by: Eric</h2></div><div class="w40pc datepost">Monday 27-May-2019</div></div>
+<div class="w100pc">Please can you give me the link to your original step-by-step sudoku solver site? That was the one that give the exact strategy used to solve each cell.</div>
+<div class="w100pc" id="blog-reply16470"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Err, that has always been <a href="/sudoku.htm">this solver</a></div></div><div id="blog-reply2590" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16470,2590)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16223"><div class="w100pc"><div class="w60pc"><h2>... by: WW</h2></div><div class="w40pc datepost">Saturday 10-Dec-2016</div></div>
+<div class="w100pc">What if you assumed the first candidate in the first unsolved cell was true? And now keep doing this(don`t eliminate as you go, I was thinking about blindly using trial and error) until you get a contradiction. The contradicting cell is now assumed to be the next candidate. If we run out of candidates in that cell to try, we change the cell before it to its next value. The idea was that by doing this we effectively search all possibilities(not really, but it doesn`t matter because if there is one contradiction the rest of the cell don`t matter) until we find the right one. But it might take a really long time. The worst-case scenario is that the correct combination is the last one, in which we have to sieve through n possibilities, where n is the product of the number of candidates in each unsolved cell. I am sure that it will work, but I want some confirmation.</div>
+<div class="w100pc" id="blog-reply16223"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is exactly the algorithm the "Solution Count" button uses, with some tricks to make it more optimal. Brute force. If you wonder how many steps there is a count of that as well provided by the Solution Count. Note that for the same puzzle rotating it will produce a different result. Since its done from top left to buttom right Its about the clustering of numbers near the top left or away from it that effects the time. I think you can guess why. Solution Count will tell you the solution (or all solutions for a faulty puzzle) but it doesn’t tell you why the puzzle can be solved so its ultimately unsatisfying.<br><br></div></div><div id="blog-reply2543" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16223,2543)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16189"><div class="w100pc"><div class="w60pc"><h2>... by: BLT</h2></div><div class="w40pc datepost">Wednesday 27-Jul-2016</div></div>
+<div class="w100pc">You need a search window for beginners to look for rules and etc. while using the Suduko Solver and others.  I read the answers but was dumbfounded by Rule 2 as I couldn't find it to refer to.  How can the rules be referred to while working a puzzle?</div>
+<div class="w100pc" id="blog-reply16189"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Which strategy?<br>All the results will highlight a strategy in the list to the right of the board. They are hyperlinked and should open in a new tab or window.  There should be some documentation for everything returned by the solver so I'm interested to know where you were at this point<br></div></div><div id="blog-reply2541" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,16189,2541)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16077"><div class="w100pc"><div class="w60pc"><h2>... by: Jonathan</h2></div><div class="w40pc datepost">Wednesday 30-Sep-2015</div></div>
+<div class="w100pc">You did a very good job collecting all these awsome strategies and presenting them here on this site and this really also has been great help for me solving sudokus.<br><br>But I was wondering why you do not cover the 2-String-Kite, Skyscraper or Turbot Fish strategy, which i found on many other sudoku forums, as I think that they are extremly usefull for solving sudoku puzzles. </div>
+<div class="w100pc" id="blog-reply16077"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,16077,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15974"><div class="w100pc"><div class="w60pc"><h2>... by: Brooks DeTuncq</h2></div><div class="w40pc datepost">Thursday 27-Nov-2014</div></div>
+<div class="w100pc">I am curious about strategies that don't seem to involve any of the basic or even the complex strategies listed on any of the Sudoku sites I have checked. I have been using all of the basic strategies listed on this site because I got to a point where combining rows and columns to eliminate candidates was no longer enough to complete the puzzles. I have yet to attempt the more complex strategies. I can work through the "Fiendish" puzzles listed in my App in 30 to 90 minutes. My daughter, who hasn't played as long as I have, can do the same puzzles in 7-10 minutes without marking any cells and not using any of the the basic or even complex strategies. She is unable to explain to me how she just sees the answers. Do you have any ideas how this would be possible? Is there anything you know of that discusses this type of phenomena?<br></div>
+<div class="w100pc" id="blog-reply15974"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The human brain is a wonderful thing. In addition to rational and logical thinking, it is capable of intuition.  But intuition is not magical - it is using unconscious parts of the brain, especially those parts akin to pattern matching.  I can't replicate that side of our solving ability, I can only mimic the logical strategies. In that sense this site is a shrine to formalism: strategies are proofs we only occasionally think of in those terms. I don’t know much about psychology, but I'm sure there are many studies in the area of intuition.</div></div><div id="blog-reply2488" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,15974,2488)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15807"><div class="w100pc"><div class="w60pc"><h2>... by: P Majumdar, Delhi, India.</h2></div><div class="w40pc datepost">Thursday 20-Jun-2013</div></div>
+<div class="w100pc">I fully agree with the Comments from Mae (Thursday 9-Frb-2012.) <br><br>All easy, medium and other low-difficulty level  tough Sudoku puzzles cover only the very few basic simple strategies, whereas, tough/diabolic puzzles cover the remaining galaxy of advanced stategies. It is a pity!<br><br>The creator/s of all tough/diabolic Sudoku puzzles, should, provide some minimum hint, at least by naming the strategies involved towards solving the puzzle.<br><br></div>
+<div class="w100pc" id="blog-reply15807"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15807,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15638"><div class="w100pc"><div class="w60pc"><h2>... by: jennifer antonio</h2></div><div class="w40pc datepost">Saturday 23-Jun-2012</div></div>
+<div class="w100pc">cool</div>
+<div class="w100pc" id="blog-reply15638"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15638,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15584"><div class="w100pc"><div class="w60pc"><h2>... by: Mae</h2></div><div class="w40pc datepost">Thursday 9-Feb-2012</div></div>
+<div class="w100pc">The so called easy Sudoku puzzles  on Road Runner have just gotten too hard to make them fun any more.<br>Sometimes it is fun to just take a few minute break and work and easy Sudoku. How can you encourage people to begin playing Sudoku, if you make them this tough?</div>
+<div class="w100pc" id="blog-reply15584"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15584,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15567"><div class="w100pc"><div class="w60pc"><h2>... by: moses</h2></div><div class="w40pc datepost">Wednesday 18-Jan-2012</div></div>
+<div class="w100pc">I am making my own booklet on sudoku strategies may i use your samples from your book?</div>
+<div class="w100pc" id="blog-reply15567"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>No</div></div><div id="blog-reply2346" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,15567,2346)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15436"><div class="w100pc"><div class="w60pc"><h2>... by: Jonathan  Carr-Hopkins</h2></div><div class="w40pc datepost">Wednesday 10-Nov-2010</div></div>
+<div class="w100pc">If, as Geoff in Australia offers, one cell can be only 3 or 5, then selecting one, and if that doesn't work, using the other, is this process, known as iteration, 'cheating', or is only a formulaic solution the only bona fide and acceptable one?<br>                          Jonathan<br></div>
+<div class="w100pc" id="blog-reply15436"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15436,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15398"><div class="w100pc"><div class="w60pc"><h2>... by: Geoff</h2></div><div class="w40pc datepost">Sunday 13-Jun-2010</div></div>
+<div class="w100pc">I have been doing the Sudokus out of the local paper (Queensland Times, Australia) and they are rated from One Star to Five Star.<br><br>I have just run across the first Five Star Sudoku where I am 3/4 finished but can not find any more hints.<br><br>Some of my friends tell me that you now need to start a 'trial & error' process ie if one cell can only be a 3 or a 5 - then pick on the 3 and see if it carries all the way through and if not, go back and pick on the 5.<br><br>I tend to think that there should always be a 'hint' to be found - is this correct?<br><br>Geoff</div>
+<div class="w100pc" id="blog-reply15398"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Try it in the solver first. Check for one solution is a must. They can be published faulty. I'd be very surprised if a published sudoku needs guessing but the bottleneck can be obscure.</div></div><div id="blog-reply2986" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,15398,2986)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15390"><div class="w100pc"><div class="w60pc"><h2>... by: Lloyd Welton</h2></div><div class="w40pc datepost">Tuesday 18-May-2010</div></div>
+<div class="w100pc">Thanks for the great book.  Never seen so many strategies so well explained in one book.  Maybe in any following editions it should be spiral bound, that way it would a bit easier to use it as a reference.<br><br>Thanks again.</div>
+<div class="w100pc" id="blog-reply15390"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Very pleased to hear you liked it. Thank-you. I agree a spiral bound and bigger format would be sweet.</div></div><div id="blog-reply2985" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,15390,2985)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15346"><div class="w100pc"><div class="w60pc"><h2>... by: Claude Williams</h2></div><div class="w40pc datepost">Saturday 20-Feb-2010</div></div>
+<div class="w100pc">Just wanted to thank you for the Suduko solver. I have been a devotee for several years now, learning from Wayne Gould's books, and your site. Anytime I get stumped, I'll enter how far I've got into the Solver and step through until I find where I missed. Then update the puzzle and finish from there.<br>Used to take me several attempts to finish, but I have not been back here for a while.<br>Have gotten into the "killers" in Vorderman's book, LOVE EM. Strangely enough I have not gotten stuck yet??? <br><br>Thanks again,<br>Claude<br></div>
+<div class="w100pc" id="blog-reply15346"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15346,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15320"><div class="w100pc"><div class="w60pc"><h2>... by: Arndra Sharp</h2></div><div class="w40pc datepost">Tuesday 19-Jan-2010</div></div>
+<div class="w100pc">Is there a way to get an off-line version of your sudoku solver? I have checked the competition and yours is the best.</div>
+<div class="w100pc" id="blog-reply15320"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Check out the <a href="/Sudoku_Solver_for_Android">Sudoku Solver for Android</a>!</div></div><div id="blog-reply2984" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(89,15320,2984)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15263"><div class="w100pc"><div class="w60pc"><h2>... by: John C Raaen, Jr.</h2></div><div class="w40pc datepost">Thursday 20-Aug-2009</div></div>
+<div class="w100pc">I blew it!  The setup for a Virtual Wall is A1=1, A3=3, D2=4 and B4=4.  Then A7, A9, C1, C2 and C3 are the "candidate squares for "4".  Sorry!</div>
+<div class="w100pc" id="blog-reply15263"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15263,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15262"><div class="w100pc"><div class="w60pc"><h2>... by: John C. Raaen, Jr</h2></div><div class="w40pc datepost">Wednesday 19-Aug-2009</div></div>
+<div class="w100pc">I see no examples of my concept of a wall or virtual wall.  If boxes are A thru I and the squares are 1 thru 9, fill A1=1, A2=2, A3=3.  This is a wall.  Any number other than 1, 2 or 3 in box B or C,  say B1=4. can be placed only on squares C1, C2 or C3, and on A7, A8 or A9.  Usually some of those candidate squares are already occupied, often leading to an easy placement of, in this case, a "4". (Of course, the squares B and C, 1, 2 and 3 are excluded in the above.)<br><br>In a virtual wall, use the same setup but leave A2 blank and put the "2" on D2=2.  Again, the "4" can be placed only on squares C1, C2 or C3 and on A7, A8 and A9. <br><br>I am sure this simple technique is included somewhere on this site.</div>
+<div class="w100pc" id="blog-reply15262"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(89,15262,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 1300786<br>
+			This page was last modified on 30-June-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a04d2556ff3b0f1c',t:'MTc4MDMwNTY2Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
