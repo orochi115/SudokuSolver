@@ -1,7 +1,9 @@
 # 横评模型清单：<provider/model><空白><分支安全短名>
 # 以 # 开头或空行忽略。短名用于分支 model/<短名> 与 worktree 目录名。
 # 前提：每个 provider/model 都已在 opencode 配好凭据。
-amazon-bedrock/anthropic.claude-opus-4-8     opus48
+# 注：opus48 在本机 Bedrock 上连 trivial 提示都挂起(sonnet46 秒回),疑似该模型未开通访问;
+#     已禁用,排查好 Bedrock 模型访问后再取消注释。
+#amazon-bedrock/anthropic.claude-opus-4-8     opus48
 amazon-bedrock/anthropic.claude-sonnet-4-6   sonnet46
 openai/gpt-5.5                               gpt55
 openai/gpt-5.3-codex                         gpt53codex

@@ -62,8 +62,28 @@ console.log(
   ),
 );
 
-if (totalViolations > 0) {
-  console.error(`SOUNDNESS FAIL: ${totalViolations} violation(s) across the ground-truth set.`);
+// --- gate: soundness + real-progress floors (set by verify.sh per milestone) ---
+const num = (k: string): number => Number(process.env[k] ?? '0');
+const floors: Record<string, number> = {
+  easy: num('MIN_EASY'),
+  medium: num('MIN_MEDIUM'),
+  hard: num('MIN_HARD'),
+  diabolical: num('MIN_DIAB'),
+};
+const minStrategies = Math.max(1, num('MIN_STRATEGIES') || 1);
+
+const reasons: string[] = [];
+if (totalViolations > 0) reasons.push(`${totalViolations} soundness violation(s)`);
+if (STRATEGIES.length < minStrategies)
+  reasons.push(`only ${STRATEGIES.length} strategies (need >= ${minStrategies})`);
+for (const [diff, floor] of Object.entries(floors)) {
+  if (floor <= 0) continue;
+  const got = report[diff]?.solveRate ?? 0;
+  if (got < floor) reasons.push(`${diff} solveRate ${got} < ${floor}`);
+}
+
+if (reasons.length > 0) {
+  console.error('GATE FAIL: ' + reasons.join('; '));
   process.exit(1);
 }
-console.error('SOUNDNESS OK (0 violations).');
+console.error('GATE OK (sound + meets floors).');

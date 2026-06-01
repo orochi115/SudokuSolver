@@ -9,7 +9,7 @@
 set -uo pipefail
 
 REPO="$(git rev-parse --show-toplevel)"
-WT_ROOT="$REPO/../sudoku-wt"
+WT_ROOT="$(cd "$REPO/.." && pwd)/sudoku-wt"
 REPORTS="$REPO/orchestration/reports"
 STATUS_DIR="$REPORTS/status"
 JUDGE="$REPO/orchestration/judge/verify-engine.ts"
@@ -63,6 +63,11 @@ grep -vE '^[[:space:]]*(#|$)' "$MODELS_FILE" | while read -r model name _rest; d
       echo "- 产出文档:"
       for f in docs/notes/m2.md docs/notes/m3.md docs/forcing-boundary.md docs/flow.md; do
         if [ -f "$wt/$f" ]; then echo "  - \`$f\` ✅"; else echo "  - \`$f\` —"; fi
+      done
+      echo "- 成本(token cost,来自 opencode export):"
+      for ms in m2 m3; do
+        cf="$WT_ROOT/logs/$name/$ms.cost.json"
+        if [ -f "$cf" ]; then echo "  - $ms: \`$(cat "$cf")\`"; fi
       done
       echo "- 日志:\`sudoku-wt/logs/$name/\`"
       echo

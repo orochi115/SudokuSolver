@@ -15,7 +15,7 @@ PURGE=0
 if [ "${1:-}" = "--purge" ]; then PURGE=1; shift; fi
 
 REPO="$(git rev-parse --show-toplevel)"
-WT_ROOT="$REPO/../sudoku-wt"
+WT_ROOT="$(cd "$REPO/.." && pwd)/sudoku-wt"
 MODELS_FILE="${1:-$REPO/orchestration/models.txt}"
 [ -f "$MODELS_FILE" ] || { echo "models file not found: $MODELS_FILE"; exit 1; }
 

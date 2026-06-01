@@ -39,9 +39,17 @@ cat orchestration/reports/questions.md
   故 `prompts/*.md` 保持中性,也能手动交互用。
 - `--dangerously-skip-permissions` 免除写文件/跑测试的权限弹窗(headless 主要阻塞)。
 - 提问不卡死:`run` 单发,问题只进输出/QUESTIONS.md;重试用 `-c` 续接会话喂回 verify 结果。
+- **超时保护**:每次 opencode 尝试受 `TIMEOUT` 秒限制(默认 1800),挂起的模型会被杀掉并判 FAIL,
+  不会阻塞整个 fleet(opus48 曾连 trivial 提示都挂起 → 现已在 `models.txt` 禁用)。
+- **验收闸门要求真实进步**:`verify.sh` 按里程碑设解出率/策略数下限(M2:easy≥0.90、medium≥0.40、
+  策略≥3;M3:加 hard≥0.60、diabolical≥0.25、策略≥8)。空跑(只剩 baseline)会被判 FAIL,不再误过。
+  下限是启发式、可在 `verify.sh` 或用环境变量(`MIN_EASY` 等)调。
+- **成本统计**:每个里程碑会用 `opencode export` 汇总该会话的 token cost,写入
+  `sudoku-wt/logs/<名>/<里程碑>.cost.json`,并汇入 `reports/summary.md`。
 - **前提**:`models.txt` 里每个 provider/model 已在 opencode 配好凭据;`git lfs pull` 已拉到谜题。
 - 基线参考(仅 naked-single 时):easy 54% / medium 14% / hard 0% / diabolical 0%,0 violation。
 - 评分逻辑只在本目录、由你掌握;worker 看不到。详见 `model-comparison.md`。
+- worker 日志现为 JSON 事件流(`--format json`,用于抓 session id 算成本),仍可逐条阅读。
 
 ## 提交行为
 - **每个里程碑跑完会自动提交**到该模型的 `model/<短名>` 分支(`run-model.sh` 里的 `commit_milestone`),
