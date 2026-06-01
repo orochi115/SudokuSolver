@@ -8,12 +8,14 @@
 
 import type { Strategy } from '../strategy.js';
 import { nakedSingle } from './naked-single.js';
+import { hiddenSingle } from './hidden-single.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   nakedSingle,
-  // M2: hiddenSingle, pointing, claiming, nakedPair/Triple/Quad, hiddenPair/Triple/Quad
+  hiddenSingle,
+  // M2: pointing, claiming, nakedPair/Triple/Quad, hiddenPair/Triple/Quad
   // M3: xWing, swordfish, jellyfish, skyscraper, twoStringKite, emptyRectangle,
   //     xyWing, xyzWing, wWing, simpleColoring, aic, alsXz, ... uniqueRectangle, forcingChain
 ];
 
-export { nakedSingle };
+export { nakedSingle, hiddenSingle };
