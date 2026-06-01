@@ -45,4 +45,4 @@ Collect enough reliable internet material to support a later synthesis of a full
 2. Download optional SudokuWiki advanced pages - complete
 3. Download optional Chinese specialty pages - complete
 4. Update manifest, citations, bibliography, and mappings - complete
-5. Validate associations and commit supplemental sources - in_progress
+5. Validate associations and commit supplemental sources - complete
