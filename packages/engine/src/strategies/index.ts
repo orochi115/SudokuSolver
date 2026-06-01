@@ -8,6 +8,7 @@
  * T1 (difficulty 8-10):   Full House, Naked Single, Hidden Single
  * T2 (difficulty 20-30):  Locked Candidates, Naked/Hidden Subsets
  * T3 (difficulty 40-50):  Basic Fish, Single-Digit Patterns, Wings
+ * T4 (difficulty 60-100): Coloring, AIC/Chains, ALS, Uniqueness, Sue de Coq
  */
 
 import type { Strategy } from '../strategy.js';
@@ -21,6 +22,11 @@ import { hiddenPair, hiddenTriple, hiddenQuad } from './hidden-subsets.js';
 import { xWing, swordfish, jellyfish } from './basic-fish.js';
 import { skyscraper, twoStringKite, emptyRectangle } from './single-digit-patterns.js';
 import { xyWing, xyzWing, wWing } from './wings.js';
+import { simpleColoring } from './simple-coloring.js';
+import { aic } from './aic.js';
+import { alsXZ, alsXYWing, deathBlossom } from './als.js';
+import { uniqueRectangle, bugPlus1 } from './uniqueness.js';
+import { sueDeCocq } from './sue-de-coq.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // T1 — Singles (cheapest)
@@ -54,6 +60,24 @@ export const STRATEGIES: readonly Strategy[] = [
   xyWing,                  // difficulty 50
   xyzWing,                 // difficulty 50
   wWing,                   // difficulty 50
+
+  // T4 — Coloring
+  simpleColoring,          // difficulty 60
+
+  // T4 — AIC / Chains
+  aic,                     // difficulty 70
+
+  // T4 — ALS
+  alsXZ,                   // difficulty 80
+  alsXYWing,               // difficulty 80
+  deathBlossom,            // difficulty 82
+
+  // T4 — Uniqueness (optional; valid only for puzzles with unique solutions)
+  uniqueRectangle,         // difficulty 90
+  bugPlus1,                // difficulty 90
+
+  // T4 — Special
+  sueDeCocq,               // difficulty 95
 ];
 
 export {
@@ -64,4 +88,9 @@ export {
   xWing, swordfish, jellyfish,
   skyscraper, twoStringKite, emptyRectangle,
   xyWing, xyzWing, wWing,
+  simpleColoring,
+  aic,
+  alsXZ, alsXYWing, deathBlossom,
+  uniqueRectangle, bugPlus1,
+  sueDeCocq,
 };
