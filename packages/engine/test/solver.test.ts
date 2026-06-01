@@ -4,6 +4,13 @@ import { solve } from '../src/solver.js';
 import { nakedSingle } from '../src/strategies/naked-single.js';
 import { checkTraceSoundness } from '../src/soundness.js';
 import { solveBruteforce } from '../src/bruteforce.js';
+import { readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+import { STRATEGIES } from '../src/strategies/index.js';
+
+const here = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = resolve(here, '../../..');
 
 // A puzzle solvable by naked singles alone (the reference strategy's reach).
 const NAKED_ONLY = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
@@ -53,5 +60,23 @@ describe('solve loop', () => {
     // Whatever it managed, it must still be sound.
     const solution = solveBruteforce(hard)!;
     expect(checkTraceSoundness(trace, solution).sound).toBe(true);
+  });
+
+  it('passes soundness checks on all 400 ground-truth puzzles', () => {
+    const difficulties = ['easy', 'medium', 'hard', 'diabolical'];
+    for (const diff of difficulties) {
+      const filePath = resolve(REPO_ROOT, `data/ground-truth/${diff}.json`);
+      if (!existsSync(filePath)) continue;
+      const records = JSON.parse(readFileSync(filePath, 'utf8'));
+      for (const rec of records) {
+        const grid = Grid.fromString(rec.puzzle);
+        const trace = solve(grid, STRATEGIES);
+        const result = checkTraceSoundness(trace, rec.solution);
+        if (!result.sound) {
+          console.error(`Violation in puzzle ${rec.puzzle}:`, result.violations);
+        }
+        expect(result.sound).toBe(true);
+      }
+    }
   });
 });
