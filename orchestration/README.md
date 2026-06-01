@@ -42,3 +42,21 @@ cat orchestration/reports/questions.md
 - **前提**:`models.txt` 里每个 provider/model 已在 opencode 配好凭据;`git lfs pull` 已拉到谜题。
 - 基线参考(仅 naked-single 时):easy 54% / medium 14% / hard 0% / diabolical 0%,0 violation。
 - 评分逻辑只在本目录、由你掌握;worker 看不到。详见 `model-comparison.md`。
+
+## 提交行为
+- **每个里程碑跑完会自动提交**到该模型的 `model/<短名>` 分支(`run-model.sh` 里的 `commit_milestone`),
+  提交信息形如 `model/sonnet46: m2 PASS (1 attempt(s)) [<model>]`。**无论 worker 自己有没有提交**,
+  分支都会停在干净、带状态标签的状态,便于看 diff 与复盘。
+- 这些提交在各自 worktree 的 `model/<短名>` 分支上,**不影响 `foundation` / `master` / `orchestration`**。
+
+## 清理 worktree
+```bash
+# 默认:删掉 ../sudoku-wt/* 工作目录,但保留 model/<名> 分支及其提交(结果不丢)
+orchestration/cleanup.sh
+# 彻底清理:连分支、日志、生成的 reports 一起删(确认已取走所需结果后再用)
+orchestration/cleanup.sh --purge
+# 也可指定清单(例如只清试运行的两个)
+orchestration/cleanup.sh orchestration/models-trial.txt
+```
+- 因为每个里程碑都已自动提交,worktree 无未保存改动,`git worktree remove --force` 可安全移除。
+- 默认保留分支 = 你随时能 `git checkout model/<名>` 回看某模型的成果;`--purge` 才会删分支。

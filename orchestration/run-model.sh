@@ -29,6 +29,22 @@ PROMPT_PATH="$REPO/$PROMPT_FILE"
 LOG_DIR="$WT_ROOT/logs/$NAME"
 mkdir -p "$LOG_DIR"
 
+MS="$(basename "$PROMPT_FILE" .md)"   # milestone label, e.g. m2
+
+# Deterministically commit the milestone's result to branch model/<name>,
+# regardless of whether the worker committed on its own. Keeps each model branch
+# in a clean, labelled state (pass or fail) for the report and later inspection.
+commit_milestone() {
+  local status="$1" attempts="$2"
+  git -C "$WT" add -A
+  if git -C "$WT" diff --cached --quiet; then
+    echo "=== [$NAME] $MS: nothing to commit ==="
+    return 0
+  fi
+  git -C "$WT" commit -q -m "model/$NAME: $MS $status (${attempts} attempt(s)) [$MODEL]"
+  echo "=== [$NAME] committed $MS ($status) ==="
+}
+
 # Hard autonomy clause appended for headless runs (we are measuring coding
 # ability, so question-asking / permission quirks are neutralised).
 AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n若有会影响实现的疑问,请写入 worktree 根目录的 `QUESTIONS.md`(每条一行)再继续,不要停下等待回答。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。'
@@ -51,11 +67,13 @@ while true; do
   if OUT="$(bash "$REPO/orchestration/verify.sh" "$WT" 2>&1)"; then
     echo "$OUT"
     echo "=== [$NAME] PASSED after $i attempt(s) ==="
+    commit_milestone PASS "$i"
     break
   fi
   echo "$OUT"
   if [ "$i" -ge "$MAX_RETRIES" ]; then
     echo "=== [$NAME] FAILED after $i attempt(s); needs human attention ==="
+    commit_milestone FAIL "$i"
     exit 1
   fi
   i=$((i + 1))
