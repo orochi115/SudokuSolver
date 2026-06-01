@@ -18,6 +18,12 @@ import { singleDigitPatterns } from './single-digit-patterns.js';
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
+import { simpleColoring } from './simple-coloring.js';
+import { aic } from './aic.js';
+import { als } from './als.js';
+import { uniqueness } from './uniqueness.js';
+import { sueDeCoq } from './sue-de-coq.js';
+import { forcingChain } from './forcing-chain.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   fullHouse,
@@ -31,6 +37,12 @@ export const STRATEGIES: readonly Strategy[] = [
   xyWing,
   xyzWing,
   wWing,
+  simpleColoring,
+  aic,
+  als,
+  uniqueness,
+  sueDeCoq,
+  forcingChain,
 ];
 
-export { nakedSingle, fullHouse, hiddenSingle, lockedCandidates, nakedSubset, hiddenSubset, basicFish, singleDigitPatterns, xyWing, xyzWing, wWing };
+export { nakedSingle, fullHouse, hiddenSingle, lockedCandidates, nakedSubset, hiddenSubset, basicFish, singleDigitPatterns, xyWing, xyzWing, wWing, simpleColoring, aic, als, uniqueness, sueDeCoq, forcingChain };
