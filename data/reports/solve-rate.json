@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-01T18:32:44.097Z",
+  "generatedAt": "2026-06-02T16:37:35.285Z",
   "strategies": [
     {
       "id": "full-house",
@@ -106,10 +106,10 @@
       "solveRate": 100,
       "soundViolations": 0,
       "strategyUsage": {
-        "full-house": 2043,
-        "naked-single": 2279,
-        "hidden-single": 984,
-        "locked-candidates": 73,
+        "full-house": 2041,
+        "naked-single": 2270,
+        "hidden-single": 995,
+        "locked-candidates": 77,
         "naked-subset": 12,
         "hidden-subset": 0,
         "basic-fish": 0,
@@ -125,7 +125,7 @@
         "forcing-chain": 0
       },
       "stuckCount": 0,
-      "avgSteps": 53.9
+      "avgSteps": 54
     },
     {
       "difficulty": "hard",
@@ -134,20 +134,20 @@
       "solveRate": 100,
       "soundViolations": 0,
       "strategyUsage": {
-        "full-house": 2028,
-        "naked-single": 2017,
-        "hidden-single": 1260,
-        "locked-candidates": 319,
-        "naked-subset": 115,
+        "full-house": 2031,
+        "naked-single": 2006,
+        "hidden-single": 1273,
+        "locked-candidates": 309,
+        "naked-subset": 116,
         "hidden-subset": 2,
         "basic-fish": 30,
-        "single-digit-patterns": 61,
-        "xy-wing": 30,
-        "xyz-wing": 11,
-        "w-wing": 5,
-        "simple-coloring": 1,
-        "aic": 26,
-        "als": 2,
+        "single-digit-patterns": 71,
+        "xy-wing": 29,
+        "xyz-wing": 10,
+        "w-wing": 4,
+        "simple-coloring": 2,
+        "aic": 24,
+        "als": 0,
         "uniqueness": 0,
         "sue-de-coq": 0,
         "forcing-chain": 0
@@ -162,26 +162,26 @@
       "solveRate": 99,
       "soundViolations": 0,
       "strategyUsage": {
-        "full-house": 2028,
-        "naked-single": 2028,
-        "hidden-single": 1211,
-        "locked-candidates": 464,
-        "naked-subset": 173,
+        "full-house": 2019,
+        "naked-single": 2090,
+        "hidden-single": 1219,
+        "locked-candidates": 461,
+        "naked-subset": 188,
         "hidden-subset": 2,
-        "basic-fish": 27,
-        "single-digit-patterns": 90,
-        "xy-wing": 41,
-        "xyz-wing": 22,
-        "w-wing": 54,
-        "simple-coloring": 7,
-        "aic": 240,
-        "als": 108,
-        "uniqueness": 3,
+        "basic-fish": 32,
+        "single-digit-patterns": 128,
+        "xy-wing": 49,
+        "xyz-wing": 25,
+        "w-wing": 63,
+        "simple-coloring": 0,
+        "aic": 418,
+        "als": 35,
+        "uniqueness": 1,
         "sue-de-coq": 0,
-        "forcing-chain": 61
+        "forcing-chain": 37
       },
       "stuckCount": 1,
-      "avgSteps": 65.6
+      "avgSteps": 67.7
     }
   ],
   "overall": {
