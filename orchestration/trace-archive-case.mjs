@@ -46,6 +46,24 @@ export function normalizeAction(step) {
   };
 }
 
+export function normalizeCandidateSnapshot(snapshot) {
+  return [...(snapshot ?? [])]
+    .map((entry) => {
+      if ('candidates' in entry) {
+        return {
+          cell: entry.cell,
+          candidates: [...(entry.candidates ?? [])].sort((a, b) => a - b),
+        };
+      }
+      return { cell: entry.cell, value: String(entry.value) };
+    })
+    .sort((a, b) => a.cell - b.cell);
+}
+
+export function candidateSnapshotHash(snapshot) {
+  return JSON.stringify(normalizeCandidateSnapshot(snapshot));
+}
+
 export function sameAction(left, right) {
   return JSON.stringify(normalizeAction(left)) === JSON.stringify(normalizeAction(right));
 }
@@ -223,8 +241,29 @@ function applyStep(grid, step) {
   for (const e of step.eliminations) grid.eliminate(e.cell, e.digit);
 }
 
-function candidateHash(grid) {
-  return Array.from(grid.candidates ?? []).join(',');
+function normalizeCandidateSnapshot(snapshot) {
+  return [...(snapshot ?? [])]
+    .map((entry) => {
+      if ('candidates' in entry) {
+        return {
+          cell: entry.cell,
+          candidates: [...(entry.candidates ?? [])].sort((a, b) => a - b),
+        };
+      }
+      return { cell: entry.cell, value: String(entry.value) };
+    })
+    .sort((a, b) => a.cell - b.cell);
+}
+
+function candidateSnapshotHash(snapshot) {
+  return JSON.stringify(normalizeCandidateSnapshot(snapshot));
+}
+
+function candidateSnapshot(grid) {
+  return normalizeCandidateSnapshot(Array.from(grid.candidates ?? []).map((value, cell) => {
+    if (Array.isArray(value)) return { cell, candidates: value };
+    return { cell, value: String(value) };
+  }));
 }
 
 function isCompleteValidGrid(grid) {
@@ -290,16 +329,24 @@ while (!grid.isSolved() && steps.length < 1000) {
     const eliminations = rawStep?.eliminations ?? [];
     if (rawStep && (placements.length > 0 || eliminations.length > 0)) {
       const beforeGrid = grid.toString();
+      const beforeCandidateSnapshot = candidateSnapshot(grid);
+      const beforeCandidateHash = candidateSnapshotHash(beforeCandidateSnapshot);
       const step = { ...rawStep, strategyId: rawStep.strategyId ?? strategy.id, placements, eliminations };
       applyStep(grid, step);
       const afterGrid = grid.toString();
+      const afterCandidateSnapshot = candidateSnapshot(grid);
+      const afterCandidateHash = candidateSnapshotHash(afterCandidateSnapshot);
       steps.push({
         stepIndex: steps.length,
         strategyId: step.strategyId,
         beforeGrid,
+        beforeCandidateSnapshot,
+        beforeCandidateHash,
         placements: step.placements,
         eliminations: step.eliminations,
         afterGrid,
+        afterCandidateSnapshot,
+        afterCandidateHash,
         finalGrid: afterGrid,
         explanation: {
           en: step.explanation?.en ?? null,
@@ -317,7 +364,8 @@ const saturationGrid = Grid.fromString(process.env.PUZZLE!);
 const saturation = [];
 for (const strategy of ordered) {
   const beforeGrid = saturationGrid.toString();
-  const beforeCandidateHash = candidateHash(saturationGrid);
+  const beforeCandidateSnapshot = candidateSnapshot(saturationGrid);
+  const beforeCandidateHash = candidateSnapshotHash(beforeCandidateSnapshot);
   let stepsForStrategy = 0;
   let placementCount = 0;
   let eliminationCount = 0;
@@ -333,6 +381,8 @@ for (const strategy of ordered) {
     eliminationCount += eliminations.length;
   }
 
+  const afterCandidateSnapshot = candidateSnapshot(saturationGrid);
+
   saturation.push({
     strategyId: strategy.id,
     steps: stepsForStrategy,
@@ -340,8 +390,10 @@ for (const strategy of ordered) {
     eliminations: eliminationCount,
     beforeGrid,
     afterGrid: saturationGrid.toString(),
+    beforeCandidateSnapshot,
     beforeCandidateHash,
-    afterCandidateHash: candidateHash(saturationGrid),
+    afterCandidateSnapshot,
+    afterCandidateHash: candidateSnapshotHash(afterCandidateSnapshot),
   });
 }
 

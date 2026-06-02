@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  candidateSnapshotHash,
   canonicalOrder,
   classifyCase,
   firstDivergence,
@@ -8,6 +9,7 @@ import {
   isCompleteValidGrid,
   isSolvedGridValid,
   normalizeAction,
+  normalizeCandidateSnapshot,
   runnerSource,
   sameAction,
   validateComparisonModels,
@@ -79,6 +81,23 @@ test('normalizeAction sorts placements and eliminations for stable comparison', 
     placements: [{ cell: 1, digit: 9 }, { cell: 2, digit: 1 }],
     eliminations: [],
   });
+});
+
+test('normalizeCandidateSnapshot sorts cell candidates deterministically', () => {
+  assert.deepEqual(normalizeCandidateSnapshot([
+    { cell: 2, candidates: [9, 1] },
+    { cell: 1, candidates: [3, 2] },
+  ]), [
+    { cell: 1, candidates: [2, 3] },
+    { cell: 2, candidates: [1, 9] },
+  ]);
+});
+
+test('candidateSnapshotHash is stable for equivalent snapshots', () => {
+  assert.equal(
+    candidateSnapshotHash([{ cell: 1, candidates: [3, 2] }]),
+    candidateSnapshotHash([{ cell: 1, candidates: [2, 3] }]),
+  );
 });
 
 test('sameAction compares sorted placements and eliminations', () => {
@@ -179,7 +198,11 @@ test('worktreeRootPrefix includes process-unique segment for safe mkdtemp roots'
 test('runnerSource records required trace step fields', () => {
   const source = runnerSource();
   assert.match(source, /beforeGrid/);
+  assert.match(source, /beforeCandidateSnapshot/);
+  assert.match(source, /beforeCandidateHash/);
   assert.match(source, /afterGrid/);
+  assert.match(source, /afterCandidateSnapshot/);
+  assert.match(source, /afterCandidateHash/);
   assert.match(source, /explanation/);
 });
 
@@ -190,6 +213,8 @@ test('runnerSource preserves digit regex escaping for final-grid validation', ()
 test('runnerSource records required saturation fixed-point fields', () => {
   const source = runnerSource();
   assert.match(source, /saturation/);
+  assert.match(source, /beforeCandidateSnapshot/);
   assert.match(source, /beforeCandidateHash/);
+  assert.match(source, /afterCandidateSnapshot/);
   assert.match(source, /afterCandidateHash/);
 });
