@@ -20,6 +20,8 @@ That directory is intentionally ignored runtime output. The committed source art
 - `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
 - `orchestration/run-logs/opus-sonnet-hard-analysis-20260602.tar.gz`
 
+The static implementation comparison uses the read-only archive refs `archive/final/opus48` and `archive/final/sonnet46`.
+
 ## Findings
 
 ### AIC: `sonnet46` lacks grouped-chain coverage
@@ -42,13 +44,13 @@ Static review points to a strategy-strength gap rather than a path dependency. `
 
 `sonnet46` implements AIC directly in `archive/final/sonnet46:packages/engine/src/strategies/aic.ts`. Its `getStrongNeighbors()` only creates same-digit strong links when a house has exactly two raw candidate cells and the current cell is the single candidate in that house. That excludes grouped conjugates where one endpoint is a multi-cell row/box or column/box group.
 
-The probe evidence matches that difference:
+The probe evidence is consistent with that difference, but it does not directly print the internal AIC chain path:
 
-- hard #52302: `opus48` finds a digit 6 grouped X-Chain and eliminates `R9C9=6`; `sonnet46` finds no AIC step.
-- hard #114282: `opus48` finds a digit 7 grouped X-Chain and eliminates `R4C7=7`, `R4C8=7`, and `R6C4=7`; `sonnet46` finds no AIC step.
-- hard #305612: `opus48` finds a digit 4 grouped X-Chain and eliminates `R1C3=4`; `sonnet46` finds no AIC step.
+- hard #52302: `opus48` finds a digit 6 X-Chain-style AIC step and eliminates `R9C9=6`; `sonnet46` finds no AIC step.
+- hard #114282: `opus48` finds a digit 7 X-Chain-style AIC step and eliminates `R4C7=7`, `R4C8=7`, and `R6C4=7`; `sonnet46` finds no AIC step.
+- hard #305612: `opus48` finds a digit 4 X-Chain-style AIC step and eliminates `R1C3=4`; `sonnet46` finds no AIC step.
 
-Classification: coverage gap. `sonnet46` is not detecting grouped AIC/X-Chain links that `opus48` treats as part of AIC.
+Classification: coverage gap. The direct probe proves `sonnet46` misses AIC detections available to `opus48` from the same candidate state. Static review makes grouped-link support the strongest explanation for that gap, but confirming the exact chain nodes would require the optional internal instrumentation from Task 9.
 
 ### Single-Digit Patterns: `sonnet46` has narrower Empty Rectangle coverage
 
@@ -87,7 +89,7 @@ No. The decisive probes do not reach a same-strategy-different-effect situation.
 
 Which exact code path or condition explains the difference?
 
-- AIC: `sonnet46` strong-link construction requires exactly two raw candidate cells in a house, while `opus48` builds grouped strong links and searches grouped AIC/X-Chain paths.
+- AIC: `sonnet46` strong-link construction requires exactly two raw candidate cells in a house, while `opus48` can build grouped strong links and search grouped AIC/X-Chain paths. The probe proves winner-only AIC detection; grouped links are the strongest static-code explanation rather than directly emitted trace evidence.
 - Single-digit patterns: `sonnet46` Empty Rectangle probing checks only the ER hinge row/column, while `opus48` scans crossing external rows/columns and can find the required external conjugate pair.
 
 Is this a correctness bug, coverage gap, or acceptable strategy-strength difference?
