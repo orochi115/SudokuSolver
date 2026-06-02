@@ -2,6 +2,8 @@
 
 > 生成时间:2026-06-02 09:29:10 +0800。固定范围对比:所有模型须实现同一套必需策略(`orchestration/required-ids/`),
 > 健全性(0 violation)为硬门槛,解出率/成本/耗时仅收集用于对比实现质量。
+> 补充:hard 样本 100% 且健全性为 0 的模型已在 `archive/final/*` 上完成全量题库复测;结果归档见
+> `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`(Git LFS)。
 
 ## 环境(便于复现)
 
@@ -18,7 +20,7 @@
 | Git LFS | git-lfs/3.7.1 |
 | python3 | Python 3.14.5 (未用于引擎,仅记录) |
 
-## 结果对比
+## 100题样本结果对比
 
 | 模型 | M2 | M3 | strat | medium | hard | diabolical | viol | cost$ | min | att(m2/m3) |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -37,6 +39,38 @@
 > 已省略所有模型取值相同的列:easy = 100%。
 
 > 解出率按 100 题/档计;`att` 为 M2/M3 各自的尝试次数;`min`/`cost` 为 M2+M3 合计(模型活跃时长 / token 成本,订阅制模型成本可能为 0)。
+
+## 全量题库复测(hard 样本 100% 候选)
+
+> 复测范围:仅包含 100 题样本中 `hard=100%`、`M2=PASS`、`M3=PASS`、`viol=0` 的 6 个模型。运行方式为 `node orchestration/run-archive-full-corpus.mjs --workers 16`,只在 `archive/final/<shortname>` 分支运行引擎,不调用大模型。
+> 下表采用更严格的 **valid solved** 口径:最终盘面必须填满、保留 givens、行/列/宫合法。`stuck` 表示引擎停在未解状态;`invalid` 表示 trace 声称 solved 但终盘校验失败。
+
+| 模型 | easy valid | medium valid | hard valid | diabolical valid | total valid | stuck | invalid | runtime |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| `anthropic/claude-opus-4-8` | 100.000% (100000/100000) | 100.000% (352643/352643) | 99.992% (321566/321592) | 85.806% (102694/119681) | 98.097% (876903/893916) | 17013 | 0 | 9.8 min |
+| `anthropic/claude-sonnet-4-6` | 100.000% (100000/100000) | 100.000% (352643/352643) | 99.999% (321588/321592) | 98.949% (118423/119681) | 99.859% (892654/893916) | 1262 | 0 | 20.9 min |
+| `openai/gpt-5.5` | 100.000% (100000/100000) | 100.000% (352643/352643) | 99.993% (321569/321592) | 96.841% (115900/119681) | 99.574% (890112/893916) | 3804 | 0 | 6.5 min |
+| `openai/gpt-5.3-codex` | 100.000% (100000/100000) | 100.000% (352643/352643) | 99.745% (320771/321592) | 75.109% (89891/119681) | 96.576% (863305/893916) | 30611 | 0 | 3.6 min |
+| `google/gemini-3.5-flash` | 100.000% (100000/100000) | 100.000% (352643/352643) | 99.924% (321349/321592) | 79.352% (94969/119681) | 97.208% (868961/893916) | 24955 | 0 | 3.8 min |
+| `alibaba-cn/deepseek-v4-flash` | 100.000% (100000/100000) | 100.000% (352643/352643) | 97.835% (314628/321592) | 64.415% (77093/119681) | 94.457% (844364/893916) | 49141 | 411 | 2.1 min |
+
+### 样本 vs 全量
+
+| 模型 | hard 100题 | hard 全量 valid | hard fail(stuck/invalid) | diabolical 100题 | diabolical 全量 valid | diabolical fail(stuck/invalid) |
+|---|---:|---:|---:|---:|---:|---:|
+| `anthropic/claude-opus-4-8` | 100% | 99.992% | 26/0 | 88% | 85.806% | 16987/0 |
+| `anthropic/claude-sonnet-4-6` | 100% | 99.999% | 4/0 | 99% | 98.949% | 1258/0 |
+| `openai/gpt-5.5` | 100% | 99.993% | 23/0 | 97% | 96.841% | 3781/0 |
+| `openai/gpt-5.3-codex` | 100% | 99.745% | 821/0 | 78% | 75.109% | 29790/0 |
+| `google/gemini-3.5-flash` | 100% | 99.924% | 243/0 | 81% | 79.352% | 24712/0 |
+| `alibaba-cn/deepseek-v4-flash` | 100% | 97.835% | 6801/163 | 72% | 64.415% | 42340/248 |
+
+### 全量复测观察
+
+- 100 题样本对 `hard` 的区分度不足:6 个候选全为 100%,但全量 hard 从 97.835% 到 99.999% 拉开差距。
+- `diabolical` 更能反映高级策略实现质量:sonnet46 全量 valid 98.949%,gpt-5.5 为 96.841%,opus48 为 85.806%。
+- `deepseekv4` 在 100 题样本中健全性为 0,但全量复测出现 411 个 invalid-solved,说明样本闸门不足以覆盖全部 soundness 风险。
+- 运行时间不可直接等同于“更强/更弱”:失败越多的实现往往更快,因为 solver 更早进入 `stuck` 并停止;能解出的困难题通常需要更多策略步骤。
 
 ## 失败 / 未达标
 
@@ -64,4 +98,5 @@
 2. 编辑 `orchestration/models.txt`(provider/model + 短名)。
 3. `TIMEOUT=3600 MAX_PAR=4 orchestration/run-all.sh`(Bedrock/alibaba-cn 自动串行)。
 4. `node orchestration/gen-report.mjs` 生成本报告。
-5. 必需策略范围见 `orchestration/required-ids/{m2,m3}.txt`;评分口径见本仓库 orchestration/。
+5. 全量复测:`node orchestration/run-archive-full-corpus.mjs --workers 16`;结果包:`orchestration/run-logs/full-corpus-20260602-064418.tar.gz`。
+6. 必需策略范围见 `orchestration/required-ids/{m2,m3}.txt`;评分口径见本仓库 orchestration/。
