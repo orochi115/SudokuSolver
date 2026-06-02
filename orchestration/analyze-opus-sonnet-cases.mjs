@@ -1,0 +1,224 @@
+#!/usr/bin/env node
+
+import { spawnSync } from 'node:child_process';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, dirname, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const REPO = resolve(HERE, '..');
+const TAR_MAX_BUFFER = 220 * 1024 * 1024;
+
+export function selectMutualComparisonCases({ loserFailures, winnerFailures }) {
+  const winnerFailureSet = new Set(winnerFailures.map(failureIndex));
+  return loserFailures
+    .map(failureIndex)
+    .filter((index) => !winnerFailureSet.has(index))
+    .sort((a, b) => a - b);
+}
+
+function failureIndex(failure) {
+  return typeof failure === 'object' && failure !== null ? failure.index : failure;
+}
+
+function parseArgs(argv) {
+  const opts = { archive: null, difficulty: null, loser: null, winner: null, out: null, keepWorktrees: false };
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    const next = () => argv[++i];
+    if (arg === '--archive') opts.archive = next();
+    else if (arg === '--difficulty') opts.difficulty = next();
+    else if (arg === '--loser') opts.loser = next();
+    else if (arg === '--winner') opts.winner = next();
+    else if (arg === '--out') opts.out = next();
+    else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
+    else if (arg === '-h' || arg === '--help') {
+      console.log('usage: node orchestration/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> --winner <model> --out <dir> [--keep-worktrees]');
+      process.exit(0);
+    } else {
+      throw new Error(`unknown argument: ${arg}`);
+    }
+  }
+
+  for (const key of ['archive', 'difficulty', 'loser', 'winner', 'out']) {
+    if (!opts[key]) throw new Error(`--${key} is required`);
+  }
+  return opts;
+}
+
+function runTar(args, archive) {
+  const result = spawnSync('tar', args, { encoding: 'utf8', maxBuffer: TAR_MAX_BUFFER });
+  if (result.status !== 0) throw new Error(`tar failed for ${archive}: ${result.stderr || result.error?.message || 'unknown error'}`);
+  return result.stdout;
+}
+
+function findResultsMember(archive) {
+  const entries = runTar(['-tf', archive], archive).split('\n').filter(Boolean);
+  const resultsMember = entries.find((entry) => /(^|\/)results\.json$/.test(entry));
+  if (!resultsMember) throw new Error(`results.json not found in ${archive}`);
+  return resultsMember;
+}
+
+function readArchiveResults(archive) {
+  const archivePath = resolve(REPO, archive);
+  const resultsMember = findResultsMember(archivePath);
+  const text = runTar(['-xOf', archivePath, resultsMember], archivePath);
+  const payload = JSON.parse(text);
+  if (!Array.isArray(payload.results)) throw new Error(`${resultsMember} does not contain a results array`);
+  return { payload, resultsMember, archivePath };
+}
+
+function modelFailures(results, model, difficulty) {
+  const result = results.find((entry) => entry.name === model);
+  if (!result) throw new Error(`missing model in archive results: ${model}`);
+  return result.report?.[difficulty]?.failures ?? [];
+}
+
+function runTrace({ difficulty, index, winner, loser, outDir, keepWorktrees }) {
+  const args = [
+    resolve(HERE, 'trace-archive-case.mjs'),
+    '--difficulty', difficulty,
+    '--index', String(index),
+    '--models', `${winner},${loser}`,
+    '--out', outDir,
+  ];
+  if (keepWorktrees) args.push('--keep-worktrees');
+
+  const result = spawnSync(process.execPath, args, {
+    cwd: REPO,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  if (result.stdout) process.stdout.write(result.stdout);
+  if (result.stderr) process.stderr.write(result.stderr);
+  if (result.status !== 0) throw new Error(`trace failed for ${difficulty}-${index}`);
+}
+
+function readJson(file) {
+  return JSON.parse(readFileSync(file, 'utf8'));
+}
+
+function summarizeCase({ difficulty, index, winner, loser, caseDir, outDir }) {
+  const comparison = readJson(resolve(caseDir, 'comparison.json'));
+  const saturation = readJson(resolve(caseDir, 'saturation-comparison.json'));
+  const rescue = readJson(resolve(caseDir, 'rescue-comparison.json'));
+  const firstDivergence = comparison.firstDivergence ?? null;
+  const firstDifferentFixedPoint = saturation.firstDifferentFixedPoint ?? null;
+  const detailFiles = [
+    'comparison.json',
+    'saturation-comparison.json',
+    'rescue-comparison.json',
+    `trace-${winner}.json`,
+    `trace-${loser}.json`,
+    `saturation-${winner}.json`,
+    `saturation-${loser}.json`,
+  ].map((name) => relative(outDir, resolve(caseDir, name)));
+
+  return {
+    difficulty,
+    puzzleIndex: index,
+    winner,
+    loser,
+    firstDivergence: {
+      stepIndex: firstDivergence?.stepIndex ?? null,
+      kind: firstDivergence?.kind ?? null,
+      winnerStrategyId: firstDivergence?.leftStrategyId ?? null,
+      loserStrategyId: firstDivergence?.rightStrategyId ?? null,
+    },
+    firstDifferentFixedPoint,
+    rescue: {
+      winnerRescueStrategyId: rescue.winnerRescueStrategyId ?? null,
+      loserRescueStrategyId: rescue.loserRescueStrategyId ?? null,
+    },
+    classification: rescue.classification ?? null,
+    detailFiles,
+  };
+}
+
+function valueOrNone(value) {
+  return value == null ? 'none' : String(value);
+}
+
+function markdownSummary(summary) {
+  const lines = [
+    '# Opus/Sonnet Hard Failure Case Analysis',
+    '',
+    `Archive: \`${summary.archive}\``,
+    `Results: \`${summary.resultsMember}\``,
+    `Difficulty: \`${summary.difficulty}\``,
+    `Winner: \`${summary.winner}\``,
+    `Loser: \`${summary.loser}\``,
+    '',
+    '## Cases',
+    '',
+    '| Puzzle index | Winner | Loser | First divergence step | First divergence strategy | First different saturation fixed point | Rescue strategy | Classification | Details |',
+    '| ---: | --- | --- | ---: | --- | --- | --- | --- | --- |',
+  ];
+
+  for (const item of summary.cases) {
+    const divergenceStrategy = `winner: ${valueOrNone(item.firstDivergence.winnerStrategyId)}; loser: ${valueOrNone(item.firstDivergence.loserStrategyId)}; kind: ${valueOrNone(item.firstDivergence.kind)}`;
+    const fixedPoint = item.firstDifferentFixedPoint
+      ? `${item.firstDifferentFixedPoint.strategyId ?? 'unknown'} @ ${item.firstDifferentFixedPoint.index}`
+      : 'none';
+    const rescueStrategy = `winner: ${valueOrNone(item.rescue.winnerRescueStrategyId)}; loser: ${valueOrNone(item.rescue.loserRescueStrategyId)}`;
+    const details = item.detailFiles.map((file) => `\`${file}\``).join('<br>');
+    lines.push(`| ${item.puzzleIndex} | ${item.winner} | ${item.loser} | ${valueOrNone(item.firstDivergence.stepIndex)} | ${divergenceStrategy} | ${fixedPoint} | ${rescueStrategy} | ${valueOrNone(item.classification)} | ${details} |`);
+  }
+
+  return `${lines.join('\n')}\n`;
+}
+
+function runCli(argv) {
+  const opts = parseArgs(argv);
+  const { payload, resultsMember, archivePath } = readArchiveResults(opts.archive);
+  const loserFailures = modelFailures(payload.results, opts.loser, opts.difficulty);
+  const winnerFailures = modelFailures(payload.results, opts.winner, opts.difficulty);
+  const selectedCases = selectMutualComparisonCases({ loserFailures, winnerFailures });
+  const outDir = resolve(REPO, opts.out);
+  const casesDir = resolve(outDir, 'cases');
+  mkdirSync(casesDir, { recursive: true });
+
+  const cases = [];
+  for (const index of selectedCases) {
+    const caseDir = resolve(casesDir, `${opts.difficulty}-${index}`);
+    mkdirSync(caseDir, { recursive: true });
+    runTrace({
+      difficulty: opts.difficulty,
+      index,
+      winner: opts.winner,
+      loser: opts.loser,
+      outDir: caseDir,
+      keepWorktrees: opts.keepWorktrees,
+    });
+    cases.push(summarizeCase({
+      difficulty: opts.difficulty,
+      index,
+      winner: opts.winner,
+      loser: opts.loser,
+      caseDir,
+      outDir,
+    }));
+  }
+
+  const summary = {
+    archive: relative(REPO, archivePath),
+    resultsMember,
+    difficulty: opts.difficulty,
+    winner: opts.winner,
+    loser: opts.loser,
+    selectedCases,
+    cases,
+  };
+  writeFileSync(resolve(outDir, 'summary.json'), JSON.stringify(summary, null, 2) + '\n');
+  writeFileSync(resolve(outDir, 'summary.md'), markdownSummary(summary));
+  console.log(`Wrote ${basename(outDir)}/summary.json and ${basename(outDir)}/summary.md`);
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    runCli(process.argv.slice(2));
+  } catch (error) {
+    console.error(error?.stack || error);
+    process.exit(1);
+  }
+}
