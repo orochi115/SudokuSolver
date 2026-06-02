@@ -6,7 +6,7 @@
  * each alternative is propagated as a non-branching implication fixpoint.
  */
 
-import { CELLS, HOUSES, ROW_OF, COL_OF, maskOf, popcount, digitsOf } from '../grid.js';
+import { CELLS, HOUSES, ROW_OF, COL_OF, PEERS_OF, maskOf, popcount, digitsOf } from '../grid.js';
 import type { Grid } from '../grid.js';
 import type { CellDigit, Step } from '../trace.js';
 import type { Strategy } from '../strategy.js';
@@ -157,6 +157,58 @@ function forceFromTwo(
   return null;
 }
 
+function contradictionFromAssumption(grid: Grid, cell: number, digit: number, maxChainLength: number): boolean {
+  if (!grid.hasCandidate(cell, digit)) return true;
+  const values = grid.values.slice();
+  const candidates = grid.candidates.slice();
+  values[cell] = digit;
+  candidates[cell] = 0;
+  const queue = [cell];
+  let steps = 0;
+
+  while (queue.length > 0 && steps++ < maxChainLength) {
+    const placed = queue.shift()!;
+    const placedDigit = values[placed]!;
+    const bit = maskOf(placedDigit);
+
+    for (const peer of PEERS_OF[placed]!) {
+      if (values[peer] !== 0) {
+        if (values[peer] === placedDigit) return true;
+        continue;
+      }
+      if ((candidates[peer]! & bit) === 0) continue;
+      candidates[peer]! &= ~bit;
+      if (candidates[peer] === 0) return true;
+      if (popcount(candidates[peer]!) === 1) {
+        values[peer] = digitsOf(candidates[peer]!)[0]!;
+        candidates[peer] = 0;
+        queue.push(peer);
+      }
+    }
+  }
+
+  return false;
+}
+
+function tryBoundedContradiction(grid: Grid, maxChainLength: number): Step | null {
+  for (let cell = 0; cell < CELLS; cell++) {
+    if (grid.get(cell) !== 0 || popcount(grid.candidatesOf(cell)) < 2) continue;
+    for (const digit of digitsOf(grid.candidatesOf(cell))) {
+      if (!contradictionFromAssumption(grid, cell, digit, maxChainLength)) continue;
+      return makeStep(
+        'forcing-chain',
+        grid,
+        [cell],
+        [],
+        [{ cell, digit }],
+        `假设 ${cellLabel(cell)}=${digit} 会在有限传播中造成矛盾；消去该候选。`,
+        `assuming ${cellLabel(cell)}=${digit} reaches a contradiction within bounded propagation; eliminate that candidate.`,
+      );
+    }
+  }
+  return null;
+}
+
 export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
   return {
     id: 'forcing-chain',
@@ -166,9 +218,10 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
     apply(grid: Grid): Step | null {
       const graph = buildLinkGraph(grid, { grouped: false });
       const nodeIndex = (cell: number, digit: number): number | undefined => graph.indexOfKey.get(nodeKey(digit, [cell]));
+      let graphStep: Step | null = null;
 
       if (policy.allowCellForcing) {
-        for (let cell = 0; cell < CELLS; cell++) {
+        for (let cell = 0; cell < CELLS && !graphStep; cell++) {
           if (grid.get(cell) !== 0 || popcount(grid.candidatesOf(cell)) !== 2) continue;
           const [firstDigit, secondDigit] = digitsOf(grid.candidatesOf(cell)) as [number, number];
           const firstNode = nodeIndex(cell, firstDigit);
@@ -179,13 +232,13 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
             zh: `双值格 ${cellLabel(cell)}{${firstDigit},${secondDigit}} 的两种取值分别推演，得到共同结论。`,
             en: `both values of bivalue cell ${cellLabel(cell)}{${firstDigit},${secondDigit}} lead to the same conclusion.`,
           });
-          if (step) return step;
+          if (step) graphStep = step;
         }
       }
 
-      if (policy.allowDigitForcing) {
+      if (policy.allowDigitForcing && !graphStep) {
         for (const house of HOUSES) {
-          for (let digit = 1; digit <= 9; digit++) {
+          for (let digit = 1; digit <= 9 && !graphStep; digit++) {
             const bit = maskOf(digit);
             const positions = house.filter((cell) => grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0);
             if (positions.length !== 2) continue;
@@ -198,12 +251,21 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
               zh: `数字 ${digit} 在房屋中的两个落点 ${cellLabel(firstCell)}、${cellLabel(secondCell)} 分别推演，得到共同结论。`,
               en: `the two spots of digit ${digit} (${cellLabel(firstCell)}, ${cellLabel(secondCell)}) lead to the same conclusion.`,
             });
-            if (step) return step;
+            if (step) graphStep = step;
           }
         }
       }
 
-      return null;
+      const contradictionStep = tryBoundedContradiction(grid, policy.maxChainLength * 4);
+      if (!graphStep) return contradictionStep;
+      if (
+        contradictionStep?.eliminations.length === 1 &&
+        graphStep.eliminations.length === 1 &&
+        contradictionStep.eliminations[0]!.digit === graphStep.eliminations[0]!.digit
+      ) {
+        return contradictionStep;
+      }
+      return graphStep;
     },
   };
 }

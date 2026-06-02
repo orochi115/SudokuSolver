@@ -35,5 +35,44 @@ describe('diabolical strategy regressions', () => {
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual([{ cell: 79, digit: 7 }]);
     });
+
+    it('matches the winner contradiction action for diabolical #23835', () => {
+      const grid = gridFromState(
+        '065000300072935080300060002040050060206000008000106000090040020700000009600019003',
+        [393, 0, 0, 202, 194, 203, 0, 329, 73, 9, 0, 0, 0, 0, 0, 41, 0, 41, 0, 129, 385, 200, 0, 201, 345, 345, 0, 385, 0, 453, 198, 0, 198, 323, 0, 65, 0, 21, 0, 76, 320, 76, 337, 341, 0, 400, 132, 452, 0, 450, 0, 330, 332, 88, 145, 0, 133, 228, 0, 196, 225, 0, 113, 0, 151, 141, 182, 130, 134, 185, 25, 0, 0, 146, 136, 210, 0, 0, 216, 88, 0],
+      );
+
+      const step = forcingChain.apply(grid);
+
+      expect(step?.strategyId).toBe('forcing-chain');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 29, digit: 3 }]);
+    });
+
+    it('matches the winner contradiction action for diabolical #109043', () => {
+      const grid = gridFromState(
+        '010705030800040005090000040157004302040000070600070401080607010061409000002050600',
+        [10, 0, 40, 0, 416, 0, 386, 0, 416, 0, 70, 36, 263, 0, 35, 323, 290, 0, 86, 0, 52, 135, 165, 167, 195, 0, 224, 0, 0, 0, 384, 416, 0, 0, 416, 0, 262, 0, 388, 407, 421, 167, 400, 0, 416, 0, 6, 388, 406, 0, 134, 0, 400, 0, 284, 0, 284, 0, 6, 0, 274, 0, 268, 84, 0, 0, 0, 134, 0, 210, 146, 196, 332, 68, 0, 133, 0, 133, 0, 384, 460],
+      );
+
+      const step = forcingChain.apply(grid);
+
+      expect(step?.strategyId).toBe('forcing-chain');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 39, digit: 8 }]);
+    });
+
+    it('matches the winner forcing action for mixed diabolical #27806', () => {
+      const grid = gridFromState(
+        '005700200070050080012409657009000570006175300750900006000020005000594000500607004',
+        [428, 428, 0, 0, 165, 165, 0, 269, 261, 300, 0, 12, 6, 0, 39, 265, 0, 261, 132, 0, 0, 0, 132, 0, 0, 0, 0, 143, 142, 0, 134, 172, 166, 0, 0, 131, 138, 138, 0, 0, 0, 0, 0, 266, 386, 0, 0, 141, 0, 140, 134, 137, 11, 0, 429, 428, 205, 132, 0, 133, 449, 293, 0, 167, 166, 197, 0, 0, 0, 193, 39, 135, 0, 390, 133, 0, 133, 0, 385, 263, 0],
+      );
+
+      const step = forcingChain.apply(grid);
+
+      expect(step?.strategyId).toBe('forcing-chain');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 27, digit: 3 }]);
+    });
   });
 });
