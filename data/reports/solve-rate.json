@@ -1,0 +1,37 @@
+{
+  "generated": "2026-06-02T00:44:51.657Z",
+  "results": [
+    {
+      "difficulty": "easy",
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "soundViolations": 0
+    },
+    {
+      "difficulty": "medium",
+      "total": 100,
+      "solved": 100,
+      "stuck": 0,
+      "solveRate": 1,
+      "soundViolations": 0
+    },
+    {
+      "difficulty": "hard",
+      "total": 100,
+      "solved": 59,
+      "stuck": 41,
+      "solveRate": 0.59,
+      "soundViolations": 0
+    },
+    {
+      "difficulty": "diabolical",
+      "total": 100,
+      "solved": 1,
+      "stuck": 99,
+      "solveRate": 0.01,
+      "soundViolations": 0
+    }
+  ]
+}
