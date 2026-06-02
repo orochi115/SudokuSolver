@@ -9,6 +9,12 @@ import { basicFish } from '../src/strategies/basic-fish.js';
 import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
+import { simpleColoring } from '../src/strategies/simple-coloring.js';
+import { aic } from '../src/strategies/aic.js';
+import { als } from '../src/strategies/als.js';
+import { uniqueness, setUniquenessConfig } from '../src/strategies/uniqueness.js';
+import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
+import { forcingChain } from '../src/strategies/forcing-chain.js';
 
 function strToGrid(s: string): Grid {
   return Grid.fromString(s);
@@ -108,6 +114,62 @@ describe('w-wing', () => {
   it('returns null on a board with no w-wing', () => {
     const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
     const step = wWing.apply(grid);
+    expect(step).toBeNull();
+  });
+});
+
+describe('simple-coloring', () => {
+  it('returns null on a board with no simple coloring pattern', () => {
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = simpleColoring.apply(grid);
+    expect(step).toBeNull();
+  });
+});
+
+describe('aic', () => {
+  it('returns null on a board with no AIC pattern', () => {
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = aic.apply(grid);
+    expect(step).toBeNull();
+  });
+});
+
+describe('als', () => {
+  it('returns null on a board with no ALS pattern', () => {
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = als.apply(grid);
+    expect(step).toBeNull();
+  });
+});
+
+describe('uniqueness', () => {
+  it('returns null when uniqueness is disabled', () => {
+    setUniquenessConfig({ enabled: false });
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = uniqueness.apply(grid);
+    expect(step).toBeNull();
+  });
+
+  it('returns null on a board with no uniqueness pattern', () => {
+    setUniquenessConfig({ enabled: true });
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = uniqueness.apply(grid);
+    expect(step).toBeNull();
+  });
+});
+
+describe('sue-de-coq', () => {
+  it('returns null on a board with no Sue de Coq pattern', () => {
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = sueDeCoq.apply(grid);
+    expect(step).toBeNull();
+  });
+});
+
+describe('forcing-chain', () => {
+  it('returns null on a board with no forcing chain pattern', () => {
+    const grid = strToGrid('000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+    const step = forcingChain.apply(grid);
     expect(step).toBeNull();
   });
 });
