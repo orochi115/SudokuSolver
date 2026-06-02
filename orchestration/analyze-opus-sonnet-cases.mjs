@@ -10,11 +10,14 @@ const REPO = resolve(HERE, '..');
 const TAR_MAX_BUFFER = 220 * 1024 * 1024;
 
 export function selectMutualComparisonCases({ loserFailures, winnerFailures }) {
+  return selectMutualComparisonFailures({ loserFailures, winnerFailures }).map((failure) => failureIndex(failure));
+}
+
+export function selectMutualComparisonFailures({ loserFailures, winnerFailures }) {
   const winnerFailureSet = new Set(winnerFailures.map(failureIndex));
   return loserFailures
-    .map(failureIndex)
-    .filter((index) => !winnerFailureSet.has(index))
-    .sort((a, b) => a - b);
+    .filter((failure) => !winnerFailureSet.has(failureIndex(failure)))
+    .sort((a, b) => failureIndex(a) - failureIndex(b));
 }
 
 function failureIndex(failure) {
@@ -68,20 +71,23 @@ function readArchiveResults(archive) {
   return { payload, resultsMember, archivePath };
 }
 
-function modelFailures(results, model, difficulty) {
+export function modelFailures(results, model, difficulty) {
   const result = results.find((entry) => entry.name === model);
   if (!result) throw new Error(`missing model in archive results: ${model}`);
-  return result.report?.[difficulty]?.failures ?? [];
+  const difficultyReport = result.report?.[difficulty];
+  if (!difficultyReport) throw new Error(`missing difficulty ${difficulty} for model ${model}`);
+  if (!Array.isArray(difficultyReport.failures)) throw new Error(`missing failures array for ${model} ${difficulty}`);
+  return difficultyReport.failures;
 }
 
-function runTrace({ difficulty, index, winner, loser, outDir, keepWorktrees }) {
+function runTrace({ difficulty, index, puzzle, winner, loser, outDir, keepWorktrees }) {
   const args = [
     resolve(HERE, 'trace-archive-case.mjs'),
-    '--difficulty', difficulty,
-    '--index', String(index),
     '--models', `${winner},${loser}`,
     '--out', outDir,
   ];
+  if (puzzle) args.push('--puzzle', puzzle);
+  else args.push('--difficulty', difficulty, '--index', String(index));
   if (keepWorktrees) args.push('--keep-worktrees');
 
   const result = spawnSync(process.execPath, args, {
@@ -173,18 +179,21 @@ function runCli(argv) {
   const { payload, resultsMember, archivePath } = readArchiveResults(opts.archive);
   const loserFailures = modelFailures(payload.results, opts.loser, opts.difficulty);
   const winnerFailures = modelFailures(payload.results, opts.winner, opts.difficulty);
-  const selectedCases = selectMutualComparisonCases({ loserFailures, winnerFailures });
+  const selectedFailures = selectMutualComparisonFailures({ loserFailures, winnerFailures });
+  const selectedCases = selectedFailures.map(failureIndex);
   const outDir = resolve(REPO, opts.out);
   const casesDir = resolve(outDir, 'cases');
   mkdirSync(casesDir, { recursive: true });
 
   const cases = [];
-  for (const index of selectedCases) {
+  for (const failure of selectedFailures) {
+    const index = failureIndex(failure);
     const caseDir = resolve(casesDir, `${opts.difficulty}-${index}`);
     mkdirSync(caseDir, { recursive: true });
     runTrace({
       difficulty: opts.difficulty,
       index,
+      puzzle: typeof failure === 'object' && failure !== null ? failure.puzzle : null,
       winner: opts.winner,
       loser: opts.loser,
       outDir: caseDir,
