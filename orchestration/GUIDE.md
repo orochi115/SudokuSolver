@@ -49,7 +49,7 @@ archive/*     历史归档:final/(最终结果)、fail/(失败尝试)、run1·ru
 | ④ 验收闸门 | typecheck + 单测 + 裁判(健全性 + 必需 id 齐全);失败带反馈**重试**(续接同一 session) | `verify.sh`、`judge/verify-engine.ts` |
 | ⑤ 提交 + 度量 | 每里程碑自动提交到 `model/<名>`;从日志 `step_finish` 汇总 cost/tokens/耗时 | `run-model.sh`、`metrics.mjs` |
 | ⑥ 报告 | 生成环境 + 结果表(解出率 %、相同列省略)+ 工具使用 + 失败 + 复现 | `gen-report.mjs` → `report-final.md` |
-| ⑦ 归档清理 | 日志打包进 LFS;`model/*` → `archive/final/*`;删 worktree | `report.sh`(快照)、`cleanup.sh`、`git lfs` |
+| ⑦ 归档清理 | **一键**:日志打包进 LFS + `model/*` → `archive/<tag>/*` + 删 worktree | `archive-run.sh <tag>`(`cleanup.sh` 仅删除/不归档) |
 
 判据(`verify.sh`):**有效**(typecheck/test 绿) + **健全**(0 violation) + **范围齐全**(注册了 `required-ids/<ms>.txt` 全部 id)。
 解出率不卡门槛。失败 → 把失败原因(缺失 id / 违例数 / 编译错误)喂回**同一会话**重试,最多 `RETRIES` 次。
@@ -64,11 +64,14 @@ archive/*     历史归档:final/(最终结果)、fail/(失败尝试)、run1·ru
 - **报告(`gen-report.mjs`)**:跑裁判取解出率 + 读 metrics + 从日志解析每模型的工具/技能使用,
   产出 `report-final.md`:环境表、结果表(解出率 %、**所有模型取值相同的列自动省略并注明**)、
   工具/技能使用、失败清单、复现步骤。换模型重跑后一键再生。
-- **归档**:
-  - 模型实现 = git 分支(`archive/final/*`),代码本身就是记录。
-  - 原始 transcript/日志体积大,**不进 git 历史**,而是打包成 tar.gz 用 **Git LFS** 存
-    (`run-logs/*.tar.gz`);小巧的运行快照(summary + metrics + notes)可提交于 `reports/archive/<时间戳>/`。
-- **清理(`cleanup.sh`)**:删 worktree(默认保留分支);`--purge` 连分支/日志/reports 一起删。
+- **归档 + 清理(已脚本化)**:`archive-run.sh <tag>` 一键完成——提交 worktree WIP → 把
+  `sudoku-wt/logs` + `reports` 打包成 `run-logs/run-<tag>-<date>.tar.gz`(Git LFS)并提交 →
+  删 worktree → `model/<名>` 重命名为 `archive/<tag>/<名>`(归档,非删除)→ 清理 reports 工作文件。
+  **不可逆删除一律没有**:代码留在分支、日志留在 LFS。例:`orchestration/archive-run.sh final`。
+  - 模型实现 = git 分支(`archive/<tag>/*`),代码本身就是记录。
+  - 原始 transcript/日志体积大,**不进 git 历史**,而是 LFS 存 tar.gz;小巧运行快照(summary +
+    metrics + notes)由 `report.sh` 提交于 `reports/archive/<时间戳>/`。
+- **纯删除(`cleanup.sh`)**:只想删不想归档时用——删 worktree(默认保留分支);`--purge` 连分支/日志/reports 一起删。
 
 ---
 
@@ -135,7 +138,8 @@ archive/*     历史归档:final/(最终结果)、fail/(失败尝试)、run1·ru
 | `metrics.mjs` | 从日志算 cost/tokens/耗时 |
 | `gen-report.mjs` | 生成 `report-final.md` |
 | `report.sh` | 即时汇总 + 可提交快照 |
-| `cleanup.sh` | 删 worktree(`--purge` 连分支) |
+| `archive-run.sh <tag>` | **一键归档+清理**:日志→LFS、`model/*`→`archive/<tag>/*`、删 worktree |
+| `cleanup.sh` | 纯删除 worktree(`--purge` 连分支/日志/reports) |
 | `run-logs/*.tar.gz` | 打包的原始日志(Git LFS) |
 
 > 注:LFS 对象默认在本地;push 到远程需远程启用 LFS(并留意存储配额)。

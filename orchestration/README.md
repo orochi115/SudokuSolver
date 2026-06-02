@@ -90,14 +90,20 @@ cat orchestration/reports/questions.md
 - 单个模型失败/超时/卡住**不会阻塞其它模型**:调度器后台跑各模型、按存活态回收槽位,
   每次尝试还有 `TIMEOUT` 上限兜底。失败的里程碑会提交(带 FAIL 标签)并记录,便于排查。
 
-## 清理 worktree
+## 归档与清理
+
+跑完一轮、要保留成果并清干净工作区,用 **`archive-run.sh <tag>`**(一键归档,不删任何东西):
 ```bash
-# 默认:删掉 ../sudoku-wt/* 工作目录,但保留 model/<名> 分支及其提交(结果不丢)
-orchestration/cleanup.sh
-# 彻底清理:连分支、日志、生成的 reports 一起删(确认已取走所需结果后再用)
-orchestration/cleanup.sh --purge
-# 也可指定清单(例如只清试运行的两个)
-orchestration/cleanup.sh orchestration/models-trial.txt
+orchestration/archive-run.sh final
+# 1) 提交 worktree WIP  2) 日志+reports 打包成 run-logs/run-final-<date>.tar.gz(Git LFS)并提交
+# 3) 删 worktree  4) model/<名> -> archive/final/<名>  5) 清 reports 工作文件
 ```
-- 因为每个里程碑都已自动提交,worktree 无未保存改动,`git worktree remove --force` 可安全移除。
-- 默认保留分支 = 你随时能 `git checkout model/<名>` 回看某模型的成果;`--purge` 才会删分支。
+代码留在 `archive/final/*` 分支、日志留在 LFS,**无不可逆删除**。
+
+只想删、不归档时用 `cleanup.sh`:
+```bash
+orchestration/cleanup.sh           # 删 worktree,保留 model/<名> 分支
+orchestration/cleanup.sh --purge   # 连分支/日志/reports 一起删(确认已取走结果后再用)
+```
+- 每个里程碑都已自动提交,worktree 无未保存改动,移除安全。
+- LFS 对象默认在本地;push 远程需远程启用 LFS。
