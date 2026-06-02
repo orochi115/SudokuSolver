@@ -20,12 +20,41 @@ export function selectMutualComparisonFailures({ loserFailures, winnerFailures }
     .sort((a, b) => failureIndex(a) - failureIndex(b));
 }
 
+export function selectFailuresSolvedByAnyWinner({ loserFailures, winnerFailuresByName }) {
+  const winnerFailureSets = [...winnerFailuresByName.entries()].map(([name, failures]) => [
+    name,
+    new Set(failures.map(failureIndex)),
+  ]);
+  return [...loserFailures]
+    .sort((a, b) => failureIndex(a) - failureIndex(b))
+    .map((failure) => {
+      const index = failureIndex(failure);
+      const solvedBy = winnerFailureSets
+        .filter(([, failureSet]) => !failureSet.has(index))
+        .map(([name]) => name);
+      if (solvedBy.length === 0) return null;
+      return typeof failure === 'object' && failure !== null
+        ? { ...failure, index, solvedBy }
+        : { index, solvedBy };
+    })
+    .filter(Boolean);
+}
+
+export function buildWinnerCasePairs({ cases, loser }) {
+  return cases.flatMap((failure) => failure.solvedBy.map((winner) => ({
+    winner,
+    loser,
+    index: failureIndex(failure),
+    puzzle: failure.puzzle,
+  })));
+}
+
 function failureIndex(failure) {
   return typeof failure === 'object' && failure !== null ? failure.index : failure;
 }
 
 function parseArgs(argv) {
-  const opts = { archive: null, difficulty: null, loser: null, winner: null, out: null, keepWorktrees: false };
+  const opts = { archive: null, difficulty: null, loser: null, winner: null, winners: null, out: null, keepWorktrees: false };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     const next = () => argv[++i];
@@ -33,19 +62,23 @@ function parseArgs(argv) {
     else if (arg === '--difficulty') opts.difficulty = next();
     else if (arg === '--loser') opts.loser = next();
     else if (arg === '--winner') opts.winner = next();
+    else if (arg === '--winners') opts.winners = next().split(',').map((s) => s.trim()).filter(Boolean);
     else if (arg === '--out') opts.out = next();
     else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
     else if (arg === '-h' || arg === '--help') {
-      console.log('usage: node orchestration/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> --winner <model> --out <dir> [--keep-worktrees]');
+      console.log('usage: node orchestration/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> (--winner <model> | --winners <models>) --out <dir> [--keep-worktrees]');
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);
     }
   }
 
-  for (const key of ['archive', 'difficulty', 'loser', 'winner', 'out']) {
+  for (const key of ['archive', 'difficulty', 'loser', 'out']) {
     if (!opts[key]) throw new Error(`--${key} is required`);
   }
+  if (opts.winner && opts.winners) throw new Error('use either --winner or --winners, not both');
+  if (!opts.winner && !opts.winners?.length) throw new Error('--winner or --winners is required');
+  opts.winners ??= [opts.winner];
   return opts;
 }
 
@@ -147,12 +180,12 @@ function valueOrNone(value) {
 
 function markdownSummary(summary) {
   const lines = [
-    '# Opus/Sonnet Hard Failure Case Analysis',
+    '# Opus/Sonnet Failure Case Analysis',
     '',
     `Archive: \`${summary.archive}\``,
     `Results: \`${summary.resultsMember}\``,
     `Difficulty: \`${summary.difficulty}\``,
-    `Winner: \`${summary.winner}\``,
+    `Winner: \`${summary.winners.join(', ')}\``,
     `Loser: \`${summary.loser}\``,
     '',
     '## Cases',
@@ -178,32 +211,38 @@ function runCli(argv) {
   const opts = parseArgs(argv);
   const { payload, resultsMember, archivePath } = readArchiveResults(opts.archive);
   const loserFailures = modelFailures(payload.results, opts.loser, opts.difficulty);
-  const winnerFailures = modelFailures(payload.results, opts.winner, opts.difficulty);
-  const selectedFailures = selectMutualComparisonFailures({ loserFailures, winnerFailures });
-  const selectedCases = selectedFailures.map(failureIndex);
+  const winnerFailuresByName = new Map(opts.winners.map((winner) => [
+    winner,
+    modelFailures(payload.results, winner, opts.difficulty),
+  ]));
+  const candidateCases = selectFailuresSolvedByAnyWinner({ loserFailures, winnerFailuresByName });
+  const winnerCasePairs = buildWinnerCasePairs({ cases: candidateCases, loser: opts.loser });
+  const selectedCases = candidateCases.map(failureIndex);
   const outDir = resolve(REPO, opts.out);
   const casesDir = resolve(outDir, 'cases');
   mkdirSync(casesDir, { recursive: true });
+  writeFileSync(resolve(outDir, 'candidate-cases.json'), JSON.stringify(candidateCases, null, 2) + '\n');
+  writeFileSync(resolve(outDir, 'winner-case-pairs.json'), JSON.stringify(winnerCasePairs, null, 2) + '\n');
 
   const cases = [];
-  for (const failure of selectedFailures) {
-    const index = failureIndex(failure);
+  for (const pair of winnerCasePairs) {
+    const index = failureIndex(pair);
     const caseDir = resolve(casesDir, `${opts.difficulty}-${index}`);
     mkdirSync(caseDir, { recursive: true });
     runTrace({
       difficulty: opts.difficulty,
       index,
-      puzzle: typeof failure === 'object' && failure !== null ? failure.puzzle : null,
-      winner: opts.winner,
-      loser: opts.loser,
+      puzzle: pair.puzzle ?? null,
+      winner: pair.winner,
+      loser: pair.loser,
       outDir: caseDir,
       keepWorktrees: opts.keepWorktrees,
     });
     cases.push(summarizeCase({
       difficulty: opts.difficulty,
       index,
-      winner: opts.winner,
-      loser: opts.loser,
+      winner: pair.winner,
+      loser: pair.loser,
       caseDir,
       outDir,
     }));
@@ -214,8 +253,11 @@ function runCli(argv) {
     resultsMember,
     difficulty: opts.difficulty,
     winner: opts.winner,
+    winners: opts.winners,
     loser: opts.loser,
     selectedCases,
+    candidateCases,
+    winnerCasePairs,
     cases,
   };
   writeFileSync(resolve(outDir, 'summary.json'), JSON.stringify(summary, null, 2) + '\n');
