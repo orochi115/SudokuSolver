@@ -15,7 +15,7 @@ import { checkTraceSoundness } from '../src/soundness.js';
 import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 import { simpleColoring } from '../src/strategies/simple-coloring.js';
-import { aic } from '../src/strategies/aic.js';
+import { aic, makeAic } from '../src/strategies/aic.js';
 import { als } from '../src/strategies/als.js';
 import { uniqueness } from '../src/strategies/uniqueness.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
@@ -192,6 +192,22 @@ describe('aic', () => {
       }
       expect(step?.explanation.en).toMatch(/X-Chain|AIC/);
     }
+  });
+
+  it('falls back to legacy AIC search when grouped search is bounded out', () => {
+    const legacyOnlyAic = makeAic({
+      maxChainLength: 1,
+      maxForcingWidth: 2,
+      allowCellForcing: true,
+      allowDigitForcing: true,
+      allowNets: false,
+      allowUniqueness: true,
+    });
+
+    const step = legacyOnlyAic.apply(gridFrom('000089021009250000004107000500070008020000090800090004000306500000015400750940000'));
+
+    expect(step?.strategyId).toBe('aic');
+    expect(step?.placements.length || step?.eliminations.length).toBeGreaterThan(0);
   });
 
   it('full solve trace is sound for diabolical puzzles', () => {
