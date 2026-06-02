@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Grid } from '../src/grid.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
+import { lockedCandidates } from '../src/strategies/locked-candidates.js';
 
 function gridFromState(puzzle: string, candidateMasks: readonly number[]): Grid {
   const grid = Grid.fromString(puzzle);
@@ -73,6 +74,34 @@ describe('diabolical strategy regressions', () => {
       expect(step?.strategyId).toBe('forcing-chain');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual([{ cell: 27, digit: 3 }]);
+    });
+  });
+
+  describe('locked-candidates', () => {
+    it('matches the winner pointing action for diabolical #78760', () => {
+      const grid = gridFromState(
+        '500000820030000006000705000050492080007051460040670010000186000800000630064000008',
+        [0, 321, 289, 260, 45, 268, 0, 0, 333, 331, 0, 387, 386, 11, 392, 337, 344, 0, 299, 387, 419, 0, 47, 0, 261, 264, 269, 37, 0, 37, 0, 0, 0, 68, 0, 68, 262, 386, 0, 132, 0, 0, 0, 0, 262, 262, 0, 390, 0, 0, 132, 278, 0, 278, 326, 322, 278, 0, 0, 0, 338, 344, 346, 0, 323, 275, 274, 10, 328, 0, 0, 347, 327, 0, 0, 278, 6, 324, 339, 336, 0],
+      );
+
+      const step = lockedCandidates.apply(grid);
+
+      expect(step?.strategyId).toBe('locked-candidates');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 72, digit: 3 }]);
+    });
+
+    it('matches the winner pointing action for diabolical #103170', () => {
+      const grid = gridFromState(
+        '700000003032657100001000700003471900200060001010020030060040080000906000300000005',
+        [0, 408, 440, 131, 385, 394, 186, 314, 0, 392, 0, 0, 0, 0, 0, 0, 264, 392, 440, 408, 0, 134, 388, 398, 0, 314, 426, 176, 144, 0, 0, 0, 0, 0, 50, 162, 0, 472, 472, 148, 0, 404, 152, 88, 0, 440, 0, 504, 144, 0, 400, 184, 0, 232, 273, 0, 336, 87, 0, 22, 6, 0, 322, 153, 218, 216, 0, 133, 0, 14, 75, 74, 0, 458, 456, 195, 129, 130, 42, 363, 0],
+      );
+
+      const step = lockedCandidates.apply(grid);
+
+      expect(step?.strategyId).toBe('locked-candidates');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 54, digit: 5 }, { cell: 56, digit: 5 }]);
     });
   });
 });
