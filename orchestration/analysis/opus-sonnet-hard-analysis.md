@@ -1,8 +1,9 @@
 # Opus48 vs Sonnet46 Hard Failure Analysis
 
-Source archive: `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`  
-Archive result member: `20260602-064418/results.json`  
-Generated detail reports: `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/`
+Source archive: `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
+Archive result member: `20260602-064418/results.json`
+Detailed analysis artifact: `orchestration/run-logs/opus-sonnet-hard-analysis-20260602.tar.gz`
+Generated runtime directory: `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/`
 
 ## Summary
 
@@ -31,12 +32,14 @@ The rescue probe does not prove `locked-candidates` is the missing detector. It 
 
 ## Detail Files
 
-- `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/summary.json`
-- `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/summary.md`
-- `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/cases/hard-52302/`
-- `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/cases/hard-114282/`
-- `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/cases/hard-272709/`
-- `orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures/cases/hard-305612/`
+The detailed JSON and trace files are packaged in `orchestration/run-logs/opus-sonnet-hard-analysis-20260602.tar.gz`. It expands to:
+
+- `opus-sonnet-hard-sonnet-failures/summary.json`
+- `opus-sonnet-hard-sonnet-failures/summary.md`
+- `opus-sonnet-hard-sonnet-failures/cases/hard-52302/`
+- `opus-sonnet-hard-sonnet-failures/cases/hard-114282/`
+- `opus-sonnet-hard-sonnet-failures/cases/hard-272709/`
+- `opus-sonnet-hard-sonnet-failures/cases/hard-305612/`
 
 Each case directory contains `comparison.json`, `saturation-comparison.json`, `rescue-comparison.json`, `trace-opus48.json`, `trace-sonnet46.json`, `saturation-opus48.json`, and `saturation-sonnet46.json`.
 
