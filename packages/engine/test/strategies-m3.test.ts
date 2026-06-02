@@ -29,6 +29,12 @@ function gridFrom(s: string): Grid {
   return Grid.fromString(s);
 }
 
+function gridFromState(s: string, candidateMasks: readonly number[]): Grid {
+  const grid = Grid.fromString(s);
+  grid.candidates.set(candidateMasks);
+  return grid;
+}
+
 function assertSoundStep(
   puzzleStr: string,
   step: NonNullable<ReturnType<typeof simpleColoring.apply>>,
@@ -156,6 +162,35 @@ describe('aic', () => {
       if (!solution) continue;
       const step = aic.apply(g);
       if (step) assertSoundStep(puzzle, step);
+    }
+  });
+
+  it('detects grouped X-Chain eliminations from restored divergence states', () => {
+    const cases = [
+      {
+        grid: '000010000053204960600050002000000000000908000039020480800030004046000310305401800',
+        masks: [330, 450, 202, 228, 0, 356, 80, 92, 212, 65, 0, 0, 0, 192, 0, 0, 0, 193, 0, 449, 201, 196, 0, 324, 65, 76, 0, 91, 227, 203, 117, 104, 116, 115, 338, 369, 91, 99, 75, 0, 104, 0, 115, 86, 117, 81, 0, 0, 113, 0, 112, 0, 0, 113, 0, 323, 67, 112, 0, 114, 114, 338, 0, 322, 0, 0, 208, 448, 82, 0, 0, 336, 0, 322, 0, 0, 352, 0, 0, 322, 352],
+        expectedEliminations: [{ cell: 80, digit: 6 }],
+      },
+      {
+        grid: '900000006004907800070000950100000009007196500095080200000302100010509030300010005',
+        masks: [0, 146, 135, 138, 30, 153, 76, 74, 0, 50, 54, 0, 0, 54, 0, 0, 3, 7, 162, 0, 167, 170, 46, 141, 0, 0, 14, 0, 172, 164, 74, 94, 28, 108, 232, 0, 138, 142, 0, 0, 0, 0, 0, 136, 140, 40, 0, 0, 72, 0, 12, 0, 105, 77, 248, 184, 416, 0, 104, 0, 0, 488, 200, 234, 0, 162, 0, 104, 0, 104, 0, 202, 0, 42, 290, 232, 0, 136, 104, 362, 0],
+        expectedEliminations: [{ cell: 33, digit: 7 }, { cell: 34, digit: 7 }, { cell: 48, digit: 7 }],
+      },
+      {
+        grid: '300200108000018300861359400048000031003001500610003840089730610036100000100006003',
+        masks: [0, 272, 24, 0, 104, 72, 0, 304, 0, 346, 338, 90, 40, 0, 0, 0, 304, 304, 0, 0, 0, 0, 0, 0, 0, 66, 66, 338, 0, 0, 304, 354, 82, 322, 0, 0, 322, 322, 0, 136, 136, 0, 0, 354, 354, 0, 0, 82, 272, 322, 0, 0, 0, 322, 26, 0, 0, 0, 0, 26, 0, 0, 26, 90, 0, 0, 0, 394, 26, 322, 466, 346, 0, 82, 90, 408, 394, 0, 322, 466, 0],
+        expectedEliminations: [{ cell: 2, digit: 4 }],
+      },
+    ];
+
+    for (const item of cases) {
+      const step = aic.apply(gridFromState(item.grid, item.masks));
+      expect(step?.strategyId).toBe('aic');
+      for (const expected of item.expectedEliminations) {
+        expect(step?.eliminations).toContainEqual(expected);
+      }
+      expect(step?.explanation.en).toMatch(/X-Chain|AIC/);
     }
   });
 

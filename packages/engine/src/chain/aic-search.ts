@@ -1,0 +1,113 @@
+import { maskOf, PEERS_OF, SIZE } from '../grid.js';
+import type { Grid } from '../grid.js';
+import type { CellDigit, Link, LinkType } from '../trace.js';
+import type { LinkGraph, ChainNode } from './graph.js';
+import { chainToLinks, type Chain } from './graph.js';
+import type { ChainPolicy } from './policy.js';
+
+export interface AicResult {
+  eliminations: CellDigit[];
+  placements: CellDigit[];
+  links: Link[];
+  chainNodes: number[];
+  kind: 'type1' | 'type2' | 'discontinuous-loop' | 'continuous-loop';
+  startNode: number;
+  endNode: number;
+}
+
+function candSees(c1: number, c2: number): boolean {
+  return c1 !== c2 && PEERS_OF[c1]!.includes(c2);
+}
+
+function seesAllOfNode(cell: number, node: ChainNode): boolean {
+  if (node.cells.includes(cell)) return false;
+  for (const nc of node.cells) if (!candSees(cell, nc)) return false;
+  return true;
+}
+
+function endpointEliminations(grid: Grid, A: ChainNode, B: ChainNode): CellDigit[] {
+  const out: CellDigit[] = [];
+  if (A.digit === B.digit) {
+    const digit = A.digit;
+    const bit = maskOf(digit);
+    for (let c = 0; c < 81; c++) {
+      if (grid.get(c) !== 0 || !(grid.candidatesOf(c) & bit)) continue;
+      if (A.cells.includes(c) || B.cells.includes(c)) continue;
+      if (seesAllOfNode(c, A) && seesAllOfNode(c, B)) out.push({ cell: c, digit });
+    }
+    return out;
+  }
+
+  if (A.cells.length === 1 && B.cells.length === 1 && A.cells[0] === B.cells[0]) {
+    const cell = A.cells[0]!;
+    const m = grid.candidatesOf(cell);
+    for (let d = 1; d <= SIZE; d++) {
+      if (d === A.digit || d === B.digit) continue;
+      if (m & maskOf(d)) out.push({ cell, digit: d });
+    }
+  }
+  return out;
+}
+
+export function searchAic(grid: Grid, graph: LinkGraph, policy: ChainPolicy): AicResult | null {
+  const n = graph.nodes.length;
+  const maxLen = policy.maxChainLength;
+  const perStartBudget = 4000;
+
+  function tryEndpoints(chain: Chain): AicResult | null {
+    if (chain.length < 2) return null;
+    const startIdx = chain[0]!.node;
+    const endIdx = chain[chain.length - 1]!.node;
+    if (startIdx === endIdx) return null;
+    const A = graph.nodes[startIdx]!;
+    const B = graph.nodes[endIdx]!;
+    const elims = endpointEliminations(grid, A, B);
+    if (elims.length === 0) return null;
+    return {
+      eliminations: elims,
+      placements: [],
+      links: chainToLinks(graph, chain),
+      chainNodes: chain.map((s) => s.node),
+      kind: A.digit === B.digit ? 'type1' : 'type2',
+      startNode: startIdx,
+      endNode: endIdx,
+    };
+  }
+
+  interface QItem {
+    node: number;
+    nextType: LinkType;
+    chain: Chain;
+    visited: Set<number>;
+  }
+
+  for (let s = 0; s < n; s++) {
+    let budget = perStartBudget;
+    const queue: QItem[] = [
+      { node: s, nextType: 'strong', chain: [{ node: s, incoming: null }], visited: new Set([s]) },
+    ];
+    while (queue.length) {
+      if (budget-- <= 0) break;
+      const item = queue.shift()!;
+      const last = item.chain[item.chain.length - 1]!;
+      if (item.chain.length >= 2 && last.incoming === 'strong') {
+        const res = tryEndpoints(item.chain);
+        if (res) return res;
+      }
+      if (item.chain.length >= maxLen) continue;
+      for (const edge of graph.adjacency[item.node]!) {
+        if (edge.type !== item.nextType) continue;
+        if (item.visited.has(edge.to)) continue;
+        const visited = new Set(item.visited);
+        visited.add(edge.to);
+        queue.push({
+          node: edge.to,
+          nextType: item.nextType === 'strong' ? 'weak' : 'strong',
+          chain: [...item.chain, { node: edge.to, incoming: edge.type }],
+          visited,
+        });
+      }
+    }
+  }
+  return null;
+}
