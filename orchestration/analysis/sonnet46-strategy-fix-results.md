@@ -203,12 +203,14 @@ Rerun result:
 | diabolical | 118950/119681 | 118950 | 731 | 0 |
 | total | 893185/893916 | 893185 | 731 | 0 |
 
-This improves the prior repaired-branch full-corpus result from 904 remaining diabolical failures to 731. The nine Phase 3 candidate cases from `fixed-remaining-diabolical-root-cause-notes.md` are all solved and sound after the repair.
+This improves the prior repaired-branch full-corpus result from 904 remaining diabolical failures to 731. Seven of the nine Phase 3 candidate cases from `fixed-remaining-diabolical-root-cause-notes.md` no longer fail in the full-corpus rerun. Two `gemini35flash`-solved cases, #38116 and #77633, remain failed in the full solve path and require fresh trace comparison.
+
+The rerun also exposed one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis/sonnet46-strategy-fix`. The first divergence is a same-state `locked-candidates` different-effect at step 3.
 
 `orchestration/run-logs/full-corpus-20260602-064418.tar.gz` was updated in place so the `analysis-sonnet46-strategy-fix` entry in `20260602-064418/results.json`, `results.partial.json`, and `summary.md` reflects this rerun.
 
 ## Remaining Risk
 
-- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. Remaining unsolved cases are now concentrated in 731 diabolical puzzles.
+- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. Remaining unsolved cases are now concentrated in 731 diabolical puzzles, including two still model-solvable cases and one regression relative to original `sonnet46`.
 - The grouped AIC implementation intentionally imports more strategy strength from `opus48`. Treat this as a strategy-strength repair branch, not as a minimal patch to the original `sonnet46` search style.
-- Further work should start from the 731 remaining stuck diabolical cases rather than the original 904-case set.
+- Further work should start by fixing the #36186 regression and then re-analyzing #38116/#77633 before broader strategy expansion.

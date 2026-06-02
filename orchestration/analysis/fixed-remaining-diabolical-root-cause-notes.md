@@ -92,19 +92,26 @@ Do not implement repairs as part of this analysis task. The next repair session 
 
 ## Repair Follow-Up Verification
 
-The subsequent TDD repair pass added focused regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `analysis/sonnet46-strategy-fix` and verified all nine unique candidate cases now solve soundly in the full OpenSudoku diabolical corpus:
+The subsequent TDD repair pass added focused restored-state regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `analysis/sonnet46-strategy-fix`. The full OpenSudoku rerun shows seven of the nine original candidate cases no longer fail in the repaired branch. Two `gemini35flash`-solved cases remain failed in the full solve path, despite restored-state AIC tests passing:
 
-| Diabolical case | Status after repair |
+| Diabolical case | Full-corpus status after repair |
 | ---: | --- |
 | 13829 | solved, sound |
 | 23835 | solved, sound |
 | 27806 | solved, sound |
-| 38116 | solved, sound |
-| 77633 | solved, sound |
+| 38116 | still failed; solve-path divergence remains |
+| 77633 | still failed; solve-path divergence remains |
 | 78760 | solved, sound |
 | 88102 | solved, sound |
 | 103170 | solved, sound |
 | 109043 | solved, sound |
+
+The full-corpus result also uncovered one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis-sonnet46-strategy-fix`. A direct trace comparison shows the first divergence at step 3, `locked-candidates` vs `locked-candidates`, same candidate state but different effect:
+
+- `sonnet46`: eliminates digit 5 from cells 54, 63, 72 and eventually solves.
+- `analysis-sonnet46-strategy-fix`: eliminates digit 2 from cells 13, 22 and later gets stuck.
+
+This is a real regression from the `locked-candidates` selection changes and should be fixed before adding new strategy families.
 
 Targeted repair areas:
 
@@ -120,4 +127,4 @@ npm run typecheck
 npm run solve:rate
 ```
 
-Observed local sample/corpus report from `solve:rate`: 399/400 solved, 0 sound violations. The full OpenSudoku corpus rerun then produced 893185/893916 solved with 731 remaining stuck cases and no invalid solved grids.
+Observed local sample/corpus report from `solve:rate`: 399/400 solved, 0 sound violations. The full OpenSudoku corpus rerun then produced 893185/893916 solved with 731 remaining stuck cases and no invalid solved grids. Because full-corpus failure indexes are 1-based, use the archive failure set as the source of truth when checking case status.
