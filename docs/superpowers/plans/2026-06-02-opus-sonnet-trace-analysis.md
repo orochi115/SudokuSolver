@@ -1029,6 +1029,347 @@ git add orchestration/analysis/opus-sonnet-root-cause-notes.md <optional LFS tar
 git commit -m "Document opus-sonnet root cause findings"
 ```
 
+## Phase 3 Goal: Analyze Remaining Fixed-Branch Failures
+
+**Goal:** Find the cases that `analysis-sonnet46-strategy-fix` still cannot solve, identify which archived models solve them, and run the same step-by-step strategy comparison workflow against those winner branches.
+
+**Current input archive:** `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`, after merging the full-corpus result for `analysis-sonnet46-strategy-fix` into `20260602-064418/results.json`.
+
+**Loser branch/result:**
+
+- Result name in archive: `analysis-sonnet46-strategy-fix`
+- Git ref for trace execution: `analysis/sonnet46-strategy-fix`
+
+**Winner candidates from the merged archive:**
+
+| Difficulty | Puzzle index | Winner(s) | Puzzle |
+| --- | ---: | --- | --- |
+| diabolical | 13829 | `gemini35flash` | `700000500001500300000060098040007001000905000900800020680030000003002600009000004` |
+| diabolical | 23835 | `gpt55` | `005000300070905080300060002040050060200000008000106000090040020700000009600010003` |
+| diabolical | 27806 | `gpt55` | `005000200070000080012409650009000500006175300700000006000020000000594000500607004` |
+| diabolical | 38116 | `gemini35flash` | `706000304009000800800000002000169000060050070000207000007000400200405007300706008` |
+| diabolical | 77633 | `gemini35flash` | `010000020600040008082030460040502010000000000900060007100050002060000080020904050` |
+| diabolical | 78760 | `gpt55` | `500000820030000006000705000050092080007050400040670010000106000800000030064000008` |
+| diabolical | 88102 | `opus48` | `000040000000309000904000206005020800600905007000783000090070050006401700001000300` |
+| diabolical | 103170 | `opus48`, `gemini35flash` | `700000003002657100001000700003471900200000001010020030060040080000906000300000005` |
+| diabolical | 109043 | `gpt55` | `010705030800040005090000040107000302040000070600000001080607010000409000002050600` |
+
+Summary of remaining failures:
+
+- `analysis-sonnet46-strategy-fix` has 904 remaining full-corpus failures, all in `diabolical`.
+- 9 unique remaining-failure puzzles are solved by at least one archived model.
+- There are 10 winner-case comparison pairs because diabolical #103170 is solved by both `opus48` and `gemini35flash`.
+- `sonnet46`, `gpt53codex`, and `deepseekv4` solve none of the remaining fixed-branch failures in the merged archive.
+
+**Safety rule:** Phase 3 is analysis-first. Do not edit archive branches. If later fixes are needed, reuse `analysis/sonnet46-strategy-fix` as the repair branch and write repair notes under `orchestration/analysis/` so future fix work can reuse the same branch and evidence.
+
+## Task 11: Generalize Remaining-Failure Winner Selection
+
+**Files:**
+- Modify: `orchestration/analyze-opus-sonnet-cases.mjs`
+- Modify: `orchestration/analyze-opus-sonnet-cases.test.mjs`
+
+- [ ] **Step 1: Write failing tests for multi-winner selection**
+
+Add pure helper tests using small in-memory fixtures:
+
+```js
+import {
+  buildWinnerCasePairs,
+  selectFailuresSolvedByAnyWinner,
+} from './analyze-opus-sonnet-cases.mjs';
+
+test('selectFailuresSolvedByAnyWinner finds loser failures solved by at least one winner', () => {
+  const loserFailures = [{ index: 1, puzzle: 'p1' }, { index: 2, puzzle: 'p2' }, { index: 3, puzzle: 'p3' }];
+  const winnerFailuresByName = new Map([
+    ['opus48', [{ index: 2 }]],
+    ['gpt55', [{ index: 3 }]],
+  ]);
+
+  assert.deepEqual(selectFailuresSolvedByAnyWinner({ loserFailures, winnerFailuresByName }), [
+    { index: 1, puzzle: 'p1', solvedBy: ['opus48', 'gpt55'] },
+    { index: 2, puzzle: 'p2', solvedBy: ['gpt55'] },
+    { index: 3, puzzle: 'p3', solvedBy: ['opus48'] },
+  ]);
+});
+
+test('buildWinnerCasePairs keeps one pair per winner that solved a case', () => {
+  const cases = [{ index: 10, puzzle: 'p10', solvedBy: ['opus48', 'gemini35flash'] }];
+  assert.deepEqual(buildWinnerCasePairs({ cases, loser: 'analysis-sonnet46-strategy-fix' }), [
+    { winner: 'opus48', loser: 'analysis-sonnet46-strategy-fix', index: 10, puzzle: 'p10' },
+    { winner: 'gemini35flash', loser: 'analysis-sonnet46-strategy-fix', index: 10, puzzle: 'p10' },
+  ]);
+});
+```
+
+- [ ] **Step 2: Run and verify failure**
+
+Run: `node --test orchestration/analyze-opus-sonnet-cases.test.mjs`
+
+Expected: FAIL because the new helpers do not exist.
+
+- [ ] **Step 3: Implement pure selection helpers**
+
+Implement:
+
+- `selectFailuresSolvedByAnyWinner({ loserFailures, winnerFailuresByName })`
+- `buildWinnerCasePairs({ cases, loser })`
+
+Rules:
+
+- Preserve archived puzzle data from the loser failure object.
+- Sort cases by numeric puzzle index.
+- Sort `solvedBy` in the same order as the `--winners` input, not alphabetically.
+- For a case solved by multiple winners, keep one trace pair per winner.
+
+- [ ] **Step 4: Extend CLI arguments**
+
+Add support for:
+
+```text
+--winners opus48,gpt55,gemini35flash
+--refs analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix
+```
+
+Keep the existing single `--winner` mode working for Phase 1/2 compatibility. Do not require `--winner` when `--winners` is provided.
+
+- [ ] **Step 5: Emit candidate and pair files**
+
+The Phase 3 CLI run should write:
+
+- `candidate-cases.json`: 9 unique loser-failed cases solved by at least one winner.
+- `winner-case-pairs.json`: 10 winner/loser trace pairs.
+- `summary.json`: full batch summary with selected cases, pairs, and per-pair analysis.
+- `summary.md`: human-readable table.
+
+- [ ] **Step 6: Verify helper tests pass**
+
+Run: `node --test orchestration/analyze-opus-sonnet-cases.test.mjs`
+
+Expected: all tests pass.
+
+## Task 12: Pass Explicit Refs Through Batch Trace Analysis
+
+**Files:**
+- Modify: `orchestration/analyze-opus-sonnet-cases.mjs`
+- Modify: `orchestration/analyze-opus-sonnet-cases.test.mjs`
+
+- [ ] **Step 1: Write failing tests for ref argument propagation**
+
+Add a test for the pure command-building helper before wiring process spawning:
+
+```js
+import { traceCommandArgs } from './analyze-opus-sonnet-cases.mjs';
+
+test('traceCommandArgs forwards explicit refs to trace runner', () => {
+  assert.deepEqual(traceCommandArgs({
+    difficulty: 'diabolical',
+    index: 88102,
+    winner: 'opus48',
+    loser: 'analysis-sonnet46-strategy-fix',
+    outDir: '/tmp/case',
+    refs: new Map([['analysis-sonnet46-strategy-fix', 'analysis/sonnet46-strategy-fix']]),
+    keepWorktrees: false,
+  }).slice(-2), [
+    '--refs',
+    'analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix',
+  ]);
+});
+```
+
+- [ ] **Step 2: Run and verify failure**
+
+Run: `node --test orchestration/analyze-opus-sonnet-cases.test.mjs`
+
+Expected: FAIL because `traceCommandArgs` does not exist or does not include `--refs`.
+
+- [ ] **Step 3: Implement ref parsing and propagation**
+
+Implement:
+
+- `parseRefMap(value)` with the same `name=git-ref,name2=git-ref2` syntax used by `trace-archive-case.mjs`.
+- `formatRefMap(refs)` for stable CLI propagation.
+- `traceCommandArgs(...)` that builds the exact `trace-archive-case.mjs` argument list.
+
+When tracing Phase 3, invoke:
+
+```bash
+node orchestration/trace-archive-case.mjs \
+  --puzzle <archived loser failure puzzle> \
+  --models <winner>,analysis-sonnet46-strategy-fix \
+  --refs analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix \
+  --out <case-pair-dir>
+```
+
+Use `--puzzle` from the archived failure object rather than `--difficulty/--index`; this protects against any future corpus-order changes.
+
+- [ ] **Step 4: Use pair-specific output directories**
+
+Write detailed artifacts under:
+
+```text
+orchestration/reports/analysis/fixed-remaining-diabolical-comparison/
+  cases/
+    diabolical-88102/
+      opus48-vs-analysis-sonnet46-strategy-fix/
+        comparison.json
+        saturation-comparison.json
+        divergence-probe.json
+        rescue-comparison.json
+        trace-opus48.json
+        trace-analysis-sonnet46-strategy-fix.json
+```
+
+For diabolical #103170, create two sibling pair directories:
+
+- `opus48-vs-analysis-sonnet46-strategy-fix/`
+- `gemini35flash-vs-analysis-sonnet46-strategy-fix/`
+
+- [ ] **Step 5: Verify no archive refs are modified**
+
+Run:
+
+```bash
+git branch --list \
+  archive/final/opus48 \
+  archive/final/gpt55 \
+  archive/final/gemini35flash \
+  analysis/sonnet46-strategy-fix
+```
+
+Expected: all four refs exist. Do not create or modify `archive/final/*`.
+
+## Task 13: Run Phase 3 Step-By-Step Strategy Analysis
+
+**Files:**
+- Runtime output only: `orchestration/reports/analysis/fixed-remaining-diabolical-comparison/`
+- Optional package output: `orchestration/run-logs/fixed-remaining-diabolical-analysis-20260602.tar.gz`
+
+- [ ] **Step 1: Run the batch analysis**
+
+```bash
+node orchestration/analyze-opus-sonnet-cases.mjs \
+  --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz \
+  --difficulty diabolical \
+  --loser analysis-sonnet46-strategy-fix \
+  --winners opus48,gpt55,gemini35flash \
+  --refs analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix \
+  --out orchestration/reports/analysis/fixed-remaining-diabolical-comparison
+```
+
+Expected selection counts:
+
+- `candidate-cases.json` contains 9 cases.
+- `winner-case-pairs.json` contains 10 pairs.
+- `summary.md` has one row per pair.
+
+- [ ] **Step 2: Inspect high-priority pairs first**
+
+Start with `opus48`, because it was already used as the Phase 1/2 reference implementation:
+
+- diabolical #88102: `opus48` vs `analysis-sonnet46-strategy-fix`
+- diabolical #103170: `opus48` vs `analysis-sonnet46-strategy-fix`
+
+Then inspect:
+
+- `gpt55` pairs: #23835, #27806, #78760, #109043
+- `gemini35flash` pairs: #13829, #38116, #77633, #103170
+
+- [ ] **Step 3: Compare classification patterns**
+
+For each pair, record:
+
+- First canonical trace divergence.
+- First different saturation fixed point.
+- Whether candidate hashes match at divergence.
+- Whether the winner can rescue the fixed branch's stuck final grid.
+- Whether divergence is `winner-only-detection`, `same-strategy-different-effect`, `candidate-state-mismatch`, `early-path-dependency`, or `inconclusive`.
+- Suspect `strategyId` and whether the same strategy appears across multiple winner branches.
+
+- [ ] **Step 4: Package large runtime artifacts if useful**
+
+If the case directory is large but worth preserving, package it:
+
+```bash
+tar -czf orchestration/run-logs/fixed-remaining-diabolical-analysis-20260602.tar.gz \
+  -C orchestration/reports/analysis \
+  fixed-remaining-diabolical-comparison
+```
+
+This path is under Git LFS by `.gitattributes` if committed as `orchestration/run-logs/*.tar.gz`.
+
+- [ ] **Step 5: Verify generated files**
+
+Run:
+
+```bash
+test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/candidate-cases.json
+test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/winner-case-pairs.json
+test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/summary.json
+test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/summary.md
+node --test orchestration/analyze-opus-sonnet-cases.test.mjs
+node --test orchestration/trace-archive-case.test.mjs
+git worktree list --porcelain
+```
+
+Expected: tests pass, no unintended leftover trace worktrees unless `--keep-worktrees` was used deliberately.
+
+## Task 14: Write Phase 3 Repair Analysis Notes
+
+**Files:**
+- Create: `orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md`
+- Optional: `orchestration/run-logs/fixed-remaining-diabolical-analysis-20260602.tar.gz`
+
+- [ ] **Step 1: Summarize the candidate set**
+
+The notes must include:
+
+- 904 total fixed-branch failures, all `diabolical`.
+- 9 unique cases solved by at least one archived model.
+- 10 winner-case comparison pairs.
+- Which winners solve each case.
+
+- [ ] **Step 2: Summarize strategy-level findings**
+
+For each case, include a compact table:
+
+| Case | Winner | First divergence | Saturation suspect | Rescue strategy | Classification | Notes |
+| ---: | --- | --- | --- | --- | --- | --- |
+
+Keep raw trace details in `orchestration/reports/analysis/`; the `orchestration/analysis/` note should be interpretive and reviewable.
+
+- [ ] **Step 3: Identify reusable repair direction**
+
+If the analysis points to code changes, document exactly where future repair work should start in `analysis/sonnet46-strategy-fix`:
+
+- Suspect strategy file path(s).
+- Candidate regression puzzle(s).
+- Expected behavior from winner branch traces.
+- Whether the issue appears to be a coverage gap, candidate-state divergence, tie-break/path dependency, or invalid-solved risk.
+
+Do not implement the repair in this task. The next repair session can reuse branch `analysis/sonnet46-strategy-fix` and the notes under `orchestration/analysis/`.
+
+- [ ] **Step 4: Verify references and formatting**
+
+Run:
+
+```bash
+test -f orchestration/run-logs/full-corpus-20260602-064418.tar.gz
+test -f orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md
+git diff --check
+```
+
+- [ ] **Step 5: Commit Phase 3 tooling and notes**
+
+```bash
+git add \
+  orchestration/analyze-opus-sonnet-cases.mjs \
+  orchestration/analyze-opus-sonnet-cases.test.mjs \
+  orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md \
+  <optional LFS tarball>
+git commit -m "Analyze fixed branch remaining failures"
+```
+
 ## Final Verification Checklist (Phase 1 Completed)
 
 - [x] `node --test orchestration/analyze-full-corpus-results.test.mjs` passes.

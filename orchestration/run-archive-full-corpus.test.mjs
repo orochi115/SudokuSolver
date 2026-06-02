@@ -7,7 +7,9 @@ import {
   parsePuzzlesFromXmlText,
   summarizeRuns,
   markdownReport,
+  parseArgs,
   resolveWorkerCount,
+  resolveRunRef,
   shouldReportProgress,
 } from './run-archive-full-corpus.mjs';
 
@@ -153,4 +155,24 @@ test('shouldReportProgress reports on count threshold or elapsed interval', () =
   assert.equal(shouldReportProgress({ processed: 9999, nextProgress: 10000, nowMs: 1000, lastReportMs: 0, intervalMs: 5000 }), false);
   assert.equal(shouldReportProgress({ processed: 10000, nextProgress: 10000, nowMs: 1000, lastReportMs: 900, intervalMs: 5000 }), true);
   assert.equal(shouldReportProgress({ processed: 5000, nextProgress: 10000, nowMs: 6000, lastReportMs: 900, intervalMs: 5000 }), true);
+});
+
+test('parseArgs supports a single explicit ref/name run without model selection', () => {
+  const opts = parseArgs([
+    '--ref', 'analysis/sonnet46-strategy-fix',
+    '--name', 'analysis-sonnet46-strategy-fix',
+    '--workers', '16',
+  ], 8);
+
+  assert.equal(opts.ref, 'analysis/sonnet46-strategy-fix');
+  assert.equal(opts.refName, 'analysis-sonnet46-strategy-fix');
+  assert.equal(opts.workers, 16);
+});
+
+test('resolveRunRef uses explicit refs before archive branch naming', () => {
+  assert.equal(
+    resolveRunRef({ name: 'analysis-sonnet46-strategy-fix', ref: 'analysis/sonnet46-strategy-fix' }, { archiveTag: 'final' }),
+    'analysis/sonnet46-strategy-fix',
+  );
+  assert.equal(resolveRunRef({ name: 'opus48' }, { archiveTag: 'final' }), 'archive/final/opus48');
 });
