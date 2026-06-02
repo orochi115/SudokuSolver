@@ -27,6 +27,7 @@ const CANONICAL_IDS = [
   'sue-de-coq',
   'forcing-chain',
 ];
+const RESCUE_LIMITATION = 'rescue probe reconstructs candidates from grid values only; prior candidate eliminations are not preserved';
 
 export function canonicalOrder() {
   return [...CANONICAL_IDS];
@@ -123,6 +124,14 @@ export function firstDifferentFixedPoint(leftFixedPoints, rightFixedPoints) {
   return null;
 }
 
+export function classifyCase({ invalidSolvedRisk, finalGridValid, winnerRescueStrategyId, firstDivergence } = {}) {
+  if (invalidSolvedRisk || finalGridValid === false) return 'invalid-solved-risk';
+  if (winnerRescueStrategyId) return 'missing-detection';
+  if (firstDivergence?.kind === 'same-strategy-different-effect') return 'same-strategy-different-effect';
+  if (firstDivergence) return 'early-path-dependency';
+  return 'inconclusive';
+}
+
 function parsePuzzlesFromXmlText(xml) {
   const puzzles = [];
   GAME_RE.lastIndex = 0;
@@ -195,11 +204,39 @@ function candidateHash(grid) {
   return Array.from(grid.candidates ?? []).join(',');
 }
 
+function rescueScan(puzzle) {
+  const rescueGrid = Grid.fromString(puzzle);
+  for (const strategy of ordered) {
+    const rawStep = strategy.apply(rescueGrid);
+    const placements = rawStep?.placements ?? [];
+    const eliminations = rawStep?.eliminations ?? [];
+    if (rawStep && (placements.length > 0 || eliminations.length > 0)) {
+      const beforeGrid = rescueGrid.toString();
+      const step = { ...rawStep, strategyId: rawStep.strategyId ?? strategy.id, placements, eliminations };
+      applyStep(rescueGrid, step);
+      const afterGrid = rescueGrid.toString();
+      return {
+        strategyId: step.strategyId,
+        placements: step.placements,
+        eliminations: step.eliminations,
+        explanation: {
+          en: step.explanation?.en ?? null,
+          zh: step.explanation?.zh ?? null,
+        },
+        beforeGrid,
+        afterGrid,
+      };
+    }
+  }
+  return null;
+}
+
 const byId = new Map(STRATEGIES.map((s) => [s.id, s]));
 const ordered = canonicalIds.map((id) => byId.get(id)).filter(Boolean);
 const missingCanonicalIds = canonicalIds.filter((id) => !byId.has(id));
 const grid = Grid.fromString(process.env.PUZZLE!);
 const steps = [];
+const rescueStep = process.env.RESCUE_PUZZLE ? rescueScan(process.env.RESCUE_PUZZLE) : null;
 
 while (!grid.isSolved() && steps.length < 1000) {
   let progressed = false;
@@ -276,6 +313,12 @@ console.log(JSON.stringify({
     final: saturationGrid.toString(),
     fixedPoints: saturation,
   },
+  rescueScan: process.env.RESCUE_PUZZLE ? {
+    initial: process.env.RESCUE_PUZZLE,
+    limitation: ${JSON.stringify(RESCUE_LIMITATION)},
+    strategyId: rescueStep?.strategyId ?? null,
+    step: rescueStep,
+  } : null,
   strategyIds: STRATEGIES.map((s) => s.id),
   missingCanonicalIds,
 }, null, 2));
@@ -333,6 +376,26 @@ async function runModel(model, puzzle, opts, worktreeRoot) {
   }
 }
 
+async function runRescueScan(model, rescueGrid, opts, worktreeRoot) {
+  const branch = `archive/final/${model}`;
+  if (!ensureBranch(branch)) throw new Error(`missing branch ${branch}`);
+  const worktree = resolve(worktreeRoot, `${model}-rescue`);
+  sh(['git', 'worktree', 'add', '--detach', worktree, branch]);
+  try {
+    writeFileSync(resolve(worktree, '.trace-case-runner.ts'), runnerSource());
+    const result = await runRunner(worktree, {
+      ...process.env,
+      PATH: `${resolve(REPO, 'node_modules/.bin')}:${process.env.PATH ?? ''}`,
+      MODEL_NAME: model,
+      PUZZLE: rescueGrid,
+      RESCUE_PUZZLE: rescueGrid,
+    });
+    return result.rescueScan;
+  } finally {
+    if (!opts.keepWorktrees) sh(['git', 'worktree', 'remove', '--force', worktree], { stdio: ['ignore', 'ignore', 'ignore'] });
+  }
+}
+
 function markdownReport({ results, comparison, source }) {
   const lines = [
     '# Archive Trace Case Report',
@@ -374,27 +437,52 @@ async function main() {
         missingCanonicalIds: result.missingCanonicalIds,
       }, null, 2) + '\n');
     }
+
+    const comparison = {
+      models: opts.models,
+      leftModel: opts.models[0],
+      rightModel: opts.models[1],
+      firstDivergence: firstDivergence(results[0].steps, results[1].steps),
+    };
+    writeFileSync(resolve(opts.out, 'comparison.json'), JSON.stringify(comparison, null, 2) + '\n');
+    const firstDifferent = firstDifferentFixedPoint(results[0].saturation.fixedPoints, results[1].saturation.fixedPoints);
+    writeFileSync(resolve(opts.out, 'saturation-comparison.json'), JSON.stringify({
+      models: opts.models,
+      leftModel: opts.models[0],
+      rightModel: opts.models[1],
+      firstDifferentFixedPoint: firstDifferent,
+      fixedPointsMatch: firstDifferent === null,
+    }, null, 2) + '\n');
+
+    const solved = results.filter((result) => result.outcome === 'solved');
+    const stuck = results.filter((result) => result.outcome === 'stuck');
+    const winner = solved.length === 1 && stuck.length === 1 ? solved[0] : null;
+    const loser = solved.length === 1 && stuck.length === 1 ? stuck[0] : null;
+    const winnerRescue = winner && loser ? await runRescueScan(winner.model, loser.final, opts, worktreeRoot) : null;
+    const loserRescue = winner && loser ? await runRescueScan(loser.model, loser.final, opts, worktreeRoot) : null;
+    const rescueComparison = {
+      models: opts.models,
+      winnerModel: winner?.model ?? null,
+      loserModel: loser?.model ?? null,
+      loserFinalGrid: loser?.final ?? null,
+      limitation: RESCUE_LIMITATION,
+      winnerRescueStrategyId: winnerRescue?.strategyId ?? null,
+      loserRescueStrategyId: loserRescue?.strategyId ?? null,
+      classification: classifyCase({
+        winnerRescueStrategyId: winnerRescue?.strategyId ?? null,
+        firstDivergence: comparison.firstDivergence,
+      }),
+      scans: {
+        winner: winner ? { model: winner.model, scan: winnerRescue } : null,
+        loser: loser ? { model: loser.model, scan: loserRescue } : null,
+      },
+    };
+    writeFileSync(resolve(opts.out, 'rescue-comparison.json'), JSON.stringify(rescueComparison, null, 2) + '\n');
+    writeFileSync(resolve(opts.out, 'summary.md'), markdownReport({ results, comparison, source }));
+    console.log(`wrote ${opts.out}`);
   } finally {
     if (!opts.keepWorktrees) rmSync(worktreeRoot, { recursive: true, force: true });
   }
-
-  const comparison = {
-    models: opts.models,
-    leftModel: opts.models[0],
-    rightModel: opts.models[1],
-    firstDivergence: firstDivergence(results[0].steps, results[1].steps),
-  };
-  writeFileSync(resolve(opts.out, 'comparison.json'), JSON.stringify(comparison, null, 2) + '\n');
-  const firstDifferent = firstDifferentFixedPoint(results[0].saturation.fixedPoints, results[1].saturation.fixedPoints);
-  writeFileSync(resolve(opts.out, 'saturation-comparison.json'), JSON.stringify({
-    models: opts.models,
-    leftModel: opts.models[0],
-    rightModel: opts.models[1],
-    firstDifferentFixedPoint: firstDifferent,
-    fixedPointsMatch: firstDifferent === null,
-  }, null, 2) + '\n');
-  writeFileSync(resolve(opts.out, 'summary.md'), markdownReport({ results, comparison, source }));
-  console.log(`wrote ${opts.out}`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

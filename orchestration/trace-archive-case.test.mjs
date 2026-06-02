@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   canonicalOrder,
+  classifyCase,
   firstDivergence,
   firstDifferentFixedPoint,
   normalizeAction,
@@ -10,6 +11,21 @@ import {
   validateComparisonModels,
   worktreeRootPrefix,
 } from './trace-archive-case.mjs';
+
+test('classifyCase marks missing detection when winner rescues loser stuck grid', () => {
+  assert.equal(classifyCase({ winnerRescueStrategyId: 'aic', firstDivergence: { kind: 'one-stuck' } }), 'missing-detection');
+});
+
+test('classifyCase marks early path dependency when rescue is impossible', () => {
+  assert.equal(classifyCase({ winnerRescueStrategyId: null, firstDivergence: { kind: 'different-strategy-selection' } }), 'early-path-dependency');
+});
+
+test('runnerSource includes rescue probe fields and limitation', () => {
+  const source = runnerSource();
+  assert.match(source, /RESCUE_PUZZLE/);
+  assert.match(source, /rescueScan/);
+  assert.match(source, /rescue probe reconstructs candidates from grid values only; prior candidate eliminations are not preserved/);
+});
 
 test('firstDifferentFixedPoint finds first strategy whose afterGrid differs', () => {
   const left = [{ strategyId: 'a', afterGrid: 'same' }, { strategyId: 'b', afterGrid: 'left' }];
