@@ -12,6 +12,7 @@ Repair branch commits:
 
 - `ae2465d Fix empty rectangle crossing links`
 - `7b53121 Add grouped AIC link detection`
+- `8471467 Preserve legacy AIC fallback search`
 
 Supporting orchestration commits:
 
@@ -40,6 +41,8 @@ The archive refs remain read-only and were not modified.
 - `packages/engine/src/chain/policy.ts`
 
 This covers grouped X-Chain-style AIC eliminations for hard #52302, #114282, and #305612.
+
+The original `sonnet46` single-node AIC search is retained as a fallback when grouped search finds no result. This preserves legacy discontinuous-loop, placement, and non-grouped chain behavior while adding grouped-link coverage.
 
 ## TDD Evidence
 
@@ -102,6 +105,28 @@ Observed GREEN result:
 - Typecheck passed.
 - `strategies-m3.test.ts`: 34 tests passed.
 - Full suite: 7 files / 104 tests passed after the AIC fix.
+
+### AIC Fallback Review Fix
+
+Code review identified that the first grouped AIC rewrite dropped legacy AIC fallback behavior. A follow-up regression test bounds grouped search to one node and asserts the legacy AIC search still produces a step.
+
+Commands:
+
+```bash
+npm test -- packages/engine/test/strategies-m3.test.ts -t "falls back to legacy AIC search"
+npm test -- packages/engine/test/strategies-m3.test.ts -t "detects grouped X-Chain eliminations"
+npm run typecheck
+npm test -- packages/engine/test/strategies-m3.test.ts
+npm test
+```
+
+Observed result after `8471467`:
+
+- Fallback regression passed.
+- Grouped AIC regression still passed.
+- Typecheck passed.
+- `strategies-m3.test.ts`: 35 tests passed.
+- Full suite: 7 files / 105 tests passed.
 
 ## Rerun Commands
 
