@@ -193,6 +193,20 @@ export function summarizeDivergenceProbe({ winnerProbe, loserProbe, suspectStrat
   return { suspectStrategyId: suspectStrategyId ?? null, label };
 }
 
+export function parseRefMap(value = '') {
+  const refs = new Map();
+  for (const entry of value.split(',').map((s) => s.trim()).filter(Boolean)) {
+    const eq = entry.indexOf('=');
+    if (eq <= 0 || eq === entry.length - 1) throw new Error(`invalid --refs entry: ${entry}`);
+    refs.set(entry.slice(0, eq), entry.slice(eq + 1));
+  }
+  return refs;
+}
+
+export function modelRef(model, refs = new Map()) {
+  return refs.get(model) ?? `archive/final/${model}`;
+}
+
 function parsePuzzlesFromXmlText(xml) {
   const puzzles = [];
   GAME_RE.lastIndex = 0;
@@ -212,7 +226,7 @@ function sh(args, opts = {}) {
 }
 
 function parseArgs(argv) {
-  const opts = { puzzle: null, difficulty: null, index: null, models: ['opus48', 'sonnet46'], out: null, keepWorktrees: false };
+  const opts = { puzzle: null, difficulty: null, index: null, models: ['opus48', 'sonnet46'], refs: new Map(), out: null, keepWorktrees: false };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     const next = () => argv[++i];
@@ -220,10 +234,11 @@ function parseArgs(argv) {
     else if (arg === '--difficulty') opts.difficulty = next();
     else if (arg === '--index') opts.index = Number(next());
     else if (arg === '--models') opts.models = next().split(',').map((s) => s.trim()).filter(Boolean);
+    else if (arg === '--refs') opts.refs = parseRefMap(next());
     else if (arg === '--out') opts.out = resolve(REPO, next());
     else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
     else if (arg === '-h' || arg === '--help') {
-      console.log('usage: node orchestration/trace-archive-case.mjs (--puzzle <81 chars> | --difficulty <difficulty> --index <number>) --models opus48,sonnet46 --out <dir> [--keep-worktrees]');
+      console.log('usage: node orchestration/trace-archive-case.mjs (--puzzle <81 chars> | --difficulty <difficulty> --index <number>) --models opus48,sonnet46 [--refs model=git-ref,...] --out <dir> [--keep-worktrees]');
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);
@@ -557,8 +572,8 @@ function runRunner(worktree, env) {
 }
 
 async function runModel(model, puzzle, opts, worktreeRoot) {
-  const branch = `archive/final/${model}`;
-  if (!ensureBranch(branch)) throw new Error(`missing branch ${branch}`);
+  const branch = modelRef(model, opts.refs);
+  if (!ensureBranch(branch)) throw new Error(`missing ref ${branch}`);
   const worktree = resolve(worktreeRoot, model);
   sh(['git', 'worktree', 'add', '--detach', worktree, branch]);
   try {
@@ -575,8 +590,8 @@ async function runModel(model, puzzle, opts, worktreeRoot) {
 }
 
 async function runDivergenceProbe(model, puzzle, candidateSnapshot, opts, worktreeRoot) {
-  const branch = `archive/final/${model}`;
-  if (!ensureBranch(branch)) throw new Error(`missing branch ${branch}`);
+  const branch = modelRef(model, opts.refs);
+  if (!ensureBranch(branch)) throw new Error(`missing ref ${branch}`);
   const worktree = resolve(worktreeRoot, `${model}-probe`);
   sh(['git', 'worktree', 'add', '--detach', worktree, branch]);
   try {
@@ -628,8 +643,8 @@ function suspectStrategyIdFromDivergence(divergence, winnerResult, loserResult) 
 }
 
 async function runRescueScan(model, rescueGrid, opts, worktreeRoot) {
-  const branch = `archive/final/${model}`;
-  if (!ensureBranch(branch)) throw new Error(`missing branch ${branch}`);
+  const branch = modelRef(model, opts.refs);
+  if (!ensureBranch(branch)) throw new Error(`missing ref ${branch}`);
   const worktree = resolve(worktreeRoot, `${model}-rescue`);
   sh(['git', 'worktree', 'add', '--detach', worktree, branch]);
   try {

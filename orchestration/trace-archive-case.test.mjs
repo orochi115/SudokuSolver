@@ -10,8 +10,10 @@ import {
   isSolvedGridValid,
   normalizeAction,
   normalizeCandidateSnapshot,
+  parseRefMap,
   runnerSource,
   sameAction,
+  modelRef,
   summarizeDivergenceProbe,
   validateComparisonModels,
   worktreeRootPrefix,
@@ -233,6 +235,13 @@ test('validateComparisonModels rejects ambiguous multi-model comparisons', () =>
     () => validateComparisonModels(['opus48', 'sonnet46', 'third']),
     /exactly two/,
   );
+});
+
+test('parseRefMap maps model names to explicit git refs', () => {
+  const refs = parseRefMap('opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix');
+  assert.equal(modelRef('opus48', refs), 'archive/final/opus48');
+  assert.equal(modelRef('sonnet46-fixed', refs), 'analysis/sonnet46-strategy-fix');
+  assert.equal(modelRef('sonnet46', refs), 'archive/final/sonnet46');
 });
 
 test('worktreeRootPrefix includes process-unique segment for safe mkdtemp roots', () => {
