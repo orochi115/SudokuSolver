@@ -1,0 +1,22 @@
+{
+  "easy": {
+    "total": 100,
+    "solved": 100,
+    "rate": 1
+  },
+  "medium": {
+    "total": 100,
+    "solved": 100,
+    "rate": 1
+  },
+  "hard": {
+    "total": 100,
+    "solved": 100,
+    "rate": 1
+  },
+  "diabolical": {
+    "total": 100,
+    "solved": 76,
+    "rate": 0.76
+  }
+}
