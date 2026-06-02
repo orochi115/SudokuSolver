@@ -101,6 +101,28 @@ export function firstDivergence(leftSteps, rightSteps) {
   };
 }
 
+export function firstDifferentFixedPoint(leftFixedPoints, rightFixedPoints) {
+  const left = leftFixedPoints ?? [];
+  const right = rightFixedPoints ?? [];
+  const commonLength = Math.min(left.length, right.length);
+  for (let i = 0; i < commonLength; i++) {
+    const leftEntry = left[i];
+    const rightEntry = right[i];
+    if (
+      leftEntry?.strategyId !== rightEntry?.strategyId
+      || leftEntry?.afterGrid !== rightEntry?.afterGrid
+      || leftEntry?.afterCandidateHash !== rightEntry?.afterCandidateHash
+    ) {
+      return { strategyId: leftEntry?.strategyId ?? rightEntry?.strategyId ?? null, index: i };
+    }
+  }
+  if (left.length !== right.length) {
+    const entry = left[commonLength] ?? right[commonLength];
+    return { strategyId: entry?.strategyId ?? null, index: commonLength };
+  }
+  return null;
+}
+
 function parsePuzzlesFromXmlText(xml) {
   const puzzles = [];
   GAME_RE.lastIndex = 0;
@@ -169,6 +191,10 @@ function applyStep(grid, step) {
   for (const e of step.eliminations) grid.eliminate(e.cell, e.digit);
 }
 
+function candidateHash(grid) {
+  return Array.from(grid.candidates ?? []).join(',');
+}
+
 const byId = new Map(STRATEGIES.map((s) => [s.id, s]));
 const ordered = canonicalIds.map((id) => byId.get(id)).filter(Boolean);
 const missingCanonicalIds = canonicalIds.filter((id) => !byId.has(id));
@@ -206,12 +232,50 @@ while (!grid.isSolved() && steps.length < 1000) {
   if (!progressed) break;
 }
 
+const saturationGrid = Grid.fromString(process.env.PUZZLE!);
+const saturation = [];
+for (const strategy of ordered) {
+  const beforeGrid = saturationGrid.toString();
+  const beforeCandidateHash = candidateHash(saturationGrid);
+  let stepsForStrategy = 0;
+  let placementCount = 0;
+  let eliminationCount = 0;
+
+  while (!saturationGrid.isSolved() && stepsForStrategy < 1000) {
+    const rawStep = strategy.apply(saturationGrid);
+    const placements = rawStep?.placements ?? [];
+    const eliminations = rawStep?.eliminations ?? [];
+    if (!rawStep || (placements.length === 0 && eliminations.length === 0)) break;
+    applyStep(saturationGrid, { ...rawStep, placements, eliminations });
+    stepsForStrategy += 1;
+    placementCount += placements.length;
+    eliminationCount += eliminations.length;
+  }
+
+  saturation.push({
+    strategyId: strategy.id,
+    steps: stepsForStrategy,
+    placements: placementCount,
+    eliminations: eliminationCount,
+    beforeGrid,
+    afterGrid: saturationGrid.toString(),
+    beforeCandidateHash,
+    afterCandidateHash: candidateHash(saturationGrid),
+  });
+}
+
 console.log(JSON.stringify({
   model: process.env.MODEL_NAME ?? 'unknown',
   outcome: grid.isSolved() ? 'solved' : 'stuck',
   initial: process.env.PUZZLE,
   final: grid.toString(),
   steps,
+  saturation: {
+    outcome: saturationGrid.isSolved() ? 'solved' : 'stuck',
+    initial: process.env.PUZZLE,
+    final: saturationGrid.toString(),
+    fixedPoints: saturation,
+  },
   strategyIds: STRATEGIES.map((s) => s.id),
   missingCanonicalIds,
 }, null, 2));
@@ -302,7 +366,13 @@ async function main() {
       console.log(`== ${model} ==`);
       const result = await runModel(model, puzzle, opts, worktreeRoot);
       results.push(result);
-      writeFileSync(resolve(opts.out, `trace-${model}.json`), JSON.stringify(result, null, 2) + '\n');
+      const { saturation, ...traceResult } = result;
+      writeFileSync(resolve(opts.out, `trace-${model}.json`), JSON.stringify(traceResult, null, 2) + '\n');
+      writeFileSync(resolve(opts.out, `saturation-${model}.json`), JSON.stringify({
+        model: result.model,
+        ...saturation,
+        missingCanonicalIds: result.missingCanonicalIds,
+      }, null, 2) + '\n');
     }
   } finally {
     if (!opts.keepWorktrees) rmSync(worktreeRoot, { recursive: true, force: true });
@@ -315,6 +385,14 @@ async function main() {
     firstDivergence: firstDivergence(results[0].steps, results[1].steps),
   };
   writeFileSync(resolve(opts.out, 'comparison.json'), JSON.stringify(comparison, null, 2) + '\n');
+  const firstDifferent = firstDifferentFixedPoint(results[0].saturation.fixedPoints, results[1].saturation.fixedPoints);
+  writeFileSync(resolve(opts.out, 'saturation-comparison.json'), JSON.stringify({
+    models: opts.models,
+    leftModel: opts.models[0],
+    rightModel: opts.models[1],
+    firstDifferentFixedPoint: firstDifferent,
+    fixedPointsMatch: firstDifferent === null,
+  }, null, 2) + '\n');
   writeFileSync(resolve(opts.out, 'summary.md'), markdownReport({ results, comparison, source }));
   console.log(`wrote ${opts.out}`);
 }

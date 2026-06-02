@@ -3,12 +3,23 @@ import assert from 'node:assert/strict';
 import {
   canonicalOrder,
   firstDivergence,
+  firstDifferentFixedPoint,
   normalizeAction,
   runnerSource,
   sameAction,
   validateComparisonModels,
   worktreeRootPrefix,
 } from './trace-archive-case.mjs';
+
+test('firstDifferentFixedPoint finds first strategy whose afterGrid differs', () => {
+  const left = [{ strategyId: 'a', afterGrid: 'same' }, { strategyId: 'b', afterGrid: 'left' }];
+  const right = [{ strategyId: 'a', afterGrid: 'same' }, { strategyId: 'b', afterGrid: 'right' }];
+  assert.deepEqual(firstDifferentFixedPoint(left, right), { strategyId: 'b', index: 1 });
+});
+
+test('firstDifferentFixedPoint handles missing fixed-point lists', () => {
+  assert.deepEqual(firstDifferentFixedPoint(null, [{ strategyId: 'a', afterGrid: 'grid' }]), { strategyId: 'a', index: 0 });
+});
 
 test('firstDivergence detects same strategy with different eliminations', () => {
   const a = [{ strategyId: 'aic', placements: [], eliminations: [{ cell: 1, digit: 2 }] }];
@@ -128,4 +139,11 @@ test('runnerSource records required trace step fields', () => {
   assert.match(source, /beforeGrid/);
   assert.match(source, /afterGrid/);
   assert.match(source, /explanation/);
+});
+
+test('runnerSource records required saturation fixed-point fields', () => {
+  const source = runnerSource();
+  assert.match(source, /saturation/);
+  assert.match(source, /beforeCandidateHash/);
+  assert.match(source, /afterCandidateHash/);
 });
