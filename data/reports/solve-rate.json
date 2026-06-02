@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-02T00:44:51.657Z",
+  "generated": "2026-06-02T01:07:21.872Z",
   "results": [
     {
       "difficulty": "easy",
@@ -20,9 +20,9 @@
     {
       "difficulty": "hard",
       "total": 100,
-      "solved": 59,
-      "stuck": 41,
-      "solveRate": 0.59,
+      "solved": 64,
+      "stuck": 36,
+      "solveRate": 0.64,
       "soundViolations": 0
     },
     {
