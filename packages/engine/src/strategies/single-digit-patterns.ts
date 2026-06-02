@@ -34,6 +34,15 @@ function commonPeers(a: number, b: number): number[] {
   return PEERS_OF[b]!.filter((c) => peersA.has(c));
 }
 
+function cellLabel(cell: number): string {
+  return `R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}`;
+}
+
+function cellsWithCandidate(grid: Grid, cells: readonly number[], digit: number): number[] {
+  const bit = maskOf(digit);
+  return cells.filter((c) => grid.get(c) === 0 && (grid.candidatesOf(c) & bit) !== 0);
+}
+
 // ---- Skyscraper ----
 function trySkyscraper(grid: Grid, d: number): Step | null {
   const bit = maskOf(d);
@@ -215,111 +224,74 @@ function tryTwoStringKite(grid: Grid, d: number): Step | null {
  * then any cell in row R that sees B can be eliminated.
  */
 function tryEmptyRectangle(grid: Grid, d: number): Step | null {
-  const bit = maskOf(d);
-
   for (let b = 0; b < 9; b++) {
-    const boxCells = BOXES[b]!.filter((c) => grid.get(c) === 0 && (grid.candidatesOf(c) & bit) !== 0);
+    const boxCells = cellsWithCandidate(grid, BOXES[b]!, d);
     if (boxCells.length < 2) continue;
 
     const boxRowSet = new Set(boxCells.map((c) => ROW_OF[c]!));
     const boxColSet = new Set(boxCells.map((c) => COL_OF[c]!));
 
-    // ER requires candidates in >= 2 rows AND >= 2 cols (not all in one line)
-    if (boxRowSet.size < 2 || boxColSet.size < 2) continue;
-    if (boxRowSet.size > 2 || boxColSet.size > 2) continue;
-
-    // For each row in the box that has candidates, try pairing with column conjugates
     for (const erRow of boxRowSet) {
       for (const erCol of boxColSet) {
-        // Verify at least one candidate is at (erRow, erCol) intersection
-        const hasIntersection = boxCells.some((c) => ROW_OF[c] === erRow && COL_OF[c] === erCol);
-        if (!hasIntersection) continue;
+        const allCovered = boxCells.every((c) => ROW_OF[c] === erRow || COL_OF[c] === erCol);
+        if (!allCovered) continue;
 
-        // Find a conjugate pair (strong link) in column erCol outside the box
-        const colCands = COLS[erCol]!.filter(
-          (c) => grid.get(c) === 0 && (grid.candidatesOf(c) & bit) !== 0 && BOX_OF[c] !== b,
-        );
-        if (colCands.length === 2) {
-          // We have a strong link: colCands[0] -- colCands[1]
-          for (const pivot of colCands) {
-            const chainEnd = colCands.find((c) => c !== pivot)!;
-            // The ER interaction: if chainEnd is d, then in erRow cells seeing chainEnd are eliminated
-            // Actually: pivot is in col erCol; box has candidate at (erRow, erCol).
-            // If chainEnd=false, pivot=true. If pivot=true, then in box, the (erRow, erCol) candidate
-            // is NOT pivot (different cells), so ER provides: one of the erRow candidates outside
-            // the pivot col must be true. But this is getting complex.
-            // Standard ER: eliminate d from (erRow intersection NOT in box) that sees chainEnd
-            const target = ROWS[erRow]!.filter(
-              (c) =>
-                grid.get(c) === 0 &&
-                (grid.candidatesOf(c) & bit) !== 0 &&
-                BOX_OF[c] !== b &&
-                PEERS_OF[c]!.includes(chainEnd),
-            );
-            if (target.length > 0) {
-              const elims = target.map((c) => ({ cell: c, digit: d }));
-              return {
-                strategyId: 'single-digit-patterns',
-                placements: [],
-                eliminations: elims,
-                highlights: {
-                  cells: [...boxCells, ...colCands, ...target],
-                  candidates: [
-                    ...boxCells.map((c) => ({ cell: c, digit: d })),
-                    ...colCands.map((c) => ({ cell: c, digit: d })),
-                    ...elims,
-                  ],
-                  links: [
-                    { from: { cell: colCands[0]!, digit: d }, to: { cell: colCands[1]!, digit: d }, type: 'strong' },
-                  ],
-                },
-                explanation: {
-                  zh: `数字 ${d}：空矩形。宫 B${b + 1} 的候选数构成空矩形（行 ${erRow + 1}，列 ${erCol + 1}），与第 ${erCol + 1} 列中的共轭对（R${ROW_OF[colCands[0]!]! + 1}C${erCol + 1}–R${ROW_OF[colCands[1]!]! + 1}C${erCol + 1}）交互；消去第 ${erRow + 1} 行中可见格的 ${d}（空矩形）。`,
-                  en: `Digit ${d}: Empty Rectangle. Box B${b + 1}'s candidates span row ${erRow + 1} & column ${erCol + 1}; interacts with conjugate pair in column ${erCol + 1} to eliminate ${d} from row ${erRow + 1} cells (Empty Rectangle).`,
-                },
-              };
-            }
-          }
+        const hasOnRow = boxCells.some((c) => ROW_OF[c] === erRow && COL_OF[c] !== erCol);
+        const hasOnCol = boxCells.some((c) => COL_OF[c] === erCol && ROW_OF[c] !== erRow);
+        if (!hasOnRow || !hasOnCol) continue;
+
+        for (let col = 0; col < 9; col++) {
+          if (col === erCol) continue;
+          const colCands = cellsWithCandidate(grid, COLS[col]!, d);
+          if (colCands.length !== 2) continue;
+          const onErRow = colCands.find((c) => ROW_OF[c] === erRow);
+          const other = colCands.find((c) => ROW_OF[c] !== erRow);
+          if (onErRow === undefined || other === undefined) continue;
+          if (BOX_OF[onErRow] === b) continue;
+          const target = ROW_OF[other]! * 9 + erCol;
+          if (BOX_OF[target] === b) continue;
+          if (grid.get(target) !== 0 || !grid.hasCandidate(target, d)) continue;
+          return {
+            strategyId: 'single-digit-patterns',
+            placements: [],
+            eliminations: [{ cell: target, digit: d }],
+            highlights: {
+              cells: [...boxCells, onErRow, other, target],
+              candidates: [...boxCells, onErRow, other, target].map((c) => ({ cell: c, digit: d })),
+              links: [{ from: { cell: onErRow, digit: d }, to: { cell: other, digit: d }, type: 'strong' }],
+            },
+            explanation: {
+              zh: `空矩形：第 ${b + 1} 宫中数字 ${d} 构成空矩形（铰链行 R${erRow + 1}、铰链列 C${erCol + 1}）；结合列强链 ${cellLabel(onErRow)}-${cellLabel(other)}，可在 ${cellLabel(target)} 排除 ${d}。`,
+              en: `Empty Rectangle: in box ${b + 1}, digit ${d} forms an ER (hinge row R${erRow + 1}, col C${erCol + 1}); with the column strong link ${cellLabel(onErRow)}-${cellLabel(other)}, ${d} can be removed from ${cellLabel(target)}.`,
+            },
+          };
         }
 
-        // Same for row conjugates
-        const rowCands = ROWS[erRow]!.filter(
-          (c) => grid.get(c) === 0 && (grid.candidatesOf(c) & bit) !== 0 && BOX_OF[c] !== b,
-        );
-        if (rowCands.length === 2) {
-          for (const pivot of rowCands) {
-            const chainEnd = rowCands.find((c) => c !== pivot)!;
-            const target = COLS[erCol]!.filter(
-              (c) =>
-                grid.get(c) === 0 &&
-                (grid.candidatesOf(c) & bit) !== 0 &&
-                BOX_OF[c] !== b &&
-                PEERS_OF[c]!.includes(chainEnd),
-            );
-            if (target.length > 0) {
-              const elims = target.map((c) => ({ cell: c, digit: d }));
-              return {
-                strategyId: 'single-digit-patterns',
-                placements: [],
-                eliminations: elims,
-                highlights: {
-                  cells: [...boxCells, ...rowCands, ...target],
-                  candidates: [
-                    ...boxCells.map((c) => ({ cell: c, digit: d })),
-                    ...rowCands.map((c) => ({ cell: c, digit: d })),
-                    ...elims,
-                  ],
-                  links: [
-                    { from: { cell: rowCands[0]!, digit: d }, to: { cell: rowCands[1]!, digit: d }, type: 'strong' },
-                  ],
-                },
-                explanation: {
-                  zh: `数字 ${d}：空矩形（行方向）。宫 B${b + 1} 的候选数构成空矩形（行 ${erRow + 1}，列 ${erCol + 1}），与第 ${erRow + 1} 行中的共轭对交互；消去第 ${erCol + 1} 列中可见格的 ${d}（空矩形）。`,
-                  en: `Digit ${d}: Empty Rectangle (row variant). Box B${b + 1}'s candidates span row ${erRow + 1} & column ${erCol + 1}; interacts with conjugate pair in row ${erRow + 1} to eliminate ${d} from column ${erCol + 1} cells (Empty Rectangle).`,
-                },
-              };
-            }
-          }
+        for (let row = 0; row < 9; row++) {
+          if (row === erRow) continue;
+          const rowCands = cellsWithCandidate(grid, ROWS[row]!, d);
+          if (rowCands.length !== 2) continue;
+          const onErCol = rowCands.find((c) => COL_OF[c] === erCol);
+          const other = rowCands.find((c) => COL_OF[c] !== erCol);
+          if (onErCol === undefined || other === undefined) continue;
+          if (BOX_OF[onErCol] === b) continue;
+          const target = erRow * 9 + COL_OF[other]!;
+          if (BOX_OF[target] === b) continue;
+          if (grid.get(target) !== 0 || !grid.hasCandidate(target, d)) continue;
+          return {
+            strategyId: 'single-digit-patterns',
+            placements: [],
+            eliminations: [{ cell: target, digit: d }],
+            highlights: {
+              cells: [...boxCells, onErCol, other, target],
+              candidates: [...boxCells, onErCol, other, target].map((c) => ({ cell: c, digit: d })),
+              links: [{ from: { cell: onErCol, digit: d }, to: { cell: other, digit: d }, type: 'strong' }],
+            },
+            explanation: {
+              zh: `空矩形：第 ${b + 1} 宫中数字 ${d} 构成空矩形（铰链行 R${erRow + 1}、铰链列 C${erCol + 1}）；结合行强链 ${cellLabel(onErCol)}-${cellLabel(other)}，可在 ${cellLabel(target)} 排除 ${d}。`,
+              en: `Empty Rectangle: in box ${b + 1}, digit ${d} forms an ER (hinge row R${erRow + 1}, col C${erCol + 1}); with the row strong link ${cellLabel(onErCol)}-${cellLabel(other)}, ${d} can be removed from ${cellLabel(target)}.`,
+            },
+          };
         }
       }
     }

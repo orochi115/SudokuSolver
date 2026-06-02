@@ -30,6 +30,12 @@ function gridFrom(s: string): Grid {
   return Grid.fromString(s);
 }
 
+function gridFromState(s: string, candidateMasks: readonly number[]): Grid {
+  const grid = Grid.fromString(s);
+  grid.candidates.set(candidateMasks);
+  return grid;
+}
+
 /** Verify a step is sound against the brute-force solution. */
 function assertSoundStep(
   puzzleStr: string,
@@ -360,6 +366,19 @@ describe('single-digit-patterns', () => {
         assertSoundStep(puzzle, step);
       }
     }
+  });
+
+  it('detects empty rectangle with a crossing external column link', () => {
+    const grid = gridFromState(
+      '009400010200905700060020009020050001003204800600090050300080020002300084080042100',
+      [208, 84, 0, 0, 100, 224, 50, 0, 178, 0, 13, 137, 0, 37, 0, 0, 40, 160, 217, 0, 217, 193, 0, 193, 28, 12, 0, 456, 0, 200, 224, 0, 228, 300, 364, 0, 337, 337, 0, 0, 97, 0, 0, 352, 96, 0, 73, 201, 193, 0, 197, 14, 0, 70, 0, 345, 121, 113, 0, 353, 304, 0, 112, 337, 337, 0, 0, 97, 353, 304, 0, 0, 336, 0, 112, 112, 0, 0, 0, 356, 116],
+    );
+
+    const step = singleDigitPatterns.apply(grid);
+
+    expect(step?.strategyId).toBe('single-digit-patterns');
+    expect(step?.eliminations).toContainEqual({ cell: 34, digit: 4 });
+    expect(step?.explanation.en).toMatch(/Empty Rectangle/);
   });
 });
 
