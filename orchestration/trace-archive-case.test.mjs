@@ -4,6 +4,7 @@ import {
   canonicalOrder,
   firstDivergence,
   normalizeAction,
+  runnerSource,
   sameAction,
   validateComparisonModels,
   worktreeRootPrefix,
@@ -120,4 +121,11 @@ test('worktreeRootPrefix includes process-unique segment for safe mkdtemp roots'
     worktreeRootPrefix('/tmp/sudoku-trace-wt', '20260602-123456', 12345),
     /\/tmp\/sudoku-trace-wt\/20260602-123456-12345-/,
   );
+});
+
+test('runnerSource records required trace step fields', () => {
+  const source = runnerSource();
+  assert.match(source, /beforeGrid/);
+  assert.match(source, /afterGrid/);
+  assert.match(source, /explanation/);
 });

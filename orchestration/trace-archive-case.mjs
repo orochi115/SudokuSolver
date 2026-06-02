@@ -63,7 +63,7 @@ function strategyId(step) {
 }
 
 function finalGrid(step) {
-  return step?.finalGrid ?? step?.final ?? step?.after ?? null;
+  return step?.finalGrid ?? step?.afterGrid ?? step?.final ?? step?.after ?? null;
 }
 
 export function firstDivergence(leftSteps, rightSteps) {
@@ -159,7 +159,7 @@ function resolvePuzzle(opts) {
   return { puzzle, source: { type: 'opensudoku', difficulty: opts.difficulty, index: opts.index, file } };
 }
 
-function runnerSource() {
+export function runnerSource() {
   return `import { Grid, STRATEGIES } from './packages/engine/src/index.js';
 
 const canonicalIds = ${JSON.stringify(CANONICAL_IDS)};
@@ -182,14 +182,22 @@ while (!grid.isSolved() && steps.length < 1000) {
     const placements = rawStep?.placements ?? [];
     const eliminations = rawStep?.eliminations ?? [];
     if (rawStep && (placements.length > 0 || eliminations.length > 0)) {
+      const beforeGrid = grid.toString();
       const step = { ...rawStep, strategyId: rawStep.strategyId ?? strategy.id, placements, eliminations };
       applyStep(grid, step);
+      const afterGrid = grid.toString();
       steps.push({
         stepIndex: steps.length,
         strategyId: step.strategyId,
+        beforeGrid,
         placements: step.placements,
         eliminations: step.eliminations,
-        finalGrid: grid.toString(),
+        afterGrid,
+        finalGrid: afterGrid,
+        explanation: {
+          en: step.explanation?.en ?? null,
+          zh: step.explanation?.zh ?? null,
+        },
       });
       progressed = true;
       break;
