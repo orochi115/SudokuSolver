@@ -1,5 +1,8 @@
 # Orchestration（编排区 —— 仅供编排者使用）
 
+> 📖 **新来者从 [`GUIDE.md`](./GUIDE.md) 开始** —— 方法论、端到端流程、加测新模型的步骤与经验教训。
+> 本 README 是命令/机制速查;评分协议见 [`model-comparison.md`](./model-comparison.md);结果见 [`report-final.md`](./report-final.md)。
+
 > ⚠️ 本目录只存在于 `orchestration` 分支,**不在 `foundation` 上**。
 > worker 模型从 `foundation` 分叉,看不到这里的内容,避免被"正在被对比/评分"的信息误导。
 
