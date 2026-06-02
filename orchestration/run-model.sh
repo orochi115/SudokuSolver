@@ -38,17 +38,31 @@ note() { echo "[NOTE $NAME/$MS] $*"; printf '%s %s\n' "$(date +%H:%M:%S)" "$*" >
 
 AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n若有会影响实现的疑问,请写入 worktree 根目录的 `QUESTIONS.md`(每条一行)再继续,不要停下等待回答。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。'
 
-# Run opencode with a hard timeout; output (JSON events) goes to $1.
+# Run opencode; JSON events stream to $1. We proceed as soon as the turn is done,
+# detected by IDLE: some providers' `opencode run` does NOT exit after the model
+# finishes (it lingers), which previously forced a full TIMEOUT wait between
+# attempts. So we poll the log: no new output for IDLE seconds => turn done ->
+# stop opencode and continue immediately. TIMEOUT is just the absolute cap.
+# Env: IDLE (default 180s), TIMEOUT (absolute cap, default 1800s).
 run_opencode() {
   local log="$1"; shift
+  local idle_limit="${IDLE:-180}"
   opencode "$@" >"$log" 2>&1 &
-  local pid=$!
-  ( sleep "$TIMEOUT"; kill -TERM "$pid" 2>/dev/null; sleep 5; kill -KILL "$pid" 2>/dev/null ) &
-  local wpid=$!
-  wait "$pid"; local rc=$?
-  kill "$wpid" 2>/dev/null; wait "$wpid" 2>/dev/null
-  if [ "$rc" -ge 124 ]; then note "opencode TIMEOUT after ${TIMEOUT}s (attempt killed) -> $(basename "$log")"
-  elif [ "$rc" -ne 0 ]; then note "opencode exited rc=$rc -> $(basename "$log")"; fi
+  local pid=$! waited=0 idle=0 last=0 size
+  while kill -0 "$pid" 2>/dev/null; do
+    sleep 10; waited=$((waited + 10))
+    size=$(wc -c <"$log" 2>/dev/null | tr -d ' '); size=${size:-0}
+    if [ "$size" -gt "$last" ]; then last=$size; idle=0; else idle=$((idle + 10)); fi
+    if [ "$idle" -ge "$idle_limit" ]; then
+      note "opencode idle ${idle_limit}s after last output -> turn done, stopping it -> $(basename "$log")"
+      kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break
+    fi
+    if [ "$waited" -ge "$TIMEOUT" ]; then
+      note "opencode hard TIMEOUT ${TIMEOUT}s -> killed -> $(basename "$log")"
+      kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break
+    fi
+  done
+  wait "$pid" 2>/dev/null
   return 0
 }
 
