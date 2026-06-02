@@ -6,6 +6,7 @@ import {
   firstDivergence,
   firstDifferentFixedPoint,
   isCompleteValidGrid,
+  isSolvedGridValid,
   normalizeAction,
   runnerSource,
   sameAction,
@@ -29,8 +30,20 @@ test('classifyCase is inconclusive when loser also rescues reconstructed stuck g
   }), 'inconclusive');
 });
 
+test('classifyCase is inconclusive when rescue is not applicable', () => {
+  assert.equal(classifyCase({
+    rescueApplicable: false,
+    firstDivergence: { kind: 'both-stuck-or-solved-identical-prefix' },
+  }), 'inconclusive');
+});
+
 test('isCompleteValidGrid rejects filled grids with duplicate digits', () => {
   assert.equal(isCompleteValidGrid('1'.repeat(81)), false);
+});
+
+test('isSolvedGridValid rejects complete grids that change givens', () => {
+  const final = '924716538753284961618359742587143296462978153139625487891532674246897315375461829';
+  assert.equal(isSolvedGridValid(`1${'0'.repeat(80)}`, final), false);
 });
 
 test('runnerSource includes rescue probe fields and limitation', () => {

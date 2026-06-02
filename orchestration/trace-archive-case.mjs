@@ -137,8 +137,17 @@ export function isCompleteValidGrid(grid) {
   return units.every((unit) => unit.map((idx) => grid[idx]).sort().join('') === '123456789');
 }
 
-export function classifyCase({ invalidSolvedRisk, finalGridValid, winnerRescueStrategyId, loserRescueStrategyId, firstDivergence } = {}) {
+export function isSolvedGridValid(initialGrid, finalGrid) {
+  if (!isCompleteValidGrid(finalGrid)) return false;
+  for (let i = 0; i < initialGrid.length; i++) {
+    if (initialGrid[i] !== '0' && initialGrid[i] !== finalGrid[i]) return false;
+  }
+  return true;
+}
+
+export function classifyCase({ invalidSolvedRisk, finalGridValid, rescueApplicable, winnerRescueStrategyId, loserRescueStrategyId, firstDivergence } = {}) {
   if (invalidSolvedRisk || finalGridValid === false) return 'invalid-solved-risk';
+  if (rescueApplicable === false) return 'inconclusive';
   if (winnerRescueStrategyId && !loserRescueStrategyId) return 'missing-detection';
   if (winnerRescueStrategyId && loserRescueStrategyId) return 'inconclusive';
   if (firstDivergence?.kind === 'same-strategy-different-effect') return 'same-strategy-different-effect';
@@ -229,6 +238,14 @@ function isCompleteValidGrid(grid) {
     }
   }
   return units.every((unit) => unit.map((idx) => grid[idx]).sort().join('') === '123456789');
+}
+
+function isSolvedGridValid(initialGrid, finalGrid) {
+  if (!isCompleteValidGrid(finalGrid)) return false;
+  for (let i = 0; i < initialGrid.length; i++) {
+    if (initialGrid[i] !== '0' && initialGrid[i] !== finalGrid[i]) return false;
+  }
+  return true;
 }
 
 function rescueScan(puzzle) {
@@ -333,7 +350,7 @@ console.log(JSON.stringify({
   outcome: grid.isSolved() ? 'solved' : 'stuck',
   initial: process.env.PUZZLE,
   final: grid.toString(),
-  finalGridValid: grid.isSolved() ? isCompleteValidGrid(grid.toString()) : null,
+  finalGridValid: grid.isSolved() ? isSolvedGridValid(process.env.PUZZLE, grid.toString()) : null,
   steps,
   saturation: {
     outcome: saturationGrid.isSolved() ? 'solved' : 'stuck',
@@ -499,6 +516,7 @@ async function main() {
       loserRescueStrategyId: loserRescue?.strategyId ?? null,
       classification: classifyCase({
         invalidSolvedRisk,
+        rescueApplicable: Boolean(winner && loser),
         winnerRescueStrategyId: winnerRescue?.strategyId ?? null,
         loserRescueStrategyId: loserRescue?.strategyId ?? null,
         firstDivergence: comparison.firstDivergence,
