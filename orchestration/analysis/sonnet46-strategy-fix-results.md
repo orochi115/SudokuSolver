@@ -13,6 +13,11 @@ Repair branch commits:
 - `ae2465d Fix empty rectangle crossing links`
 - `7b53121 Add grouped AIC link detection`
 - `8471467 Preserve legacy AIC fallback search`
+- `fbcdf2a Fix forcing-chain implication deductions for diabolical regressions`
+- `21b7961 Cover remaining forcing-chain divergences`
+- `0e10960 Stabilize locked-candidates selection`
+- `ee13e3e Add AIC peer endpoint coverage`
+- `17464c6 Update solve-rate report`
 
 Supporting orchestration commits:
 
@@ -176,8 +181,34 @@ Summary:
 - The three AIC cases now match `opus48` through completion.
 - The Empty Rectangle case no longer fails; it solves via a slightly different later path.
 
+## Full-Corpus Rerun After Diabolical Repair
+
+After the follow-up TDD repair pass, `analysis/sonnet46-strategy-fix` was rerun against the full OpenSudoku corpus from the `orchestration` branch:
+
+```bash
+node orchestration/run-archive-full-corpus.mjs \
+  --ref analysis/sonnet46-strategy-fix \
+  --name analysis-sonnet46-strategy-fix \
+  --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-fix-rerun \
+  --workers 12
+```
+
+Rerun result:
+
+| Difficulty | Solved | Valid solved | Stuck | Errors |
+| --- | ---: | ---: | ---: | ---: |
+| easy | 100000/100000 | 100000 | 0 | 0 |
+| medium | 352643/352643 | 352643 | 0 | 0 |
+| hard | 321592/321592 | 321592 | 0 | 0 |
+| diabolical | 118950/119681 | 118950 | 731 | 0 |
+| total | 893185/893916 | 893185 | 731 | 0 |
+
+This improves the prior repaired-branch full-corpus result from 904 remaining diabolical failures to 731. The nine Phase 3 candidate cases from `fixed-remaining-diabolical-root-cause-notes.md` are all solved and sound after the repair.
+
+`orchestration/run-logs/full-corpus-20260602-064418.tar.gz` was updated in place so the `analysis-sonnet46-strategy-fix` entry in `20260602-064418/results.json`, `results.partial.json`, and `summary.md` reflects this rerun.
+
 ## Remaining Risk
 
-- This is a targeted repair validated on the four known hard cases plus the existing engine test suite, not a full-corpus rerun of the repaired branch.
+- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. Remaining unsolved cases are now concentrated in 731 diabolical puzzles.
 - The grouped AIC implementation intentionally imports more strategy strength from `opus48`. Treat this as a strategy-strength repair branch, not as a minimal patch to the original `sonnet46` search style.
-- Full-corpus rerun support for arbitrary refs can be added if we need aggregate before/after counts beyond these four root-cause cases.
+- Further work should start from the 731 remaining stuck diabolical cases rather than the original 904-case set.

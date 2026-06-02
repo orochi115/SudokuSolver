@@ -16,7 +16,17 @@ The expanded report directory is ignored runtime output. The tarball preserves t
 
 ## Candidate Set
 
-`analysis-sonnet46-strategy-fix` has 904 remaining full-corpus failures, all in `diabolical`.
+Original Phase 3 input: `analysis-sonnet46-strategy-fix` had 904 remaining full-corpus failures, all in `diabolical`.
+
+Repair follow-up rerun on 2026-06-02 after commits `fbcdf2a`, `21b7961`, `0e10960`, `ee13e3e`, and `17464c6` reduced the same ref's full-corpus failures to 731, all still in `diabolical`:
+
+- easy: 100000/100000 solved
+- medium: 352643/352643 solved
+- hard: 321592/321592 solved
+- diabolical: 118950/119681 solved, 731 stuck, 0 errors
+- total: 893185/893916 solved
+
+`orchestration/run-logs/full-corpus-20260602-064418.tar.gz` has been updated so `20260602-064418/results.json`, `results.partial.json`, and `summary.md` contain this rerun result for `analysis-sonnet46-strategy-fix`.
 
 Nine unique remaining-failure cases are solved by at least one archived model, producing ten winner-case comparison pairs:
 
@@ -79,3 +89,35 @@ The dominant failure mode is not invalid solving and not candidate-state corrupt
 - `single-digit-patterns` appears as an early fixed-point suspect in #27806, but the same-state probe for that pair points to `forcing-chain` as the immediate divergence target.
 
 Do not implement repairs as part of this analysis task. The next repair session should add focused regression tests on `analysis/sonnet46-strategy-fix` before changing any strategy implementation.
+
+## Repair Follow-Up Verification
+
+The subsequent TDD repair pass added focused regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `analysis/sonnet46-strategy-fix` and verified all nine unique candidate cases now solve soundly in the full OpenSudoku diabolical corpus:
+
+| Diabolical case | Status after repair |
+| ---: | --- |
+| 13829 | solved, sound |
+| 23835 | solved, sound |
+| 27806 | solved, sound |
+| 38116 | solved, sound |
+| 77633 | solved, sound |
+| 78760 | solved, sound |
+| 88102 | solved, sound |
+| 103170 | solved, sound |
+| 109043 | solved, sound |
+
+Targeted repair areas:
+
+- `forcing-chain`: bounded graph implication plus bounded contradiction fallback for #88102, #103170, #23835, #109043, and #27806.
+- `locked-candidates`: stable action collection/ranking for #78760 and #103170.
+- `aic`: peer-endpoint AIC coverage and selection for #13829, #38116, and #77633.
+
+Fresh verification before archive update:
+
+```bash
+npm test
+npm run typecheck
+npm run solve:rate
+```
+
+Observed local sample/corpus report from `solve:rate`: 399/400 solved, 0 sound violations. The full OpenSudoku corpus rerun then produced 893185/893916 solved with 731 remaining stuck cases and no invalid solved grids.
