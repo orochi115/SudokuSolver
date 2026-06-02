@@ -104,6 +104,10 @@ export function resolveWorkerCount(value, available = availableParallelism()) {
   return workers;
 }
 
+export function shouldReportProgress({ processed, nextProgress, nowMs, lastReportMs, intervalMs }) {
+  return processed >= nextProgress || nowMs - lastReportMs >= intervalMs;
+}
+
 function failureCount(report) {
   return Object.values(report).reduce((sum, stats) => sum + (Array.isArray(stats.failures) ? stats.failures.length : 0), 0);
 }
@@ -169,6 +173,7 @@ const modelName = process.env.MODEL_NAME ?? 'unknown';
 const progressFile = process.env.PROGRESS_FILE;
 const requestedWorkers = Math.max(1, Number(process.env.WORKERS ?? '1'));
 const isWorkerProcess = process.env.RUNNER_WORKER === '1';
+const progressIntervalMs = Math.max(1000, Number(process.env.PROGRESS_INTERVAL_MS ?? '5000'));
 const gameRe = /<game\b[^>]*\bdata="(\d{81})"[^>]*\/?>/g;
 
 async function readStdinJson() {
@@ -237,6 +242,8 @@ function validSolved(initial, final) {
 
 function solveChunk(puzzles, offset, onProgress) {
   const stats = makeStats();
+  let nextProgress = 10000;
+  let lastReportMs = performance.now();
   for (let i = 0; i < puzzles.length; i++) {
     const puzzle = puzzles[i];
     stats.n++;
@@ -255,7 +262,12 @@ function solveChunk(puzzles, offset, onProgress) {
       stats.errors++;
       stats.failures.push({ index, puzzle, outcome: 'error', error: err instanceof Error ? err.message : String(err) });
     }
-    if (stats.n % 10000 === 0) onProgress?.(stats);
+    const nowMs = performance.now();
+    if (stats.n >= nextProgress || nowMs - lastReportMs >= progressIntervalMs) {
+      while (stats.n >= nextProgress) nextProgress += 10000;
+      lastReportMs = nowMs;
+      onProgress?.(stats);
+    }
   }
   return stats;
 }
@@ -282,6 +294,7 @@ async function runDifficulty(diff) {
   const workerCount = Math.min(requestedWorkers, Math.max(1, puzzles.length));
   const aggregate = makeStats();
   let nextProgress = 10000;
+  let lastReportMs = started;
 
   if (workerCount === 1) {
     const stats = solveChunk(puzzles, 0, (partial) => {
@@ -290,8 +303,12 @@ async function runDifficulty(diff) {
       aggregate.validSolved = partial.validSolved;
       aggregate.stuck = partial.stuck;
       aggregate.errors = partial.errors;
-      while (aggregate.n >= nextProgress) nextProgress += 10000;
-      writeProgress(diff, progressPayload(diff, aggregate, puzzles.length, started, workerCount));
+      const nowMs = performance.now();
+      if (aggregate.n >= nextProgress || nowMs - lastReportMs >= progressIntervalMs) {
+        while (aggregate.n >= nextProgress) nextProgress += 10000;
+        lastReportMs = nowMs;
+        writeProgress(diff, progressPayload(diff, aggregate, puzzles.length, started, workerCount));
+      }
     });
     mergeStats(aggregate, stats);
   } else {
@@ -318,9 +335,11 @@ async function runDifficulty(diff) {
           if (message.type === 'progress') {
             progressByWorker[workerIndex] = message.processed;
             const processed = progressByWorker.reduce((sum, n) => sum + n, 0);
-            if (processed >= nextProgress) {
+            const nowMs = performance.now();
+            if (processed >= nextProgress || nowMs - lastReportMs >= progressIntervalMs) {
               const progressStats = { ...aggregate, n: processed };
               while (processed >= nextProgress) nextProgress += 10000;
+              lastReportMs = nowMs;
               writeProgress(diff, progressPayload(diff, progressStats, puzzles.length, started, chunks.length));
             }
           } else if (message.type === 'result') {

@@ -8,6 +8,7 @@ import {
   summarizeRuns,
   markdownReport,
   resolveWorkerCount,
+  shouldReportProgress,
 } from './run-archive-full-corpus.mjs';
 
 test('parseModels reads provider/model and short names while ignoring comments', () => {
@@ -146,4 +147,10 @@ test('resolveWorkerCount defaults to one less than available CPUs and validates 
   assert.equal(resolveWorkerCount('3', 8), 3);
   assert.throws(() => resolveWorkerCount('0', 8), /--workers must be a positive integer/);
   assert.throws(() => resolveWorkerCount('abc', 8), /--workers must be a positive integer/);
+});
+
+test('shouldReportProgress reports on count threshold or elapsed interval', () => {
+  assert.equal(shouldReportProgress({ processed: 9999, nextProgress: 10000, nowMs: 1000, lastReportMs: 0, intervalMs: 5000 }), false);
+  assert.equal(shouldReportProgress({ processed: 10000, nextProgress: 10000, nowMs: 1000, lastReportMs: 900, intervalMs: 5000 }), true);
+  assert.equal(shouldReportProgress({ processed: 5000, nextProgress: 10000, nowMs: 6000, lastReportMs: 900, intervalMs: 5000 }), true);
 });
