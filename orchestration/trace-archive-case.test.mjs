@@ -12,9 +12,48 @@ import {
   normalizeCandidateSnapshot,
   runnerSource,
   sameAction,
+  summarizeDivergenceProbe,
   validateComparisonModels,
   worktreeRootPrefix,
 } from './trace-archive-case.mjs';
+
+test('summarizeDivergenceProbe labels winner-only detection for suspect strategy', () => {
+  assert.deepEqual(summarizeDivergenceProbe({
+    winnerProbe: { aic: { producedStep: true } },
+    loserProbe: { aic: { producedStep: false } },
+    suspectStrategyId: 'aic',
+  }), {
+    suspectStrategyId: 'aic',
+    label: 'winner-only-detection',
+  });
+});
+
+test('summarizeDivergenceProbe labels candidate-state mismatch before strategy comparison', () => {
+  assert.equal(summarizeDivergenceProbe({
+    candidateHashesMatchAtDivergence: false,
+    winnerProbe: { aic: { producedStep: true } },
+    loserProbe: { aic: { producedStep: false } },
+    suspectStrategyId: 'aic',
+  }).label, 'candidate-state-mismatch');
+});
+
+test('summarizeDivergenceProbe labels same-strategy different effect', () => {
+  assert.equal(summarizeDivergenceProbe({
+    candidateHashesMatchAtDivergence: true,
+    winnerProbe: { aic: { producedStep: true, placements: [], eliminations: [{ cell: 1, digit: 2 }] } },
+    loserProbe: { aic: { producedStep: true, placements: [], eliminations: [{ cell: 1, digit: 3 }] } },
+    suspectStrategyId: 'aic',
+  }).label, 'same-strategy-different-effect');
+});
+
+test('summarizeDivergenceProbe labels inconclusive without suspect winner-only or effect difference', () => {
+  assert.equal(summarizeDivergenceProbe({
+    candidateHashesMatchAtDivergence: true,
+    winnerProbe: { aic: { producedStep: false } },
+    loserProbe: { aic: { producedStep: false } },
+    suspectStrategyId: 'aic',
+  }).label, 'inconclusive');
+});
 
 test('classifyCase marks missing detection when winner rescues loser stuck grid', () => {
   assert.equal(classifyCase({ winnerRescueStrategyId: 'aic', firstDivergence: { kind: 'one-stuck' } }), 'missing-detection');
@@ -53,6 +92,14 @@ test('runnerSource includes rescue probe fields and limitation', () => {
   assert.match(source, /RESCUE_PUZZLE/);
   assert.match(source, /rescueScan/);
   assert.match(source, /rescue probe reconstructs candidates from grid values only; prior candidate eliminations are not preserved/);
+});
+
+test('runnerSource includes divergence probe fields and candidate restoration status', () => {
+  const source = runnerSource();
+  assert.match(source, /PROBE_GRID/);
+  assert.match(source, /PROBE_CANDIDATE_SNAPSHOT/);
+  assert.match(source, /candidateStateRestored/);
+  assert.match(source, /candidateHashAfterIfApplied/);
 });
 
 test('firstDifferentFixedPoint finds first strategy whose afterGrid differs', () => {

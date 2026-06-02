@@ -173,6 +173,26 @@ export function classifyCase({ invalidSolvedRisk, finalGridValid, rescueApplicab
   return 'inconclusive';
 }
 
+function probeStrategyEntry(probe, strategyId) {
+  return probe?.strategies?.[strategyId] ?? probe?.[strategyId] ?? null;
+}
+
+export function summarizeDivergenceProbe({ winnerProbe, loserProbe, suspectStrategyId, candidateHashesMatchAtDivergence } = {}) {
+  const winner = probeStrategyEntry(winnerProbe, suspectStrategyId);
+  const loser = probeStrategyEntry(loserProbe, suspectStrategyId);
+  let label = 'inconclusive';
+
+  if (candidateHashesMatchAtDivergence === false) {
+    label = 'candidate-state-mismatch';
+  } else if (winner?.producedStep && !loser?.producedStep) {
+    label = 'winner-only-detection';
+  } else if (winner?.producedStep && loser?.producedStep && !sameAction(winner, loser)) {
+    label = 'same-strategy-different-effect';
+  }
+
+  return { suspectStrategyId: suspectStrategyId ?? null, label };
+}
+
 function parsePuzzlesFromXmlText(xml) {
   const puzzles = [];
   GAME_RE.lastIndex = 0;
@@ -314,12 +334,92 @@ function rescueScan(puzzle) {
   return null;
 }
 
+function restoreCandidateSnapshot(grid, snapshot) {
+  if (!snapshot || !grid.candidates || typeof grid.candidates.length !== 'number') return false;
+  if (grid.candidates.length !== 81) return false;
+  const original = grid.candidates.slice();
+  for (const entry of snapshot) {
+    if (!Number.isInteger(entry?.cell) || entry.cell < 0 || entry.cell >= 81) {
+      grid.candidates.set(original);
+      return false;
+    }
+    if ('value' in entry) {
+      const value = Number(entry.value);
+      if (!Number.isInteger(value) || value < 0) {
+        grid.candidates.set(original);
+        return false;
+      }
+      grid.candidates[entry.cell] = value;
+    } else if (Array.isArray(entry.candidates)) {
+      let mask = 0;
+      for (const digit of entry.candidates) {
+        if (!Number.isInteger(digit) || digit < 1 || digit > 9) {
+          grid.candidates.set(original);
+          return false;
+        }
+        mask |= 1 << (digit - 1);
+      }
+      grid.candidates[entry.cell] = mask;
+    } else {
+      grid.candidates.set(original);
+      return false;
+    }
+  }
+  const restoredHash = candidateSnapshotHash(candidateSnapshot(grid));
+  const expectedHash = candidateSnapshotHash(snapshot);
+  if (restoredHash !== expectedHash) {
+    grid.candidates.set(original);
+    return false;
+  }
+  return true;
+}
+
+function divergenceProbe() {
+  if (!process.env.PROBE_GRID) return null;
+  const probeGrid = Grid.fromString(process.env.PROBE_GRID);
+  const snapshot = process.env.PROBE_CANDIDATE_SNAPSHOT ? JSON.parse(process.env.PROBE_CANDIDATE_SNAPSHOT) : null;
+  const candidateStateRestored = restoreCandidateSnapshot(probeGrid, snapshot);
+  const strategies = {};
+
+  for (const strategy of ordered) {
+    const strategyGrid = probeGrid.clone();
+    const candidateHashBefore = candidateSnapshotHash(candidateSnapshot(strategyGrid));
+    const rawStep = strategy.apply(strategyGrid);
+    const placements = rawStep?.placements ?? [];
+    const eliminations = rawStep?.eliminations ?? [];
+    const producedStep = Boolean(rawStep && (placements.length > 0 || eliminations.length > 0));
+    let candidateHashAfterIfApplied = candidateHashBefore;
+    if (producedStep) applyStep(strategyGrid, { ...rawStep, placements, eliminations });
+    candidateHashAfterIfApplied = candidateSnapshotHash(candidateSnapshot(strategyGrid));
+    strategies[strategy.id] = {
+      strategyId: strategy.id,
+      producedStep,
+      placements,
+      eliminations,
+      explanation: {
+        en: rawStep?.explanation?.en ?? null,
+        zh: rawStep?.explanation?.zh ?? null,
+      },
+      candidateHashBefore,
+      candidateHashAfterIfApplied,
+    };
+  }
+
+  return {
+    probeGrid: process.env.PROBE_GRID,
+    candidateStateRestored,
+    candidateHashBefore: candidateSnapshotHash(candidateSnapshot(probeGrid)),
+    strategies,
+  };
+}
+
 const byId = new Map(STRATEGIES.map((s) => [s.id, s]));
 const ordered = canonicalIds.map((id) => byId.get(id)).filter(Boolean);
 const missingCanonicalIds = canonicalIds.filter((id) => !byId.has(id));
 const grid = Grid.fromString(process.env.PUZZLE!);
 const steps = [];
 const rescueStep = process.env.RESCUE_PUZZLE ? rescueScan(process.env.RESCUE_PUZZLE) : null;
+const probe = divergenceProbe();
 
 while (!grid.isSolved() && steps.length < 1000) {
   let progressed = false;
@@ -416,6 +516,7 @@ console.log(JSON.stringify({
     strategyId: rescueStep?.strategyId ?? null,
     step: rescueStep,
   } : null,
+  divergenceProbe: probe,
   strategyIds: STRATEGIES.map((s) => s.id),
   missingCanonicalIds,
 }, null, 2));
@@ -471,6 +572,59 @@ async function runModel(model, puzzle, opts, worktreeRoot) {
   } finally {
     if (!opts.keepWorktrees) sh(['git', 'worktree', 'remove', '--force', worktree], { stdio: ['ignore', 'ignore', 'ignore'] });
   }
+}
+
+async function runDivergenceProbe(model, puzzle, candidateSnapshot, opts, worktreeRoot) {
+  const branch = `archive/final/${model}`;
+  if (!ensureBranch(branch)) throw new Error(`missing branch ${branch}`);
+  const worktree = resolve(worktreeRoot, `${model}-probe`);
+  sh(['git', 'worktree', 'add', '--detach', worktree, branch]);
+  try {
+    writeFileSync(resolve(worktree, '.trace-case-runner.ts'), runnerSource());
+    const result = await runRunner(worktree, {
+      ...process.env,
+      PATH: `${resolve(REPO, 'node_modules/.bin')}:${process.env.PATH ?? ''}`,
+      MODEL_NAME: model,
+      PUZZLE: puzzle,
+      PROBE_GRID: puzzle,
+      ...(candidateSnapshot ? { PROBE_CANDIDATE_SNAPSHOT: JSON.stringify(candidateSnapshot) } : {}),
+    });
+    return { model, ...result.divergenceProbe };
+  } finally {
+    if (!opts.keepWorktrees) sh(['git', 'worktree', 'remove', '--force', worktree], { stdio: ['ignore', 'ignore', 'ignore'] });
+  }
+}
+
+function divergenceState(result, divergence) {
+  const step = result.steps[divergence.stepIndex];
+  if (step) {
+    return {
+      grid: step.beforeGrid,
+      candidateSnapshot: step.beforeCandidateSnapshot ?? null,
+      candidateHash: step.beforeCandidateHash ?? null,
+    };
+  }
+  const previous = divergence.stepIndex > 0 ? result.steps[divergence.stepIndex - 1] : null;
+  if (previous) {
+    return {
+      grid: previous.afterGrid,
+      candidateSnapshot: previous.afterCandidateSnapshot ?? null,
+      candidateHash: previous.afterCandidateHash ?? null,
+    };
+  }
+  return { grid: result.initial, candidateSnapshot: null, candidateHash: null };
+}
+
+function suspectStrategyIdFromDivergence(divergence, winnerResult, loserResult) {
+  if (winnerResult) {
+    const winnerStep = winnerResult.steps[divergence.stepIndex];
+    if (winnerStep?.strategyId) return winnerStep.strategyId;
+  }
+  if (loserResult) {
+    const loserStep = loserResult.steps[divergence.stepIndex];
+    if (loserStep?.strategyId) return loserStep.strategyId;
+  }
+  return divergence.leftStrategyId ?? divergence.rightStrategyId ?? null;
 }
 
 async function runRescueScan(model, rescueGrid, opts, worktreeRoot) {
@@ -555,6 +709,41 @@ async function main() {
     const stuck = results.filter((result) => result.outcome === 'stuck');
     const winner = solved.length === 1 && stuck.length === 1 ? solved[0] : null;
     const loser = solved.length === 1 && stuck.length === 1 ? stuck[0] : null;
+    const winnerState = winner ? divergenceState(winner, comparison.firstDivergence) : null;
+    const loserState = loser ? divergenceState(loser, comparison.firstDivergence) : null;
+    const candidateHashesMatchAtDivergence = Boolean(
+      winnerState?.candidateHash
+      && loserState?.candidateHash
+      && winnerState.candidateHash === loserState.candidateHash,
+    );
+    const winnerProbe = winner && winnerState ? await runDivergenceProbe(
+      winner.model,
+      winnerState.grid,
+      winnerState.candidateSnapshot,
+      opts,
+      worktreeRoot,
+    ) : null;
+    const loserProbe = loser && loserState ? await runDivergenceProbe(
+      loser.model,
+      loserState.grid,
+      loserState.candidateSnapshot,
+      opts,
+      worktreeRoot,
+    ) : null;
+    const suspectStrategyId = suspectStrategyIdFromDivergence(comparison.firstDivergence, winner, loser);
+    const divergenceProbe = {
+      firstDivergence: comparison.firstDivergence,
+      candidateHashesMatchAtDivergence,
+      winnerProbe,
+      loserProbe,
+      summary: summarizeDivergenceProbe({
+        winnerProbe,
+        loserProbe,
+        suspectStrategyId,
+        candidateHashesMatchAtDivergence,
+      }),
+    };
+    writeFileSync(resolve(opts.out, 'divergence-probe.json'), JSON.stringify(divergenceProbe, null, 2) + '\n');
     const winnerRescue = winner && loser ? await runRescueScan(winner.model, loser.final, opts, worktreeRoot) : null;
     const loserRescue = winner && loser ? await runRescueScan(loser.model, loser.final, opts, worktreeRoot) : null;
     const invalidSolvedRisk = results.some((result) => result.outcome === 'solved' && result.finalGridValid === false);
