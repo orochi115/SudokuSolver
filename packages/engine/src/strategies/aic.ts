@@ -230,6 +230,65 @@ function legacyBuildStep(
   };
 }
 
+function legacySearchPeerEndpointAic(grid: Grid): Step | null {
+  const startNodes: CandNode[] = [];
+  for (let c = 0; c < CELLS; c++) {
+    if (grid.get(c) !== 0) continue;
+    for (const d of digitsOf(grid.candidatesOf(c))) {
+      if (legacyStrongNeighbors(grid, { cell: c, digit: d }).length > 0) startNodes.push({ cell: c, digit: d });
+    }
+  }
+
+  const maxDepth = 10;
+  const path: CandNode[] = [];
+  const linkAfter: ('strong' | 'weak')[] = [];
+  const visited = new Set<number>();
+
+  function dfs(current: CandNode, nextLink: 'strong' | 'weak'): Step | null {
+    if (path.length >= 4 && path.length % 2 === 0) {
+      const start = path[0]!;
+      const end = path[path.length - 1]!;
+      if (start.cell !== end.cell && start.digit !== end.digit && PEERS_OF[start.cell]!.includes(end.cell)) {
+        const eliminations: { cell: number; digit: number }[] = [];
+        if (grid.hasCandidate(start.cell, end.digit)) eliminations.push({ cell: start.cell, digit: end.digit });
+        if (grid.hasCandidate(end.cell, start.digit)) eliminations.push({ cell: end.cell, digit: start.digit });
+        if (eliminations.length > 0) return legacyBuildStep(grid, [...path], [...linkAfter], [], eliminations);
+      }
+    }
+
+    if (path.length >= maxDepth) return null;
+    const neighbors = nextLink === 'strong' ? legacyStrongNeighbors(grid, current) : legacyWeakNeighbors(grid, current);
+    for (const next of neighbors) {
+      const key = encodeNode(next.cell, next.digit);
+      if (visited.has(key)) continue;
+      visited.add(key);
+      path.push(next);
+      linkAfter.push(nextLink);
+      const result = dfs(next, nextLink === 'strong' ? 'weak' : 'strong');
+      path.pop();
+      linkAfter.pop();
+      visited.delete(key);
+      if (result) return result;
+    }
+    return null;
+  }
+
+  for (const start of startNodes) {
+    const key = encodeNode(start.cell, start.digit);
+    visited.add(key);
+    path.push(start);
+    const result = dfs(start, 'strong');
+    path.pop();
+    visited.delete(key);
+    if (result) return result;
+  }
+  return null;
+}
+
+function eliminationsSubset(a: Step, b: Step): boolean {
+  return a.eliminations.every((elim) => b.eliminations.some((other) => other.cell === elim.cell && other.digit === elim.digit));
+}
+
 export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
   return {
     id: 'aic',
@@ -237,13 +296,15 @@ export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
     difficulty: 70,
 
     apply(grid: Grid): Step | null {
+      const peerEndpoint = legacySearchPeerEndpointAic(grid);
+
       for (let digit = 1; digit <= 9; digit++) {
         const graph = buildLinkGraph(grid, { digit, grouped: true });
         const result = searchAic(grid, graph, policy);
         if (result && result.eliminations.length > 0) {
           const start = graph.nodes[result.startNode]!;
           const end = graph.nodes[result.endNode]!;
-          return {
+          const step: Step = {
             strategyId: this.id,
             placements: [],
             eliminations: result.eliminations,
@@ -259,8 +320,12 @@ export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
               en: `X-Chain: digit ${digit} forms an alternating strong/weak chain between ${cellLabel(start.cells[0]!)} and ${cellLabel(end.cells[0]!)}; one end must be true, so cells seeing both can drop ${digit}.`,
             },
           };
+          if (peerEndpoint && eliminationsSubset(peerEndpoint, step)) return peerEndpoint;
+          return step;
         }
       }
+
+      if (peerEndpoint) return peerEndpoint;
 
       const graph = buildLinkGraph(grid, { grouped: true });
       const result = searchAic(grid, graph, policy);

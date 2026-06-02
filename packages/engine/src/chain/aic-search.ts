@@ -46,6 +46,13 @@ function endpointEliminations(grid: Grid, A: ChainNode, B: ChainNode): CellDigit
       if (m & maskOf(d)) out.push({ cell, digit: d });
     }
   }
+
+  if (A.cells.length === 1 && B.cells.length === 1 && A.cells[0] !== B.cells[0] && candSees(A.cells[0]!, B.cells[0]!)) {
+    const aCell = A.cells[0]!;
+    const bCell = B.cells[0]!;
+    if (grid.hasCandidate(aCell, B.digit)) out.push({ cell: aCell, digit: B.digit });
+    if (grid.hasCandidate(bCell, A.digit)) out.push({ cell: bCell, digit: A.digit });
+  }
   return out;
 }
 

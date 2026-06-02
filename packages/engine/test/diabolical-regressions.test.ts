@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { Grid } from '../src/grid.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
 import { lockedCandidates } from '../src/strategies/locked-candidates.js';
+import { aic } from '../src/strategies/aic.js';
 
 function gridFromState(puzzle: string, candidateMasks: readonly number[]): Grid {
   const grid = Grid.fromString(puzzle);
@@ -102,6 +103,47 @@ describe('diabolical strategy regressions', () => {
       expect(step?.strategyId).toBe('locked-candidates');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual([{ cell: 54, digit: 5 }, { cell: 56, digit: 5 }]);
+    });
+  });
+
+  describe('aic', () => {
+    it('matches the winner peer-endpoint elimination for diabolical #13829', () => {
+      const grid = gridFromState(
+        '700000500001500300000060098040027901000905000900800020680030000003002600009000034',
+        [0, 294, 170, 15, 384, 397, 0, 41, 34, 138, 290, 0, 0, 448, 392, 0, 104, 98, 30, 22, 26, 79, 0, 13, 75, 0, 0, 148, 0, 176, 36, 0, 0, 0, 176, 0, 135, 103, 226, 0, 9, 0, 200, 232, 100, 0, 117, 112, 0, 9, 36, 72, 0, 116, 0, 0, 90, 73, 0, 265, 67, 81, 338, 25, 81, 0, 73, 464, 0, 0, 209, 336, 19, 83, 0, 97, 208, 161, 195, 0, 0],
+      );
+
+      const step = aic.apply(grid);
+
+      expect(step?.strategyId).toBe('aic');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 3, digit: 1 }]);
+    });
+
+    it('matches the winner peer-endpoint elimination for diabolical #38116', () => {
+      const grid = gridFromState(
+        '706000304009070800800000702070169000060050070000207000607000400200405007300706008',
+        [0, 19, 0, 400, 387, 131, 0, 273, 0, 25, 31, 0, 52, 0, 15, 0, 49, 49, 0, 29, 29, 308, 269, 13, 0, 305, 0, 24, 0, 158, 0, 0, 0, 18, 136, 20, 265, 0, 143, 132, 0, 140, 259, 0, 261, 281, 157, 157, 0, 140, 0, 305, 136, 309, 0, 401, 0, 388, 391, 135, 0, 23, 273, 0, 385, 129, 0, 389, 0, 289, 37, 0, 0, 281, 25, 0, 259, 0, 273, 19, 0],
+      );
+
+      const step = aic.apply(grid);
+
+      expect(step?.strategyId).toBe('aic');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 38, digit: 4 }]);
+    });
+
+    it('matches the winner selected elimination for diabolical #77633', () => {
+      const grid = gridFromState(
+        '010000020600240008082030460040502010200000000900060207100050002060020080020904050',
+        [92, 0, 348, 224, 448, 496, 340, 0, 276, 0, 340, 340, 0, 0, 337, 341, 324, 0, 80, 0, 0, 65, 0, 337, 0, 0, 273, 196, 0, 228, 0, 448, 0, 420, 0, 292, 0, 68, 229, 205, 449, 453, 436, 268, 316, 0, 20, 149, 141, 0, 133, 0, 12, 0, 0, 324, 460, 228, 0, 228, 324, 332, 0, 92, 0, 348, 69, 0, 69, 325, 0, 269, 196, 0, 196, 0, 193, 0, 101, 0, 37],
+      );
+
+      const step = aic.apply(grid);
+
+      expect(step?.strategyId).toBe('aic');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual([{ cell: 56, digit: 8 }]);
     });
   });
 });
