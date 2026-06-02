@@ -5,6 +5,7 @@ import {
   classifyCase,
   firstDivergence,
   firstDifferentFixedPoint,
+  isCompleteValidGrid,
   normalizeAction,
   runnerSource,
   sameAction,
@@ -18,6 +19,18 @@ test('classifyCase marks missing detection when winner rescues loser stuck grid'
 
 test('classifyCase marks early path dependency when rescue is impossible', () => {
   assert.equal(classifyCase({ winnerRescueStrategyId: null, firstDivergence: { kind: 'different-strategy-selection' } }), 'early-path-dependency');
+});
+
+test('classifyCase is inconclusive when loser also rescues reconstructed stuck grid', () => {
+  assert.equal(classifyCase({
+    winnerRescueStrategyId: 'aic',
+    loserRescueStrategyId: 'aic',
+    firstDivergence: { kind: 'one-stuck' },
+  }), 'inconclusive');
+});
+
+test('isCompleteValidGrid rejects filled grids with duplicate digits', () => {
+  assert.equal(isCompleteValidGrid('1'.repeat(81)), false);
 });
 
 test('runnerSource includes rescue probe fields and limitation', () => {
@@ -155,6 +168,10 @@ test('runnerSource records required trace step fields', () => {
   assert.match(source, /beforeGrid/);
   assert.match(source, /afterGrid/);
   assert.match(source, /explanation/);
+});
+
+test('runnerSource preserves digit regex escaping for final-grid validation', () => {
+  assert.match(runnerSource(), /\/\^\\d\{81\}\$\//);
 });
 
 test('runnerSource records required saturation fixed-point fields', () => {

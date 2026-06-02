@@ -124,9 +124,23 @@ export function firstDifferentFixedPoint(leftFixedPoints, rightFixedPoints) {
   return null;
 }
 
-export function classifyCase({ invalidSolvedRisk, finalGridValid, winnerRescueStrategyId, firstDivergence } = {}) {
+export function isCompleteValidGrid(grid) {
+  if (!/^\d{81}$/.test(grid) || grid.includes('0')) return false;
+  const units = [];
+  for (let row = 0; row < 9; row++) units.push([...Array(9)].map((_, col) => row * 9 + col));
+  for (let col = 0; col < 9; col++) units.push([...Array(9)].map((_, row) => row * 9 + col));
+  for (let boxRow = 0; boxRow < 3; boxRow++) {
+    for (let boxCol = 0; boxCol < 3; boxCol++) {
+      units.push([...Array(9)].map((_, i) => (boxRow * 3 + Math.floor(i / 3)) * 9 + boxCol * 3 + (i % 3)));
+    }
+  }
+  return units.every((unit) => unit.map((idx) => grid[idx]).sort().join('') === '123456789');
+}
+
+export function classifyCase({ invalidSolvedRisk, finalGridValid, winnerRescueStrategyId, loserRescueStrategyId, firstDivergence } = {}) {
   if (invalidSolvedRisk || finalGridValid === false) return 'invalid-solved-risk';
-  if (winnerRescueStrategyId) return 'missing-detection';
+  if (winnerRescueStrategyId && !loserRescueStrategyId) return 'missing-detection';
+  if (winnerRescueStrategyId && loserRescueStrategyId) return 'inconclusive';
   if (firstDivergence?.kind === 'same-strategy-different-effect') return 'same-strategy-different-effect';
   if (firstDivergence) return 'early-path-dependency';
   return 'inconclusive';
@@ -202,6 +216,19 @@ function applyStep(grid, step) {
 
 function candidateHash(grid) {
   return Array.from(grid.candidates ?? []).join(',');
+}
+
+function isCompleteValidGrid(grid) {
+  if (!/^\\d{81}$/.test(grid) || grid.includes('0')) return false;
+  const units = [];
+  for (let row = 0; row < 9; row++) units.push([...Array(9)].map((_, col) => row * 9 + col));
+  for (let col = 0; col < 9; col++) units.push([...Array(9)].map((_, row) => row * 9 + col));
+  for (let boxRow = 0; boxRow < 3; boxRow++) {
+    for (let boxCol = 0; boxCol < 3; boxCol++) {
+      units.push([...Array(9)].map((_, i) => (boxRow * 3 + Math.floor(i / 3)) * 9 + boxCol * 3 + (i % 3)));
+    }
+  }
+  return units.every((unit) => unit.map((idx) => grid[idx]).sort().join('') === '123456789');
 }
 
 function rescueScan(puzzle) {
@@ -306,6 +333,7 @@ console.log(JSON.stringify({
   outcome: grid.isSolved() ? 'solved' : 'stuck',
   initial: process.env.PUZZLE,
   final: grid.toString(),
+  finalGridValid: grid.isSolved() ? isCompleteValidGrid(grid.toString()) : null,
   steps,
   saturation: {
     outcome: saturationGrid.isSolved() ? 'solved' : 'stuck',
@@ -460,6 +488,7 @@ async function main() {
     const loser = solved.length === 1 && stuck.length === 1 ? stuck[0] : null;
     const winnerRescue = winner && loser ? await runRescueScan(winner.model, loser.final, opts, worktreeRoot) : null;
     const loserRescue = winner && loser ? await runRescueScan(loser.model, loser.final, opts, worktreeRoot) : null;
+    const invalidSolvedRisk = results.some((result) => result.outcome === 'solved' && result.finalGridValid === false);
     const rescueComparison = {
       models: opts.models,
       winnerModel: winner?.model ?? null,
@@ -469,7 +498,9 @@ async function main() {
       winnerRescueStrategyId: winnerRescue?.strategyId ?? null,
       loserRescueStrategyId: loserRescue?.strategyId ?? null,
       classification: classifyCase({
+        invalidSolvedRisk,
         winnerRescueStrategyId: winnerRescue?.strategyId ?? null,
+        loserRescueStrategyId: loserRescue?.strategyId ?? null,
         firstDivergence: comparison.firstDivergence,
       }),
       scans: {
