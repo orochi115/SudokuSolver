@@ -54,7 +54,7 @@ function failureIndex(failure) {
 }
 
 function parseArgs(argv) {
-  const opts = { archive: null, difficulty: null, loser: null, winner: null, winners: null, out: null, keepWorktrees: false };
+  const opts = { archive: null, difficulty: null, loser: null, winner: null, winners: null, refs: new Map(), out: null, keepWorktrees: false };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     const next = () => argv[++i];
@@ -63,10 +63,11 @@ function parseArgs(argv) {
     else if (arg === '--loser') opts.loser = next();
     else if (arg === '--winner') opts.winner = next();
     else if (arg === '--winners') opts.winners = next().split(',').map((s) => s.trim()).filter(Boolean);
+    else if (arg === '--refs') opts.refs = parseRefMap(next());
     else if (arg === '--out') opts.out = next();
     else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
     else if (arg === '-h' || arg === '--help') {
-      console.log('usage: node orchestration/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> (--winner <model> | --winners <models>) --out <dir> [--keep-worktrees]');
+      console.log('usage: node orchestration/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> (--winner <model> | --winners <models>) [--refs model=git-ref,...] --out <dir> [--keep-worktrees]');
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);
@@ -80,6 +81,20 @@ function parseArgs(argv) {
   if (!opts.winner && !opts.winners?.length) throw new Error('--winner or --winners is required');
   opts.winners ??= [opts.winner];
   return opts;
+}
+
+export function parseRefMap(value = '') {
+  const refs = new Map();
+  for (const entry of value.split(',').map((s) => s.trim()).filter(Boolean)) {
+    const eq = entry.indexOf('=');
+    if (eq <= 0 || eq === entry.length - 1) throw new Error(`invalid --refs entry: ${entry}`);
+    refs.set(entry.slice(0, eq), entry.slice(eq + 1));
+  }
+  return refs;
+}
+
+export function formatRefMap(refs = new Map()) {
+  return [...refs.entries()].map(([name, ref]) => `${name}=${ref}`).join(',');
 }
 
 function runTar(args, archive) {
@@ -113,7 +128,7 @@ export function modelFailures(results, model, difficulty) {
   return difficultyReport.failures;
 }
 
-function runTrace({ difficulty, index, puzzle, winner, loser, outDir, keepWorktrees }) {
+export function traceCommandArgs({ difficulty, index, puzzle, winner, loser, outDir, refs = new Map(), keepWorktrees }) {
   const args = [
     resolve(HERE, 'trace-archive-case.mjs'),
     '--models', `${winner},${loser}`,
@@ -122,6 +137,12 @@ function runTrace({ difficulty, index, puzzle, winner, loser, outDir, keepWorktr
   if (puzzle) args.push('--puzzle', puzzle);
   else args.push('--difficulty', difficulty, '--index', String(index));
   if (keepWorktrees) args.push('--keep-worktrees');
+  if (refs.size > 0) args.push('--refs', formatRefMap(refs));
+  return args;
+}
+
+function runTrace({ difficulty, index, puzzle, winner, loser, outDir, refs, keepWorktrees }) {
+  const args = traceCommandArgs({ difficulty, index, puzzle, winner, loser, outDir, refs, keepWorktrees });
 
   const result = spawnSync(process.execPath, args, {
     cwd: REPO,
@@ -227,7 +248,7 @@ function runCli(argv) {
   const cases = [];
   for (const pair of winnerCasePairs) {
     const index = failureIndex(pair);
-    const caseDir = resolve(casesDir, `${opts.difficulty}-${index}`);
+    const caseDir = resolve(casesDir, `${opts.difficulty}-${index}`, `${pair.winner}-vs-${pair.loser}`);
     mkdirSync(caseDir, { recursive: true });
     runTrace({
       difficulty: opts.difficulty,
@@ -236,6 +257,7 @@ function runCli(argv) {
       winner: pair.winner,
       loser: pair.loser,
       outDir: caseDir,
+      refs: opts.refs,
       keepWorktrees: opts.keepWorktrees,
     });
     cases.push(summarizeCase({

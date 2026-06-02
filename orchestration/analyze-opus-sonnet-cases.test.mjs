@@ -2,10 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   buildWinnerCasePairs,
+  formatRefMap,
   modelFailures,
+  parseRefMap,
   selectFailuresSolvedByAnyWinner,
   selectMutualComparisonCases,
   selectMutualComparisonFailures,
+  traceCommandArgs,
 } from './analyze-opus-sonnet-cases.mjs';
 
 test('selectMutualComparisonCases finds loser failures solved by winner', () => {
@@ -51,4 +54,28 @@ test('buildWinnerCasePairs keeps one pair per winner that solved a case', () => 
     { winner: 'opus48', loser: 'analysis-sonnet46-strategy-fix', index: 10, puzzle: 'p10' },
     { winner: 'gemini35flash', loser: 'analysis-sonnet46-strategy-fix', index: 10, puzzle: 'p10' },
   ]);
+});
+
+test('traceCommandArgs forwards explicit refs to trace runner', () => {
+  assert.deepEqual(traceCommandArgs({
+    difficulty: 'diabolical',
+    index: 88102,
+    winner: 'opus48',
+    loser: 'analysis-sonnet46-strategy-fix',
+    outDir: '/tmp/case',
+    refs: new Map([['analysis-sonnet46-strategy-fix', 'analysis/sonnet46-strategy-fix']]),
+    keepWorktrees: false,
+  }).slice(-2), [
+    '--refs',
+    'analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix',
+  ]);
+});
+
+test('parseRefMap and formatRefMap preserve explicit ref mappings', () => {
+  const refs = parseRefMap('analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix,opus48=archive/final/opus48');
+  assert.deepEqual([...refs.entries()], [
+    ['analysis-sonnet46-strategy-fix', 'analysis/sonnet46-strategy-fix'],
+    ['opus48', 'archive/final/opus48'],
+  ]);
+  assert.equal(formatRefMap(refs), 'analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix,opus48=archive/final/opus48');
 });
