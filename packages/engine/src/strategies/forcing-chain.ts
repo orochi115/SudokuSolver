@@ -1,277 +1,211 @@
 /**
- * Forcing Chains (T4, last resort) — 强制链
+ * Forcing Chains (T4, last resort) — 强制链.
  *
- * Per the forcing-boundary policy (docs/forcing-boundary.md), we implement
- * ONLY the "human-acceptable" subset:
- *
- *   - Cell forcing chain: assume each candidate in a bivalue/trivalue cell.
- *     Propagate ONLY naked singles (guaranteed, safe). If ALL candidates from
- *     a cell lead to the same value for some other cell, place it.
- *     If one candidate leads to contradiction (cell with 0 candidates), eliminate it.
- *
- *   - House forcing chain: for a digit with exactly 2 positions in a house,
- *     assume each position. If both lead to the same placement, apply it.
- *     If one leads to contradiction, the other must be the true position.
- *
- * We intentionally do NOT run hidden singles during propagation (too complex,
- * hard to verify soundness). Only naked singles (deterministic, safe).
- *
- * Depth limit: MAX_FC_PROPAGATION steps of naked single propagation per branch.
- *
- * FORBIDDEN: full backtracking, contradiction search, multi-branch trees.
+ * Bounded two-branch forcing over the same strong/weak link graph used by AIC.
+ * This avoids full forcing nets: each premise has exactly two alternatives, and
+ * each alternative is propagated as a non-branching implication fixpoint.
  */
 
-import {
-  CELLS, HOUSES, ROW_OF, COL_OF,
-  PEERS_OF, maskOf, popcount, digitsOf,
-} from '../grid.js';
+import { CELLS, HOUSES, ROW_OF, COL_OF, maskOf, popcount, digitsOf } from '../grid.js';
 import type { Grid } from '../grid.js';
-import type { Step } from '../trace.js';
+import type { CellDigit, Step } from '../trace.js';
 import type { Strategy } from '../strategy.js';
+import { buildLinkGraph, nodeKey, type LinkGraph } from '../chain/graph.js';
+import { DEFAULT_CHAIN_POLICY, type ChainPolicy } from '../chain/policy.js';
 
-const MAX_PROPAGATION = 50; // max naked single steps per branch
-
-/** A consequence: a cell gets a specific value. */
-interface Placement {
-  cell: number;
-  digit: number;
+function cellLabel(cell: number): string {
+  return `R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}`;
 }
 
-/**
- * Starting from an assumption that (cell, digit) is placed,
- * propagate naked singles exhaustively (but safely — no hidden singles).
- *
- * Returns:
- *   - null if contradiction (some cell gets 0 candidates)
- *   - Map<cell, digit> of all forced placements (including the initial assumption)
- */
-function propagateNakedSingles(grid: Grid, cell: number, digit: number): Map<number, number> | null {
-  const placements = new Map<number, number>();
-  const work = grid.clone();
+function setState(
+  state: Map<number, boolean>,
+  node: number,
+  value: boolean,
+  queue: number[],
+): 'ok' | 'contradiction' {
+  const existing = state.get(node);
+  if (existing === undefined) {
+    state.set(node, value);
+    queue.push(node);
+    return 'ok';
+  }
+  return existing === value ? 'ok' : 'contradiction';
+}
 
-  if (!work.hasCandidate(cell, digit)) return null;
-  work.place(cell, digit);
-  placements.set(cell, digit);
-
-  let changed = true;
+function propagate(graph: LinkGraph, start: number, maxChainLength: number): Map<number, boolean> | null {
+  const state = new Map<number, boolean>([[start, true]]);
+  const queue = [start];
   let steps = 0;
-  while (changed && steps < MAX_PROPAGATION) {
-    changed = false;
-    steps++;
 
-    for (let c = 0; c < CELLS; c++) {
-      if (work.get(c) !== 0) continue;
-      const mask = work.candidatesOf(c);
+  while (queue.length > 0) {
+    if (++steps > maxChainLength * 4) break;
+    const current = queue.shift()!;
+    const currentValue = state.get(current)!;
 
-      if (mask === 0) return null; // contradiction
-
-      if (popcount(mask) === 1) {
-        const d = digitsOf(mask)[0]!;
-        if (!placements.has(c)) {
-          placements.set(c, d);
-        }
-        work.place(c, d);
-        changed = true;
+    for (const edge of graph.adjacency[current]!) {
+      if (currentValue && edge.type === 'weak') {
+        if (setState(state, edge.to, false, queue) === 'contradiction') return null;
+      } else if (!currentValue && edge.type === 'strong') {
+        if (setState(state, edge.to, true, queue) === 'contradiction') return null;
       }
     }
+
+    if (state.size > maxChainLength) break;
   }
 
-  // Check for any remaining contradictions
-  for (let c = 0; c < CELLS; c++) {
-    if (work.get(c) !== 0) continue;
-    if (work.candidatesOf(c) === 0) return null;
-  }
-
-  return placements;
+  return state;
 }
 
-/**
- * Cell Forcing Chain: for a cell with N (2-4) candidates, if ALL branches
- * agree on a placement, apply it. If ONE branch leads to contradiction,
- * eliminate that candidate.
- */
-function tryCellForcingChain(grid: Grid): Step | null {
-  for (let cell = 0; cell < CELLS; cell++) {
-    if (grid.get(cell) !== 0) continue;
-    const cands = digitsOf(grid.candidatesOf(cell));
-    if (cands.length < 2 || cands.length > 4) continue;
+function consequences(graph: LinkGraph, state: Map<number, boolean>): { trues: Set<string>; falses: Set<string> } {
+  const trues = new Set<string>();
+  const falses = new Set<string>();
 
-    const branches: Map<number, number>[] = [];
-    const contradictions: number[] = [];
+  for (const [nodeIndex, value] of state) {
+    const node = graph.nodes[nodeIndex]!;
+    if (node.cells.length !== 1) continue;
+    const key = `${node.cells[0]}:${node.digit}`;
+    if (value) trues.add(key);
+    else falses.add(key);
+  }
 
-    for (const d of cands) {
-      const result = propagateNakedSingles(grid, cell, d);
-      if (result === null) {
-        contradictions.push(d);
-      } else {
-        branches.push(result);
-      }
-    }
+  return { trues, falses };
+}
 
-    // If any candidate leads to contradiction, eliminate it
-    if (contradictions.length > 0) {
-      const d = contradictions[0]!;
-      if (!grid.hasCandidate(cell, d)) continue;
-      return {
-        strategyId: 'forcing-chain',
-        placements: [],
-        eliminations: [{ cell, digit: d }],
-        highlights: {
-          cells: [cell],
-          candidates: cands.map((cd) => ({ cell, digit: cd })),
-          links: [],
-        },
-        explanation: {
-          zh: `强制链（格）：假设 R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}=${d} 导致矛盾；消去 ${d}。`,
-          en: `Forcing Chain (cell): assuming R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}=${d} leads to contradiction; eliminate ${d}.`,
-        },
-      };
-    }
+function makeStep(
+  strategyId: string,
+  grid: Grid,
+  premiseCells: readonly number[],
+  placements: CellDigit[],
+  eliminations: CellDigit[],
+  zhWhat: string,
+  enWhat: string,
+): Step {
+  return {
+    strategyId,
+    placements,
+    eliminations,
+    highlights: {
+      cells: [...new Set([...premiseCells, ...placements.map((p) => p.cell), ...eliminations.map((e) => e.cell)])],
+      candidates: [
+        ...premiseCells.flatMap((cell) => digitsOf(grid.candidatesOf(cell)).map((digit) => ({ cell, digit }))),
+        ...placements,
+        ...eliminations,
+      ],
+      links: [],
+    },
+    explanation: {
+      zh: `强制链：${zhWhat}`,
+      en: `Forcing chain: ${enWhat}`,
+    },
+  };
+}
 
-    // If all branches agree on a placement for some OTHER cell
-    if (branches.length < 2) continue;
+function forceFromTwo(
+  strategyId: string,
+  grid: Grid,
+  graph: LinkGraph,
+  firstNode: number,
+  secondNode: number,
+  premiseCells: readonly number[],
+  policy: ChainPolicy,
+  description: { zh: string; en: string },
+): Step | null {
+  const first = propagate(graph, firstNode, policy.maxChainLength);
+  const second = propagate(graph, secondNode, policy.maxChainLength);
 
-    // Look for cells (not the pivot) where all branches agree on the same digit
-    for (const [targetCell, targetDigit] of branches[0]!) {
-      if (targetCell === cell) continue;
-      if (grid.get(targetCell) !== 0) continue;
-      if (!grid.hasCandidate(targetCell, targetDigit)) continue;
-
-      const allAgree = branches.every((br) => br.get(targetCell) === targetDigit);
-      if (!allAgree) continue;
-
-      return {
-        strategyId: 'forcing-chain',
-        placements: [{ cell: targetCell, digit: targetDigit }],
-        eliminations: [],
-        highlights: {
-          cells: [cell, targetCell],
-          candidates: [
-            ...cands.map((cd) => ({ cell, digit: cd })),
-            { cell: targetCell, digit: targetDigit },
-          ],
-          links: [
-            {
-              from: { cell, digit: cands[0]! },
-              to: { cell: targetCell, digit: targetDigit },
-              type: 'strong' as const,
-            },
-          ],
-        },
-        explanation: {
-          zh: `强制链（格）：从 R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1} 的所有候选数出发，均得到 R${ROW_OF[targetCell]! + 1}C${COL_OF[targetCell]! + 1}=${targetDigit}；故填入 ${targetDigit}。`,
-          en: `Forcing Chain (cell): all candidates from R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1} lead to R${ROW_OF[targetCell]! + 1}C${COL_OF[targetCell]! + 1}=${targetDigit}; place ${targetDigit}.`,
-        },
-      };
+  if (first === null && second !== null) {
+    const node = graph.nodes[secondNode]!;
+    if (node.cells.length === 1) {
+      return makeStep(strategyId, grid, premiseCells, [{ cell: node.cells[0]!, digit: node.digit }], [], description.zh, description.en);
     }
   }
 
+  if (second === null && first !== null) {
+    const node = graph.nodes[firstNode]!;
+    if (node.cells.length === 1) {
+      return makeStep(strategyId, grid, premiseCells, [{ cell: node.cells[0]!, digit: node.digit }], [], description.zh, description.en);
+    }
+  }
+
+  if (first === null || second === null) return null;
+
+  const firstConsequences = consequences(graph, first);
+  const secondConsequences = consequences(graph, second);
+
+  const eliminations: CellDigit[] = [];
+  for (const key of firstConsequences.falses) {
+    if (!secondConsequences.falses.has(key)) continue;
+    const [cell, digit] = key.split(':').map(Number) as [number, number];
+    if (grid.hasCandidate(cell, digit)) eliminations.push({ cell, digit });
+  }
+
+  const placements: CellDigit[] = [];
+  for (const key of firstConsequences.trues) {
+    if (!secondConsequences.trues.has(key)) continue;
+    const [cell, digit] = key.split(':').map(Number) as [number, number];
+    if (!premiseCells.includes(cell) && grid.get(cell) === 0 && grid.hasCandidate(cell, digit)) {
+      placements.push({ cell, digit });
+    }
+  }
+
+  if (placements.length > 0) {
+    return makeStep(strategyId, grid, premiseCells, [placements[0]!], [], description.zh, description.en);
+  }
+  if (eliminations.length > 0) {
+    return makeStep(strategyId, grid, premiseCells, [], eliminations, description.zh, description.en);
+  }
   return null;
 }
 
-/**
- * House Forcing Chain: for a digit d with exactly 2 positions in a house,
- * try each. If one leads to contradiction, the other must be true (place it).
- * If both lead to the same placement elsewhere, apply it.
- */
-function tryHouseForcingChain(grid: Grid): Step | null {
-  for (const house of HOUSES) {
-    for (let d = 1; d <= 9; d++) {
-      const bit = maskOf(d);
-      const positions = house.filter((c) => grid.get(c) === 0 && (grid.candidatesOf(c) & bit) !== 0);
+export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
+  return {
+    id: 'forcing-chain',
+    name: { zh: '强制链', en: 'Forcing Chain' },
+    difficulty: 100,
 
-      // Only handle exactly 2 positions (safer, more predictable)
-      if (positions.length !== 2) continue;
+    apply(grid: Grid): Step | null {
+      const graph = buildLinkGraph(grid, { grouped: false });
+      const nodeIndex = (cell: number, digit: number): number | undefined => graph.indexOfKey.get(nodeKey(digit, [cell]));
 
-      const [pos0, pos1] = positions as [number, number];
-      const branch0 = propagateNakedSingles(grid, pos0, d);
-      const branch1 = propagateNakedSingles(grid, pos1, d);
+      if (policy.allowCellForcing) {
+        for (let cell = 0; cell < CELLS; cell++) {
+          if (grid.get(cell) !== 0 || popcount(grid.candidatesOf(cell)) !== 2) continue;
+          const [firstDigit, secondDigit] = digitsOf(grid.candidatesOf(cell)) as [number, number];
+          const firstNode = nodeIndex(cell, firstDigit);
+          const secondNode = nodeIndex(cell, secondDigit);
+          if (firstNode === undefined || secondNode === undefined) continue;
 
-      // If branch0 is contradiction → pos0 is impossible → pos1 must be d
-      if (branch0 === null && branch1 !== null) {
-        if (grid.hasCandidate(pos1, d)) {
-          return {
-            strategyId: 'forcing-chain',
-            placements: [{ cell: pos1, digit: d }],
-            eliminations: [],
-            highlights: {
-              cells: [...positions],
-              candidates: positions.map((c) => ({ cell: c, digit: d })),
-              links: [],
-            },
-            explanation: {
-              zh: `强制链（宫/行/列）：假设 R${ROW_OF[pos0]! + 1}C${COL_OF[pos0]! + 1}=${d} 导致矛盾；故 R${ROW_OF[pos1]! + 1}C${COL_OF[pos1]! + 1}=${d}。`,
-              en: `Forcing Chain (house): assuming R${ROW_OF[pos0]! + 1}C${COL_OF[pos0]! + 1}=${d} leads to contradiction; therefore R${ROW_OF[pos1]! + 1}C${COL_OF[pos1]! + 1}=${d}.`,
-            },
-          };
+          const step = forceFromTwo(this.id, grid, graph, firstNode, secondNode, [cell], policy, {
+            zh: `双值格 ${cellLabel(cell)}{${firstDigit},${secondDigit}} 的两种取值分别推演，得到共同结论。`,
+            en: `both values of bivalue cell ${cellLabel(cell)}{${firstDigit},${secondDigit}} lead to the same conclusion.`,
+          });
+          if (step) return step;
         }
       }
 
-      // If branch1 is contradiction → pos1 is impossible → pos0 must be d
-      if (branch1 === null && branch0 !== null) {
-        if (grid.hasCandidate(pos0, d)) {
-          return {
-            strategyId: 'forcing-chain',
-            placements: [{ cell: pos0, digit: d }],
-            eliminations: [],
-            highlights: {
-              cells: [...positions],
-              candidates: positions.map((c) => ({ cell: c, digit: d })),
-              links: [],
-            },
-            explanation: {
-              zh: `强制链（宫/行/列）：假设 R${ROW_OF[pos1]! + 1}C${COL_OF[pos1]! + 1}=${d} 导致矛盾；故 R${ROW_OF[pos0]! + 1}C${COL_OF[pos0]! + 1}=${d}。`,
-              en: `Forcing Chain (house): assuming R${ROW_OF[pos1]! + 1}C${COL_OF[pos1]! + 1}=${d} leads to contradiction; therefore R${ROW_OF[pos0]! + 1}C${COL_OF[pos0]! + 1}=${d}.`,
-            },
-          };
+      if (policy.allowDigitForcing) {
+        for (const house of HOUSES) {
+          for (let digit = 1; digit <= 9; digit++) {
+            const bit = maskOf(digit);
+            const positions = house.filter((cell) => grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0);
+            if (positions.length !== 2) continue;
+            const [firstCell, secondCell] = positions as [number, number];
+            const firstNode = nodeIndex(firstCell, digit);
+            const secondNode = nodeIndex(secondCell, digit);
+            if (firstNode === undefined || secondNode === undefined) continue;
+
+            const step = forceFromTwo(this.id, grid, graph, firstNode, secondNode, [firstCell, secondCell], policy, {
+              zh: `数字 ${digit} 在房屋中的两个落点 ${cellLabel(firstCell)}、${cellLabel(secondCell)} 分别推演，得到共同结论。`,
+              en: `the two spots of digit ${digit} (${cellLabel(firstCell)}, ${cellLabel(secondCell)}) lead to the same conclusion.`,
+            });
+            if (step) return step;
+          }
         }
       }
 
-      // Both valid: look for agreed placements
-      if (branch0 === null || branch1 === null) continue;
-
-      for (const [targetCell, targetDigit] of branch0) {
-        if (targetCell === pos0 || targetCell === pos1) continue;
-        if (grid.get(targetCell) !== 0) continue;
-        if (!grid.hasCandidate(targetCell, targetDigit)) continue;
-        if (branch1.get(targetCell) !== targetDigit) continue;
-
-        return {
-          strategyId: 'forcing-chain',
-          placements: [{ cell: targetCell, digit: targetDigit }],
-          eliminations: [],
-          highlights: {
-            cells: [...positions, targetCell],
-            candidates: [
-              ...positions.map((c) => ({ cell: c, digit: d })),
-              { cell: targetCell, digit: targetDigit },
-            ],
-            links: [],
-          },
-          explanation: {
-            zh: `强制链（宫/行/列）：数字 ${d} 在宫/行/列的两个位置均导致 R${ROW_OF[targetCell]! + 1}C${COL_OF[targetCell]! + 1}=${targetDigit}；故填入 ${targetDigit}。`,
-            en: `Forcing Chain (house): both positions of digit ${d} in the house lead to R${ROW_OF[targetCell]! + 1}C${COL_OF[targetCell]! + 1}=${targetDigit}; place ${targetDigit}.`,
-          },
-        };
-      }
-    }
-  }
-
-  return null;
+      return null;
+    },
+  };
 }
 
-export const forcingChain: Strategy = {
-  id: 'forcing-chain',
-  name: { zh: '强制链', en: 'Forcing Chain' },
-  difficulty: 100,
-
-  apply(grid: Grid): Step | null {
-    const cellFC = tryCellForcingChain(grid);
-    if (cellFC) return cellFC;
-
-    const houseFC = tryHouseForcingChain(grid);
-    if (houseFC) return houseFC;
-
-    return null;
-  },
-};
+export const forcingChain: Strategy = makeForcingChain();
