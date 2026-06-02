@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { canonicalOrder, firstDivergence, normalizeAction, sameAction } from './trace-archive-case.mjs';
+import {
+  canonicalOrder,
+  firstDivergence,
+  normalizeAction,
+  sameAction,
+  validateComparisonModels,
+  worktreeRootPrefix,
+} from './trace-archive-case.mjs';
 
 test('firstDivergence detects same strategy with different eliminations', () => {
   const a = [{ strategyId: 'aic', placements: [], eliminations: [{ cell: 1, digit: 2 }] }];
@@ -99,4 +106,18 @@ test('firstDivergence reports identical prefix when neither trace diverges', () 
     leftStrategyId: null,
     rightStrategyId: null,
   });
+});
+
+test('validateComparisonModels rejects ambiguous multi-model comparisons', () => {
+  assert.throws(
+    () => validateComparisonModels(['opus48', 'sonnet46', 'third']),
+    /exactly two/,
+  );
+});
+
+test('worktreeRootPrefix includes process-unique segment for safe mkdtemp roots', () => {
+  assert.match(
+    worktreeRootPrefix('/tmp/sudoku-trace-wt', '20260602-123456', 12345),
+    /\/tmp\/sudoku-trace-wt\/20260602-123456-12345-/,
+  );
 });

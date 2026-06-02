@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execFileSync, spawn } from 'node:child_process';
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -47,6 +47,15 @@ export function normalizeAction(step) {
 
 export function sameAction(left, right) {
   return JSON.stringify(normalizeAction(left)) === JSON.stringify(normalizeAction(right));
+}
+
+export function validateComparisonModels(models) {
+  if (models.length !== 2) throw new Error('--models must contain exactly two comma-separated model names');
+  return models;
+}
+
+export function worktreeRootPrefix(base, stamp, pid = process.pid) {
+  return resolve(base, `${stamp}-${pid}-`);
 }
 
 function strategyId(step) {
@@ -132,7 +141,7 @@ function parseArgs(argv) {
   if (opts.puzzle && (opts.difficulty || opts.index != null)) throw new Error('use either --puzzle or --difficulty/--index, not both');
   if (!opts.puzzle && (!opts.difficulty || opts.index == null)) throw new Error('provide either --puzzle or --difficulty <difficulty> --index <number>');
   if (!opts.out) throw new Error('--out is required');
-  if (opts.models.length < 2) throw new Error('--models must contain at least two comma-separated model names');
+  validateComparisonModels(opts.models);
   return opts;
 }
 
@@ -238,7 +247,6 @@ async function runModel(model, puzzle, opts, worktreeRoot) {
   const branch = `archive/final/${model}`;
   if (!ensureBranch(branch)) throw new Error(`missing branch ${branch}`);
   const worktree = resolve(worktreeRoot, model);
-  rmSync(worktree, { recursive: true, force: true });
   sh(['git', 'worktree', 'add', '--detach', worktree, branch]);
   try {
     writeFileSync(resolve(worktree, '.trace-case-runner.ts'), runnerSource());
@@ -275,9 +283,10 @@ async function main() {
   const opts = parseArgs(process.argv.slice(2));
   const { puzzle, source } = resolvePuzzle(opts);
   const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\..*/, '').replace('T', '-');
-  const worktreeRoot = resolve(REPO, '../sudoku-trace-wt', stamp);
+  const worktreeBase = resolve(REPO, '../sudoku-trace-wt');
+  mkdirSync(worktreeBase, { recursive: true });
+  const worktreeRoot = mkdtempSync(worktreeRootPrefix(worktreeBase, stamp));
   mkdirSync(opts.out, { recursive: true });
-  mkdirSync(worktreeRoot, { recursive: true });
 
   const results = [];
   try {
@@ -293,6 +302,8 @@ async function main() {
 
   const comparison = {
     models: opts.models,
+    leftModel: opts.models[0],
+    rightModel: opts.models[1],
     firstDivergence: firstDivergence(results[0].steps, results[1].steps),
   };
   writeFileSync(resolve(opts.out, 'comparison.json'), JSON.stringify(comparison, null, 2) + '\n');
