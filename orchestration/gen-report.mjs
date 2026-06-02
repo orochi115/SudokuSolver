@@ -48,7 +48,12 @@ function judge(wt) {
   const tmp = resolve(wt, '.genreport-judge.ts');
   try {
     copyFileSync(JUDGE, tmp);
-    const out = execSync('npx tsx .genreport-judge.ts', { cwd: wt, encoding: 'utf8', env: { ...process.env, REQUIRE_IDS: requiredM3.join(' ') }, stdio: ['ignore', 'pipe', 'ignore'] });
+    let out;
+    try {
+      out = execSync('npx tsx .genreport-judge.ts', { cwd: wt, encoding: 'utf8', env: { ...process.env, REQUIRE_IDS: requiredM3.join(' ') }, stdio: ['ignore', 'pipe', 'ignore'] });
+    } catch (e) {
+      out = e.stdout || ''; // GATE FAIL exits non-zero but still prints the JSON to stdout first
+    }
     return JSON.parse(out);
   } catch { return null; } finally { try { rmSync(tmp); } catch {} }
 }
