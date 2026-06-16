@@ -43,6 +43,28 @@ Important indexing rule:
 
 ## Phase 1: Fix Regression Before New Strategy Work
 
+Status: completed on `analysis/sonnet46-strategy-fix` after the Phase 1 repair commit.
+
+Implementation summary:
+
+- Added #36186 restored-state and full-puzzle regression coverage in `packages/engine/test/diabolical-regressions.test.ts`.
+- Fixed `locked-candidates` generically by collecting all same-phase locked-candidates deductions instead of selecting one globally ranked action. Pointing deductions are applied together; claiming deductions are applied together only when no pointing deduction exists.
+- Updated forcing-chain handling generically so graph forcing and bounded contradiction deductions can be combined when both are available, and restored the legacy naked-single forcing subset as a fallback when the newer graph/contradiction paths do not produce a step.
+- Removed path-specific expectations from affected regression tests. Tests now assert required sound deductions are present and that full solve paths are solved and sound, rather than requiring one historical trace path.
+- No puzzle-specific guard or #36186 literal was added to implementation code.
+
+Verification run from `/Users/sakura/LLM_Work/sudoku-trace-wt`:
+
+```bash
+npm test
+npm run typecheck
+```
+
+Observed result:
+
+- `npm test`: 8 test files passed, 117 tests passed.
+- `npm run typecheck`: passed.
+
 ### Task 1: Reproduce and Lock Down Regression #36186
 
 **Files:**
@@ -51,7 +73,7 @@ Important indexing rule:
 - Candidate implementation file: `packages/engine/src/strategies/locked-candidates.ts`
 - Evidence: `orchestration/reports/analysis/regression-sonnet46-case-36186/`
 
-- [ ] Step 1: Confirm trace evidence from `orchestration`
+- [x] Step 1: Confirm trace evidence from `orchestration`
 
 Run:
 
@@ -69,18 +91,18 @@ Expected evidence:
 - `sonnet46-fixed`: stuck, 16 steps.
 - First divergence: step 3, both `locked-candidates`, same candidate state, different effect.
 
-- [ ] Step 2: Write a failing restored-state test
+- [x] Step 2: Write a failing restored-state test
 
 Add a test using the `winnerProbe.probeGrid` and `candidateHashBefore` from `divergence-probe.json`.
 
-Expected `locked-candidates` action from original `sonnet46`:
+Expected `locked-candidates` action from original `sonnet46`, now treated as required included deductions rather than an exclusive exact step:
 
 ```ts
-expect(step?.eliminations).toEqual([
+expect(step?.eliminations).toEqual(expect.arrayContaining([
   { cell: 54, digit: 5 },
   { cell: 63, digit: 5 },
   { cell: 72, digit: 5 },
-]);
+]));
 ```
 
 Run:
@@ -93,7 +115,7 @@ Expected RED:
 
 - Current repaired branch returns `{ cell: 13, digit: 2 }` and `{ cell: 22, digit: 2 }` instead.
 
-- [ ] Step 3: Write a full-puzzle regression test
+- [x] Step 3: Write a full-puzzle regression test
 
 Add a test that solves puzzle #36186 with `STRATEGIES`, asserts `outcome === 'solved'`, and verifies `checkTraceSoundness(...).sound === true`.
 
@@ -107,16 +129,17 @@ Expected RED:
 
 - Current repaired branch gets stuck.
 
-- [ ] Step 4: Fix `locked-candidates` selection root cause
+- [x] Step 4: Fix `locked-candidates` selection root cause
 
-Hypothesis to test first:
+Root cause confirmed:
 
-- The current global lowest-digit ranking fixed #78760/#103170 but can choose a lower digit action that blocks old `sonnet46` solve paths.
-- A safer policy likely needs local category ordering or a quality score that preserves original scan-order when a later low-digit action is not known to be stronger.
+- The current global lowest-digit ranking fixed #78760/#103170 but changed the solve path by choosing one action and discarding other sound same-phase locked-candidates deductions.
+- The generic fix is not another ranking rule. It returns all pointing deductions from the current candidate state, or all claiming deductions if no pointing deduction exists. This removes the single-action path dependency for `locked-candidates`.
+- #36186 also exposed a later forcing-chain path dependency after the locked-candidates fix. The generic follow-up combines available graph-forcing and bounded-contradiction deductions, and falls back to the legacy naked-single forcing subset when neither newer forcing path produces a step.
 
-Do not blindly revert `locked-candidates`; preserve tests for #78760 and #103170.
+The final implementation avoids any puzzle-specific guard.
 
-- [ ] Step 5: Verify regression fix
+- [x] Step 5: Verify regression fix
 
 Run:
 
@@ -131,11 +154,11 @@ Expected GREEN:
 - #36186 solved and sound.
 - #78760 and #103170 locked-candidates regressions remain green.
 
-- [ ] Step 6: Commit
+- [x] Step 6: Commit
 
 ```bash
-git add packages/engine/src/strategies/locked-candidates.ts packages/engine/test/diabolical-regressions.test.ts
-git commit -m "fix: resolve locked-candidates regression"
+git add packages/engine/src/strategies/locked-candidates.ts packages/engine/src/strategies/forcing-chain.ts packages/engine/test/diabolical-regressions.test.ts
+git commit -m "fix: resolve diabolical regression path dependency"
 ```
 
 ## Phase 2: Finish Model-Solvable Remaining Cases

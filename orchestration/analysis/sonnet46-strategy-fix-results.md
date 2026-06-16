@@ -205,12 +205,30 @@ Rerun result:
 
 This improves the prior repaired-branch full-corpus result from 904 remaining diabolical failures to 731. Seven of the nine Phase 3 candidate cases from `fixed-remaining-diabolical-root-cause-notes.md` no longer fail in the full-corpus rerun. Two `gemini35flash`-solved cases, #38116 and #77633, remain failed in the full solve path and require fresh trace comparison.
 
-The rerun also exposed one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis/sonnet46-strategy-fix`. The first divergence is a same-state `locked-candidates` different-effect at step 3.
+The rerun also exposed one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis/sonnet46-strategy-fix`. The first divergence is a same-state `locked-candidates` different-effect at step 3. A later Phase 1 repair fixed this regression locally with generic strategy changes, not a puzzle-specific guard:
+
+- `locked-candidates` now returns all same-phase deductions instead of choosing one globally ranked action.
+- `forcing-chain` now combines simultaneously available graph-forcing and bounded-contradiction deductions, and falls back to the original naked-single forcing subset when newer forcing paths do not produce a step.
+- #36186 has restored-state and full-puzzle regression coverage; the full-puzzle trace is asserted solved and sound.
+
+Local verification after the Phase 1 repair:
+
+```bash
+npm test
+npm run typecheck
+```
+
+Observed result:
+
+- `npm test`: 8 test files passed, 117 tests passed.
+- `npm run typecheck`: passed.
+
+The full-corpus archive has not yet been rerun after this Phase 1 repair, so the aggregate table above remains the pre-#36186-fix full-corpus checkpoint.
 
 `orchestration/run-logs/full-corpus-20260602-064418.tar.gz` was updated in place so the `analysis-sonnet46-strategy-fix` entry in `20260602-064418/results.json`, `results.partial.json`, and `summary.md` reflects this rerun.
 
 ## Remaining Risk
 
-- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. Remaining unsolved cases are now concentrated in 731 diabolical puzzles, including two still model-solvable cases and one regression relative to original `sonnet46`.
+- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. The pre-Phase-1 aggregate result was 731 diabolical stuck cases, including two still model-solvable cases and the #36186 regression. The #36186 regression is now fixed locally, but a fresh full-corpus rerun is required to update the aggregate count.
 - The grouped AIC implementation intentionally imports more strategy strength from `opus48`. Treat this as a strategy-strength repair branch, not as a minimal patch to the original `sonnet46` search style.
-- Further work should start by fixing the #36186 regression and then re-analyzing #38116/#77633 before broader strategy expansion.
+- Further work should start with a full-corpus checkpoint for the Phase 1 repair, then re-analyze #38116/#77633 before broader strategy expansion.

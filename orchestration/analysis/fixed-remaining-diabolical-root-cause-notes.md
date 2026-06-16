@@ -106,17 +106,19 @@ The subsequent TDD repair pass added focused restored-state regression coverage 
 | 103170 | solved, sound |
 | 109043 | solved, sound |
 
-The full-corpus result also uncovered one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis-sonnet46-strategy-fix`. A direct trace comparison shows the first divergence at step 3, `locked-candidates` vs `locked-candidates`, same candidate state but different effect:
+The full-corpus result also uncovered one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis-sonnet46-strategy-fix`. A direct trace comparison showed the first divergence at step 3, `locked-candidates` vs `locked-candidates`, same candidate state but different effect:
 
 - `sonnet46`: eliminates digit 5 from cells 54, 63, 72 and eventually solves.
 - `analysis-sonnet46-strategy-fix`: eliminates digit 2 from cells 13, 22 and later gets stuck.
 
-This is a real regression from the `locked-candidates` selection changes and should be fixed before adding new strategy families.
+This was a real regression from the `locked-candidates` selection changes and was fixed before adding new strategy families. The repair does not special-case #36186. It changes the strategy behavior generically so `locked-candidates` applies all deductions available in the same phase instead of selecting one globally ranked action. That removes the path dependency where a sound but incomplete single action could block a later solve path.
 
-Targeted repair areas:
+The same repair pass also exposed a later forcing-chain path dependency. The generic forcing-chain follow-up combines graph-forcing and bounded-contradiction deductions when both are available, and falls back to the original naked-single forcing subset when the newer forcing mechanisms produce no step. This restores capability without adding puzzle-specific guards.
 
-- `forcing-chain`: bounded graph implication plus bounded contradiction fallback for #88102, #103170, #23835, #109043, and #27806.
-- `locked-candidates`: stable action collection/ranking for #78760 and #103170.
+Targeted repair areas after the #36186 regression fix:
+
+- `forcing-chain`: bounded graph implication plus bounded contradiction fallback for #88102, #103170, #23835, #109043, and #27806; now also includes legacy naked-single forcing fallback for cases not covered by newer forcing paths.
+- `locked-candidates`: same-phase action collection for #78760, #103170, and #36186.
 - `aic`: peer-endpoint AIC coverage and selection for #13829, #38116, and #77633.
 
 Fresh verification before archive update:
@@ -128,3 +130,23 @@ npm run solve:rate
 ```
 
 Observed local sample/corpus report from `solve:rate`: 399/400 solved, 0 sound violations. The full OpenSudoku corpus rerun then produced 893185/893916 solved with 731 remaining stuck cases and no invalid solved grids. Because full-corpus failure indexes are 1-based, use the archive failure set as the source of truth when checking case status.
+
+## Phase 1 Regression Repair Update
+
+The subsequent Phase 1 regression repair added #36186 restored-state and full-puzzle tests and verified the repaired branch locally:
+
+```bash
+npm test
+npm run typecheck
+```
+
+Observed result from `/Users/sakura/LLM_Work/sudoku-trace-wt`:
+
+- `npm test`: 8 test files passed, 117 tests passed.
+- `npm run typecheck`: passed.
+
+Implementation notes:
+
+- No implementation code contains the #36186 puzzle string or a case-specific guard.
+- Regression tests assert included sound deductions and full-puzzle solved/sound behavior rather than an exact historical trace path.
+- This local verification fixes the known #36186 regression at unit/regression-test scope. A new full-corpus rerun is still required before updating the archived aggregate result in `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`.
