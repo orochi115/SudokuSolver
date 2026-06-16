@@ -150,3 +150,45 @@ Implementation notes:
 - No implementation code contains the #36186 puzzle string or a case-specific guard.
 - Regression tests assert included sound deductions and full-puzzle solved/sound behavior rather than an exact historical trace path.
 - This local verification fixes the known #36186 regression at unit/regression-test scope. A new full-corpus rerun is still required before updating the archived aggregate result in `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`.
+
+## Phase 2 Gemini-Solved Repair Update
+
+The subsequent Phase 2 pass re-analyzed the two remaining `gemini35flash`-solved cases, #38116 and #77633, after the Phase 1 regression repair. Fresh traces were generated under:
+
+- `orchestration/reports/analysis/remaining-gemini-38116/`
+- `orchestration/reports/analysis/remaining-gemini-77633/`
+
+The apparent first divergence in both fresh comparisons was `locked-candidates` vs `locked-candidates`, same candidate state but different effect. Candidate-hash alignment showed this was only a batching difference: the repaired branch combined consecutive `locked-candidates` deductions that `gemini35flash` applied as separate steps. The first true same-state divergences were later ALS-family gaps:
+
+- #38116: current `als` selected `{ cell: 29, digit: 5 }`; the winner ALS path included `{ cell: 53, digit: 3 }` and `{ cell: 9, digit: 4 }`.
+- #77633: current path hit `aic` before the winner ALS step; probing `als` at the same state showed missing ALS eliminations including cells 38, 46, 47, 42, and 44.
+
+The repair in `analysis/sonnet46-strategy-fix` commit `1c18734` fixes ALS generically:
+
+- Records the originating house for each ALS.
+- Implements doubly-linked ALS-XZ elimination for non-RCC candidates from the two ALS houses.
+- Combines deductions across ALS-XZ, ALS-XY-Wing, and Death Blossom rather than returning only the first ALS-family hit.
+
+Regression coverage added in `packages/engine/test/diabolical-regressions.test.ts`:
+
+- Restored-state ALS tests for #38116 and #77633.
+- Full-puzzle solved/sound tests for #38116 and #77633.
+
+Verification from `/Users/sakura/LLM_Work/sudoku-trace-wt`:
+
+```bash
+npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633"
+npm test -- packages/engine/test/diabolical-regressions.test.ts
+npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts
+npm test
+npm run typecheck
+git diff --check
+```
+
+Observed result:
+
+- Targeted #38116/#77633 run: passed.
+- Full regression suite: 8 test files passed, 121 tests passed.
+- Typecheck passed.
+
+This closes the two known model-solvable diabolical failures at local regression-test scope. A fresh full-corpus rerun is still required before updating the aggregate remaining-failure count or the full-corpus archive.

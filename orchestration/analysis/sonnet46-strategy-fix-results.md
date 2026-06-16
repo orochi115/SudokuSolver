@@ -18,6 +18,8 @@ Repair branch commits:
 - `0e10960 Stabilize locked-candidates selection`
 - `ee13e3e Add AIC peer endpoint coverage`
 - `17464c6 Update solve-rate report`
+- `96e984b Resolve diabolical regression path dependency`
+- `1c18734 Resolve remaining gemini diabolical ALS paths`
 
 Supporting orchestration commits:
 
@@ -227,8 +229,56 @@ The full-corpus archive has not yet been rerun after this Phase 1 repair, so the
 
 `orchestration/run-logs/full-corpus-20260602-064418.tar.gz` was updated in place so the `analysis-sonnet46-strategy-fix` entry in `20260602-064418/results.json`, `results.partial.json`, and `summary.md` reflects this rerun.
 
+## Phase 2 Repair for Remaining Gemini-Solved Diabolical Cases
+
+After the Phase 1 regression repair, #38116 and #77633 remained the only known `gemini35flash`-solved cases still failing locally in the full solve path. Fresh trace comparisons were generated from `orchestration`:
+
+```bash
+node orchestration/trace-archive-case.mjs \
+  --puzzle 706000304009000800800000002000169000060050070000207000007000400200405007300706008 \
+  --models gemini35flash,sonnet46-fixed \
+  --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --out orchestration/reports/analysis/remaining-gemini-38116
+
+node orchestration/trace-archive-case.mjs \
+  --puzzle 010000020600040008082030460040502010000000000900060007100050002060000080020904050 \
+  --models gemini35flash,sonnet46-fixed \
+  --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --out orchestration/reports/analysis/remaining-gemini-77633
+```
+
+Findings:
+
+- Initial same-state `locked-candidates` differences were step-batching artifacts, not root causes.
+- The first true path divergence was missing ALS capability: doubly-linked ALS-XZ and ALS-family deduction collection.
+
+Phase 2 implementation in `1c18734`:
+
+- `packages/engine/src/strategies/als.ts` now tracks each ALS house, implements doubly-linked ALS-XZ eliminations, and combines ALS-XZ, ALS-XY-Wing, and Death Blossom deductions.
+- `packages/engine/test/diabolical-regressions.test.ts` now covers #38116 and #77633 with restored-state ALS tests and full-puzzle solved/sound tests.
+
+Local verification after the Phase 2 repair:
+
+```bash
+npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633"
+npm test -- packages/engine/test/diabolical-regressions.test.ts
+npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts
+npm test
+npm run typecheck
+git diff --check
+```
+
+Observed result:
+
+- Targeted #38116/#77633 regression run passed.
+- `diabolical-regressions.test.ts`: 16 tests passed.
+- Full suite: 8 test files passed, 121 tests passed.
+- Typecheck passed.
+
+The full-corpus archive has not yet been rerun after the Phase 2 repair. The aggregate table above remains the pre-Phase-1/Phase-2 full-corpus checkpoint.
+
 ## Remaining Risk
 
-- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. The pre-Phase-1 aggregate result was 731 diabolical stuck cases, including two still model-solvable cases and the #36186 regression. The #36186 regression is now fixed locally, but a fresh full-corpus rerun is required to update the aggregate count.
+- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. The pre-Phase-1 aggregate result was 731 diabolical stuck cases, including two still model-solvable cases and the #36186 regression. The #36186 regression and the two known `gemini35flash`-solved cases are now fixed locally, but a fresh full-corpus rerun is required to update the aggregate count.
 - The grouped AIC implementation intentionally imports more strategy strength from `opus48`. Treat this as a strategy-strength repair branch, not as a minimal patch to the original `sonnet46` search style.
-- Further work should start with a full-corpus checkpoint for the Phase 1 repair, then re-analyze #38116/#77633 before broader strategy expansion.
+- Further work should start with a full-corpus checkpoint for the Phase 1 and Phase 2 repairs before broader strategy expansion.

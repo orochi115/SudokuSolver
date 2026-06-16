@@ -163,29 +163,59 @@ git commit -m "fix: resolve diabolical regression path dependency"
 
 ## Phase 2: Finish Model-Solvable Remaining Cases
 
+Status: completed on `analysis/sonnet46-strategy-fix` in commit `1c18734`.
+
+Implementation summary:
+
+- Fresh traces for #38116 and #77633 initially showed same-state `locked-candidates` different-effect divergences, but candidate-hash alignment proved these were only step-batching differences: the fixed branch applied deductions in one `locked-candidates` step that `gemini35flash` applied as consecutive steps.
+- The first true same-candidate-state divergences were later ALS/AIC-family path differences. #38116 needed ALS coverage for the winner ALS eliminations `{ cell: 53, digit: 3 }` and `{ cell: 9, digit: 4 }`; #77633 needed the larger winner ALS elimination set that includes cells 38, 46, 47, 42, and 44.
+- Added restored-state ALS regression coverage and full-puzzle solved/sound coverage for #38116 and #77633 in `packages/engine/test/diabolical-regressions.test.ts`.
+- Fixed `packages/engine/src/strategies/als.ts` generically by tracking the originating ALS house, implementing doubly-linked ALS-XZ elimination, and combining deductions from ALS-XZ, ALS-XY-Wing, and Death Blossom instead of returning the first ALS-family hit.
+- No puzzle-specific guard or literal case handling was added to implementation code.
+
+Verification run from `/Users/sakura/LLM_Work/sudoku-trace-wt`:
+
+```bash
+npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633"
+npm test -- packages/engine/test/diabolical-regressions.test.ts
+npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts
+npm test
+npm run typecheck
+git diff --check
+```
+
+Observed result:
+
+- Targeted #38116/#77633 regression run: passed, 6 tests passed / 10 skipped.
+- `diabolical-regressions.test.ts`: 16 tests passed.
+- Strategy regression run: 2 test files passed, 84 tests passed.
+- Full suite: 8 test files passed, 121 tests passed.
+- `npm run typecheck`: passed.
+- `git diff --check`: passed.
+
 ### Task 2: Re-analyze #38116 and #77633 Against `gemini35flash`
 
 **Files:**
 
-- Evidence output: `orchestration/reports/analysis/remaining-gemini-comparison/`
-- Likely implementation files:
-- `packages/engine/src/strategies/aic.ts`
-- `packages/engine/src/chain/aic-search.ts`
-- `packages/engine/src/strategies/locked-candidates.ts`
+- Evidence output: `orchestration/reports/analysis/remaining-gemini-38116/`
+- Evidence output: `orchestration/reports/analysis/remaining-gemini-77633/`
+- Implementation files:
+- `packages/engine/src/strategies/als.ts`
+- `packages/engine/test/diabolical-regressions.test.ts`
 
-- [ ] Step 1: Generate fresh traces after regression fix
+- [x] Step 1: Generate fresh traces after regression fix
 
 Run from `orchestration`:
 
 ```bash
 node orchestration/trace-archive-case.mjs \
-  --puzzle <diabolical-38116-puzzle-from-results-json> \
+  --puzzle 706000304009000800800000002000169000060050070000207000007000400200405007300706008 \
   --models gemini35flash,sonnet46-fixed \
   --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
   --out orchestration/reports/analysis/remaining-gemini-38116
 
 node orchestration/trace-archive-case.mjs \
-  --puzzle <diabolical-77633-puzzle-from-results-json> \
+  --puzzle 010000020600040008082030460040502010000000000900060007100050002060000080020904050 \
   --models gemini35flash,sonnet46-fixed \
   --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
   --out orchestration/reports/analysis/remaining-gemini-77633
@@ -193,7 +223,7 @@ node orchestration/trace-archive-case.mjs \
 
 Use the puzzle strings from updated `results.json`, not direct corpus array lookup.
 
-- [ ] Step 2: Classify first divergence
+- [x] Step 2: Classify first divergence
 
 For each case, record:
 
@@ -202,7 +232,13 @@ For each case, record:
 - winner and fixed strategy action from `divergence-probe.json`
 - whether the fixed branch has a valid rescue strategy from the same restored candidate state
 
-- [ ] Step 3: Write one failing test per confirmed root cause
+Fresh trace classification:
+
+- Both cases had matching candidate hashes at the apparent `locked-candidates` divergence. Trace alignment showed that these were batching differences, not the root cause.
+- #38116 first true same-state divergence: `als` chose `{ cell: 29, digit: 5 }` while `gemini35flash` chose ALS eliminations including `{ cell: 53, digit: 3 }` and `{ cell: 9, digit: 4 }`.
+- #77633 first true same-state divergence after aligned prefix: current `aic` produced `{ cell: 39, digit: 7 }` while the winning path used ALS eliminations including `{ cell: 38, digit: 3 }`, `{ cell: 46, digit: 3 }`, `{ cell: 47, digit: 3 }`, `{ cell: 38, digit: 7 }`, `{ cell: 42, digit: 3 }`, `{ cell: 44, digit: 3 }`, `{ cell: 44, digit: 4 }`, `{ cell: 42, digit: 9 }`, and `{ cell: 44, digit: 9 }`.
+
+- [x] Step 3: Write one failing test per confirmed root cause
 
 Only write tests for the immediate first divergence, not the later stuck grid symptom.
 
@@ -211,11 +247,15 @@ Expected test locations:
 - Restored-state tests in `packages/engine/test/diabolical-regressions.test.ts`
 - Full-puzzle tests only after a restored-state fix passes and the full solve still needs path validation
 
-- [ ] Step 4: Implement minimal strategy fix
+Added restored-state ALS tests for #38116 and #77633, plus full-puzzle solved/sound tests for both cases.
+
+- [x] Step 4: Implement minimal strategy fix
 
 Keep changes narrow. If #38116/#77633 still point to AIC, fix AIC ordering/coverage. If they now point to `locked-candidates`, fix selection policy before touching AIC.
 
-- [ ] Step 5: Verify and commit
+The root cause resolved in ALS, not AIC or `locked-candidates`. The generic fix adds doubly-linked ALS-XZ and combines ALS-family deductions.
+
+- [x] Step 5: Verify and commit
 
 Run:
 
@@ -226,6 +266,14 @@ npm run typecheck
 ```
 
 Commit each independent strategy fix separately.
+
+Committed on `analysis/sonnet46-strategy-fix`:
+
+```bash
+git commit -m "fix: resolve remaining gemini diabolical ALS paths"
+```
+
+Commit: `1c18734`.
 
 ## Phase 3: Full-Corpus Checkpoint
 
