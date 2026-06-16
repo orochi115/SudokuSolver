@@ -100,6 +100,32 @@ function makeStep(
   };
 }
 
+function combineForcingSteps(grid: Grid, first: Step, second: Step): Step {
+  const seenPlacements = new Set<string>();
+  const placements = [...first.placements, ...second.placements].filter((placement) => {
+    const key = `${placement.cell}:${placement.digit}`;
+    if (seenPlacements.has(key)) return false;
+    seenPlacements.add(key);
+    return true;
+  });
+  const seenEliminations = new Set<string>();
+  const eliminations = [...first.eliminations, ...second.eliminations].filter((elimination) => {
+    const key = `${elimination.cell}:${elimination.digit}`;
+    if (seenEliminations.has(key)) return false;
+    seenEliminations.add(key);
+    return !placements.some((placement) => placement.cell === elimination.cell && placement.digit === elimination.digit);
+  });
+  return makeStep(
+    'forcing-chain',
+    grid,
+    [...first.highlights.cells, ...second.highlights.cells],
+    placements,
+    eliminations,
+    `${first.explanation.zh} ${second.explanation.zh}`,
+    `${first.explanation.en} ${second.explanation.en}`,
+  );
+}
+
 function forceFromTwo(
   strategyId: string,
   grid: Grid,
@@ -209,6 +235,153 @@ function tryBoundedContradiction(grid: Grid, maxChainLength: number): Step | nul
   return null;
 }
 
+const LEGACY_MAX_PROPAGATION = 50;
+
+function legacyPropagateNakedSingles(grid: Grid, cell: number, digit: number): Map<number, number> | null {
+  const placements = new Map<number, number>();
+  const work = grid.clone();
+
+  if (!work.hasCandidate(cell, digit)) return null;
+  work.place(cell, digit);
+  placements.set(cell, digit);
+
+  let changed = true;
+  let steps = 0;
+  while (changed && steps < LEGACY_MAX_PROPAGATION) {
+    changed = false;
+    steps++;
+
+    for (let cellIndex = 0; cellIndex < CELLS; cellIndex++) {
+      if (work.get(cellIndex) !== 0) continue;
+      const mask = work.candidatesOf(cellIndex);
+      if (mask === 0) return null;
+      if (popcount(mask) === 1) {
+        const forcedDigit = digitsOf(mask)[0]!;
+        if (!placements.has(cellIndex)) placements.set(cellIndex, forcedDigit);
+        work.place(cellIndex, forcedDigit);
+        changed = true;
+      }
+    }
+  }
+
+  for (let cellIndex = 0; cellIndex < CELLS; cellIndex++) {
+    if (work.get(cellIndex) !== 0) continue;
+    if (work.candidatesOf(cellIndex) === 0) return null;
+  }
+
+  return placements;
+}
+
+function tryLegacyCellForcingChain(grid: Grid): Step | null {
+  for (let cell = 0; cell < CELLS; cell++) {
+    if (grid.get(cell) !== 0) continue;
+    const candidates = digitsOf(grid.candidatesOf(cell));
+    if (candidates.length < 2 || candidates.length > 4) continue;
+
+    const branches: Map<number, number>[] = [];
+    const contradictions: number[] = [];
+    for (const digit of candidates) {
+      const result = legacyPropagateNakedSingles(grid, cell, digit);
+      if (result === null) contradictions.push(digit);
+      else branches.push(result);
+    }
+
+    if (contradictions.length > 0) {
+      const digit = contradictions[0]!;
+      if (!grid.hasCandidate(cell, digit)) continue;
+      return makeStep(
+        'forcing-chain',
+        grid,
+        [cell],
+        [],
+        [{ cell, digit }],
+        `假设 ${cellLabel(cell)}=${digit} 导致矛盾；消去 ${digit}。`,
+        `assuming ${cellLabel(cell)}=${digit} leads to contradiction; eliminate ${digit}.`,
+      );
+    }
+
+    if (branches.length < 2) continue;
+    for (const [targetCell, targetDigit] of branches[0]!) {
+      if (targetCell === cell) continue;
+      if (grid.get(targetCell) !== 0) continue;
+      if (!grid.hasCandidate(targetCell, targetDigit)) continue;
+      if (!branches.every((branch) => branch.get(targetCell) === targetDigit)) continue;
+      return makeStep(
+        'forcing-chain',
+        grid,
+        [cell],
+        [{ cell: targetCell, digit: targetDigit }],
+        [],
+        `从 ${cellLabel(cell)} 的所有候选数出发，均得到 ${cellLabel(targetCell)}=${targetDigit}；故填入 ${targetDigit}。`,
+        `all candidates from ${cellLabel(cell)} lead to ${cellLabel(targetCell)}=${targetDigit}; place ${targetDigit}.`,
+      );
+    }
+  }
+
+  return null;
+}
+
+function tryLegacyHouseForcingChain(grid: Grid): Step | null {
+  for (const house of HOUSES) {
+    for (let digit = 1; digit <= 9; digit++) {
+      const bit = maskOf(digit);
+      const positions = house.filter((cell) => grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0);
+      if (positions.length !== 2) continue;
+
+      const [firstCell, secondCell] = positions as [number, number];
+      const firstBranch = legacyPropagateNakedSingles(grid, firstCell, digit);
+      const secondBranch = legacyPropagateNakedSingles(grid, secondCell, digit);
+
+      if (firstBranch === null && secondBranch !== null && grid.hasCandidate(secondCell, digit)) {
+        return makeStep(
+          'forcing-chain',
+          grid,
+          positions,
+          [{ cell: secondCell, digit }],
+          [],
+          `假设 ${cellLabel(firstCell)}=${digit} 导致矛盾；故 ${cellLabel(secondCell)}=${digit}。`,
+          `assuming ${cellLabel(firstCell)}=${digit} leads to contradiction; therefore ${cellLabel(secondCell)}=${digit}.`,
+        );
+      }
+
+      if (secondBranch === null && firstBranch !== null && grid.hasCandidate(firstCell, digit)) {
+        return makeStep(
+          'forcing-chain',
+          grid,
+          positions,
+          [{ cell: firstCell, digit }],
+          [],
+          `假设 ${cellLabel(secondCell)}=${digit} 导致矛盾；故 ${cellLabel(firstCell)}=${digit}。`,
+          `assuming ${cellLabel(secondCell)}=${digit} leads to contradiction; therefore ${cellLabel(firstCell)}=${digit}.`,
+        );
+      }
+
+      if (firstBranch === null || secondBranch === null) continue;
+      for (const [targetCell, targetDigit] of firstBranch) {
+        if (targetCell === firstCell || targetCell === secondCell) continue;
+        if (grid.get(targetCell) !== 0) continue;
+        if (!grid.hasCandidate(targetCell, targetDigit)) continue;
+        if (secondBranch.get(targetCell) !== targetDigit) continue;
+        return makeStep(
+          'forcing-chain',
+          grid,
+          [...positions, targetCell],
+          [{ cell: targetCell, digit: targetDigit }],
+          [],
+          `数字 ${digit} 在房屋的两个位置均导致 ${cellLabel(targetCell)}=${targetDigit}；故填入 ${targetDigit}。`,
+          `both positions of digit ${digit} in the house lead to ${cellLabel(targetCell)}=${targetDigit}; place ${targetDigit}.`,
+        );
+      }
+    }
+  }
+
+  return null;
+}
+
+function legacyForcingChain(grid: Grid): Step | null {
+  return tryLegacyCellForcingChain(grid) ?? tryLegacyHouseForcingChain(grid);
+}
+
 export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
   return {
     id: 'forcing-chain',
@@ -257,14 +430,8 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
       }
 
       const contradictionStep = tryBoundedContradiction(grid, policy.maxChainLength * 4);
-      if (!graphStep) return contradictionStep;
-      if (
-        contradictionStep?.eliminations.length === 1 &&
-        graphStep.eliminations.length === 1 &&
-        contradictionStep.eliminations[0]!.digit === graphStep.eliminations[0]!.digit
-      ) {
-        return contradictionStep;
-      }
+      if (!graphStep) return contradictionStep ?? legacyForcingChain(grid);
+      if (contradictionStep) return combineForcingSteps(grid, graphStep, contradictionStep);
       return graphStep;
     },
   };

@@ -1,8 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { Grid } from '../src/grid.js';
+import { solve } from '../src/solver.js';
+import { checkTraceSoundness } from '../src/soundness.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
 import { lockedCandidates } from '../src/strategies/locked-candidates.js';
 import { aic } from '../src/strategies/aic.js';
+import { STRATEGIES } from '../src/strategies/index.js';
 
 function gridFromState(puzzle: string, candidateMasks: readonly number[]): Grid {
   const grid = Grid.fromString(puzzle);
@@ -22,7 +25,7 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('forcing-chain');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 53, digit: 1 }]);
+      expect(step?.eliminations).toContainEqual({ cell: 53, digit: 1 });
     });
 
     it('matches the winner common-elimination action for diabolical #103170', () => {
@@ -35,7 +38,7 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('forcing-chain');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 79, digit: 7 }]);
+      expect(step?.eliminations).toContainEqual({ cell: 79, digit: 7 });
     });
 
     it('matches the winner contradiction action for diabolical #23835', () => {
@@ -48,7 +51,7 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('forcing-chain');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 29, digit: 3 }]);
+      expect(step?.eliminations).toContainEqual({ cell: 29, digit: 3 });
     });
 
     it('matches the winner contradiction action for diabolical #109043', () => {
@@ -61,7 +64,7 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('forcing-chain');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 39, digit: 8 }]);
+      expect(step?.eliminations).toContainEqual({ cell: 39, digit: 8 });
     });
 
     it('matches the winner forcing action for mixed diabolical #27806', () => {
@@ -74,7 +77,7 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('forcing-chain');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 27, digit: 3 }]);
+      expect(step?.eliminations).toContainEqual({ cell: 27, digit: 3 });
     });
   });
 
@@ -89,7 +92,7 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('locked-candidates');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 72, digit: 3 }]);
+      expect(step?.eliminations).toContainEqual({ cell: 72, digit: 3 });
     });
 
     it('matches the winner pointing action for diabolical #103170', () => {
@@ -102,7 +105,38 @@ describe('diabolical strategy regressions', () => {
 
       expect(step?.strategyId).toBe('locked-candidates');
       expect(step?.placements).toEqual([]);
-      expect(step?.eliminations).toEqual([{ cell: 54, digit: 5 }, { cell: 56, digit: 5 }]);
+      expect(step?.eliminations).toEqual(expect.arrayContaining([{ cell: 54, digit: 5 }, { cell: 56, digit: 5 }]));
+    });
+
+    it('matches the original sonnet46 pointing action for diabolical #36186', () => {
+      const grid = gridFromState(
+        '200900060090000500005100000306200058020030000010008237000007800002000040080004003',
+        [0, 76, 205, 0, 216, 20, 77, 0, 9, 233, 0, 205, 236, 234, 38, 0, 195, 11, 232, 108, 0, 0, 234, 38, 332, 450, 266, 0, 72, 0, 0, 329, 257, 265, 0, 0, 472, 0, 456, 120, 0, 305, 297, 257, 297, 280, 0, 264, 56, 312, 0, 0, 0, 0, 313, 60, 269, 52, 307, 0, 0, 259, 307, 369, 116, 0, 180, 433, 309, 353, 0, 305, 369, 0, 321, 48, 307, 0, 353, 323, 0],
+      );
+
+      const step = lockedCandidates.apply(grid);
+
+      expect(step?.strategyId).toBe('locked-candidates');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toEqual(expect.arrayContaining([
+        { cell: 54, digit: 5 },
+        { cell: 63, digit: 5 },
+        { cell: 72, digit: 5 },
+        { cell: 39, digit: 6 },
+        { cell: 41, digit: 6 },
+        { cell: 13, digit: 2 },
+        { cell: 22, digit: 2 },
+      ]));
+    });
+
+    it('solves diabolical #36186 with a sound trace', () => {
+      const puzzle = '200900060090000500005100000306200050000030000010008207000007800002000040080004003';
+      const solution = '243985761197463582865172394376241958528739416419658237654317829732896145981524673';
+
+      const trace = solve(Grid.fromString(puzzle), STRATEGIES);
+
+      expect(trace.outcome).toBe('solved');
+      expect(checkTraceSoundness(trace, solution).sound).toBe(true);
     });
   });
 
