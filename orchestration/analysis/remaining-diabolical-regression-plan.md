@@ -375,6 +375,8 @@ git commit -m "docs: update remaining diabolical regression results"
 
 Only start this after Phase 1 and Phase 2 are complete and the repaired branch has no known regression against the compared archive set.
 
+Before adding new strategy capability, complete or explicitly defer `orchestration/analysis/human-strategy-taxonomy-refactor-plan.md`. Future strategy expansion should preserve human-learning-friendly taxonomy: specific technique IDs, ordering by human recognition cost, and one concrete pattern instance per default tutoring step.
+
 ### Task 4: Build a 700-Case Feature Analysis Pack
 
 **Goal:** Classify the remaining shared failures by missing strategy family before writing new code.
