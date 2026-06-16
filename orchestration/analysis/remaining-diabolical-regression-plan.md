@@ -18,23 +18,23 @@ Updated archive:
 - Member: `20260602-064418/results.json`
 - Target result: `analysis-sonnet46-strategy-fix`
 
-Current full-corpus result for `analysis-sonnet46-strategy-fix`:
+Current full-corpus result for `analysis-sonnet46-strategy-fix` after the Phase 1/2 repair rerun:
 
 | Difficulty | Solved | Stuck | Errors |
 | --- | ---: | ---: | ---: |
 | easy | 100000/100000 | 0 | 0 |
 | medium | 352643/352643 | 0 | 0 |
 | hard | 321592/321592 | 0 | 0 |
-| diabolical | 118950/119681 | 731 | 0 |
-| total | 893185/893916 | 731 | 0 |
+| diabolical | 118954/119681 | 727 | 0 |
+| total | 893189/893916 | 727 | 0 |
 
-Remaining overlap among the 731 diabolical failures:
+Remaining overlap among the 727 diabolical failures:
 
 | Group | Count | Notes |
 | --- | ---: | --- |
-| Failed by all compared archive results | 728 | Requires new strategy capability or stronger variants. |
-| Solved by `gemini35flash` | 2 | Original Phase 3 cases #38116 and #77633 remain failed in full solve path. |
-| Solved by original `sonnet46` | 1 | Regression #36186 introduced by repair branch. |
+| Failed by all compared archive results | 727 | Requires new strategy capability or stronger variants. |
+| Solved by `gemini35flash` | 0 | #38116 and #77633 are now solved after the ALS repair. |
+| Solved by original `sonnet46` | 0 | #36186 regression is now solved after the locked-candidates/forcing-chain repair. |
 
 Important indexing rule:
 
@@ -277,6 +277,60 @@ Commit: `1c18734`.
 
 ## Phase 3: Full-Corpus Checkpoint
 
+Status: completed on `orchestration` after rerunning `analysis/sonnet46-strategy-fix` at commit `1c18734`.
+
+Implementation summary:
+
+- Verified Phase 1/2 repairs from a detached target-branch worktree before updating aggregate data.
+- Reran the repaired ref across the full OpenSudoku corpus.
+- Confirmed no new failures were introduced relative to the previous `analysis-sonnet46-strategy-fix` archive entry.
+- Replaced only the `analysis-sonnet46-strategy-fix` entry in `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`.
+- Re-ran archive overlap analysis against `sonnet46`, `gpt55`, `gemini35flash`, `opus48`, `gpt53codex`, and `deepseekv4`; no remaining target failure is solved by any compared archive branch.
+
+Verification run from `/Users/sakura/LLM_Work/sudoku-phase3-verify-wt`:
+
+```bash
+npm test -- packages/engine/test/diabolical-regressions.test.ts -t "36186|38116|77633"
+npm test -- packages/engine/test/diabolical-regressions.test.ts
+npm test
+npm run typecheck
+git diff --check
+```
+
+Observed result:
+
+- Targeted #36186/#38116/#77633 run: 8 tests passed / 8 skipped.
+- `diabolical-regressions.test.ts`: 16 tests passed.
+- Full suite: 8 test files passed, 121 tests passed.
+- `npm run typecheck`: passed.
+- `git diff --check`: passed.
+
+Full-corpus checkpoint result:
+
+| Difficulty | Solved | Valid solved | Stuck | Errors |
+| --- | ---: | ---: | ---: | ---: |
+| easy | 100000/100000 | 100000 | 0 | 0 |
+| medium | 352643/352643 | 352643 | 0 | 0 |
+| hard | 321592/321592 | 321592 | 0 | 0 |
+| diabolical | 118954/119681 | 118954 | 727 | 0 |
+| total | 893189/893916 | 893189 | 727 | 0 |
+
+Resolved from the previous 731-failure checkpoint:
+
+| Diabolical case | Previous archive overlap | Status after Phase 3 rerun |
+| ---: | --- | --- |
+| 4546 | Failed by all compared archive results | solved, sound |
+| 36186 | Solved by `sonnet46` | solved, sound |
+| 38116 | Solved by `gemini35flash` | solved, sound |
+| 77633 | Solved by `gemini35flash` | solved, sound |
+
+Regression gate:
+
+- New failures relative to the previous `analysis-sonnet46-strategy-fix` archive entry: 0 across all difficulties.
+- Invalid solved grids: 0.
+- Errors: 0.
+- Remaining cases solved by any compared archive branch: 0.
+
 ### Task 3: Rerun Full Corpus After Regression/Difference Fixes
 
 **Files:**
@@ -285,7 +339,7 @@ Commit: `1c18734`.
 - Update: `orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md`
 - Update: `orchestration/analysis/sonnet46-strategy-fix-results.md`
 
-- [ ] Step 1: Rerun full corpus for repaired ref
+- [x] Step 1: Rerun full corpus for repaired ref
 
 ```bash
 node orchestration/run-archive-full-corpus.mjs \
@@ -295,7 +349,7 @@ node orchestration/run-archive-full-corpus.mjs \
   --workers 12
 ```
 
-- [ ] Step 2: Update existing full-corpus archive in place
+- [x] Step 2: Update existing full-corpus archive in place
 
 Replace only the `analysis-sonnet46-strategy-fix` entry inside:
 
@@ -303,7 +357,7 @@ Replace only the `analysis-sonnet46-strategy-fix` entry inside:
 - `20260602-064418/results.partial.json`
 - `20260602-064418/summary.md`
 
-- [ ] Step 3: Verify archive contents
+- [x] Step 3: Verify archive contents
 
 ```bash
 tar -xOf orchestration/run-logs/full-corpus-20260602-064418.tar.gz 20260602-064418/results.json \

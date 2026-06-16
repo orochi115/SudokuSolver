@@ -275,10 +275,68 @@ Observed result:
 - Full suite: 8 test files passed, 121 tests passed.
 - Typecheck passed.
 
-The full-corpus archive has not yet been rerun after the Phase 2 repair. The aggregate table above remains the pre-Phase-1/Phase-2 full-corpus checkpoint.
+## Phase 3 Full-Corpus Checkpoint
+
+Before replacing the aggregate archive data, the Phase 1/2 fixes were verified from a detached `analysis/sonnet46-strategy-fix` worktree at commit `1c18734`:
+
+```bash
+npm test -- packages/engine/test/diabolical-regressions.test.ts -t "36186|38116|77633"
+npm test -- packages/engine/test/diabolical-regressions.test.ts
+npm test
+npm run typecheck
+git diff --check
+```
+
+Observed result:
+
+- Targeted #36186/#38116/#77633 run: 8 tests passed / 8 skipped.
+- `diabolical-regressions.test.ts`: 16 tests passed.
+- Full suite: 8 test files passed, 121 tests passed.
+- Typecheck passed.
+- Diff check passed.
+
+The repaired ref was then rerun against the full OpenSudoku corpus from the `orchestration` branch:
+
+```bash
+node orchestration/run-archive-full-corpus.mjs \
+  --ref analysis/sonnet46-strategy-fix \
+  --name analysis-sonnet46-strategy-fix \
+  --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-fix-phase3-rerun \
+  --workers 12
+```
+
+Rerun result:
+
+| Difficulty | Solved | Valid solved | Stuck | Errors |
+| --- | ---: | ---: | ---: | ---: |
+| easy | 100000/100000 | 100000 | 0 | 0 |
+| medium | 352643/352643 | 352643 | 0 | 0 |
+| hard | 321592/321592 | 321592 | 0 | 0 |
+| diabolical | 118954/119681 | 118954 | 727 | 0 |
+| total | 893189/893916 | 893189 | 727 | 0 |
+
+This improves the previous archived `analysis-sonnet46-strategy-fix` checkpoint from 731 remaining diabolical failures to 727. The resolved cases are:
+
+| Diabolical case | Previous archive overlap | Status after Phase 3 rerun |
+| ---: | --- | --- |
+| 4546 | Failed by all compared archive results | solved, sound |
+| 36186 | Solved by `sonnet46` | solved, sound |
+| 38116 | Solved by `gemini35flash` | solved, sound |
+| 77633 | Solved by `gemini35flash` | solved, sound |
+
+Archive replacement gate:
+
+- New failures relative to the previous `analysis-sonnet46-strategy-fix` archive entry: 0 across all difficulties.
+- Invalid solved grids: 0.
+- Errors: 0.
+- #36186, #38116, and #77633 are no longer present in the archived target failure set.
+
+`orchestration/run-logs/full-corpus-20260602-064418.tar.gz` has been updated in place so `20260602-064418/results.json`, `results.partial.json`, and `summary.md` contain the Phase 3 rerun result for `analysis-sonnet46-strategy-fix`.
+
+Post-update comparison against `sonnet46`, `gpt55`, `gemini35flash`, `opus48`, `gpt53codex`, and `deepseekv4` found zero cases where a compared archive branch solves a remaining `analysis-sonnet46-strategy-fix` failure.
 
 ## Remaining Risk
 
-- This started as a targeted repair validated on the four known hard cases, then received a full-corpus rerun after the diabolical follow-up repairs. The pre-Phase-1 aggregate result was 731 diabolical stuck cases, including two still model-solvable cases and the #36186 regression. The #36186 regression and the two known `gemini35flash`-solved cases are now fixed locally, but a fresh full-corpus rerun is required to update the aggregate count.
+- This started as a targeted repair validated on the four known hard cases, then received full-corpus reruns after the diabolical follow-up repairs. The Phase 3 aggregate result is now 727 remaining diabolical stuck cases, with no known regression or remaining case solved by the compared archive branches.
 - The grouped AIC implementation intentionally imports more strategy strength from `opus48`. Treat this as a strategy-strength repair branch, not as a minimal patch to the original `sonnet46` search style.
-- Further work should start with a full-corpus checkpoint for the Phase 1 and Phase 2 repairs before broader strategy expansion.
+- Further work can start from the remaining 727 shared diabolical failures and should focus on feature clustering before adding new strategy capability.

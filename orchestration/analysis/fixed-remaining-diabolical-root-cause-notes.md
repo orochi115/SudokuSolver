@@ -92,7 +92,7 @@ Do not implement repairs as part of this analysis task. The next repair session 
 
 ## Repair Follow-Up Verification
 
-The subsequent TDD repair pass added focused restored-state regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `analysis/sonnet46-strategy-fix`. The full OpenSudoku rerun shows seven of the nine original candidate cases no longer fail in the repaired branch. Two `gemini35flash`-solved cases remain failed in the full solve path, despite restored-state AIC tests passing:
+The subsequent TDD repair pass added focused restored-state regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `analysis/sonnet46-strategy-fix`. The first follow-up full OpenSudoku rerun showed seven of the nine original candidate cases no longer failed in the repaired branch. Two `gemini35flash`-solved cases still failed in that checkpoint, despite restored-state AIC tests passing:
 
 | Diabolical case | Full-corpus status after repair |
 | ---: | --- |
@@ -192,3 +192,51 @@ Observed result:
 - Typecheck passed.
 
 This closes the two known model-solvable diabolical failures at local regression-test scope. A fresh full-corpus rerun is still required before updating the aggregate remaining-failure count or the full-corpus archive.
+
+## Phase 3 Full-Corpus Checkpoint Update
+
+The Phase 3 checkpoint reran `analysis/sonnet46-strategy-fix` at commit `1c18734` across the full OpenSudoku corpus after first verifying the Phase 1/2 local regression tests from a detached target-branch worktree:
+
+```bash
+npm test -- packages/engine/test/diabolical-regressions.test.ts -t "36186|38116|77633"
+npm test -- packages/engine/test/diabolical-regressions.test.ts
+npm test
+npm run typecheck
+git diff --check
+```
+
+Observed result:
+
+- Targeted #36186/#38116/#77633 run: passed.
+- `diabolical-regressions.test.ts`: 16 tests passed.
+- Full suite: 8 test files passed, 121 tests passed.
+- Typecheck and diff check passed.
+
+Fresh full-corpus result:
+
+| Difficulty | Solved | Valid solved | Stuck | Errors |
+| --- | ---: | ---: | ---: | ---: |
+| easy | 100000/100000 | 100000 | 0 | 0 |
+| medium | 352643/352643 | 352643 | 0 | 0 |
+| hard | 321592/321592 | 321592 | 0 | 0 |
+| diabolical | 118954/119681 | 118954 | 727 | 0 |
+| total | 893189/893916 | 893189 | 727 | 0 |
+
+Resolved from the previous 731-failure archive checkpoint:
+
+| Diabolical case | Previous archive overlap | Status after Phase 3 rerun |
+| ---: | --- | --- |
+| 4546 | Failed by all compared archive results | solved, sound |
+| 36186 | Solved by `sonnet46` | solved, sound |
+| 38116 | Solved by `gemini35flash` | solved, sound |
+| 77633 | Solved by `gemini35flash` | solved, sound |
+
+Regression gate before archive replacement:
+
+- New failures relative to the previous `analysis-sonnet46-strategy-fix` archive entry: 0 across all difficulties.
+- Invalid solved grids: 0.
+- Errors: 0.
+
+`orchestration/run-logs/full-corpus-20260602-064418.tar.gz` has been updated in place so the `analysis-sonnet46-strategy-fix` entry in `20260602-064418/results.json`, `results.partial.json`, and `summary.md` reflects the Phase 3 rerun.
+
+Post-update overlap comparison against `sonnet46`, `gpt55`, `gemini35flash`, `opus48`, `gpt53codex`, and `deepseekv4` found no remaining `analysis-sonnet46-strategy-fix` failure solved by any compared archive branch. The remaining 727 diabolical failures are therefore shared failures relative to the current comparison set, not known regressions or model-solvable lagging cases.
