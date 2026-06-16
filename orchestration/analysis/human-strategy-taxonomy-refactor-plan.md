@@ -62,6 +62,7 @@ git worktree list
 - Default tutoring traces should prefer the simplest currently available named technique.
 - A strategy step may include multiple eliminations from one concrete pattern instance.
 - A strategy step should not combine unrelated instances or different sub-techniques only because they belong to the same broad family.
+- **Scope of de-merging (priority order, not a blanket allowance):** First priority is removing cross-*technique* merging (e.g. ALS-XZ and Death Blossom collapsed into one `als` step via `combineSteps`). The default target remains **one trace step = one concrete pattern instance.** Cross-*instance* merging within a single technique — e.g. `locked-candidates.ts` `combineSteps(pointingSteps)` collapsing every board-wide pointing pattern into one step — is itself a tutoring-granularity problem, **not** an accepted behavior. It may be **deferred** to keep this pass bounded, but is not blessed: every place that still merges instances must be flagged as an explicit, documented exception, and reducing it to single-instance steps stays the goal.
 - Broad family labels such as `als`, `basic-fish`, `single-digit-patterns`, and `uniqueness` are useful in documentation, but trace `strategyId` values should be specific enough for a learner.
 - Do not add caching in the first pass. If split strategies create unacceptable runtime overhead later, consider per-solver-iteration analysis caching as a separate task.
 - Do not add new logical power in this refactor except where the existing implementation already contains that capability under a coarse strategy.
@@ -107,10 +108,10 @@ alsXzDoublyLinked         // 82
 alsXyWing                 // 85
 deathBlossom              // 88
 
-uniqueRectangleType1      // 90
-uniqueRectangleType2      // 91
-uniqueRectangleType4      // 92
-bugPlusOne                // 94
+bugPlusOne                // 90   // uniqueness cluster (assumption-free default = late)
+uniqueRectangleType1      // 91
+uniqueRectangleType2      // 92
+uniqueRectangleType4      // 93
 sueDeCoq                  // 96
 forcingChain              // 100
 ```
@@ -118,7 +119,11 @@ forcingChain              // 100
 Notes:
 
 - `xyWing`, `xyzWing`, `wWing`, `simpleColoring`, and `sueDeCoq` are already separate strategy files; only their relative positions may need adjustment.
-- `AIC` should be split conservatively. Start with `xChain` versus general `aic`; only split `aicType1`, `aicType2`, and `groupedAic` if the existing helpers support the separation cleanly.
+- **Uniqueness ordering is a solver-temperament choice, kept as two profiles (open decision — placement not yet locked).** Uniqueness techniques rely on the unique-solution assumption, a different *kind* of inference from assumption-free fish/wings, so their position is a style choice rather than a pure recognition-cost ranking:
+  - **Default profile = assumption-free.** Uniqueness sits late (the cluster shown above, ~90+), so the default tutoring trace prefers assumption-free deductions.
+  - **Optional "uniqueness-aware" profile.** Pulls easy `bugPlusOne` / `uniqueRectangleType1` early (~41/43, ahead of fish/wings) for solvers who accept the uniqueness premise; harder `uniqueRectangleType2/Type4` stay mid-to-late.
+  - This refactor implements only the **id split** and the assumption-free default placement. The selectable profile/mode is a **future task** — do NOT build a toggle mechanism here (out of scope; would add behavior). Record both profiles; lock neither numeric ordering as final.
+- **`aicType1` / `aicType2` / `groupedAic` are a target shape, not Phase 4 scope.** Phase 4 commits only to splitting `xChain` from a general `aic`. The finer type1/type2/grouped split happens only if the existing helpers support it cleanly (see Phase 4); until then those three rows collapse to a single `aic` entry around difficulty 70.
 - `forcingChain` can remain a single last-resort strategy in the first pass unless review shows that cell forcing, digit forcing, bounded contradiction, and legacy fallback produce misleading tutoring traces.
 
 ## Acceptance Criteria
@@ -198,12 +203,13 @@ Include old-to-new mapping such as:
 
 | Old strategyId | New strategyId(s) | Notes |
 | --- | --- | --- |
+| `locked-candidates` | `locked-candidates-pointing`, `locked-candidates-claiming` | Pointing already tried before claiming; split by named sub-technique. |
 | `als` | `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` | Stop cross-family ALS combining. |
 | `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Split by fish size. |
 | `single-digit-patterns` | `skyscraper`, `two-string-kite`, `empty-rectangle` | Split by named pattern. |
 | `naked-subset` | `naked-pair`, `naked-triple`, `naked-quad` | Ensure pair before triple before quad globally. |
 | `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Ensure pair before triple before quad globally. |
-| `uniqueness` | `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4`, `bug-plus-one` | Split by uniqueness technique. |
+| `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4` | Split by uniqueness technique (id split is settled). **Difficulty placement is an OPEN decision, not locked:** default profile = assumption-free (cluster late, ~90+); optional "uniqueness-aware" profile pulls BUG+1/UR-1 early. Record both; do not fossilize either ordering. |
 | `aic` | `x-chain`, `aic` or finer variants | Split conservatively. |
 
 - [ ] Step 4: Confirm test impact
@@ -223,13 +229,16 @@ Expected:
 
 **Goal:** Split families whose current code already searches by clear sub-technique or size.
 
+**Risk note:** `locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, and `single-digit-patterns` are genuinely low-risk — each already has a clear internal boundary (size param, named helper, or pointing-then-claiming order) and returns its own `Step`. `uniqueness` is **medium-risk**: `tryURType1/2/4` and `tryBUGPlus1` are separate helpers but currently all return `strategyId: 'uniqueness'` with no discriminator, and `BUG+1` is a placement pattern unlike the elimination-based URs — the split must add a `subTechnique`/per-strategy id rather than just relocating code. Do the five mechanical families (`locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, `single-digit-patterns`) first, then `uniqueness`.
+
 **Files:**
 
+- Modify: `packages/engine/src/strategies/locked-candidates.ts` or split into `locked-candidates-pointing.ts` / `locked-candidates-claiming.ts`
 - Modify: `packages/engine/src/strategies/naked-subset.ts` or split into separate files
 - Modify: `packages/engine/src/strategies/hidden-subset.ts` or split into separate files
 - Modify: `packages/engine/src/strategies/basic-fish.ts` or split into separate files
 - Modify: `packages/engine/src/strategies/single-digit-patterns.ts` or split into separate files
-- Modify: `packages/engine/src/strategies/uniqueness.ts` or split into separate files
+- Modify: `packages/engine/src/strategies/uniqueness.ts` or split into separate files (medium-risk — add per-technique ids)
 - Modify: `packages/engine/src/strategies/index.ts`
 - Modify: relevant tests under `packages/engine/test/`
 
@@ -239,6 +248,7 @@ For each split family, add tests that prove the specific sub-technique reports a
 
 Minimum coverage:
 
+- `locked-candidates-pointing`, `locked-candidates-claiming`
 - `x-wing`, `swordfish`, `jellyfish`
 - `skyscraper`, `two-string-kite`, `empty-rectangle`
 - `naked-pair`, `naked-triple`, `naked-quad`
@@ -309,6 +319,10 @@ git commit -m "refactor: split strategy taxonomy by human technique"
 - [ ] Step 1: Write restored-state tests for each ALS sub-technique currently used by regressions
 
 Use existing #38116 and #77633 restored-state tests as anchors.
+
+**Critical precondition (do this first):** `als.apply()` currently merges all sub-technique results via `combineSteps()` (dedup by `cell:digit`). The existing #38116 test asserts a single step containing **both** `{cell:53,d:3}` and `{cell:9,d:4}`; #77633 asserts 9 eliminations. Before splitting, map the **test-asserted** eliminations to the specific sub-technique pattern (`als-xz` / `als-xz-doubly-linked` / `als-xy-wing` / `death-blossom`) that produces each. If a single regression's asserted eliminations span multiple sub-techniques, the old single-step assertion cannot survive the split — re-anchor each test to the sub-technique(s) that produce its eliminations, splitting the assertion if needed.
+
+The regression contract after splitting is: **full-puzzle still solved + trace sound + the specific deductions each test was written to protect are still produced** (re-anchored to their sub-technique). It is **not** required that the entire incidental batch the old merged step happened to emit be reproduced as one unit — forcing that would re-introduce artificial merging. Preserve the intentional anchors; don't turn the old batch into a hard complete-output contract.
 
 Expected:
 
