@@ -2,6 +2,12 @@
 // Re-run archived model branches against the full OpenSudoku corpus without
 // invoking opencode or any provider. The script checks out archive branches as
 // temporary worktrees, copies in a local runner, and executes only the engine.
+//
+// Canonical corpus-running logic lives in packages/engine/scripts/corpus-lib.ts
+// (used directly by packages/engine/scripts/full-corpus.ts for the current
+// working tree). The embedded runner below mirrors that logic but stays
+// self-contained on purpose: it must run inside a worktree of an arbitrary
+// historical branch that does not contain corpus-lib.ts. Keep the two in sync.
 
 import { execFileSync, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
