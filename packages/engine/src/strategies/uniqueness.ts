@@ -17,8 +17,10 @@
  *   must be placed to avoid a deadly pattern.
  *
  * Note: Avoidable Rectangle is skipped (requires knowledge of givens vs deduced).
- * The engine exposes an `allowUniqueness` config flag (true by default since
- * standard competition puzzles always have unique solutions).
+ * Uniqueness tactics assume the puzzle has a unique solution. Enable/disable
+ * them by including or omitting this strategy in the list passed to solve();
+ * it is registered in STRATEGIES by default, since standard competition
+ * puzzles always have a unique solution.
  */
 
 import {

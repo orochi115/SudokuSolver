@@ -18,7 +18,7 @@
 
 ## 重新生成
 
-对当前工作区引擎跑全语料 diabolical 档、筛出 `stuck` 即可重建本集（与模型对比无关）：
+对当前工作区引擎跑全语料 diabolical 档、筛出 `stuck` 即可重建本集：
 
 ```bash
 npm run corpus:run -- --difficulty diabolical --out /tmp/diabolical.json
