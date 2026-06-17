@@ -4,7 +4,7 @@
 
 **Goal:** Remove the known regression and remaining model-solvable diabolical failures before starting a new strategy expansion cycle.
 
-**Architecture:** Keep orchestration/reporting work on `orchestration`; keep implementation work on `analysis/sonnet46-strategy-fix`. Use full-corpus archive overlap to identify model-solvable failures, trace comparisons to find first divergence, then write restored-state and full-puzzle regression tests before changing strategy code.
+**Architecture:** Keep orchestration/reporting work on `orchestration`; keep implementation work on `archive/round1/analysis-sonnet46-strategy-fix`. Use full-corpus archive overlap to identify model-solvable failures, trace comparisons to find first divergence, then write restored-state and full-puzzle regression tests before changing strategy code.
 
 **Tech Stack:** TypeScript engine under `packages/engine`, Vitest, orchestration scripts in `orchestration/*.mjs`, full-corpus tarball `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`.
 
@@ -43,7 +43,7 @@ Important indexing rule:
 
 ## Phase 1: Fix Regression Before New Strategy Work
 
-Status: completed on `analysis/sonnet46-strategy-fix` after the Phase 1 repair commit.
+Status: completed on `archive/round1/analysis-sonnet46-strategy-fix` after the Phase 1 repair commit.
 
 Implementation summary:
 
@@ -78,10 +78,10 @@ Observed result:
 Run:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 200900060090000500005100000306200050000030000010008207000007800002000040080004003 \
   --models sonnet46,sonnet46-fixed \
-  --refs sonnet46=archive/final/sonnet46,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs sonnet46=archive/round1/final/sonnet46,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/regression-sonnet46-case-36186
 ```
 
@@ -163,7 +163,7 @@ git commit -m "fix: resolve diabolical regression path dependency"
 
 ## Phase 2: Finish Model-Solvable Remaining Cases
 
-Status: completed on `analysis/sonnet46-strategy-fix` in commit `1c18734`.
+Status: completed on `archive/round1/analysis-sonnet46-strategy-fix` in commit `1c18734`.
 
 Implementation summary:
 
@@ -208,16 +208,16 @@ Observed result:
 Run from `orchestration`:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 706000304009000800800000002000169000060050070000207000007000400200405007300706008 \
   --models gemini35flash,sonnet46-fixed \
-  --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs gemini35flash=archive/round1/final/gemini35flash,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/remaining-gemini-38116
 
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 010000020600040008082030460040502010000000000900060007100050002060000080020904050 \
   --models gemini35flash,sonnet46-fixed \
-  --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs gemini35flash=archive/round1/final/gemini35flash,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/remaining-gemini-77633
 ```
 
@@ -267,7 +267,7 @@ npm run typecheck
 
 Commit each independent strategy fix separately.
 
-Committed on `analysis/sonnet46-strategy-fix`:
+Committed on `archive/round1/analysis-sonnet46-strategy-fix`:
 
 ```bash
 git commit -m "fix: resolve remaining gemini diabolical ALS paths"
@@ -277,7 +277,7 @@ Commit: `1c18734`.
 
 ## Phase 3: Full-Corpus Checkpoint
 
-Status: completed on `orchestration` after rerunning `analysis/sonnet46-strategy-fix` at commit `1c18734`.
+Status: completed on `orchestration` after rerunning `archive/round1/analysis-sonnet46-strategy-fix` at commit `1c18734`.
 
 Implementation summary:
 
@@ -336,14 +336,14 @@ Regression gate:
 **Files:**
 
 - Update: `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
-- Update: `orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md`
-- Update: `orchestration/analysis/sonnet46-strategy-fix-results.md`
+- Update: `orchestration/round1/investigations/fixed-remaining-diabolical-root-cause-notes.md`
+- Update: `orchestration/archive/round1/analysis-sonnet46-strategy-fix-results.md`
 
 - [x] Step 1: Rerun full corpus for repaired ref
 
 ```bash
-node orchestration/run-archive-full-corpus.mjs \
-  --ref analysis/sonnet46-strategy-fix \
+node orchestration/harness/run-archive-full-corpus.mjs \
+  --ref archive/round1/analysis-sonnet46-strategy-fix \
   --name analysis-sonnet46-strategy-fix \
   --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-fix-rerun \
   --workers 12
@@ -367,7 +367,7 @@ tar -xOf orchestration/run-logs/full-corpus-20260602-064418.tar.gz 20260602-0644
 - [ ] Step 4: Commit orchestration updates
 
 ```bash
-git add orchestration/run-logs/full-corpus-20260602-064418.tar.gz orchestration/analysis/*.md
+git add orchestration/run-logs/full-corpus-20260602-064418.tar.gz orchestration/round1/investigations/*.md
 git commit -m "docs: update remaining diabolical regression results"
 ```
 
@@ -375,7 +375,7 @@ git commit -m "docs: update remaining diabolical regression results"
 
 Only start this after Phase 1 and Phase 2 are complete and the repaired branch has no known regression against the compared archive set.
 
-Before adding new strategy capability, complete or explicitly defer `orchestration/analysis/human-strategy-taxonomy-refactor-plan.md`. Future strategy expansion should preserve human-learning-friendly taxonomy: specific technique IDs, ordering by human recognition cost, and one concrete pattern instance per default tutoring step.
+Before adding new strategy capability, complete or explicitly defer `orchestration/round1/investigations/human-strategy-taxonomy-refactor-plan.md`. Future strategy expansion should preserve human-learning-friendly taxonomy: specific technique IDs, ordering by human recognition cost, and one concrete pattern instance per default tutoring step.
 
 ### Task 4: Build a 700-Case Feature Analysis Pack
 

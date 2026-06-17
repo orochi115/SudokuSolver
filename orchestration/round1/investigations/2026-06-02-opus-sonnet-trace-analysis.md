@@ -4,7 +4,7 @@
 
 **Goal:** Build a read-only analysis workflow that compares `opus48` and `sonnet46` on mutually failed/succeeded full-corpus cases, starting with the 4 hard cases where `sonnet46` failed and `opus48` succeeded.
 
-**Architecture:** Add orchestration-only analysis scripts that read the archived full-corpus result bundle, create temporary worktrees from `archive/final/<model>`, run solver traces with a canonical strategy order, and emit Markdown/JSON reports. Do not edit archived model branches directly; any investigation that needs model-code edits must create a new branch/worktree derived from the archive snapshot.
+**Architecture:** Add orchestration-only analysis scripts that read the archived full-corpus result bundle, create temporary worktrees from `archive/round1/final/<model>`, run solver traces with a canonical strategy order, and emit Markdown/JSON reports. Do not edit archived model branches directly; any investigation that needs model-code edits must create a new branch/worktree derived from the archive snapshot.
 
 **Tech Stack:** Node.js ESM (`.mjs`), `tsx` for executing TypeScript inside archive worktrees, Git worktrees, Git LFS archived result bundle, Node built-in `node:test`.
 
@@ -12,23 +12,23 @@
 
 ## Scope And Safety Rules
 
-This work is analysis-only. The scripts may inspect `archive/final/opus48` and `archive/final/sonnet46`, but must not modify those branches or their commits.
+This work is analysis-only. The scripts may inspect `archive/round1/final/opus48` and `archive/round1/final/sonnet46`, but must not modify those branches or their commits.
 
 If a later investigation needs to edit a model implementation, create a new branch first, for example:
 
 ```bash
-git branch analysis/sonnet46-hard-52302 archive/final/sonnet46
+git branch analysis/sonnet46-hard-52302 archive/round1/final/sonnet46
 git worktree add ../sudoku-analysis-sonnet46-hard-52302 analysis/sonnet46-hard-52302
 ```
 
-Never commit changes to `archive/final/*`, never rename archive branches, and never run `git reset --hard` or checkout over user work. Temporary worktrees created by scripts must be removed or clearly documented if `--keep-worktrees` is used.
+Never commit changes to `archive/round1/final/*`, never rename archive branches, and never run `git reset --hard` or checkout over user work. Temporary worktrees created by scripts must be removed or clearly documented if `--keep-worktrees` is used.
 
 ## Existing Inputs
 
 - Full-corpus archive: `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
 - Full-corpus result inside archive: `20260602-064418/results.json`
-- Existing runner pattern: `orchestration/run-archive-full-corpus.mjs`
-- Target archive branches: `archive/final/opus48`, `archive/final/sonnet46`
+- Existing runner pattern: `orchestration/harness/run-archive-full-corpus.mjs`
+- Target archive branches: `archive/round1/final/opus48`, `archive/round1/final/sonnet46`
 - Known sonnet-hard failures where opus succeeds:
   - hard #52302: `000010000053204960600050002000000000000908000039020480800030004046000310005401800`
   - hard #114282: `900000006004907800070000050100000009007106500005080200000302000010509030300010005`
@@ -37,7 +37,7 @@ Never commit changes to `archive/final/*`, never rename archive branches, and ne
 
 ## File Structure
 
-- Create: `orchestration/analyze-full-corpus-results.mjs`
+- Create: `orchestration/harness/analyze-full-corpus-results.mjs`
   - Reads `full-corpus-20260602-064418.tar.gz`.
   - Summarizes overlap and complement cases between models.
   - Emits machine-readable JSON and human-readable Markdown.
@@ -46,12 +46,12 @@ Never commit changes to `archive/final/*`, never rename archive branches, and ne
   - Unit tests for overlap calculations using small in-memory fixtures.
   - Tests no real archive branches are required.
 
-- Create: `orchestration/trace-archive-case.mjs`
+- Create: `orchestration/harness/trace-archive-case.mjs`
   - Runs one puzzle against selected archive model branches.
   - Uses canonical `strategyId` order.
   - Produces canonical trace, per-strategy saturation report, stuck-grid rescue report, and first divergence summary.
 
-- Create: `orchestration/trace-archive-case.test.mjs`
+- Create: `orchestration/harness/trace-archive-case.test.mjs`
   - Unit tests for pure trace comparison helpers, not archive execution.
   - Tests canonical ordering, step normalization, first divergence detection, and fixed-point summary comparison.
 
@@ -59,7 +59,7 @@ Never commit changes to `archive/final/*`, never rename archive branches, and ne
   - Ignored by existing `orchestration/reports/.gitignore`.
   - Contains `summary.md`, `cases.json`, per-case trace files, and optional `worktrees.json` if retained.
 
-- Optional later docs update: `orchestration/report-final.md`
+- Optional later docs update: `orchestration/round1/report-final.md`
   - Only after analysis is complete and verified.
   - Add a concise interpretation section, not raw trace dumps.
 
@@ -89,7 +89,7 @@ forcing-chain
 
 Implementation detail: inside each archive worktree, build a map from `STRATEGIES` by `id`, then create `orderedStrategies = canonicalIds.map(id => map.get(id)).filter(Boolean)`. The script must report any missing canonical IDs for each model.
 
-For runner execution inside detached archive worktrees, reuse the existing `orchestration/run-archive-full-corpus.mjs` pattern: prepend the main repository `node_modules/.bin` to `PATH` before invoking `npx tsx`. Do not rely on archive worktrees having their own installed dependencies.
+For runner execution inside detached archive worktrees, reuse the existing `orchestration/harness/run-archive-full-corpus.mjs` pattern: prepend the main repository `node_modules/.bin` to `PATH` before invoking `npx tsx`. Do not rely on archive worktrees having their own installed dependencies.
 
 ## Analysis Modes
 
@@ -182,7 +182,7 @@ Phase 1 result summary:
 ## Task 1: Add Full-Corpus Overlap Analysis (Completed)
 
 **Files:**
-- Create: `orchestration/analyze-full-corpus-results.mjs`
+- Create: `orchestration/harness/analyze-full-corpus-results.mjs`
 - Create: `orchestration/analyze-full-corpus-results.test.mjs`
 
 - [x] **Step 1: Write failing tests for overlap helpers**
@@ -243,7 +243,7 @@ export function compareFailureOverlap(index, loserName, winnerName) {
 The CLI should accept:
 
 ```bash
-node orchestration/analyze-full-corpus-results.mjs \
+node orchestration/harness/analyze-full-corpus-results.mjs \
   --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz \
   --models opus48,sonnet46 \
   --out orchestration/reports/analysis/opus-sonnet-$(date +%Y%m%d-%H%M%S)
@@ -256,7 +256,7 @@ Use `spawnSync('tar', ['-xOf', archive, '20260602-064418/results.json'], { maxBu
 Run:
 
 ```bash
-node orchestration/analyze-full-corpus-results.mjs \
+node orchestration/harness/analyze-full-corpus-results.mjs \
   --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz \
   --models opus48,sonnet46 \
   --out orchestration/reports/analysis/opus-sonnet-smoke
@@ -276,15 +276,15 @@ Note: `86` is opus-solved among all sonnet diabolical failures, including cases 
 - [x] **Step 6: Commit**
 
 ```bash
-git add orchestration/analyze-full-corpus-results.mjs orchestration/analyze-full-corpus-results.test.mjs
+git add orchestration/harness/analyze-full-corpus-results.mjs orchestration/analyze-full-corpus-results.test.mjs
 git commit -m "Add full-corpus overlap analysis"
 ```
 
 ## Task 2: Add Canonical Trace Runner For One Case (Completed)
 
 **Files:**
-- Create: `orchestration/trace-archive-case.mjs`
-- Create: `orchestration/trace-archive-case.test.mjs`
+- Create: `orchestration/harness/trace-archive-case.mjs`
+- Create: `orchestration/harness/trace-archive-case.test.mjs`
 
 - [x] **Step 1: Write failing tests for trace comparison helpers**
 
@@ -314,7 +314,7 @@ test('normalizeAction sorts placements and eliminations for stable comparison', 
 
 - [x] **Step 2: Run the test and verify it fails**
 
-Run: `node --test orchestration/trace-archive-case.test.mjs`
+Run: `node --test orchestration/harness/trace-archive-case.test.mjs`
 
 Expected: FAIL because the script or exports do not exist.
 
@@ -334,7 +334,7 @@ Keep these independent of git worktrees so they are easy to test.
 The CLI should accept either puzzle string or difficulty/index:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --difficulty hard \
   --index 52302 \
   --models opus48,sonnet46 \
@@ -345,7 +345,7 @@ Implementation requirements:
 
 - Resolve puzzle by reading `puzzles/<difficulty>.opensudoku` from the main repo.
 - Create temporary worktrees under `../sudoku-trace-wt/<timestamp>/<model>`.
-- Checkout with `git worktree add --detach <path> archive/final/<model>`.
+- Checkout with `git worktree add --detach <path> archive/round1/final/<model>`.
 - Copy a generated `.trace-case-runner.ts` into each worktree.
 - Run with `npx tsx .trace-case-runner.ts`.
 - Run with `PATH=<main-repo>/node_modules/.bin:$PATH` so `tsx` resolves from the main workspace.
@@ -392,7 +392,7 @@ Use the local `applyStep` helper unconditionally. Do not statically import `appl
 Run:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --difficulty hard \
   --index 52302 \
   --models opus48,sonnet46 \
@@ -409,15 +409,15 @@ Expected:
 - [x] **Step 7: Commit**
 
 ```bash
-git add orchestration/trace-archive-case.mjs orchestration/trace-archive-case.test.mjs
+git add orchestration/harness/trace-archive-case.mjs orchestration/harness/trace-archive-case.test.mjs
 git commit -m "Add archive trace case analyzer"
 ```
 
 ## Task 3: Add Per-Strategy Saturation Probe (Completed)
 
 **Files:**
-- Modify: `orchestration/trace-archive-case.mjs`
-- Modify: `orchestration/trace-archive-case.test.mjs`
+- Modify: `orchestration/harness/trace-archive-case.mjs`
+- Modify: `orchestration/harness/trace-archive-case.test.mjs`
 
 - [x] **Step 1: Write failing tests for saturation comparison**
 
@@ -433,7 +433,7 @@ test('firstDifferentFixedPoint finds first strategy whose afterGrid differs', ()
 
 - [x] **Step 2: Run and verify failure**
 
-Run: `node --test orchestration/trace-archive-case.test.mjs`
+Run: `node --test orchestration/harness/trace-archive-case.test.mjs`
 
 Expected: FAIL because `firstDifferentFixedPoint` is missing.
 
@@ -499,15 +499,15 @@ Expected:
 - [x] **Step 6: Commit**
 
 ```bash
-git add orchestration/trace-archive-case.mjs orchestration/trace-archive-case.test.mjs
+git add orchestration/harness/trace-archive-case.mjs orchestration/harness/trace-archive-case.test.mjs
 git commit -m "Add per-strategy saturation analysis"
 ```
 
 ## Task 4: Add Stuck-Grid Rescue Probe (Completed)
 
 **Files:**
-- Modify: `orchestration/trace-archive-case.mjs`
-- Modify: `orchestration/trace-archive-case.test.mjs`
+- Modify: `orchestration/harness/trace-archive-case.mjs`
+- Modify: `orchestration/harness/trace-archive-case.test.mjs`
 
 - [x] **Step 1: Write failing tests for rescue classification**
 
@@ -525,7 +525,7 @@ test('classifyCase marks early path dependency when rescue is impossible', () =>
 
 - [x] **Step 2: Run and verify failure**
 
-Run: `node --test orchestration/trace-archive-case.test.mjs`
+Run: `node --test orchestration/harness/trace-archive-case.test.mjs`
 
 Expected: FAIL because `classifyCase` is missing.
 
@@ -562,14 +562,14 @@ Expected:
 - [x] **Step 6: Commit**
 
 ```bash
-git add orchestration/trace-archive-case.mjs orchestration/trace-archive-case.test.mjs
+git add orchestration/harness/trace-archive-case.mjs orchestration/harness/trace-archive-case.test.mjs
 git commit -m "Add stuck-grid rescue analysis"
 ```
 
 ## Task 5: Batch Analyze Sonnet Hard Failures (Completed)
 
 **Files:**
-- Create: `orchestration/analyze-opus-sonnet-cases.mjs`
+- Create: `orchestration/round1/analyze-opus-sonnet-cases.mjs`
 - Create: `orchestration/analyze-opus-sonnet-cases.test.mjs`
 
 - [x] **Step 1: Write failing tests for case selection**
@@ -599,7 +599,7 @@ Expected: FAIL because the script or export does not exist.
 Default behavior:
 
 ```bash
-node orchestration/analyze-opus-sonnet-cases.mjs \
+node orchestration/round1/analyze-opus-sonnet-cases.mjs \
   --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz \
   --difficulty hard \
   --loser sonnet46 \
@@ -656,9 +656,9 @@ Expected:
 Before and after the batch run, verify archive branch SHAs are unchanged:
 
 ```bash
-git rev-parse archive/final/opus48 archive/final/sonnet46 > /tmp/archive-before.txt
+git rev-parse archive/round1/final/opus48 archive/round1/final/sonnet46 > /tmp/archive-before.txt
 # run analysis
-git rev-parse archive/final/opus48 archive/final/sonnet46 > /tmp/archive-after.txt
+git rev-parse archive/round1/final/opus48 archive/round1/final/sonnet46 > /tmp/archive-after.txt
 diff -u /tmp/archive-before.txt /tmp/archive-after.txt
 ```
 
@@ -667,7 +667,7 @@ Expected: `diff` produces no output.
 - [x] **Step 7: Commit**
 
 ```bash
-git add orchestration/analyze-opus-sonnet-cases.mjs orchestration/analyze-opus-sonnet-cases.test.mjs
+git add orchestration/round1/analyze-opus-sonnet-cases.mjs orchestration/analyze-opus-sonnet-cases.test.mjs
 git commit -m "Add opus-sonnet batch case analysis"
 ```
 
@@ -690,7 +690,7 @@ git add orchestration/run-logs/opus-sonnet-hard-analysis-<timestamp>.tar.gz
 If the Markdown summary is small and valuable, commit it directly under a tracked path such as:
 
 ```text
-orchestration/analysis/opus-sonnet-hard-analysis.md
+orchestration/round1/investigations/opus-sonnet-hard-analysis.md
 ```
 
 - [x] **Step 2: Write interpretation**
@@ -743,8 +743,8 @@ git commit -m "Analyze opus and sonnet hard failures"
 ## Task 7: Add Candidate-State Trace Serialization
 
 **Files:**
-- Modify: `orchestration/trace-archive-case.mjs`
-- Modify: `orchestration/trace-archive-case.test.mjs`
+- Modify: `orchestration/harness/trace-archive-case.mjs`
+- Modify: `orchestration/harness/trace-archive-case.test.mjs`
 
 - [ ] **Step 1: Write failing tests for candidate serialization helpers**
 
@@ -773,7 +773,7 @@ test('candidateSnapshotHash is stable for equivalent snapshots', () => {
 
 - [ ] **Step 2: Run and verify failure**
 
-Run: `node --test orchestration/trace-archive-case.test.mjs`
+Run: `node --test orchestration/harness/trace-archive-case.test.mjs`
 
 Expected: FAIL because `normalizeCandidateSnapshot` and `candidateSnapshotHash` are missing.
 
@@ -806,13 +806,13 @@ Keep the existing `beforeGrid`, `afterGrid`, placements, eliminations, and expla
 Run:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --difficulty hard \
   --index 52302 \
   --models opus48,sonnet46 \
   --out orchestration/reports/analysis/opus-sonnet-hard-52302-candidates
 
-node orchestration/analyze-opus-sonnet-cases.mjs \
+node orchestration/round1/analyze-opus-sonnet-cases.mjs \
   --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz \
   --difficulty hard \
   --loser sonnet46 \
@@ -825,15 +825,15 @@ Expected: Trace JSON contains candidate snapshot/hash fields for both models and
 - [ ] **Step 6: Commit**
 
 ```bash
-git add orchestration/trace-archive-case.mjs orchestration/trace-archive-case.test.mjs
+git add orchestration/harness/trace-archive-case.mjs orchestration/harness/trace-archive-case.test.mjs
 git commit -m "Record candidate state in archive traces"
 ```
 
 ## Task 8: Add First-Divergence Same-State Probe
 
 **Files:**
-- Modify: `orchestration/trace-archive-case.mjs`
-- Modify: `orchestration/trace-archive-case.test.mjs`
+- Modify: `orchestration/harness/trace-archive-case.mjs`
+- Modify: `orchestration/harness/trace-archive-case.test.mjs`
 
 - [ ] **Step 1: Write failing tests for divergence probe summary**
 
@@ -854,7 +854,7 @@ test('summarizeDivergenceProbe reports winner-only strategy output', () => {
 
 - [ ] **Step 2: Run and verify failure**
 
-Run: `node --test orchestration/trace-archive-case.test.mjs`
+Run: `node --test orchestration/harness/trace-archive-case.test.mjs`
 
 Expected: FAIL because `summarizeDivergenceProbe` is missing.
 
@@ -897,7 +897,7 @@ Include:
 Run:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --difficulty hard \
   --index 52302 \
   --models opus48,sonnet46 \
@@ -909,7 +909,7 @@ Expected: `divergence-probe.json` exists and states whether `aic` is `winner-onl
 - [ ] **Step 6: Commit**
 
 ```bash
-git add orchestration/trace-archive-case.mjs orchestration/trace-archive-case.test.mjs
+git add orchestration/harness/trace-archive-case.mjs orchestration/harness/trace-archive-case.test.mjs
 git commit -m "Add first-divergence strategy probe"
 ```
 
@@ -917,13 +917,13 @@ git commit -m "Add first-divergence strategy probe"
 
 **Files:**
 - Create worktree only if Task 8 still cannot explain `aic` or `single-digit-patterns`.
-- Do not modify `archive/final/*`.
+- Do not modify `archive/round1/final/*`.
 
 - [ ] **Step 1: Create derived debug branches**
 
 ```bash
-git branch analysis/opus48-aic-debug archive/final/opus48
-git branch analysis/sonnet46-aic-debug archive/final/sonnet46
+git branch analysis/opus48-aic-debug archive/round1/final/opus48
+git branch analysis/sonnet46-aic-debug archive/round1/final/sonnet46
 git worktree add ../sudoku-opus48-aic-debug analysis/opus48-aic-debug
 git worktree add ../sudoku-sonnet46-aic-debug analysis/sonnet46-aic-debug
 ```
@@ -952,12 +952,12 @@ For `single-digit-patterns`, log:
 
 - [ ] **Step 4: Run only the suspect cases**
 
-Run a one-off debug runner directly inside the derived worktrees so the instrumented strategy code is used. Do not point `trace-archive-case.mjs` at `archive/final/*` for this step, because that would bypass the debug branches.
+Run a one-off debug runner directly inside the derived worktrees so the instrumented strategy code is used. Do not point `trace-archive-case.mjs` at `archive/round1/final/*` for this step, because that would bypass the debug branches.
 
 Example for hard #52302:
 
 ```bash
-node --input-type=module -e "import { runnerSource } from './orchestration/trace-archive-case.mjs'; import { writeFileSync } from 'node:fs'; writeFileSync('../sudoku-opus48-aic-debug/.trace-case-runner.ts', runnerSource());"
+node --input-type=module -e "import { runnerSource } from './orchestration/harness/trace-archive-case.mjs'; import { writeFileSync } from 'node:fs'; writeFileSync('../sudoku-opus48-aic-debug/.trace-case-runner.ts', runnerSource());"
 
 (
   cd ../sudoku-opus48-aic-debug && \
@@ -969,7 +969,7 @@ node --input-type=module -e "import { runnerSource } from './orchestration/trace
 )
 ```
 
-Repeat from `../sudoku-sonnet46-aic-debug` with `MODEL_NAME=sonnet46-debug`. If a reusable debug runner is created, keep it outside `archive/final/*`; commit it only to `orchestration` if it becomes generally useful.
+Repeat from `../sudoku-sonnet46-aic-debug` with `MODEL_NAME=sonnet46-debug`. If a reusable debug runner is created, keep it outside `archive/round1/final/*`; commit it only to `orchestration` if it becomes generally useful.
 
 Do not generalize this into production tooling unless the debug output proves useful.
 
@@ -984,19 +984,19 @@ git add <modified-debug-files>
 git commit -m "Add temporary AIC debug logging"
 ```
 
-Expected before commit: `git branch --show-current` prints `analysis/opus48-aic-debug` or `analysis/sonnet46-aic-debug`, never `archive/final/*` and never `orchestration`.
+Expected before commit: `git branch --show-current` prints `analysis/opus48-aic-debug` or `analysis/sonnet46-aic-debug`, never `archive/round1/final/*` and never `orchestration`.
 
 Do not merge these debug branches into `orchestration`.
 
 ## Task 10: Targeted Code Review And Root-Cause Report
 
 **Files:**
-- Create: `orchestration/analysis/opus-sonnet-root-cause-notes.md`
+- Create: `orchestration/round1/investigations/opus-sonnet-root-cause-notes.md`
 - Optional: Create LFS tarball under `orchestration/run-logs/` if Task 8/9 outputs are large.
 
 - [ ] **Step 1: Review `aic` implementation differences**
 
-Compare `archive/final/opus48` and `archive/final/sonnet46` or their derived debug branches. Focus on the exact failure mode from Task 8/9, not broad style differences.
+Compare `archive/round1/final/opus48` and `archive/round1/final/sonnet46` or their derived debug branches. Focus on the exact failure mode from Task 8/9, not broad style differences.
 
 - [ ] **Step 2: Review `single-digit-patterns` implementation differences**
 
@@ -1025,7 +1025,7 @@ git diff --check
 - [ ] **Step 5: Commit**
 
 ```bash
-git add orchestration/analysis/opus-sonnet-root-cause-notes.md <optional LFS tarball>
+git add orchestration/round1/investigations/opus-sonnet-root-cause-notes.md <optional LFS tarball>
 git commit -m "Document opus-sonnet root cause findings"
 ```
 
@@ -1038,7 +1038,7 @@ git commit -m "Document opus-sonnet root cause findings"
 **Loser branch/result:**
 
 - Result name in archive: `analysis-sonnet46-strategy-fix`
-- Git ref for trace execution: `analysis/sonnet46-strategy-fix`
+- Git ref for trace execution: `archive/round1/analysis-sonnet46-strategy-fix`
 
 **Winner candidates from the merged archive:**
 
@@ -1061,12 +1061,12 @@ Summary of remaining failures:
 - There are 10 winner-case comparison pairs because diabolical #103170 is solved by both `opus48` and `gemini35flash`.
 - `sonnet46`, `gpt53codex`, and `deepseekv4` solve none of the remaining fixed-branch failures in the merged archive.
 
-**Safety rule:** Phase 3 is analysis-first. Do not edit archive branches. If later fixes are needed, reuse `analysis/sonnet46-strategy-fix` as the repair branch and write repair notes under `orchestration/analysis/` so future fix work can reuse the same branch and evidence.
+**Safety rule:** Phase 3 is analysis-first. Do not edit archive branches. If later fixes are needed, reuse `archive/round1/analysis-sonnet46-strategy-fix` as the repair branch and write repair notes under `orchestration/round1/investigations/` so future fix work can reuse the same branch and evidence.
 
 ## Task 11: Generalize Remaining-Failure Winner Selection
 
 **Files:**
-- Modify: `orchestration/analyze-opus-sonnet-cases.mjs`
+- Modify: `orchestration/round1/analyze-opus-sonnet-cases.mjs`
 - Modify: `orchestration/analyze-opus-sonnet-cases.test.mjs`
 
 - [ ] **Step 1: Write failing tests for multi-winner selection**
@@ -1128,7 +1128,7 @@ Add support for:
 
 ```text
 --winners opus48,gpt55,gemini35flash
---refs analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix
+--refs analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix
 ```
 
 Keep the existing single `--winner` mode working for Phase 1/2 compatibility. Do not require `--winner` when `--winners` is provided.
@@ -1151,7 +1151,7 @@ Expected: all tests pass.
 ## Task 12: Pass Explicit Refs Through Batch Trace Analysis
 
 **Files:**
-- Modify: `orchestration/analyze-opus-sonnet-cases.mjs`
+- Modify: `orchestration/round1/analyze-opus-sonnet-cases.mjs`
 - Modify: `orchestration/analyze-opus-sonnet-cases.test.mjs`
 
 - [ ] **Step 1: Write failing tests for ref argument propagation**
@@ -1168,11 +1168,11 @@ test('traceCommandArgs forwards explicit refs to trace runner', () => {
     winner: 'opus48',
     loser: 'analysis-sonnet46-strategy-fix',
     outDir: '/tmp/case',
-    refs: new Map([['analysis-sonnet46-strategy-fix', 'analysis/sonnet46-strategy-fix']]),
+    refs: new Map([['analysis-sonnet46-strategy-fix', 'archive/round1/analysis-sonnet46-strategy-fix']]),
     keepWorktrees: false,
   }).slice(-2), [
     '--refs',
-    'analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix',
+    'analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix',
   ]);
 });
 ```
@@ -1194,10 +1194,10 @@ Implement:
 When tracing Phase 3, invoke:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle <archived loser failure puzzle> \
   --models <winner>,analysis-sonnet46-strategy-fix \
-  --refs analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix \
+  --refs analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix \
   --out <case-pair-dir>
 ```
 
@@ -1231,13 +1231,13 @@ Run:
 
 ```bash
 git branch --list \
-  archive/final/opus48 \
-  archive/final/gpt55 \
-  archive/final/gemini35flash \
-  analysis/sonnet46-strategy-fix
+  archive/round1/final/opus48 \
+  archive/round1/final/gpt55 \
+  archive/round1/final/gemini35flash \
+  archive/round1/analysis-sonnet46-strategy-fix
 ```
 
-Expected: all four refs exist. Do not create or modify `archive/final/*`.
+Expected: all four refs exist. Do not create or modify `archive/round1/final/*`.
 
 ## Task 13: Run Phase 3 Step-By-Step Strategy Analysis
 
@@ -1248,12 +1248,12 @@ Expected: all four refs exist. Do not create or modify `archive/final/*`.
 - [ ] **Step 1: Run the batch analysis**
 
 ```bash
-node orchestration/analyze-opus-sonnet-cases.mjs \
+node orchestration/round1/analyze-opus-sonnet-cases.mjs \
   --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz \
   --difficulty diabolical \
   --loser analysis-sonnet46-strategy-fix \
   --winners opus48,gpt55,gemini35flash \
-  --refs analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix \
+  --refs analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/fixed-remaining-diabolical-comparison
 ```
 
@@ -1308,7 +1308,7 @@ test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/win
 test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/summary.json
 test -f orchestration/reports/analysis/fixed-remaining-diabolical-comparison/summary.md
 node --test orchestration/analyze-opus-sonnet-cases.test.mjs
-node --test orchestration/trace-archive-case.test.mjs
+node --test orchestration/harness/trace-archive-case.test.mjs
 git worktree list --porcelain
 ```
 
@@ -1317,7 +1317,7 @@ Expected: tests pass, no unintended leftover trace worktrees unless `--keep-work
 ## Task 14: Write Phase 3 Repair Analysis Notes
 
 **Files:**
-- Create: `orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md`
+- Create: `orchestration/round1/investigations/fixed-remaining-diabolical-root-cause-notes.md`
 - Optional: `orchestration/run-logs/fixed-remaining-diabolical-analysis-20260602.tar.gz`
 
 - [ ] **Step 1: Summarize the candidate set**
@@ -1336,18 +1336,18 @@ For each case, include a compact table:
 | Case | Winner | First divergence | Saturation suspect | Rescue strategy | Classification | Notes |
 | ---: | --- | --- | --- | --- | --- | --- |
 
-Keep raw trace details in `orchestration/reports/analysis/`; the `orchestration/analysis/` note should be interpretive and reviewable.
+Keep raw trace details in `orchestration/reports/analysis/`; the `orchestration/round1/investigations/` note should be interpretive and reviewable.
 
 - [ ] **Step 3: Identify reusable repair direction**
 
-If the analysis points to code changes, document exactly where future repair work should start in `analysis/sonnet46-strategy-fix`:
+If the analysis points to code changes, document exactly where future repair work should start in `archive/round1/analysis-sonnet46-strategy-fix`:
 
 - Suspect strategy file path(s).
 - Candidate regression puzzle(s).
 - Expected behavior from winner branch traces.
 - Whether the issue appears to be a coverage gap, candidate-state divergence, tie-break/path dependency, or invalid-solved risk.
 
-Do not implement the repair in this task. The next repair session can reuse branch `analysis/sonnet46-strategy-fix` and the notes under `orchestration/analysis/`.
+Do not implement the repair in this task. The next repair session can reuse branch `archive/round1/analysis-sonnet46-strategy-fix` and the notes under `orchestration/round1/investigations/`.
 
 - [ ] **Step 4: Verify references and formatting**
 
@@ -1355,7 +1355,7 @@ Run:
 
 ```bash
 test -f orchestration/run-logs/full-corpus-20260602-064418.tar.gz
-test -f orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md
+test -f orchestration/round1/investigations/fixed-remaining-diabolical-root-cause-notes.md
 git diff --check
 ```
 
@@ -1363,9 +1363,9 @@ git diff --check
 
 ```bash
 git add \
-  orchestration/analyze-opus-sonnet-cases.mjs \
+  orchestration/round1/analyze-opus-sonnet-cases.mjs \
   orchestration/analyze-opus-sonnet-cases.test.mjs \
-  orchestration/analysis/fixed-remaining-diabolical-root-cause-notes.md \
+  orchestration/round1/investigations/fixed-remaining-diabolical-root-cause-notes.md \
   <optional LFS tarball>
 git commit -m "Analyze fixed branch remaining failures"
 ```
@@ -1373,12 +1373,12 @@ git commit -m "Analyze fixed branch remaining failures"
 ## Final Verification Checklist (Phase 1 Completed)
 
 - [x] `node --test orchestration/analyze-full-corpus-results.test.mjs` passes.
-- [x] `node --test orchestration/trace-archive-case.test.mjs` passes.
+- [x] `node --test orchestration/harness/trace-archive-case.test.mjs` passes.
 - [x] `node --test orchestration/analyze-opus-sonnet-cases.test.mjs` passes.
 - [x] `npm test` passes.
-- [x] `node orchestration/analyze-full-corpus-results.mjs --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz --models opus48,sonnet46 --out orchestration/reports/analysis/opus-sonnet-smoke` produces expected overlap counts.
-- [x] `node orchestration/trace-archive-case.mjs --difficulty hard --index 52302 --models opus48,sonnet46 --out orchestration/reports/analysis/opus-sonnet-hard-52302` produces trace, saturation, rescue, and comparison files.
-- [x] `node orchestration/analyze-opus-sonnet-cases.mjs --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz --difficulty hard --loser sonnet46 --winner opus48 --out orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures` analyzes exactly 4 hard cases.
+- [x] `node orchestration/harness/analyze-full-corpus-results.mjs --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz --models opus48,sonnet46 --out orchestration/reports/analysis/opus-sonnet-smoke` produces expected overlap counts.
+- [x] `node orchestration/harness/trace-archive-case.mjs --difficulty hard --index 52302 --models opus48,sonnet46 --out orchestration/reports/analysis/opus-sonnet-hard-52302` produces trace, saturation, rescue, and comparison files.
+- [x] `node orchestration/round1/analyze-opus-sonnet-cases.mjs --archive orchestration/run-logs/full-corpus-20260602-064418.tar.gz --difficulty hard --loser sonnet46 --winner opus48 --out orchestration/reports/analysis/opus-sonnet-hard-sonnet-failures` analyzes exactly 4 hard cases.
 - [x] `git worktree list --porcelain` shows no leftover analysis worktrees unless intentionally retained.
 - [x] `git diff --check` reports no whitespace errors.
 
@@ -1399,4 +1399,4 @@ git worktree add --detach ../SudokuSolver-opus-sonnet-analysis orchestration
 
 Use TDD for each task. Do not skip the red test step. Commit after each task so the analysis can be reviewed incrementally.
 
-Do not update `orchestration/report-final.md` until the trace reports have been generated and reviewed. The first deliverable should be the analysis tooling plus the 4-case hard report, not model fixes.
+Do not update `orchestration/round1/report-final.md` until the trace reports have been generated and reviewed. The first deliverable should be the analysis tooling plus the 4-case hard report, not model fixes.

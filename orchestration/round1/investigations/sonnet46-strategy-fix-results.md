@@ -2,11 +2,11 @@
 
 ## Scope
 
-This report records the repair attempt for the four hard cases where `archive/final/sonnet46` failed and `archive/final/opus48` solved.
+This report records the repair attempt for the four hard cases where `archive/round1/final/sonnet46` failed and `archive/round1/final/opus48` solved.
 
 Repair branch:
 
-- `analysis/sonnet46-strategy-fix`
+- `archive/round1/analysis-sonnet46-strategy-fix`
 
 Repair branch commits:
 
@@ -140,28 +140,28 @@ Observed result after `8471467`:
 The four cases were rerun from the `orchestration` branch using explicit git refs:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 000010000053204960600050002000000000000908000039020480800030004046000310005401800 \
   --models opus48,sonnet46-fixed \
-  --refs opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs opus48=archive/round1/final/opus48,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/sonnet46-fixed-hard-52302
 
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 900000006004907800070000050100000009007106500005080200000302000010509030300010005 \
   --models opus48,sonnet46-fixed \
-  --refs opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs opus48=archive/round1/final/opus48,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/sonnet46-fixed-hard-114282
 
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 009400010200005700060020009020050001003204800600090050300080020002300004080002100 \
   --models opus48,sonnet46-fixed \
-  --refs opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs opus48=archive/round1/final/opus48,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/sonnet46-fixed-hard-272709
 
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 300200008000008300061059400048000001003000500600000840009730610006100000100006003 \
   --models opus48,sonnet46-fixed \
-  --refs opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs opus48=archive/round1/final/opus48,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/sonnet46-fixed-hard-305612
 ```
 
@@ -185,11 +185,11 @@ Summary:
 
 ## Full-Corpus Rerun After Diabolical Repair
 
-After the follow-up TDD repair pass, `analysis/sonnet46-strategy-fix` was rerun against the full OpenSudoku corpus from the `orchestration` branch:
+After the follow-up TDD repair pass, `archive/round1/analysis-sonnet46-strategy-fix` was rerun against the full OpenSudoku corpus from the `orchestration` branch:
 
 ```bash
-node orchestration/run-archive-full-corpus.mjs \
-  --ref analysis/sonnet46-strategy-fix \
+node orchestration/harness/run-archive-full-corpus.mjs \
+  --ref archive/round1/analysis-sonnet46-strategy-fix \
   --name analysis-sonnet46-strategy-fix \
   --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-fix-rerun \
   --workers 12
@@ -207,7 +207,7 @@ Rerun result:
 
 This improves the prior repaired-branch full-corpus result from 904 remaining diabolical failures to 731. Seven of the nine Phase 3 candidate cases from `fixed-remaining-diabolical-root-cause-notes.md` no longer fail in the full-corpus rerun. Two `gemini35flash`-solved cases, #38116 and #77633, remain failed in the full solve path and require fresh trace comparison.
 
-The rerun also exposed one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis/sonnet46-strategy-fix`. The first divergence is a same-state `locked-candidates` different-effect at step 3. A later Phase 1 repair fixed this regression locally with generic strategy changes, not a puzzle-specific guard:
+The rerun also exposed one regression relative to the original `archive/round1/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `archive/round1/analysis-sonnet46-strategy-fix`. The first divergence is a same-state `locked-candidates` different-effect at step 3. A later Phase 1 repair fixed this regression locally with generic strategy changes, not a puzzle-specific guard:
 
 - `locked-candidates` now returns all same-phase deductions instead of choosing one globally ranked action.
 - `forcing-chain` now combines simultaneously available graph-forcing and bounded-contradiction deductions, and falls back to the original naked-single forcing subset when newer forcing paths do not produce a step.
@@ -234,16 +234,16 @@ The full-corpus archive has not yet been rerun after this Phase 1 repair, so the
 After the Phase 1 regression repair, #38116 and #77633 remained the only known `gemini35flash`-solved cases still failing locally in the full solve path. Fresh trace comparisons were generated from `orchestration`:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 706000304009000800800000002000169000060050070000207000007000400200405007300706008 \
   --models gemini35flash,sonnet46-fixed \
-  --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs gemini35flash=archive/round1/final/gemini35flash,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/remaining-gemini-38116
 
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 010000020600040008082030460040502010000000000900060007100050002060000080020904050 \
   --models gemini35flash,sonnet46-fixed \
-  --refs gemini35flash=archive/final/gemini35flash,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs gemini35flash=archive/round1/final/gemini35flash,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/remaining-gemini-77633
 ```
 
@@ -277,7 +277,7 @@ Observed result:
 
 ## Phase 3 Full-Corpus Checkpoint
 
-Before replacing the aggregate archive data, the Phase 1/2 fixes were verified from a detached `analysis/sonnet46-strategy-fix` worktree at commit `1c18734`:
+Before replacing the aggregate archive data, the Phase 1/2 fixes were verified from a detached `archive/round1/analysis-sonnet46-strategy-fix` worktree at commit `1c18734`:
 
 ```bash
 npm test -- packages/engine/test/diabolical-regressions.test.ts -t "36186|38116|77633"
@@ -298,8 +298,8 @@ Observed result:
 The repaired ref was then rerun against the full OpenSudoku corpus from the `orchestration` branch:
 
 ```bash
-node orchestration/run-archive-full-corpus.mjs \
-  --ref analysis/sonnet46-strategy-fix \
+node orchestration/harness/run-archive-full-corpus.mjs \
+  --ref archive/round1/analysis-sonnet46-strategy-fix \
   --name analysis-sonnet46-strategy-fix \
   --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-fix-phase3-rerun \
   --workers 12

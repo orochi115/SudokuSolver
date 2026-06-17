@@ -20,7 +20,7 @@ That directory is intentionally ignored runtime output. The committed source art
 - `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
 - `orchestration/run-logs/opus-sonnet-hard-analysis-20260602.tar.gz`
 
-The static implementation comparison uses the read-only archive refs `archive/final/opus48` and `archive/final/sonnet46`.
+The static implementation comparison uses the read-only archive refs `archive/round1/final/opus48` and `archive/round1/final/sonnet46`.
 
 ## Findings
 
@@ -37,12 +37,12 @@ The divergence probe shows the decisive AIC state is not caused by candidate-sta
 
 Static review points to a strategy-strength gap rather than a path dependency. `opus48` splits AIC search into reusable chain modules and builds grouped same-digit links:
 
-- `archive/final/opus48:packages/engine/src/strategies/aic.ts` builds a graph with `{ digit, grouped: true }` before searching.
-- `archive/final/opus48:packages/engine/src/chain/graph.ts` represents chain nodes as one or more cells, so a grouped assertion can cover multiple candidates.
-- `archive/final/opus48:packages/engine/src/chain/graph.ts` creates grouped nodes from collinear candidates in a box and creates strong links between grouped row/column positions.
-- `archive/final/opus48:packages/engine/src/chain/aic-search.ts` can eliminate same-digit peers that see all cells of both chain endpoints.
+- `archive/round1/final/opus48:packages/engine/src/strategies/aic.ts` builds a graph with `{ digit, grouped: true }` before searching.
+- `archive/round1/final/opus48:packages/engine/src/chain/graph.ts` represents chain nodes as one or more cells, so a grouped assertion can cover multiple candidates.
+- `archive/round1/final/opus48:packages/engine/src/chain/graph.ts` creates grouped nodes from collinear candidates in a box and creates strong links between grouped row/column positions.
+- `archive/round1/final/opus48:packages/engine/src/chain/aic-search.ts` can eliminate same-digit peers that see all cells of both chain endpoints.
 
-`sonnet46` implements AIC directly in `archive/final/sonnet46:packages/engine/src/strategies/aic.ts`. Its `getStrongNeighbors()` only creates same-digit strong links when a house has exactly two raw candidate cells and the current cell is the single candidate in that house. That excludes grouped conjugates where one endpoint is a multi-cell row/box or column/box group.
+`sonnet46` implements AIC directly in `archive/round1/final/sonnet46:packages/engine/src/strategies/aic.ts`. Its `getStrongNeighbors()` only creates same-digit strong links when a house has exactly two raw candidate cells and the current cell is the single candidate in that house. That excludes grouped conjugates where one endpoint is a multi-cell row/box or column/box group.
 
 The probe evidence is consistent with that difference, but it does not directly print the internal AIC chain path:
 
@@ -67,9 +67,9 @@ The `opus48` step explanation identifies the missing pattern:
 
 > Empty Rectangle: in box 3, digit 4 forms an ER (hinge row R3, col C8); with the column strong link R3C1-R4C1, 4 can be removed from R4C8.
 
-Static review shows `opus48` detects this because `archive/final/opus48:packages/engine/src/strategies/single-digit-patterns.ts` scans external columns crossing the ER hinge row and external rows crossing the ER hinge column. In this case it can use the external column conjugate pair `R3C1-R4C1` to eliminate `R4C8=4`.
+Static review shows `opus48` detects this because `archive/round1/final/opus48:packages/engine/src/strategies/single-digit-patterns.ts` scans external columns crossing the ER hinge row and external rows crossing the ER hinge column. In this case it can use the external column conjugate pair `R3C1-R4C1` to eliminate `R4C8=4`.
 
-`sonnet46` implements Empty Rectangle in `archive/final/sonnet46:packages/engine/src/strategies/single-digit-patterns.ts`, but its `tryEmptyRectangle()` only checks the ER hinge column for column conjugates and the ER hinge row for row conjugates. The needed strong link is in column `C1`, not the ER hinge column `C8`, so this implementation never considers the valid interaction that `opus48` finds.
+`sonnet46` implements Empty Rectangle in `archive/round1/final/sonnet46:packages/engine/src/strategies/single-digit-patterns.ts`, but its `tryEmptyRectangle()` only checks the ER hinge column for column conjugates and the ER hinge row for row conjugates. The needed strong link is in column `C1`, not the ER hinge column `C8`, so this implementation never considers the valid interaction that `opus48` finds.
 
 Classification: coverage gap. `sonnet46` has a narrower Empty Rectangle detector, not a candidate-state or tie-break failure.
 

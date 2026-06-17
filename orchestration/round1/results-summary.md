@@ -1,6 +1,6 @@
 # 第一轮对比测试 · 结果摘要
 
-> 完整报告（环境、工具使用、复现步骤）见 [`../../orchestration/report-final.md`](../../orchestration/report-final.md)（随 harness 保留）。
+> 完整报告（环境、工具使用、复现步骤）见 [`./report-final.md`](./report-final.md)（同目录）。
 > 本文摘录关键结论，并记录"胜出者 → 修复"后的当前引擎基线。
 
 ## 100 题样本（固定范围；健全性 0 violation 为硬门槛）
@@ -38,8 +38,8 @@
 
 以 **sonnet46**（diabolical 全量最高）为基础，逐步追踪对比其他分支（gemini35flash / opus48 等）的成功路径，
 综合修复 locked-candidates 选择策略、ALS 覆盖、forcing-chain 组合等（详见
-[`../investigations/`](../investigations/) 根因笔记与
-[`../roadmap/remaining-diabolical-regression-plan.md`](../roadmap/remaining-diabolical-regression-plan.md)）。
+[`./investigations/`](./investigations/) 根因笔记与
+[`./repair-plans/remaining-diabolical-regression-plan.md`](./repair-plans/remaining-diabolical-regression-plan.md)）。
 
 修复后（`archive/round1/analysis-sonnet46-strategy-fix`，即当前 master 引擎）全量基线：
 

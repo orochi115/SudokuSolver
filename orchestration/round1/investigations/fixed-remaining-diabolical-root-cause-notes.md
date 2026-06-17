@@ -10,7 +10,7 @@ Committed inputs and artifacts:
 - Packaged Phase 3 traces: `orchestration/run-logs/fixed-remaining-diabolical-analysis-20260602.tar.gz`
 - Expanded runtime report directory: `orchestration/reports/analysis/fixed-remaining-diabolical-comparison/`
 - Loser result name: `analysis-sonnet46-strategy-fix`
-- Loser trace ref: `analysis/sonnet46-strategy-fix`
+- Loser trace ref: `archive/round1/analysis-sonnet46-strategy-fix`
 
 The expanded report directory is ignored runtime output. The tarball preserves the generated `candidate-cases.json`, `winner-case-pairs.json`, `summary.json`, `summary.md`, and per-pair trace/probe artifacts.
 
@@ -63,9 +63,9 @@ The stuck-grid rescue scans are not decisive in this phase. Every pair reports a
 
 ## Reusable Repair Direction
 
-Future repair work should happen on `analysis/sonnet46-strategy-fix`; do not edit `archive/final/*` branches.
+Future repair work should happen on `archive/round1/analysis-sonnet46-strategy-fix`; do not edit `archive/round1/final/*` branches.
 
-Start with these files on `analysis/sonnet46-strategy-fix`:
+Start with these files on `archive/round1/analysis-sonnet46-strategy-fix`:
 
 - `packages/engine/src/strategies/forcing-chain.ts`
 - `packages/engine/src/strategies/aic.ts`
@@ -88,11 +88,11 @@ The dominant failure mode is not invalid solving and not candidate-state corrupt
 - `locked-candidates` has two direct same-strategy different-effect comparisons.
 - `single-digit-patterns` appears as an early fixed-point suspect in #27806, but the same-state probe for that pair points to `forcing-chain` as the immediate divergence target.
 
-Do not implement repairs as part of this analysis task. The next repair session should add focused regression tests on `analysis/sonnet46-strategy-fix` before changing any strategy implementation.
+Do not implement repairs as part of this analysis task. The next repair session should add focused regression tests on `archive/round1/analysis-sonnet46-strategy-fix` before changing any strategy implementation.
 
 ## Repair Follow-Up Verification
 
-The subsequent TDD repair pass added focused restored-state regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `analysis/sonnet46-strategy-fix`. The first follow-up full OpenSudoku rerun showed seven of the nine original candidate cases no longer failed in the repaired branch. Two `gemini35flash`-solved cases still failed in that checkpoint, despite restored-state AIC tests passing:
+The subsequent TDD repair pass added focused restored-state regression coverage in `packages/engine/test/diabolical-regressions.test.ts` on `archive/round1/analysis-sonnet46-strategy-fix`. The first follow-up full OpenSudoku rerun showed seven of the nine original candidate cases no longer failed in the repaired branch. Two `gemini35flash`-solved cases still failed in that checkpoint, despite restored-state AIC tests passing:
 
 | Diabolical case | Full-corpus status after repair |
 | ---: | --- |
@@ -106,7 +106,7 @@ The subsequent TDD repair pass added focused restored-state regression coverage 
 | 103170 | solved, sound |
 | 109043 | solved, sound |
 
-The full-corpus result also uncovered one regression relative to the original `archive/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis-sonnet46-strategy-fix`. A direct trace comparison showed the first divergence at step 3, `locked-candidates` vs `locked-candidates`, same candidate state but different effect:
+The full-corpus result also uncovered one regression relative to the original `archive/round1/final/sonnet46`: diabolical #36186 is solved by `sonnet46` but stuck in `analysis-sonnet46-strategy-fix`. A direct trace comparison showed the first divergence at step 3, `locked-candidates` vs `locked-candidates`, same candidate state but different effect:
 
 - `sonnet46`: eliminates digit 5 from cells 54, 63, 72 and eventually solves.
 - `analysis-sonnet46-strategy-fix`: eliminates digit 2 from cells 13, 22 and later gets stuck.
@@ -163,7 +163,7 @@ The apparent first divergence in both fresh comparisons was `locked-candidates` 
 - #38116: current `als` selected `{ cell: 29, digit: 5 }`; the winner ALS path included `{ cell: 53, digit: 3 }` and `{ cell: 9, digit: 4 }`.
 - #77633: current path hit `aic` before the winner ALS step; probing `als` at the same state showed missing ALS eliminations including cells 38, 46, 47, 42, and 44.
 
-The repair in `analysis/sonnet46-strategy-fix` commit `1c18734` fixes ALS generically:
+The repair in `archive/round1/analysis-sonnet46-strategy-fix` commit `1c18734` fixes ALS generically:
 
 - Records the originating house for each ALS.
 - Implements doubly-linked ALS-XZ elimination for non-RCC candidates from the two ALS houses.
@@ -195,7 +195,7 @@ This closes the two known model-solvable diabolical failures at local regression
 
 ## Phase 3 Full-Corpus Checkpoint Update
 
-The Phase 3 checkpoint reran `analysis/sonnet46-strategy-fix` at commit `1c18734` across the full OpenSudoku corpus after first verifying the Phase 1/2 local regression tests from a detached target-branch worktree:
+The Phase 3 checkpoint reran `archive/round1/analysis-sonnet46-strategy-fix` at commit `1c18734` across the full OpenSudoku corpus after first verifying the Phase 1/2 local regression tests from a detached target-branch worktree:
 
 ```bash
 npm test -- packages/engine/test/diabolical-regressions.test.ts -t "36186|38116|77633"

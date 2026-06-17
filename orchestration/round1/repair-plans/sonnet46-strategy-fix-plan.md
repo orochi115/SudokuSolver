@@ -2,7 +2,7 @@
 
 ## Goal
 
-Fix the strategy-strength gaps that made `archive/final/sonnet46` fail four hard puzzles solved by `archive/final/opus48`, without modifying archive refs directly.
+Fix the strategy-strength gaps that made `archive/round1/final/sonnet46` fail four hard puzzles solved by `archive/round1/final/opus48`, without modifying archive refs directly.
 
 ## Difficulty Assessment
 
@@ -13,8 +13,8 @@ The fix is feasible, but the two suspect strategy families have different risk l
 
 ## Safety Rules
 
-- Do not modify `archive/final/sonnet46` or `archive/final/opus48`.
-- Create a derived repair branch, for example `analysis/sonnet46-strategy-fix`, from `archive/final/sonnet46`.
+- Do not modify `archive/round1/final/sonnet46` or `archive/round1/final/opus48`.
+- Create a derived repair branch, for example `archive/round1/analysis-sonnet46-strategy-fix`, from `archive/round1/final/sonnet46`.
 - Use a separate worktree under `~/LLM_Work`, for example `/Users/sakura/LLM_Work/SudokuSolver-sonnet46-strategy-fix`.
 - Keep orchestration/reporting changes on `orchestration`; keep model implementation changes on the derived repair branch.
 - Use TDD for every behavior change: add failing tests first, verify RED, implement minimal code, verify GREEN, then commit.
@@ -37,7 +37,7 @@ Case-level findings:
 | hard #272709 | `single-digit-patterns` | Empty Rectangle digit 4 elimination `R4C8=4` |
 | hard #305612 | `aic` | digit 4 X-Chain-style AIC elimination `R1C3=4` |
 
-See also `orchestration/analysis/opus-sonnet-root-cause-notes.md`.
+See also `orchestration/round1/investigations/opus-sonnet-root-cause-notes.md`.
 
 ## Implementation Tasks
 
@@ -46,8 +46,8 @@ See also `orchestration/analysis/opus-sonnet-root-cause-notes.md`.
 Create the worktree from the archive snapshot:
 
 ```bash
-git branch analysis/sonnet46-strategy-fix archive/final/sonnet46
-git worktree add /Users/sakura/LLM_Work/SudokuSolver-sonnet46-strategy-fix analysis/sonnet46-strategy-fix
+git branch archive/round1/analysis-sonnet46-strategy-fix archive/round1/final/sonnet46
+git worktree add /Users/sakura/LLM_Work/SudokuSolver-sonnet46-strategy-fix archive/round1/analysis-sonnet46-strategy-fix
 ```
 
 Run the baseline tests in the repair worktree:
@@ -112,11 +112,11 @@ Use orchestration from the `orchestration` branch. Either:
 Preferred reusable option:
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --difficulty hard \
   --index 52302 \
   --models opus48,sonnet46-fixed \
-  --refs opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix \
+  --refs opus48=archive/round1/final/opus48,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix \
   --out orchestration/reports/analysis/sonnet46-fix-hard-52302
 ```
 
@@ -131,7 +131,7 @@ Success criteria:
 
 ### Task 5: Save Results Report
 
-Create `orchestration/analysis/sonnet46-strategy-fix-results.md` with:
+Create `orchestration/archive/round1/analysis-sonnet46-strategy-fix-results.md` with:
 
 - Repair branch commit hashes.
 - Test and rerun commands.

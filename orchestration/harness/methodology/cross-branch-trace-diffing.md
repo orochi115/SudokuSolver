@@ -2,8 +2,8 @@
 
 > 当前分支某题解不动、而另一个（归档的）分支能解出时，如何精确定位"第一处实现差异"，
 > 并把它转化为可回归的测试。这是第一轮修复（regression + 补全）的核心手法，见
-> [`../roadmap/remaining-diabolical-regression-plan.md`](../roadmap/remaining-diabolical-regression-plan.md) 与
-> [`../investigations/`](../investigations/) 的根因笔记。
+> [`../../round1/repair-plans/remaining-diabolical-regression-plan.md`](../../round1/repair-plans/remaining-diabolical-regression-plan.md) 与
+> [`../../round1/investigations/`](../../round1/investigations/) 的根因笔记。
 
 ## 思路
 
@@ -15,7 +15,7 @@
 对两个 git ref 在同一道题上生成可对比的 trace、饱和（saturation）、分歧探针（divergence-probe）与对比报告。
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   (--puzzle <81 位字符串> | --difficulty <难度> --index <1-based>) \
   --models <名A>,<名B> \
   --refs <名A>=<git-ref-A>,<名B>=<git-ref-B> \
@@ -25,7 +25,7 @@ node orchestration/trace-archive-case.mjs \
 示例（注意 ref 名在本轮归档后已变为 `archive/round1/...`）：
 
 ```bash
-node orchestration/trace-archive-case.mjs \
+node orchestration/harness/trace-archive-case.mjs \
   --puzzle 200900060090000500005100000306200050000030000010008207000007800002000040080004003 \
   --models winner,current \
   --refs winner=archive/round1/final/gemini35flash,current=archive/round1/analysis-sonnet46-strategy-fix \

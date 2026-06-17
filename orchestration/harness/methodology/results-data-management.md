@@ -22,12 +22,12 @@
 - **报告（`gen-report.mjs`）**：跑裁判取解出率 + 读 metrics + 解析每模型工具/技能使用，产出 `report-final.md`
   （环境表、结果表[所有模型取值相同的列自动省略]、工具使用、失败清单、复现步骤）。换模型重跑后一键再生。
   ```bash
-  node orchestration/gen-report.mjs orchestration/models.txt
+  node orchestration/harness/gen-report.mjs orchestration/round1/models.txt
   ```
 - **全语料跑分（`run-archive-full-corpus.mjs`）**：对某个 git ref 在完整语料上逐题求解，记录每难度
   solved/validSolved/stuck/errors 与失败清单。
   ```bash
-  node orchestration/run-archive-full-corpus.mjs \
+  node orchestration/harness/run-archive-full-corpus.mjs \
     --ref <git-ref> --name <结果名> \
     --out-dir orchestration/reports/full-corpus/<结果名> --workers 12
   ```
@@ -59,7 +59,7 @@ validSolved, stuck, errors, failures: [{index, puzzle, outcome, final}]}}} ], su
   '
   ```
 
-> 已抽好的当前引擎 727 题失败集见 [`../../data/failing-diabolical/`](../../data/failing-diabolical/)
+> 已抽好的当前引擎 727 题失败集见 [`../../../data/failing-diabolical/`](../../../data/failing-diabolical/)
 > （含复现命令与溯源）。源 tar.gz 在 `archive/round1/orchestration` 的 `orchestration/run-logs/`。
 
 ## 相关

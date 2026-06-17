@@ -4,7 +4,7 @@
 
 **Goal:** Refactor the existing strategy registry and coarse strategy families so default solve traces follow human-learning-friendly technique granularity and ordering, without intentionally adding new solving power.
 
-**Architecture:** Keep planning, archive updates, and reporting work on `orchestration`; keep engine implementation work on `analysis/sonnet46-strategy-fix`. Treat the top-level solver loop as already correct: it sorts by `Strategy.difficulty`, applies the first progressing step, then restarts from the cheapest strategy. This plan focuses on strategy taxonomy, strategy IDs, intra-family splitting, and human-cost ordering.
+**Architecture:** Keep planning, archive updates, and reporting work on `orchestration`; keep engine implementation work on `archive/round1/analysis-sonnet46-strategy-fix`. Treat the top-level solver loop as already correct: it sorts by `Strategy.difficulty`, applies the first progressing step, then restarts from the cheapest strategy. This plan focuses on strategy taxonomy, strategy IDs, intra-family splitting, and human-cost ordering.
 
 **Tech Stack:** TypeScript engine under `packages/engine`, Vitest, orchestration scripts in `orchestration/*.mjs`, full-corpus tarball `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`.
 
@@ -13,12 +13,12 @@
 ## Branch and Workspace Rules
 
 - Use `orchestration` for this document, analysis notes, report updates, and full-corpus archive updates.
-- Use `analysis/sonnet46-strategy-fix` for implementation changes under `packages/engine`.
+- Use `archive/round1/analysis-sonnet46-strategy-fix` for implementation changes under `packages/engine`.
 - Do not edit engine code from the `orchestration` working tree unless the branch has intentionally been switched or a separate worktree has been created.
 - Recommended implementation worktree:
 
 ```bash
-git worktree add ../sudoku-taxonomy-wt analysis/sonnet46-strategy-fix
+git worktree add ../sudoku-taxonomy-wt archive/round1/analysis-sonnet46-strategy-fix
 ```
 
 - Recommended orchestration/reporting worktree: current repository root if it remains on `orchestration`.
@@ -31,7 +31,7 @@ git worktree list
 
 ## Current Context and References
 
-- Main remaining-regression plan: `orchestration/analysis/remaining-diabolical-regression-plan.md`.
+- Main remaining-regression plan: `orchestration/round1/investigations/remaining-diabolical-regression-plan.md`.
 - Current Phase 3 full-corpus baseline for `analysis-sonnet46-strategy-fix`:
 
 | Difficulty | Solved | Valid solved | Stuck | Errors |
@@ -42,7 +42,7 @@ git worktree list
 | diabolical | 118954/119681 | 118954 | 727 | 0 |
 | total | 893189/893916 | 893189 | 727 | 0 |
 
-- Baseline implementation commit: `analysis/sonnet46-strategy-fix` at `1c18734` (`fix: resolve remaining gemini diabolical ALS paths`).
+- Baseline implementation commit: `archive/round1/analysis-sonnet46-strategy-fix` at `1c18734` (`fix: resolve remaining gemini diabolical ALS paths`).
 - Existing solver behavior to preserve: `packages/engine/src/solver.ts` sorts strategies by `difficulty`, applies the first non-empty step, records it, and restarts at the first strategy.
 - Existing strategy contract: `packages/engine/src/strategy.ts` says `apply(grid)` should return the first applicable deduction, or `null`, and must not mutate the grid.
 - Current strategy registry: `packages/engine/src/strategies/index.ts`.
@@ -129,7 +129,7 @@ Notes:
 ## Acceptance Criteria
 
 - No known regression test becomes stuck or unsound.
-- Full test suite passes on `analysis/sonnet46-strategy-fix`.
+- Full test suite passes on `archive/round1/analysis-sonnet46-strategy-fix`.
 - Full-corpus rerun shows no regression from the Phase 3 baseline:
   - easy solved remains `100000/100000`
   - medium solved remains `352643/352643`
@@ -157,8 +157,8 @@ Notes:
 
 **Files:**
 
-- Read: `packages/engine/src/strategies/*.ts` on `analysis/sonnet46-strategy-fix`
-- Read: `packages/engine/test/*.test.ts` on `analysis/sonnet46-strategy-fix`
+- Read: `packages/engine/src/strategies/*.ts` on `archive/round1/analysis-sonnet46-strategy-fix`
+- Read: `packages/engine/test/*.test.ts` on `archive/round1/analysis-sonnet46-strategy-fix`
 - Update: this document if the final taxonomy changes
 
 - [ ] Step 1: Verify implementation branch and worktree
@@ -172,7 +172,7 @@ git log --oneline -5
 
 Expected:
 
-- Branch is `analysis/sonnet46-strategy-fix`.
+- Branch is `archive/round1/analysis-sonnet46-strategy-fix`.
 - Recent history includes `1c18734 fix: resolve remaining gemini diabolical ALS paths` or a descendant.
 
 - [ ] Step 2: Audit current strategy IDs and difficulty order
@@ -196,7 +196,7 @@ Record:
 Create or update an analysis note on `orchestration`, for example:
 
 ```text
-orchestration/analysis/human-strategy-taxonomy-migration-map.md
+orchestration/round1/investigations/human-strategy-taxonomy-migration-map.md
 ```
 
 Include old-to-new mapping such as:
@@ -514,15 +514,15 @@ Expected:
 
 - Update on `orchestration` only after successful run:
   - `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
-  - relevant `orchestration/analysis/*.md` reports
+  - relevant `orchestration/round1/investigations/*.md` reports
 
 - [ ] Step 1: Run full corpus from orchestration branch
 
 From the `orchestration` worktree, run the implementation ref:
 
 ```bash
-node orchestration/run-archive-full-corpus.mjs \
-  --ref analysis/sonnet46-strategy-fix \
+node orchestration/harness/run-archive-full-corpus.mjs \
+  --ref archive/round1/analysis-sonnet46-strategy-fix \
   --name analysis-sonnet46-strategy-fix \
   --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-taxonomy-rerun \
   --workers 12
@@ -545,8 +545,8 @@ If any solved count drops, any invalid solved grid appears, or any error appears
 
 - Stop.
 - Do not update archive.
-- Trace the first regression using `orchestration/trace-archive-case.mjs`.
-- Fix root cause on `analysis/sonnet46-strategy-fix` before rerunning.
+- Trace the first regression using `orchestration/harness/trace-archive-case.mjs`.
+- Fix root cause on `archive/round1/analysis-sonnet46-strategy-fix` before rerunning.
 
 - [ ] Step 3: Update full-corpus archive only if the gate passes
 
@@ -581,8 +581,8 @@ Expected:
 
 **Files:**
 
-- Modify: `orchestration/analysis/remaining-diabolical-regression-plan.md`
-- Modify or create: `orchestration/analysis/human-strategy-taxonomy-migration-map.md`
+- Modify: `orchestration/round1/investigations/remaining-diabolical-regression-plan.md`
+- Modify or create: `orchestration/round1/investigations/human-strategy-taxonomy-migration-map.md`
 - Optionally modify: any strategy authoring notes under `research/sudoku-human-solving/` if they are used as implementation guidance
 
 - [ ] Step 1: Update remaining diabolical Phase 4 guidance
@@ -613,7 +613,7 @@ Run from `orchestration`:
 
 ```bash
 git status --short
-git add orchestration/analysis/human-strategy-taxonomy-refactor-plan.md orchestration/analysis/human-strategy-taxonomy-migration-map.md orchestration/analysis/remaining-diabolical-regression-plan.md orchestration/run-logs/full-corpus-20260602-064418.tar.gz
+git add orchestration/round1/investigations/human-strategy-taxonomy-refactor-plan.md orchestration/round1/investigations/human-strategy-taxonomy-migration-map.md orchestration/round1/investigations/remaining-diabolical-regression-plan.md orchestration/run-logs/full-corpus-20260602-064418.tar.gz
 git commit -m "docs: add human strategy taxonomy refactor plan"
 ```
 

@@ -9,7 +9,7 @@
 
 给每个模型**完全相同的编码任务**（在冻结的数独引擎地基上实现一整套人类解题策略），客观比较实现质量：
 
-- **固定范围**：所有模型必须实现同一套策略 id（`orchestration/required-ids/<里程碑>.txt`）。
+- **固定范围**：所有模型必须实现同一套策略 id（`orchestration/harness/required-ids/<里程碑>.txt`）。
   "没实现某策略" = 能力不足，而非"没被要求"——否则结果随采样漂移，不公平。
 - **健全性是硬门槛**：解题器不得用非法消除作弊（0 soundness violation）。不健全的解出率可被刷高、毫无可比性。
 - **质量只收集、不设门槛**：解出率/成本/耗时只统计。范围固定后，这些数字纯粹反映实现质量。
@@ -80,14 +80,14 @@ model/<短名>  某模型工作分支（从 foundation 出），跑完归档为 
 1. 确认 id 存在：`opencode models <provider> | grep '<provider>/<model>'`。
 2. 连通性自测：`opencode run -m '<provider>/<model>' --format json "Reply with exactly: OK"`（秒回即可用）。
 3. 加进 `models.txt`：`<provider>/<model>  <分支安全短名>`（共享 key 易限流的 provider 加进 `SERIAL_PROVIDERS`）。
-4. 跑：`TIMEOUT=3600 MAX_PAR=2 orchestration/run-all.sh orchestration/models-trial.txt`。
-5. 看结果：`node orchestration/gen-report.mjs orchestration/models.txt` → `report-final.md`。
+4. 跑：`TIMEOUT=3600 MAX_PAR=2 orchestration/harness/run-all.sh orchestration/round1/models-trial.txt`。
+5. 看结果：`node orchestration/harness/gen-report.mjs orchestration/round1/models.txt` → `report-final.md`。
 
-> 复现整轮：配好凭据 + `git lfs pull` → `TIMEOUT=3600 MAX_PAR=4 orchestration/run-all.sh` → `gen-report.mjs`。
+> 复现整轮：配好凭据 + `git lfs pull` → `TIMEOUT=3600 MAX_PAR=4 orchestration/harness/run-all.sh` → `gen-report.mjs`。
 
 ## 相关
 
 - 结果数据生成与管理：[`results-data-management.md`](./results-data-management.md)
 - 用成功分支定位失败：[`cross-branch-trace-diffing.md`](./cross-branch-trace-diffing.md)
-- 第一轮最终结果：[`report-final.md`](./report-final.md)
-- 下一轮策略拆分计划：[`../roadmap/human-strategy-taxonomy-refactor-plan.md`](../roadmap/human-strategy-taxonomy-refactor-plan.md)
+- 第一轮最终结果：[`report-final.md`](../../round1/report-final.md)
+- 下一轮策略拆分计划：[`../../round1/repair-plans/human-strategy-taxonomy-refactor-plan.md`](../../round1/repair-plans/human-strategy-taxonomy-refactor-plan.md)
