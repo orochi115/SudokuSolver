@@ -1,0 +1,4 @@
+# 试运行清单(两个不同 provider,验证链路 + 收集提问后,再用 models.txt 全量跑)。
+# 可自行替换为你想先验证的模型。
+anthropic/claude-sonnet-4-6        sonnet46
+google/gemini-3.5-flash            gemini35flash
