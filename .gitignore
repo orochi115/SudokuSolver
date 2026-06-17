@@ -7,3 +7,6 @@ coverage/
 # Generated ground-truth for the full corpus is large; only the committed
 # sampled fixture set under data/ground-truth/ is tracked (see docs/milestones/M1.md).
 data/ground-truth/full/
+
+# Generated reports (solve-rate, corpus runs) are regeneratable, not tracked.
+data/reports/

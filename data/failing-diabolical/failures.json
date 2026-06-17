@@ -1,8 +1,5 @@
 {
-  "source": "orchestration/run-logs/full-corpus-20260602-064418.tar.gz :: 20260602-064418/results.json",
-  "entry": "analysis-sonnet46-strategy-fix",
-  "ref": "analysis/sonnet46-strategy-fix",
-  "model": "analysis/sonnet46-strategy-fix",
+  "source": "current engine run over the full OpenSudoku corpus (diabolical difficulty); these are the puzzles left in outcome=stuck",
   "strategies": 17,
   "diabolical": {
     "n": 119681,
