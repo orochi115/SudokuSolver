@@ -4,11 +4,14 @@
 
 ## 阶段总览
 - [x] **第 1 阶段 · 研究库**(`research/sudoku-human-solving/`)
-- [x] **M1 地基** —— 引擎核心 + 测试 + 冻结标准答案集(`foundation` 分支)
-- [ ] **M2 基础策略** T1~T3
-- [ ] **M3 高级策略** T4 / AIC / ALS / forcing
+- [x] **M1 地基** —— 引擎核心 + 测试 + 冻结标准答案集
+- [~] **M2 基础策略** T1~T3 —— 已实现(第一轮对比测试产出)
+- [~] **M3 高级策略** T4 / AIC / ALS / forcing —— 已实现;diabolical 全语料余 **727 题**未解出(见 `data/failing-diabolical/`)
+- [ ] **策略拆分重构 + 补全 727** —— 进行中,见 `docs/roadmap/`(taxonomy 重构 → 新策略对比测试)
 - [ ] **M4 网页逐步回放**
 - [ ] **M5 交互式引导 UI**
+
+> 当前引擎来自第一轮多模型对比测试胜出实现的综合修复;过程与结果见 `docs/methodology/`、`docs/investigations/`。
 
 ## M1 验收(✅ 已完成)
 - [x] AC-1 解析四档语料并生成冻结标准答案集(各档 100 题,solved=100 / unique=100)
