@@ -6,7 +6,7 @@
 #
 # The gate requires: typecheck passes, tests pass, ZERO soundness violations, AND
 # all of the milestone's REQUIRED strategy ids are registered (equal scope for
-# every model — orchestration/required-ids/<ms>.txt). Solve-rate is COLLECTED,
+# every model — orchestration/harness/required-ids/<ms>.txt). Solve-rate is COLLECTED,
 # NOT gated, so the comparison reflects implementation QUALITY on a fixed scope.
 # (Soundness is non-negotiable: an unsound solver can inflate solve-rate with
 # illegal eliminations.) Optional extra gating: export MIN_EASY/.../MIN_STRATEGIES.
@@ -14,12 +14,12 @@ set -uo pipefail
 
 WT="${1:?usage: verify.sh <worktree-dir> [milestone]}"
 MS="${2:-}"
-ORCH_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-JUDGE_SRC="$ORCH_ROOT/orchestration/judge/verify-engine.ts"
+HARNESS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JUDGE_SRC="$HARNESS/judge/verify-engine.ts"
 JUDGE_DST="$WT/.verify-engine.ts"
 
 # Load the milestone's required strategy ids (comments/blanks stripped) for the gate.
-REQ_FILE="$ORCH_ROOT/orchestration/required-ids/$MS.txt"
+REQ_FILE="$HARNESS/required-ids/$MS.txt"
 if [ -f "$REQ_FILE" ]; then
   REQUIRE_IDS="$(grep -vE '^[[:space:]]*(#|$)' "$REQ_FILE" | tr '\n' ' ')"
   export REQUIRE_IDS

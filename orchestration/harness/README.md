@@ -19,7 +19,7 @@
 ## 全自动扇出(本期:仅 M2、M3)
 ```bash
 # 并行跑完 models.txt 里所有模型的 M2→M3,结束后自动出报告
-MAX_PAR=4 RETRIES=3 orchestration/run-all.sh
+MAX_PAR=4 RETRIES=3 orchestration/harness/run-all.sh
 # 看结果与模型提问
 cat orchestration/reports/summary.md
 cat orchestration/reports/questions.md
@@ -31,11 +31,11 @@ cat orchestration/reports/questions.md
 ## 推荐的"先试运行,再正式跑"节奏
 1. **试运行**:用一个小清单先跑 1~2 个模型(复制 `models.txt` 为 `models-trial.txt` 只留两行):
    ```bash
-   MAX_PAR=2 orchestration/run-all.sh orchestration/models-trial.txt
+   MAX_PAR=2 orchestration/harness/run-all.sh orchestration/round1/models-trial.txt
    ```
 2. 看 `reports/questions.md` —— 模型在 headless 中把疑问写进各自 `QUESTIONS.md`,已汇总于此(它们**不会卡住**,而是带着假设继续)。
 3. **预先答复**:把这些疑问在**基础文档**里答好(改 `foundation` 上的 `docs/requirements.md` 或 `docs/milestones/M2.md`、`M3.md`,并补充 `naked-single.ts` 之外的约定)。worker 下次会 fork 到更新后的 foundation。
-4. **正式跑**:`orchestration/run-all.sh`(全清单)。
+4. **正式跑**:`orchestration/harness/run-all.sh`(全清单)。
 
 ## 机制要点
 - **自主化条款**由 `run-model.sh` 在 headless 时自动追加("自主完成、勿提问、疑问写 QUESTIONS.md"),
@@ -49,7 +49,7 @@ cat orchestration/reports/questions.md
   当前清单全走直连 provider;`alibaba-cn` 的 5 个模型共用一个 DashScope key,故默认串行以防限流,
   其它 provider 仍并行。无需串行时 `SERIAL_PROVIDERS="" ...` 关闭。
 - **验收闸门 = 有效 + 健全 + 固定范围**:typecheck + test 通过、**健全性 0 violation**、
-  且**注册了该里程碑全部必需策略 id**(`orchestration/required-ids/<ms>.txt`,所有模型同一范围)。
+  且**注册了该里程碑全部必需策略 id**(`orchestration/harness/required-ids/<ms>.txt`,所有模型同一范围)。
   缺任何 id 都会被退回**重试**;反馈里会列出缺失项。`run-model.sh` 把该清单注入提示词。
   - **解出率只收集、不 gate**——所有模型实现同一范围,差异就纯粹反映**实现质量**(你的选择)。
   - "固定范围"解决了公平性:模型缺某技巧 = 实现不出(能力),而非"没被要求"(否则结果会随温度漂)。
@@ -94,16 +94,16 @@ cat orchestration/reports/questions.md
 
 跑完一轮、要保留成果并清干净工作区,用 **`archive-run.sh <tag>`**(一键归档,不删任何东西):
 ```bash
-orchestration/archive-run.sh final
+orchestration/harness/archive-run.sh final
 # 1) 提交 worktree WIP  2) 日志+reports 打包成 run-logs/run-final-<date>.tar.gz(Git LFS)并提交
-# 3) 删 worktree  4) model/<名> -> archive/final/<名>  5) 清 reports 工作文件
+# 3) 删 worktree  4) model/<名> -> archive/round1/final/<名>  5) 清 reports 工作文件
 ```
-代码留在 `archive/final/*` 分支、日志留在 LFS,**无不可逆删除**。
+代码留在 `archive/round1/final/*` 分支、日志留在 LFS,**无不可逆删除**。
 
 只想删、不归档时用 `cleanup.sh`:
 ```bash
-orchestration/cleanup.sh           # 删 worktree,保留 model/<名> 分支
-orchestration/cleanup.sh --purge   # 连分支/日志/reports 一起删(确认已取走结果后再用)
+orchestration/harness/cleanup.sh           # 删 worktree,保留 model/<名> 分支
+orchestration/harness/cleanup.sh --purge   # 连分支/日志/reports 一起删(确认已取走结果后再用)
 ```
 - 每个里程碑都已自动提交,worktree 无未保存改动,移除安全。
 - LFS 对象默认在本地;push 远程需远程启用 LFS。

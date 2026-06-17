@@ -82,7 +82,7 @@ commit_milestone() {
 # truncates at 128KB, so it is NOT used).
 record_metrics() {
   local status="$1" attempts="$2"
-  node "$REPO/orchestration/metrics.mjs" "$LOG_DIR" "$MS" "$status" "$attempts" >"$LOG_DIR/$MS.metrics.json" 2>/dev/null \
+  node "$REPO/orchestration/harness/metrics.mjs" "$LOG_DIR" "$MS" "$status" "$attempts" >"$LOG_DIR/$MS.metrics.json" 2>/dev/null \
     || echo "{\"milestone\":\"$MS\",\"note\":\"metrics failed\"}" >"$LOG_DIR/$MS.metrics.json"
   echo "=== [$NAME] $MS metrics -> $(cat "$LOG_DIR/$MS.metrics.json") ==="
 }
@@ -90,7 +90,7 @@ record_metrics() {
 # Build the "required strategies" section appended to the prompt, from the
 # milestone's canonical id list. Equal scope for every model; verify.sh enforces it.
 required_ids_section() {
-  local f="$REPO/orchestration/required-ids/$MS.txt" list
+  local f="$REPO/orchestration/harness/required-ids/$MS.txt" list
   [ -f "$f" ] || return 0
   list="$(grep -vE '^[[:space:]]*(#|$)' "$f")"
   printf '\n\n## 必须实现的策略(缺一不可,缺失会被验收退回重试)\n请按下列**精确 id** 各注册一个策略到 `strategies/index.ts`(naked-single 已是 baseline);\n分组 id 可在内部覆盖子技巧(如 als 含 ALS-XZ/链/Death Blossom):\n%s\n' "$list"
@@ -101,7 +101,7 @@ required_ids_section() {
 # FIRST milestone (m2) means leftover state from a PRIOR run -> resume, recorded.
 if git -C "$REPO" worktree list --porcelain | grep -qx "worktree $WT"; then
   echo "=== [$NAME] reusing worktree $WT ==="
-  [ "$MS" = "m2" ] && note "PRE-EXISTING worktree reused (leftover from a prior run; RESUMING on top of it, not fresh). For a clean run: orchestration/cleanup.sh --purge first."
+  [ "$MS" = "m2" ] && note "PRE-EXISTING worktree reused (leftover from a prior run; RESUMING on top of it, not fresh). For a clean run: orchestration/harness/cleanup.sh --purge first."
 elif git -C "$REPO" show-ref --verify --quiet "refs/heads/$BRANCH"; then
   echo "=== [$NAME] attaching existing branch $BRANCH to new worktree ==="
   note "PRE-EXISTING branch $BRANCH attached to a new worktree (leftover from a prior run; RESUMING)."
@@ -127,7 +127,7 @@ SID="$(grep -o 'ses_[A-Za-z0-9]*' "$LOG1" | head -1)"
 
 i=1
 while true; do
-  if OUT="$(bash "$REPO/orchestration/verify.sh" "$WT" "$MS" 2>&1)"; then
+  if OUT="$(bash "$REPO/orchestration/harness/verify.sh" "$WT" "$MS" 2>&1)"; then
     echo "$OUT"
     echo "=== [$NAME] $MS PASSED after $i attempt(s) ==="
     commit_milestone PASS "$i"

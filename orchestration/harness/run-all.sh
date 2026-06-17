@@ -51,10 +51,10 @@ if [ "${1:-}" = "--one" ]; then
   sf="$STATUS_DIR/$name.tsv"
   : > "$sf"
   echo "### [$name] $model :: M2  ($(date '+%Y-%m-%d %H:%M:%S'))"
-  if bash "$REPO/orchestration/run-model.sh" "$model" "$name" "orchestration/prompts/m2.md" "$RETRIES"; then
+  if bash "$REPO/orchestration/harness/run-model.sh" "$model" "$name" "orchestration/harness/prompts/m2.md" "$RETRIES"; then
     printf 'm2\tPASS\n' >> "$sf"
     echo "### [$name] $model :: M3"
-    if bash "$REPO/orchestration/run-model.sh" "$model" "$name" "orchestration/prompts/m3.md" "$RETRIES"; then
+    if bash "$REPO/orchestration/harness/run-model.sh" "$model" "$name" "orchestration/harness/prompts/m3.md" "$RETRIES"; then
       printf 'm3\tPASS\n' >> "$sf"
     else
       printf 'm3\tFAIL\n' >> "$sf"
@@ -67,7 +67,7 @@ if [ "${1:-}" = "--one" ]; then
 fi
 
 # ---- main: provider-aware scheduler ----
-MODELS_FILE="${1:-$REPO/orchestration/models.txt}"
+MODELS_FILE="${1:-$REPO/orchestration/round1/models.txt}"
 [ -f "$MODELS_FILE" ] || { echo "models file not found: $MODELS_FILE"; exit 1; }
 
 # Capture the scheduler's own output (launch order, timing) to a file too.
@@ -118,5 +118,5 @@ done
 wait
 
 echo "All pipelines finished. Generating report..."
-bash "$REPO/orchestration/report.sh" "$MODELS_FILE" || true
+bash "$REPO/orchestration/harness/report.sh" "$MODELS_FILE" || true
 echo "Report: orchestration/reports/summary.md  (questions: orchestration/reports/questions.md)"

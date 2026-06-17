@@ -10,7 +10,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const REPO = resolve(HERE, '..');
+const REPO = resolve(HERE, '../..');
 const DEFAULT_DIFFICULTIES = ['easy', 'medium', 'hard', 'diabolical'];
 
 export function parseModels(text) {
@@ -133,7 +133,7 @@ function sh(args, opts = {}) {
 
 export function parseArgs(argv, availableParallelismOverride = availableParallelism()) {
   const opts = {
-    archiveTag: 'final',
+    archiveTag: 'round1/final',
     difficulties: DEFAULT_DIFFICULTIES,
     limit: null,
     names: null,
@@ -156,7 +156,7 @@ export function parseArgs(argv, availableParallelismOverride = availableParallel
     else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
     else if (arg === '--out-dir') opts.outDir = resolve(REPO, next());
     else if (arg === '-h' || arg === '--help') {
-      console.log(`usage: node orchestration/run-archive-full-corpus.mjs [options]\n\noptions:\n  --archive-tag <tag>       archive branch tag, default: final\n  --difficulties <csv>      default: easy,medium,hard,diabolical\n  --limit <n>               smoke-test limit per difficulty\n  --workers <n>             worker processes per model, default: CPUs - 1\n  --models <csv>            short-name allowlist\n  --ref <git-ref>           run a single explicit git ref instead of archive-selected models\n  --name <name>             display/output name for --ref\n  --out-dir <path>          output directory\n  --keep-worktrees          do not remove temporary worktrees`);
+      console.log(`usage: node orchestration/harness/run-archive-full-corpus.mjs [options]\n\noptions:\n  --archive-tag <tag>       archive branch tag, default: final\n  --difficulties <csv>      default: easy,medium,hard,diabolical\n  --limit <n>               smoke-test limit per difficulty\n  --workers <n>             worker processes per model, default: CPUs - 1\n  --models <csv>            short-name allowlist\n  --ref <git-ref>           run a single explicit git ref instead of archive-selected models\n  --name <name>             display/output name for --ref\n  --out-dir <path>          output directory\n  --keep-worktrees          do not remove temporary worktrees`);
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);
@@ -479,10 +479,10 @@ export function markdownReport(results, summary, opts) {
 
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
-  const models = parseModels(readFileSync(resolve(REPO, 'orchestration/models.txt'), 'utf8'));
+  const models = parseModels(readFileSync(resolve(REPO, 'orchestration/round1/models.txt'), 'utf8'));
   let candidates = opts.ref
     ? [{ model: opts.ref, name: opts.refName, ref: opts.ref }]
-    : selectHardCandidates(readFileSync(resolve(REPO, 'orchestration/report-final.md'), 'utf8'), models);
+    : selectHardCandidates(readFileSync(resolve(REPO, 'orchestration/round1/report-final.md'), 'utf8'), models);
   if (!opts.ref && opts.names) candidates = candidates.filter((c) => opts.names.has(c.name));
   if (candidates.length === 0) throw new Error('no candidate models selected');
 

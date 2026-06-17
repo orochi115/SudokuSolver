@@ -6,7 +6,7 @@ import { basename, dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const REPO = resolve(HERE, '..');
+const REPO = resolve(HERE, '../..');
 const TAR_MAX_BUFFER = 220 * 1024 * 1024;
 
 export function selectMutualComparisonCases({ loserFailures, winnerFailures }) {
@@ -67,7 +67,7 @@ function parseArgs(argv) {
     else if (arg === '--out') opts.out = next();
     else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
     else if (arg === '-h' || arg === '--help') {
-      console.log('usage: node orchestration/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> (--winner <model> | --winners <models>) [--refs model=git-ref,...] --out <dir> [--keep-worktrees]');
+      console.log('usage: node orchestration/round1/analyze-opus-sonnet-cases.mjs --archive <tar.gz> --difficulty <name> --loser <model> (--winner <model> | --winners <models>) [--refs model=git-ref,...] --out <dir> [--keep-worktrees]');
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);
@@ -130,7 +130,7 @@ export function modelFailures(results, model, difficulty) {
 
 export function traceCommandArgs({ difficulty, index, puzzle, winner, loser, outDir, refs = new Map(), keepWorktrees }) {
   const args = [
-    resolve(HERE, 'trace-archive-case.mjs'),
+    resolve(HERE, '../harness/trace-archive-case.mjs'),
     '--models', `${winner},${loser}`,
     '--out', outDir,
   ];

@@ -238,10 +238,10 @@ test('validateComparisonModels rejects ambiguous multi-model comparisons', () =>
 });
 
 test('parseRefMap maps model names to explicit git refs', () => {
-  const refs = parseRefMap('opus48=archive/final/opus48,sonnet46-fixed=analysis/sonnet46-strategy-fix');
-  assert.equal(modelRef('opus48', refs), 'archive/final/opus48');
-  assert.equal(modelRef('sonnet46-fixed', refs), 'analysis/sonnet46-strategy-fix');
-  assert.equal(modelRef('sonnet46', refs), 'archive/final/sonnet46');
+  const refs = parseRefMap('opus48=archive/round1/final/opus48,sonnet46-fixed=archive/round1/analysis-sonnet46-strategy-fix');
+  assert.equal(modelRef('opus48', refs), 'archive/round1/final/opus48');
+  assert.equal(modelRef('sonnet46-fixed', refs), 'archive/round1/analysis-sonnet46-strategy-fix');
+  assert.equal(modelRef('sonnet46', refs), 'archive/round1/final/sonnet46');
 });
 
 test('worktreeRootPrefix includes process-unique segment for safe mkdtemp roots', () => {

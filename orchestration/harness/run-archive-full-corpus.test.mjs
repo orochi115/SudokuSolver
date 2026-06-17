@@ -159,20 +159,20 @@ test('shouldReportProgress reports on count threshold or elapsed interval', () =
 
 test('parseArgs supports a single explicit ref/name run without model selection', () => {
   const opts = parseArgs([
-    '--ref', 'analysis/sonnet46-strategy-fix',
+    '--ref', 'archive/round1/analysis-sonnet46-strategy-fix',
     '--name', 'analysis-sonnet46-strategy-fix',
     '--workers', '16',
   ], 8);
 
-  assert.equal(opts.ref, 'analysis/sonnet46-strategy-fix');
+  assert.equal(opts.ref, 'archive/round1/analysis-sonnet46-strategy-fix');
   assert.equal(opts.refName, 'analysis-sonnet46-strategy-fix');
   assert.equal(opts.workers, 16);
 });
 
 test('resolveRunRef uses explicit refs before archive branch naming', () => {
   assert.equal(
-    resolveRunRef({ name: 'analysis-sonnet46-strategy-fix', ref: 'analysis/sonnet46-strategy-fix' }, { archiveTag: 'final' }),
-    'analysis/sonnet46-strategy-fix',
+    resolveRunRef({ name: 'analysis-sonnet46-strategy-fix', ref: 'archive/round1/analysis-sonnet46-strategy-fix' }, { archiveTag: 'final' }),
+    'archive/round1/analysis-sonnet46-strategy-fix',
   );
-  assert.equal(resolveRunRef({ name: 'opus48' }, { archiveTag: 'final' }), 'archive/final/opus48');
+  assert.equal(resolveRunRef({ name: 'opus48' }, { archiveTag: 'round1/final' }), 'archive/round1/final/opus48');
 });

@@ -5,7 +5,7 @@
 # 注:已全部改用直连 provider(不再走 amazon-bedrock,规避其 opus 长会话停滞)。
 #     alibaba-cn 下有 5 个模型,共用同一 DASHSCOPE 配额——调度器默认把 alibaba-cn 串行
 #     (SERIAL_PROVIDERS 含 alibaba-cn,SERIAL_CAP=1)以防限流。若该 provider 并发无碍、想更快:
-#     用 `SERIAL_PROVIDERS="" orchestration/run-all.sh` 关闭串行。
+#     用 `SERIAL_PROVIDERS="" orchestration/harness/run-all.sh` 关闭串行。
 anthropic/claude-opus-4-8          opus48
 anthropic/claude-sonnet-4-6        sonnet46
 openai/gpt-5.5                     gpt55

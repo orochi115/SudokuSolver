@@ -1,8 +1,8 @@
 # 数独求解引擎 · 多模型横评报告
 
-> 生成时间:2026-06-02 09:29:10 +0800。固定范围对比:所有模型须实现同一套必需策略(`orchestration/required-ids/`),
+> 生成时间:2026-06-02 09:29:10 +0800。固定范围对比:所有模型须实现同一套必需策略(`orchestration/harness/required-ids/`),
 > 健全性(0 violation)为硬门槛,解出率/成本/耗时仅收集用于对比实现质量。
-> 补充:hard 样本 100% 且健全性为 0 的模型已在 `archive/final/*` 上完成全量题库复测;结果归档见
+> 补充:hard 样本 100% 且健全性为 0 的模型已在 `archive/round1/final/*` 上完成全量题库复测;结果归档见
 > `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`(Git LFS)。
 
 ## 环境(便于复现)
@@ -42,7 +42,7 @@
 
 ## 全量题库复测(hard 样本 100% 候选)
 
-> 复测范围:仅包含 100 题样本中 `hard=100%`、`M2=PASS`、`M3=PASS`、`viol=0` 的 6 个模型。运行方式为 `node orchestration/run-archive-full-corpus.mjs --workers 16`,只在 `archive/final/<shortname>` 分支运行引擎,不调用大模型。
+> 复测范围:仅包含 100 题样本中 `hard=100%`、`M2=PASS`、`M3=PASS`、`viol=0` 的 6 个模型。运行方式为 `node orchestration/harness/run-archive-full-corpus.mjs --workers 16`,只在 `archive/round1/final/<shortname>` 分支运行引擎,不调用大模型。
 > 下表采用更严格的 **valid solved** 口径:最终盘面必须填满、保留 givens、行/列/宫合法。`stuck` 表示引擎停在未解状态;`invalid` 表示 trace 声称 solved 但终盘校验失败。
 
 | 模型 | easy valid | medium valid | hard valid | diabolical valid | total valid | stuck | invalid | runtime |
@@ -95,8 +95,8 @@
 ## 复现方法
 
 1. 配好 opencode 及各 provider 凭据;`git lfs pull` 拉取谜题。
-2. 编辑 `orchestration/models.txt`(provider/model + 短名)。
-3. `TIMEOUT=3600 MAX_PAR=4 orchestration/run-all.sh`(Bedrock/alibaba-cn 自动串行)。
-4. `node orchestration/gen-report.mjs` 生成本报告。
-5. 全量复测:`node orchestration/run-archive-full-corpus.mjs --workers 16`;结果包:`orchestration/run-logs/full-corpus-20260602-064418.tar.gz`。
-6. 必需策略范围见 `orchestration/required-ids/{m2,m3}.txt`;评分口径见本仓库 orchestration/。
+2. 编辑 `orchestration/round1/models.txt`(provider/model + 短名)。
+3. `TIMEOUT=3600 MAX_PAR=4 orchestration/harness/run-all.sh`(Bedrock/alibaba-cn 自动串行)。
+4. `node orchestration/harness/gen-report.mjs` 生成本报告。
+5. 全量复测:`node orchestration/harness/run-archive-full-corpus.mjs --workers 16`;结果包:`orchestration/run-logs/full-corpus-20260602-064418.tar.gz`。
+6. 必需策略范围见 `orchestration/harness/required-ids/{m2,m3}.txt`;评分口径见本仓库 orchestration/。

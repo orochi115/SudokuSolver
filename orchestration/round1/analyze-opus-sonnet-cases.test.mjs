@@ -63,19 +63,19 @@ test('traceCommandArgs forwards explicit refs to trace runner', () => {
     winner: 'opus48',
     loser: 'analysis-sonnet46-strategy-fix',
     outDir: '/tmp/case',
-    refs: new Map([['analysis-sonnet46-strategy-fix', 'analysis/sonnet46-strategy-fix']]),
+    refs: new Map([['analysis-sonnet46-strategy-fix', 'archive/round1/analysis-sonnet46-strategy-fix']]),
     keepWorktrees: false,
   }).slice(-2), [
     '--refs',
-    'analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix',
+    'analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix',
   ]);
 });
 
 test('parseRefMap and formatRefMap preserve explicit ref mappings', () => {
-  const refs = parseRefMap('analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix,opus48=archive/final/opus48');
+  const refs = parseRefMap('analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix,opus48=archive/round1/final/opus48');
   assert.deepEqual([...refs.entries()], [
-    ['analysis-sonnet46-strategy-fix', 'analysis/sonnet46-strategy-fix'],
-    ['opus48', 'archive/final/opus48'],
+    ['analysis-sonnet46-strategy-fix', 'archive/round1/analysis-sonnet46-strategy-fix'],
+    ['opus48', 'archive/round1/final/opus48'],
   ]);
-  assert.equal(formatRefMap(refs), 'analysis-sonnet46-strategy-fix=analysis/sonnet46-strategy-fix,opus48=archive/final/opus48');
+  assert.equal(formatRefMap(refs), 'analysis-sonnet46-strategy-fix=archive/round1/analysis-sonnet46-strategy-fix,opus48=archive/round1/final/opus48');
 });

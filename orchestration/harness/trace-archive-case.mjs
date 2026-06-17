@@ -6,7 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const REPO = resolve(HERE, '..');
+const REPO = resolve(HERE, '../..');
 const GAME_RE = /<game\b[^>]*\bdata="(\d{81})"[^>]*\/?>/g;
 const CANONICAL_IDS = [
   'full-house',
@@ -204,7 +204,7 @@ export function parseRefMap(value = '') {
 }
 
 export function modelRef(model, refs = new Map()) {
-  return refs.get(model) ?? `archive/final/${model}`;
+  return refs.get(model) ?? `archive/round1/final/${model}`;
 }
 
 function parsePuzzlesFromXmlText(xml) {
@@ -238,7 +238,7 @@ function parseArgs(argv) {
     else if (arg === '--out') opts.out = resolve(REPO, next());
     else if (arg === '--keep-worktrees') opts.keepWorktrees = true;
     else if (arg === '-h' || arg === '--help') {
-      console.log('usage: node orchestration/trace-archive-case.mjs (--puzzle <81 chars> | --difficulty <difficulty> --index <number>) --models opus48,sonnet46 [--refs model=git-ref,...] --out <dir> [--keep-worktrees]');
+      console.log('usage: node orchestration/harness/trace-archive-case.mjs (--puzzle <81 chars> | --difficulty <difficulty> --index <number>) --models opus48,sonnet46 [--refs model=git-ref,...] --out <dir> [--keep-worktrees]');
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);

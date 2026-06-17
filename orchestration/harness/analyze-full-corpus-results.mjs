@@ -47,7 +47,7 @@ function parseArgs(argv) {
     else if (arg === '--models') opts.models = next().split(',').map((s) => s.trim()).filter(Boolean);
     else if (arg === '--out') opts.out = next();
     else if (arg === '-h' || arg === '--help') {
-      console.log('usage: node orchestration/analyze-full-corpus-results.mjs --archive <tar.gz> --models <winner,loser> --out <dir>');
+      console.log('usage: node orchestration/harness/analyze-full-corpus-results.mjs --archive <tar.gz> --models <winner,loser> --out <dir>');
       process.exit(0);
     } else {
       throw new Error(`unknown argument: ${arg}`);

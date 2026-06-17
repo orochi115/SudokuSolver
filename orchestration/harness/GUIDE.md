@@ -67,7 +67,7 @@ archive/*     历史归档:final/(最终结果)、fail/(失败尝试)、run1·ru
 - **归档 + 清理(已脚本化)**:`archive-run.sh <tag>` 一键完成——提交 worktree WIP → 把
   `sudoku-wt/logs` + `reports` 打包成 `run-logs/run-<tag>-<date>.tar.gz`(Git LFS)并提交 →
   删 worktree → `model/<名>` 重命名为 `archive/<tag>/<名>`(归档,非删除)→ 清理 reports 工作文件。
-  **不可逆删除一律没有**:代码留在分支、日志留在 LFS。例:`orchestration/archive-run.sh final`。
+  **不可逆删除一律没有**:代码留在分支、日志留在 LFS。例:`orchestration/harness/archive-run.sh final`。
   - 模型实现 = git 分支(`archive/<tag>/*`),代码本身就是记录。
   - 原始 transcript/日志体积大,**不进 git 历史**,而是 LFS 存 tar.gz;小巧运行快照(summary +
     metrics + notes)由 `report.sh` 提交于 `reports/archive/<时间戳>/`。
@@ -87,12 +87,12 @@ archive/*     历史归档:final/(最终结果)、fail/(失败尝试)、run1·ru
    - 若该 provider 多个模型共用一把 key(易限流),把它加进 `SERIAL_PROVIDERS`(默认已含 `amazon-bedrock alibaba-cn`)。
 4. **跑**(单测可只放它一行到一个小清单):
    ```bash
-   TIMEOUT=3600 MAX_PAR=2 orchestration/run-all.sh orchestration/models-trial.txt
+   TIMEOUT=3600 MAX_PAR=2 orchestration/harness/run-all.sh orchestration/round1/models-trial.txt
    ```
-5. **看结果**:`node orchestration/gen-report.mjs orchestration/models.txt` → `report-final.md`。
+5. **看结果**:`node orchestration/harness/gen-report.mjs orchestration/round1/models.txt` → `report-final.md`。
 6. **解读**:FAIL+违例>0 = 不健全(无效);PASS 但解出率低 = 能力弱;PASS 且 diabolical 高 = 强。
 
-> 复现整轮:配好凭据 + `git lfs pull` → `TIMEOUT=3600 MAX_PAR=4 orchestration/run-all.sh` → `gen-report.mjs`。
+> 复现整轮:配好凭据 + `git lfs pull` → `TIMEOUT=3600 MAX_PAR=4 orchestration/harness/run-all.sh` → `gen-report.mjs`。
 
 ---
 

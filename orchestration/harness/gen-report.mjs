@@ -1,6 +1,6 @@
 // gen-report.mjs  [models-file]
 //
-// Generates a self-contained comparison report (orchestration/report-final.md):
+// Generates a self-contained comparison report (orchestration/round1/report-final.md):
 //   - environment info (OS, opencode, node, toolchain) for reproducibility,
 //   - per-model results table (solve-rates as %, columns that are constant
 //     across all models are dropped and noted),
@@ -14,11 +14,11 @@ import { readFileSync, readdirSync, existsSync, writeFileSync, copyFileSync, rmS
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
-const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const WT_LOGS = resolve(REPO, '../sudoku-wt/logs');
 const WT_ROOT = resolve(REPO, '../sudoku-wt');
-const MODELS_FILE = process.argv[2] || resolve(REPO, 'orchestration/models.txt');
-const JUDGE = resolve(REPO, 'orchestration/judge/verify-engine.ts');
+const MODELS_FILE = process.argv[2] || resolve(REPO, 'orchestration/round1/models.txt');
+const JUDGE = resolve(REPO, 'orchestration/harness/judge/verify-engine.ts');
 
 const sh = (cmd) => { try { return execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return '?'; } };
 const readJSON = (p) => { try { return JSON.parse(readFileSync(p, 'utf8')); } catch { return null; } };
@@ -38,7 +38,7 @@ const env = {
 };
 
 // ---- required ids (for "missing" computation) ----
-const requiredM3 = lines(resolve(REPO, 'orchestration/required-ids/m3.txt')).map((s) => s.trim());
+const requiredM3 = lines(resolve(REPO, 'orchestration/harness/required-ids/m3.txt')).map((s) => s.trim());
 
 // ---- per-model collection ----
 const models = lines(MODELS_FILE).map((l) => { const [m, n] = l.split(/\s+/); return { model: m, name: n }; });
@@ -129,7 +129,7 @@ const keptCols = cols.filter((c) => {
 const ts = sh('date "+%Y-%m-%d %H:%M:%S %z"');
 let md = '';
 md += `# 数独求解引擎 · 多模型横评报告\n\n`;
-md += `> 生成时间:${ts}。固定范围对比:所有模型须实现同一套必需策略(\`orchestration/required-ids/\`),\n`;
+md += `> 生成时间:${ts}。固定范围对比:所有模型须实现同一套必需策略(\`orchestration/harness/required-ids/\`),\n`;
 md += `> 健全性(0 violation)为硬门槛,解出率/成本/耗时仅收集用于对比实现质量。\n\n`;
 
 md += `## 环境(便于复现)\n\n`;
@@ -168,11 +168,11 @@ md += `\n`;
 
 md += `## 复现方法\n\n`;
 md += `1. 配好 opencode 及各 provider 凭据;\`git lfs pull\` 拉取谜题。\n`;
-md += `2. 编辑 \`orchestration/models.txt\`(provider/model + 短名)。\n`;
-md += `3. \`TIMEOUT=3600 MAX_PAR=4 orchestration/run-all.sh\`(Bedrock/alibaba-cn 自动串行)。\n`;
-md += `4. \`node orchestration/gen-report.mjs\` 生成本报告。\n`;
-md += `5. 必需策略范围见 \`orchestration/required-ids/{m2,m3}.txt\`;评分口径见本仓库 orchestration/。\n`;
+md += `2. 编辑 \`orchestration/round1/models.txt\`(provider/model + 短名)。\n`;
+md += `3. \`TIMEOUT=3600 MAX_PAR=4 orchestration/harness/run-all.sh\`(Bedrock/alibaba-cn 自动串行)。\n`;
+md += `4. \`node orchestration/harness/gen-report.mjs\` 生成本报告。\n`;
+md += `5. 必需策略范围见 \`orchestration/harness/required-ids/{m2,m3}.txt\`;评分口径见本仓库 orchestration/。\n`;
 
-writeFileSync(resolve(REPO, 'orchestration/report-final.md'), md);
-console.log('wrote orchestration/report-final.md');
+writeFileSync(resolve(REPO, 'orchestration/round1/report-final.md'), md);
+console.log('wrote orchestration/round1/report-final.md');
 console.log(`models: ${rows.length}, dropped constant cols: ${dropped.join(' | ') || 'none'}`);
