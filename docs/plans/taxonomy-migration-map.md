@@ -47,10 +47,10 @@ Solver behavior to preserve: `packages/engine/src/solver.ts` clones the grid, so
 | Old strategyId | New strategyId(s) | Notes |
 | --- | --- | --- |
 | `locked-candidates` | `locked-candidates-pointing`, `locked-candidates-claiming` | Implemented 2026-06-18. Split by named sub-technique; current board-wide same-technique combining is retained as a temporary deferred exception. |
-| `naked-subset` | `naked-pair`, `naked-triple`, `naked-quad` | Reuse existing size search. Register each size as its own strategy. |
-| `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Reuse existing size search. Register each size as its own strategy. |
-| `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Reuse existing fish helper by size. |
-| `single-digit-patterns` | `skyscraper`, `two-string-kite`, `empty-rectangle` | Existing helper boundaries are clear. Preserve named explanations. |
+| `naked-subset` | `naked-pair`, `naked-triple`, `naked-quad` | Implemented 2026-06-18. Reuses existing size search; each size is registered as its own strategy. |
+| `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Implemented 2026-06-18. Reuses existing size search; each size is registered as its own strategy. |
+| `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Implemented 2026-06-18. Reuses existing fish helper by size. |
+| `single-digit-patterns` | `skyscraper`, `two-string-kite`, `empty-rectangle` | Implemented 2026-06-18. Existing helper boundaries are exported as named strategies; explanations are preserved. |
 | `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4` | Existing helper boundaries are clear, but BUG+1 is placement-based while URs are elimination-based. Keep default assumption-free ordering late. |
 | `als` | `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` | Requires careful regression re-anchoring because old `als.apply()` combines cross-technique eliminations. |
 | `aic` | `x-chain`, `aic` | Conservative first split. Keep general `aic` fallback unless Type 1/Type 2/grouped classification is precise enough. |

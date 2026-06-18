@@ -47,6 +47,7 @@ function tryFish(
   coverHouses: readonly (readonly number[])[],
   baseAxis: 'row' | 'col',
   size: number,
+  strategyId: string,
 ): Step | null {
   const bit = maskOf(d);
 
@@ -110,7 +111,7 @@ function tryFish(
     const coverNums = [...coverUnion].sort((a, b) => a - b).map((i) => i + 1).join(', ');
 
     return {
-      strategyId: 'basic-fish',
+      strategyId,
       placements: [],
       eliminations,
       highlights: {
@@ -130,22 +131,26 @@ function tryFish(
   return null;
 }
 
-export const basicFish: Strategy = {
-  id: 'basic-fish',
-  name: { zh: '基础鱼', en: 'Basic Fish' },
-  difficulty: 40,
+function makeBasicFishStrategy(size: 2 | 3 | 4, id: string, difficulty: number): Strategy {
+  return {
+    id,
+    name: FISH_NAMES[size]!,
+    difficulty,
 
-  apply(grid: Grid): Step | null {
-    for (const size of [2, 3, 4]) {
+    apply(grid: Grid): Step | null {
       for (let d = 1; d <= 9; d++) {
         // Base = rows, cover = columns
-        const step = tryFish(grid, d, ROWS, COLS, 'row', size);
+        const step = tryFish(grid, d, ROWS, COLS, 'row', size, id);
         if (step) return step;
         // Base = columns, cover = rows
-        const step2 = tryFish(grid, d, COLS, ROWS, 'col', size);
+        const step2 = tryFish(grid, d, COLS, ROWS, 'col', size, id);
         if (step2) return step2;
       }
-    }
-    return null;
-  },
-};
+      return null;
+    },
+  };
+}
+
+export const xWing = makeBasicFishStrategy(2, 'x-wing', 40);
+export const swordfish = makeBasicFishStrategy(3, 'swordfish', 50);
+export const jellyfish = makeBasicFishStrategy(4, 'jellyfish', 58);

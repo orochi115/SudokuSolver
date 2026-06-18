@@ -14,10 +14,10 @@ import { STRATEGIES } from '../src/strategies/index.js';
 import { fullHouse } from '../src/strategies/full-house.js';
 import { hiddenSingle } from '../src/strategies/hidden-single.js';
 import { lockedCandidatesPointing, lockedCandidatesClaiming } from '../src/strategies/locked-candidates.js';
-import { nakedSubset } from '../src/strategies/naked-subset.js';
-import { hiddenSubset } from '../src/strategies/hidden-subset.js';
-import { basicFish } from '../src/strategies/basic-fish.js';
-import { singleDigitPatterns } from '../src/strategies/single-digit-patterns.js';
+import { nakedPair, nakedTriple, nakedQuad } from '../src/strategies/naked-subset.js';
+import { hiddenPair, hiddenTriple, hiddenQuad } from '../src/strategies/hidden-subset.js';
+import { xWing, swordfish, jellyfish } from '../src/strategies/basic-fish.js';
+import { skyscraper, twoStringKite, emptyRectangle } from '../src/strategies/single-digit-patterns.js';
 import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
@@ -34,6 +34,10 @@ function gridFromState(s: string, candidateMasks: readonly number[]): Grid {
   const grid = Grid.fromString(s);
   grid.candidates.set(candidateMasks);
   return grid;
+}
+
+function candidateMask(...digits: number[]): number {
+  return digits.reduce((mask, digit) => mask | (1 << (digit - 1)), 0);
 }
 
 /** Verify a step is sound against the brute-force solution. */
@@ -115,7 +119,7 @@ describe('full-house', () => {
 describe('hidden-single', () => {
   it('has stable id', () => {
     expect(hiddenSingle.id).toBe('hidden-single');
-    expect(hiddenSingle.difficulty).toBe(10);
+    expect(hiddenSingle.difficulty).toBe(12);
   });
 
   it('finds a hidden single and it is sound', () => {
@@ -231,15 +235,42 @@ describe('locked-candidates', () => {
 
 describe('naked-subset', () => {
   it('has stable id', () => {
-    expect(nakedSubset.id).toBe('naked-subset');
-    expect(nakedSubset.difficulty).toBe(30);
+    expect(nakedPair.id).toBe('naked-pair');
+    expect(nakedPair.difficulty).toBe(30);
+    expect(nakedTriple.id).toBe('naked-triple');
+    expect(nakedTriple.difficulty).toBe(34);
+    expect(nakedQuad.id).toBe('naked-quad');
+    expect(nakedQuad.difficulty).toBe(38);
+  });
+
+  it('reports each subset size with a specific strategy id', () => {
+    const pairMasks = Array<number>(81).fill(0);
+    pairMasks[0] = candidateMask(1, 2);
+    pairMasks[1] = candidateMask(1, 2);
+    pairMasks[2] = candidateMask(1, 2, 3);
+    expect(nakedPair.apply(gridFromState('0'.repeat(81), pairMasks))?.strategyId).toBe('naked-pair');
+
+    const tripleMasks = Array<number>(81).fill(0);
+    tripleMasks[0] = candidateMask(1, 2);
+    tripleMasks[1] = candidateMask(2, 3);
+    tripleMasks[2] = candidateMask(1, 3);
+    tripleMasks[3] = candidateMask(1, 2, 3, 4);
+    expect(nakedTriple.apply(gridFromState('0'.repeat(81), tripleMasks))?.strategyId).toBe('naked-triple');
+
+    const quadMasks = Array<number>(81).fill(0);
+    quadMasks[0] = candidateMask(1, 2);
+    quadMasks[1] = candidateMask(2, 3);
+    quadMasks[2] = candidateMask(3, 4);
+    quadMasks[3] = candidateMask(1, 4);
+    quadMasks[4] = candidateMask(1, 2, 3, 4, 5);
+    expect(nakedQuad.apply(gridFromState('0'.repeat(81), quadMasks))?.strategyId).toBe('naked-quad');
   });
 
   it('does not modify the grid', () => {
     const puzzle = '000000000904607000076804100309701080008000300050308702007502610005403208000000000';
     const g = gridFrom(puzzle);
     const before = g.toString();
-    nakedSubset.apply(g);
+    nakedPair.apply(g);
     expect(g.toString()).toBe(before);
   });
 
@@ -250,7 +281,7 @@ describe('naked-subset', () => {
     ];
     for (const puzzle of puzzles) {
       const g = gridFrom(puzzle);
-      const step = nakedSubset.apply(g);
+      const step = nakedPair.apply(g) ?? nakedTriple.apply(g) ?? nakedQuad.apply(g);
       if (step) {
         for (const e of step.eliminations) {
           expect(g.hasCandidate(e.cell, e.digit)).toBe(true);
@@ -264,7 +295,7 @@ describe('naked-subset', () => {
     const g = gridFrom(puzzle);
     const solution = solveBruteforce(puzzle);
     expect(solution).not.toBeNull();
-    const step = nakedSubset.apply(g);
+    const step = nakedPair.apply(g) ?? nakedTriple.apply(g) ?? nakedQuad.apply(g);
     if (step) {
       assertSoundStep(puzzle, step);
     }
@@ -277,22 +308,46 @@ describe('naked-subset', () => {
 
 describe('hidden-subset', () => {
   it('has stable id', () => {
-    expect(hiddenSubset.id).toBe('hidden-subset');
-    expect(hiddenSubset.difficulty).toBe(30);
+    expect(hiddenPair.id).toBe('hidden-pair');
+    expect(hiddenPair.difficulty).toBe(32);
+    expect(hiddenTriple.id).toBe('hidden-triple');
+    expect(hiddenTriple.difficulty).toBe(36);
+    expect(hiddenQuad.id).toBe('hidden-quad');
+    expect(hiddenQuad.difficulty).toBe(39);
+  });
+
+  it('reports each subset size with a specific strategy id', () => {
+    const pairMasks = Array<number>(81).fill(0);
+    pairMasks[0] = candidateMask(1, 2, 3);
+    pairMasks[1] = candidateMask(1, 2, 4);
+    expect(hiddenPair.apply(gridFromState('0'.repeat(81), pairMasks))?.strategyId).toBe('hidden-pair');
+
+    const tripleMasks = Array<number>(81).fill(0);
+    tripleMasks[0] = candidateMask(1, 2, 4);
+    tripleMasks[1] = candidateMask(2, 3, 5);
+    tripleMasks[2] = candidateMask(1, 3, 6);
+    expect(hiddenTriple.apply(gridFromState('0'.repeat(81), tripleMasks))?.strategyId).toBe('hidden-triple');
+
+    const quadMasks = Array<number>(81).fill(0);
+    quadMasks[0] = candidateMask(1, 2, 5);
+    quadMasks[1] = candidateMask(2, 3, 6);
+    quadMasks[2] = candidateMask(3, 4, 7);
+    quadMasks[3] = candidateMask(1, 4, 8);
+    expect(hiddenQuad.apply(gridFromState('0'.repeat(81), quadMasks))?.strategyId).toBe('hidden-quad');
   });
 
   it('does not modify the grid', () => {
     const puzzle = '000000000904607000076804100309701080008000300050308702007502610005403208000000000';
     const g = gridFrom(puzzle);
     const before = g.toString();
-    hiddenSubset.apply(g);
+    hiddenPair.apply(g);
     expect(g.toString()).toBe(before);
   });
 
   it('elimination candidates are actually present when it fires', () => {
     const puzzle = '000000000904607000076804100309701080008000300050308702007502610005403208000000000';
     const g = gridFrom(puzzle);
-    const step = hiddenSubset.apply(g);
+    const step = hiddenPair.apply(g) ?? hiddenTriple.apply(g) ?? hiddenQuad.apply(g);
     if (step) {
       for (const e of step.eliminations) {
         expect(g.hasCandidate(e.cell, e.digit)).toBe(true);
@@ -305,7 +360,7 @@ describe('hidden-subset', () => {
     const g = gridFrom(puzzle);
     const solution = solveBruteforce(puzzle);
     expect(solution).not.toBeNull();
-    const step = hiddenSubset.apply(g);
+    const step = hiddenPair.apply(g) ?? hiddenTriple.apply(g) ?? hiddenQuad.apply(g);
     if (step) {
       assertSoundStep(puzzle, step);
     }
@@ -318,15 +373,33 @@ describe('hidden-subset', () => {
 
 describe('basic-fish', () => {
   it('has stable id', () => {
-    expect(basicFish.id).toBe('basic-fish');
-    expect(basicFish.difficulty).toBe(40);
+    expect(xWing.id).toBe('x-wing');
+    expect(xWing.difficulty).toBe(40);
+    expect(swordfish.id).toBe('swordfish');
+    expect(swordfish.difficulty).toBe(50);
+    expect(jellyfish.id).toBe('jellyfish');
+    expect(jellyfish.difficulty).toBe(58);
+  });
+
+  it('reports each fish size with a specific strategy id', () => {
+    const xWingMasks = Array<number>(81).fill(0);
+    for (const cell of [0, 1, 9, 10, 18]) xWingMasks[cell] = candidateMask(5);
+    expect(xWing.apply(gridFromState('0'.repeat(81), xWingMasks))?.strategyId).toBe('x-wing');
+
+    const swordfishMasks = Array<number>(81).fill(0);
+    for (const cell of [0, 1, 9, 11, 19, 20, 27]) swordfishMasks[cell] = candidateMask(5);
+    expect(swordfish.apply(gridFromState('0'.repeat(81), swordfishMasks))?.strategyId).toBe('swordfish');
+
+    const jellyfishMasks = Array<number>(81).fill(0);
+    for (const cell of [0, 1, 9, 11, 19, 21, 28, 30, 36]) jellyfishMasks[cell] = candidateMask(5);
+    expect(jellyfish.apply(gridFromState('0'.repeat(81), jellyfishMasks))?.strategyId).toBe('jellyfish');
   });
 
   it('does not modify the grid', () => {
     const puzzle = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';
     const g = gridFrom(puzzle);
     const before = g.toString();
-    basicFish.apply(g);
+    xWing.apply(g);
     expect(g.toString()).toBe(before);
   });
 
@@ -337,7 +410,7 @@ describe('basic-fish', () => {
     ];
     for (const puzzle of puzzles) {
       const g = gridFrom(puzzle);
-      const step = basicFish.apply(g);
+      const step = xWing.apply(g) ?? swordfish.apply(g) ?? jellyfish.apply(g);
       if (step) {
         for (const e of step.eliminations) {
           expect(g.hasCandidate(e.cell, e.digit)).toBe(true);
@@ -351,7 +424,7 @@ describe('basic-fish', () => {
     const g = gridFrom(puzzle);
     const solution = solveBruteforce(puzzle);
     expect(solution).not.toBeNull();
-    const step = basicFish.apply(g);
+    const step = xWing.apply(g) ?? swordfish.apply(g) ?? jellyfish.apply(g);
     if (step) {
       assertSoundStep(puzzle, step);
     }
@@ -364,15 +437,29 @@ describe('basic-fish', () => {
 
 describe('single-digit-patterns', () => {
   it('has stable id', () => {
-    expect(singleDigitPatterns.id).toBe('single-digit-patterns');
-    expect(singleDigitPatterns.difficulty).toBe(45);
+    expect(skyscraper.id).toBe('skyscraper');
+    expect(skyscraper.difficulty).toBe(44);
+    expect(twoStringKite.id).toBe('two-string-kite');
+    expect(twoStringKite.difficulty).toBe(46);
+    expect(emptyRectangle.id).toBe('empty-rectangle');
+    expect(emptyRectangle.difficulty).toBe(48);
+  });
+
+  it('reports each single-digit pattern with a specific strategy id', () => {
+    const skyscraperMasks = Array<number>(81).fill(0);
+    for (const cell of [0, 1, 9, 10, 19]) skyscraperMasks[cell] = candidateMask(5);
+    expect(skyscraper.apply(gridFromState('0'.repeat(81), skyscraperMasks))?.strategyId).toBe('skyscraper');
+
+    const kiteMasks = Array<number>(81).fill(0);
+    for (const cell of [0, 1, 9, 11, 20]) kiteMasks[cell] = candidateMask(5);
+    expect(twoStringKite.apply(gridFromState('0'.repeat(81), kiteMasks))?.strategyId).toBe('two-string-kite');
   });
 
   it('does not modify the grid', () => {
     const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
     const g = gridFrom(puzzle);
     const before = g.toString();
-    singleDigitPatterns.apply(g);
+    skyscraper.apply(g);
     expect(g.toString()).toBe(before);
   });
 
@@ -382,7 +469,7 @@ describe('single-digit-patterns', () => {
     ];
     for (const puzzle of puzzles) {
       const g = gridFrom(puzzle);
-      const step = singleDigitPatterns.apply(g);
+      const step = skyscraper.apply(g) ?? twoStringKite.apply(g) ?? emptyRectangle.apply(g);
       if (step) {
         for (const e of step.eliminations) {
           expect(g.hasCandidate(e.cell, e.digit)).toBe(true);
@@ -399,7 +486,7 @@ describe('single-digit-patterns', () => {
       const g = gridFrom(puzzle);
       const solution = solveBruteforce(puzzle);
       if (!solution) continue;
-      const step = singleDigitPatterns.apply(g);
+      const step = skyscraper.apply(g) ?? twoStringKite.apply(g) ?? emptyRectangle.apply(g);
       if (step) {
         assertSoundStep(puzzle, step);
       }
@@ -412,9 +499,9 @@ describe('single-digit-patterns', () => {
       [208, 84, 0, 0, 100, 224, 50, 0, 178, 0, 13, 137, 0, 37, 0, 0, 40, 160, 217, 0, 217, 193, 0, 193, 28, 12, 0, 456, 0, 200, 224, 0, 228, 300, 364, 0, 337, 337, 0, 0, 97, 0, 0, 352, 96, 0, 73, 201, 193, 0, 197, 14, 0, 70, 0, 345, 121, 113, 0, 353, 304, 0, 112, 337, 337, 0, 0, 97, 353, 304, 0, 0, 336, 0, 112, 112, 0, 0, 0, 356, 116],
     );
 
-    const step = singleDigitPatterns.apply(grid);
+    const step = emptyRectangle.apply(grid);
 
-    expect(step?.strategyId).toBe('single-digit-patterns');
+    expect(step?.strategyId).toBe('empty-rectangle');
     expect(step?.eliminations).toContainEqual({ cell: 34, digit: 4 });
     expect(step?.explanation.en).toMatch(/Empty Rectangle/);
   });
@@ -427,7 +514,7 @@ describe('single-digit-patterns', () => {
 describe('xy-wing', () => {
   it('has stable id', () => {
     expect(xyWing.id).toBe('xy-wing');
-    expect(xyWing.difficulty).toBe(50);
+    expect(xyWing.difficulty).toBe(52);
   });
 
   it('does not modify the grid', () => {
@@ -486,7 +573,7 @@ describe('xy-wing', () => {
 describe('xyz-wing', () => {
   it('has stable id', () => {
     expect(xyzWing.id).toBe('xyz-wing');
-    expect(xyzWing.difficulty).toBe(50);
+    expect(xyzWing.difficulty).toBe(54);
   });
 
   it('does not modify the grid', () => {
@@ -532,7 +619,7 @@ describe('xyz-wing', () => {
 describe('w-wing', () => {
   it('has stable id', () => {
     expect(wWing.id).toBe('w-wing');
-    expect(wWing.difficulty).toBe(50);
+    expect(wWing.difficulty).toBe(56);
   });
 
   it('does not modify the grid', () => {
@@ -584,13 +671,21 @@ describe('STRATEGIES registry', () => {
       'hidden-single',
       'locked-candidates-pointing',
       'locked-candidates-claiming',
-      'naked-subset',
-      'hidden-subset',
-      'basic-fish',
-      'single-digit-patterns',
+      'naked-pair',
+      'hidden-pair',
+      'naked-triple',
+      'hidden-triple',
+      'naked-quad',
+      'hidden-quad',
+      'x-wing',
+      'skyscraper',
+      'two-string-kite',
+      'empty-rectangle',
+      'swordfish',
       'xy-wing',
       'xyz-wing',
       'w-wing',
+      'jellyfish',
       // M3 strategies
       'simple-coloring',
       'aic',

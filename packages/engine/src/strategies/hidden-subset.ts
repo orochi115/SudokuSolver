@@ -46,30 +46,30 @@ function houseLabelEn(houseIdx: number): string {
   return `box B${houseIdx - 18 + 1}`;
 }
 
-export const hiddenSubset: Strategy = {
-  id: 'hidden-subset',
-  name: { zh: '隐性数组', en: 'Hidden Subset' },
-  difficulty: 30,
+function makeHiddenSubsetStrategy(size: 2 | 3 | 4, id: string, difficulty: number): Strategy {
+  return {
+    id,
+    name: SUBSET_NAMES[size]!,
+    difficulty,
 
-  apply(grid: Grid): Step | null {
-    for (let h = 0; h < HOUSES.length; h++) {
-      const house = HOUSES[h]!;
-      const emptyCells = house.filter((c) => grid.get(c) === 0);
-      if (emptyCells.length < 2) continue;
+    apply(grid: Grid): Step | null {
+      for (let h = 0; h < HOUSES.length; h++) {
+        const house = HOUSES[h]!;
+        const emptyCells = house.filter((c) => grid.get(c) === 0);
+        if (emptyCells.length < size) continue;
 
-      // For each digit 1-9, find which cells in this house have it as candidate
-      const digitPositions: number[][] = [];
-      const candidateDigits: number[] = [];
-      for (let d = 1; d <= 9; d++) {
-        const bit = maskOf(d);
-        const positions = emptyCells.filter((c) => (grid.candidatesOf(c) & bit) !== 0);
-        if (positions.length >= 2 && positions.length <= 4) {
-          digitPositions.push(positions);
-          candidateDigits.push(d);
+        // For each digit 1-9, find which cells in this house have it as candidate
+        const digitPositions: number[][] = [];
+        const candidateDigits: number[] = [];
+        for (let d = 1; d <= 9; d++) {
+          const bit = maskOf(d);
+          const positions = emptyCells.filter((c) => (grid.candidatesOf(c) & bit) !== 0);
+          if (positions.length >= 2 && positions.length <= 4) {
+            digitPositions.push(positions);
+            candidateDigits.push(d);
+          }
         }
-      }
 
-      for (const size of [2, 3, 4]) {
         if (candidateDigits.length < size) continue;
 
         for (const combo of combinations(candidateDigits, size)) {
@@ -112,7 +112,7 @@ export const hiddenSubset: Strategy = {
           const hle = houseLabelEn(h);
 
           return {
-            strategyId: this.id,
+            strategyId: id,
             placements: [],
             eliminations,
             highlights: {
@@ -132,9 +132,11 @@ export const hiddenSubset: Strategy = {
           };
         }
       }
+      return null;
     }
-    return null;
-  },
-};
+  };
+}
 
-
+export const hiddenPair = makeHiddenSubsetStrategy(2, 'hidden-pair', 32);
+export const hiddenTriple = makeHiddenSubsetStrategy(3, 'hidden-triple', 36);
+export const hiddenQuad = makeHiddenSubsetStrategy(4, 'hidden-quad', 39);

@@ -45,18 +45,16 @@ function houseLabelEn(houseIdx: number): string {
   return `box B${houseIdx - 18 + 1}`;
 }
 
-export const nakedSubset: Strategy = {
-  id: 'naked-subset',
-  name: { zh: '显性数组', en: 'Naked Subset' },
-  difficulty: 30,
+function makeNakedSubsetStrategy(size: 2 | 3 | 4, id: string, difficulty: number): Strategy {
+  return {
+    id,
+    name: SUBSET_NAMES[size]!,
+    difficulty,
 
-  apply(grid: Grid): Step | null {
-    for (let h = 0; h < HOUSES.length; h++) {
-      const house = HOUSES[h]!;
-      const emptyCells = house.filter((c) => grid.get(c) === 0);
-      if (emptyCells.length < 2) continue;
-
-      for (const size of [2, 3, 4]) {
+    apply(grid: Grid): Step | null {
+      for (let h = 0; h < HOUSES.length; h++) {
+        const house = HOUSES[h]!;
+        const emptyCells = house.filter((c) => grid.get(c) === 0);
         if (emptyCells.length <= size) continue;
 
         for (const combo of combinations(emptyCells.length, size)) {
@@ -90,7 +88,7 @@ export const nakedSubset: Strategy = {
           const hle = houseLabelEn(h);
 
           return {
-            strategyId: this.id,
+            strategyId: id,
             placements: [],
             eliminations,
             highlights: {
@@ -110,7 +108,11 @@ export const nakedSubset: Strategy = {
           };
         }
       }
+      return null;
     }
-    return null;
-  },
-};
+  };
+}
+
+export const nakedPair = makeNakedSubsetStrategy(2, 'naked-pair', 30);
+export const nakedTriple = makeNakedSubsetStrategy(3, 'naked-triple', 34);
+export const nakedQuad = makeNakedSubsetStrategy(4, 'naked-quad', 38);

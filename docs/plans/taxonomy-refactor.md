@@ -159,6 +159,8 @@ Phase 1 audit output is recorded in [`taxonomy-migration-map.md`](./taxonomy-mig
 
 Progress note (2026-06-18): Phase 2A completed for `locked-candidates` only. The implementation now exports and registers `locked-candidates-pointing` (difficulty 20) and `locked-candidates-claiming` (difficulty 22), with RED/GREEN tests for both IDs. Same-technique board-wide combining is intentionally preserved as the existing documented deferred exception; the remaining Phase 2 families are still pending.
 
+Progress note (2026-06-18): Phase 2B completed for the low-risk mechanical families `naked-subset`, `hidden-subset`, `basic-fish`, and `single-digit-patterns`. The implementation now exports/registers `naked-pair`, `hidden-pair`, `naked-triple`, `hidden-triple`, `naked-quad`, `hidden-quad`, `x-wing`, `skyscraper`, `two-string-kite`, `empty-rectangle`, `swordfish`, and `jellyfish` in the intended human-cost order, with RED/GREEN tests asserting specific IDs. `uniqueness` remains pending as the remaining Phase 2 medium-risk family.
+
 ## Phase 3: Split ALS Family
 
 **Goal:** Make ALS traces human-readable; stop combining distinct ALS sub-techniques into one `als` step.

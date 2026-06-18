@@ -20,7 +20,7 @@ import type { Strategy } from '../strategy.js';
 export const xyzWing: Strategy = {
   id: 'xyz-wing',
   name: { zh: 'XYZ翼', en: 'XYZ-Wing' },
-  difficulty: 50,
+  difficulty: 54,
 
   apply(grid: Grid): Step | null {
     // Pivot must have exactly 3 candidates

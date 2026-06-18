@@ -44,7 +44,7 @@ function cellsWithCandidate(grid: Grid, cells: readonly number[], digit: number)
 }
 
 // ---- Skyscraper ----
-function trySkyscraper(grid: Grid, d: number): Step | null {
+function trySkyscraper(grid: Grid, d: number, strategyId: string): Step | null {
   const bit = maskOf(d);
 
   // Rows with exactly 2 candidates
@@ -70,7 +70,7 @@ function trySkyscraper(grid: Grid, d: number): Step | null {
           if (elims.length === 0) continue;
           const sharedCol = COL_OF[a.cells[ai as 0 | 1]]! + 1;
           return {
-            strategyId: 'single-digit-patterns',
+            strategyId,
             placements: [],
             eliminations: elims.map((c) => ({ cell: c, digit: d })),
             highlights: {
@@ -119,7 +119,7 @@ function trySkyscraper(grid: Grid, d: number): Step | null {
           if (elims.length === 0) continue;
           const sharedRow = ROW_OF[a.cells[ai as 0 | 1]]! + 1;
           return {
-            strategyId: 'single-digit-patterns',
+            strategyId,
             placements: [],
             eliminations: elims.map((c) => ({ cell: c, digit: d })),
             highlights: {
@@ -149,7 +149,7 @@ function trySkyscraper(grid: Grid, d: number): Step | null {
 }
 
 // ---- 2-String Kite ----
-function tryTwoStringKite(grid: Grid, d: number): Step | null {
+function tryTwoStringKite(grid: Grid, d: number, strategyId: string): Step | null {
   const bit = maskOf(d);
 
   const rowPairs: Array<{ rowIdx: number; cells: [number, number] }> = [];
@@ -184,7 +184,7 @@ function tryTwoStringKite(grid: Grid, d: number): Step | null {
           if (elims.length === 0) continue;
 
           return {
-            strategyId: 'single-digit-patterns',
+            strategyId,
             placements: [],
             eliminations: elims.map((c) => ({ cell: c, digit: d })),
             highlights: {
@@ -223,7 +223,7 @@ function tryTwoStringKite(grid: Grid, d: number): Step | null {
  * and there's a strong link A--B where A is in column C (outside box),
  * then any cell in row R that sees B can be eliminated.
  */
-function tryEmptyRectangle(grid: Grid, d: number): Step | null {
+function tryEmptyRectangle(grid: Grid, d: number, strategyId: string): Step | null {
   for (let b = 0; b < 9; b++) {
     const boxCells = cellsWithCandidate(grid, BOXES[b]!, d);
     if (boxCells.length < 2) continue;
@@ -252,7 +252,7 @@ function tryEmptyRectangle(grid: Grid, d: number): Step | null {
           if (BOX_OF[target] === b) continue;
           if (grid.get(target) !== 0 || !grid.hasCandidate(target, d)) continue;
           return {
-            strategyId: 'single-digit-patterns',
+            strategyId,
             placements: [],
             eliminations: [{ cell: target, digit: d }],
             highlights: {
@@ -279,7 +279,7 @@ function tryEmptyRectangle(grid: Grid, d: number): Step | null {
           if (BOX_OF[target] === b) continue;
           if (grid.get(target) !== 0 || !grid.hasCandidate(target, d)) continue;
           return {
-            strategyId: 'single-digit-patterns',
+            strategyId,
             placements: [],
             eliminations: [{ cell: target, digit: d }],
             highlights: {
@@ -299,19 +299,43 @@ function tryEmptyRectangle(grid: Grid, d: number): Step | null {
   return null;
 }
 
-export const singleDigitPatterns: Strategy = {
-  id: 'single-digit-patterns',
-  name: { zh: '单数字模式', en: 'Single-Digit Patterns' },
-  difficulty: 45,
+export const skyscraper: Strategy = {
+  id: 'skyscraper',
+  name: { zh: '摩天楼', en: 'Skyscraper' },
+  difficulty: 44,
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {
-      const s1 = trySkyscraper(grid, d);
-      if (s1) return s1;
-      const s2 = tryTwoStringKite(grid, d);
-      if (s2) return s2;
-      const s3 = tryEmptyRectangle(grid, d);
-      if (s3) return s3;
+      const step = trySkyscraper(grid, d, this.id);
+      if (step) return step;
+    }
+    return null;
+  },
+};
+
+export const twoStringKite: Strategy = {
+  id: 'two-string-kite',
+  name: { zh: '双线风筝', en: '2-String Kite' },
+  difficulty: 46,
+
+  apply(grid: Grid): Step | null {
+    for (let d = 1; d <= 9; d++) {
+      const step = tryTwoStringKite(grid, d, this.id);
+      if (step) return step;
+    }
+    return null;
+  },
+};
+
+export const emptyRectangle: Strategy = {
+  id: 'empty-rectangle',
+  name: { zh: '空矩形', en: 'Empty Rectangle' },
+  difficulty: 48,
+
+  apply(grid: Grid): Step | null {
+    for (let d = 1; d <= 9; d++) {
+      const step = tryEmptyRectangle(grid, d, this.id);
+      if (step) return step;
     }
     return null;
   },

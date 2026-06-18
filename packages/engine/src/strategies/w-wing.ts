@@ -24,7 +24,7 @@ import type { Strategy } from '../strategy.js';
 export const wWing: Strategy = {
   id: 'w-wing',
   name: { zh: 'W翼', en: 'W-Wing' },
-  difficulty: 50,
+  difficulty: 56,
 
   apply(grid: Grid): Step | null {
     // Collect all bivalue cells grouped by their pair mask
