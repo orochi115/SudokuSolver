@@ -689,7 +689,10 @@ describe('STRATEGIES registry', () => {
       // M3 strategies
       'simple-coloring',
       'aic',
-      'als',
+      'als-xz',
+      'als-xz-doubly-linked',
+      'als-xy-wing',
+      'death-blossom',
       'bug-plus-one',
       'unique-rectangle-type-1',
       'unique-rectangle-type-2',

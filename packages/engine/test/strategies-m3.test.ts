@@ -16,7 +16,7 @@ import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 import { simpleColoring } from '../src/strategies/simple-coloring.js';
 import { aic, makeAic } from '../src/strategies/aic.js';
-import { als } from '../src/strategies/als.js';
+import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from '../src/strategies/als.js';
 import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from '../src/strategies/uniqueness.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
@@ -247,23 +247,32 @@ describe('aic', () => {
 // ============================================================
 
 describe('als', () => {
-  it('has stable id and difficulty in band 80', () => {
-    expect(als.id).toBe('als');
-    expect(als.difficulty).toBeGreaterThanOrEqual(75);
-    expect(als.difficulty).toBeLessThanOrEqual(85);
+  const alsStrategies = [alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom];
+
+  it('has stable split ids and difficulties in the ALS band', () => {
+    expect(alsXz.id).toBe('als-xz');
+    expect(alsXz.difficulty).toBe(80);
+    expect(alsXzDoublyLinked.id).toBe('als-xz-doubly-linked');
+    expect(alsXzDoublyLinked.difficulty).toBe(82);
+    expect(alsXyWing.id).toBe('als-xy-wing');
+    expect(alsXyWing.difficulty).toBe(85);
+    expect(deathBlossom.id).toBe('death-blossom');
+    expect(deathBlossom.difficulty).toBe(88);
   });
 
   it('does not modify the grid', () => {
     for (const puzzle of HARD_PUZZLES) {
-      assertNoMutation(puzzle, als);
+      for (const strategy of alsStrategies) assertNoMutation(puzzle, strategy);
     }
   });
 
   it('eliminations are present in grid when it fires', () => {
     for (const puzzle of HARD_PUZZLES) {
       const g = gridFrom(puzzle);
-      const step = als.apply(g);
-      if (step) assertElimsPresent(puzzle, step);
+      for (const strategy of alsStrategies) {
+        const step = strategy.apply(g);
+        if (step) assertElimsPresent(puzzle, step);
+      }
     }
   });
 
@@ -272,22 +281,39 @@ describe('als', () => {
       const g = gridFrom(puzzle);
       const solution = solveBruteforce(puzzle);
       if (!solution) continue;
-      const step = als.apply(g);
-      if (step) assertSoundStep(puzzle, step);
+      for (const strategy of alsStrategies) {
+        const step = strategy.apply(g);
+        if (step) assertSoundStep(puzzle, step);
+      }
     }
   });
 
   it('step has valid highlights structure', () => {
     for (const puzzle of HARD_PUZZLES) {
       const g = gridFrom(puzzle);
-      const step = als.apply(g);
-      if (step) {
-        expect(step.strategyId).toBe('als');
-        expect(step.highlights.cells.length).toBeGreaterThan(0);
-        expect(step.explanation.zh.length).toBeGreaterThan(0);
-        expect(step.explanation.en.length).toBeGreaterThan(0);
+      for (const strategy of alsStrategies) {
+        const step = strategy.apply(g);
+        if (step) {
+          expect(step.strategyId).toBe(strategy.id);
+          expect(step.highlights.cells.length).toBeGreaterThan(0);
+          expect(step.explanation.zh.length).toBeGreaterThan(0);
+          expect(step.explanation.en.length).toBeGreaterThan(0);
+        }
       }
     }
+  });
+
+  it('reports death blossom with its specific strategy id', () => {
+    const masks = Array<number>(81).fill(0);
+    masks[0] = candidateMask(1, 2);
+    masks[1] = candidateMask(1, 3);
+    masks[9] = candidateMask(2, 3);
+    masks[10] = candidateMask(3, 4);
+
+    const step = deathBlossom.apply(gridFromState('0'.repeat(81), masks));
+
+    expect(step?.strategyId).toBe('death-blossom');
+    expect(step?.eliminations).toContainEqual({ cell: 10, digit: 3 });
   });
 });
 

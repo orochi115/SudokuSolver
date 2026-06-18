@@ -50,37 +50,6 @@ interface ALS {
   digitMask: number;    // bitmask of digits
 }
 
-function combineSteps(steps: Step[]): Step | null {
-  if (steps.length === 0) return null;
-  const seen = new Set<string>();
-  const cells = new Set<number>();
-  const candidates = steps.flatMap((step) => step.highlights.candidates);
-  const eliminations = steps.flatMap((step) => step.eliminations).filter((elim) => {
-    const key = `${elim.cell}:${elim.digit}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    cells.add(elim.cell);
-    return true;
-  });
-
-  for (const candidate of candidates) cells.add(candidate.cell);
-
-  return {
-    strategyId: 'als',
-    placements: [],
-    eliminations,
-    highlights: {
-      cells: [...cells],
-      candidates: [...candidates, ...eliminations],
-      links: steps.flatMap((step) => step.highlights.links),
-    },
-    explanation: {
-      zh: steps.map((step) => step.explanation.zh).join(' '),
-      en: steps.map((step) => step.explanation.en).join(' '),
-    },
-  };
-}
-
 /**
  * Find all ALS of size 1..maxSize from a single house.
  * Size 1: a bivalue cell (1 cell, 2 candidates).
@@ -167,11 +136,9 @@ function alsShareCells(a: ALS, b: ALS): boolean {
 }
 
 /**
- * ALS-XZ: Two ALS connected by RCC X, eliminate common digit Z.
+ * Doubly-linked ALS-XZ: Two ALS connected by two RCCs.
  */
-function tryALSXZ(grid: Grid, alsList: ALS[]): Step | null {
-  const steps: Step[] = [];
-
+function tryALSDoublyLinkedXZ(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
   for (let i = 0; i < alsList.length; i++) {
     for (let j = i + 1; j < alsList.length; j++) {
       const a = alsList[i]!;
@@ -209,8 +176,8 @@ function tryALSXZ(grid: Grid, alsList: ALS[]): Step | null {
             const allCells = [...a.cells, ...b.cells];
             const aDigStr = a.digits.join('');
             const bDigStr = b.digits.join('');
-            steps.push({
-              strategyId: 'als',
+            return {
+              strategyId,
               placements: [],
               eliminations: elims,
               highlights: {
@@ -226,10 +193,27 @@ function tryALSXZ(grid: Grid, alsList: ALS[]): Step | null {
                 zh: `双链 ALS-XZ：ALS-A（格 ${a.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} 候选 {${aDigStr}}）与 ALS-B（格 ${b.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} 候选 {${bDigStr}}）通过受限公共候选数 ${x} 和 ${y} 双链连接；消去各自 house 中非 RCC 候选。`,
                 en: `Doubly-linked ALS-XZ: ALS-A (cells ${a.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} cands {${aDigStr}}) and ALS-B (cells ${b.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} cands {${bDigStr}}) are linked by RCCs ${x} and ${y}; eliminate non-RCC candidates from their houses.`,
               },
-            });
+            };
           }
         }
       }
+    }
+  }
+  return null;
+}
+
+/**
+ * ALS-XZ: Two ALS connected by RCC X, eliminate common digit Z.
+ */
+function tryALSXZ(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
+  for (let i = 0; i < alsList.length; i++) {
+    for (let j = i + 1; j < alsList.length; j++) {
+      const a = alsList[i]!;
+      const b = alsList[j]!;
+
+      if (alsShareCells(a, b)) continue;
+
+      const commonDigits = digitsOf(a.digitMask & b.digitMask);
 
       for (const x of commonDigits) {
         if (!isRCC(grid, a, b, x)) continue;
@@ -269,8 +253,8 @@ function tryALSXZ(grid: Grid, alsList: ALS[]): Step | null {
           const aDigStr = a.digits.join('');
           const bDigStr = b.digits.join('');
 
-          steps.push({
-            strategyId: 'als',
+          return {
+            strategyId,
             placements: [],
             eliminations: elims,
             highlights: {
@@ -292,12 +276,12 @@ function tryALSXZ(grid: Grid, alsList: ALS[]): Step | null {
               zh: `ALS-XZ：ALS-A（格 ${a.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} 候选 {${aDigStr}}）与 ALS-B（格 ${b.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} 候选 {${bDigStr}}）通过受限公共候选数 ${x} 连接${secondRCC.length > 0 ? '（双链）' : ''}；消去能看到两个 ALS 中所有 ${z} 的格子中的 ${z}。`,
               en: `ALS-XZ: ALS-A (cells ${a.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} cands {${aDigStr}}) and ALS-B (cells ${b.cells.map((c) => `R${ROW_OF[c]! + 1}C${COL_OF[c]! + 1}`).join(',')} cands {${bDigStr}}) linked by RCC ${x}${secondRCC.length > 0 ? ' (doubly linked)' : ''}; eliminate ${z} from cells seeing all ${z} in both ALS.`,
             },
-          });
+          };
         }
       }
     }
   }
-  return combineSteps(steps);
+  return null;
 }
 
 /**
@@ -307,9 +291,7 @@ function tryALSXZ(grid: Grid, alsList: ALS[]): Step | null {
  *   A and B share common candidate Z (not X or Y)
  *   Eliminate Z from cells seeing all Z in A and B.
  */
-function tryALSXYWing(grid: Grid, alsList: ALS[]): Step | null {
-  const steps: Step[] = [];
-
+function tryALSXYWing(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
   for (let ci = 0; ci < alsList.length; ci++) {
     const c_als = alsList[ci]!; // pivot ALS C
 
@@ -363,8 +345,8 @@ function tryALSXYWing(grid: Grid, alsList: ALS[]): Step | null {
               if (elims.length === 0) continue;
 
               const allCells = [...a_als.cells, ...b_als.cells, ...c_als.cells];
-              steps.push({
-                strategyId: 'als',
+              return {
+                strategyId,
                 placements: [],
                 eliminations: elims,
                 highlights: {
@@ -379,14 +361,14 @@ function tryALSXYWing(grid: Grid, alsList: ALS[]): Step | null {
                   zh: `ALS-XY翼：三个 ALS 通过受限公共候选数 ${x}（A-C）和 ${y}（B-C）连接；消去能同时看到 A 和 B 中所有 ${z} 的格中的 ${z}（ALS-XY翼）。`,
                   en: `ALS-XY-Wing: three ALS linked by RCC ${x} (A-C) and ${y} (B-C); eliminate ${z} from cells seeing all ${z} in both A and B (ALS-XY-Wing).`,
                 },
-              });
+              };
             }
           }
         }
       }
     }
   }
-  return combineSteps(steps);
+  return null;
 }
 
 /**
@@ -401,9 +383,7 @@ function tryALSXYWing(grid: Grid, alsList: ALS[]): Step | null {
  * Any candidate Z in both petals can be eliminated from cells seeing all Z
  * in both petals.
  */
-function tryDeathBlossom(grid: Grid, alsList: ALS[]): Step | null {
-  const steps: Step[] = [];
-
+function tryDeathBlossom(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
   // Try each empty cell as the stem
   for (let stemCell = 0; stemCell < CELLS; stemCell++) {
     if (grid.get(stemCell) !== 0) continue;
@@ -465,8 +445,8 @@ function tryDeathBlossom(grid: Grid, alsList: ALS[]): Step | null {
             if (elims.length === 0) continue;
 
             const allCells = [stemCell, ...p1.cells, ...p2.cells];
-            steps.push({
-              strategyId: 'als',
+            return {
+              strategyId,
               placements: [],
               eliminations: elims,
               highlights: {
@@ -484,13 +464,13 @@ function tryDeathBlossom(grid: Grid, alsList: ALS[]): Step | null {
                 zh: `死亡之花：茎格 R${ROW_OF[stemCell]! + 1}C${COL_OF[stemCell]! + 1}（候选 {${stemD1},${stemD2}}）连接两个 ALS 花瓣；消去能看到两个花瓣中所有 ${z} 的格的 ${z}（死亡之花）。`,
                 en: `Death Blossom: stem R${ROW_OF[stemCell]! + 1}C${COL_OF[stemCell]! + 1} (cands {${stemD1},${stemD2}}) links two ALS petals; eliminate ${z} from cells seeing all ${z} in both petals.`,
               },
-            });
+            };
           }
         }
       }
     }
   }
-  return combineSteps(steps);
+  return null;
 }
 
 /** Generate all pairs from an array. */
@@ -502,18 +482,47 @@ function* pairs<T>(arr: T[]): Generator<[T, T]> {
   }
 }
 
-export const als: Strategy = {
-  id: 'als',
-  name: { zh: '几乎锁定集', en: 'Almost Locked Sets' },
-  difficulty: 80,
+function makeAlsStrategy(
+  id: string,
+  name: { zh: string; en: string },
+  difficulty: number,
+  applyTechnique: (grid: Grid, alsList: ALS[], strategyId: string) => Step | null,
+): Strategy {
+  return {
+    id,
+    name,
+    difficulty,
 
-  apply(grid: Grid): Step | null {
-    const alsList = findAllALS(grid);
+    apply(grid: Grid): Step | null {
+      return applyTechnique(grid, findAllALS(grid), id);
+    },
+  };
+}
 
-    return combineSteps([
-      tryALSXZ(grid, alsList),
-      tryALSXYWing(grid, alsList),
-      tryDeathBlossom(grid, alsList),
-    ].filter((step): step is Step => step != null));
-  },
-};
+export const alsXz = makeAlsStrategy(
+  'als-xz',
+  { zh: 'ALS-XZ', en: 'ALS-XZ' },
+  80,
+  tryALSXZ,
+);
+
+export const alsXzDoublyLinked = makeAlsStrategy(
+  'als-xz-doubly-linked',
+  { zh: '双链 ALS-XZ', en: 'Doubly-linked ALS-XZ' },
+  82,
+  tryALSDoublyLinkedXZ,
+);
+
+export const alsXyWing = makeAlsStrategy(
+  'als-xy-wing',
+  { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
+  85,
+  tryALSXYWing,
+);
+
+export const deathBlossom = makeAlsStrategy(
+  'death-blossom',
+  { zh: '死亡之花', en: 'Death Blossom' },
+  88,
+  tryDeathBlossom,
+);

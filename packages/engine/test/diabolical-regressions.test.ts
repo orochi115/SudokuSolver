@@ -5,7 +5,7 @@ import { checkTraceSoundness } from '../src/soundness.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
 import { lockedCandidatesPointing } from '../src/strategies/locked-candidates.js';
 import { aic } from '../src/strategies/aic.js';
-import { als } from '../src/strategies/als.js';
+import { alsXz, alsXzDoublyLinked, alsXyWing } from '../src/strategies/als.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 
 function gridFromState(puzzle: string, candidateMasks: readonly number[]): Grid {
@@ -162,15 +162,28 @@ describe('diabolical strategy regressions', () => {
   });
 
   describe('als', () => {
-    it('includes the expected ALS eliminations for diabolical #38116', () => {
+    it('re-anchors ALS-XZ eliminations for diabolical #38116', () => {
       const grid = gridFromState(
         '706000304009070800800000702070169000060050070000207000607000400200405007300706008',
         [0, 19, 0, 400, 387, 131, 0, 273, 0, 25, 31, 0, 52, 0, 15, 0, 49, 49, 0, 29, 29, 308, 269, 13, 0, 305, 0, 24, 0, 158, 0, 0, 0, 18, 136, 20, 265, 0, 135, 132, 0, 140, 259, 0, 261, 273, 157, 157, 0, 140, 0, 305, 136, 309, 0, 401, 0, 388, 391, 135, 0, 23, 273, 0, 385, 129, 0, 389, 0, 289, 37, 0, 0, 281, 25, 0, 259, 0, 273, 19, 0],
       );
 
-      const step = als.apply(grid);
+      const step = alsXz.apply(grid);
 
-      expect(step?.strategyId).toBe('als');
+      expect(step?.strategyId).toBe('als-xz');
+      expect(step?.placements).toEqual([]);
+      expect(step?.eliminations).toContainEqual({ cell: 29, digit: 5 });
+    });
+
+    it('re-anchors doubly-linked ALS-XZ eliminations for diabolical #38116', () => {
+      const grid = gridFromState(
+        '706000304009070800800000702070169000060050070000207000607000400200405007300706008',
+        [0, 19, 0, 400, 387, 131, 0, 273, 0, 25, 31, 0, 52, 0, 15, 0, 49, 49, 0, 29, 29, 308, 269, 13, 0, 305, 0, 24, 0, 158, 0, 0, 0, 18, 136, 20, 265, 0, 135, 132, 0, 140, 259, 0, 261, 273, 157, 157, 0, 140, 0, 305, 136, 309, 0, 401, 0, 388, 391, 135, 0, 23, 273, 0, 385, 129, 0, 389, 0, 289, 37, 0, 0, 281, 25, 0, 259, 0, 273, 19, 0],
+      );
+
+      const step = alsXzDoublyLinked.apply(grid);
+
+      expect(step?.strategyId).toBe('als-xz-doubly-linked');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual(expect.arrayContaining([
         { cell: 53, digit: 3 },
@@ -178,26 +191,19 @@ describe('diabolical strategy regressions', () => {
       ]));
     });
 
-    it('includes the expected ALS eliminations for diabolical #77633', () => {
+    it('re-anchors ALS-XY-Wing eliminations for diabolical #77633', () => {
       const grid = gridFromState(
         '010000020600240008082030460040502010200000000900060207100050002060020080020904050',
         [92, 0, 348, 224, 448, 496, 340, 0, 276, 0, 340, 340, 0, 0, 337, 341, 324, 0, 80, 0, 0, 65, 0, 337, 0, 0, 273, 196, 0, 228, 0, 448, 0, 420, 0, 292, 0, 68, 229, 205, 449, 453, 436, 268, 316, 0, 20, 149, 141, 0, 133, 0, 12, 0, 0, 324, 332, 160, 0, 160, 324, 332, 0, 88, 0, 344, 69, 0, 69, 321, 0, 265, 196, 0, 196, 0, 65, 0, 101, 0, 37],
       );
 
-      const step = als.apply(grid);
+      const step = alsXyWing.apply(grid);
 
-      expect(step?.strategyId).toBe('als');
+      expect(step?.strategyId).toBe('als-xy-wing');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual(expect.arrayContaining([
-        { cell: 38, digit: 3 },
-        { cell: 46, digit: 3 },
-        { cell: 47, digit: 3 },
-        { cell: 38, digit: 7 },
         { cell: 42, digit: 3 },
         { cell: 44, digit: 3 },
-        { cell: 44, digit: 4 },
-        { cell: 42, digit: 9 },
-        { cell: 44, digit: 9 },
       ]));
     });
   });

@@ -167,13 +167,15 @@ Progress note (2026-06-18): Phase 2C completed for `uniqueness`. The implementat
 
 **Goal:** Make ALS traces human-readable; stop combining distinct ALS sub-techniques into one `als` step.
 
-- [ ] Step 1: Write restored-state tests per ALS sub-technique used by regressions, anchored on the existing #38116 / #77633 tests.
+- [x] Step 1: Write restored-state tests per ALS sub-technique used by regressions, anchored on the existing #38116 / #77633 tests.
   **Critical precondition:** `als.apply()` currently merges sub-technique results via `combineSteps()` (dedup by `cell:digit`). #38116 asserts one step with both `{cell:53,d:3}` and `{cell:9,d:4}`; #77633 asserts 9 eliminations. Before splitting, map each **test-asserted** elimination to the specific sub-technique (`als-xz` / `als-xz-doubly-linked` / `als-xy-wing` / `death-blossom`) that produces it. If a regression's asserted eliminations span multiple sub-techniques, re-anchor (split) the assertion. Contract after splitting: **full-puzzle still solved + trace sound + the specific protected deductions still produced (re-anchored to their sub-technique)** — not that the whole incidental old batch be reproduced as one unit.
-- [ ] Step 2: Run `npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633|ALS"`; confirm RED for new IDs.
-- [ ] Step 3: Refactor ALS helpers — `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` each return deductions from one pattern instance; do not combine across sub-techniques or unrelated instances.
-- [ ] Step 4: Register `alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom` in human-cost order.
-- [ ] Step 5: Verify (`-t "38116|77633|ALS"`, then full regression file, `npm run typecheck`); #38116/#77633 remain solved+sound.
-- [ ] Step 6: Commit (`refactor: split ALS techniques for tutoring traces`).
+- [x] Step 2: Run `npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633|ALS"`; confirm RED for new IDs.
+- [x] Step 3: Refactor ALS helpers — `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` each return deductions from one pattern instance; do not combine across sub-techniques or unrelated instances.
+- [x] Step 4: Register `alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom` in human-cost order.
+- [x] Step 5: Verify (`-t "38116|77633|ALS"`, then full regression file, `npm run typecheck`); #38116/#77633 remain solved+sound.
+- [x] Step 6: Commit (`refactor: split ALS techniques for tutoring traces`).
+
+Progress note (2026-06-18): Phase 3 completed. `als` is no longer registered as a broad default strategy; `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, and `death-blossom` are exported/registered separately at difficulties 80/82/85/88. The old #38116/#77633 combined ALS assertions were re-anchored to specific sub-techniques, and ALS helpers now return one found pattern instance rather than combining across ALS sub-techniques or unrelated instances.
 
 ## Phase 4: Split AIC Conservatively
 

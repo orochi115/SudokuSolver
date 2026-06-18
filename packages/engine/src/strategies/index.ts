@@ -19,7 +19,7 @@ import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
 import { simpleColoring } from './simple-coloring.js';
 import { aic } from './aic.js';
-import { als } from './als.js';
+import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from './als.js';
 import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from './uniqueness.js';
 import { sueDeCoq } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
@@ -54,7 +54,10 @@ export const STRATEGIES: readonly Strategy[] = [
   // T4 — Advanced Strategies (difficulty 60–100)
   simpleColoring,     // difficulty 60
   aic,                // difficulty 70
-  als,                // difficulty 80
+  alsXz,              // difficulty 80
+  alsXzDoublyLinked,  // difficulty 82
+  alsXyWing,          // difficulty 85
+  deathBlossom,       // difficulty 88
   bugPlusOne,         // difficulty 90
   uniqueRectangleType1, // difficulty 91
   uniqueRectangleType2, // difficulty 92
@@ -86,7 +89,10 @@ export {
   jellyfish,
   simpleColoring,
   aic,
-  als,
+  alsXz,
+  alsXzDoublyLinked,
+  alsXyWing,
+  deathBlossom,
   bugPlusOne,
   uniqueRectangleType1,
   uniqueRectangleType2,

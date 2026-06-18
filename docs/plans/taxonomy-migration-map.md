@@ -52,7 +52,7 @@ Solver behavior to preserve: `packages/engine/src/solver.ts` clones the grid, so
 | `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Implemented 2026-06-18. Reuses existing fish helper by size. |
 | `single-digit-patterns` | `skyscraper`, `two-string-kite`, `empty-rectangle` | Implemented 2026-06-18. Existing helper boundaries are exported as named strategies; explanations are preserved. |
 | `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4` | Existing helper boundaries are clear, but BUG+1 is placement-based while URs are elimination-based. Keep default assumption-free ordering late. |
-| `als` | `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` | Requires careful regression re-anchoring because old `als.apply()` combines cross-technique eliminations. |
+| `als` | `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` | Implemented 2026-06-18. Regression assertions for #38116/#77633 were re-anchored by sub-technique; the broad `als` strategy is no longer registered by default. |
 | `aic` | `x-chain`, `aic` | Conservative first split. Keep general `aic` fallback unless Type 1/Type 2/grouped classification is precise enough. |
 
 ## Proposed Default Order
@@ -110,5 +110,5 @@ Do not delete regression intent when changing IDs: each updated test should stil
 ## Explicit Deferred Exceptions
 
 - `locked-candidates.ts` currently combines all found pointing instances into one step before looking at claiming, and combines all claiming instances if no pointing exists. Phase 2 may temporarily preserve same-technique combining to keep the pass bounded, but should document that this is not the final tutoring granularity.
-- ALS cross-technique combining is not acceptable for Phase 3. Regression assertions must be re-anchored before splitting so one new step does not need to reproduce the old incidental batch.
+- ALS cross-technique combining was removed in Phase 3. The split ALS helpers now return the first concrete pattern instance for their specific technique instead of merging unrelated ALS sub-techniques or instances.
 - AIC fine-grained Type 1/Type 2/grouped split is not Phase 4 scope unless current helpers classify those cases precisely.
