@@ -220,9 +220,11 @@ Expected minimum: easy `100000/100000`, medium `352643/352643`, hard `321592/321
 - [x] Step 1: Update [`diabolical-727.md`](./diabolical-727.md): new strategies must use specific human-named IDs, avoid grouping techniques by broad family, assign `difficulty` by human recognition cost, prefer one concrete pattern instance per step, and add tests asserting the specific ID + sound deductions.
 - [x] Step 2: Record the final strategy order and old→new mapping (in this doc or `taxonomy-migration-map.md`).
 - [x] Step 3: Restate non-goals for future workers (full-corpus performance secondary to trace quality; caching is a separate optimization; no backtracking/forcing-nets/template enumeration under human-strategy labels).
-- [ ] Step 4: Commit the documentation updates.
+- [x] Step 4: Commit the documentation updates.
 
 Progress note (2026-06-18): Phase 7 documentation updates completed locally. `diabolical-727.md` now carries the taxonomy constraints for future strategy work, and `taxonomy-migration-map.md` records the final default order plus deferred exceptions. Commit remains intentionally unchecked until these documentation changes are committed.
+
+Progress note (2026-06-18): Phase 7 documentation updates were committed in `52150f8` (`docs: close taxonomy refactor planning loop`).
 
 ## Stop Conditions
 
