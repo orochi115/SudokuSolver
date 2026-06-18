@@ -285,10 +285,6 @@ function legacySearchPeerEndpointAic(grid: Grid): Step | null {
   return null;
 }
 
-function eliminationsSubset(a: Step, b: Step): boolean {
-  return a.eliminations.every((elim) => b.eliminations.some((other) => other.cell === elim.cell && other.digit === elim.digit));
-}
-
 export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
   return {
     id: 'aic',
@@ -297,33 +293,6 @@ export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
 
     apply(grid: Grid): Step | null {
       const peerEndpoint = legacySearchPeerEndpointAic(grid);
-
-      for (let digit = 1; digit <= 9; digit++) {
-        const graph = buildLinkGraph(grid, { digit, grouped: true });
-        const result = searchAic(grid, graph, policy);
-        if (result && result.eliminations.length > 0) {
-          const start = graph.nodes[result.startNode]!;
-          const end = graph.nodes[result.endNode]!;
-          const step: Step = {
-            strategyId: this.id,
-            placements: [],
-            eliminations: result.eliminations,
-            highlights: {
-              cells: result.chainNodes.flatMap((i) => graph.nodes[i]!.cells),
-              candidates: result.chainNodes.flatMap((i) =>
-                graph.nodes[i]!.cells.map((c) => ({ cell: c, digit: graph.nodes[i]!.digit })),
-              ),
-              links: result.links,
-            },
-            explanation: {
-              zh: `X-Chain（单数字交替链）：数字 ${digit} 沿强弱交替链连接 ${cellLabel(start.cells[0]!)} 与 ${cellLabel(end.cells[0]!)}，两端必有其一为真，故可见两端的格可排除 ${digit}。`,
-              en: `X-Chain: digit ${digit} forms an alternating strong/weak chain between ${cellLabel(start.cells[0]!)} and ${cellLabel(end.cells[0]!)}; one end must be true, so cells seeing both can drop ${digit}.`,
-            },
-          };
-          if (peerEndpoint && eliminationsSubset(peerEndpoint, step)) return peerEndpoint;
-          return step;
-        }
-      }
 
       if (peerEndpoint) return peerEndpoint;
 
@@ -355,4 +324,41 @@ export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
   };
 }
 
+export function makeXChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
+  return {
+    id: 'x-chain',
+    name: { zh: 'X-Chain', en: 'X-Chain' },
+    difficulty: 65,
+
+    apply(grid: Grid): Step | null {
+      for (let digit = 1; digit <= 9; digit++) {
+        const graph = buildLinkGraph(grid, { digit, grouped: true });
+        const result = searchAic(grid, graph, policy);
+        if (result && result.eliminations.length > 0) {
+          const start = graph.nodes[result.startNode]!;
+          const end = graph.nodes[result.endNode]!;
+          return {
+            strategyId: this.id,
+            placements: [],
+            eliminations: result.eliminations,
+            highlights: {
+              cells: result.chainNodes.flatMap((i) => graph.nodes[i]!.cells),
+              candidates: result.chainNodes.flatMap((i) =>
+                graph.nodes[i]!.cells.map((c) => ({ cell: c, digit: graph.nodes[i]!.digit })),
+              ),
+              links: result.links,
+            },
+            explanation: {
+              zh: `X-Chain（单数字交替链）：数字 ${digit} 沿强弱交替链连接 ${cellLabel(start.cells[0]!)} 与 ${cellLabel(end.cells[0]!)}，两端必有其一为真，故可见两端的格可排除 ${digit}。`,
+              en: `X-Chain: digit ${digit} forms an alternating strong/weak chain between ${cellLabel(start.cells[0]!)} and ${cellLabel(end.cells[0]!)}; one end must be true, so cells seeing both can drop ${digit}.`,
+            },
+          };
+        }
+      }
+      return null;
+    },
+  };
+}
+
+export const xChain: Strategy = makeXChain();
 export const aic: Strategy = makeAic();

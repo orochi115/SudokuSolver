@@ -688,6 +688,7 @@ describe('STRATEGIES registry', () => {
       'jellyfish',
       // M3 strategies
       'simple-coloring',
+      'x-chain',
       'aic',
       'als-xz',
       'als-xz-doubly-linked',

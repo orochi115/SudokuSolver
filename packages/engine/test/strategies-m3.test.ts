@@ -15,7 +15,7 @@ import { checkTraceSoundness } from '../src/soundness.js';
 import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 import { simpleColoring } from '../src/strategies/simple-coloring.js';
-import { aic, makeAic } from '../src/strategies/aic.js';
+import { aic, makeAic, xChain } from '../src/strategies/aic.js';
 import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from '../src/strategies/als.js';
 import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from '../src/strategies/uniqueness.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
@@ -139,6 +139,12 @@ describe('simple-coloring', () => {
 // ============================================================
 
 describe('aic', () => {
+  it('splits x-chain from general AIC with lower difficulty', () => {
+    expect(xChain.id).toBe('x-chain');
+    expect(xChain.difficulty).toBeGreaterThanOrEqual(60);
+    expect(xChain.difficulty).toBeLessThan(aic.difficulty);
+  });
+
   it('has stable id and difficulty in band 70', () => {
     expect(aic.id).toBe('aic');
     expect(aic.difficulty).toBeGreaterThanOrEqual(65);
@@ -189,8 +195,8 @@ describe('aic', () => {
     ];
 
     for (const item of cases) {
-      const step = aic.apply(gridFromState(item.grid, item.masks));
-      expect(step?.strategyId).toBe('aic');
+      const step = xChain.apply(gridFromState(item.grid, item.masks));
+      expect(step?.strategyId).toBe('x-chain');
       for (const expected of item.expectedEliminations) {
         expect(step?.eliminations).toContainEqual(expected);
       }

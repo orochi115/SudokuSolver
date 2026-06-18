@@ -181,12 +181,14 @@ Progress note (2026-06-18): Phase 3 completed. `als` is no longer registered as 
 
 **Goal:** Separate easier chain techniques from general AIC without destabilizing chain coverage.
 
-- [ ] Step 1: Classify current `aic.ts` returns (single-digit grouped X-Chain / AIC endpoint Type 1 / Type 2 / peer-endpoint legacy / legacy fallback). Possibly inspect `chain/aic-search.ts`.
-- [ ] Step 2: Add minimal ID tests proving a single-digit chain uses `x-chain`, not broad `aic`.
-- [ ] Step 3: Split only the low-risk `x-chain` first; keep general `aic` as fallback. Do not split Type1/2/grouped unless classification is precise enough.
-- [ ] Step 4: Re-register `xChain, aic` (or finer variants if safe).
-- [ ] Step 5: Verify (`strategies-m3.test.ts`, `diabolical-regressions.test.ts`, `npm run typecheck`).
+- [x] Step 1: Classify current `aic.ts` returns (single-digit grouped X-Chain / AIC endpoint Type 1 / Type 2 / peer-endpoint legacy / legacy fallback). Possibly inspect `chain/aic-search.ts`.
+- [x] Step 2: Add minimal ID tests proving a single-digit chain uses `x-chain`, not broad `aic`.
+- [x] Step 3: Split only the low-risk `x-chain` first; keep general `aic` as fallback. Do not split Type1/2/grouped unless classification is precise enough.
+- [x] Step 4: Re-register `xChain, aic` (or finer variants if safe).
+- [x] Step 5: Verify (`strategies-m3.test.ts`, `diabolical-regressions.test.ts`, `npm run typecheck`).
 - [ ] Step 6: Commit (`refactor: separate x-chain from general AIC`).
+
+Progress note (2026-06-18): Phase 4 conservative split completed for `x-chain` only. The existing single-digit grouped AIC/X-Chain search is now exported and registered as `x-chain` at difficulty 65 before broad `aic` at difficulty 70. The broad `aic` strategy remains as the peer-endpoint/general grouped/legacy fallback; Type 1/Type 2/grouped AIC were intentionally not split in this pass.
 
 ## Phase 5: Full Engine Verification
 
