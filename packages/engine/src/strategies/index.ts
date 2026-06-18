@@ -20,7 +20,7 @@ import { wWing } from './w-wing.js';
 import { simpleColoring } from './simple-coloring.js';
 import { aic } from './aic.js';
 import { als } from './als.js';
-import { uniqueness } from './uniqueness.js';
+import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from './uniqueness.js';
 import { sueDeCoq } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
 
@@ -55,7 +55,10 @@ export const STRATEGIES: readonly Strategy[] = [
   simpleColoring,     // difficulty 60
   aic,                // difficulty 70
   als,                // difficulty 80
-  uniqueness,         // difficulty 90
+  bugPlusOne,         // difficulty 90
+  uniqueRectangleType1, // difficulty 91
+  uniqueRectangleType2, // difficulty 92
+  uniqueRectangleType4, // difficulty 93
   sueDeCoq,           // difficulty 95
   forcingChain,       // difficulty 100
 ];
@@ -84,7 +87,10 @@ export {
   simpleColoring,
   aic,
   als,
-  uniqueness,
+  bugPlusOne,
+  uniqueRectangleType1,
+  uniqueRectangleType2,
+  uniqueRectangleType4,
   sueDeCoq,
   forcingChain,
 };

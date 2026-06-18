@@ -17,7 +17,7 @@ import { STRATEGIES } from '../src/strategies/index.js';
 import { simpleColoring } from '../src/strategies/simple-coloring.js';
 import { aic, makeAic } from '../src/strategies/aic.js';
 import { als } from '../src/strategies/als.js';
-import { uniqueness } from '../src/strategies/uniqueness.js';
+import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from '../src/strategies/uniqueness.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
 
@@ -33,6 +33,10 @@ function gridFromState(s: string, candidateMasks: readonly number[]): Grid {
   const grid = Grid.fromString(s);
   grid.candidates.set(candidateMasks);
   return grid;
+}
+
+function candidateMask(...digits: number[]): number {
+  return digits.reduce((mask, digit) => mask | (1 << (digit - 1)), 0);
 }
 
 function assertSoundStep(
@@ -292,33 +296,76 @@ describe('als', () => {
 // ============================================================
 
 describe('uniqueness', () => {
-  it('has stable id and difficulty in band 90', () => {
-    expect(uniqueness.id).toBe('uniqueness');
-    expect(uniqueness.difficulty).toBeGreaterThanOrEqual(85);
-    expect(uniqueness.difficulty).toBeLessThanOrEqual(95);
+  it('has stable ids and late default difficulties', () => {
+    expect(bugPlusOne.id).toBe('bug-plus-one');
+    expect(bugPlusOne.difficulty).toBe(90);
+    expect(uniqueRectangleType1.id).toBe('unique-rectangle-type-1');
+    expect(uniqueRectangleType1.difficulty).toBe(91);
+    expect(uniqueRectangleType2.id).toBe('unique-rectangle-type-2');
+    expect(uniqueRectangleType2.difficulty).toBe(92);
+    expect(uniqueRectangleType4.id).toBe('unique-rectangle-type-4');
+    expect(uniqueRectangleType4.difficulty).toBe(93);
+  });
+
+  it('reports each uniqueness technique with a specific strategy id', () => {
+    const ur1Masks = Array<number>(81).fill(0);
+    ur1Masks[0] = candidateMask(1, 2);
+    ur1Masks[3] = candidateMask(1, 2);
+    ur1Masks[9] = candidateMask(1, 2);
+    ur1Masks[12] = candidateMask(1, 2, 3);
+    expect(uniqueRectangleType1.apply(gridFromState('0'.repeat(81), ur1Masks))?.strategyId).toBe('unique-rectangle-type-1');
+
+    const ur2Masks = Array<number>(81).fill(0);
+    ur2Masks[0] = candidateMask(1, 2);
+    ur2Masks[3] = candidateMask(1, 2);
+    ur2Masks[9] = candidateMask(1, 2, 3);
+    ur2Masks[10] = candidateMask(3);
+    ur2Masks[12] = candidateMask(1, 2, 3);
+    expect(uniqueRectangleType2.apply(gridFromState('0'.repeat(81), ur2Masks))?.strategyId).toBe('unique-rectangle-type-2');
+
+    const ur4Masks = Array<number>(81).fill(0);
+    ur4Masks[0] = candidateMask(1, 2);
+    ur4Masks[3] = candidateMask(1, 2);
+    ur4Masks[9] = candidateMask(1, 2, 3);
+    ur4Masks[12] = candidateMask(1, 2, 3);
+    expect(uniqueRectangleType4.apply(gridFromState('0'.repeat(81), ur4Masks))?.strategyId).toBe('unique-rectangle-type-4');
+
+    const bugPuzzle = '004678912002195348198342567859761423426853791713924856961537284287419635345286179';
+    const bugMasks = Array<number>(81).fill(0);
+    bugMasks[0] = candidateMask(1, 2, 3);
+    bugMasks[1] = candidateMask(1, 2);
+    bugMasks[9] = candidateMask(1, 2);
+    bugMasks[10] = candidateMask(1, 2);
+    expect(bugPlusOne.apply(gridFromState(bugPuzzle, bugMasks))?.strategyId).toBe('bug-plus-one');
   });
 
   it('does not modify the grid', () => {
-    for (const puzzle of HARD_PUZZLES) {
-      assertNoMutation(puzzle, uniqueness);
+    for (const strategy of [bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4]) {
+      for (const puzzle of HARD_PUZZLES) {
+        assertNoMutation(puzzle, strategy);
+      }
     }
   });
 
-  it('eliminations are present in grid when it fires', () => {
-    for (const puzzle of HARD_PUZZLES) {
-      const g = gridFrom(puzzle);
-      const step = uniqueness.apply(g);
-      if (step) assertElimsPresent(puzzle, step);
+  it('eliminations are present in grid when they fire', () => {
+    for (const strategy of [uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4]) {
+      for (const puzzle of HARD_PUZZLES) {
+        const g = gridFrom(puzzle);
+        const step = strategy.apply(g);
+        if (step) assertElimsPresent(puzzle, step);
+      }
     }
   });
 
   it('is sound when it fires', () => {
-    for (const puzzle of HARD_PUZZLES) {
-      const g = gridFrom(puzzle);
-      const solution = solveBruteforce(puzzle);
-      if (!solution) continue;
-      const step = uniqueness.apply(g);
-      if (step) assertSoundStep(puzzle, step);
+    for (const strategy of [bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4]) {
+      for (const puzzle of HARD_PUZZLES) {
+        const g = gridFrom(puzzle);
+        const solution = solveBruteforce(puzzle);
+        if (!solution) continue;
+        const step = strategy.apply(g);
+        if (step) assertSoundStep(puzzle, step);
+      }
     }
   });
 });

@@ -161,6 +161,8 @@ Progress note (2026-06-18): Phase 2A completed for `locked-candidates` only. The
 
 Progress note (2026-06-18): Phase 2B completed for the low-risk mechanical families `naked-subset`, `hidden-subset`, `basic-fish`, and `single-digit-patterns`. The implementation now exports/registers `naked-pair`, `hidden-pair`, `naked-triple`, `hidden-triple`, `naked-quad`, `hidden-quad`, `x-wing`, `skyscraper`, `two-string-kite`, `empty-rectangle`, `swordfish`, and `jellyfish` in the intended human-cost order, with RED/GREEN tests asserting specific IDs. `uniqueness` remains pending as the remaining Phase 2 medium-risk family.
 
+Progress note (2026-06-18): Phase 2C completed for `uniqueness`. The implementation now exports/registers `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, and `unique-rectangle-type-4` in the assumption-free late default order (90-93), with RED/GREEN tests asserting each specific ID. Existing helper logic was reused without adding solving power.
+
 ## Phase 3: Split ALS Family
 
 **Goal:** Make ALS traces human-readable; stop combining distinct ALS sub-techniques into one `als` step.

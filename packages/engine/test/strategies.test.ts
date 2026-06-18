@@ -690,7 +690,10 @@ describe('STRATEGIES registry', () => {
       'simple-coloring',
       'aic',
       'als',
-      'uniqueness',
+      'bug-plus-one',
+      'unique-rectangle-type-1',
+      'unique-rectangle-type-2',
+      'unique-rectangle-type-4',
       'sue-de-coq',
       'forcing-chain',
     ];

@@ -57,7 +57,7 @@ function* allRectangles(): Generator<[number, number, number, number]> {
 
 /** UR Type 1: Three corners have exactly digits {X,Y}, one corner has extra candidates.
  * Eliminate X and Y from the floor corner (the one with extra candidates). */
-function tryURType1(grid: Grid): Step | null {
+function tryURType1(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
 
@@ -88,7 +88,7 @@ function tryURType1(grid: Grid): Step | null {
 
     const [x, y] = urDigits as [number, number];
     return {
-      strategyId: 'uniqueness',
+      strategyId,
       placements: [],
       eliminations: elims,
       highlights: {
@@ -108,7 +108,7 @@ function tryURType1(grid: Grid): Step | null {
 /** UR Type 2: Two floor cells (same row or col) each have exactly one extra
  * candidate beyond the UR pair, and that extra candidate is the SAME digit Z.
  * Eliminate Z from cells seeing both floor cells. */
-function tryURType2(grid: Grid): Step | null {
+function tryURType2(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
@@ -150,7 +150,7 @@ function tryURType2(grid: Grid): Step | null {
 
     const [x, y] = digitsOf(intersect) as [number, number];
     return {
-      strategyId: 'uniqueness',
+      strategyId,
       placements: [],
       eliminations: elims,
       highlights: {
@@ -171,7 +171,7 @@ function tryURType2(grid: Grid): Step | null {
  * in the row/col/box containing the floor cells, one of the UR digits X can
  * ONLY appear in the floor cells. Then X is locked there → Y can be eliminated
  * from both floor cells. */
-function tryURType4(grid: Grid): Step | null {
+function tryURType4(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
@@ -212,7 +212,7 @@ function tryURType4(grid: Grid): Step | null {
         if (elims.length === 0) continue;
 
         return {
-          strategyId: 'uniqueness',
+          strategyId,
           placements: [],
           eliminations: elims,
           highlights: {
@@ -248,7 +248,7 @@ function getCommonHouses(c1: number, c2: number): number[] {
  * in more than one house — that's the BUG+1 digit and it must go in the
  * special cell.
  */
-function tryBUGPlus1(grid: Grid): Step | null {
+function tryBUGPlus1(grid: Grid, strategyId: string): Step | null {
   const emptyCells: number[] = [];
   for (let c = 0; c < CELLS; c++) {
     if (grid.get(c) === 0) emptyCells.push(c);
@@ -294,7 +294,7 @@ function tryBUGPlus1(grid: Grid): Step | null {
   const bugDigit = bugDigits[0]!;
 
   return {
-    strategyId: 'uniqueness',
+    strategyId,
     placements: [{ cell: specialCell, digit: bugDigit }],
     eliminations: [],
     highlights: {
@@ -309,24 +309,42 @@ function tryBUGPlus1(grid: Grid): Step | null {
   };
 }
 
-export const uniqueness: Strategy = {
-  id: 'uniqueness',
-  name: { zh: '唯一性技巧', en: 'Uniqueness' },
+export const bugPlusOne: Strategy = {
+  id: 'bug-plus-one',
+  name: { zh: 'BUG+1', en: 'BUG+1' },
   difficulty: 90,
 
   apply(grid: Grid): Step | null {
-    const ur1 = tryURType1(grid);
-    if (ur1) return ur1;
+    return tryBUGPlus1(grid, 'bug-plus-one');
+  },
+};
 
-    const ur2 = tryURType2(grid);
-    if (ur2) return ur2;
+export const uniqueRectangleType1: Strategy = {
+  id: 'unique-rectangle-type-1',
+  name: { zh: '唯一矩形 Type 1', en: 'Unique Rectangle Type 1' },
+  difficulty: 91,
 
-    const ur4 = tryURType4(grid);
-    if (ur4) return ur4;
+  apply(grid: Grid): Step | null {
+    return tryURType1(grid, 'unique-rectangle-type-1');
+  },
+};
 
-    const bug = tryBUGPlus1(grid);
-    if (bug) return bug;
+export const uniqueRectangleType2: Strategy = {
+  id: 'unique-rectangle-type-2',
+  name: { zh: '唯一矩形 Type 2', en: 'Unique Rectangle Type 2' },
+  difficulty: 92,
 
-    return null;
+  apply(grid: Grid): Step | null {
+    return tryURType2(grid, 'unique-rectangle-type-2');
+  },
+};
+
+export const uniqueRectangleType4: Strategy = {
+  id: 'unique-rectangle-type-4',
+  name: { zh: '唯一矩形 Type 4', en: 'Unique Rectangle Type 4' },
+  difficulty: 93,
+
+  apply(grid: Grid): Step | null {
+    return tryURType4(grid, 'unique-rectangle-type-4');
   },
 };
