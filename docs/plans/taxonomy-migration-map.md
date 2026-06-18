@@ -46,7 +46,7 @@ Solver behavior to preserve: `packages/engine/src/solver.ts` clones the grid, so
 
 | Old strategyId | New strategyId(s) | Notes |
 | --- | --- | --- |
-| `locked-candidates` | `locked-candidates-pointing`, `locked-candidates-claiming` | Split by named sub-technique. Current board-wide same-technique combining should be flagged as temporary if retained. |
+| `locked-candidates` | `locked-candidates-pointing`, `locked-candidates-claiming` | Implemented 2026-06-18. Split by named sub-technique; current board-wide same-technique combining is retained as a temporary deferred exception. |
 | `naked-subset` | `naked-pair`, `naked-triple`, `naked-quad` | Reuse existing size search. Register each size as its own strategy. |
 | `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Reuse existing size search. Register each size as its own strategy. |
 | `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Reuse existing fish helper by size. |
@@ -64,8 +64,8 @@ The exact numeric values may still change during implementation, but default ord
 | `full-house` | 4 | Existing `full-house`. |
 | `naked-single` | 10 | Existing `naked-single`. |
 | `hidden-single` | 12 | Existing `hidden-single`; currently 10. |
-| `locked-candidates-pointing` | 20 | Split from `locked-candidates`. |
-| `locked-candidates-claiming` | 22 | Split from `locked-candidates`. |
+| `locked-candidates-pointing` | 20 | Implemented; split from `locked-candidates`. |
+| `locked-candidates-claiming` | 22 | Implemented; split from `locked-candidates`. |
 | `naked-pair` | 30 | Split from `naked-subset`. |
 | `hidden-pair` | 32 | Split from `hidden-subset`. |
 | `naked-triple` | 34 | Split from `naked-subset`. |
@@ -101,9 +101,9 @@ Tests with expected strategy IDs or direct imports that must be updated during i
 
 | Test file | Current dependency | Future action |
 | --- | --- | --- |
-| `packages/engine/test/strategies.test.ts` | Imports and asserts `lockedCandidates`, `nakedSubset`, `hiddenSubset`, `basicFish`, `singleDigitPatterns`; registry required IDs include old broad family IDs. | Replace/import split exports and assert new IDs for pointing/claiming, subset sizes, fish sizes, and single-digit patterns. Keep soundness and no-mutation assertions. |
+| `packages/engine/test/strategies.test.ts` | Imports and asserts split `locked-candidates` exports plus remaining broad `nakedSubset`, `hiddenSubset`, `basicFish`, `singleDigitPatterns`; registry required IDs include the split locked-candidates IDs plus remaining old broad family IDs. | Locked-candidates pointing/claiming coverage is complete. Replace/import split exports and assert new IDs for subset sizes, fish sizes, and single-digit patterns. Keep soundness and no-mutation assertions. |
 | `packages/engine/test/strategies-m3.test.ts` | Imports and asserts `aic`, `als`, `uniqueness`; broad ID assertions appear in AIC/ALS/uniqueness sections. | For Phase 2, update uniqueness ID tests. For Phase 3/4, re-anchor ALS/AIC tests after sub-technique classification. |
-| `packages/engine/test/diabolical-regressions.test.ts` | Imports `lockedCandidates`, `aic`, `als`; asserts broad IDs for locked candidates, ALS, and AIC restored states. | Update locked-candidate restored states in Phase 2. Re-anchor ALS #38116/#77633 eliminations before Phase 3. Reclassify AIC restored states before Phase 4. |
+| `packages/engine/test/diabolical-regressions.test.ts` | Imports split `lockedCandidatesPointing`, plus broad `aic`, `als`; asserts split locked-candidates IDs and broad ALS/AIC IDs for restored states. | Locked-candidate restored states are updated. Re-anchor ALS #38116/#77633 eliminations before Phase 3. Reclassify AIC restored states before Phase 4. |
 
 Do not delete regression intent when changing IDs: each updated test should still prove the protected deduction is sound and present in the restored candidate state.
 

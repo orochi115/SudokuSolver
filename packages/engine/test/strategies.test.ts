@@ -13,7 +13,7 @@ import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
 import { fullHouse } from '../src/strategies/full-house.js';
 import { hiddenSingle } from '../src/strategies/hidden-single.js';
-import { lockedCandidates } from '../src/strategies/locked-candidates.js';
+import { lockedCandidatesPointing, lockedCandidatesClaiming } from '../src/strategies/locked-candidates.js';
 import { nakedSubset } from '../src/strategies/naked-subset.js';
 import { hiddenSubset } from '../src/strategies/hidden-subset.js';
 import { basicFish } from '../src/strategies/basic-fish.js';
@@ -148,9 +148,47 @@ describe('hidden-single', () => {
 // ============================================================
 
 describe('locked-candidates', () => {
+  function strategyById(id: string) {
+    return STRATEGIES.find((s) => s.id === id);
+  }
+
   it('has stable id', () => {
-    expect(lockedCandidates.id).toBe('locked-candidates');
-    expect(lockedCandidates.difficulty).toBe(20);
+    expect(lockedCandidatesPointing.id).toBe('locked-candidates-pointing');
+    expect(lockedCandidatesPointing.difficulty).toBe(20);
+    expect(lockedCandidatesClaiming.id).toBe('locked-candidates-claiming');
+    expect(lockedCandidatesClaiming.difficulty).toBe(22);
+  });
+
+  it('reports pointing with a specific strategy id', () => {
+    const pointing = strategyById('locked-candidates-pointing');
+    expect(pointing).toBeDefined();
+
+    const grid = gridFromState(
+      '500000820030000006000705000050492080007051460040670010000186000800000630064000008',
+      [0, 321, 289, 260, 45, 268, 0, 0, 333, 331, 0, 387, 386, 11, 392, 337, 344, 0, 299, 387, 419, 0, 47, 0, 261, 264, 269, 37, 0, 37, 0, 0, 0, 68, 0, 68, 262, 386, 0, 132, 0, 0, 0, 0, 262, 262, 0, 390, 0, 0, 132, 278, 0, 278, 326, 322, 278, 0, 0, 0, 338, 344, 346, 0, 323, 275, 274, 10, 328, 0, 0, 347, 327, 0, 0, 278, 6, 324, 339, 336, 0],
+    );
+
+    const step = pointing!.apply(grid);
+
+    expect(step?.strategyId).toBe('locked-candidates-pointing');
+    expect(step?.eliminations).toContainEqual({ cell: 72, digit: 3 });
+  });
+
+  it('reports claiming with a specific strategy id', () => {
+    const claiming = strategyById('locked-candidates-claiming');
+    expect(claiming).toBeDefined();
+
+    const masks = Array<number>(81).fill(0);
+    for (const cell of [0, 1, 9, 10]) masks[cell] = 1 << (5 - 1);
+    const grid = gridFromState('0'.repeat(81), masks);
+
+    const step = claiming!.apply(grid);
+
+    expect(step?.strategyId).toBe('locked-candidates-claiming');
+    expect(step?.eliminations).toEqual(expect.arrayContaining([
+      { cell: 9, digit: 5 },
+      { cell: 10, digit: 5 },
+    ]));
   });
 
   it('finds a locked-candidates elimination and it is sound', () => {
@@ -160,9 +198,9 @@ describe('locked-candidates', () => {
     const solution = solveBruteforce(puzzle);
     expect(solution).not.toBeNull();
 
-    const step = lockedCandidates.apply(g);
+    const step = lockedCandidatesPointing.apply(g);
     expect(step).not.toBeNull();
-    expect(step!.strategyId).toBe('locked-candidates');
+    expect(step!.strategyId).toBe('locked-candidates-pointing');
     expect(step!.eliminations.length).toBeGreaterThan(0);
     assertSoundStep(puzzle, step!);
   });
@@ -170,7 +208,7 @@ describe('locked-candidates', () => {
   it('elimination candidates are actually present in grid', () => {
     const puzzle = '000000085000210090080000000500800000000040000000001004000000050090026000840000000';
     const g = gridFrom(puzzle);
-    const step = lockedCandidates.apply(g);
+    const step = lockedCandidatesPointing.apply(g);
     if (step) {
       for (const e of step.eliminations) {
         expect(g.hasCandidate(e.cell, e.digit)).toBe(true);
@@ -182,7 +220,7 @@ describe('locked-candidates', () => {
     const puzzle = '000000085000210090080000000500800000000040000000001004000000050090026000840000000';
     const g = gridFrom(puzzle);
     const before = g.toString();
-    lockedCandidates.apply(g);
+    lockedCandidatesPointing.apply(g);
     expect(g.toString()).toBe(before);
   });
 });
@@ -544,7 +582,8 @@ describe('STRATEGIES registry', () => {
       'full-house',
       'naked-single',
       'hidden-single',
-      'locked-candidates',
+      'locked-candidates-pointing',
+      'locked-candidates-claiming',
       'naked-subset',
       'hidden-subset',
       'basic-fish',

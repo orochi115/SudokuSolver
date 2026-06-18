@@ -9,7 +9,7 @@ import type { Strategy } from '../strategy.js';
 import { fullHouse } from './full-house.js';
 import { nakedSingle } from './naked-single.js';
 import { hiddenSingle } from './hidden-single.js';
-import { lockedCandidates } from './locked-candidates.js';
+import { lockedCandidatesPointing, lockedCandidatesClaiming } from './locked-candidates.js';
 import { nakedSubset } from './naked-subset.js';
 import { hiddenSubset } from './hidden-subset.js';
 import { basicFish } from './basic-fish.js';
@@ -31,7 +31,8 @@ export const STRATEGIES: readonly Strategy[] = [
   hiddenSingle,       // difficulty 10
 
   // T2 — Intersections & Subsets (difficulty 20–30)
-  lockedCandidates,   // difficulty 20
+  lockedCandidatesPointing, // difficulty 20
+  lockedCandidatesClaiming, // difficulty 22
   nakedSubset,        // difficulty 30
   hiddenSubset,       // difficulty 30
 
@@ -55,7 +56,8 @@ export {
   fullHouse,
   nakedSingle,
   hiddenSingle,
-  lockedCandidates,
+  lockedCandidatesPointing,
+  lockedCandidatesClaiming,
   nakedSubset,
   hiddenSubset,
   basicFish,

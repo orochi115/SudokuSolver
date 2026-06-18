@@ -3,7 +3,7 @@ import { Grid } from '../src/grid.js';
 import { solve } from '../src/solver.js';
 import { checkTraceSoundness } from '../src/soundness.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
-import { lockedCandidates } from '../src/strategies/locked-candidates.js';
+import { lockedCandidatesPointing } from '../src/strategies/locked-candidates.js';
 import { aic } from '../src/strategies/aic.js';
 import { als } from '../src/strategies/als.js';
 import { STRATEGIES } from '../src/strategies/index.js';
@@ -89,9 +89,9 @@ describe('diabolical strategy regressions', () => {
         [0, 321, 289, 260, 45, 268, 0, 0, 333, 331, 0, 387, 386, 11, 392, 337, 344, 0, 299, 387, 419, 0, 47, 0, 261, 264, 269, 37, 0, 37, 0, 0, 0, 68, 0, 68, 262, 386, 0, 132, 0, 0, 0, 0, 262, 262, 0, 390, 0, 0, 132, 278, 0, 278, 326, 322, 278, 0, 0, 0, 338, 344, 346, 0, 323, 275, 274, 10, 328, 0, 0, 347, 327, 0, 0, 278, 6, 324, 339, 336, 0],
       );
 
-      const step = lockedCandidates.apply(grid);
+      const step = lockedCandidatesPointing.apply(grid);
 
-      expect(step?.strategyId).toBe('locked-candidates');
+      expect(step?.strategyId).toBe('locked-candidates-pointing');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toContainEqual({ cell: 72, digit: 3 });
     });
@@ -102,9 +102,9 @@ describe('diabolical strategy regressions', () => {
         [0, 408, 440, 131, 385, 394, 186, 314, 0, 392, 0, 0, 0, 0, 0, 0, 264, 392, 440, 408, 0, 134, 388, 398, 0, 314, 426, 176, 144, 0, 0, 0, 0, 0, 50, 162, 0, 472, 472, 148, 0, 404, 152, 88, 0, 440, 0, 504, 144, 0, 400, 184, 0, 232, 273, 0, 336, 87, 0, 22, 6, 0, 322, 153, 218, 216, 0, 133, 0, 14, 75, 74, 0, 458, 456, 195, 129, 130, 42, 363, 0],
       );
 
-      const step = lockedCandidates.apply(grid);
+      const step = lockedCandidatesPointing.apply(grid);
 
-      expect(step?.strategyId).toBe('locked-candidates');
+      expect(step?.strategyId).toBe('locked-candidates-pointing');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual(expect.arrayContaining([{ cell: 54, digit: 5 }, { cell: 56, digit: 5 }]));
     });
@@ -115,9 +115,9 @@ describe('diabolical strategy regressions', () => {
         [0, 76, 205, 0, 216, 20, 77, 0, 9, 233, 0, 205, 236, 234, 38, 0, 195, 11, 232, 108, 0, 0, 234, 38, 332, 450, 266, 0, 72, 0, 0, 329, 257, 265, 0, 0, 472, 0, 456, 120, 0, 305, 297, 257, 297, 280, 0, 264, 56, 312, 0, 0, 0, 0, 313, 60, 269, 52, 307, 0, 0, 259, 307, 369, 116, 0, 180, 433, 309, 353, 0, 305, 369, 0, 321, 48, 307, 0, 353, 323, 0],
       );
 
-      const step = lockedCandidates.apply(grid);
+      const step = lockedCandidatesPointing.apply(grid);
 
-      expect(step?.strategyId).toBe('locked-candidates');
+      expect(step?.strategyId).toBe('locked-candidates-pointing');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual(expect.arrayContaining([
         { cell: 54, digit: 5 },

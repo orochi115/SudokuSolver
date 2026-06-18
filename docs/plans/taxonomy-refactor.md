@@ -157,6 +157,8 @@ Phase 1 audit output is recorded in [`taxonomy-migration-map.md`](./taxonomy-mig
 - [ ] Step 5: Re-run targeted tests + `npm run typecheck`.
 - [ ] Step 6: Commit (`refactor: split strategy taxonomy by human technique`).
 
+Progress note (2026-06-18): Phase 2A completed for `locked-candidates` only. The implementation now exports and registers `locked-candidates-pointing` (difficulty 20) and `locked-candidates-claiming` (difficulty 22), with RED/GREEN tests for both IDs. Same-technique board-wide combining is intentionally preserved as the existing documented deferred exception; the remaining Phase 2 families are still pending.
+
 ## Phase 3: Split ALS Family
 
 **Goal:** Make ALS traces human-readable; stop combining distinct ALS sub-techniques into one `als` step.
