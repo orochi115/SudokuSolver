@@ -202,7 +202,7 @@ Progress note (2026-06-18): Phase 5 completed. Targeted diabolical regressions, 
 
 **Goal:** Verify no solved-count / validity / error regression across the full OpenSudoku corpus.
 
-- [ ] Step 1: Run the full corpus on the current working tree:
+- [x] Step 1: Run the full corpus on the current working tree:
 
 ```bash
 npm run corpus:run -- --out /tmp/taxonomy-rerun.json --workers 12
@@ -210,8 +210,10 @@ npm run corpus:run -- --out /tmp/taxonomy-rerun.json --workers 12
 
 Expected minimum: easy `100000/100000`, medium `352643/352643`, hard `321592/321592`, diabolical ≥ `118954/119681`, invalid `0`, errors `0`.
 
-- [ ] Step 2: Compare against the baseline. If any solved count drops, any invalid appears, or any error appears: **STOP.** Reproduce the first regressing puzzle directly with the engine, add a failing case to `packages/engine/test/diabolical-regressions.test.ts`, fix the root cause, rerun.
-- [ ] Step 3: Confirm the stuck set is unchanged — regenerate `data/failing-diabolical/` per its README and expect **no diff** (this refactor adds no solving power). If it changed, investigate before proceeding.
+- [x] Step 2: Compare against the baseline. If any solved count drops, any invalid appears, or any error appears: **STOP.** Reproduce the first regressing puzzle directly with the engine, add a failing case to `packages/engine/test/diabolical-regressions.test.ts`, fix the root cause, rerun.
+- [x] Step 3: Confirm the stuck set is unchanged — regenerate `data/failing-diabolical/` per its README and expect **no diff** (this refactor adds no solving power). If it changed, investigate before proceeding.
+
+Progress note (2026-06-19): Phase 6 completed on the current working tree. `npm run corpus:run -- --out /tmp/taxonomy-rerun.json --workers 12` matched the baseline exactly: easy `100000/100000`, medium `352643/352643`, hard `321592/321592`, diabolical `118954/119681`, invalid solved `0`, errors `0`. The diabolical failure set from `/tmp/taxonomy-rerun.json` contains 727 puzzles and matches `data/failing-diabolical/puzzles.txt` exactly (`missing=0`, `added=0`).
 
 ## Phase 7: Documentation Updates for Future Strategy Expansion
 
