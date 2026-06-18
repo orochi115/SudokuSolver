@@ -149,13 +149,13 @@ Phase 1 audit output is recorded in [`taxonomy-migration-map.md`](./taxonomy-mig
 
 **Risk note:** `locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, `single-digit-patterns` are low-risk (clear internal boundary, own `Step`). `uniqueness` is **medium-risk**: `tryURType1/2/4` and `tryBUGPlus1` are separate helpers but all currently return `strategyId: 'uniqueness'` with no discriminator, and BUG+1 is a placement pattern unlike elimination-based URs — the split must add a per-technique id, not just relocate code. Do the five mechanical families first, then `uniqueness`.
 
-- [ ] Step 1: Write/extend failing tests asserting each split sub-technique reports its specific `strategyId` (coverage: pointing/claiming; x-wing/swordfish/jellyfish; skyscraper/two-string-kite/empty-rectangle; naked & hidden pair/triple/quad; UR type-1/2/4 + bug-plus-one).
-- [ ] Step 2: Run targeted tests, confirm RED where IDs not yet changed:
+- [x] Step 1: Write/extend failing tests asserting each split sub-technique reports its specific `strategyId` (coverage: pointing/claiming; x-wing/swordfish/jellyfish; skyscraper/two-string-kite/empty-rectangle; naked & hidden pair/triple/quad; UR type-1/2/4 + bug-plus-one).
+- [x] Step 2: Run targeted tests, confirm RED where IDs not yet changed:
   `npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts packages/engine/test/diabolical-regressions.test.ts`
-- [ ] Step 3: Implement minimal splits — reuse existing helpers; export one `Strategy` per human-named technique; each `apply()` returns one concrete pattern instance; no caching.
-- [ ] Step 4: Update `strategies/index.ts` ordering to human-cost order.
-- [ ] Step 5: Re-run targeted tests + `npm run typecheck`.
-- [ ] Step 6: Commit (`refactor: split strategy taxonomy by human technique`).
+- [x] Step 3: Implement minimal splits — reuse existing helpers; export one `Strategy` per human-named technique; each `apply()` returns one concrete pattern instance; no caching.
+- [x] Step 4: Update `strategies/index.ts` ordering to human-cost order.
+- [x] Step 5: Re-run targeted tests + `npm run typecheck`.
+- [x] Step 6: Commit (`refactor: split strategy taxonomy by human technique`).
 
 Progress note (2026-06-18): Phase 2A completed for `locked-candidates` only. The implementation now exports and registers `locked-candidates-pointing` (difficulty 20) and `locked-candidates-claiming` (difficulty 22), with RED/GREEN tests for both IDs. Same-technique board-wide combining is intentionally preserved as the existing documented deferred exception; the remaining Phase 2 families are still pending.
 
@@ -186,15 +186,17 @@ Progress note (2026-06-18): Phase 3 completed. `als` is no longer registered as 
 - [x] Step 3: Split only the low-risk `x-chain` first; keep general `aic` as fallback. Do not split Type1/2/grouped unless classification is precise enough.
 - [x] Step 4: Re-register `xChain, aic` (or finer variants if safe).
 - [x] Step 5: Verify (`strategies-m3.test.ts`, `diabolical-regressions.test.ts`, `npm run typecheck`).
-- [ ] Step 6: Commit (`refactor: separate x-chain from general AIC`).
+- [x] Step 6: Commit (`refactor: separate x-chain from general AIC`).
 
 Progress note (2026-06-18): Phase 4 conservative split completed for `x-chain` only. The existing single-digit grouped AIC/X-Chain search is now exported and registered as `x-chain` at difficulty 65 before broad `aic` at difficulty 70. The broad `aic` strategy remains as the peer-endpoint/general grouped/legacy fallback; Type 1/Type 2/grouped AIC were intentionally not split in this pass.
 
 ## Phase 5: Full Engine Verification
 
-- [ ] Step 1: `npm test -- packages/engine/test/diabolical-regressions.test.ts` (all pass).
-- [ ] Step 2: `npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts` (all pass).
-- [ ] Step 3: `npm test`, `npm run typecheck`, `git diff --check` (full suite + types pass, no whitespace errors).
+- [x] Step 1: `npm test -- packages/engine/test/diabolical-regressions.test.ts` (all pass).
+- [x] Step 2: `npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts` (all pass).
+- [x] Step 3: `npm test`, `npm run typecheck`, `git diff --check` (full suite + types pass, no whitespace errors).
+
+Progress note (2026-06-18): Phase 5 completed. Targeted diabolical regressions, targeted strategy taxonomy tests, the full Vitest suite, TypeScript typecheck, and `git diff --check` all passed on the post-Phase-4 working tree.
 
 ## Phase 6: Full-Corpus Regression Gate
 
@@ -215,10 +217,12 @@ Expected minimum: easy `100000/100000`, medium `352643/352643`, hard `321592/321
 
 **Goal:** Ensure Roadmap ② new-strategy work applies the same human-taxonomy principles.
 
-- [ ] Step 1: Update [`diabolical-727.md`](./diabolical-727.md): new strategies must use specific human-named IDs, avoid grouping techniques by broad family, assign `difficulty` by human recognition cost, prefer one concrete pattern instance per step, and add tests asserting the specific ID + sound deductions.
-- [ ] Step 2: Record the final strategy order and old→new mapping (in this doc or `taxonomy-migration-map.md`).
-- [ ] Step 3: Restate non-goals for future workers (full-corpus performance secondary to trace quality; caching is a separate optimization; no backtracking/forcing-nets/template enumeration under human-strategy labels).
+- [x] Step 1: Update [`diabolical-727.md`](./diabolical-727.md): new strategies must use specific human-named IDs, avoid grouping techniques by broad family, assign `difficulty` by human recognition cost, prefer one concrete pattern instance per step, and add tests asserting the specific ID + sound deductions.
+- [x] Step 2: Record the final strategy order and old→new mapping (in this doc or `taxonomy-migration-map.md`).
+- [x] Step 3: Restate non-goals for future workers (full-corpus performance secondary to trace quality; caching is a separate optimization; no backtracking/forcing-nets/template enumeration under human-strategy labels).
 - [ ] Step 4: Commit the documentation updates.
+
+Progress note (2026-06-18): Phase 7 documentation updates completed locally. `diabolical-727.md` now carries the taxonomy constraints for future strategy work, and `taxonomy-migration-map.md` records the final default order plus deferred exceptions. Commit remains intentionally unchecked until these documentation changes are committed.
 
 ## Stop Conditions
 

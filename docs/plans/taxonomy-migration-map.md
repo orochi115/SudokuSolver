@@ -1,6 +1,6 @@
 # Taxonomy Migration Map
 
-This file records Phase 1 of the human-strategy taxonomy refactor. It is an audit artifact only: no strategy behavior has been changed yet.
+This file records the human-strategy taxonomy refactor audit, old-to-new strategy ID migration, final default ordering, and explicitly deferred follow-up work.
 
 ## Baseline
 
@@ -51,19 +51,19 @@ Solver behavior to preserve: `packages/engine/src/solver.ts` clones the grid, so
 | `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Implemented 2026-06-18. Reuses existing size search; each size is registered as its own strategy. |
 | `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Implemented 2026-06-18. Reuses existing fish helper by size. |
 | `single-digit-patterns` | `skyscraper`, `two-string-kite`, `empty-rectangle` | Implemented 2026-06-18. Existing helper boundaries are exported as named strategies; explanations are preserved. |
-| `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4` | Existing helper boundaries are clear, but BUG+1 is placement-based while URs are elimination-based. Keep default assumption-free ordering late. |
+| `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4` | Implemented 2026-06-18. Existing helper boundaries are preserved; BUG+1 is placement-based while URs are elimination-based. Default assumption-free ordering keeps uniqueness late. |
 | `als` | `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` | Implemented 2026-06-18. Regression assertions for #38116/#77633 were re-anchored by sub-technique; the broad `als` strategy is no longer registered by default. |
-| `aic` | `x-chain`, `aic` | Conservative first split. Keep general `aic` fallback unless Type 1/Type 2/grouped classification is precise enough. |
+| `aic` | `x-chain`, `aic` | Implemented 2026-06-18. Conservative first split: single-digit grouped AIC/X-Chain search is registered as `x-chain`; broad `aic` remains the peer-endpoint/general grouped/legacy fallback. |
 
-## Proposed Default Order
+## Final Default Order
 
-The exact numeric values may still change during implementation, but default ordering should prefer assumption-free, lower recognition-cost techniques.
+Default ordering prefers assumption-free, lower recognition-cost techniques. The registry remains sorted by `difficulty`.
 
-| Proposed id | Intended difficulty | Source |
+| Strategy id | Difficulty | Source |
 | --- | ---: | --- |
 | `full-house` | 4 | Existing `full-house`. |
 | `naked-single` | 10 | Existing `naked-single`. |
-| `hidden-single` | 12 | Existing `hidden-single`; currently 10. |
+| `hidden-single` | 12 | Existing `hidden-single`. |
 | `locked-candidates-pointing` | 20 | Implemented; split from `locked-candidates`. |
 | `locked-candidates-claiming` | 22 | Implemented; split from `locked-candidates`. |
 | `naked-pair` | 30 | Split from `naked-subset`. |
@@ -82,7 +82,7 @@ The exact numeric values may still change during implementation, but default ord
 | `w-wing` | 56 | Existing `w-wing`. |
 | `jellyfish` | 58 | Split from `basic-fish`. |
 | `simple-coloring` | 60 | Existing `simple-coloring`. |
-| `x-chain` | 65 | Split from `aic` if classification is safe. |
+| `x-chain` | 65 | Split from `aic`. |
 | `aic` | 70 | Remaining general AIC. |
 | `als-xz` | 80 | Split from `als`. |
 | `als-xz-doubly-linked` | 82 | Split from `als`. |
@@ -92,7 +92,7 @@ The exact numeric values may still change during implementation, but default ord
 | `unique-rectangle-type-1` | 91 | Split from `uniqueness`. |
 | `unique-rectangle-type-2` | 92 | Split from `uniqueness`. |
 | `unique-rectangle-type-4` | 93 | Split from `uniqueness`. |
-| `sue-de-coq` | 96 | Existing `sue-de-coq`; currently 95. |
+| `sue-de-coq` | 95 | Existing `sue-de-coq`. |
 | `forcing-chain` | 100 | Existing `forcing-chain`. |
 
 ## Test Impact Audit
@@ -101,9 +101,9 @@ Tests with expected strategy IDs or direct imports that must be updated during i
 
 | Test file | Current dependency | Future action |
 | --- | --- | --- |
-| `packages/engine/test/strategies.test.ts` | Imports and asserts split `locked-candidates` exports plus remaining broad `nakedSubset`, `hiddenSubset`, `basicFish`, `singleDigitPatterns`; registry required IDs include the split locked-candidates IDs plus remaining old broad family IDs. | Locked-candidates pointing/claiming coverage is complete. Replace/import split exports and assert new IDs for subset sizes, fish sizes, and single-digit patterns. Keep soundness and no-mutation assertions. |
-| `packages/engine/test/strategies-m3.test.ts` | Imports and asserts `aic`, `als`, `uniqueness`; broad ID assertions appear in AIC/ALS/uniqueness sections. | For Phase 2, update uniqueness ID tests. For Phase 3/4, re-anchor ALS/AIC tests after sub-technique classification. |
-| `packages/engine/test/diabolical-regressions.test.ts` | Imports split `lockedCandidatesPointing`, plus broad `aic`, `als`; asserts split locked-candidates IDs and broad ALS/AIC IDs for restored states. | Locked-candidate restored states are updated. Re-anchor ALS #38116/#77633 eliminations before Phase 3. Reclassify AIC restored states before Phase 4. |
+| `packages/engine/test/strategies.test.ts` | Imports and asserts split low-risk mechanical strategies; registry required IDs include all final default IDs. | Complete. Keep soundness and no-mutation assertions when future IDs change. |
+| `packages/engine/test/strategies-m3.test.ts` | Imports and asserts split `x-chain`, split ALS strategies, and split uniqueness strategies. | Complete for Roadmap ①. Future AIC fine splits need their own restored-state ID tests. |
+| `packages/engine/test/diabolical-regressions.test.ts` | Anchors restored-state regressions for locked candidates, ALS split techniques, and broad AIC fallback cases. | Complete for Roadmap ①. Preserve protected deductions when future chain taxonomy changes. |
 
 Do not delete regression intent when changing IDs: each updated test should still prove the protected deduction is sound and present in the restored candidate state.
 
@@ -112,3 +112,5 @@ Do not delete regression intent when changing IDs: each updated test should stil
 - `locked-candidates.ts` currently combines all found pointing instances into one step before looking at claiming, and combines all claiming instances if no pointing exists. Phase 2 may temporarily preserve same-technique combining to keep the pass bounded, but should document that this is not the final tutoring granularity.
 - ALS cross-technique combining was removed in Phase 3. The split ALS helpers now return the first concrete pattern instance for their specific technique instead of merging unrelated ALS sub-techniques or instances.
 - AIC fine-grained Type 1/Type 2/grouped split is not Phase 4 scope unless current helpers classify those cases precisely.
+- Full-corpus performance remains secondary to tutoring trace quality. If split strategies become too expensive, add per-solver-iteration analysis caching as a separate optimization, not as part of strategy correctness.
+- Do not introduce backtracking, template enumeration, unrestricted forcing nets, or puzzle-specific guards under human-strategy labels.
