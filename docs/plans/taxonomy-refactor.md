@@ -1,38 +1,20 @@
-# Human Strategy Taxonomy Refactor Plan
+# 人类策略 Taxonomy 重构计划（Roadmap ①）
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:systematic-debugging before proposing fixes, and superpowers:test-driven-development for every implementation change. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: use systematic-debugging before proposing fixes, and test-driven-development for every implementation change. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Refactor the existing strategy registry and coarse strategy families so default solve traces follow human-learning-friendly technique granularity and ordering, without intentionally adding new solving power.
+**Goal:** Refactor the existing strategy registry and coarse strategy families so default solve traces follow human-learning-friendly technique granularity and ordering, **without intentionally adding new solving power**.
 
-**Architecture:** Keep planning, archive updates, and reporting work on `orchestration`; keep engine implementation work on `archive/round1/analysis-sonnet46-strategy-fix`. Treat the top-level solver loop as already correct: it sorts by `Strategy.difficulty`, applies the first progressing step, then restarts from the cheapest strategy. This plan focuses on strategy taxonomy, strategy IDs, intra-family splitting, and human-cost ordering.
+**Scope:** This is forward engineering on `master` (the current engine under `packages/engine`). The top-level solver loop is already correct — it sorts by `Strategy.difficulty`, applies the first progressing step, then restarts from the cheapest strategy. This plan focuses on strategy taxonomy, strategy IDs, intra-family splitting, and human-cost ordering. It does **not** target the remaining 727 diabolical failures (that is Roadmap ②, see [`diabolical-727.md`](./diabolical-727.md)).
 
-**Tech Stack:** TypeScript engine under `packages/engine`, Vitest, orchestration scripts in `orchestration/*.mjs`, full-corpus tarball `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`.
+**Tech stack & verification:** TypeScript engine under `packages/engine`, Vitest. Fast soundness/regression via `npm test`; full-corpus regression via `npm run corpus:run`.
+
+**Workspace:** Implement on `master` or a short-lived feature branch off it. Before editing, sanity-check with `git status --short --branch`.
 
 ---
 
-## Branch and Workspace Rules
+## Current Context
 
-- Use `orchestration` for this document, analysis notes, report updates, and full-corpus archive updates.
-- Use `archive/round1/analysis-sonnet46-strategy-fix` for implementation changes under `packages/engine`.
-- Do not edit engine code from the `orchestration` working tree unless the branch has intentionally been switched or a separate worktree has been created.
-- Recommended implementation worktree:
-
-```bash
-git worktree add ../sudoku-taxonomy-wt archive/round1/analysis-sonnet46-strategy-fix
-```
-
-- Recommended orchestration/reporting worktree: current repository root if it remains on `orchestration`.
-- Before editing, always verify:
-
-```bash
-git status --short --branch
-git worktree list
-```
-
-## Current Context and References
-
-- Main remaining-regression plan: `orchestration/round1/investigations/remaining-diabolical-regression-plan.md`.
-- Current Phase 3 full-corpus baseline for `analysis-sonnet46-strategy-fix`:
+- **Current engine full-corpus baseline** (must not regress):
 
 | Difficulty | Solved | Valid solved | Stuck | Errors |
 | --- | ---: | ---: | ---: | ---: |
@@ -42,19 +24,12 @@ git worktree list
 | diabolical | 118954/119681 | 118954 | 727 | 0 |
 | total | 893189/893916 | 893189 | 727 | 0 |
 
-- Baseline implementation commit: `archive/round1/analysis-sonnet46-strategy-fix` at `1c18734` (`fix: resolve remaining gemini diabolical ALS paths`).
-- Existing solver behavior to preserve: `packages/engine/src/solver.ts` sorts strategies by `difficulty`, applies the first non-empty step, records it, and restarts at the first strategy.
-- Existing strategy contract: `packages/engine/src/strategy.ts` says `apply(grid)` should return the first applicable deduction, or `null`, and must not mutate the grid.
-- Current strategy registry: `packages/engine/src/strategies/index.ts`.
-- Current coarse strategy families requiring review:
-  - `packages/engine/src/strategies/als.ts`
-  - `packages/engine/src/strategies/aic.ts`
-  - `packages/engine/src/strategies/naked-subset.ts`
-  - `packages/engine/src/strategies/hidden-subset.ts`
-  - `packages/engine/src/strategies/basic-fish.ts`
-  - `packages/engine/src/strategies/single-digit-patterns.ts`
-  - `packages/engine/src/strategies/uniqueness.ts`
-  - `packages/engine/src/strategies/forcing-chain.ts`
+The 727 stuck diabolical puzzles are captured in [`../../data/failing-diabolical/`](../../data/failing-diabolical/); this refactor adds no solving power, so that set should be **unchanged** afterward.
+
+- Solver behavior to preserve: `packages/engine/src/solver.ts` sorts strategies by `difficulty`, applies the first non-empty step, records it, and restarts at the first strategy.
+- Strategy contract: `packages/engine/src/strategy.ts` — `apply(grid)` returns the first applicable deduction or `null`, and must not mutate the grid.
+- Strategy registry: `packages/engine/src/strategies/index.ts`.
+- Coarse strategy families requiring review: `als.ts`, `aic.ts`, `naked-subset.ts`, `hidden-subset.ts`, `basic-fish.ts`, `single-digit-patterns.ts`, `uniqueness.ts`, `forcing-chain.ts`.
 
 ## Design Principles
 
@@ -63,14 +38,14 @@ git worktree list
 - A strategy step may include multiple eliminations from one concrete pattern instance.
 - A strategy step should not combine unrelated instances or different sub-techniques only because they belong to the same broad family.
 - **Scope of de-merging (priority order, not a blanket allowance):** First priority is removing cross-*technique* merging (e.g. ALS-XZ and Death Blossom collapsed into one `als` step via `combineSteps`). The default target remains **one trace step = one concrete pattern instance.** Cross-*instance* merging within a single technique — e.g. `locked-candidates.ts` `combineSteps(pointingSteps)` collapsing every board-wide pointing pattern into one step — is itself a tutoring-granularity problem, **not** an accepted behavior. It may be **deferred** to keep this pass bounded, but is not blessed: every place that still merges instances must be flagged as an explicit, documented exception, and reducing it to single-instance steps stays the goal.
-- Broad family labels such as `als`, `basic-fish`, `single-digit-patterns`, and `uniqueness` are useful in documentation, but trace `strategyId` values should be specific enough for a learner.
+- Broad family labels (`als`, `basic-fish`, `single-digit-patterns`, `uniqueness`) are useful in docs, but trace `strategyId` values should be specific enough for a learner.
 - Do not add caching in the first pass. If split strategies create unacceptable runtime overhead later, consider per-solver-iteration analysis caching as a separate task.
-- Do not add new logical power in this refactor except where the existing implementation already contains that capability under a coarse strategy.
+- Do not add new logical power except where the existing implementation already contains that capability under a coarse strategy.
 - Do not add backtracking, template enumeration, unrestricted forcing nets, or puzzle-specific guards.
 
 ## Proposed Strategy Registry Shape
 
-The exact numeric values may change during implementation, but the ordering intent should remain:
+Exact numeric `difficulty` values may change during implementation; the ordering intent should remain:
 
 ```ts
 fullHouse                 // 4
@@ -118,32 +93,26 @@ forcingChain              // 100
 
 Notes:
 
-- `xyWing`, `xyzWing`, `wWing`, `simpleColoring`, and `sueDeCoq` are already separate strategy files; only their relative positions may need adjustment.
-- **Uniqueness ordering is a solver-temperament choice, kept as two profiles (open decision — placement not yet locked).** Uniqueness techniques rely on the unique-solution assumption, a different *kind* of inference from assumption-free fish/wings, so their position is a style choice rather than a pure recognition-cost ranking:
-  - **Default profile = assumption-free.** Uniqueness sits late (the cluster shown above, ~90+), so the default tutoring trace prefers assumption-free deductions.
-  - **Optional "uniqueness-aware" profile.** Pulls easy `bugPlusOne` / `uniqueRectangleType1` early (~41/43, ahead of fish/wings) for solvers who accept the uniqueness premise; harder `uniqueRectangleType2/Type4` stay mid-to-late.
-  - This refactor implements only the **id split** and the assumption-free default placement. The selectable profile/mode is a **future task** — do NOT build a toggle mechanism here (out of scope; would add behavior). Record both profiles; lock neither numeric ordering as final.
-- **`aicType1` / `aicType2` / `groupedAic` are a target shape, not Phase 4 scope.** Phase 4 commits only to splitting `xChain` from a general `aic`. The finer type1/type2/grouped split happens only if the existing helpers support it cleanly (see Phase 4); until then those three rows collapse to a single `aic` entry around difficulty 70.
-- `forcingChain` can remain a single last-resort strategy in the first pass unless review shows that cell forcing, digit forcing, bounded contradiction, and legacy fallback produce misleading tutoring traces.
+- `xyWing`, `xyzWing`, `wWing`, `simpleColoring`, `sueDeCoq` are already separate files; only their relative positions may need adjustment.
+- **Uniqueness ordering is a solver-temperament choice, kept as two profiles (open decision — placement not yet locked).** Uniqueness techniques rely on the unique-solution assumption, a different *kind* of inference from assumption-free fish/wings, so position is a style choice rather than a pure recognition-cost ranking:
+  - **Default profile = assumption-free.** Uniqueness sits late (~90+), so default traces prefer assumption-free deductions.
+  - **Optional "uniqueness-aware" profile.** Pulls easy `bugPlusOne` / `uniqueRectangleType1` early (~41/43) for solvers who accept the uniqueness premise; harder UR types stay mid-to-late.
+  - This refactor implements only the **id split** and the assumption-free default placement. The selectable profile/mode is a **future task** — do NOT build a toggle here (out of scope; would add behavior). Record both profiles; lock neither numeric ordering as final.
+- **`aicType1` / `aicType2` / `groupedAic` are a target shape, not Phase 4 scope.** Phase 4 commits only to splitting `xChain` from a general `aic`. The finer split happens only if existing helpers support it cleanly; until then those three rows collapse to a single `aic` around difficulty 70.
+- `forcingChain` can remain a single last-resort strategy in the first pass unless review shows cell/digit/bounded-contradiction/legacy forcing produce misleading tutoring traces.
 
 ## Acceptance Criteria
 
 - No known regression test becomes stuck or unsound.
-- Full test suite passes on `archive/round1/analysis-sonnet46-strategy-fix`.
-- Full-corpus rerun shows no regression from the Phase 3 baseline:
-  - easy solved remains `100000/100000`
-  - medium solved remains `352643/352643`
-  - hard solved remains `321592/321592`
-  - diabolical solved is at least `118954/119681`
-  - invalid solved grids remain `0`
-  - errors remain `0`
+- Full test suite passes (`npm test`, `npm run typecheck`).
+- Full-corpus rerun (`npm run corpus:run`) shows **no regression** from the baseline above: easy `100000/100000`, medium `352643/352643`, hard `321592/321592`, diabolical ≥ `118954/119681`, invalid solved `0`, errors `0`. (The 727-stuck set should be identical.)
 - Default trace strategy IDs are more specific and better aligned with human technique names.
-- For the same candidate state, lower human-cost techniques are tried before broader or more advanced variants.
-- Related planning/docs are updated so future Phase 4 new-strategy work applies the same taxonomy and ordering principles.
+- For the same candidate state, lower human-cost techniques are tried before broader/advanced variants.
+- The Roadmap ② plan ([`diabolical-727.md`](./diabolical-727.md)) is updated so future new-strategy work applies the same taxonomy/ordering principles.
 
 ## Non-Goals
 
-- Do not target the remaining 727 diabolical failures directly.
+- Do not target the 727 diabolical failures directly (Roadmap ②).
 - Do not change the solver loop semantics.
 - Do not introduce caching in this task.
 - Do not optimize full-corpus runtime as the primary goal.
@@ -155,474 +124,94 @@ Notes:
 
 **Goal:** Confirm the exact split points and difficulty order before changing implementation code.
 
-**Files:**
-
-- Read: `packages/engine/src/strategies/*.ts` on `archive/round1/analysis-sonnet46-strategy-fix`
-- Read: `packages/engine/test/*.test.ts` on `archive/round1/analysis-sonnet46-strategy-fix`
-- Update: this document if the final taxonomy changes
-
-- [ ] Step 1: Verify implementation branch and worktree
-
-Run from the implementation worktree:
-
-```bash
-git status --short --branch
-git log --oneline -5
-```
-
-Expected:
-
-- Branch is `archive/round1/analysis-sonnet46-strategy-fix`.
-- Recent history includes `1c18734 fix: resolve remaining gemini diabolical ALS paths` or a descendant.
-
-- [ ] Step 2: Audit current strategy IDs and difficulty order
-
-Inspect:
-
-```bash
-packages/engine/src/strategies/index.ts
-packages/engine/src/strategy.ts
-packages/engine/src/solver.ts
-```
-
-Record:
-
-- Current `STRATEGIES` order.
-- Current `difficulty` values.
-- Any strategy whose display name hides multiple human techniques.
-
-- [ ] Step 3: Produce a migration map
-
-Create or update an analysis note on `orchestration`, for example:
-
-```text
-orchestration/round1/investigations/human-strategy-taxonomy-migration-map.md
-```
-
-Include old-to-new mapping such as:
+- [ ] Step 1: Confirm the engine baseline. `git status --short --branch`; `npm test` green; record the full-corpus baseline (above) so deltas are measurable.
+- [ ] Step 2: Audit current strategy IDs and difficulty order. Inspect `strategies/index.ts`, `strategy.ts`, `solver.ts`. Record current `STRATEGIES` order, `difficulty` values, and any strategy whose display name hides multiple human techniques.
+- [ ] Step 3: Produce a migration map (record it in this doc, or a `docs/plans/taxonomy-migration-map.md`). Old→new mapping such as:
 
 | Old strategyId | New strategyId(s) | Notes |
 | --- | --- | --- |
-| `locked-candidates` | `locked-candidates-pointing`, `locked-candidates-claiming` | Pointing already tried before claiming; split by named sub-technique. |
+| `locked-candidates` | `locked-candidates-pointing`, `locked-candidates-claiming` | Split by named sub-technique. |
 | `als` | `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` | Stop cross-family ALS combining. |
 | `basic-fish` | `x-wing`, `swordfish`, `jellyfish` | Split by fish size. |
 | `single-digit-patterns` | `skyscraper`, `two-string-kite`, `empty-rectangle` | Split by named pattern. |
-| `naked-subset` | `naked-pair`, `naked-triple`, `naked-quad` | Ensure pair before triple before quad globally. |
-| `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Ensure pair before triple before quad globally. |
-| `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4` | Split by uniqueness technique (id split is settled). **Difficulty placement is an OPEN decision, not locked:** default profile = assumption-free (cluster late, ~90+); optional "uniqueness-aware" profile pulls BUG+1/UR-1 early. Record both; do not fossilize either ordering. |
-| `aic` | `x-chain`, `aic` or finer variants | Split conservatively. |
+| `naked-subset` | `naked-pair`, `naked-triple`, `naked-quad` | Pair before triple before quad globally. |
+| `hidden-subset` | `hidden-pair`, `hidden-triple`, `hidden-quad` | Pair before triple before quad globally. |
+| `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1/2/4` | Id split settled. **Difficulty placement is an OPEN decision:** default = assumption-free (late, ~90+); optional uniqueness-aware profile pulls BUG+1/UR-1 early. Record both; fossilize neither. |
+| `aic` | `x-chain`, `aic` (or finer) | Split conservatively. |
 
-- [ ] Step 4: Confirm test impact
-
-Search for exact strategy ID expectations:
-
-```bash
-rg "strategyId|als|basic-fish|single-digit-patterns|naked-subset|hidden-subset|uniqueness|aic" packages/engine/test
-```
-
-Expected:
-
-- Identify tests requiring updates before implementation.
-- Avoid deleting regression intent; update expected IDs to more specific names.
+- [ ] Step 4: Confirm test impact. `rg "strategyId|als|basic-fish|single-digit-patterns|naked-subset|hidden-subset|uniqueness|aic" packages/engine/test`. Identify tests needing updated expected IDs; don't delete regression intent.
 
 ## Phase 2: Split Low-Risk Strategy Families
 
-**Goal:** Split families whose current code already searches by clear sub-technique or size.
+**Goal:** Split families whose code already searches by clear sub-technique or size.
 
-**Risk note:** `locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, and `single-digit-patterns` are genuinely low-risk — each already has a clear internal boundary (size param, named helper, or pointing-then-claiming order) and returns its own `Step`. `uniqueness` is **medium-risk**: `tryURType1/2/4` and `tryBUGPlus1` are separate helpers but currently all return `strategyId: 'uniqueness'` with no discriminator, and `BUG+1` is a placement pattern unlike the elimination-based URs — the split must add a `subTechnique`/per-strategy id rather than just relocating code. Do the five mechanical families (`locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, `single-digit-patterns`) first, then `uniqueness`.
+**Risk note:** `locked-candidates`, `naked-subset`, `hidden-subset`, `basic-fish`, `single-digit-patterns` are low-risk (clear internal boundary, own `Step`). `uniqueness` is **medium-risk**: `tryURType1/2/4` and `tryBUGPlus1` are separate helpers but all currently return `strategyId: 'uniqueness'` with no discriminator, and BUG+1 is a placement pattern unlike elimination-based URs — the split must add a per-technique id, not just relocate code. Do the five mechanical families first, then `uniqueness`.
 
-**Files:**
-
-- Modify: `packages/engine/src/strategies/locked-candidates.ts` or split into `locked-candidates-pointing.ts` / `locked-candidates-claiming.ts`
-- Modify: `packages/engine/src/strategies/naked-subset.ts` or split into separate files
-- Modify: `packages/engine/src/strategies/hidden-subset.ts` or split into separate files
-- Modify: `packages/engine/src/strategies/basic-fish.ts` or split into separate files
-- Modify: `packages/engine/src/strategies/single-digit-patterns.ts` or split into separate files
-- Modify: `packages/engine/src/strategies/uniqueness.ts` or split into separate files (medium-risk — add per-technique ids)
-- Modify: `packages/engine/src/strategies/index.ts`
-- Modify: relevant tests under `packages/engine/test/`
-
-- [ ] Step 1: Write or update failing tests for specific strategy IDs
-
-For each split family, add tests that prove the specific sub-technique reports a specific `strategyId`.
-
-Minimum coverage:
-
-- `locked-candidates-pointing`, `locked-candidates-claiming`
-- `x-wing`, `swordfish`, `jellyfish`
-- `skyscraper`, `two-string-kite`, `empty-rectangle`
-- `naked-pair`, `naked-triple`, `naked-quad`
-- `hidden-pair`, `hidden-triple`, `hidden-quad`
-- `unique-rectangle-type-1`, `unique-rectangle-type-2`, `unique-rectangle-type-4`, `bug-plus-one`
-
-- [ ] Step 2: Run targeted tests and confirm RED where IDs have not yet changed
-
-Run:
-
-```bash
-npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts packages/engine/test/diabolical-regressions.test.ts
-```
-
-Expected:
-
-- Tests that expect new strategy IDs fail before implementation.
-- Existing soundness expectations remain meaningful.
-
-- [ ] Step 3: Implement minimal splits
-
-Preferred implementation style:
-
-- Reuse existing helper functions.
-- Export one `Strategy` object per human-named technique.
-- Keep each `apply()` returning one concrete pattern instance, not all instances of the family.
-- Do not add caching.
-
-- [ ] Step 4: Update `STRATEGIES` ordering
-
-Update `packages/engine/src/strategies/index.ts` to use the new strategy objects in human-cost order.
-
-- [ ] Step 5: Run targeted tests and typecheck
-
-Run:
-
-```bash
-npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts packages/engine/test/diabolical-regressions.test.ts
-npm run typecheck
-```
-
-Expected:
-
-- Tests pass.
-- Typecheck passes.
-
-- [ ] Step 6: Commit low-risk split
-
-Run:
-
-```bash
-git status --short
-git add packages/engine/src/strategies packages/engine/test
-git commit -m "refactor: split strategy taxonomy by human technique"
-```
+- [ ] Step 1: Write/extend failing tests asserting each split sub-technique reports its specific `strategyId` (coverage: pointing/claiming; x-wing/swordfish/jellyfish; skyscraper/two-string-kite/empty-rectangle; naked & hidden pair/triple/quad; UR type-1/2/4 + bug-plus-one).
+- [ ] Step 2: Run targeted tests, confirm RED where IDs not yet changed:
+  `npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts packages/engine/test/diabolical-regressions.test.ts`
+- [ ] Step 3: Implement minimal splits — reuse existing helpers; export one `Strategy` per human-named technique; each `apply()` returns one concrete pattern instance; no caching.
+- [ ] Step 4: Update `strategies/index.ts` ordering to human-cost order.
+- [ ] Step 5: Re-run targeted tests + `npm run typecheck`.
+- [ ] Step 6: Commit (`refactor: split strategy taxonomy by human technique`).
 
 ## Phase 3: Split ALS Family
 
-**Goal:** Make ALS-family traces human-readable and stop combining distinct ALS sub-techniques into one `als` step.
+**Goal:** Make ALS traces human-readable; stop combining distinct ALS sub-techniques into one `als` step.
 
-**Files:**
-
-- Modify: `packages/engine/src/strategies/als.ts` or split into `als-xz.ts`, `als-xy-wing.ts`, `death-blossom.ts`
-- Modify: `packages/engine/src/strategies/index.ts`
-- Modify: `packages/engine/test/diabolical-regressions.test.ts`
-- Modify: `packages/engine/test/strategies-m3.test.ts`
-
-- [ ] Step 1: Write restored-state tests for each ALS sub-technique currently used by regressions
-
-Use existing #38116 and #77633 restored-state tests as anchors.
-
-**Critical precondition (do this first):** `als.apply()` currently merges all sub-technique results via `combineSteps()` (dedup by `cell:digit`). The existing #38116 test asserts a single step containing **both** `{cell:53,d:3}` and `{cell:9,d:4}`; #77633 asserts 9 eliminations. Before splitting, map the **test-asserted** eliminations to the specific sub-technique pattern (`als-xz` / `als-xz-doubly-linked` / `als-xy-wing` / `death-blossom`) that produces each. If a single regression's asserted eliminations span multiple sub-techniques, the old single-step assertion cannot survive the split — re-anchor each test to the sub-technique(s) that produce its eliminations, splitting the assertion if needed.
-
-The regression contract after splitting is: **full-puzzle still solved + trace sound + the specific deductions each test was written to protect are still produced** (re-anchored to their sub-technique). It is **not** required that the entire incidental batch the old merged step happened to emit be reproduced as one unit — forcing that would re-introduce artificial merging. Preserve the intentional anchors; don't turn the old batch into a hard complete-output contract.
-
-Expected:
-
-- Tests identify whether the intended restored-state deduction is `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, or `death-blossom`.
-- Tests assert required sound eliminations rather than requiring a historical full trace path.
-
-- [ ] Step 2: Run targeted ALS tests and confirm RED for new IDs
-
-Run:
-
-```bash
-npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633|ALS"
-```
-
-Expected:
-
-- New ID expectations fail until implementation is split.
-
-- [ ] Step 3: Refactor ALS helpers
-
-Implementation requirements:
-
-- Keep shared ALS discovery helpers local or in a small shared module only if needed.
-- `als-xz` returns ordinary ALS-XZ deductions from one pattern instance.
-- `als-xz-doubly-linked` returns doubly-linked ALS-XZ deductions from one pattern instance.
-- `als-xy-wing` returns ALS-XY-Wing deductions from one pattern instance.
-- `death-blossom` returns Death Blossom deductions from one pattern instance.
-- Do not combine results across ALS sub-techniques.
-- Do not combine unrelated ALS instances.
-
-- [ ] Step 4: Register ALS sub-techniques in human-cost order
-
-Update `STRATEGIES` near the advanced section:
-
-```ts
-alsXz,
-alsXzDoublyLinked,
-alsXyWing,
-deathBlossom,
-```
-
-- [ ] Step 5: Verify targeted ALS regressions
-
-Run:
-
-```bash
-npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633|ALS"
-npm test -- packages/engine/test/diabolical-regressions.test.ts
-npm run typecheck
-```
-
-Expected:
-
-- #38116 and #77633 remain solved and sound.
-- ALS strategy IDs are specific.
-- Typecheck passes.
-
-- [ ] Step 6: Commit ALS split
-
-Run:
-
-```bash
-git status --short
-git add packages/engine/src/strategies packages/engine/test
-git commit -m "refactor: split ALS techniques for tutoring traces"
-```
+- [ ] Step 1: Write restored-state tests per ALS sub-technique used by regressions, anchored on the existing #38116 / #77633 tests.
+  **Critical precondition:** `als.apply()` currently merges sub-technique results via `combineSteps()` (dedup by `cell:digit`). #38116 asserts one step with both `{cell:53,d:3}` and `{cell:9,d:4}`; #77633 asserts 9 eliminations. Before splitting, map each **test-asserted** elimination to the specific sub-technique (`als-xz` / `als-xz-doubly-linked` / `als-xy-wing` / `death-blossom`) that produces it. If a regression's asserted eliminations span multiple sub-techniques, re-anchor (split) the assertion. Contract after splitting: **full-puzzle still solved + trace sound + the specific protected deductions still produced (re-anchored to their sub-technique)** — not that the whole incidental old batch be reproduced as one unit.
+- [ ] Step 2: Run `npm test -- packages/engine/test/diabolical-regressions.test.ts -t "38116|77633|ALS"`; confirm RED for new IDs.
+- [ ] Step 3: Refactor ALS helpers — `als-xz`, `als-xz-doubly-linked`, `als-xy-wing`, `death-blossom` each return deductions from one pattern instance; do not combine across sub-techniques or unrelated instances.
+- [ ] Step 4: Register `alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom` in human-cost order.
+- [ ] Step 5: Verify (`-t "38116|77633|ALS"`, then full regression file, `npm run typecheck`); #38116/#77633 remain solved+sound.
+- [ ] Step 6: Commit (`refactor: split ALS techniques for tutoring traces`).
 
 ## Phase 4: Split AIC Conservatively
 
-**Goal:** Separate easier chain techniques from general AIC without destabilizing existing chain coverage.
+**Goal:** Separate easier chain techniques from general AIC without destabilizing chain coverage.
 
-**Files:**
-
-- Modify: `packages/engine/src/strategies/aic.ts` or split into `x-chain.ts` plus `aic.ts`
-- Possibly modify: `packages/engine/src/chain/aic-search.ts`
-- Modify: `packages/engine/src/strategies/index.ts`
-- Modify: relevant tests under `packages/engine/test/`
-
-- [ ] Step 1: Identify current AIC sub-paths
-
-Inspect `aic.ts` and classify current returns:
-
-- Single-digit grouped `X-Chain`
-- General AIC endpoint Type 1
-- General AIC endpoint Type 2
-- Peer-endpoint legacy AIC
-- Legacy fallback AIC
-
-- [ ] Step 2: Write minimal ID tests for `x-chain`
-
-Add tests that prove a single-digit chain uses `x-chain`, not broad `aic`.
-
-- [ ] Step 3: Split only the low-risk `x-chain` first
-
-Implementation requirements:
-
-- `x-chain` should cover the existing single-digit branch.
-- General `aic` should remain as a fallback for broader alternating inference chains.
-- Do not split Type 1/Type 2/grouped AIC unless the current result classification is precise enough.
-
-- [ ] Step 4: Re-register chain strategies
-
-Update order:
-
-```ts
-xChain,
-aic,
-```
-
-or finer variants if implemented safely.
-
-- [ ] Step 5: Verify chain tests
-
-Run:
-
-```bash
-npm test -- packages/engine/test/strategies-m3.test.ts packages/engine/test/diabolical-regressions.test.ts
-npm run typecheck
-```
-
-Expected:
-
-- Existing AIC/chain regressions remain sound.
-- New `x-chain` ID appears where expected.
-
-- [ ] Step 6: Commit AIC split
-
-Run:
-
-```bash
-git status --short
-git add packages/engine/src packages/engine/test
-git commit -m "refactor: separate x-chain from general AIC"
-```
+- [ ] Step 1: Classify current `aic.ts` returns (single-digit grouped X-Chain / AIC endpoint Type 1 / Type 2 / peer-endpoint legacy / legacy fallback). Possibly inspect `chain/aic-search.ts`.
+- [ ] Step 2: Add minimal ID tests proving a single-digit chain uses `x-chain`, not broad `aic`.
+- [ ] Step 3: Split only the low-risk `x-chain` first; keep general `aic` as fallback. Do not split Type1/2/grouped unless classification is precise enough.
+- [ ] Step 4: Re-register `xChain, aic` (or finer variants if safe).
+- [ ] Step 5: Verify (`strategies-m3.test.ts`, `diabolical-regressions.test.ts`, `npm run typecheck`).
+- [ ] Step 6: Commit (`refactor: separate x-chain from general AIC`).
 
 ## Phase 5: Full Engine Verification
 
-**Goal:** Confirm taxonomy refactor did not break unit, regression, soundness, or type checks before any corpus run.
-
-**Files:**
-
-- No planned edits unless tests reveal issues.
-
-- [ ] Step 1: Run targeted regression suite
-
-Run:
-
-```bash
-npm test -- packages/engine/test/diabolical-regressions.test.ts
-```
-
-Expected:
-
-- All diabolical regression tests pass.
-
-- [ ] Step 2: Run strategy tests
-
-Run:
-
-```bash
-npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts
-```
-
-Expected:
-
-- All strategy tests pass.
-
-- [ ] Step 3: Run full test suite and typecheck
-
-Run:
-
-```bash
-npm test
-npm run typecheck
-git diff --check
-```
-
-Expected:
-
-- Full suite passes.
-- Typecheck passes.
-- No whitespace errors.
+- [ ] Step 1: `npm test -- packages/engine/test/diabolical-regressions.test.ts` (all pass).
+- [ ] Step 2: `npm test -- packages/engine/test/strategies.test.ts packages/engine/test/strategies-m3.test.ts` (all pass).
+- [ ] Step 3: `npm test`, `npm run typecheck`, `git diff --check` (full suite + types pass, no whitespace errors).
 
 ## Phase 6: Full-Corpus Regression Gate
 
-**Goal:** Verify the taxonomy refactor has no solved-count, validity, or error regression across the full OpenSudoku corpus.
+**Goal:** Verify no solved-count / validity / error regression across the full OpenSudoku corpus.
 
-**Files:**
-
-- Update on `orchestration` only after successful run:
-  - `orchestration/run-logs/full-corpus-20260602-064418.tar.gz`
-  - relevant `orchestration/round1/investigations/*.md` reports
-
-- [ ] Step 1: Run full corpus from orchestration branch
-
-From the `orchestration` worktree, run the implementation ref:
+- [ ] Step 1: Run the full corpus on the current working tree:
 
 ```bash
-node orchestration/harness/run-archive-full-corpus.mjs \
-  --ref archive/round1/analysis-sonnet46-strategy-fix \
-  --name analysis-sonnet46-strategy-fix \
-  --out-dir orchestration/reports/full-corpus/analysis-sonnet46-strategy-taxonomy-rerun \
-  --workers 12
+npm run corpus:run -- --out /tmp/taxonomy-rerun.json --workers 12
 ```
 
-Expected minimum result:
+Expected minimum: easy `100000/100000`, medium `352643/352643`, hard `321592/321592`, diabolical ≥ `118954/119681`, invalid `0`, errors `0`.
 
-- easy solved: `100000/100000`
-- medium solved: `352643/352643`
-- hard solved: `321592/321592`
-- diabolical solved: at least `118954/119681`
-- invalid solved: `0`
-- errors: `0`
-
-- [ ] Step 2: Compare against Phase 3 baseline
-
-Record per-difficulty deltas in a new or existing analysis note.
-
-If any solved count drops, any invalid solved grid appears, or any error appears:
-
-- Stop.
-- Do not update archive.
-- Trace the first regression using `orchestration/harness/trace-archive-case.mjs`.
-- Fix root cause on `archive/round1/analysis-sonnet46-strategy-fix` before rerunning.
-
-- [ ] Step 3: Update full-corpus archive only if the gate passes
-
-Replace only the `analysis-sonnet46-strategy-fix` entry inside:
-
-- `20260602-064418/results.json`
-- `20260602-064418/results.partial.json`
-- `20260602-064418/summary.md`
-
-Archive path:
-
-```text
-orchestration/run-logs/full-corpus-20260602-064418.tar.gz
-```
-
-- [ ] Step 4: Verify archive contents
-
-Run:
-
-```bash
-tar -xOf orchestration/run-logs/full-corpus-20260602-064418.tar.gz 20260602-064418/results.json \
-  | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{const p=JSON.parse(s); const r=p.results.find(x=>x.name==="analysis-sonnet46-strategy-fix"); console.log(r.report.easy.solved, r.report.medium.solved, r.report.hard.solved, r.report.diabolical.solved, r.report.diabolical.failures.length);})'
-```
-
-Expected:
-
-- Printed values match the accepted rerun.
+- [ ] Step 2: Compare against the baseline. If any solved count drops, any invalid appears, or any error appears: **STOP.** Reproduce the first regressing puzzle directly with the engine, add a failing case to `packages/engine/test/diabolical-regressions.test.ts`, fix the root cause, rerun.
+- [ ] Step 3: Confirm the stuck set is unchanged — regenerate `data/failing-diabolical/` per its README and expect **no diff** (this refactor adds no solving power). If it changed, investigate before proceeding.
 
 ## Phase 7: Documentation Updates for Future Strategy Expansion
 
-**Goal:** Ensure future Phase 4 new-strategy work applies the same human-taxonomy principles instead of adding broad mixed strategy buckets.
+**Goal:** Ensure Roadmap ② new-strategy work applies the same human-taxonomy principles.
 
-**Files:**
-
-- Modify: `orchestration/round1/investigations/remaining-diabolical-regression-plan.md`
-- Modify or create: `orchestration/round1/investigations/human-strategy-taxonomy-migration-map.md`
-- Optionally modify: any strategy authoring notes under `research/sudoku-human-solving/` if they are used as implementation guidance
-
-- [ ] Step 1: Update remaining diabolical Phase 4 guidance
-
-Add guidance that new strategy expansion must:
-
-- Introduce specific human-named strategy IDs.
-- Avoid grouping multiple techniques only because they share a broad family.
-- Assign `difficulty` by human recognition cost.
-- Prefer one concrete pattern instance per tutoring step.
-- Add tests that assert the specific strategy ID and sound deductions.
-
-- [ ] Step 2: Update taxonomy migration note
-
-Record final strategy order and old-to-new mapping after implementation settles.
-
-- [ ] Step 3: Document non-goals for future workers
-
-Explicitly restate:
-
-- Full-corpus performance is secondary to tutoring trace quality.
-- Caching is a separate future optimization, not part of taxonomy correctness.
-- Backtracking, unrestricted forcing nets, and template enumeration are not acceptable under human-strategy labels.
-
-- [ ] Step 4: Commit orchestration documentation updates
-
-Run from `orchestration`:
-
-```bash
-git status --short
-git add orchestration/round1/investigations/human-strategy-taxonomy-refactor-plan.md orchestration/round1/investigations/human-strategy-taxonomy-migration-map.md orchestration/round1/investigations/remaining-diabolical-regression-plan.md orchestration/run-logs/full-corpus-20260602-064418.tar.gz
-git commit -m "docs: add human strategy taxonomy refactor plan"
-```
-
-Only include the full-corpus archive in this commit if Phase 6 passed and the archive was intentionally updated.
+- [ ] Step 1: Update [`diabolical-727.md`](./diabolical-727.md): new strategies must use specific human-named IDs, avoid grouping techniques by broad family, assign `difficulty` by human recognition cost, prefer one concrete pattern instance per step, and add tests asserting the specific ID + sound deductions.
+- [ ] Step 2: Record the final strategy order and old→new mapping (in this doc or `taxonomy-migration-map.md`).
+- [ ] Step 3: Restate non-goals for future workers (full-corpus performance secondary to trace quality; caching is a separate optimization; no backtracking/forcing-nets/template enumeration under human-strategy labels).
+- [ ] Step 4: Commit the documentation updates.
 
 ## Stop Conditions
 
-- Stop if any full-corpus solved count drops below the Phase 3 baseline.
+- Stop if any full-corpus solved count drops below the baseline.
 - Stop if any invalid solved grid appears.
 - Stop if any strategy split changes a regression test from solved to stuck.
 - Stop after three failed attempts to preserve a split strategy's behavior; reconsider whether that split needs a shared helper or a smaller first step.
-- Stop if a proposed split requires caching to be correct. Caching may be useful for performance, but taxonomy correctness must not depend on it.
+- Stop if a proposed split requires caching to be correct (caching is a perf option, not a correctness dependency).

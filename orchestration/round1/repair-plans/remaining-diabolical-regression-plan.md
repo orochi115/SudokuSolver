@@ -371,39 +371,12 @@ git add orchestration/run-logs/full-corpus-20260602-064418.tar.gz orchestration/
 git commit -m "docs: update remaining diabolical regression results"
 ```
 
-## Phase 4: New Strategy Expansion Cycle
+## Phase 4–5: 前瞻工作已移出（本文档仅保留 round-1 历史）
 
-Only start this after Phase 1 and Phase 2 are complete and the repaired branch has no known regression against the compared archive set.
+上文 Phase 1–3 的回归修复已完成（round-1 对比依赖的历史记录）。其后的前瞻工作不再依赖 round-1 对比，已迁出：
 
-Before adding new strategy capability, complete or explicitly defer `orchestration/round1/investigations/human-strategy-taxonomy-refactor-plan.md`. Future strategy expansion should preserve human-learning-friendly taxonomy: specific technique IDs, ordering by human recognition cost, and one concrete pattern instance per default tutoring step.
-
-### Task 4: Build a 700-Case Feature Analysis Pack
-
-**Goal:** Classify the remaining shared failures by missing strategy family before writing new code.
-
-- [ ] Step 1: Extract all remaining failures solved by no compared model.
-- [ ] Step 2: For each stuck final grid, record blank count, candidate masks, last 20 strategy IDs, and available strategy probes.
-- [ ] Step 3: Compute feature counts for likely families:
-- AIC loops and grouped endpoints
-- XY-chain/Y-chain candidate graph paths
-- ALS-XZ/ALS-XY/ALS chains
-- finned and sashimi fish
-- X-Cycles and multi-coloring
-- UR Type 2/3/4/6 and BUG+1
-- [ ] Step 4: Cluster cases by first available missing-family signal.
-- [ ] Step 5: Pick the highest-yield family for TDD implementation.
-
-### Task 5: Run a New Model Comparison Round
-
-Use this only after clustering suggests candidate families. The goal is not to rank models again, but to generate independent strategy hypotheses for the same representative stuck states.
-
-Recommended setup:
-
-- Keep `foundation` unchanged unless requirements need clarification.
-- Create a new analysis prompt focused on explaining one stuck state and proposing human-solvable strategies.
-- Run 2-4 strong models on the same clustered representatives.
-- Compare proposed strategy families against local research notes under `research/sudoku-human-solving/local-library/`.
-- Promote only strategies that are explainable, sound, and testable under the current engine contract.
+- **727 补全（原 Phase 4 · 新策略扩展）** → 工程计划见 [`../../../docs/plans/diabolical-727.md`](../../../docs/plans/diabolical-727.md)（去对比化、在 master 上进行：按缺失技巧族聚类 + TDD）。其前置 taxonomy 重构见 [`../../../docs/plans/taxonomy-refactor.md`](../../../docs/plans/taxonomy-refactor.md)。
+- **新一轮模型对比（原 Phase 5 · 生成策略假设）** → 见 [`../../round2/README.md`](../../round2/README.md)（round-2 占位）。
 
 ## Stop Conditions
 

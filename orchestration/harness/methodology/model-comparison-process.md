@@ -90,4 +90,4 @@ model/<短名>  某模型工作分支（从 foundation 出），跑完归档为 
 - 结果数据生成与管理：[`results-data-management.md`](./results-data-management.md)
 - 用成功分支定位失败：[`cross-branch-trace-diffing.md`](./cross-branch-trace-diffing.md)
 - 第一轮最终结果：[`report-final.md`](../../round1/report-final.md)
-- 下一轮策略拆分计划：[`../../round1/repair-plans/human-strategy-taxonomy-refactor-plan.md`](../../round1/repair-plans/human-strategy-taxonomy-refactor-plan.md)
+- 下一轮策略拆分计划：[`../../../docs/plans/taxonomy-refactor.md`](../../../docs/plans/taxonomy-refactor.md)
