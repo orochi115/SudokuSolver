@@ -124,9 +124,9 @@ Notes:
 
 **Goal:** Confirm the exact split points and difficulty order before changing implementation code.
 
-- [ ] Step 1: Confirm the engine baseline. `git status --short --branch`; `npm test` green; record the full-corpus baseline (above) so deltas are measurable.
-- [ ] Step 2: Audit current strategy IDs and difficulty order. Inspect `strategies/index.ts`, `strategy.ts`, `solver.ts`. Record current `STRATEGIES` order, `difficulty` values, and any strategy whose display name hides multiple human techniques.
-- [ ] Step 3: Produce a migration map (record it in this doc, or a `docs/plans/taxonomy-migration-map.md`). Old→new mapping such as:
+- [x] Step 1: Confirm the engine baseline. `git status --short --branch`; `npm test` green; record the full-corpus baseline (above) so deltas are measurable.
+- [x] Step 2: Audit current strategy IDs and difficulty order. Inspect `strategies/index.ts`, `strategy.ts`, `solver.ts`. Record current `STRATEGIES` order, `difficulty` values, and any strategy whose display name hides multiple human techniques.
+- [x] Step 3: Produce a migration map (record it in this doc, or a `docs/plans/taxonomy-migration-map.md`). Old→new mapping such as:
 
 | Old strategyId | New strategyId(s) | Notes |
 | --- | --- | --- |
@@ -139,7 +139,9 @@ Notes:
 | `uniqueness` | `bug-plus-one`, `unique-rectangle-type-1/2/4` | Id split settled. **Difficulty placement is an OPEN decision:** default = assumption-free (late, ~90+); optional uniqueness-aware profile pulls BUG+1/UR-1 early. Record both; fossilize neither. |
 | `aic` | `x-chain`, `aic` (or finer) | Split conservatively. |
 
-- [ ] Step 4: Confirm test impact. `rg "strategyId|als|basic-fish|single-digit-patterns|naked-subset|hidden-subset|uniqueness|aic" packages/engine/test`. Identify tests needing updated expected IDs; don't delete regression intent.
+- [x] Step 4: Confirm test impact. `rg "strategyId|als|basic-fish|single-digit-patterns|naked-subset|hidden-subset|uniqueness|aic" packages/engine/test`. Identify tests needing updated expected IDs; don't delete regression intent.
+
+Phase 1 audit output is recorded in [`taxonomy-migration-map.md`](./taxonomy-migration-map.md).
 
 ## Phase 2: Split Low-Risk Strategy Families
 
