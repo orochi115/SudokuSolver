@@ -10,6 +10,10 @@ This feeds method-skeleton step #1 of [`docs/plans/diabolical-727.md`](../../doc
 *cluster the 727 by "first missing technique family"* and pick the highest-yield
 family to implement next in the TS engine.
 
+> **Direction decision** (engine re-founded on a faithful HoDoKu port; keep the
+> trace contract / soundness / test harness / pedagogy; new HTML renderer):
+> see [`DECISION.md`](./DECISION.md). Census data: [`FINDINGS.md`](./FINDINGS.md).
+
 > **It does NOT touch the SudokuSolver TS engine** (`packages/engine/`). It is a
 > research probe only. No algorithm is ported here; whether to port any technique
 > is a separate Roadmap ② decision.
