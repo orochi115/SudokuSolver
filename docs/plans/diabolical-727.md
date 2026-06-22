@@ -40,8 +40,23 @@
 - 全语料性能不是本阶段首要目标；若需要缓存，作为独立优化任务处理，不把缓存当作策略正确性的前提。
 - **不**引入回溯、模板枚举、无约束 forcing nets、或题号专用 guard——这些不算"人类解法"。
 
+## 对照实验结果（HoDoKu 纯逻辑普查，2026-06-22）
+
+已用 HoDoKu（纯逻辑、零暴力/模板）跑完全部 727，详见 [`research/hodoku-logic/FINDINGS.md`](../../research/hodoku-logic/FINDINGS.md)（含可复现脚本与每题技巧 trace）。要点：
+
+- **全套人类技巧（含 forcing chains + nets）：727/727 全解，0 invalid。** 即每道都可纯逻辑解出。
+- **禁用 forcing nets（仍保留 forcing chains）：424/727 解出，303 stuck。** 约 40% 真正需要 net 级强度（本计划红线视为非人类）。
+- **首个缺失技巧族聚类（最高产出在前）：**
+  1. **链 / Nice Loop ≈ 380**：（成组）不连续环为主。引擎已有 `AIC`/`X-Chain`，缺的是**更强的链搜索**——group node + 不连续环判定。**单一最高杠杆。**
+  2. **finned/sashimi fish ≈ 179**：现有 fish 策略的受控扩展。
+  3. **Hidden Rectangle 65**：小而独立的 uniqueness 补充。
+  4. **forcing nets 52**：最硬尾部，受红线限制可能保持 stuck，需显式决策是否接受 ~7% 残留。
+  5. **Turbot Fish 34**：部分已被 skyscraper/2-string-kite/empty-rectangle 覆盖。
+
+→ 实现优先级建议直接采用上面 1→2→3 的顺序（先强化链引擎，再补 finned fish，再 Hidden Rectangle），nets 依赖的尾部最后单独评估。
+
 ## 待定稿事项（Roadmap ① 后再分析）
 
-- 新策略的**具体清单与优先级**（结合聚类结果与 ① 后的引擎状态重排）。
-- 是否新增**对照开源解法**的阶段——核对策略族/命名是否完整，可参考开源数独分析器的算法实现，如 [HoDoKu](https://github.com/PseudoFish/Hodoku/tree/master/src/solver)。
+- 新策略的**具体清单与优先级**：以上对照实验已给出数据支撑的初版排序；① 完成后结合引擎状态与命名再定稿。
+- ~~是否新增对照开源解法的阶段~~ — 已完成（见上 / [`research/hodoku-logic/`](../../research/hodoku-logic/)）。
 - 策略灵感来源：`research/sudoku-human-solving/local-library/`（技巧卡与来源摘要）。
