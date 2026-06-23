@@ -75,14 +75,14 @@ last-resort：`forcing-chain`。
 | 技巧 | 分册 | 文档状态 | 研究卡 |
 |---|---|---|---|
 | Tridagon / anti-Tridagon（Thor's Hammer） | 11-exotic | ✅ | `11-exotic/tridagon.md`（现代 diabolical 高杠杆，已提到 P1） |
-| Multi-Coloring | 07-coloring | ✅ | `07-coloring/multi-coloring.md`（HoDoKu mc01 `r5c23<>1` 已验证） |
+| Multi-Coloring | 07-coloring | ✅\* | `07-coloring/multi-coloring.md`（HoDoKu mc01/mc02 已验证；X-Colors 例 1/3 待补） |
 | 3D Medusa | 07-coloring | ✅ | `07-coloring/3d-medusa.md`（R1/R3/R4/R5 已验证；R2 整色翻转待夹具） |
 | ALS-XY-Chain / 一般 ALS 链 | 09-als | ✅ | `09-als/als.md`（`als-xy-wing` 是其 len-2 特例） |
 | Almost Hidden Sets (AHS) 作链节点 | 09-als | ✅ | `09-als/ahs.md`（ALS 的对偶：N 数字落在 N+1 格） |
 | WXYZ-Wing | 06-wings | ✅ | `06-wings/wxyz-wing.md` |
 | Remote Pairs | 06-wings | ✅ | `06-wings/remote-pairs.md`（XY-Chain 特例） |
 | Almost Locked Pair/Triple（Bent Sets）/ Chute Remote Pairs | 06-wings | ✅ | `06-wings/bent-sets.md`（+ chute 见 `remote-pairs.md`） |
-| Broken Wing / Guardians | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/broken-wing.md`（与 Turbot/X-Cycle 重叠，已交叉标注） |
+| Broken Wing / Guardians | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/broken-wing.md`（SW Guardian 2/3 已验证；Type 1 单 guardian 待补） |
 | Avoidable Rectangle Type 1–4（一般 AR） | 10-uniqueness | ✅ | `10-uniqueness/avoidable-rectangle.md`（HoDoKu ar101/ar102/ar201/ar202 已验证） |
 | Extended Unique Rectangle（2×3 / 3 数） | 10-uniqueness | ✅ | `10-uniqueness/extended-ur.md` |
 | Unique Loops / Unique Polygon / BUG 变体（BUG Lite、BUG+n） | 10-uniqueness | ✅ | `10-uniqueness/unique-rectangle-bug.md` |
@@ -168,7 +168,7 @@ last-resort：`forcing-chain`。
 
 **卡片书写：✅ 完成（2026-06-23）。** 41 张专卡 + 90 源镜像已登记。
 
-**引擎验证：七轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 57 例**，覆盖：
+**引擎验证：七轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 60 例**，覆盖：
 
 | 卡 | 验证项 |
 |---|---|
@@ -178,11 +178,12 @@ last-resort：`forcing-chain`。
 | `04-fish/finned-sashimi` | Finned/Sashimi X-Wing + Swordfish |
 | `04-fish/franken-mutant` | HoDoKu Finned Franken Swordfish `r3c7<>8` |
 | `05/rectangle-elimination` | `r1c2<>9` |
+| `05/broken-wing` | SudokuWiki Guardian 2 `r7c7<>7`、Guardian 3 `r7c4<>1` |
 | `05/turbot-family` | HoDoKu Skyscraper `r1c78,r3c45<>1` |
 | `06/xy-xyz-w-wings` | XY/XYZ/W-Wing 各一例 |
 | `06/bent-sets` | ALTriple via XYZ-Wing 源盘 |
 | `07/simple-coloring` | Color Trap `r9c3<>7` |
-| `07/multi-coloring` | HoDoKu mc01 `r5c23<>1` |
+| `07/multi-coloring` | HoDoKu mc01 `r5c23<>1`、mc02 `r6c2,r7c3,r8c6<>3` |
 | `07/3d-medusa` | R1 `r8c1=1`、R3 `r3c2<>8`、R4 `r2c1,r3c8<>6`、R5 四处消除；R2 Exemplars 3/4 唯一性 |
 | `08/xy-chain` | 开链三处消除 |
 | `08/aic-with-ur` | Example A `r3c5=2`；Example B `r4c6<>9`, `r7c6=6` |
@@ -196,7 +197,7 @@ last-resort：`forcing-chain`。
 
 **仍待验证（✅\*）** — 规则已写清，消除集或 restored-state 候选网格待核：
 
-- 05：`broken-wing.md`（Sudopedia 单数字抽象网格，无完整 81-char 盘）
+- 05：`broken-wing.md` Guardian 1 单 guardian 落子（需恢复态）
 - 07：`3d-medusa.md` Rule 2 FTS 整色翻转（Exemplars 3/4 仅唯一性）；`multi-coloring.md` X-Colors 例 1/3 候选态
 - 08：`aic-with-ur.md` Example B 第二 explore 选项的 off-chain 消除（图示-only）
 - 10：`avoidable-rectangle.md` SudokuWiki B4 叙事例（仅压缩 `bd=` 恢复态）

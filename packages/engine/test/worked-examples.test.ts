@@ -126,6 +126,22 @@ describe('research card worked examples (ground-truth verification)', () => {
         eliminations: [{ cell: rc(1, 2), digit: 9 }],
       });
     });
+
+    it('broken wing double guardians eliminate 7 from G7 (SudokuWiki Guardian 2)', () => {
+      expectSound(
+        'broken-wing-guardian2',
+        '103896520020753010090214063010569382200437195030182070002945031350621040001378250',
+        { eliminations: [{ cell: rc(7, 7), digit: 7 }] },
+      );
+    });
+
+    it('broken wing disruptive guardians eliminate 1 from G4 (SudokuWiki Guardian 3)', () => {
+      expectSound(
+        'broken-wing-guardian3',
+        '070500030804003600030000000401020003763800521920310064007000000042900308010002070',
+        { eliminations: [{ cell: rc(7, 4), digit: 1 }] },
+      );
+    });
   });
 
   describe('06-wings', () => {
@@ -340,6 +356,23 @@ describe('research card worked examples (ground-truth verification)', () => {
           eliminations: [
             { cell: rc(5, 2), digit: 1 },
             { cell: rc(5, 3), digit: 1 },
+          ],
+        },
+      );
+    });
+
+    it('multi-colors type 2 eliminates 3 from r6c2, r7c3, r8c6 (HoDoKu mc02)', () => {
+      expectSound(
+        'multi-coloring-mc02',
+        '.17....28.8..4...........7...4.9...696...7..15....2..............891.54...58..31.'.replace(
+          /\./g,
+          '0',
+        ),
+        {
+          eliminations: [
+            { cell: rc(6, 2), digit: 3 },
+            { cell: rc(7, 3), digit: 3 },
+            { cell: rc(8, 6), digit: 3 },
           ],
         },
       );

@@ -91,7 +91,17 @@ Source: SUDOPEDIA-BROKEN-WING, "Single Guardian" pattern (verbatim coordinates).
 
 Exact result (Case 1): **place `d` in r5c8** (`r5c8 = d`).
 
-FLAG: needs engine verification — SUDOPEDIA presents this as an abstract single-digit pattern (ASCII grid of X / G / dashes for one digit only), not a full 81-char puzzle, so no complete grid is reproduced and the specific digit is unspecified. The loop cells, guardian cell, and the placement deduction are reproduced exactly from the source.
+SUDOPEDIA single-guardian sketch (abstract, no 81-char grid): loop `r5c2,r2c2,r2c5,r1c6,r5c6`, guardian `r5c8`, deduction `r5c8=d`.
+
+**Verified — SudokuWiki Guardian 2** (double guardians, digit 7):
+Grid: `103896520020753010090214063010569382200437195030182070002945031350621040001378250`
+
+Guardians `G1,H7` both see `G7` ⇒ **`r7c7<>7`**.
+
+**Verified — SudokuWiki Guardian 3** (disruptive guardian on loop, digit 1):
+Grid: `070500030804003600030000000401020003763800521920310064007000000042900308010002070`
+
+Guardians `C4,G6` both see loop cell `G4` ⇒ **`r7c4<>1`**.
 
 Single-digit candidate sketch (`X` = loop cell candidate of `d`, `G` = guardian, `.`/`-` = no `d`), as given by the source:
 ```

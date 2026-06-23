@@ -91,6 +91,12 @@ Digit 1, colors 1a@r1c5 / 1b@r1c7 and 2a@r2c9 / 2b@r5c9; r1c7(1b) and r2c9(2a) s
 
 Eliminations (HoDoKu step string): `r5c23<>1`.
 
+**Verified — HoDoKu mc02** (Multi-Colors type 2):
+Grid: `.17....28.8..4...........7...4.9...696...7..15....2..............891.54...58..31.`
+(dots → 0)
+
+Digit 3, two same-color cells each see opposite colors of the other pair ⇒ **`r6c2,r7c3,r8c6<>3`**.
+
 ## Soundness
 
 **Multi-Colors Type 1:** A1 and A2 share a house, so not both true; hence the true color of cluster 1 is B1 *or* the true color of cluster 2 is B2 (at least one). A cell `z` seeing a B1 cell and a B2 cell: in case "B1 is the true set," the seen B1 holds `d`; in case "B2 is the true set," the seen B2 holds `d`. These two cases are exhaustive (one of B1/B2 is forced true by the weak link), so in every case some peer of `z` holds `d` ⇒ `z≠d`. Valid case split, no insertion.
