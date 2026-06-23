@@ -108,6 +108,18 @@ Grid: `1000000020904000500060007000509030000000700000008500407000006000300090800
 
 Outer link `{3,8}` on B13/B79 ⇒ **`r2c5,r2c6<>3,8`**.
 
+### Verified — Easter Monster inner-link eliminations
+Grid: `100000002090400050006000700050903000000070000000850040700000600030009080002000001`
+
+Inner links remove loop digits from each corner box outside its mini-row and mini-column:
+
+| Box | Inner pair | Eliminations |
+|-----|------------|--------------|
+| B1 (A) | `{2,7}` | `r1c3,r3c1,r3c3<>2,7` |
+| B3 (C) | `{1,6}` | `r1c7,r1c9,r3c7,r3c9<>1,6` |
+| B7 (G) | `{4,8}` | `r7c1,r7c3<>4,8`; `r9c1<>4`; `r9c3<>4,8` |
+| B9 (I) | `{2,7}` | `r7c7,r7c9,r9c7,r9c9<>2,7` |
+
 ### Verified — additional SudokuWiki exemplars (uniqueness)
 - Type 3-1-3-1-3-1-3-1: `100020003040000050006000700000506000800090001000300000007000600050000090200030008`
 - With solved cells (2-2-1-2-2-2-1-2): `200000004080500070001020300000700090000060000070008000003000100090007050400001002`

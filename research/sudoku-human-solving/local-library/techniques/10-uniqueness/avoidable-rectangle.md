@@ -121,11 +121,19 @@ Grid: `0850000600000047000300001000000000506000430000708203000004596700000000009
 
 Avoidable Rectangle Type 2: `2/8` in `r4c37,r5c37` ⇒ **`r18c7,r456c9,r56c8<>9`**.
 
-### SudokuWiki canonical narrative (B4/C4/B7/C7) — CITED, restored-state only
-SudokuWiki's B4/C4/B7/C7 example (`C4=5`, `B7=5`, `C7=8`, `B4={8,9}` ⇒ `B4=9`) is published
-only as a solver screenshot / compressed `bd=` restored state (Frisbee credit, March 2026),
-not a plain 81-char givens string. Logic matches Type 1 above; use HoDoKu ar102 for a
-fixture-tested grid.
+### SudokuWiki Frisbee Load Example — givens verified (March 2026)
+SudokuWiki's solver example (credit: *Frisbee*) ships as compressed `S9B` only. Givens decode to:
+
+`004002038002600009390400700031800004000000000400006390009005076100008200750200900`
+
+Verified unique/solvable (`packages/engine/test/worked-examples.test.ts`). The published `S9B`
+restored state is a mid-solve snapshot, not the narrative `B4={8,9}` diagram step; the Type 1
+elimination at that snapshot still awaits a restored-state candidate match.
+
+### SudokuWiki canonical narrative (B4/C4/B7/C7) — CITED, step pending
+SudokuWiki's B4/C4/B7/C7 figure (`C4=5`, `B7=5`, `C7=8`, `B4={8,9}` ⇒ `B4=9`) is a pedagogical
+screenshot without a plain 81-char givens string. Logic matches Type 1 above; use HoDoKu ar102 for a
+fully fixture-tested Type 1 grid.
 
 ## Soundness
 

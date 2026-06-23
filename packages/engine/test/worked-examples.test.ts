@@ -642,6 +642,50 @@ describe('research card worked examples (ground-truth verification)', () => {
       );
     });
 
+    it('easter monster inner-link SK-Loop eliminates loop digits outside mini-rows/columns', () => {
+      expectSound(
+        'sk-loop-easter-monster-inner',
+        '100000002090400050006000700050903000000070000000850040700000600030009080002000001',
+        {
+          eliminations: [
+            // box A (B1): inner {2,7}
+            { cell: rc(1, 3), digit: 2 },
+            { cell: rc(1, 3), digit: 7 },
+            { cell: rc(3, 1), digit: 2 },
+            { cell: rc(3, 1), digit: 7 },
+            { cell: rc(3, 3), digit: 2 },
+            { cell: rc(3, 3), digit: 7 },
+            // box C (B3): inner {1,6}
+            { cell: rc(1, 7), digit: 1 },
+            { cell: rc(1, 7), digit: 6 },
+            { cell: rc(1, 9), digit: 1 },
+            { cell: rc(1, 9), digit: 6 },
+            { cell: rc(3, 7), digit: 1 },
+            { cell: rc(3, 7), digit: 6 },
+            { cell: rc(3, 9), digit: 1 },
+            { cell: rc(3, 9), digit: 6 },
+            // box G (B7): inner {4,8}
+            { cell: rc(7, 1), digit: 4 },
+            { cell: rc(7, 1), digit: 8 },
+            { cell: rc(7, 3), digit: 4 },
+            { cell: rc(7, 3), digit: 8 },
+            { cell: rc(9, 1), digit: 4 },
+            { cell: rc(9, 3), digit: 4 },
+            { cell: rc(9, 3), digit: 8 },
+            // box I (B9): inner {2,7}
+            { cell: rc(7, 7), digit: 2 },
+            { cell: rc(7, 7), digit: 7 },
+            { cell: rc(7, 9), digit: 2 },
+            { cell: rc(7, 9), digit: 7 },
+            { cell: rc(9, 7), digit: 2 },
+            { cell: rc(9, 7), digit: 7 },
+            { cell: rc(9, 9), digit: 2 },
+            { cell: rc(9, 9), digit: 7 },
+          ],
+        },
+      );
+    });
+
     it('type 3-1-3-1 SK-Loop puzzle is uniquely solvable (SudokuWiki)', () => {
       const result = checkPuzzle('100020003040000050006000700000506000800090001000300000007000600050000090200030008');
       expect(result.solvable).toBe(true);
@@ -904,6 +948,16 @@ describe('research card worked examples (ground-truth verification)', () => {
           ],
         },
       );
+    });
+
+    it('SudokuWiki Frisbee Load Example S9B decodes to a unique givens puzzle', () => {
+      const s9b =
+        'S9B1u2b040i2q021v03084i2b02066e2e17170903095e044i0a071w10900301082c9e1u1w04901g3m130d7q4j5h2t04446a0z0l0603092t444c090n0n054a0706011m1i0g0i08021612070546020f0d09430n';
+      const fromStart = '004002038002600009390400700031800004000000000400006390009005076100008200750200900';
+      expect(decodeS9B(s9b).givens).toBe(fromStart);
+      const result = checkPuzzle(fromStart);
+      expect(result.solvable).toBe(true);
+      expect(result.unique).toBe(true);
     });
   });
 });
