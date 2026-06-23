@@ -96,11 +96,20 @@ Unit+cell contradictions on **E5/E6** and **F5** ⇒ `r5c5<>1`, `r5c5<>7`, `r5c6
 Grid: `300050000250300010004607500090200805070000030408005060005408300030006084000020006`
 
 Two same-color **7**s in **column 7** trigger Rule 2 whole-color flip ⇒ at minimum
-**`r1c7,r2c7,r8c7,r9c7<>7`** (full yellow-7 purge is wider; source requires prior Rule-6 steps).
+**`r1c7,r2c7,r8c7,r9c7<>7`**.
+
+**Verified — Rule 2 global yellow-7 purge** (SudokuWiki Load Example state; 16 cells):
+Grid: `300050000250300010004607500090200805070000030408005060005408300030006084000020006`
+
+Whole-color flip eliminates **7** from:
+`r1c3,r1c7,r1c8,r2c7,r2c9,r4c8,r6c4,r6c9,r7c1,r7c5,r7c9,r8c3,r8c5,r8c7,r9c3,r9c7`
+(Load state has 16 yellow-7 candidates; `r6c7` is not among them — solution digit is 7.)
 
 **Verified — Rule 2 exemplars** (SudokuWiki, uniqueness only):
 - Exemplar 3: `000000009010503000003290700400001300900050008006300005008037400000108060700000000`
 - Exemplar 4: `900008007000000060000710403005030006009802000100090800403059000050000000700600000`
+- Exemplar 5: `001042000000309000790000080408000900009618200005000806050000031000403000000170600`
+- Exemplar 8: `009010500040500090200003017000060008000209000700030000960100002030008070005020600`
 
 ## Soundness
 

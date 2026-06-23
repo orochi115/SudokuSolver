@@ -278,6 +278,45 @@ describe('research card worked examples (ground-truth verification)', () => {
         },
       );
     });
+
+    it('Rule 2 global yellow-7 purge eliminates 16 candidates (SudokuWiki Load state)', () => {
+      expectSound(
+        '3d-medusa-r2-global',
+        '300050000250300010004607500090200805070000030408005060005408300030006084000020006',
+        {
+          eliminations: [
+            { cell: rc(1, 3), digit: 7 },
+            { cell: rc(1, 7), digit: 7 },
+            { cell: rc(1, 8), digit: 7 },
+            { cell: rc(2, 7), digit: 7 },
+            { cell: rc(2, 9), digit: 7 },
+            { cell: rc(4, 8), digit: 7 },
+            { cell: rc(6, 4), digit: 7 },
+            { cell: rc(6, 9), digit: 7 },
+            { cell: rc(7, 1), digit: 7 },
+            { cell: rc(7, 5), digit: 7 },
+            { cell: rc(7, 9), digit: 7 },
+            { cell: rc(8, 3), digit: 7 },
+            { cell: rc(8, 5), digit: 7 },
+            { cell: rc(8, 7), digit: 7 },
+            { cell: rc(9, 3), digit: 7 },
+            { cell: rc(9, 7), digit: 7 },
+          ],
+        },
+      );
+    });
+
+    it('Rule 2 exemplar 5 is uniquely solvable (SudokuWiki)', () => {
+      const result = checkPuzzle('001042000000309000790000080408000900009618200005000806050000031000403000000170600');
+      expect(result.solvable).toBe(true);
+      expect(result.unique).toBe(true);
+    });
+
+    it('Rule 2 exemplar 8 is uniquely solvable (SudokuWiki)', () => {
+      const result = checkPuzzle('009010500040500090200003017000060008000209000700030000960100002030008070005020600');
+      expect(result.solvable).toBe(true);
+      expect(result.unique).toBe(true);
+    });
   });
 
   describe('08-chains', () => {
@@ -431,6 +470,41 @@ describe('research card worked examples (ground-truth verification)', () => {
             { cell: rc(1, 9), digit: 5 },
             { cell: rc(4, 9), digit: 5 },
             { cell: rc(1, 9), digit: 6 },
+          ],
+        },
+      );
+    });
+
+    it('MSLS Example 1 rank-0 multi-sector naked set eliminates 21 candidates (David P Bird)', () => {
+      expectSound(
+        'msls-ex1',
+        '1......8......92....6.3...52....8.....5.7.....6.5....4..47...........91..3..6...7'.replace(
+          /\./g,
+          '0',
+        ),
+        {
+          eliminations: [
+            { cell: rc(1, 6), digit: 2 },
+            { cell: rc(2, 1), digit: 8 },
+            { cell: rc(3, 2), digit: 4 },
+            { cell: rc(3, 2), digit: 7 },
+            { cell: rc(3, 4), digit: 4 },
+            { cell: rc(4, 7), digit: 1 },
+            { cell: rc(4, 8), digit: 9 },
+            { cell: rc(5, 2), digit: 4 },
+            { cell: rc(5, 4), digit: 3 },
+            { cell: rc(5, 4), digit: 4 },
+            { cell: rc(5, 4), digit: 6 },
+            { cell: rc(5, 9), digit: 3 },
+            { cell: rc(5, 9), digit: 6 },
+            { cell: rc(6, 3), digit: 3 },
+            { cell: rc(6, 3), digit: 7 },
+            { cell: rc(7, 2), digit: 5 },
+            { cell: rc(7, 5), digit: 5 },
+            { cell: rc(7, 9), digit: 3 },
+            { cell: rc(7, 9), digit: 6 },
+            { cell: rc(8, 1), digit: 8 },
+            { cell: rc(8, 6), digit: 2 },
           ],
         },
       );

@@ -107,10 +107,15 @@ Eliminations (illustrative of the two behaviours):
   lying outside the matched loop cells — the subset is squeezed out of the rest
   of those columns.
 
-> The base/cover notation is taken verbatim from the source; the concrete grid
-> and exact per-cell eliminations are reconstructed and **need engine
-> verification**. Use the forum "Using Multi-Sector Locked Sets" worked grid for
-> a verified instance.
+**Verified — David P Bird Example 1** (ENJOYSUDOKU-MSLS forum thread):
+Grid: `1......8......92....6.3...52....8.....5.7.....6.5....4..47...........91..3..6...7`
+(dots → 0)
+
+Home set `[1289]` / Away set `[34567]`; MS-NS `r35679c1678` (20 cells, rank 0).
+
+Eliminations (21 candidates in 15 cells):
+`2r1c6`, `8r2c1`, `47r3c2`, `4r3c4`, `1r4c7`, `9r4c8`, `4r5c2`, `346r5c4`, `36r5c9`,
+`37r6c3`, `5r7c2`, `5r7c5`, `36r7c9`, `8r8c1`, `2r8c6`.
 
 ## Soundness
 
