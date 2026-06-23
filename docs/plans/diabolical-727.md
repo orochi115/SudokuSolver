@@ -99,7 +99,7 @@ last-resort：`forcing-chain`。
 | MSLS（Multi-Sector Locked Sets） | 11-exotic | ✅ | `11-exotic/msls.md`（David P Bird Ex1 已验证） |
 | Fireworks | 11-exotic | ✅ | `11-exotic/fireworks.md`（triple + quad 已验证） |
 | Aligned Pair/Triple Exclusion（APE/ATE） | 11-exotic | ✅ | `11-exotic/aligned-exclusion.md`（SW 四例已验证） |
-| Subset Exclusion / Subset Counting（APE/ATE 的非对齐推广） | 11-exotic | ✅\* | `11-exotic/subset-exclusion.md` |
+| Subset Exclusion / Subset Counting（APE/ATE 的非对齐推广） | 11-exotic | ✅ | `11-exotic/subset-exclusion.md`（Sudopedia SE 例已验证；Subset Counting 次例待补） |
 | Sue de Coq 扩展（更大 SdC / 双线） | 11-exotic | ✅ | `11-exotic/sue-de-coq.md`（HoDoKu sdc01–sdc04 已验证） |
 | AIC with exotic links | 08-chains-aic | ✅ | `08-chains-aic/aic-with-exotic-links.md` |
 | Twinned XY-Chains | 08-chains-aic | ✅ | `08-chains-aic/twinned-xy-chains.md`（Examples A/B/C 已验证） |
@@ -168,7 +168,7 @@ last-resort：`forcing-chain`。
 
 **卡片书写：✅ 完成（2026-06-23）。** 41 张专卡 + 90 源镜像已登记。
 
-**引擎验证：十轮完成（2026-06-24）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 79 例**，覆盖：
+**引擎验证：十一轮完成（2026-06-24）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 80 例**，覆盖：
 
 | 卡 | 验证项 |
 |---|---|
@@ -194,11 +194,12 @@ last-resort：`forcing-chain`。
 | `11-exotic/aligned-exclusion` | SudokuWiki APE 例 1/3/4/6 + Brenner 8-cell S9B `r4c5<>1`, `r5c5<>4` |
 | `11-exotic/sk-loop` | Easter Monster 外链 `r2c5,r2c6<>3,8` + 内链四角 30 处消除 + 3-1-3-1 / solved-cell 两例唯一性 |
 | `11-exotic/msls` | David P Bird Ex1–3（21 + 17 + 13 处消除） |
+| `11-exotic/subset-exclusion` | Sudopedia 图例 `r2c4<>7`（人工转写 givens） |
 | `10/avoidable-rectangle` | HoDoKu ar101/ar102 Type1 + ar201/ar202 Type2 + Frisbee S9B givens + SudokuWiki B4 叙事例 `r2c4=9` |
 
 **仍待验证（✅\*）** — 规则已写清，消除集或 restored-state 候选网格待核：
 
-- 11-exotic：`subset-exclusion.md`（`r2c4<>7`；需图源 post-basics 候选态 81-char 或 restored-state）
+- 11-exotic：`subset-exclusion.md` Subset Counting 次例（`01-WXYZWing.png`，`r8c2<>4`）
 
 > 验证方式：向 `worked-examples.test.ts` 追加用例 → 通过后更新卡内 FLAG 为 `Verified` 并在此表划掉。Restored-state 候选掩码（post-basics 精确态）可在实现期与策略探测器一并补写。
 

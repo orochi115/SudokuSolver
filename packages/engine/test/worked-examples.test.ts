@@ -698,6 +698,14 @@ describe('research card worked examples (ground-truth verification)', () => {
       expect(result.unique).toBe(true);
     });
 
+    it('subset exclusion Sudopedia example eliminates 7 from r2c4', () => {
+      expectSound(
+        'subset-exclusion-sudopedia',
+        '193008602008030001004100389371495268580010403240080015437021806002000034005000027',
+        { eliminations: [{ cell: rc(2, 4), digit: 7 }] },
+      );
+    });
+
     it('sue de coq extended eliminates from row/box (HoDoKu sdc03)', () => {
       expectSound(
         'sue-de-coq-sdc03',

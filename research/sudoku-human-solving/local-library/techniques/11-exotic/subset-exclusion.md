@@ -104,9 +104,25 @@ Removing the four starred combinations leaves the allowed list:
 
 In the allowed list, `C2` takes only `{2,6,9}` — never `7`. **Elimination: `C2 (r2c4) ≠ 7`.** (Verified by exhaustive enumeration: the starred set, and the surviving `C2` value-set `{2,6,9}`, match the source exactly.)
 
-Secondary example — Subset Counting (faithful to `SUDOPEDIA-SUBSET-COUNTING`, abstract in source): select 4 cells `S` with candidates among `{4,5,7,8}` where `place(4)=2` (r3c2,r9c1), `place(5)=1`, `place(7)=1`, `place(8)=1`, so `Σ place = 5 = |S| + 1`. A peer (blue) cell taking `4` removes `4` from r3c2, r9c1, r9c2, dropping `place(4)` from `2` to `0` (decrease `2`): `Σ` becomes `5 − 2 = 3 < 4 = |S|` — impossible, so the blue cell `≠ 4`. (Removing `4` from r5c2 only drops `Σ` by `1` to `4 = |S|`, which is not yet a contradiction, so no elimination there.) The selected cells form a WXYZ-Wing, which gives the same elimination.
+### Verified — Sudopedia grid example (human transcription, 2026-06-24)
+Givens (81-char, from `assets/sudopedia-subset-exclusion/01-SubsetExclusion.png`):
 
-FLAG — CONSTRUCTED: the explicit witness cells `Y_a = {5,7}`, `Y_b = {5,9}` above are a constructed realisation that reproduces the source's published starred set; the source itself shows only the combination list and the conclusion (`7` eliminated from `r2c4`), not the underlying grid or the exact witness candidates. No fully self-contained 81-char grid is supplied because a faithful grid-embedded instance depends on the exact post-basics candidate state, which the cited sources do not publish.
+`193008602008030001004100389371495268580010403240080015437021806002000034005000027`
+
+At the diagram step, blue base cells and yellow witnesses map to:
+
+| Role | Cell | Candidates at step |
+|------|------|-------------------|
+| C1 (blue) | `r1c4` | `{5,7}` |
+| C2 (blue) | `r2c4` | `{2,6,7,9}` (7 greyed in source) |
+| C3 (blue) | `r9c6` | `{4,6}` |
+| witness (yellow) | `r1c5` | `{4,5,7}` |
+| witness (yellow) | `r3c5` | `{5,6,7}` |
+| witness (yellow) | `r7c4` | `{5,9}` |
+
+**Elimination: `r2c4<>7`** (brute-force solution places `9`).
+
+Secondary example — Subset Counting (faithful to `SUDOPEDIA-SUBSET-COUNTING`, abstract in source): select 4 cells `S` with candidates among `{4,5,7,8}` where `place(4)=2` (r3c2,r9c1), `place(5)=1`, `place(7)=1`, `place(8)=1`, so `Σ place = 5 = |S| + 1`. A peer (blue) cell taking `4` removes `4` from r3c2, r9c1, r9c2, dropping `place(4)` from `2` to `0` (decrease `2`): `Σ` becomes `5 − 2 = 3 < 4 = |S|` — impossible, so the blue cell `≠ 4`. (Removing `4` from r5c2 only drops `Σ` by `1` to `4 = |S|`, which is not yet a contradiction, so no elimination there.) The selected cells form a WXYZ-Wing, which gives the same elimination. *Grid fixture for this secondary step still pending (`assets/sudopedia-subset-counting/01-WXYZWing.png`).*
 
 ## Soundness
 
