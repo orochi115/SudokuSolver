@@ -439,6 +439,65 @@ describe('research card worked examples (ground-truth verification)', () => {
         },
       );
     });
+
+    it('X-Colors Example 1 promotion trap eliminates 2 from r2c8 (Sudopedia)', () => {
+      expectSound('x-colors-ex1', '401708003000501000000002017802604071000000000140809306900200000000003000500406108', {
+        eliminations: [{ cell: rc(2, 8), digit: 2 }],
+      });
+    });
+
+    it('X-Colors Example 2 multi-iteration promotion eliminates 6 from r1c1 and r1c3 (Sudopedia)', () => {
+      expectSound('x-colors-ex2', '000084000080309000001257800240090058108405900060728431710942086000800000804500109', {
+        eliminations: [
+          { cell: rc(1, 1), digit: 6 },
+          { cell: rc(1, 3), digit: 6 },
+        ],
+      });
+    });
+
+    it('X-Colors Example 3 wrap places 8 in r1c8, r7c2, r9c5 and eliminates from r2c7 and r2c9 (Sudopedia)', () => {
+      expectSound('x-colors-ex3', '092700604040060000076020593050148762020090005061572030204030050030010000600209340', {
+        eliminations: [
+          { cell: rc(2, 7), digit: 8 },
+          { cell: rc(2, 9), digit: 8 },
+        ],
+        placements: [
+          { cell: rc(1, 8), digit: 8 },
+          { cell: rc(7, 2), digit: 8 },
+          { cell: rc(9, 5), digit: 8 },
+        ],
+      });
+    });
+
+    it('X-Colors Example 4 iterated promotion eliminates 5 from r8c7 and r8c8 (Sudopedia)', () => {
+      expectSound('x-colors-ex4', '401708003000501000000002017802604971000000000140809306900200000000003000500406108', {
+        eliminations: [
+          { cell: rc(8, 7), digit: 5 },
+          { cell: rc(8, 8), digit: 5 },
+        ],
+      });
+    });
+
+    it('X-Colors Example 5 column contradiction places 3 in r8c6 (Sudopedia)', () => {
+      expectSound('x-colors-ex5', '276900001800001760031007002090002006000000000600300050700806090062500804180004600', {
+        placements: [{ cell: rc(8, 6), digit: 3 }],
+      });
+    });
+
+    it('X-Colors Example 6 house-empty rule places 1 in r2c7 and r3c4 (Sudopedia)', () => {
+      expectSound('x-colors-ex6', '001583674437620000568074000000005400046012800005400000004250003000047520852390740', {
+        placements: [
+          { cell: rc(2, 7), digit: 1 },
+          { cell: rc(3, 4), digit: 1 },
+        ],
+      });
+    });
+
+    it('X-Colors augmented with pointing pair eliminates 8 from r3c1 (Sudopedia ER)', () => {
+      expectSound('x-colors-er', '300407800070063400040501370004070003200304009003100040001040530480035900530019604', {
+        eliminations: [{ cell: rc(3, 1), digit: 8 }],
+      });
+    });
   });
 
   describe('11-exotic', () => {

@@ -75,7 +75,7 @@ last-resort：`forcing-chain`。
 | 技巧 | 分册 | 文档状态 | 研究卡 |
 |---|---|---|---|
 | Tridagon / anti-Tridagon（Thor's Hammer） | 11-exotic | ✅ | `11-exotic/tridagon.md`（现代 diabolical 高杠杆，已提到 P1） |
-| Multi-Coloring | 07-coloring | ✅\* | `07-coloring/multi-coloring.md`（HoDoKu mc01/mc02 已验证；X-Colors 例 1/3 待补） |
+| Multi-Coloring | 07-coloring | ✅ | `07-coloring/multi-coloring.md`（HoDoKu mc01/mc02 + Sudopedia X-Colors 例 1–6/ER 已验证） |
 | 3D Medusa | 07-coloring | ✅ | `07-coloring/3d-medusa.md`（R1/R3/R4/R5 已验证；R2 整色翻转待夹具） |
 | ALS-XY-Chain / 一般 ALS 链 | 09-als | ✅ | `09-als/als.md`（`als-xy-wing` 是其 len-2 特例） |
 | Almost Hidden Sets (AHS) 作链节点 | 09-als | ✅ | `09-als/ahs.md`（ALS 的对偶：N 数字落在 N+1 格） |
@@ -168,7 +168,7 @@ last-resort：`forcing-chain`。
 
 **卡片书写：✅ 完成（2026-06-23）。** 41 张专卡 + 90 源镜像已登记。
 
-**引擎验证：八轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 69 例**，覆盖：
+**引擎验证：八轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 76 例**，覆盖：
 
 | 卡 | 验证项 |
 |---|---|
@@ -183,7 +183,7 @@ last-resort：`forcing-chain`。
 | `06/xy-xyz-w-wings` | XY/XYZ/W-Wing 各一例 |
 | `06/bent-sets` | ALTriple via XYZ-Wing 源盘 |
 | `07/simple-coloring` | Color Trap `r9c3<>7` |
-| `07/multi-coloring` | HoDoKu mc01 `r5c23<>1`、mc02 `r6c2,r7c3,r8c6<>3` |
+| `07/multi-coloring` | HoDoKu mc01/mc02 + X-Colors Ex1–6/ER（Sudopedia 人工转写） |
 | `07/3d-medusa` | R1–R5 + R2 FTS/全局 16 格 `<>7`；R2 Exemplars 3/4/5/8 唯一性 |
 | `08/xy-chain` | 开链三处消除 |
 | `08/aic-with-ur` | Example A `r3c5=2`；Example B explore 3 `r4c6<>9`, `r7c6=6` + explore 4 `r9c5<>5`, `r9c6<>6` |
@@ -198,7 +198,6 @@ last-resort：`forcing-chain`。
 
 **仍待验证（✅\*）** — 规则已写清，消除集或 restored-state 候选网格待核：
 
-- 07：`multi-coloring.md` X-Colors 例 1/3 候选态（Sudopedia 无 81-char，需识图重建）
 - 10：`avoidable-rectangle.md` SudokuWiki B4 叙事例（仅压缩 `bd=` 恢复态）
 - 11-exotic：`sk-loop.md`（内链消除）、`subset-exclusion.md`
 

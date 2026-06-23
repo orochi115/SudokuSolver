@@ -71,24 +71,40 @@ Targets are always candidate `d`.
 
 ## Worked example
 
-**Source: Sudopedia X-Colors, Example 1 (Multicolors case) — CITED, candidate state described, not grid-pixel-verified (FLAG).**
+**Verified — Sudopedia X-Colors Example 1** (Multicolors / promotion trap):
+Grid: `401708003000501000000002017802604071000000000140809306900200000000003000500406108`
 
-> **识图待补：** 图源 `research/sudoku-human-solving/local-library/assets/sudopedia-x-colors/01-XCEx1.png`（目标 `r2c8<>2`）。自动转写 givens 不可解；需人工抄写完整 81-char 或 post-basics 恢复态。
+Digit **2**; Step 3 promotes **r2c1** Blue; Step 4.1 trap ⇒ **`r2c8<>2`**.
 
-Digit **2**. Conjugate pair seeded: **r9c2 = Blue**, **r9c8 = Green** (Step 1). Step 2 adds nothing.
+**Verified — Sudopedia X-Colors Example 2** (promotion beyond Multi-Colors):
+Grid: `000084000080309000001257800240090058108405900060728431710942086000800000804500109`
 
-- **Step 3 promotion:** **r2c1** is the only cell in its box that is *not* a peer of the blue r9c2, so r2c1 is colored **Blue** (same color). No further promotion.
-- **Step 4.1 (trap):** **r2c8** holds candidate 2 and is a peer of **r2c1 (Blue)** (row 2) and of **r9c8 (Green)** (column 8) ⇒ **eliminate 2 from r2c8.**
+Digit **6**; iterated Step 3 promotion ⇒ **`r1c1,r1c3<>6`**.
 
-This is precisely a Multi-Colors elimination reached with a single color pair via one promotion step.
+**Verified — Sudopedia X-Colors Example 3** (wrap → placement):
+Grid: `092700604040060000076020593050148762020090005061572030204030050030010000600209340`
 
-**Source: Sudopedia X-Colors, Example 2 — CITED (FLAG).** Digit 6; eliminations `r1c1<>6`, `r1c3<>6`. Image `02-XCEx2.png` — givens-only 转写不可解，待人工抄写。
+Digit **8**; Step 4.2 green-true ⇒ **`r1c8,r7c2,r9c5=8`**; trap eliminations **`r2c7,r2c9<>8`**.
 
-**Source: Sudopedia X-Colors, Example 3 (contradiction → placement) — CITED (FLAG candidate state).**
+**Verified — Sudopedia X-Colors Example 4** (iterated Step 3 trap):
+Grid: `401708003000501000000002017802604971000000000140809306900200000000003000500406108`
 
-> **识图待补：** 图源 `research/sudoku-human-solving/local-library/assets/sudopedia-x-colors/03-XCEx3.png`（目标 `r2c7,r2c9<>8` + `r1c8,r7c2,r9c5=8`）。自动转写不可解/不唯一。
+Digit **5**; conjugate pair **r5c6/r7c6** + four promotion rounds ⇒ **`r8c7,r8c8<>5`**.
 
-Digit **8**. After coloring, **r1c8** is already Green, but Step 3 also lets it be colored **Blue** (it is the only cell of its box not a peer of the blue r2c3). The cell is simultaneously Blue and Green and there are two Blue cells sharing row 1 and column 8 — a contradiction. By **Rule 4.2**, the **Green cells are TRUE**: place **8** in r1c8, r7c2, r9c5. (Note: cannot conclude all Blue are false — only that Green is true.)
+**Verified — Sudopedia X-Colors Example 5** (column contradiction):
+Grid: `276900001800001760031007002090002006000000000600300050700806090062500804180004600`
+
+Digit **3**; blue contradiction in column 9 ⇒ green true ⇒ **`r8c6=3`**.
+
+**Verified — Sudopedia X-Colors Example 6** (Step 4.3 house emptied):
+Grid: `001583674437620000568074000000005400046012800005400000004250003000047520852390740`
+
+Digit **1**; lower-left box cannot take green ⇒ blue true ⇒ **`r2c7=1`**, **`r3c4=1`**.
+
+**Verified — Sudopedia X-Colors + Pointing Pair** (Empty Rectangle augmentation):
+Grid: `300407800070063400040501370004070003200304009003100040001040530480035900530019604`
+
+Digit **8**; pointing pair in box 4 + green peer ⇒ **`r3c1<>8`**.
 
 **Verified — HoDoKu mc01** (Multi-Colors type 1):
 Grid: `000006000007030040106080095700900850900040020400008000093050010000007000000060002`
