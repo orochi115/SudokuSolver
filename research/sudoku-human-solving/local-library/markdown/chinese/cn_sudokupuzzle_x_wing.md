@@ -23,7 +23,7 @@ X-Wing原理：四个候选数6形成矩形顶点，X形交叉线展示消除逻
 
 我们来看一个经典的X-Wing例子，涉及**第3行**和**第9行**中的候选数 6。
 
-![Image 1: 数独X-Wing技巧示例](https://cn.sudokupuzzle.org/sudoku-guide/x-wing/x-wing.png)
+![Image 1: 数独X-Wing技巧示例](../../assets/chinese-cn-sudokupuzzle-xwing/04-x-wing.png)
 
 图：第3行和第9行的候选数6形成X-Wing模式
 
@@ -77,7 +77,7 @@ X-Wing原理：四个候选数6形成矩形顶点，X形交叉线展示消除逻
 
 X-Wing 矩形模式
 
-![Image 2: X-Wing Pattern](https://cn.sudokupuzzle.org/sudoku-guide/x-wing/x-wing-pattern.svg)
+![Image 2: X-Wing Pattern](../../assets/chinese-cn-sudokupuzzle-xwing/05-x-wing-pattern.svg)
 
 四个6形成矩形顶点，X形交叉线展示消除逻辑，红色箭头表示可消除的方向
 

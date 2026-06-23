@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Using Unique Rectangles as Links in Chains - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-aic-urs/08-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-aic-urs/09-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-aic-urs/10-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-aic-urs/11-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,8 @@ var pgFileName = 'Using_Unique_Rectangles_as_Links_in_Chains';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-aic-urs/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-aic-urs/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -256,7 +256,7 @@ var pgFileName = 'Using_Unique_Rectangles_as_Links_in_Chains';
 				<h1>Using Unique Rectangles as Links in Chains</h1><div class="SRCell">We have already seen how chains can be built using <a href="/AIC_with_Groups">Grouped Cells</a> and <a href="/AIC_with_ALSs">Almost Locked Sets</a> as more complex links, expanding the number of patterns available. In this article I detail how we can use the <a href="/Unique_Rectangles">Unique Rectangle</a> as another type of link. And it's relatively simple! At least for the basic Type 1 Unique Rectangle most often found.<br><br>This has been on my to-do list for a long time, but I have to credit <b>David Hollenberg</b> for giving me the inspiration and push to implement it in the solver, having given me some examples with Y-Wing chains. <br><br>Anywhere where chains can be used this type of link is valid.<br><hr><br>In the first example we have a Discontinuous Alternating Nice Loop that starts and ends on <span class="hy">C5</span>. By tracing round it can be shown that if 2 on <span class="hy">C5</span> is removed the chain reaction puts the 2 right back, implying it must be the solution. 9 Can be removed from that cell.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AIC_UR1b.png" alt="UR inside an AIC" /><figcaption>UR inside an AIC
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-urs/03-AIC_UR1b.png" alt="UR inside an AIC" /><figcaption>UR inside an AIC
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bb6010b8m075a8q054y0g0c048k0e4y8k455106b60e017o4a9m64030a36090403050838380d020c088i3601aa0e0e3608aa0a020caa04440537381o093e036r030d370e0837383909b8b6373c1o3b056z6r">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=010070050004000000600100003009435800020800100008002004050009030300080009000000500">From the Start</a>
 </figcaption></figure>
@@ -265,14 +265,14 @@ var pgFileName = 'Using_Unique_Rectangles_as_Links_in_Chains';
 <div class="SRCell"><span class="hc"><br>AIC on 2 ((w.UR) Discontinuous Alternating Nice Loop, length 8):<br>-2[C5]+9[C5]-9[E5]+9[F4]-9(UR[DF28])+2[D8]-2[C8]+2[C5]<br>- Contradiction: When 2 is removed from C5 the chain implies it must be 2 - other candidates 9 can be removed</span><br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AIC_UR2b.png" alt="UR inside an AIC" /><figcaption>UR inside an AIC
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-urs/04-AIC_UR2b.png" alt="UR inside an AIC" /><figcaption>UR inside an AIC
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4g4e060a050g090w0o010i160206030h16070o120g087u7u110f150f020u160g8a0n7n08050a4e0f7u440o07804a0g09030144061018b64y4k1603220g438507160s0908011414067q5i01070b1u04b682">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006050900100263007000800000020000008500000070009310600000030000700981006001700400">From the Start</a>
 </figcaption></figure>
 <br>In this next example the solver has found two options - use 'explore' and choose the 3rd and 4th. Strictly speaking we don't need to use these chains with URs as there are a couple of simpler AICs. But to illustrated the strategy I reproduce here.<br><br>Both options have off-chain eliminations.<br><br>Removing the 9 from <span class="hy">D6</span> endangers the solution by exposing the unique rectangle, so we can confidently turn <span class="hg">ON</span> the 6 in <span class="hy">G6</span>. That allows us to continue and close the loop. <br><br><i>(This is a much harder puzzle and might require some clicking to get to the interesting step)</i></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AIC_UR3.png" alt="Second option" /><figcaption>Second option
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-urs/05-AIC_UR3.png" alt="Second option" /><figcaption>Second option
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4g4e060a050g090w0o010i160206030h16070o120g087u7u110f150f020u160g8a0n7n08050a4e0f7u440o07804a0g09030144061018b64y4k1603220g438507160s0908011414067q5i01070b1u04b682">Load Example</a>
 </figcaption></figure>
 <br>The 4th 'explore' option shows us another AIC with the same path and different off-chain eliminations. <br><br>The same Deadly Rectangle threat where losing the 6 in <span class="hy">G6</span> forces <span class="hg">ON</span> the 9 in <span class="hy">D6</span> allows us to continue a loop but with different cells elsewhere. The elimination on the weak links are shown.</div>
@@ -313,9 +313,9 @@ var pgFileName = 'Using_Unique_Rectangles_as_Links_in_Chains';
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-aic-urs/06-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-aic-urs/07-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Unique_Rectangles
 Markdown Content:
 # Unique Rectangles - SudokuWiki.org
 
-[![Image 18: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 18: SudokuWiki](../../assets/sudokuwiki-unique-rectangles/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 790 Shares 
 
-![Image 19: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 19: pinterest sharing button](../../assets/sudokuwiki-unique-rectangles/01-pinterest.svg)
 
-![Image 20: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 20: facebook sharing button](../../assets/sudokuwiki-unique-rectangles/02-facebook.svg)
 
-![Image 21: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 21: twitter sharing button](../../assets/sudokuwiki-unique-rectangles/03-twitter.svg)
 
-![Image 22: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 22: blogger sharing button](../../assets/sudokuwiki-unique-rectangles/04-blogger.svg)
 
-![Image 23: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 23: tumblr sharing button](../../assets/sudokuwiki-unique-rectangles/05-tumblr.svg)
 
-![Image 24: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 24: messenger sharing button](../../assets/sudokuwiki-unique-rectangles/06-messenger.svg)
 
-![Image 25: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 25: email sharing button](../../assets/sudokuwiki-unique-rectangles/07-email.svg)
 
 # Unique Rectangles
 
@@ -167,7 +167,7 @@ Unique Rectangles takes advantage of the fact that published Sudokus have only o
 
 **Credits first**: The initial ideas for these strategies I lifted wholesale from **MadOverLord**'s description (11 Jun 05) on the forum at www.sudoku.com. (Sadly the thread is no longer hosted). Many others have since added to and improved them. I have provided my own examples. (please email me for other credit requests). I will stick to MadOverLord's nomenclature.
 
-![Image 26](https://www.sudokuwiki.org/puzimages/showURCycle.png)27th January 2025
+![Image 26](../../assets/sudokuwiki-unique-rectangles/03-showURCycle.png)27th January 2025
 
 Added the ability to cycle through all **Unique Rectangles** found when the first is displayed.
 
@@ -175,7 +175,7 @@ Similar to how chains can cycle.
 
 ## Noticing the 'Deadly Pattern'
 
-![Image 27: The 'Deadly Pattern'](https://www.sudokuwiki.org/PuzImages/urect1.png)
+![Image 27: The 'Deadly Pattern'](../../assets/sudokuwiki-unique-rectangles/04-urect1.png)
 
 The 'Deadly Pattern' 
 
@@ -185,7 +185,7 @@ The pattern ringed in green looks like a deadly pattern but there is a crucial d
 
 ## Type 1 Unique Rectangles
 
-![Image 28: Unique Rectangle Figure 2](https://www.sudokuwiki.org/PuzImages/urect2.png)
+![Image 28: Unique Rectangle Figure 2](../../assets/sudokuwiki-unique-rectangles/05-urect2.png)
 
 Unique Rectangle Figure 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e9e06030204080a0e08050o0f090a0s0g0u0s0w0a070h0e7o8m1i857p04820c0706087o030h82820f0b0a0d077o0607040a0h030e7o987w840a0g038a8i0h9u9i860h040f8202011n0r08020509071i1q) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=006324800850090000000700000004007680300000007067400300000003000000040021008259700)
 
@@ -203,7 +203,7 @@ In Figure 3 we have a similar pattern, but this time, A5 and A6 (cells which are
 
 To make subsequent discussion easier to follow, we will refer to the two squares that only have two possibilities as the floor squares (because they form the foundation of the Unique Rectangle); the other two squares, with extra possibilities shall be called the roof squares.
 
-![Image 29: Unique Rectangle Figure 3](https://www.sudokuwiki.org/PuzImages/urect3.png)
+![Image 29: Unique Rectangle Figure 3](../../assets/sudokuwiki-unique-rectangles/06-urect3.png)
 
 Unique Rectangle Figure 3 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d022r0i2r2r0c0h0f1306130b4n4j070904082e090u062i020e0a070r4z56be037n0b0e09164i0162020f2i030b0v1j059mai7n2i080n7r044602b6050f070608020g0z0z0d030i129u2q1q7y8q0h010b) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=020000000060000794809060200700003000900102003000500008004020507682000030000000010)
 
@@ -213,7 +213,7 @@ Now that you've gotten your head around the basic unique rectangle concept, the 
 
 If neither A5 or A6 contains an 7, then they both become cells with possibilities 1/5. This results in the deadly pattern - so one of those cells must be the 7, and none of the other squares in the intersecting units can contain 7. So A3 and C6 can have 7 removed. This cracks the Sudoku.
 
-![Image 30: Unique Rectangle Figure 4](https://www.sudokuwiki.org/PuzImages/URECT2_2.png)
+![Image 30: Unique Rectangle Figure 4](../../assets/sudokuwiki-unique-rectangles/07-URECT2_2.png)
 
 Unique Rectangle Figure 4 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B17071n091v032208024vcm8v5f024zb29y2m02cm8m045e07928601060u055u4602012m090n027r2q86045y065y077y081f7q1f020u0509462m024b05662f064u1y024z074zby874e4q013e0356096i0262) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=070903080000020000200407001605000109020000060708000205900205006000070000010309020)
 
@@ -223,7 +223,7 @@ To view this puzzle in the solver uncheck Rectangle Elimination and choose the s
 
 ## Type 2B Unique Rectangles
 
-![Image 31: Unique Rectangle Figure 5](https://www.sudokuwiki.org/PuzImages/urect4.png)
+![Image 31: Unique Rectangle Figure 5](../../assets/sudokuwiki-unique-rectangles/08-urect4.png)
 
 Unique Rectangle Figure 5 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2c0d0a080f050c0i2c5w092s0n040n6a065w4y031u0g090b0d4i011i0b08132u2f0i041u050a0i060b045u5u031q071m0i120h020a1u010e2m0u082e0f0b092k062k16010i6a03620i0h2m022u060a2q2i) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000805000090040060030090001008000040500604003070000200100080009060010030000206000)
 
@@ -235,7 +235,7 @@ You will need to untick 3D-Medusa to see this example.
 
 ## Type 2C Unique Rectangles
 
-![Image 32: Unique Rectangle Figure 6](https://www.sudokuwiki.org/PuzImages/URect2Cb.png)
+![Image 32: Unique Rectangle Figure 6](../../assets/sudokuwiki-unique-rectangles/09-URect2Cb.png)
 
 Unique Rectangle Figure 6 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0h2k090w1n1g2e053b0e031f081n078k1p7o1n0s371c091w081n3b0b090d062q0h01032q070h1i0914011w1g041i01052c2g0438090h7z2i022y088y121f937u0e0h011m037o078k7r062f2s2c84040h87) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=009000050030807000000090800090600130700901004015004090002080000000103070060000400)
 
@@ -247,7 +247,7 @@ Not shown in the example is the chance that A or B can also contain the extra ca
 
 ## Type 2D Unique Rectangles
 
-![Image 33: Naked Quint + UR](https://www.sudokuwiki.org/PuzImages/URectType2D.png)
+![Image 33: Naked Quint + UR](../../assets/sudokuwiki-unique-rectangles/10-URectType2D.png)
 
 Naked Quint + UR : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2i0h10391p1o2s030i060a102c09032y0h2y032i0i08050s2c0a060h060a140o070904100i0c041w1g0h012q2s0b0507090r0r0h060c017u1i1k07051q7o082q9e1i04088k3q9w012y020h1j1j8j3y9u2y) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000000030600093000300850006060007940004000100057900060100075008000480001020000000)
 
@@ -255,7 +255,7 @@ Naked Quint + UR : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2i
 
 We have a potential Deadly Rectangle on GH37 but if you look carefully 3 and 6 are only found in one cell outside the DR in box 9 (and in column 7). To avoid the Deadly Rectangle we must use candidates outside of it but 3 and 6 only occur in J7. That fact allows us to remove all other candidates from J7.
 
-![Image 34: Type 2d example 2](https://www.sudokuwiki.org/PuzImages/URectType2D_2.png)
+![Image 34: Type 2d example 2](../../assets/sudokuwiki-unique-rectangles/11-URectType2D_2.png)
 
 Type 2d example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B1f0b1v43030d6q8ydu08090d0e0f070o0o0103071v430i020d1u4y2c045u030e0f0a7ob80l060n0g080i0e040o0i0e460b0d01520752360c0i040b0h360105050a02060g0c0i08040d0h360i010e3c1k3c) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000030000890007001370002000040300000060080040000001070000400015502600084000010000)
 
@@ -263,7 +263,7 @@ Type 2d example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B1
 
 ## Type 3 Unique Rectangles
 
-![Image 35: Unique Rectangle Figure 7](https://www.sudokuwiki.org/PuzImages/urect3a.png)
+![Image 35: Unique Rectangle Figure 7](../../assets/sudokuwiki-unique-rectangles/12-urect3a.png)
 
 Unique Rectangle Figure 7 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B8i8i45050l03040743052e0l082d047r067q042e432b09064705020805070p0n09060l040302040643070509437n7n060s4a054403070208052e06019i047q371f092m2m082h0l052b04030905022b0806) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000503470500800000000090002850000600024607590006000037200060000000008005043902000)
 
@@ -275,7 +275,7 @@ Such reasoning allows us to remove other 1s and 7s on the unit shared by the roo
 
 ## Type 3b Unique Rectangles
 
-![Image 36: Unique Rectangle Figure 8](https://www.sudokuwiki.org/PuzImages/urect3b_v2.png)
+![Image 36: Unique Rectangle Figure 8](../../assets/sudokuwiki-unique-rectangles/13-urect3b_v2.png)
 
 Unique Rectangle Figure 8 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e2b83020z06080d030u43020i470v3605360u064i074m1a0b0a09380d034z092d374y05aa05c253372f3b020d015w4y5i042w095236050i0d1j1l081i070l1g031f0z2t2r040i0h080l070d1i090e1i0l) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000206803002000050060700009003090005050000020100040900500008070030000400807009000)
 
@@ -287,7 +287,7 @@ I'd like to credit Hervé Gérard for the first example which he sent to me in N
 
 So far Type 3 and 3b have worked with a pseudo-cell linking with a bi-value cell to make a pseudo pair. This is a valid locked set. Well, locked sets don't have to be pairs, they can involve three candidates over three cells.
 
-![Image 37: Type 3b with a Triple ](https://www.sudokuwiki.org/PuzImages/URectType3B_1.png)
+![Image 37: Type 3b with a Triple ](../../assets/sudokuwiki-unique-rectangles/14-URectType3B_1.png)
 
 Type 3b with a Triple : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4o04014k1y5e070i484o0f0i6c126a0d48014846077n047n0f05482e09102y082y010o0f0d5v1006830382445w5z5z069v029v82045y0f050d0c070b080a0i09020h0r1f1n0c0g052b2b03bm82bm02060d) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=800900000020070050019500600200000970100000008054000002001009720090050060000006004)
 
@@ -295,7 +295,7 @@ Type 3b with a Triple : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=
 
 All credit to David Hollenberg for working this insight that nicely expands the strategy. 
 
-![Image 38: UR 3B example 2](https://www.sudokuwiki.org/PuzImages/URectType3B_2.png)
+![Image 38: UR 3B example 2](../../assets/sudokuwiki-unique-rectangles/15-URectType3B_2.png)
 
 UR 3B example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B7u060c0e2i0h01029e7u070b031m01cic2820e0h0a09381g3a043a0g0a161o0390968i080h03091m0a1u020722060b160g08828e7q0a0a054y5009075a521s0c0i4y011g046q05380b04074y0e0cc2018i) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=060000120070301000000900040000030008039000270600080000050097000000104050047000010)
 
@@ -315,7 +315,7 @@ An interesting observation is that it is sometimes possible to remove one of the
 
 Look closely at the roof squares, A4 and A6, but this time, don't look at their extra possibilities; look at the possibilities they share with the floor squares. 
 
-![Image 39: Unique Rectangle Figure 10](https://www.sudokuwiki.org/PuzImages/urect5new.png)
+![Image 39: Unique Rectangle Figure 10](../../assets/sudokuwiki-unique-rectangles/16-urect5new.png)
 
 Unique Rectangle Figure 10 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d032s3o0937435u5x10432s462s47060i04094306642c6303052d14061001087o070d7q46090a3604360e0246440g047o0305b6010f0a04087q367q023605071003181w4c7n4y7n0f100i6c015w0d035u) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=030090000000000604906000350060180700090040020004035010048000205703000000000010030)
 
@@ -327,7 +327,7 @@ This is an example of a **"Type-4 Unique Rectangle"**. As you have probably real
 
 ## Type 4B Unique Rectangles
 
-![Image 40: Unique Rectangle Figure 11](https://www.sudokuwiki.org/PuzImages/urect6.png)
+![Image 40: Unique Rectangle Figure 11](../../assets/sudokuwiki-unique-rectangles/17-urect6.png)
 
 Unique Rectangle Figure 11 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0g0d0h030e09010b0686820a070b0f0h047q7q0b060d4343077q05021u7q8j040z8608071u0g0dc20c4k848j7n01087q8i0710108m04047q020z7n0g06870h8i010g4ic2030d820b088m05028j047q0g7r) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000309106000700040006000705200040087000000000180070004402000600010003000805204000)
 
@@ -339,7 +339,7 @@ As Type-4 Unique Rectangle solutions "destroy" the Unique Rectangle, it is usual
 
 ## Type 5 Unique Rectangles
 
-![Image 41: Unique Rectangle Type 5](https://www.sudokuwiki.org/PuzImages/URType5.png)
+![Image 41: Unique Rectangle Type 5](../../assets/sudokuwiki-unique-rectangles/18-URType5.png)
 
 Unique Rectangle Type 5 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B07bmbq0484064448017u028m089f2b3e3a05015m5e0c2s2c70093g038j049g2d056s6s38b8071u7o034422011m440z11062l65032s097w039h0e3g2k7n380805b7d12c6s037n0438064a5w0164092s2s03) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=700406001020800005100000090304005000070030010000600309030000008500003040600109003)
 
@@ -349,7 +349,7 @@ Any rectangle across two boxes that contains two candidates in all four cells mi
 
 [Ivar's example](https://www.sudokuwiki.org/sudoku.htm?bd=008950304094030000000824009050300090387269541000508023105082930000005480806093005) can be found if you turn off 3D Medusa first.
 
-![Image 42: Type 5 Example 2<br>(untick XY-Chains)](https://www.sudokuwiki.org/PuzImages/URType5b.png)
+![Image 42: Type 5 Example 2<br>(untick XY-Chains)](../../assets/sudokuwiki-unique-rectangles/19-URType5b.png)
 
 Type 5 Example 2
 
@@ -394,7 +394,7 @@ Please enter the
 
 letters you see:
 
-![Image 43: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 44: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 43: arrow](../../assets/sudokuwiki-unique-rectangles/20-GRNARR.GIF)![Image 44: Enter these letters](../../assets/sudokuwiki-unique-rectangles/21-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -995,7 +995,7 @@ I'm interested in your assertion "The chaining, netting, and simple combinatoric
 
 The problem with a) is that I don’t know of a solver that claims to solve all puzzles (certainly I don't pretend mine is the most advanced and I have a long job queue of improvements) and the problem with b) is that I'm sure a non-valid puzzle could accidentally complete giving the impression of a single solution solved logically. Wish I had one to hand, but I strongly suppose it. 
 
-![Image 45: Strategy Time](https://www.sudokuwiki.org/PuzImages/strattime.png)I think there are good reasons to set aside uniqueness strategies especially from a purist POV but I've always considered muli-solution puzzles to be broken or mis-defined puzzles. They look like ducks, walk like ducks, but are not in fact ducks. They are another class of object, to be filtered away. That's not to deny they are interesting in their own right but they are outside the scope of the solver (mine at least).
+![Image 45: Strategy Time](../../assets/sudokuwiki-unique-rectangles/22-strattime.png)I think there are good reasons to set aside uniqueness strategies especially from a purist POV but I've always considered muli-solution puzzles to be broken or mis-defined puzzles. They look like ducks, walk like ducks, but are not in fact ducks. They are another class of object, to be filtered away. That's not to deny they are interesting in their own right but they are outside the scope of the solver (mine at least).
 
 However there is a good practical reason for using logic rather than brute force for solution counting, as the attached graph tries to show. It’s a crude diagram I knocked up to illustrate a point in a previous correspondence, but there is a point at which brute force becomes much slower than logic and it’s a function of clue density.
 
@@ -1595,4 +1595,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 46: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 46: Buy Me a Coffee](../../assets/sudokuwiki-unique-rectangles/08-coffee-20cup.svg)

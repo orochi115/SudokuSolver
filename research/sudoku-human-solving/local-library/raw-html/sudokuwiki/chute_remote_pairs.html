@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Chute Remote Pairs - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-chute-remote-pairs/10-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-chute-remote-pairs/11-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-chute-remote-pairs/12-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-chute-remote-pairs/13-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +46,8 @@ var pgFileName = 'Chute_Remote_Pairs';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-chute-remote-pairs/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-chute-remote-pairs/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -257,21 +257,21 @@ var pgFileName = 'Chute_Remote_Pairs';
 				<h1>Chute Remote Pairs</h1><div class="SRCell">Added 24-Jan-2025<br>This is an excellent and simple pattern we can employ just with eye-balling some cells with the same pair of numbers in them. I've placed it near the start of the 'tough' strategies after <a href="/X_Wing_Strategy">X-Wing</a> as  it is quite common, doesn't require us to think about strong and weak links, and does not take long to evaluate. Very grateful for <b>Andy Potvin</b> from the United States for promoting the idea to me and sending examples. The idea goes <a href="http://forum.enjoysudoku.com/two-definitions-of-w-wing-terminology-question-t6452.html" target="_blank">way back</a> and is a break out from W-Wings. I think it is sufficiently distinct to be worth having on it's own but I will be re-evaluating W-Wings soon to see how much they are worth including in their own right. <br><br>If you want to see what CRP replaces, untick it and [<<] (back-step) and [Take Step]<br><br>All these examples are from tough puzzles and each has two Chute Remote Pairs in them. In testing I've found some 620 examples in 2000 random diabolicals and I've gained an overall speed increase of about 2%. So it is simplifying the solve paths for more than a quarter of puzzles.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/CRP00.png" alt="Example 1" /><figcaption>Example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-chute-remote-pairs/03-CRP00.png" alt="Example 1" /><figcaption>Example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2j0b5v0962050f2i0c0i5u0e560c566201022i060c0a644c62050i03095u4a054c2d062b0e5u0f03440a0i2c040l040l0g060i0c08052c032c0e4a560r091f08050i1m010c2k2k360f0a0d020i070e0c0h">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000905000000000012060000050390050060000300004040060085030000090850010000000207000">From the Start</a>
 </figcaption></figure>
 <br>The first example gives the classic pattern. We're looking for two bi-value cells with the same candidates in the same <span class="hy"><i>Chute</i></span>, which is a horizontal or vertical set of the three boxes. There are six chutes in a 9x9 Sudoku.<br><br>Both the green cells <span class="hy">A8</span> and <span class="hy">C1</span> here have {4/7}. The next step is to check they can't 'see' each other, ie they are not a Naked Pair but instead a <span class="hy">Remote Pair</span>.<br><br>Given that pattern there will exist exactly three cells in the unused box in the same chute and I have marked these in yellow {<span class="hy">B4</span>, <span class="hy">B5</span>, <span class="hy">B6</span>).<br><br>The rule says, <br><b>If the yellow cells have only ONE of the candidates in the green cells then that candidate can be eliminated from all cells seen by both green cells.</b> I've marked these in <span style="color:#faf">pink</span>.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/CRP02.png" alt="Example 2" /><figcaption>Example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-chute-remote-pairs/04-CRP02.png" alt="Example 2" /><figcaption>Example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0b5v0962050f2i0c0i5u0e560c566201020d060c0a5w445u050i03095u4a054c2d062b0e5u0f03440a0i2c040l040l0g060i0c08052c032c0e4a560r091f08050i1m010c2k2k360f0a0d020i070e0c0h">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000905000000000012060000050390050060000300004040060085030000090850010000000207000">From the Start</a>
 </figcaption></figure>
 <br>Later on in the puzzle the pattern is found again. We'll try and prove the rule with this second example. <br><br>2 and 8 exist in <span class="hy">C6</span> and <span class="hy">E5</span>.  2 exists in the third box in <span class="hy">J4</span>. Note - it does not matter that this is a clue or solved cell. What is important is the 8 is no where in any of the yellow cells.<br><br>If 2 really was the solution to <span class="hy">C5</span> or <span class="hy">D6</span> (the elimination cells) that would force an 8 in both of the green cells. However looking down the column that would remove all 8s from box 8 and we can already see there is no 8 in column 4.  </div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/CRP03.png" alt="Example 3" /><figcaption>Example 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-chute-remote-pairs/05-CRP03.png" alt="Example 3" /><figcaption>Example 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0c057u0f0h0b7u010g0a7u0f050703bg0sb80g02080i0d01030f0e06d69q020e9eb72eb7b6019g0d0c9ec405c40e9e9k0a06087o2e040b0f05080a0d07090c4a5u2b0c09060e0s0l7u037n0g0b0e1n081f">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=050000010000573000028001300600200000010000050000068004005800790000096000030000080">From the Start</a>
 </figcaption></figure>
@@ -279,7 +279,7 @@ The third example contains two Chute Remote Pairs and I've displayed one here.<b
 
 <h2>Double Eliminaton</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/CRP06.png" alt="Double Elimination" /><figcaption>Double Elimination
+<figure style="width:450px"><img src="../../assets/sudokuwiki-chute-remote-pairs/06-CRP06.png" alt="Double Elimination" /><figcaption>Double Elimination
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B310z31030i060h102i0306302s4i6i01092i2i0i0801102i100c0f2302273m1z092i080n090h1r381j2b2i0l050z0713044p4j7o067r2r0c2r0i0d02060z0h0h04091u1v0z0c07021g0z1g080g03820d7n">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000306000360000190008100000020009080900000005070400060000002600049000072000803000">From the Start</a>
 </figcaption></figure>
@@ -287,7 +287,7 @@ Now it is possible to extend the rule to eliminate both numbers found in the Rem
 
 <h2>Bonus Eliminations</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/CRP07.png" alt="Bonus Eliminations" /><figcaption>Bonus Eliminations
+<figure style="width:450px"><img src="../../assets/sudokuwiki-chute-remote-pairs/07-CRP07.png" alt="Bonus Eliminations" /><figcaption>Bonus Eliminations
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B8i058i0801070304020207030405090108060108040206039e9e05050308aa0401acac9eaa8i02030805aa01040401aaaa9g1g050308du8i0105035004ac9e030405aa9g50dwac01du02aa019e04du0503">Load Example</a>
 </figcaption></figure>
 While you are looking at the common cells in a double elimination there are in fact more cells to check. In the example shown here I've coloured in some purple cells.<br><br>The simple rule is that if one green cell is X the other is Y. And vice versa. This eliminates not just common cells (pink) but in cells the same box as the green cells box and along the row (or column).  Check the following:<br><br>If <span class="hy">J5</span> is 7, then 7 is removed from <span class="hy">J123</span> thus 7 must be somewhere in <span class="hy">G123</span>, and so 7 cannot be in the rest of row G which means <span class="hy">G9</span> is 9<br><br>Likewise, if <span class="hy">J5</span> is 9, 9 is removed from <span class="hy">J123</span>, so 9 must be somewhere in <span class="hy">G123</span> - so 9 cannot be in the rest of row G which means <span class="hy">G9</span> is 7.<br><br>All this is possible because 7 and 9 do NOT appear in the yellow cells.<br>The solver will report these eliminations with the note <u>'either end' rule</u><br><br><div class="hc">Neither 7/9 can be set in the yellow cells {H1,H2,H3} and with the Remote Pair in G9 and J5 it means:<br>7/9 can be taken off J7<br>7/9 can be taken off G8 ('either end' rule)</div><br><hr><br></div>
@@ -347,9 +347,9 @@ They make good practice puzzles.
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-chute-remote-pairs/08-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-chute-remote-pairs/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

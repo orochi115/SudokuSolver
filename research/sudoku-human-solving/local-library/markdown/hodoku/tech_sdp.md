@@ -24,7 +24,7 @@ A Skyscraper is a simple pattern that occurs rather often in sudokus and can be 
 
 The description of the pattern sounds more complicated than it really is: Concentrate on one digit. Find two rows (or columns) that contain only two candidates for that digit. If two of those candidates are in the same column (or row), one of the other two candidates must be true. All candidates that see both of those cells can therefore be eliminated. Let's look at examples:
 
-[![Image 1: Sudoku technique: Example for Skyscraper](https://hodoku.sourceforge.net/examples/sk01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sk01&tech=Skyscraper)[![Image 2: Sudoku technique: Example for Skyscraper](https://hodoku.sourceforge.net/examples/sk02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sk02&tech=Skyscraper)
+[![Image 1: Sudoku technique: Example for Skyscraper](../../assets/hodoku-sdp/01-sk01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sk01&tech=Skyscraper)[![Image 2: Sudoku technique: Example for Skyscraper](../../assets/hodoku-sdp/02-sk02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sk02&tech=Skyscraper)
 
 Take the left example: In column 6 digit 1 can only be placed in row 1 or row 5. In column 9 digit 1 can only be placed in row 3 or row 5. r5c6 and r5c9 are in the same row (the "base" of the skyscraper). We can now reason as follows: If r1c6 is not true, then r5c6 must be true (only two possible values, one of them must be true: [strong link](https://hodoku.sourceforge.net/en/tech_chains.php#strong_link)). But if r5c6 is true, r5c9 cannot be true since they are in the same row ([weak link](https://hodoku.sourceforge.net/en/tech_chains.php#weak_link)). And if r5c9 is not true, r3c9 has to be true ([strong link](https://hodoku.sourceforge.net/en/tech_chains.php#strong_link)). We have thus proved, that r3c9 has to be true, if r1c6 is not true. The same argument holds if we start with r3c9 not true: It follows, that r1c6 has to be true. Since one of r1c6 and r3c9 has to be true, all candidates that can see both cells can be eliminated (in our example: r1c78 and r3c45).
 
@@ -46,7 +46,7 @@ A 2-String Kite is a second special form of [Turbot Fish](https://hodoku.sourcef
 
 2-String Kites work similar to Skyscrapers: One of the two ends of the strings must be true.
 
-[![Image 3: Sudoku technique: Example for 2-String+Kite](https://hodoku.sourceforge.net/examples/2sk01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=2sk01&tech=2-String+Kite)[![Image 4: Sudoku technique: Example for 2-String+Kite](https://hodoku.sourceforge.net/examples/2sk02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=2sk02&tech=2-String+Kite)
+[![Image 3: Sudoku technique: Example for 2-String+Kite](../../assets/hodoku-sdp/03-2sk01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=2sk01&tech=2-String+Kite)[![Image 4: Sudoku technique: Example for 2-String+Kite](../../assets/hodoku-sdp/04-2sk02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=2sk02&tech=2-String+Kite)
 
 Left example: Candidate is 5. The first string is in column 7 (candidates r29c7), the other is in row 8 (candidates r8c49). The end points r9c7 and r8c9 are both in box 9. If r2c7 is not true, then r9c7 has to be true, r8c9 has to be false, and r8c4 has to be true. If r8c4 is not true, the same argument leads to r2c7 true. Either way r2c4, that sees both r2c7 and r8c4, cannot be true.
 
@@ -56,7 +56,7 @@ Right example: Candidate 9, strings r6c16 and r47c2, connected in box 4: r7c6 ca
 
 Sometimes the same two connecting candidates in the common box can be tied two four different strings, forming effectively two 2-String Kites, that eliminate two candidates. Those two 2-String Kites can be considered to be one move only and can be called Dual 2-String Kite. HoDoKu supports dual forms only as an option (they can always be replicated by the two kites that build the dual form).
 
-[![Image 5: Sudoku technique: Example for Dual+2-String+Kite](https://hodoku.sourceforge.net/examples/d2sk01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=d2sk01&tech=Dual+2-String+Kite)[![Image 6: Sudoku technique: Example for Dual+2-String+Kite](https://hodoku.sourceforge.net/examples/d2sk02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=d2sk02&tech=Dual+2-String+Kite)
+[![Image 5: Sudoku technique: Example for Dual+2-String+Kite](../../assets/hodoku-sdp/05-d2sk01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=d2sk01&tech=Dual+2-String+Kite)[![Image 6: Sudoku technique: Example for Dual+2-String+Kite](../../assets/hodoku-sdp/06-d2sk02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=d2sk02&tech=Dual+2-String+Kite)
 
 Left example: The common candidates are r1c3 and r3c1 in box 1. The two kites that can be built with them are: r1c38/r36c1 (r6c8<>1) and r3c19/r14c3 (r4c9<>1).
 
@@ -72,11 +72,11 @@ A Turbot Fish is an [X-Chain](https://hodoku.sourceforge.net/en/tech_chains.php#
 
 Turbot Fishes have gone a bit out of style. One of the reasons is, that most of the principle turbot patterns have been described as seperate patterns with their own names: Skyscraper, 2-String Kite and Empty Rectangle (only two candidates in the empty rectangle itself).
 
-[![Image 7: Sudoku technique: Example for Turbot+Fish](https://hodoku.sourceforge.net/examples/tf01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf01&tech=Turbot+Fish)[![Image 8: Sudoku technique: Example for Turbot+Fish](https://hodoku.sourceforge.net/examples/tf02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf02&tech=Turbot+Fish)
+[![Image 7: Sudoku technique: Example for Turbot+Fish](../../assets/hodoku-sdp/07-tf01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf01&tech=Turbot+Fish)[![Image 8: Sudoku technique: Example for Turbot+Fish](../../assets/hodoku-sdp/08-tf02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf02&tech=Turbot+Fish)
 
 The examples above show two of the possibilities: On the left is an Empty Rectangle, on the right a 2-String Kite.
 
-[![Image 9: Sudoku technique: Example for Turbot+Fish](https://hodoku.sourceforge.net/examples/tf03.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf03&tech=Turbot+Fish)[![Image 10: Sudoku technique: Example for Turbot+Fish](https://hodoku.sourceforge.net/examples/tf04.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf04&tech=Turbot+Fish)
+[![Image 9: Sudoku technique: Example for Turbot+Fish](../../assets/hodoku-sdp/09-tf03.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf03&tech=Turbot+Fish)[![Image 10: Sudoku technique: Example for Turbot+Fish](../../assets/hodoku-sdp/10-tf04.png)](https://hodoku.sourceforge.net/en/show_example.php?file=tf04&tech=Turbot+Fish)
 
 The examples above: On the left a Skyscraper, on the right an Empty Rectangle again (the right example really contains a Dual Empty Rectangle)
 
@@ -94,7 +94,7 @@ If an ER has been found, it can be checked for eliminations: Find a conjugate pa
 
 An ER pattern that follows the description above can always be seen as a [Finned Mutant X-Wing](https://hodoku.sourceforge.net/en/tech_fishc.php#mf) or as a [Grouped Nice Loop](https://hodoku.sourceforge.net/en/tech_chains.php#gnl).
 
-[![Image 11: Sudoku technique: Example for Empty+Rectangle](https://hodoku.sourceforge.net/examples/er01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er01&tech=Empty+Rectangle)[![Image 12: Sudoku technique: Example for Empty+Rectangle](https://hodoku.sourceforge.net/examples/er02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er02&tech=Empty+Rectangle)
+[![Image 11: Sudoku technique: Example for Empty+Rectangle](../../assets/hodoku-sdp/11-er01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er01&tech=Empty+Rectangle)[![Image 12: Sudoku technique: Example for Empty+Rectangle](../../assets/hodoku-sdp/12-er02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er02&tech=Empty+Rectangle)
 
 On the left: Row 4 and column 6 form an ER in box 5. r48c2 form a conjugate pair. One side of the conjugate pair is in the ER row (r4c2), the other can see a candidate in the ER column (r8c6). 9 can be eliminated from r8c6.
 
@@ -112,7 +112,7 @@ If the ER contains only two candidates the Empty Rectangle is not clearly define
 
 **Note:** Since Turbot Fish is before ER in the standard solving order, ERs with two candidates are always found as Turbot Fishes, even if they are enabled. Please move Turbot Fish behind ER (or disable it) to find the ERs below.
 
-[![Image 13: Sudoku technique: Example for Empty+Rectangle+%28only+two+candidates+in+the+ER%29](https://hodoku.sourceforge.net/examples/er201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er201&tech=Empty+Rectangle+%28only+two+candidates+in+the+ER%29)[![Image 14: Sudoku technique: Example for Empty+Rectangle+%28only+two+candidates+in+the+ER%29](https://hodoku.sourceforge.net/examples/er202.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er202&tech=Empty+Rectangle+%28only+two+candidates+in+the+ER%29)
+[![Image 13: Sudoku technique: Example for Empty+Rectangle+%28only+two+candidates+in+the+ER%29](../../assets/hodoku-sdp/13-er201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er201&tech=Empty+Rectangle+%28only+two+candidates+in+the+ER%29)[![Image 14: Sudoku technique: Example for Empty+Rectangle+%28only+two+candidates+in+the+ER%29](../../assets/hodoku-sdp/14-er202.png)](https://hodoku.sourceforge.net/en/show_example.php?file=er202&tech=Empty+Rectangle+%28only+two+candidates+in+the+ER%29)
 
 Left Example: Empty Rectangle: 6 in b8 (r69c1) => r6c4<>6
 
@@ -124,7 +124,7 @@ Sometimes the eliminated candidate and the end of the conjugate pair form a conj
 
 Dual Empty Rectangles are supported as an option in HoDoKu.
 
-[![Image 15: Sudoku technique: Example for Dual+Empty+Rectangle](https://hodoku.sourceforge.net/examples/der01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=der01&tech=Dual+Empty+Rectangle)[![Image 16: Sudoku technique: Example for Dual+Empty+Rectangle](https://hodoku.sourceforge.net/examples/der02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=der02&tech=Dual+Empty+Rectangle)
+[![Image 15: Sudoku technique: Example for Dual+Empty+Rectangle](../../assets/hodoku-sdp/15-der01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=der01&tech=Dual+Empty+Rectangle)[![Image 16: Sudoku technique: Example for Dual+Empty+Rectangle](../../assets/hodoku-sdp/16-der02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=der02&tech=Dual+Empty+Rectangle)
 
 In the example on the left the ER is formed by row 2 and column 3. r6c35 is a conjugate pair eliminating 2 from r2c5. But r26c5 is a conjugate pair as well eliminating 2 from r6c3.
 

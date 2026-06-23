@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>XYZ-Wing - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-xyz-wing/09-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-xyz-wing/10-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-xyz-wing/11-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-xyz-wing/12-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'XYZ_Wing';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-xyz-wing/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-xyz-wing/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,24 +258,24 @@ var pgFileName = 'XYZ_Wing';
 				<h1>XYZ-Wing</h1><div class="SRCell">This is an extension of <a href="/y_wing_strategy">Y-Wing</a> or (XY-Wing).  John MacLeod defines one as <i>"three cells that contain only 3 different numbers between them, but which fall outside the confines of one row/column/box, with one of the cells (the 'apex' or 'hinge') being able to </i>see<i> the other two; those other two having only one number in common; and the apex having all three numbers as candidates."</i><br><br>It follows therefore that one or other of the three cells must contain the common number; and hence any extraneous cell (there can only be two of them!) that "sees" all three cells of the Extended Trio cannot have that number as its true value.				<br></div><br>
 
 <div class="SRCell">
-<figure style="width:400px"><img src="PuzImages/xyzname.png" alt="XYZ-Wing theory" /><figcaption>XYZ-Wing theory
+<figure style="width:400px"><img src="../../assets/sudokuwiki-xyz-wing/03-xyzname.png" alt="XYZ-Wing theory" /><figcaption>XYZ-Wing theory
 </figcaption></figure>
 <br>It gets its name from the three numbers X, Y and Z that are required in the hinge. The outer cells in the formation will be XZ and YZ, Z being the common number.<br></div>
 
 <div class="SRCell">
-<figure style="width:400px"><img src="PuzImages/xyzname2.png" alt="Y-Wing Equivalent" /><figcaption>Y-Wing Equivalent
+<figure style="width:400px"><img src="../../assets/sudokuwiki-xyz-wing/04-xyzname2.png" alt="Y-Wing Equivalent" /><figcaption>Y-Wing Equivalent
 </figcaption></figure>
 <br>It is worth comparing the XYZ-Wing to the Y-Wing for a moment. Lets drop the Z candidate from the hinge. The diagram on the right is the result. With just two Zs in the pincer cells we get more cells elsewhere which could potentially contain a Z to eliminate. The overlap is greater with less cells to line up.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/xyz1b.png" alt="XYZ-Wing example 1" /><figcaption>XYZ-Wing example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xyz-wing/05-xyz1b.png" alt="XYZ-Wing example 1" /><figcaption>XYZ-Wing example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B46090b1m4a01070e1q050v3f022iaa1q7n081n4b3f9603ea027n1m46070e0n450409060l02460r7r06b64b0g050r060907114k4b030t1n170823093m1z0b3b07191n2319031v0h090i1103082t3o1v0437">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090001700500200008000030200070004960200060005069700030008090000700003009003800040">From the Start</a>
 </figcaption></figure>
 In this example the candidate number is <b>1</b> and <span class="hy">F9</span> is the <i>Hinge</i>. It can see a 1/2 in <span class="hy">D9</span> and a 1/4 in <span class="hy">F1</span>.  We can reason this way: If  <span class="hy">D9</span> contains a 2 then <span class="hy">F1</span> and <span class="hy">F9</span> become a naked pair of 1/4 - and the naked pair rule applies. Same with <span class="hy">F1</span>. If that's a 4 then <span class="hy">D9</span> and <span class="hy">F9</span> become a naked pair of 1/2 each. If any of the three are 1 then 1 is still part of the formation. Any 1 visible to all three cells must be removed, in this case in <span class="hy">F7</span>.<br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/xyz2b.png" alt="XYZ-Wing example 2" /><figcaption>XYZ-Wing example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xyz-wing/06-xyz2b.png" alt="XYZ-Wing example 2" /><figcaption>XYZ-Wing example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B069e9r2q340w11170h050n0v091s0h1p1n0708022i3m3u0196038i03043m020z0936081f0b9eaq0z081m0c3e8j0a088i031m078q02050g0547041j1i4z0902091j496r3d056r37040d1f456r0i1g773n03">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=600000000500900007820001030340209080000080000080307025050400092900005004000000003">From the Start</a>
 </figcaption></figure>
@@ -333,9 +333,9 @@ They make good practice puzzles.<br>
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-xyz-wing/07-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-xyz-wing/08-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

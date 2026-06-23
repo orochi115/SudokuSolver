@@ -9,7 +9,7 @@ Note: Examples here will show up if [Forcing Nets](https://www.sudokuwiki.org/Fo
 
 ## Rule 1 - Off-Chain Elimination
 
-![Image 1: Grouped AIC](https://www.sudokuwiki.org/PuzImages/GAIC1b.png)
+![Image 1: Grouped AIC](../../assets/sudokuwiki-aic-groups/03-GAIC1b.png)
 
 Grouped AIC : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B050f2e0i46015y020466026212064i0a095u0i4601070b0d4m0f4m4a4j4q027n03bu0g06360936164a4i0o010o02474u067n07bu4q4i464i0b0u0g09064q0a4y040i0a051g5w035w01071y080u1g181609) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=500001024020060090001700000000203006090000010200607000000009600040050030170800009)
 
@@ -29,7 +29,7 @@ AIC (w.Groups) Rule 1:
 
 ## Rule 2 - Strong Link Assertion
 
-![Image 2: Grouped Cell AIC](https://www.sudokuwiki.org/PuzImages/GAIC2b.png)
+![Image 2: Grouped Cell AIC](../../assets/sudokuwiki-aic-groups/04-GAIC2b.png)
 
 Grouped Cell AIC : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B091o014y055a0u1g073u3u0c8i1m02178z082224088m070a1a8410082m062c0w2i090z0z2i0i0b014a050f5u0c2b2f0536520i0b5u041v1v0d3o0936080c11035f0g041g4y0z0l09024i0i4m0146070d06) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=901050007000002008008070000806000900000105000005000004000090800300400009200010706)
 
@@ -45,7 +45,7 @@ AIC on 2 ((w.Groups) Discontinuous Alternating Nice Loop, length 8):
 
 ## Rule 3 - Weak Link Elimination
 
-![Image 3: Rule 3 Grouped Link example](https://www.sudokuwiki.org/PuzImages/GAIC3.png)
+![Image 3: Rule 3 Grouped Link example](../../assets/sudokuwiki-aic-groups/05-GAIC3.png)
 
 Rule 3 Grouped Link example : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Bbe060g7u7w0o4f050v03b6bu07960156021m020a1622081i1q0g098r058r02070h8u1q1q1m2e1s011u093g0h24c2cyc41u0304ac011w077q8n8q8t1g0e1q08c302c3038r051n1m070e041j0h1f0g1l091l) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=060000050300701020200080009050270000000109000000034010700000008020305007040000090)
 

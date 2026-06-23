@@ -74,7 +74,7 @@ To understand "Pointing pairs" better, let's take a look at the example.
 
 Let's look at the block at the top left corner. All the cells that might contain number 4 are located in one column. As number 4 should appear in this block at least once, one of the highlighted cells will surely contain 4.
 
-![Image 3](https://sudoku.com/img/post-images/1646982767-11.%20Pointing%20pairs_1.png)![Image 4](https://sudoku.com/img/post-images/1646982767-11.%20Pointing%20pairs_2.png)
+![Image 3](../../assets/sudokucom-pointing-pairs/01-1646982767-11.-20Pointing-20pairs_1.png)![Image 4](../../assets/sudokucom-pointing-pairs/02-1646982767-11.-20Pointing-20pairs_2.png)
 
 Hence, we can safely eliminate all other possible 4s from all the cells of this column.
 
@@ -88,7 +88,7 @@ That's it for "Pointing pairs" technique. Now you can proceed with the following
 
 [Pointing triples](https://sudoku.com/sudoku-rules/pointing-triples/)
 
-![Image 5: sudoku app icon](https://sudoku.com/img/icon-app.png)
+![Image 5: sudoku app icon](../../assets/sudokucom-pointing-pairs/03-icon-app.png)
 
 Sudoku.com - Number Games
 

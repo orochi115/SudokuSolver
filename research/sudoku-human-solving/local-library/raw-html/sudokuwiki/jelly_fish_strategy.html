@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Jellyfish Strategy - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-jellyfish/11-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-jellyfish/12-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-jellyfish/13-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-jellyfish/14-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Jelly_Fish_Strategy';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-jellyfish/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-jellyfish/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -256,39 +256,39 @@ var pgFileName = 'Jelly_Fish_Strategy';
 
             <div class="contentshell">
 				<h1>Jellyfish Strategy</h1><div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/JellyFish1.png" alt="Jellyfish Diagram" /><figcaption>Jellyfish Diagram
+<figure style="width:450px"><img src="../../assets/sudokuwiki-jellyfish/03-JellyFish1.png" alt="Jellyfish Diagram" /><figcaption>Jellyfish Diagram
 </figcaption></figure>
 Jellyfish extends Swordfish one further row and column. We are looking for either<br><ul><br><li>four rows such that, <i>in total</i>, four cells are occupied in the row by a candidate number; or<br><li>four columns such that, <i>in total</i>, four cells are occupied in the column by a candidate number<br></ul><br>If this configuration is found then we can look in the opposite direction (if by row then down the column, if by column then across the row.  If any candidates are found they can be eliminated. After the elimination both conditions above will hold.<br><br>This diagram shows a full Jellyfish with four X found in four columns and aligned on four rows. It means we can remove any X found in the columns and it leaves behind a 4 by 4 grid.<br>			  <br></div>
 
 <div class="SRCell">How does it work?  Pick any yellow cell in the example above that contains an X. Keeping an eye on it. Pretend the solution actually is X. All others Xs in the row and columns are suppressed. What we're left with is a Swordfish.  The Swordfish logic then applies. Pick any X in the Swordfish and it reduces to an X-Wing. Since any combination of Xs on the grid are possible there is no room for Xs outside the grid - that align on the grid rows and columns.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/JellyFish2.png" alt="Partial Jellyfish" /><figcaption>Partial Jellyfish
+<figure style="width:450px"><img src="../../assets/sudokuwiki-jellyfish/04-JellyFish2.png" alt="Partial Jellyfish" /><figcaption>Partial Jellyfish
 </figcaption></figure>
 Finding exactly candidate X in all sixteen cells (a 4-4-4-4 formation) is extremely unlikely. But the logic of Jellyfish (and Swordfish) is that we only need four X <span class="hy">in total</span> over the four rows and columns. Here is a minimal spread of a particular candidate X - a 2-2-2-2 formation.  Most of the time you will have a mixture of two, three or four candidates lined up. <br><br>One way to double check the logic is to pretend any of the crossed out Xs is a solution. When you do that and trace the consequences you will find at least one row (or column) with no X left - clearly a bad consequence.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/JellyFish3b.png" alt="Example Jellyfish" /><figcaption>Example Jellyfish
+<figure style="width:450px"><img src="../../assets/sudokuwiki-jellyfish/05-JellyFish3b.png" alt="Example Jellyfish" /><figcaption>Example Jellyfish
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B492b482d069g05804h11041g039x082b7o374p37092t2t045z2g6x3602040h2q1y09012u9e030e0l7x7o620662aa08013m7u1y022m1a0r0e48095w2c062o2l488i54045w012e059g0t7n071u031u0r087o">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000060500040308000009004000024000910030000060081000200000900600000401050007030080">From the Start</a>
 </figcaption></figure>
 This is a real Jellyfish example, one of the very few I have that does actually show up in the solver - a crazy hard extreme. It is based on the candidate 7 as show by the green highlighted candidates. The cells in the pattern are orange. The pattern establishes that we have 7 common to four rows (B,D,E and H) which are aligned on four columns (1,5,7 and 9). Therefore four 7s must go in those yellow cells. <br><br>This is a 2-3-3-2 formation Jelly Fish since there are 7s absent in B1 and H2.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/JellyFish4b.png" alt="18 elimination Jellyfish" /><figcaption>18 elimination Jellyfish
+<figure style="width:450px"><img src="../../assets/sudokuwiki-jellyfish/06-JellyFish4b.png" alt="18 elimination Jellyfish" /><figcaption>18 elimination Jellyfish
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000070030920019025630004000210000000000057090460095140370000000000042367590">From the Start</a>
 </figcaption></figure>
 <br>I am pleased to report a massive catch by Klaus Brenner from Germany. He has created a 31 clue Sudoku with a required JellyFish containing an amazing 18 eliminations. <br><br>Well done Klaus!<br><br><i>8th October 2012</i><br><br>(Turn off Rectangle Elimination)</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/JellyFish5b.png" alt="Perfect Jellyfish" /><figcaption>Perfect Jellyfish
+<figure style="width:450px"><img src="../../assets/sudokuwiki-jellyfish/07-JellyFish5b.png" alt="Perfect Jellyfish" /><figcaption>Perfect Jellyfish
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0p050p07040i1h081h0t08091u1w032i2s19062c2k4i4k01030i18bc044obrbq071106152h2g3t0d1y1g082s09d49k7ccncm502i2s1dd0065wbad20484014k057q46020a4y8i0d07d80164c2du058k0350">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=050740080089003000600001300040007060000000809000000000060004010500200007010005030">From the Start</a>
 </figcaption></figure>
 <br><br>To my knowledge this is the first <span class="hy">Perfect</span> 4-4-4-4 Jellyfish. Perfect in the sense that every 2 in the sixteen cells that form the pattern - the 2 is still a candidate.  In the examples above, each contain some cells that are clues or solutions.  This type of formation is pretty rare in Swordfishes, let alone Jellyfish. Klaus Brenner also found this puzzle.<br><br><i>13th July 2014</i><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/JellyFish6b.png" alt="20 eliminations" /><figcaption>20 eliminations
+<figure style="width:450px"><img src="../../assets/sudokuwiki-jellyfish/08-JellyFish6b.png" alt="20 eliminations" /><figcaption>20 eliminations
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000017020803003000204084053706000000000072010005048071502035040601000000000">From the Start</a>
 </figcaption></figure>
 <br>I have a new crop of Jelly-Fish discovered by Klaus. This one is a maximally eliminating pattern taking off all twenty 9s.</div>
@@ -344,9 +344,9 @@ All discovered by Klaus Brenner
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-jellyfish/09-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-jellyfish/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

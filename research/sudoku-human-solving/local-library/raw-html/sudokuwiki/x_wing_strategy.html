@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>X-Wing Strategy - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-xwing/10-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-xwing/11-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-xwing/12-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-xwing/13-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'X_Wing_Strategy';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-xwing/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-xwing/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,7 +258,7 @@ var pgFileName = 'X_Wing_Strategy';
 				<h1>X-Wing Strategy</h1><div class="SRCell">This strategy is looking at single numbers in rows and columns. It should be easier to spot in a game as we can concentrate on just one number at a time. </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XWingAnni.gif" alt="X-Wing example 1" /><figcaption>X-Wing example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xwing/03-XWingAnni.gif" alt="X-Wing example 1" /><figcaption>X-Wing example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B015y2e685w68050609040i022e0e0f0a2e085y050f0a5u090b042e2u2e0i06042c0810012q0f0dd0015w9i102e020a089e03050f9e0d5y042e05d0609i010f095y0e5y0f0a045y0206020166cy669id205">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100000569402000008050009040000640801000010000208035000040500010900000402621000005">From the Start</a>
 </figcaption></figure>
@@ -267,14 +267,14 @@ The picture on the right shows a classic X-Wing, this example being based on the
 <div class="SRCell">Think about the example this way. <span class="hy">A, B, C</span> and <span class="hy">D</span> form a rectangle. If <span class="hy">A</span> turns out to be a <b>7</b> then it rules out a <b>7</b> at <span class="hy">C</span> as well as <span class="hy">B</span>. Because <span class="hy">A</span> and <span class="hy">CD</span> are 'locked' then <span class="hy">D</span> must be a <b>7</b> if <span class="hy">A</span> is.  Or vice versa. So a 7 MUST be present at <span class="hy">AD</span> or <span class="hy">BC</span>. If this is the case then any other <b>7</b>s along the edge of our rectangle are redundant. We can remove the <b>7</b>s marked in the green squares. <br><br>The rule is<br><I>When there are <br><ul><li>only two possible cells for a value in each of two different rows,</li><li>and these candidates lie also in the same columns,</li>then all other candidates for this value in the columns can be eliminated.</Ii></ul></i><br>The reverse is also true for 2 columns with 2 common rows. Since this strategy works in the other direction as well, we will look at an example next.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XWing2b.png" alt="X-Wing example 2" /><figcaption>X-Wing example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xwing/04-XWing2b.png" alt="X-Wing example 2" /><figcaption>X-Wing example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4n144p5i6q7a360i0407064a0i014a0o050o1a091a263e023608011q078w580556bk01bc2714290758094w0o4816088c0s030a8c060g02045i014y5iba07c652016u54096u48040509127a5s707i0a0o54">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000004760010050090002081070050010000709000080030060240100070010090045900000000">From the Start</a>
 </figcaption></figure>
 <br>In this second example I've chosen a Sudoku puzzle where an enormous number of candidates can be removed using two X-Wings. The first is a '2-Wing'.  The orange high lighted cells show the X-Wing formation. Note that the orientation is in the columns this time, as opposed to rows as above. Looking at columns we can see that candidate 2 only occurs twice - in the orange cells. Which ever way the 2s could be placed (<span class="hy">E5/J8</span> or <span class="hy">E8/J5</span>) six other 2s in the rows can be removed - the yellow highlighted numbers.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XWing3b.png" alt="X-Wing example 3" /><figcaption>X-Wing example 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xwing/05-XWing3b.png" alt="X-Wing example 3" /><figcaption>X-Wing example 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4n0b4n5i6q7a360i0407064a0i014a0o050o1a091a263e023608011q077o580556bk01bc2712270758094u0o4616087o0s030a8c060g02045i014y5iba07c652016u54096u48040509127a5q707i0a0o52">Load Example</a>
 </figcaption></figure>
 <br>A few steps later the second X-Wing is found on candidate 3 in the same rows.  Whichever way round the 3 can be placed in those rows (<span class="hy">E2/J8</span> or <span class="hy">E8/J2</span>) there can be no other 3 in rows E and J except in those orange cells.</div>
@@ -307,7 +307,7 @@ The picture on the right shows a classic X-Wing, this example being based on the
 </tr>
 </table></div><br>
 
-<div class="SRCell">Here is an example of combination 5. Starting from 2 rows and eliminating in 2 boxes, in this case the last two boxes in the Sudoku. The rows are 7 and 8 and they each have two <b>7</b>s. Our x-Wing is now a trapezoid but the logic is the same. We can be certain that 7 can be eliminated in the red circled cells.<br><br><center><img src="PuzImages/xwingG1.png" alt="X-Wing Example"></center><br>But HOLD UP one moment. There is a simpler strategy that does the same job!<br><br><center><img src="PuzImages/xwingG2.png" alt="X-Wing Example"></center><br><span class="hy">A</span> and <span class="hy">B</span> above are a pointing pair. This removes the same 7s in the same place.  Combination 6 is also the complement of a pointing pair. Combinations 3 and 4 are also complements of the Line/Box Reduction. Our generalisation of X-Wing to boxes hasn't profited us at all. We learn that<br><br><center><b>X-Wings containing boxes are the inverse of the <a href="Intersection_Removal">Intersection Removal</a> strategies</b></center><br></div><br>
+<div class="SRCell">Here is an example of combination 5. Starting from 2 rows and eliminating in 2 boxes, in this case the last two boxes in the Sudoku. The rows are 7 and 8 and they each have two <b>7</b>s. Our x-Wing is now a trapezoid but the logic is the same. We can be certain that 7 can be eliminated in the red circled cells.<br><br><center><img src="../../assets/sudokuwiki-xwing/06-xwingG1.png" alt="X-Wing Example"></center><br>But HOLD UP one moment. There is a simpler strategy that does the same job!<br><br><center><img src="../../assets/sudokuwiki-xwing/07-xwingG2.png" alt="X-Wing Example"></center><br><span class="hy">A</span> and <span class="hy">B</span> above are a pointing pair. This removes the same 7s in the same place.  Combination 6 is also the complement of a pointing pair. Combinations 3 and 4 are also complements of the Line/Box Reduction. Our generalisation of X-Wing to boxes hasn't profited us at all. We learn that<br><br><center><b>X-Wings containing boxes are the inverse of the <a href="Intersection_Removal">Intersection Removal</a> strategies</b></center><br></div><br>
 
 <div class="SRCell"><h2>X-Wing Exemplars</h2>
 These puzzles require the X-Wing strategy at some point but are otherwise trivial.<br>
@@ -364,9 +364,9 @@ The next strategy in this 'family' is <a href="/Sword_Fish_Strategy">Sword-Fish<
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-xwing/08-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-xwing/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

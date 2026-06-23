@@ -17,7 +17,7 @@ Note: The techniques and examples on this page are meant for advanced players. M
 
 If at least one of the base or cover sets is a box, the resulting fish is called a Franken Fish. The fish rules remain unchanged.
 
-[![Image 1: Sudoku technique: Example for Franken+Jellyfish](https://hodoku.sourceforge.net/examples/ff401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=ff401&tech=Franken+Jellyfish)[![Image 2: Sudoku technique: Example for Finned+Franken+Swordfish](https://hodoku.sourceforge.net/examples/fff301.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fff301&tech=Finned+Franken+Swordfish)
+[![Image 1: Sudoku technique: Example for Franken+Jellyfish](../../assets/hodoku-complex-fish/01-ff401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=ff401&tech=Franken+Jellyfish)[![Image 2: Sudoku technique: Example for Finned+Franken+Swordfish](../../assets/hodoku-complex-fish/02-fff301.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fff301&tech=Finned+Franken+Swordfish)
 
 The image on the left above shows a Franken Jellyfish: r125b7/c1257 leads to the following eliminations: r3c257,r4c12,r6c257<>8. On first sight it looks like a Basic Jellyfish in the rows. The only difference is that the fourth base set is not a row but a block: This makes it a Franken Fish.
 
@@ -25,7 +25,7 @@ The right side shows exactly the same sudoku state as the left but a different f
 
 Many advanced fish produce patterns that have been described under a different name. Most of these different patterns are easier to spot. The additional possibilities introduced by the use of boxes as base or cover sets lead to fishes with endo fins and cannibalism. The possible varieties are really endless, below are two examples of these types of fish:
 
-[![Image 3: Sudoku technique: Example for Finned+Franken+X-Wing](https://hodoku.sourceforge.net/examples/fff201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fff201&tech=Finned+Franken+X-Wing)[![Image 4: Sudoku technique: Example for Cannibalistic+Finned+Franken+Swordfish+with+Endo+Fins](https://hodoku.sourceforge.net/examples/fff302.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fff302&tech=Cannibalistic+Finned+Franken+Swordfish+with+Endo+Fins)
+[![Image 3: Sudoku technique: Example for Finned+Franken+X-Wing](../../assets/hodoku-complex-fish/03-fff201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fff201&tech=Finned+Franken+X-Wing)[![Image 4: Sudoku technique: Example for Cannibalistic+Finned+Franken+Swordfish+with+Endo+Fins](../../assets/hodoku-complex-fish/04-fff302.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fff302&tech=Cannibalistic+Finned+Franken+Swordfish+with+Endo+Fins)
 
 The left example shows a Finned Franken X-Wing: Base sets are row 6 and block 1, cover sets are columns 3 and 5. 2 in r2c1 is not covered by a cover set and is therefore a fin. The only possible elimination of the Unfinned Franken Fish is in r2c5. Since it happens to see the fin, it becomes a real elimination. That pattern is better known as an [Empty Rectangle](https://hodoku.sourceforge.net/en/tech_sdp.php#er).
 
@@ -37,13 +37,13 @@ The example on the right is a more complex fish type: Base sets are rows 1 and 5
 
 If we allow all possible types of houses in the base and cover sets of our fishes, the results get even more complicated. Again the smaller exemplars are often known under a different name.
 
-[![Image 5: Sudoku technique: Example for Finned+Mutant+X-Wing](https://hodoku.sourceforge.net/examples/fmf201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fmf201&tech=Finned+Mutant+X-Wing)[![Image 6: Sudoku technique: Example for Finned+Mutant+Jellyfish](https://hodoku.sourceforge.net/examples/fmf401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fmf401&tech=Finned+Mutant+Jellyfish)
+[![Image 5: Sudoku technique: Example for Finned+Mutant+X-Wing](../../assets/hodoku-complex-fish/05-fmf201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fmf201&tech=Finned+Mutant+X-Wing)[![Image 6: Sudoku technique: Example for Finned+Mutant+Jellyfish](../../assets/hodoku-complex-fish/06-fmf401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fmf401&tech=Finned+Mutant+Jellyfish)
 
 Let's again start with the left side: Base sets are row 6 and column 2, cover sets are column 6 and block 4. Two sectors each means X-Wing, rows and columns mixed in the base sets means Mutant X-Wing. Base cell r7c2 is not covered so Finned Mutant X-Wing. The elimination is r7c6. This particular pattern is also known as a [2-String-Kite](https://hodoku.sourceforge.net/en/tech_sdp.php#t2sk) or as [Turbot Fish](https://hodoku.sourceforge.net/en/tech_sdp.php#tf) (which incidentally is not a fish, but a chain...).
 
 The example above on the right side shows a Finned Mutant Jellyfish: r16c47/c1b358, fins in r1c6 and r7c7, the elimination is r7c6.
 
-[![Image 7: Sudoku technique: Example for Finned+Mutant+Whale](https://hodoku.sourceforge.net/examples/fmf601.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fmf601&tech=Finned+Mutant+Whale)
+[![Image 7: Sudoku technique: Example for Finned+Mutant+Whale](../../assets/hodoku-complex-fish/07-fmf601.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fmf601&tech=Finned+Mutant+Whale)
 
 The example on the left doesn't look much more complicated than the Jellyfish above, but it is. It is the smallest available fish in the grid, a Finned Mutant Whale: 4 r35c89b49 r69c347b3 fr4c1 efr9c8 => r9c1<>4. Although it is funny to look at those monsters, it is highly unlikely that a human solver should find such a fish. It isn't even necessary: The elimination can be reproduced by a [Grouped Nice Loop](https://hodoku.sourceforge.net/en/tech_chains.php#gnl) or a [Forcing Chain](https://hodoku.sourceforge.net/en/tech_last.php#fc).
 
@@ -53,7 +53,7 @@ The example on the left doesn't look much more complicated than the Jellyfish ab
 
 If at a given sudoku state two fishes of the same type exist, that occupy the same cells, but lead to different eliminations, those two fishes can be combined into one Siamese Fish. For a Siamese Fish to be possible, the fishes building it must be some kind of finned fish that differ in one cover set. The easiest form of a Siamese Sashimi X-Wing is better known as [Skyscraper](https://hodoku.sourceforge.net/en/tech_sdp.php#sk).
 
-[![Image 8: Sudoku technique: Example for Siamese+Sashimi+Swordfish](https://hodoku.sourceforge.net/examples/sfbf301.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sfbf301&tech=Siamese+Sashimi+Swordfish)[![Image 9: Sudoku technique: Example for Siamese+Sashimi+Jellyfish](https://hodoku.sourceforge.net/examples/sfbf401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sfbf401&tech=Siamese+Sashimi+Jellyfish)
+[![Image 8: Sudoku technique: Example for Siamese+Sashimi+Swordfish](../../assets/hodoku-complex-fish/08-sfbf301.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sfbf301&tech=Siamese+Sashimi+Swordfish)[![Image 9: Sudoku technique: Example for Siamese+Sashimi+Jellyfish](../../assets/hodoku-complex-fish/09-sfbf401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sfbf401&tech=Siamese+Sashimi+Jellyfish)
 
 The example on the left (posted on the Player's Forum) is a Siamese Sashimi Swordfish on 1: The first fish is in r358 c259, fin in r8c6, that eliminates 1 from r7c5, the second is in r358 c269, fin in r5c5, eliminating 1 from r4c6.
 

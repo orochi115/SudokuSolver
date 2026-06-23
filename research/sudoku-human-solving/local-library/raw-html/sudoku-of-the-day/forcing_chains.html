@@ -7,8 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<link rel="icon" href="/images/favicon.png">
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="icon" href="../../assets/sotd-forcing-chains/08-favicon.png">
+	<link rel="apple-touch-icon" href="../../assets/sotd-forcing-chains/09-apple-touch-icon.png">
 	<link rel="canonical" href="https://www.sudokuoftheday.com/techniques/forcing-chains"/>
 
 
@@ -137,9 +137,7 @@
 
 <p>Take a look at this puzzle, which shows an example of a forcing chain.</p>
 
-<p><img class="puzzle" src="/image.svg?sg=
-(4678)(1267)W(12)5(68)(27)(14)39(68)39(68)41257(47)(127)5(27)3968(14)W(57)9(14)32(47)(18)6(158)(123)(12)895674(13)(567)(67)(34)(47)1892(35)(29)461(78)53(79)(28)(23)87(246)9(234)51(246)(1239)5(123)(2468)(678)(234)(48)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/01-image-sg-4678-1267-W-12-5-68-27-14-39-68-39-68-41257-47-127-5-27-3968-.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
 
 <p>It doesn't matter which value - 1 or 2 - was in the top cell (at coordinate
     C3,R1), they would force the value 5 into the other cell (C1,R4).</p>
@@ -156,63 +154,15 @@
     <code>{14}</code> a few cells below it to be a 4, and so on. Can you follow
     the chain?</p>
 
-<p><img class="puzzle" src="/image.svg?sg=
-AI3134
-(4678)(1267)W(i1s2)5(68)(27)(14)39
-(68)39(68)41257
-(47)(127)5(27)3968(14)
-
-W(57)9(s1i4)32(47)(18)6(158)
-(123)(12)895674(13)
-(567)(67)(34)(47)1892(35)
-
-(29)461(78)53(79)(28)
-(23)87(246)9(234)51(246)(1239)5(123)(2468)(678)(234)(48)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/02-image-sg-AI3134-4678-1267-W-i1s2-5-68-27-14-39-68-39-68-41257-47-127-5.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
     
-<p><img class="puzzle" src="/image.svg?sg=
-AI3464
-(4678)(1267)W(i1s2)5(68)(27)(14)39
-(68)39(68)41257
-(47)(127)5(27)3968(14)
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/03-image-sg-AI3464-4678-1267-W-i1s2-5-68-27-14-39-68-39-68-41257-47-127-5.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
 
-W(57)9(s1i4)32(s4i7)(18)6(158)
-(123)(12)895674(13)
-(567)(67)(34)(47)1892(35)
-
-(29)461(78)53(79)(28)
-(23)87(246)9(234)51(246)(1239)5(123)(2468)(678)(234)(48)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
-
-<p><img class="puzzle" src="/image.svg?sg=
-AI6414
-(4678)(1267)W(i1s2)5(68)(27)(14)39
-(68)39(68)41257
-(47)(127)5(27)3968(14)
-
-W(i5s7)9(s1i4)32(s4i7)(18)6(158)
-(123)(12)895674(13)
-(567)(67)(34)(47)1892(35)
-
-(29)461(78)53(79)(28)
-(23)87(246)9(234)51(246)(1239)5(123)(2468)(678)(234)(48)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/04-image-sg-AI6414-4678-1267-W-i1s2-5-68-27-14-39-68-39-68-41257-47-127-5.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
 
 <p>So, the 1 forces the 5:</p>
 
-<p><img class="puzzle" src="/image.svg?sg=
-AG3114
-(4678)(1267)W(i1s2)5(68)(27)(14)39
-(68)39(68)41257
-(47)(127)5(27)3968(14)
-
-W(i5s7)9(s1i4)32(s4i7)(18)6(158)
-(123)(12)895674(13)
-(567)(67)(34)(47)1892(35)
-
-(29)461(78)53(79)(28)
-(23)87(246)9(234)51(246)(1239)5(123)(2468)(678)(234)(48)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/05-image-sg-AG3114-4678-1267-W-i1s2-5-68-27-14-39-68-39-68-41257-47-127-5.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
 
 <div class="ad vertical-ad">			<script>
 				displayAdIfWidthAtLeast(768, 'vertical', 'fixed', 4882364853, 'false')
@@ -226,47 +176,13 @@ W(i5s7)9(s1i4)32(s4i7)(18)6(158)
 
 <p>Now start again, but instead of a 1, this time make the top cell a 2.</p>
 
-<p><img class="puzzle" src="/image.svg?sg=
-(4678)(1267)W(s1i2)5(68)(s2i7)(i1s4)39
-(68)39(68)41257
-(s4i7)(127)5(27)3968(s1i4)
-
-W(i5s7)9(i1s4)32(i4s7)(s1i8)6(158)
-(123)(12)895674(13)
-(567)(67)(34)(47)1892(35)
-
-(29)461(78)53(79)(28)
-(23)87(246)9(234)51(246)
-(1239)5(123)(2468)(678)(234)(i4s8)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/06-image-sg-4678-1267-W-s1i2-5-68-s2i7-i1s4-39-68-39-68-41257-s4i7-127-5-.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
 
 <p>Again crossing out the values which get ruled out - you'll see its quite a
     long chain!</p>
 
 <p>Here's what it looks like with the arrows...</p>
-<p><img class="puzzle" src="/image.svg?sg=
-AI3161
-AI6164
-AI6434
-AJB3474
-AI7479
-AJB7971
-AI7193
-AI9313
-AI1314
-
-(4678)(1267)W(s1i2)5(68)(s2i7)(i1s4)39
-(68)39(68)41257
-(s4i7)(127)5(27)3968(s1i4)
-
-W(i5s7)9(i1s4)32(i4s7)(s1i8)6(158)
-(123)(12)895674(13)
-(567)(67)(34)(47)1892(35)
-
-(29)461(78)53(79)(28)
-(23)87(246)9(234)51(246)
-(1239)5(123)(2468)(678)(234)(i4s8)(79)(2468)
-" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
+<p><img class="puzzle" src="../../assets/sotd-forcing-chains/07-image-sg-AI3161AI6164AI6434AJB3474AI7479AJB7971AI7193AI9313AI1314-4678.svg" width="320" height="320" loading="lazy" alt="Sudoku puzzle"></p>
 
 <p>The two chains have different paths starting with each of the two values for
     the first cell, but either one means there'll be a 5 in the second cell.</p>

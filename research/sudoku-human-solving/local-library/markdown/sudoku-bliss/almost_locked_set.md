@@ -11,7 +11,7 @@ Almost locked sets get their name from the fact they are very close to locked se
 
 ## How to Find an Almost Locked Set in Sudoku
 
-![Image 1: How to find an almost locked set example](https://sudokubliss.com/content-uploads/sudoku-almost-locked-set-definition.webp)
+![Image 1: How to find an almost locked set example](../../assets/sudokubliss-als/02-sudoku-almost-locked-set-definition.webp)
 
 An almost locked set must meet the following criteria:
 
@@ -37,7 +37,7 @@ While you can find these sets commonly throughout puzzles, finding those special
 
 Type 1 has a **single restricted common candidate (RCC)**. To find this type, you need to find two almost locked sets that are connected by a restricted common candidate (_x_) and an unrestricted common candidate (_z_) .
 
-![Image 2: ALS-XZ Type 1 example](https://sudokubliss.com/content-uploads/sudoku-als-xz-type-1.webp)
+![Image 2: ALS-XZ Type 1 example](../../assets/sudokubliss-als/03-sudoku-als-xz-type-1.webp)
 
 Just follow these steps to find a Type 1:
 
@@ -51,7 +51,7 @@ Just follow these steps to find a Type 1:
 
 This type offers a more powerful set of eliminations and requires x and z to be **two restricted common candidates**. While you still need two almost locked sets with this type, you don't need an unrestricted common candidate, and you'll discover that you can eliminate quite a few candidates in the process.
 
-![Image 3: ALS-XZ Type 2 example](https://sudokubliss.com/content-uploads/sudoku-als-xz-type-2.webp)
+![Image 3: ALS-XZ Type 2 example](../../assets/sudokubliss-als/04-sudoku-als-xz-type-2.webp)
 
 Follow these steps to find this type:
 
@@ -70,7 +70,7 @@ Follow these steps to find this type:
 
 For this type, you need to find three almost locked sets, and it requires _x_ and _y_ to be **two restricted common candidates. It follows similar to the logic behind the [XY-wing technique](https://sudokubliss.com/guides/finding-y-wing-styles).**
 
-![Image 4: ALS-XY-Wing example](https://sudokubliss.com/content-uploads/sudoku-als-xy-wing.webp)
+![Image 4: ALS-XY-Wing example](../../assets/sudokubliss-als/05-sudoku-als-xy-wing.webp)
 
 Follow these steps to find this type:
 

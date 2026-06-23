@@ -1,0 +1,110 @@
+<svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景 -->
+    <rect width="280" height="280" fill="#f8f9fa" rx="8"/>
+
+    <!-- 列标签 C2 和 C8 -->
+    <text x="70" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#667eea">C2</text>
+    <text x="210" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#667eea">C8</text>
+
+    <!-- 行标签 R3 和 R9 -->
+    <text x="18" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#764ba2">R3</text>
+    <text x="18" y="214" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#764ba2">R9</text>
+
+    <!-- 垂直虚线（列） -->
+    <line x1="70" y1="30" x2="70" y2="250" stroke="#667eea" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.4"/>
+    <line x1="210" y1="30" x2="210" y2="250" stroke="#667eea" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.4"/>
+
+    <!-- 水平虚线（行） -->
+    <line x1="30" y1="70" x2="250" y2="70" stroke="#764ba2" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.4"/>
+    <line x1="30" y1="210" x2="250" y2="210" stroke="#764ba2" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.4"/>
+
+    <!-- 矩形边框 -->
+    <rect x="70" y="70" width="140" height="140" fill="none" stroke="#10b981" stroke-width="2" opacity="0">
+        <animate attributeName="opacity" values="0;0.6" dur="0.8s" begin="0.5s" fill="freeze"/>
+    </rect>
+
+    <!-- X交叉线1 (左上到右下) -->
+    <line x1="70" y1="70" x2="210" y2="210" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.2s" fill="freeze"/>
+        <animate attributeName="stroke-dasharray" values="0,250;250,0" dur="0.6s" begin="1.2s" fill="freeze"/>
+    </line>
+
+    <!-- X交叉线2 (右上到左下) -->
+    <line x1="210" y1="70" x2="70" y2="210" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.5s" fill="freeze"/>
+        <animate attributeName="stroke-dasharray" values="0,250;250,0" dur="0.6s" begin="1.5s" fill="freeze"/>
+    </line>
+
+    <!-- 四个角的候选数格子 -->
+    <!-- 左上 R3C2 -->
+    <rect x="52" y="52" width="36" height="36" rx="4" fill="white" stroke="#667eea" stroke-width="2" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0s" fill="freeze"/>
+    </rect>
+    <text x="70" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#667eea" opacity="0">
+        6
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.1s" fill="freeze"/>
+    </text>
+
+    <!-- 右上 R3C8 -->
+    <rect x="192" y="52" width="36" height="36" rx="4" fill="white" stroke="#667eea" stroke-width="2" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.15s" fill="freeze"/>
+    </rect>
+    <text x="210" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#667eea" opacity="0">
+        6
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.25s" fill="freeze"/>
+    </text>
+
+    <!-- 左下 R9C2 -->
+    <rect x="52" y="192" width="36" height="36" rx="4" fill="white" stroke="#667eea" stroke-width="2" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.3s" fill="freeze"/>
+    </rect>
+    <text x="70" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#667eea" opacity="0">
+        6
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.4s" fill="freeze"/>
+    </text>
+
+    <!-- 右下 R9C8 -->
+    <rect x="192" y="192" width="36" height="36" rx="4" fill="white" stroke="#667eea" stroke-width="2" opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.45s" fill="freeze"/>
+    </rect>
+    <text x="210" y="216" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#667eea" opacity="0">
+        6
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.55s" fill="freeze"/>
+    </text>
+
+    <!-- 高亮脉冲效果 -->
+    <rect x="52" y="52" width="36" height="36" rx="4" fill="none" stroke="#667eea" stroke-width="3" opacity="0">
+        <animate attributeName="opacity" values="0;0.8;0" dur="0.6s" begin="2s" fill="freeze"/>
+    </rect>
+    <rect x="192" y="52" width="36" height="36" rx="4" fill="none" stroke="#667eea" stroke-width="3" opacity="0">
+        <animate attributeName="opacity" values="0;0.8;0" dur="0.6s" begin="2.1s" fill="freeze"/>
+    </rect>
+    <rect x="52" y="192" width="36" height="36" rx="4" fill="none" stroke="#667eea" stroke-width="3" opacity="0">
+        <animate attributeName="opacity" values="0;0.8;0" dur="0.6s" begin="2.2s" fill="freeze"/>
+    </rect>
+    <rect x="192" y="192" width="36" height="36" rx="4" fill="none" stroke="#667eea" stroke-width="3" opacity="0">
+        <animate attributeName="opacity" values="0;0.8;0" dur="0.6s" begin="2.3s" fill="freeze"/>
+    </rect>
+
+    <!-- 消除指示箭头（向上） -->
+    <g opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="2.5s" fill="freeze"/>
+        <!-- 左列上箭头 -->
+        <line x1="70" y1="48" x2="70" y2="34" stroke="#dc2626" stroke-width="2.5"/>
+        <polygon points="70,28 64,36 76,36" fill="#dc2626"/>
+        <!-- 右列上箭头 -->
+        <line x1="210" y1="48" x2="210" y2="34" stroke="#dc2626" stroke-width="2.5"/>
+        <polygon points="210,28 204,36 216,36" fill="#dc2626"/>
+    </g>
+
+    <!-- 消除指示箭头（向下） -->
+    <g opacity="0">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="2.5s" fill="freeze"/>
+        <!-- 左列下箭头 -->
+        <line x1="70" y1="232" x2="70" y2="246" stroke="#dc2626" stroke-width="2.5"/>
+        <polygon points="70,252 64,244 76,244" fill="#dc2626"/>
+        <!-- 右列下箭头 -->
+        <line x1="210" y1="232" x2="210" y2="246" stroke="#dc2626" stroke-width="2.5"/>
+        <polygon points="210,252 204,244 216,244" fill="#dc2626"/>
+    </g>
+</svg>

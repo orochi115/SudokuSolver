@@ -13,7 +13,7 @@ W-Wings are named after George Woods (2007) who first noticed the pattern, as re
 
 ## The Double W-Wing or Remote Pair Chain
 
-![Image 1: Remote Pair Chain](https://www.sudokuwiki.org/PuzImages/WWing01b.png)
+![Image 1: Remote Pair Chain](../../assets/sudokuwiki-w-wing/03-WWing01b.png)
 
 Remote Pair Chain : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f017u020c0e08077u0b050g0i0d0h0c0f017ybibi0a07060e7u0b087u121202070a7u068e807w120f0a7u0h0g010g0f04080i0b0e037y0f8008050w070a7u07bgbw0f0a0s7u034i1a4e010g0i0u0f024i) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=010200870050000001000076000800027006000000000100480003000850700700000030001000020)
 
@@ -28,7 +28,7 @@ Instead we can check if there are two cells with 4 and 9 that can't see each oth
 
 Any of these are proofs. It means that any cell that can see both ends of the chain cannot have a 4 or a 9. Such as cell is H3
 
-![Image 2: Remote Pair Chain 2](https://www.sudokuwiki.org/PuzImages/WWing02b.png)
+![Image 2: Remote Pair Chain 2](../../assets/sudokuwiki-w-wing/04-WWing02b.png)
 
 Remote Pair Chain 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f017u020c0e08077u0b050g0i0d0h0c0f017ybibi0a07060e7u0b087u121202070a7u068e807w120f0a7u0h0g010g0f04080i0b0e037y0f8008050w070a7u07bg4k0f0a0s7u034i1a4e010g0i0u0f024i)
 
@@ -44,7 +44,7 @@ So what does this have to do with 'W-Wing'?
 
 ## The Single W-Wing
 
-![Image 3: W-Wing example 1](https://www.sudokuwiki.org/PuzImages/WWing03b.png)
+![Image 3: W-Wing example 1](../../assets/sudokuwiki-w-wing/05-WWing03b.png)
 
 W-Wing example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B7n0h1m1q021i0z82077o1m0c050a07088k8s0l05071m090h1p031p121m08090g20280128070a0i1k0420201w0812021m0h1i01090g260h090a1k051k07041i0d0g02011i091y0h1y060c0e0g080d0l7o7p) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000020007000507800057090030008900010700040008020001900090050740002109000600080000)
 
@@ -52,7 +52,7 @@ In this puzzle we've found two cells with 3 and 6 in them - cells A6 and F5. The
 
 If A6 is not a 3 it must be 6. That gives us a weak link from +6 to -6 in A3. -6 in A3 forces +6 in F3 - a strong link (this is the important - it must be strong). +6 in F3 removes 6 in F5 making it 3. Reverse the chain logic and we prove that 3 must be in one of those orange cells. There are two cells that can see both ends and contains 3 - D6 and E6 and we can remove 3 from them.
 
-![Image 4: W-Wing example 2](https://www.sudokuwiki.org/PuzImages/WWing04b.png)
+![Image 4: W-Wing example 2](../../assets/sudokuwiki-w-wing/06-WWing04b.png)
 
 W-Wing example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B7n0h1m1q021i0z82077o1m0c050a07088k8s0l05071m090h1p031p121m08090g1w280128070a0i1k041w201w0812021m0h1i01090g260h090a1k051k07041i0d0g02011i091y0h1y060c0e0g080d0l7o7p)
 
@@ -64,7 +64,7 @@ There is one further W-Wing after this step. See if you can spot it.
 
 ## W-Wings 'Split Double' variety
 
-![Image 5: Split W-Wing example](https://www.sudokuwiki.org/PuzImages/WWing05b.png)
+![Image 5: Split W-Wing example](../../assets/sudokuwiki-w-wing/07-WWing05b.png)
 
 Split W-Wing example : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0e2i0i0h010c062i0b0c1n1m070b090h0r052b080b0f050d09032b1m053e01030h0b093e0h0c3e0b090e2j373f0i020a0d06070e080c3e09030e080a2i023e020r0h030g060r0e0i3737050i040b0c370h) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000010600000709005080050930050130090000090000020067080093080020200306000005040000)
 

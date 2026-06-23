@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/3D_Medusa
 Markdown Content:
 # 3D Medusa - SudokuWiki.org
 
-[![Image 10: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 10: SudokuWiki](../../assets/sudokuwiki-3d-medusa/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 200 Shares 
 
-![Image 11: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 11: pinterest sharing button](../../assets/sudokuwiki-3d-medusa/01-pinterest.svg)
 
-![Image 12: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 12: facebook sharing button](../../assets/sudokuwiki-3d-medusa/02-facebook.svg)
 
-![Image 13: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 13: twitter sharing button](../../assets/sudokuwiki-3d-medusa/03-twitter.svg)
 
-![Image 14: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 14: blogger sharing button](../../assets/sudokuwiki-3d-medusa/04-blogger.svg)
 
-![Image 15: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 15: tumblr sharing button](../../assets/sudokuwiki-3d-medusa/05-tumblr.svg)
 
-![Image 16: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 16: messenger sharing button](../../assets/sudokuwiki-3d-medusa/06-messenger.svg)
 
-![Image 17: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 17: email sharing button](../../assets/sudokuwiki-3d-medusa/07-email.svg)
 
 # 3D Medusa
 
@@ -169,7 +169,7 @@ The devastating effect of colouring is that we are showing that ALL of one colou
 
 ## Rule 1 - Twice in a Cell
 
-![Image 18: 3D Medusa Rule 1](https://www.sudokuwiki.org/PuzImages/Medusa1.png)
+![Image 18: 3D Medusa Rule 1](../../assets/sudokuwiki-3d-medusa/03-Medusa1.png)
 
 3D Medusa Rule 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0903080b04050f2b2j0h05067q0n7u2f0b020r067r070e7u0n0h0c020a0g060i0h040e8i1m7u020e080c2b2b0e070h0n040n0b090f0h0e7u7u010f070b030r0v0g7y0h02060e7u8i1q02057q0701087u) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=093804500005600000206070000020060040000208000070040090000010703000002600002507180)
 
@@ -189,7 +189,7 @@ As an exercise, try colouring any of the highlighted cells starting from a diffe
 
 ## Rule 2 - Twice in a Unit
 
-![Image 19: 3D Medusa Rule 2](https://www.sudokuwiki.org/PuzImages/Medusa2.png)
+![Image 19: 3D Medusa Rule 2](../../assets/sudokuwiki-3d-medusa/04-Medusa2.png)
 
 3D Medusa Rule 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=300052000250300010004607523093200805570000030408035060005408300030506084840023056) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=300050000250300010004607500090200805070000030408005060005408300030006084000020006)
 
@@ -201,7 +201,7 @@ The example shows most of the links between bi-value and bi-location candidates,
 
 ## Rule 3 - Two colours in a cell
 
-![Image 20: 3D Medusa Rule 3](https://www.sudokuwiki.org/PuzImages/Medusa3.png)
+![Image 20: 3D Medusa Rule 3](../../assets/sudokuwiki-3d-medusa/05-Medusa3.png)
 
 3D Medusa Rule 3 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B02093f1u2q1m0h030z1743575i025a0i071v2u5y6q016a09041u02080d0e07060a020i0c060p0lbcb6480e0d072e2g090o04051f1f08094503044j071f101u0r064d4k03440g110i2b052d8k7n1g0c0804) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=290000030000020070000109402800760200600000007009045008903407000060030000050000084)
 
@@ -215,7 +215,7 @@ Simple Colouring cannot produce this elimination since it is restricted to a sin
 
 ## Rule 4 - Two colours 'elsewhere'
 
-![Image 21: 3D Medusa Rule 4](https://www.sudokuwiki.org/PuzImages/Medusa4a.png)
+![Image 21: 3D Medusa Rule 4](../../assets/sudokuwiki-3d-medusa/06-Medusa4a.png)
 
 3D Medusa Rule 4 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=100056003043090000800043002030560210950421037021030000317980005000310970000670301) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=100056000043090000800003002000000010950421037020000000300900005000010970000670001)
 
@@ -225,7 +225,7 @@ The 6 in B1 is removed because of the coloured 6s along the row in B9 and down t
 
 This rule is shared with [Simple Colouring](https://www.sudokuwiki.org/Simple_Colouring).
 
-![Image 22: 3D Medusa Rule 4](https://www.sudokuwiki.org/PuzImages/Medusa4b.png)
+![Image 22: 3D Medusa Rule 4](../../assets/sudokuwiki-3d-medusa/07-Medusa4b.png)
 
 3D Medusa Rule 4 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=100056003043090000800043002030560210950421037021030000317980005000310970000670301) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=100056000043090000800003002000000010950421037020000000300900005000010970000670001)
 
@@ -235,7 +235,7 @@ Since February 2015 I have combined Rule 4 with the old Rule 5. I want to thank 
 
 ## Rule 5 - Two colours Unit + Cell
 
-![Image 23: 3D Medusa Rule 5](https://www.sudokuwiki.org/PuzImages/Medusa6.png)
+![Image 23: 3D Medusa Rule 5](../../assets/sudokuwiki-3d-medusa/08-Medusa6.png)
 
 3D Medusa Rule 5 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=923407015876050924500200030769020140432000059185004260098042071207030486000708092) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=900407000876050004000200030060000100430000059005000060090002000200030486000708002)
 
@@ -249,7 +249,7 @@ The logic is very appealing. Consider 1 in E5. If 1 were the solution to the cel
 
 ## Rule 6 - Cell Emptied by Color
 
-![Image 24: Rule 6](https://www.sudokuwiki.org/PuzImages/Medusa7c.png)
+![Image 24: Rule 6](../../assets/sudokuwiki-3d-medusa/09-Medusa7c.png)
 
 Rule 6 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f4m4j04b77q4i0g02440d09440g0501030f4p4o0g45060o0d094i7t070l0f05087o0d7r4o4o067n7n0d074k4mbn4i0d03020gbm06bn4k094k4k040f0c0a0g0d010307b67o064k82070f4kbo0c01b84404) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000400002009005130000060090070058000006000700000320060090040000013700600700001004)
 
@@ -257,7 +257,7 @@ Rule 6 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f4m4j04b77q
 
 Rule 6 highlights in cyan the cell that catches this. You can see the 2 and 9 in cell D7 can see the yellow 2 in D3 and 9 in J7. (Yellow is used to show eliminated cells). All green coloured candidates are solutions to their cells.
 
-![Image 25: Rule 6 using 3 candidates in a cell](https://www.sudokuwiki.org/PuzImages/Medusa7b.png)
+![Image 25: Rule 6 using 3 candidates in a cell](../../assets/sudokuwiki-3d-medusa/10-Medusa7b.png)
 
 Rule 6 using 3 candidates in a cell : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0912080n020v16070606100sba8607014aba01070uc6968q8202ba5u4405041i1i2c09010309010708021m1m0504062c7n7n0508032c5u042e1l1j538i057o0546067s7y7y2c015u02010905074y034y04) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=908020076000000100070000020005400091300702005460005800040000050006000000210070304)
 
@@ -267,7 +267,7 @@ You can be certain that it will be one color or the other, never equally both. B
 
 * * *
 
-![Image 26: 37 Eliminations by Rule 1](https://www.sudokuwiki.org/PuzImages/Medusa_R1_klaus1.png)
+![Image 26: 37 Eliminations by Rule 1](../../assets/sudokuwiki-3d-medusa/11-Medusa_R1_klaus1.png)
 
 37 Eliminations by Rule 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=000908430004702680081054002005003129000520308000090560000079810017005006400106050) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000900030004700600081054002005000000000020308000090060000070800017000000400106050)
 
@@ -313,7 +313,7 @@ Please enter the
 
 letters you see:
 
-![Image 27: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 28: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 27: arrow](../../assets/sudokuwiki-3d-medusa/12-GRNARR.GIF)![Image 28: Enter these letters](../../assets/sudokuwiki-3d-medusa/13-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -1067,4 +1067,4 @@ Add to this Thread
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 32: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 32: Buy Me a Coffee](../../assets/sudokuwiki-3d-medusa/11-coffee-20cup.svg)

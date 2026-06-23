@@ -74,19 +74,19 @@ Markdown Content:
 
 6 是我们的“鱼数字”，第 1、6 和 9 行是定义域。数字 6 的候选单元格也在 3 列中完美对齐。因此，数字 6 的位置有两种选择。
 
-![Image 5](https://sudoku.com/img/post-images/1672735198-15.%20Swordfish_1.png)
+![Image 5](../../assets/sudokucom-zh-swordfish/01-1672735198-15.-20Swordfish_1.png)
 
 要么是这里
 
-![Image 6](https://sudoku.com/img/post-images/1672735213-15.%20Swordfish_2.png)
+![Image 6](../../assets/sudokucom-zh-swordfish/02-1672735213-15.-20Swordfish_2.png)
 
 要么这里
 
-![Image 7](https://sudoku.com/img/post-images/1672735217-15.%20Swordfish_3.png)
+![Image 7](../../assets/sudokucom-zh-swordfish/03-1672735217-15.-20Swordfish_3.png)
 
 无论在哪里，那 3 个包含对齐列的域都说明 6 不可能在其中出现两次。因此，我们可以安全排除这些列的所有其他笔记中的 6。
 
-![Image 8](https://sudoku.com/img/post-images/1673505183-15.%20Swordfish_4%20(1).png)
+![Image 8](../../assets/sudokucom-zh-swordfish/04-1673505183-15.-20Swordfish_4-20-1-.png).png)
 
 现在您已经知道如何在数独中应用“剑鱼”解法。它很难发现，但对您的数独解题库非常有用。
 
@@ -94,7 +94,7 @@ Markdown Content:
 
 [Y 翼](https://sudoku.com/zh/shu-du-gui-ze/y-yi/)
 
-![Image 9: sudoku app icon](https://sudoku.com/img/icon-app.png)
+![Image 9: sudoku app icon](../../assets/sudokucom-zh-swordfish/05-icon-app.png)
 
 Sudoku.com - 数字游戏
 

@@ -52,7 +52,7 @@ This is the simplest ALS technique: Find two ALS that share one RCC (the RCC is 
 
 The logic behind ALS-XZ is quite simple too: Because of the RCC at least one of the ALS is turned into a Locked Set (we don't know yet which). Since both ALS contain digit Z, Z gets locked into at least one of the ALS. That means that in all ALS cells together one Z has to be placed. Any cell that sees all possible placements of Z can therefore not contain Z itself.
 
-[![Image 1: Sudoku technique: Example for ALS-XZ](https://hodoku.sourceforge.net/examples/axz01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axz01&tech=ALS-XZ)[![Image 2: Sudoku technique: Example for ALS-XZ](https://hodoku.sourceforge.net/examples/axz02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axz02&tech=ALS-XZ)
+[![Image 1: Sudoku technique: Example for ALS-XZ](../../assets/hodoku-als/01-axz01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axz01&tech=ALS-XZ)[![Image 2: Sudoku technique: Example for ALS-XZ](../../assets/hodoku-als/02-axz02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axz02&tech=ALS-XZ)
 
 Example on the left: We have two ALS: ALS A (r1c67, candidates {679}) and ALS B (r3c289, {6789}). In both ALS digit 6 occurs only in block 3, it is therefore a RCC (X - marked violet). Both ALS have as common digit besides the RCC digit 7 (Z - marked blue in the image). Cells r3c56 are not part of one of the ALS and can see all ALS cells, that could possibly become 7. 7 can be eliminated from those cells.
 
@@ -64,7 +64,7 @@ If the two ALS have two RCCs, things get really interesting. Remember that an RC
 
 What can be concluded from a Doubly Linked ALS-XZ? Both RCCs are locked into one ALS, so the RCCs can be eliminated from all non ALS cells in the houses providing the RCCs. But more importantly, all non RCC digits get locked within their respective ALS and eliminate all digits outside the ALS that can see all instances of the digit in the ALS (the elimination can even be done in a cell belonging to the other ALS, making the ALS-XZ cannibalistic).
 
-[![Image 3: Sudoku technique: Example for Doubly+Linked+ALS-XZ](https://hodoku.sourceforge.net/examples/daxz01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=daxz01&tech=Doubly+Linked+ALS-XZ)[![Image 4: Sudoku technique: Example for Doubly+Linked+ALS-XZ](https://hodoku.sourceforge.net/examples/daxz02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=daxz02&tech=Doubly+Linked+ALS-XZ)
+[![Image 3: Sudoku technique: Example for Doubly+Linked+ALS-XZ](../../assets/hodoku-als/03-daxz01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=daxz01&tech=Doubly+Linked+ALS-XZ)[![Image 4: Sudoku technique: Example for Doubly+Linked+ALS-XZ](../../assets/hodoku-als/04-daxz02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=daxz02&tech=Doubly+Linked+ALS-XZ)
 
 On the left: A=r2c239 {2479}, B=r4c23 {124}, X=2,4. ALS A and B are doubly linked by candidates 2 and 4, no additional common digit Z is present. All instances of RCC 2 are in column 2, that eliminates 2 from r1c2. All instances of RCC 4 are in column 3, which eliminates 4 from r16c3. ALS A has now the non RCC digits 7 and 9 left. All instances of both digits are restricted to row 2, so 7 and 9 can be eliminated from all other cells in row 2. ALS B has only digit 1 left, all instances of that digit are in row 4 and block 4, which eliminates all other 1s from those houses.
 
@@ -78,7 +78,7 @@ An ALS-XY-Wing needs three ALS A, B, and C (it is an ALS Chain of length three: 
 
 The logic is the same as for an ALS Chain (see below): If Z is not in ALS A, then A has to contain X (only one digit may miss from an ALS). That means that ALS C has to contain Y (X is missing from C) and thus ALS B has to contain Z (Y is missing from B). The other way round works as well: If ALS B does not contain Z, ALS A must.
 
-[![Image 5: Sudoku technique: Example for ALS-XY-Wing](https://hodoku.sourceforge.net/examples/axy01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axy01&tech=ALS-XY-Wing)[![Image 6: Sudoku technique: Example for ALS-XY-Wing](https://hodoku.sourceforge.net/examples/axy02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axy02&tech=ALS-XY-Wing)
+[![Image 5: Sudoku technique: Example for ALS-XY-Wing](../../assets/hodoku-als/05-axy01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axy01&tech=ALS-XY-Wing)[![Image 6: Sudoku technique: Example for ALS-XY-Wing](../../assets/hodoku-als/06-axy02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=axy02&tech=ALS-XY-Wing)
 
 On the left: A=r7c156 {3678}, B=r579c8 {2389}, C=r9c34 {179}, X,Y=7,9, Z=3. RCC 7 is restricted to bock 7, RCC 9 to row 9 (both marked violet - the numbers are coincidence). The common digit 3 has to be placed in one of the blue cells, it can never be in r7c7.
 
@@ -96,7 +96,7 @@ Some explanations of ALS Chains (often called "ALS-XY-Chains") depend on the rev
 
 ALS Chains can be written in Nice Loop notation with the RCCs as weak links between the ALS.
 
-[![Image 7: Sudoku technique: Example for ALS+Chain](https://hodoku.sourceforge.net/examples/ach01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=ach01&tech=ALS+Chain)[![Image 8: Sudoku technique: Example for ALS+Chain](https://hodoku.sourceforge.net/examples/ach02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=ach02&tech=ALS+Chain)
+[![Image 7: Sudoku technique: Example for ALS+Chain](../../assets/hodoku-als/07-ach01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=ach01&tech=ALS+Chain)[![Image 8: Sudoku technique: Example for ALS+Chain](../../assets/hodoku-als/08-ach02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=ach02&tech=ALS+Chain)
 
 Example on the left: 69- r1c4789 {24569} -5- r8c4 {56} -6- r58c3 {256} -2- r2c123,r3c3 {23469} -69. Nothing special with that chain, except that is has two common digits (6 and 9). The second ALS is a simple bivalue cell (the smallest possible ALS - two candidates in one cell).
 
@@ -112,7 +112,7 @@ If overlapping is not allowed (standard in HoDoKu), it is very hard to find a De
 
 The logic behind Death Blossom is simple: One of the candidates in the stem cell must be true, thus locking the common digit in the connected ALS.
 
-[![Image 9: Sudoku technique: Example for Death+Blossom](https://hodoku.sourceforge.net/examples/db01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=db01&tech=Death+Blossom)[![Image 10: Sudoku technique: Example for Death+Blossom](https://hodoku.sourceforge.net/examples/db02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=db02&tech=Death+Blossom)
+[![Image 9: Sudoku technique: Example for Death+Blossom](../../assets/hodoku-als/09-db01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=db01&tech=Death+Blossom)[![Image 10: Sudoku technique: Example for Death+Blossom](../../assets/hodoku-als/10-db02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=db02&tech=Death+Blossom)
 
 Example on the left: [r3c4], -4- r2c23,r3c23 {14678}, -7- r2c4 {67}. The stem cell r3c4 has RCC 4 with ALS r2c23,r3c23 and RCC 7 with ALS r2c4. Both ALS have a common digit 6, eliminating 6 from r2c5. This is a typical non overlapping Death Blossom that really is an ALS-XY-Wing.
 

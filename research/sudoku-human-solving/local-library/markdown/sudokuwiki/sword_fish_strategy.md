@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Sword_Fish_Strategy
 Markdown Content:
 # Swordfish Strategy - SudokuWiki.org
 
-[![Image 7: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 7: SudokuWiki](../../assets/sudokuwiki-swordfish/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,31 +147,31 @@ Other
 
 233 Shares 
 
-![Image 8: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 8: pinterest sharing button](../../assets/sudokuwiki-swordfish/01-pinterest.svg)
 
-![Image 9: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 9: facebook sharing button](../../assets/sudokuwiki-swordfish/02-facebook.svg)
 
-![Image 10: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 10: twitter sharing button](../../assets/sudokuwiki-swordfish/03-twitter.svg)
 
-![Image 11: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 11: blogger sharing button](../../assets/sudokuwiki-swordfish/04-blogger.svg)
 
-![Image 12: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 12: tumblr sharing button](../../assets/sudokuwiki-swordfish/05-tumblr.svg)
 
-![Image 13: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 13: messenger sharing button](../../assets/sudokuwiki-swordfish/06-messenger.svg)
 
-![Image 14: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 14: email sharing button](../../assets/sudokuwiki-swordfish/07-email.svg)
 
 # Swordfish Strategy
 
 With [X-Wings](https://www.sudokuwiki.org/X_Wing_Strategy) we looked at a rectangle formed by four numbers at the corners. This allowed us to exclude other occurrences of that number in either the row or column. We can extend this pattern to nine cells and achieve even more eliminations.
 
-![Image 15](https://www.sudokuwiki.org/PuzImages/SFdiag1.png)
+![Image 15](../../assets/sudokuwiki-swordfish/03-SFdiag1.png)
 
 A Swordfish is a 3 by 3 nine-cell pattern where a candidate is found on three different rows (or three columns) and they line up in the opposite direction. Eventually we will fix three candidates somewhere in those cells which excludes all other candidates in those units.
 
 The shaded cells show the Swordfish where X is unique to three cells in columns 2, 4 and 6. They are aligned on rows A, C and F. This means we can remove all candidate X in the other positions on those rows.
 
-![Image 16: X-Wing inside a Swordfish](https://www.sudokuwiki.org/PuzImages/SFdiag2.png)
+![Image 16: X-Wing inside a Swordfish](../../assets/sudokuwiki-swordfish/04-SFdiag2.png)
 
 X-Wing inside a Swordfish 
 
@@ -179,7 +179,7 @@ If you are not convinced that the shaded cells really must contain the solutions
 
 Take this arrangement of candidate A and let’s pretend that E6 is the solution. We ‘remove’ the rest of A in column 6 and row E. That leaves a X-Wing in AC24.
 
-![Image 17: Another way to cut it](https://www.sudokuwiki.org/PuzImages/SFdiag3.png)
+![Image 17: Another way to cut it](../../assets/sudokuwiki-swordfish/05-SFdiag3.png)
 
 Another way to cut it 
 
@@ -187,7 +187,7 @@ Another way to cut it
 
 So all cells in the 3 by 3 grid are ‘locked’ together.
 
-![Image 18: Perfect 3-3-3 Swordfish](https://www.sudokuwiki.org/PuzImages/SF3b.png)
+![Image 18: Perfect 3-3-3 Swordfish](../../assets/sudokuwiki-swordfish/06-SF3b.png)
 
 Perfect 3-3-3 Swordfish : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B050b0i0d014y0g4y03624b0682cy0343bv02624b0302cy1ub71ubf4a0e0203b64bb707060f0c0g7n054b0bbfbf01094a0f0b07050c4a0c5u4j0z0f09040b5v022i17080c0z067n9f090f430g040b0c4305) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=500010003006003002003200000002300076000050000190007500000009400200800600900040005)
 
@@ -199,7 +199,7 @@ If you remember how Naked and Hidden Triples work you'll remember that they requ
 
 Swordfishes come in a number of variations depending on the number of X present in the nine cells that make up a Swordfish. With an X-Wing you need candidate X in all four cells of the 2 by 2 formation, but with the 3 by 3 Swordfish formation you don't need X in every cell - just as long as it is spread out over 3 by 3 cells. The next example has 9 twice in each column and is called a 2-2-2 Swordfish. 
 
-![Image 19: Swordfish Example 1](https://www.sudokuwiki.org/PuzImages/SF1bnew.png)
+![Image 19: Swordfish Example 1](../../assets/sudokuwiki-swordfish/07-SF1bnew.png)
 
 Swordfish Example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B090b0f4u4a6e0a2q6a0e0307c201c20402b608040a84829w069u030b0e0i0g030408010f0g0a0dbm06bm840c840c06080102829u0d9u019e021i821i9u08040d08057o070a03067o0f9e0cbw4abo9w9u01) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=900000000037010420840000603000034810000060000068120000102000084085070360000000001)
 
@@ -207,7 +207,7 @@ This is a 2-2-2 formation Swordfish in the columns and eliminates in the rows. I
 
 (Turn Rectangle Elimination off)
 
-![Image 20: Swordfish example 2](https://www.sudokuwiki.org/PuzImages/SF2b.png)
+![Image 20: Swordfish example 2](../../assets/sudokuwiki-swordfish/08-SF2b.png)
 
 Swordfish example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2r026b2b040c6b06092z1703080i0602162z0i06632b020e630c6308092k050f2c2i010c0f17317w0c9gdm4q6i2y032y7u0h01a202060c4q227o017o5m074q0z4j09060g04034i0b02071m0c050h1n090r) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=020040069003806200060020000890500010000000000030001026000010070009604300270050090)
 
@@ -253,7 +253,7 @@ Please enter the
 
 letters you see:
 
-![Image 21: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 22: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 21: arrow](../../assets/sudokuwiki-swordfish/09-GRNARR.GIF)![Image 22: Enter these letters](../../assets/sudokuwiki-swordfish/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -713,4 +713,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 23: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 23: Buy Me a Coffee](../../assets/sudokuwiki-swordfish/08-coffee-20cup.svg)

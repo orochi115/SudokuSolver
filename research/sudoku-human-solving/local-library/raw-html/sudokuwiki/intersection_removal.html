@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Intersection Removal - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-intersection/11-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-intersection/12-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-intersection/13-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-intersection/14-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Intersection_Removal';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-intersection/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-intersection/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -264,14 +264,14 @@ var pgFileName = 'Intersection_Removal';
 
 <h2>Pointing Pairs, Pointing Triples</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/PP1.png" alt="Pointing Pairs" /><figcaption>Pointing Pairs
+<figure style="width:450px"><img src="../../assets/sudokuwiki-intersection/03-PP1.png" alt="Pointing Pairs" /><figcaption>Pointing Pairs
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4s010g091803064a4c281c1i2t082q7r7v81094g520l1o1m054b074i0g024i018i04038i4nbqba048y02b70gc34306040c07b6020eb707bk01447wbeba0f0558bgc22q032qb7bfbf4ebi05067u010g02bi">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=010903600000080000900000507002010430000402000064070200701000005000030000005601020">From the Start</a>
 </figcaption></figure>
 Looking at each box in turn there may be two or three occurrences of a particular number. If these numbers are aligned on a single row or column (as a pair or a triple) then we know that number MUST occur on that line. Therefore, if the number occurs anywhere else on the row or column outside the box WHICH THEY ARE ALIGNED ON then it can be removed. The pair or triple <i>points</i> along the line at any numbers which can be removed.<br><br>Here are two Pointing Pairs at the same time on this tough rated puzzle. The 3s in <span class="hy">B7</span> and <span class="hy">B9</span> are alone in box 3 and they are aligned on the row. So looking along the row we can remove all the 3s in Box 1. In a similar manner the 2s in <span class="hy">G4</span> and <span class="hy">G5</span> point along the row to  <span class="hy">G2</span>.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/PP2.png" alt="Pointing Pairs Example 2" /><figcaption>Pointing Pairs Example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-intersection/04-PP2.png" alt="Pointing Pairs Example 2" /><figcaption>Pointing Pairs Example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=032006100410000000000901000500090004060000070300020005000508000000000019007000860">Load Example</a>
 </figcaption></figure>
 <br>Now this is a rather special puzzle and a little extreme, but if we look at the whole board you can see I have highlighted a whole cluster of Pointing Pairs. It is obviously not necessary to spot everyone to progress the board but there are so many good examples it is worth looking at. The eliminations are highlighted in yellow. You should be able to see which eliminations belong to which Pointing Pair. A couple are consequences of a previous elimination.</div>
@@ -285,7 +285,7 @@ Looking at each box in turn there may be two or three occurrences of a particula
 
 <h2>Box Line Reduction</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/BLR1b.png" alt="Box/Line Reduction" /><figcaption>Box/Line Reduction
+<figure style="width:450px"><img src="../../assets/sudokuwiki-intersection/06-BLR1b.png" alt="Box/Line Reduction" /><figcaption>Box/Line Reduction
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=016007803090800000870001260048000300650009082039000650060900020080002936924600510">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=016007803000800000070001060048000300600000002009000650060900020000002000904600510">From the Start</a>
 </figcaption></figure>
@@ -343,9 +343,9 @@ In the very next step of the same puzzle we have two 4s alone in column 8. That 
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-intersection/09-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-intersection/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

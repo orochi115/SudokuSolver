@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Naked Candidates - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-naked/11-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-naked/12-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-naked/13-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-naked/14-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Naked_Candidates';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-naked/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-naked/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -260,33 +260,33 @@ var pgFileName = 'Naked_Candidates';
 <div class="SRCell"><h1>Naked Pairs</h1><br>A <span class="hy">Naked Pair</span> (also known as a <span class="hy">Conjugate Pair</span>) is a set of two candidate numbers sited in two cells that belong to at least one unit in common.  That is, they are present in the same row, column or box.<br><br>It is clear that the solution will contain those values in those two cells, and all other candidates with those numbers can be removed from whatever unit(s) they have in common.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/NP1.png" alt="Naked Pairs examples" /><figcaption>Naked Pairs examples
+<figure style="width:450px"><img src="../../assets/sudokuwiki-naked/03-NP1.png" alt="Naked Pairs examples" /><figcaption>Naked Pairs examples
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=400000938032094100095300240370609004529001673604703090957008300003900400240030709">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=400000038002004100005300240070609004020000070600703090057008300003900400240000009">From the Start</a>
 </figcaption></figure>
 In this example, several Naked Pairs are available and I have highlighted two. In red in row A, cells <span class="hy">A2</span> and <span class="hy">A3</span> both contain 1 and 6.  We don't know which way round the 1 and the 6 will eventually be - we will find out later as we finish the puzzle - but it means we can remove all other 1s and 6s in the row.  The solver has highlighted these candidates in yellow. But <span class="hy">A2</span> and <span class="hy">A3</span> are also in the same box, so we can clear off the 1 in <span class="hy">C1</span> as well.<br><br>The [6,7] in row C is also a Naked Pair. It is aligned just in the row, but it removes three other candidate 6s and 7s in the row. Combining both Naked Pairs, we get a solved cell of 8 in <span class="hy">C1</span>.<br><br>There are other Naked Pairs at this point. You can identify them yourself or load the puzzle up in the solver to see them.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/NP2.png" alt="Figure 2" /><figcaption>Figure 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-naked/04-NP2.png" alt="Figure 2" /><figcaption>Figure 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=080090030030000069902063158020804590851907046394605870563040987200000015010050020">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=080090030030000000002060108020800500800907006004005070503040900000000010010050020">From the Start</a>
 </figcaption></figure>
 <br>Just to show that pairs don't have to be aligned on a row or column, in this group of pairs we have a [4,7] pair on <span class="hy">H2</span> and <span class="hy">J1</span>, which removes some 7s in the same box.  Two other Naked Pairs eliminate further candidates at this stage.</div>
 
 <h2>Cage Naked Pairs</h2>
-<div class="SRCell">As Sluggy points out in the comments there are additional ways Naked Pairs can influence puzzles beyond vanilla Sudoku. The Killer Solver will identify Naked Pairs in a cage - and if the configuration of cells permits - there may be other cells that the pair can reach. <span class="hy">C4</span> and <span class="hy">D3</span> share no row, box or column but they do share a cage. Since 4 and 5 must be present in those two cells we can remove 4 and 5 from <span class="hy">D4</span>.<br><img src="puzimages/KillerNP01.png" alt="Killer Naked Pair"></div><br>
+<div class="SRCell">As Sluggy points out in the comments there are additional ways Naked Pairs can influence puzzles beyond vanilla Sudoku. The Killer Solver will identify Naked Pairs in a cage - and if the configuration of cells permits - there may be other cells that the pair can reach. <span class="hy">C4</span> and <span class="hy">D3</span> share no row, box or column but they do share a cage. Since 4 and 5 must be present in those two cells we can remove 4 and 5 from <span class="hy">D4</span>.<br><img src="../../assets/sudokuwiki-naked/05-KillerNP01.png" alt="Killer Naked Pair"></div><br>
 
 <div class="SRCell"><a name="NT"></a><h1>Naked Triples</h1><br>A <span class="hy">Naked Triple</span> is slightly more complicated because it does not always imply three numbers each in three cells.<br><br>Any group of three cells in the same unit that contain IN TOTAL three candidates is a <span class="hy">Naked Triple</span>. <br>Each cell can have two or three numbers, as long as in combination all three cells have only three numbers. <br>When this happens, the three candidates can be removed from all other cells in the same unit.<br><br>The combinations of candidates for a Naked Triple will be one of the following:<br><br><span class="hc">(123) (123) (123)</span>  - {3/3/3} (in terms of candidates per cell)<br><span class="hc">(123) (123) (12) </span> -  {3/3/2} (or some combination thereof)<br><span class="hc">(123) (12) (23) </span> - {3/2/2} <br><span class="hc">(12) (23) (13)</span> - {2/2/2}<br><br>The last case is interesting and the advanced strategy <a href="Y_Wing_Strategy">Y-Wing</a> uses this formation.<br>				<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/NT1.png" alt="Naked Triple" /><figcaption>Naked Triple
+<figure style="width:450px"><img src="../../assets/sudokuwiki-naked/06-NT1.png" alt="Naked Triple" /><figcaption>Naked Triple
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070408029002000004854020007008374200020000000003261700000093612200000403130642070">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070008029002000004854020000008374200000000000003261700000090612200000400130600070">From the Start</a>
 </figcaption></figure>
 <br>This first example is as straightforward as it gets. In row E, centre box, are the cells <span class="hy">E4</span>, <span class="hy">E5</span> and <span class="hy">E6</span> containing [5,8,9], [5,8] and [5,9] respectively. In total, those three cells contain [5,8,9], so we have fixed those numbers in those cells - just not which way round they will be.  This allows us to remove those numbers from the rest of the unit the Triple is aligned on - namely the row.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/NT2.png" alt="Naked Triples" /><figcaption>Naked Triples
+<figure style="width:450px"><img src="../../assets/sudokuwiki-naked/07-NT2.png" alt="Naked Triples" /><figcaption>Naked Triples
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=294513006600842319300697254000056000040080060000470000730164005900735001400928637">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=200010000600800009300607054000056000040080060000470000730104005900005001000020007">From the Start</a>
 </figcaption></figure>
@@ -295,7 +295,7 @@ In this example, several Naked Pairs are available and I have highlighted two. I
 <div class="SRCell"><a name="NQ"></a><h1>Naked Quads</h1><br> A <span class="hy">Naked Quad</span> is rarer, especially in its full form, but is still useful if it can be spotted. The same logic from Naked Triples applies, but the reason it is so rare is because if a Quad is present, the remaining cells are more likely to be a Triple or Pair and the solver will highlight those first.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/NQ1.png" alt="Naked Quad example" /><figcaption>Naked Quad example
+<figure style="width:450px"><img src="../../assets/sudokuwiki-naked/08-NQ1.png" alt="Naked Quad example" /><figcaption>Naked Quad example
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000030086000020040090078520371856294900142375400397618200703859039205467700904132">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000030086000020000000008500371000094900000005400007600200700800030005000700004030">From the Start</a>
 </figcaption></figure>
@@ -339,9 +339,9 @@ Well, I can't find an example in my 2012 stock, so I'm going to use the one foun
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-naked/09-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-naked/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

@@ -28,7 +28,7 @@ The local Sudoku human-solving library now covers the previously selected inform
 | Manifest source entries | 90 |
 | Local Markdown source files | 90 |
 | Local raw HTML source files | 90 |
-| Local cached asset files | 50 |
+| Local cached asset files | 1098 |
 | Technique cards | 41 |
 | Index/mapping files | 6 |
 
@@ -41,6 +41,8 @@ The local Sudoku human-solving library now covers the previously selected inform
 > Update 2026-06-23 (raw mirror fill): replaced the 5 coverage-gap raw-HTML placeholder notes with fetched source HTML mirrors for Rectangle Elimination, bivalue oddagon, SET explanations, SudokuOne rank logic, and Phistomefel.
 
 > Update 2026-06-23 (asset + markdown sync): cached 50 image/icon dependencies for the 5 coverage-gap raw HTML mirrors under `local-library/assets/` and rewrote HTML/Markdown image references to local relative paths. Replaced the 5 coverage-gap Markdown summary notes with full Jina Reader Markdown mirrors.
+
+> Update 2026-06-23 (full-library asset sync): expanded asset caching across the full `local-library/raw-html/` and `local-library/markdown/` corpus. All reachable image/icon dependencies were cached and local references rewritten. Remaining external image references are source-side 404s recorded in `local-library/assets/cache-report.json` and `local-library/assets/markdown-image-cache-report.json` (12 HTML refs / 8 Markdown refs).
 
 ## Coverage Assessment
 

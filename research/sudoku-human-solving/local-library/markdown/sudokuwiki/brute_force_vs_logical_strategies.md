@@ -12,12 +12,12 @@ to solve a puzzle using steps that showed why each cell could be solved in seque
 
 Brute force is the domain of computers and people quickly developed optimal - or near optimal - ways of demolishing a puzzle by back-tracking. This is a proof by exhaustion since all valid numbers are inserted. The 'brutal' brute force does this in sequence, 1 to 9, top-left to bottom right until all ways of satisfying the rules are shown. A more clever brute force takes advantage of the theory of search branches. Either way, with brute force you can **count** the number of solutions, so partial or faulty Sudoku puzzles do not phase a brute-force algorithm. Which is why I employ one to check puzzles in the solver.
 
-![Image 1](https://www.sudokuwiki.org/PuzImages/strattime.png)
+![Image 1](../../assets/sudokuwiki-logic-vs-brute/03-strattime.png)
 I don't pretend to know all Sudoku strategies and those I get stuck on are always solved by clever people in the [Weekly Unsolvables](https://www.sudokuwiki.org/Weekly-Sudoku.aspx) providing me with new clues. This is why Sudoku is so fascinating. However, there is another aspect to the two solving methods that pertains to programmers, especially optimisers.
 
 The diagram on the right is a crude impression of how brute-force stacks up against logic when the number of clues is taken into account. Simply put, brute force is much quicker when there are many clues - not surprising - whereas it is known that clue density does not - in general - affect the grade or difficulty of a puzzle. You can have very easy low clue puzzles and very hard high clue ones - although the bias to 'hard' is usually with fewer clues.
 
-![Image 2: Brute Force fails on this puzzle](https://www.sudokuwiki.org/PuzImages/8ClueJigsaw.png)
+![Image 2: Brute Force fails on this puzzle](../../assets/sudokuwiki-logic-vs-brute/04-8ClueJigsaw.png)
 
 Brute Force fails on this puzzle 
 

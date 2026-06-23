@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/AIC_with_ALSs
 Markdown Content:
 # AIC with ALSs - SudokuWiki.org
 
-[![Image 7: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 7: SudokuWiki](../../assets/sudokuwiki-aic-alss/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,23 +147,23 @@ Other
 
 17 Shares 
 
-![Image 8: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 8: pinterest sharing button](../../assets/sudokuwiki-aic-alss/01-pinterest.svg)
 
-![Image 9: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 9: facebook sharing button](../../assets/sudokuwiki-aic-alss/02-facebook.svg)
 
-![Image 10: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 10: twitter sharing button](../../assets/sudokuwiki-aic-alss/03-twitter.svg)
 
-![Image 11: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 11: blogger sharing button](../../assets/sudokuwiki-aic-alss/04-blogger.svg)
 
-![Image 12: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 12: tumblr sharing button](../../assets/sudokuwiki-aic-alss/05-tumblr.svg)
 
-![Image 13: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 13: messenger sharing button](../../assets/sudokuwiki-aic-alss/06-messenger.svg)
 
-![Image 14: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 14: email sharing button](../../assets/sudokuwiki-aic-alss/07-email.svg)
 
 # AIC with ALSs
 
-![Image 15: Naked Pair and Almost Locked Set](https://www.sudokuwiki.org/PuzImages/ALSLink1.png)
+![Image 15: Naked Pair and Almost Locked Set](../../assets/sudokuwiki-aic-alss/03-ALSLink1.png)
 
 Naked Pair and Almost Locked Set 
 
@@ -171,7 +171,7 @@ A Locked Set is a group of cells (that can all see each other) of size N where t
 
 An Almost Locked Set (ALS) is N cells containing N+1 candidates. In the context of Alternating Inference Chains in this solver, an ALS is of size N=2 and the number of different candidates in those cells is 3, although bigger ALS groups are possible. So an ALS of size 2 will be a two Conjugate Pairs plus one other candidate. In the diagram above the [2,8] pair are joined by a stray 6 which stops it being a useful Naked Pair. 
 
-![Image 16: ALS in an AIC fragment](https://www.sudokuwiki.org/PuzImages/ALSLink2.png)
+![Image 16: ALS in an AIC fragment](../../assets/sudokuwiki-aic-alss/04-ALSLink2.png)
 
 ALS in an AIC fragment 
 
@@ -181,7 +181,7 @@ While solving a puzzle I am hunting around for Inference Chains and perhaps I fi
 
 Now, a Naked Pair eliminates candidates in the row or column (or box) it is aligned on so we can use this elimination property as part of our chain. This is the trick! By removing the 6 in B5 we fix 2 and 8 into those two cells so we can look along the row at other 2s and 8s and turn them OFF. This I do in cell B9. From there I can continue the inference chain. You get two cracks of the whip: check both branches - the 2s and the 8s in the pseudo Naked Pair.
 
-![Image 17: AIC with ALS](https://www.sudokuwiki.org/PuzImages/AICALS2.png)
+![Image 17: AIC with ALS](../../assets/sudokuwiki-aic-alss/05-AICALS2.png)
 
 AIC with ALS : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B06030918071810080143430710060309160s020504080901060307b6cy052i0l060p7u0o041h03090l08071f059f381f03052i088r1o2r040806032q0z02099y9e0201089u043m1i9zab1f2s049w132r08) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=600070000007003900250090030005006000403000705000300800040030029002100400000040008)
 
@@ -199,7 +199,7 @@ AIC on 4 (Discontinuous Alternating Nice Loop, length 12):
 
 - Contradiction: When 4 is removed from A4 the chain implies it must be 4 - other candidates 2/5 can be removed
 
-![Image 18: Off Chain eliminations](https://www.sudokuwiki.org/PuzImages/AICALS3b.png)
+![Image 18: Off Chain eliminations](../../assets/sudokuwiki-aic-alss/06-AICALS3b.png)
 
 Off Chain eliminations : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=759800030200000700016070098097250000600798003000046900532610840060080302070000650) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=059000030200000000010070098007250000600708003000046900530010040000000002070000650)
 
@@ -223,7 +223,7 @@ AIC Rule 1: -3[B5]+6[B5]-6[B8]+6[D8]-8[D8]+8[D1]-8[F1]+3{F1|F4}-3[F3]+3[B3]-3[B5
 
 ## Enchancements December 2025 [](https://www.sudokuwiki.org/AIC_with_ALSs)
 
-![Image 19: Missing chain revealed](https://www.sudokuwiki.org/PuzImages/AICALS4b.png)
+![Image 19: Missing chain revealed](../../assets/sudokuwiki-aic-alss/07-AICALS4b.png)
 
 Missing chain revealed : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Bckbm0a22030g8s8s8k8m7u1q020a0h8u050707181s22828i08011k0164090c0f050s2k444k06107n0g047p03bp122y1a7n08028rai8z90850807848m0n8k0404851w1u848m0g080n8k03070h0d01058k8k) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000030000000200057700000810109005000060004030000082000008700004400000080037001500)
 
@@ -235,7 +235,7 @@ AIC on 5 ((w.Groups) Discontinuous Alternating Nice Loop, length 8):
 
 - Contradiction: When H2 is set to 5 the chain implies it cannot be 5 - it can be removed
 
-![Image 20: Extra off-chain eliminations](https://www.sudokuwiki.org/PuzImages/AICALS5b.png)
+![Image 20: Extra off-chain eliminations](../../assets/sudokuwiki-aic-alss/08-AICALS5b.png)
 
 Extra off-chain eliminations : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B5u0e0204030a090f5u4a030f077o7o4a010501092i4y5e5e0u022m022b5z7rdmdq4n4m0609045z53767a4p4m490e0f4749444807040i032d095070704t6a4d062c0ebc01dc4g5y4g2i082j052c2g06090p) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=052431960036700015190000020200000006940000000560000749309000000605010000080500690)
 
@@ -265,7 +265,7 @@ Please enter the
 
 letters you see:
 
-![Image 21: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 22: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 21: arrow](../../assets/sudokuwiki-aic-alss/09-GRNARR.GIF)![Image 22: Enter these letters](../../assets/sudokuwiki-aic-alss/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -435,4 +435,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 23: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 23: Buy Me a Coffee](../../assets/sudokuwiki-aic-alss/08-coffee-20cup.svg)

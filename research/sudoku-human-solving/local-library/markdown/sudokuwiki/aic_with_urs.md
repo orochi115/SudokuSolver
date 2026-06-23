@@ -13,7 +13,7 @@ Anywhere where chains can be used this type of link is valid.
 
 In the first example we have a Discontinuous Alternating Nice Loop that starts and ends on C5. By tracing round it can be shown that if 2 on C5 is removed the chain reaction puts the 2 right back, implying it must be the solution. 9 Can be removed from that cell.
 
-![Image 1: UR inside an AIC](https://www.sudokuwiki.org/PuzImages/AIC_UR1b.png)
+![Image 1: UR inside an AIC](../../assets/sudokuwiki-aic-urs/03-AIC_UR1b.png)
 
 UR inside an AIC : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Bb6010b8m075a8q054y0g0c048k0e4y8k455106b60e017o4a9m64030a36090403050838380d020c088i3601aa0e0e3608aa0a020caa04440537381o093e036r030d370e0837383909b8b6373c1o3b056z6r) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=010070050004000000600100003009435800020800100008002004050009030300080009000000500)
 
@@ -27,7 +27,7 @@ AIC on 2 ((w.UR) Discontinuous Alternating Nice Loop, length 8):
 
 - Contradiction: When 2 is removed from C5 the chain implies it must be 2 - other candidates 9 can be removed
 
-![Image 2: UR inside an AIC](https://www.sudokuwiki.org/PuzImages/AIC_UR2b.png)
+![Image 2: UR inside an AIC](../../assets/sudokuwiki-aic-urs/04-AIC_UR2b.png)
 
 UR inside an AIC : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4g4e060a050g090w0o010i160206030h16070o120g087u7u110f150f020u160g8a0n7n08050a4e0f7u440o07804a0g09030144061018b64y4k1603220g438507160s0908011414067q5i01070b1u04b682) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=006050900100263007000800000020000008500000070009310600000030000700981006001700400)
 
@@ -39,7 +39,7 @@ Removing the 9 from D6 endangers the solution by exposing the unique rectangle, 
 
 _(This is a much harder puzzle and might require some clicking to get to the interesting step)_
 
-![Image 3: Second option](https://www.sudokuwiki.org/PuzImages/AIC_UR3.png)
+![Image 3: Second option](../../assets/sudokuwiki-aic-urs/05-AIC_UR3.png)
 
 Second option : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4g4e060a050g090w0o010i160206030h16070o120g087u7u110f150f020u160g8a0n7n08050a4e0f7u440o07804a0g09030144061018b64y4k1603220g438507160s0908011414067q5i01070b1u04b682)
 

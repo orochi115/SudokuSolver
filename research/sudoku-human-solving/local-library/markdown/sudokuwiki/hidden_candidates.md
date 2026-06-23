@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Hidden_Candidates
 Markdown Content:
 # Hidden Candidates - SudokuWiki.org
 
-[![Image 6: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 6: SudokuWiki](../../assets/sudokuwiki-hidden/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 4.1k Shares 
 
-![Image 7: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 7: pinterest sharing button](../../assets/sudokuwiki-hidden/01-pinterest.svg)
 
-![Image 8: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 8: facebook sharing button](../../assets/sudokuwiki-hidden/02-facebook.svg)
 
-![Image 9: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 9: twitter sharing button](../../assets/sudokuwiki-hidden/03-twitter.svg)
 
-![Image 10: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 10: blogger sharing button](../../assets/sudokuwiki-hidden/04-blogger.svg)
 
-![Image 11: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 11: tumblr sharing button](../../assets/sudokuwiki-hidden/05-tumblr.svg)
 
-![Image 12: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 12: messenger sharing button](../../assets/sudokuwiki-hidden/06-messenger.svg)
 
-![Image 13: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 13: email sharing button](../../assets/sudokuwiki-hidden/07-email.svg)
 
 # Hidden Candidates
 
@@ -167,13 +167,13 @@ Other
 
 Looking for Hidden Pairs is a great way to open up the board. This approach can remove a cluster of candidates from two cells and leave behind simple pairs which are the building blocks of more complex elimination strategies. 
 
-![Image 14: Hidden Pair example](https://www.sudokuwiki.org/PuzImages/HP1.png)
+![Image 14: Hidden Pair example](../../assets/sudokuwiki-hidden/03-HP1.png)
 
 Hidden Pair example : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000000000904607000076804100309701080008000300050308702007502610000403208000000000)
 
  Looking at the top of this moderate puzzle, we see that 6 and 7 have been found in the first two boxes. Along with the 6 and 7 in column 7, this pins the placement of 6 and 7 in the third box to A8 and A9. It still appears that there are a great number of other candidates in A8 and A9, which is true up to a point. However, these extra candidates 'hide' the true values for these cells. We have deduced that 6 and 7 must go in A8 and A9 and therefore we can clear off all the alternatives. This doesn't mean we know which way round the 6 and 7 will go, but we can make 6 and 7 a Naked Pair in those cells and see where it leads us.
 
-![Image 15: Three Hidden Pairs](https://www.sudokuwiki.org/PuzImages/HP2.png)
+![Image 15: Three Hidden Pairs](../../assets/sudokuwiki-hidden/04-HP2.png)
 
 Three Hidden Pairs : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=720408030080000047401076802810739000000851000000264080209680413340000008168943275) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=720400030000000047001076802010039000000801000000260080209680400340000000060003075)
 
@@ -184,7 +184,7 @@ This is a more interesting and complex set of Hidden Pairs. Three occur simultan
 
 We can extend Hidden Pairs to Hidden Triples or even Hidden Quads. A Triple will consist of three pairs of numbers lying in three cells in the same row, column or box, such as [4,8,9], [4,8,9] and [4,8,9]. However, in just the same manner as [Naked Triples](https://www.sudokuwiki.org/naked_candidates#NT), we don't need exactly three pairs of numbers in three cells for the rules to apply. Only that **in total** there are three numbers remaining in three cells, so [4,8], [4,9] and [8,9] is equally valid. Hidden Triples will be disguised by other candidates on those cells, so we have to prise them out by ensuring the Triple applies to at least one unit.
 
-![Image 16: Two Hidden Triples](https://www.sudokuwiki.org/PuzImages/HT1.png)
+![Image 16: Two Hidden Triples](../../assets/sudokuwiki-hidden/05-HT1.png)
 
 Two Hidden Triples : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=000001030231090000065003100678924300103050006000136700009360570006019843300000000) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000000000231090000065003100008924000100050006000136700009300570000010843000000000)
 
@@ -194,7 +194,7 @@ Now that we've removed those candidates from the red cells, we can see in column
 
 (The solver will not choose the second example as Naked Triples get there first)
 
-![Image 17: Hidden Quad](https://www.sudokuwiki.org/PuzImages/HiddenQuad1c.png)
+![Image 17: Hidden Quad](../../assets/sudokuwiki-hidden/06-HiddenQuad1c.png)
 
 Hidden Quad : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0i0f070h030b0d0e0a050l0n040i0g0h060o080s0u010f0e0o0g091m0902050r0v070h1q3f174r1g5u0u7s7o1s3e034a1g5u0905011o03170f0i17080l0s070b07170c17067n7u080r0h0i0g020r060c0e) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=007030000500400060800100009092500700000000000030009510300008007070006008000020600)
 
@@ -205,7 +205,7 @@ Here is the one example of a Hidden Quad I found in a set of 55,000 Sudoku puzzl
 
 (example replaced Nov 2025)
 
-![Image 18: Hidden Quad](https://www.sudokuwiki.org/PuzImages/HiddenQuad3.png)
+![Image 18: Hidden Quad](../../assets/sudokuwiki-hidden/07-HiddenQuad3.png)
 
 Hidden Quad : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0i2e0a0544442e0d0f0402053a093a2e0h01080f2e2m012m82028205660be75ye67n2eb62e0109606g6g04064i0f6666db6edq832e020a090f5u045u0b0e03021a0u7q0686080a072e6e5y0o1401060i0d) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000500000425090001800010020500000000019000460000000002090040003200060807000001600)
 
@@ -235,7 +235,7 @@ Please enter the
 
 letters you see:
 
-![Image 19: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 20: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 19: arrow](../../assets/sudokuwiki-hidden/08-GRNARR.GIF)![Image 20: Enter these letters](../../assets/sudokuwiki-hidden/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -820,4 +820,4 @@ Add to this Thread
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 21: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 21: Buy Me a Coffee](../../assets/sudokuwiki-hidden/08-coffee-20cup.svg)

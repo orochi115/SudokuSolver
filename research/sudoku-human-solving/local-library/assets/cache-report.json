@@ -1,0 +1,184 @@
+{
+  "previous": null,
+  "totalDiscovered": 135,
+  "totalCached": 123,
+  "failures": [
+    {
+      "id": "SUDOKUWIKI-INTERSECTION",
+      "url": "https://www.sudokuwiki.org/PuzImages/PP3.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-INTERSECTION",
+      "url": "https://www.sudokuwiki.org/PuzImages/BLR2.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-INTERSECTION",
+      "url": "https://www.sudokuwiki.org/PuzImages/BLR3.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "CHINESE-JWANGL5-ADVANCED",
+      "url": "https://jwangl5.github.io/favicon.ico",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "CHINESE-JWANGL5-ADVANCED",
+      "url": "https://jwangl5.github.io/favicon-32x32.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "CHINESE-JWANGL5-ADVANCED",
+      "url": "https://jwangl5.github.io/favicon-16x16.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "CHINESE-JWANGL5-ADVANCED",
+      "url": "https://jwangl5.github.io/apple-touch-icon.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-XY-CHAINS",
+      "url": "https://www.sudokuwiki.org/PuzImages/XYC4b.png",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-3D-MEDUSA",
+      "url": "http://www.img-load.de/images-i1752871b39bx4.jpg",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-3D-MEDUSA",
+      "url": "http://www.img-load.de/images-i1752873b1to13.jpg",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-3D-MEDUSA",
+      "url": "http://www.img-load.de/images-i1752906bla974.jpg",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "SUDOKUWIKI-BUG",
+      "url": "https://www.sudokuwiki.org/PuzImages/BUG1b.png",
+      "error": "HTTP 404"
+    }
+  ],
+  "touched": [
+    {
+      "id": "SUDOKUWIKI-INTERSECTION",
+      "discovered": 3,
+      "cached": 0
+    },
+    {
+      "id": "CHINESE-JWANGL5-ADVANCED",
+      "discovered": 4,
+      "cached": 0
+    },
+    {
+      "id": "SUDOKUWIKI-XY-CHAINS",
+      "discovered": 1,
+      "cached": 0
+    },
+    {
+      "id": "SUDOKUWIKI-3D-MEDUSA",
+      "discovered": 3,
+      "cached": 0
+    },
+    {
+      "id": "SUDOKUWIKI-BUG",
+      "discovered": 1,
+      "cached": 0
+    },
+    {
+      "id": "SUDOKUWIKI-CHUTE-REMOTE-PAIRS",
+      "discovered": 13,
+      "cached": 13
+    },
+    {
+      "id": "SUDOKUWIKI-AIC-EXOTIC-LINKS",
+      "discovered": 12,
+      "cached": 12
+    },
+    {
+      "id": "SUDOKUWIKI-TWINNED-XY-CHAINS",
+      "discovered": 11,
+      "cached": 11
+    },
+    {
+      "id": "SUDOKUWIKI-AVOIDABLE-RECTANGLES",
+      "discovered": 12,
+      "cached": 12
+    },
+    {
+      "id": "SUDOKUWIKI-EXTENDED-RECTANGLES",
+      "discovered": 14,
+      "cached": 14
+    },
+    {
+      "id": "SUDOKUWIKI-GURTH",
+      "discovered": 14,
+      "cached": 14
+    },
+    {
+      "id": "SUDOKUWIKI-TRIDAGON",
+      "discovered": 15,
+      "cached": 15
+    },
+    {
+      "id": "SUDOPEDIA-FISH",
+      "discovered": 1,
+      "cached": 1
+    },
+    {
+      "id": "SUDOPEDIA-FINNED-FISH",
+      "discovered": 1,
+      "cached": 1
+    },
+    {
+      "id": "SUDOPEDIA-FRANKEN-FISH",
+      "discovered": 1,
+      "cached": 1
+    },
+    {
+      "id": "SUDOPEDIA-MUTANT-FISH",
+      "discovered": 2,
+      "cached": 2
+    },
+    {
+      "id": "SUDOPEDIA-BROKEN-WING",
+      "discovered": 1,
+      "cached": 1
+    },
+    {
+      "id": "SUDOPEDIA-ALMOST-LOCKED-CANDIDATES",
+      "discovered": 1,
+      "cached": 1
+    },
+    {
+      "id": "SUDOPEDIA-X-COLORS",
+      "discovered": 8,
+      "cached": 8
+    },
+    {
+      "id": "SUDOPEDIA-SUBSET-EXCLUSION",
+      "discovered": 2,
+      "cached": 2
+    },
+    {
+      "id": "SUDOPEDIA-SUBSET-COUNTING",
+      "discovered": 2,
+      "cached": 2
+    },
+    {
+      "id": "ENJOYSUDOKU-AHS",
+      "discovered": 8,
+      "cached": 8
+    },
+    {
+      "id": "ENJOYSUDOKU-TRIDAGON",
+      "discovered": 5,
+      "cached": 5
+    }
+  ]
+}

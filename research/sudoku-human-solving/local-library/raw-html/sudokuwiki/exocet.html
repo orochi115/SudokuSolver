@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Exocet - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-exocet/08-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-exocet/09-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-exocet/10-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-exocet/11-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,8 @@ var pgFileName = 'Exocet';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-exocet/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-exocet/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -256,14 +256,14 @@ var pgFileName = 'Exocet';
 				<h1>Exocet</h1><div class="SRCell">a.k.a. <b>jExocet</b><h2>Full Documentation Coming Soon</h2>Exocet is a pattern that can often occur in very hard puzzles where the candidate density is very high. With few bi-value and bi-location candidates other strategies give up.  Exocet takes on three or four candidate sets at a time which is just what is needed in the bottlenecks of extreme puzzles. My first implementation solved 51 out of 123 of the weekly "unsolvables" that were created by David Filmer. We will be replacing any stock known solvable with even harder puzzles.<br> <br>Phil's concise description is impossible to better: <i>When 2 of the 3 cells in a box-line intersection together contain 3 or 4 candidates, then in each of the two boxes in the same band but in different lines, if there are cells with the same 3 or 4 candidates, any others can be removed.</i><br><br><h2>Order in Strategy List</h2>My instinct is to put this near the end of the Extremes set of strategies but many of the eliminations in Exocet can overlap earlier strategies, I am told. I do not think I have implemented many of those but to test and improve I am putting it at the start of the extremes to give it more exercise. David Bird tells me it can go after the basics but that will have to wait until more variations are in place. <br><br><h2>Credits</h2>A number of people explored this strategy and its many variations. I am told the name was coined by forum participant Champagne. The pattern was first discovered by Allan Barker in the "<a href="/sudoku.htm?bd=000000003001005600090040070000009050700050008050402000080020090003500100600000000">Fata Morgana</a>" puzzle<sup>[<a href="#notes">1</a>],[<a href="#notes">2</a>]</sup>. My main source is the excellent JExocet Compendium written by David P Bird, available in fourteen downloadable documents on the <a href="http://forum.enjoysudoku.com/jexocet-compendium-t32370.html">EnjoySudoku Forum</a> and David was kind enough to answer questions as well. I would also like to credit <a href="http://www.philsfolly.net.au/">Phil's Sudoku Solver</a> as a source of examples and help</a>. Any other credits not mentioned, please email me.<br><br>I don't intend to duplicate David's work but just the parts implemented by the solver and re-expressed in my own way. Terms and references to the original will be supplied.<br><h2>The Exocet Pattern</h2></div><br>
 
 <div class="SRCell">
-<figure style="width:350px"><img src="PuzImages/EXO1.png" alt="Exocet Pattern" /><figcaption>Exocet Pattern
+<figure style="width:350px"><img src="../../assets/sudokuwiki-exocet/03-EXO1.png" alt="Exocet Pattern" /><figcaption>Exocet Pattern
 </figcaption></figure>
 Lets start with the pattern. <br><u><b>Pattern Rule 1</b></u><br>Two <span class="hy">Base</span> cells (<span class="hy">B</span>) exist in alignment in one box and usually contain three or four candidates *in total*. That could mean {1,2,3,4} + {1,2,3,4} but could also mean {1,2,3}+{2,3,4} or even {1,2,3}+{3,4}. I've not found an instance of two bi-value cells like {1,2}+{3,4} yet. To be explored.<br><br><u><b>Pattern Rule 2</b></u><br>We then check if there are two <span class="hy">Target</span> cells (<span class="hy">T</span>) that contain <u><b>all the digits</b></u>  of the Base cell (plus any extras). The Targets cannot 'see' each other or the Base Cells. They must also be in the same Tier or Stack (group of 3x3 boxes in a row or column). The diagram highlights the top tier in red.  There are only three possible cells for each Target given that they must not be 'seen'.</div>
 
 <div class="SRCell">If Bases and Targets are aligned in a Tier (as in these diagrams) we look for three <span class="hy">Cross-Lines</span> that descend from the Targets and the cell not occupied by the Bases. These are marked in yellow - columns 3, 4 and 7. We are interested in the six cells outside the Tier (or stack). These cells are called <span class="hy">S-Cells</span>. <br><br>We will be talking about some of the other cells in the pattern as well, so lets introduce them. Each Target has a <span class="hy">Companion</span> cell marked with a <span class="hy">C</span>.  Each Target has two <span class="hy">Mirror Cells</span> that are next to each opposite Target, marked <span class="hy">M<sub>1</sub></span> and <span class="hy">M<sub>2</sub></span>.<br><br>Lastly, the asterisks are called <span class="hy">Escape</span> cells which can hold the candidates that are found to be false in the base. <br><br><u><b>Pattern Rule 3</b></u> <br>To be a real Exocet pattern the Companion Cells must not contain the Base candidates, not even as clues or givens.</div><br>
 
 <div class="SRCell">
-<figure style="width:400px"><img src="PuzImages/Exo2.png" alt="Exocet Pattern - Cover Lines" /><figcaption>Exocet Pattern - Cover Lines
+<figure style="width:400px"><img src="../../assets/sudokuwiki-exocet/04-Exo2.png" alt="Exocet Pattern - Cover Lines" /><figcaption>Exocet Pattern - Cover Lines
 </figcaption></figure>
 <u><b>Pattern Rule 4</b></u> <br>Now one last complication before we can be certain we have an Exocet. In the diagram I've set the Base candidates to be {1,2,3}. There is hopefully a scattering of these in the S-Cells. We want them to appear <u>no more than twice</u> each. If the Cross-Lines are columns we consider the rows where each Base candidate appears. These are called <span class="hy">Cover-Lines</span> and I've drawn all the cover-lines in the three colours of the three numbers.<br><br>I've stated that cover-lines are perpendicular to cross-lines. Usually they are, but to get the maximum number of elimination rules we can be flexible. It is possible that one Base candidate appears twice only in one column. If we were strictly perpendicular it would require two cover-lines, but all we want to do is "cover" the candidates, so in the single-column case we can "cover" them vertically. So the cover-line = the cross-line. <br>This will be useful later.</div>
 
@@ -272,7 +272,7 @@ Lets start with the pattern. <br><u><b>Pattern Rule 1</b></u><br>Two <span class
 
 <h2>Elimination Rule 1</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/EXO3.png" alt="Exocet Rule 1 (untick X-Cycles)" /><figcaption>Exocet Rule 1 (untick X-Cycles)
+<figure style="width:450px"><img src="../../assets/sudokuwiki-exocet/05-EXO3.png" alt="Exocet Rule 1 (untick X-Cycles)" /><figcaption>Exocet Rule 1 (untick X-Cycles)
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=007020004930000600600300000000000050200010008006900400003700900020050001000008000">From the Start</a>
 </figcaption></figure>
 <br>Any candidate in a Target cell that is not one of the Base candidates can be removed. That takes out the 4 in <span class="hy">B4</span> and the 2 and 7 in <span class="hy">C7</span><br><br>This example actually contains a whole raft of Exocet eliminations but they rely on another test called the <span class="hy">Compatible Digit Check</span>. That I have not implemented so I'm going to ignore those. I will come back to this example in the next update when I've understood this test.</div>
@@ -336,9 +336,9 @@ They make good practice puzzles. Klaus Brenner finds.
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-exocet/06-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-exocet/07-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

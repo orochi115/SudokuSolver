@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>AIC with ALSs - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-aic-alss/11-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-aic-alss/12-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-aic-alss/13-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-aic-alss/14-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +46,8 @@ var pgFileName = 'AIC_with_ALSs';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-aic-alss/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-aic-alss/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -255,7 +255,7 @@ var pgFileName = 'AIC_with_ALSs';
 
             <div class="contentshell">
 				<h1>AIC with ALSs</h1><div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALSLink1.png" alt="Naked Pair and Almost Locked Set" /><figcaption>Naked Pair and Almost Locked Set
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-alss/03-ALSLink1.png" alt="Naked Pair and Almost Locked Set" /><figcaption>Naked Pair and Almost Locked Set
 </figcaption></figure>
 <br>A <span class="hy">Locked Set</span> is a group of cells (that can all see each other) of size N where the number of candidates in those cells is equal to the size of the group. That is N cells contain N candidates. A solved cell or a clue is a Locked Set where N=1, but such a cell is not useful. The smallest useful Locked Set is a Naked Pair (where N=2) as in the [2,8] set in the diagram. The next smallest Locked Set is a Naked Triple (N=3) and so on.<br></div>
 
@@ -263,19 +263,19 @@ var pgFileName = 'AIC_with_ALSs';
 </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALSLink2.png" alt="ALS in an AIC fragment" /><figcaption>ALS in an AIC fragment
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-alss/04-ALSLink2.png" alt="ALS in an AIC fragment" /><figcaption>ALS in an AIC fragment
 </figcaption></figure>
 <br>Lets continue with this ALS. <br><br>While solving a puzzle I am hunting around for Inference Chains and perhaps I find my chain turns <span class="hg">ON</span> the 6 in cell <span class="hy">C4</span>.  That will remove all other 6s in the box including the 6 in our ALS.  If that 6 is <span class="hr">OFF</span> then we create an on-the-fly Naked Pair. <br><br>Now, a Naked Pair eliminates candidates in the row or column (or box) it is aligned on so we can use this elimination property as part of our chain. This is the trick!  By removing the 6 in <span class="hy">B5</span> we fix 2 and 8 into those two cells so we can look along the row at other 2s and 8s and turn them <span class="hr">OFF</span>. This I do in cell <span class="hy">B9</span>. From there I can continue the inference chain. You get two cracks of the whip: check both branches - the 2s and the 8s in the pseudo Naked Pair.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AICALS2.png" alt="AIC with ALS" /><figcaption>AIC with ALS
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-alss/05-AICALS2.png" alt="AIC with ALS" /><figcaption>AIC with ALS
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B06030918071810080143430710060309160s020504080901060307b6cy052i0l060p7u0o041h03090l08071f059f381f03052i088r1o2r040806032q0z02099y9e0201089u043m1i9zab1f2s049w132r08">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=600070000007003900250090030005006000403000705000300800040030029002100400000040008">From the Start</a>
 </figcaption></figure>
 A real life example now. This chain contains an ALS on the cells <span class="hy">{G6,H6}</span> (I used squiggly brackets to denote ALS as opposed to square brackets for <a href="/Grouped_X_Cycles">Grouped Cells</a>). 9s in row H are the entry point. We turn 9 <span class="hg">ON</span> in <span class="hy">H2</span> which turns <span class="hr">OFF</span> the 9 in <span class="hy">H6</span> - the extra candidate that makes the ALS an ALS.  This gives us a Naked Pair of [5,7] that points up column 6 turning <span class="hr">OFF</span> the 7 in <span class="hy">F6</span> and the chain continues. <br><br>Ultimately we use <a href="/Alternating_Inference_Chains">Nice Loop Rule 2</a> to place 4 in <span class="hy">A4</span><br><span class="hc">AIC on 4 (Discontinuous Alternating Nice Loop, length 12):<br>-4[A4]+4[D4]-7[D4]+7[D2]<br>-7[H2]+9[H2]-9[H6]<span class="hy">+7{H6|G6}</span><br>-7[F6]+4[F6]-4[A6]+4[A4]<br>- Contradiction: When 4 is removed from A4 the chain implies it must be 4 - other candidates 2/5 can be removed</span><br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AICALS3b.png" alt="Off Chain eliminations" /><figcaption>Off Chain eliminations
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-alss/06-AICALS3b.png" alt="Off Chain eliminations" /><figcaption>Off Chain eliminations
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=759800030200000700016070098097250000600798003000046900532610840060080302070000650">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=059000030200000000010070098007250000600708003000046900530010040000000002070000650">From the Start</a>
 </figcaption></figure>
@@ -285,14 +285,14 @@ A real life example now. This chain contains an ALS on the cells <span class="hy
 
 <h2>Enchancements December 2025 <a name="part2"></a></h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AICALS4b.png" alt="Missing chain revealed" /><figcaption>Missing chain revealed
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-alss/07-AICALS4b.png" alt="Missing chain revealed" /><figcaption>Missing chain revealed
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bckbm0a22030g8s8s8k8m7u1q020a0h8u050707181s22828i08011k0164090c0f050s2k444k06107n0g047p03bp122y1a7n08028rai8z90850807848m0n8k0404851w1u848m0g080n8k03070h0d01058k8k">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000030000000200057700000810109005000060004030000082000008700004400000080037001500">From the Start</a>
 </figcaption></figure>
 I've noticed some missing eliminations having tried some examples from Hodokus exellent page on <a href="https://hodoku.sourceforge.net/en/tech_chains.php" target="_blank">Chains and Loops</a>. Here is one. Coming out of an ALS in a loop the solver wasn't detecting that the exit landed on the starting candidate. Now does.<br><br>AIC on 5 ((w.Groups) Discontinuous Alternating Nice Loop, length 8):<br><span class="hc">+5[H2]-5[G1|G2]+5[G5]-2[G5]+2[H5]-2[H3]+5{H3|H4}-5[H2]</span><br>- Contradiction: When H2 is set to 5 the chain implies it cannot be 5 - it can be removed<br><br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AICALS5b.png" alt="Extra off-chain eliminations" /><figcaption>Extra off-chain eliminations
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-alss/08-AICALS5b.png" alt="Extra off-chain eliminations" /><figcaption>Extra off-chain eliminations
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B5u0e0204030a090f5u4a030f077o7o4a010501092i4y5e5e0u022m022b5z7rdmdq4n4m0609045z53767a4p4m490e0f4749444807040i032d095070704t6a4d062c0ebc01dc4g5y4g2i082j052c2g06090p">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=052431960036700015190000020200000006940000000560000749309000000605010000080500690">From the Start</a>
 </figcaption></figure>
@@ -334,9 +334,9 @@ A more important observation is that an ALS produces a Naked Pair and both candi
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-aic-alss/09-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-aic-alss/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

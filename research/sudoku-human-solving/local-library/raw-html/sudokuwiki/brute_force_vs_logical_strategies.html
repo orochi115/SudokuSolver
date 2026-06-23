@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Brute Force vs Logical Strategies - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-logic-vs-brute/07-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-logic-vs-brute/08-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-logic-vs-brute/09-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-logic-vs-brute/10-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,8 @@ var pgFileName = 'Brute_Force_vs_Logical_Strategies';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-logic-vs-brute/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-logic-vs-brute/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -182,11 +182,11 @@ var pgFileName = 'Brute_Force_vs_Logical_Strategies';
 				<h1>Brute Force vs Logical Strategies</h1><div class="SRCell">A number of times in feedbacks I've discussed the difference, or utility, of a <b>brute force</b> approach to solving Sudoku versus <b>logical strategies</b>. By <b>brute force</b> I mean any back-tracking method that can fill a puzzle board and derive all possible solutions. The <i>Solution Count</i> on the solver is an example. The rest of this site is devoted to logical strategies.<br><br>I made a decision early on when exploring Sudoku that I was interested in logical strategies since they told me <u>how</u> to solve a puzzle using steps that showed why each cell could be solved in sequence just from the logical consequences of having clues. This felt much more satisfying than guessing, trial and error and simply placing numbers by intuition. However, I agree that intuition is one way a human can beat a computer: it is not to be dismissed.<br><br>Brute force is the domain of computers and people quickly developed optimal - or near optimal - ways of demolishing a puzzle by back-tracking.  This is a proof by exhaustion since all valid numbers are inserted. The 'brutal' brute force does this in sequence, 1 to 9, top-left to bottom right until all ways of satisfying the rules are shown. A more clever brute force takes advantage of the theory of search branches. Either way, with brute force you can <b>count</b> the number of solutions, so partial or faulty Sudoku puzzles do not phase a brute-force algorithm. Which is why I employ one to check puzzles in the solver.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/strattime.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-logic-vs-brute/03-strattime.png" alt="" /></figure>
 I don't pretend to know all Sudoku strategies and those I get stuck on are always solved by clever people in the <a href="/Weekly-Sudoku.aspx">Weekly Unsolvables</a> providing me with new clues. This is why Sudoku is so fascinating.  However, there is another aspect to the two solving methods that pertains to programmers, especially optimisers. <br><br>The diagram on the right is a crude impression of how brute-force stacks up against logic when the number of clues is taken into account. Simply put, brute force is much quicker when there are many clues - not surprising - whereas it is known that clue density does not - in general - affect the grade or difficulty of a puzzle. You can have very easy low clue puzzles and very hard high clue ones - although the bias to 'hard' is usually with fewer clues.<br><br><br></div>
 
 <div class="SRCell">
-<figure style="width:400px"><img src="PuzImages/8ClueJigsaw.png" alt="Brute Force fails on this puzzle" /><figcaption>Brute Force fails on this puzzle
+<figure style="width:400px"><img src="../../assets/sudokuwiki-logic-vs-brute/04-8ClueJigsaw.png" alt="Brute Force fails on this puzzle" /><figcaption>Brute Force fails on this puzzle
 </figcaption></figure>
 In a low-clue puzzle there is more to crunch through for a logical solver, but it can collapse quickly. Some strategies require an awful lot of searching to identify patterns, or are not yet optimised, so it depends on if they are needed. But generally the time to solve is flat against clue density. <br><br>However, brute force quickly escalates in time cost when clues are low. There are two factors. Density, just discussed, but also the orientation of the puzzle. For very extreme puzzles like this Jigsaw, I have never run the Solution Count to completion. It could take hours, or years? I don't know. <br><br>The naive brute force (top-left to bottom-right) is very sensitive to the orientation of a puzzle - the search space greatly increases if there are few clues in the top of the button. Spin it around and it could solve quickly. However an optimised brute force says it is worth exploring the cells with the least number of candidates first. This can greatly reduce the total search space and does away with the orientation problem. Not entirely. There will often be many cells with, say, two candidates left, and it will pick the first one.<br><br>Some people are very enthusiastic about using a mixture of both approaches. Using just the basic strategies to start a puzzle and then back-tracking if/when this fails does work well. But I keep pattern based separate from brute-force since the rare 'unsolvable' can inspire new logical strategies and generate new knowledge about Sudoku.</div>
 
@@ -305,9 +305,9 @@ As well as being called in the main function to insert the next number, this fun
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-logic-vs-brute/05-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-logic-vs-brute/06-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

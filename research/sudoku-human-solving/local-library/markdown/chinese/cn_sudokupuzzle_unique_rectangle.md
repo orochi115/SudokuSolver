@@ -33,7 +33,7 @@ Markdown Content:
 
 ### 实例分析
 
-![Image 1: 唯一矩形Type 1示例](https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/unique-rectangle-type-1.png)
+![Image 1: 唯一矩形Type 1示例](../../assets/chinese-cn-sudokupuzzle-ur/04-unique-rectangle-type-1.png)
 
 图：唯一矩形Type 1 - R1C4, R1C8, R3C4, R3C8 形成包含4, 5的唯一矩形
 
@@ -68,7 +68,7 @@ Markdown Content:
 
 ### 实例分析
 
-![Image 2: 唯一矩形Type 2示例](https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/unique-rectangle-type-2.png)
+![Image 2: 唯一矩形Type 2示例](../../assets/chinese-cn-sudokupuzzle-ur/05-unique-rectangle-type-2.png)
 
 图：唯一矩形Type 2 - R2C4, R2C7, R3C4, R3C7 形成包含6, 8的唯一矩形，额外候选数9
 
@@ -112,7 +112,7 @@ Markdown Content:
 
 ### 实例分析
 
-![Image 3: 唯一矩形Type 3示例](https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/unique-rectangle-type-3.png)
+![Image 3: 唯一矩形Type 3示例](../../assets/chinese-cn-sudokupuzzle-ur/06-unique-rectangle-type-3.png)
 
 图：唯一矩形Type 3 - R4C1, R4C2, R8C1, R8C2 形成包含7, 8的唯一矩形
 
@@ -152,7 +152,7 @@ Markdown Content:
 
 ### 实例分析
 
-![Image 4: 唯一矩形Type 4示例](https://cn.sudokupuzzle.org/sudoku-guide/unique-rectangle/unique-rectangle-type-4.png)
+![Image 4: 唯一矩形Type 4示例](../../assets/chinese-cn-sudokupuzzle-ur/07-unique-rectangle-type-4.png)
 
 图：唯一矩形Type 4 - R5C1, R5C7, R6C1, R6C7 形成包含3, 6的唯一矩形
 

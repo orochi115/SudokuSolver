@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>AICs with Exotic Links - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-aic-exotic-links/09-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-aic-exotic-links/10-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-aic-exotic-links/11-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-aic-exotic-links/12-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'AICs_with_Exotic_Links';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-aic-exotic-links/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-aic-exotic-links/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,21 +258,21 @@ var pgFileName = 'AICs_with_Exotic_Links';
 				<h1>AICs with Exotic Links</h1><div class="SRCell">We have seen with <a href="/AIC_with_ALSs">ALSs</a> and <a href="/Using_Unique_Rectangles_as_Links_in_Chains">Unique Rectangles</a> that it is possible to use some tricks to increase the availability of links to make chains. Going beyond simple alternating single digits is very useful for all chaining strategies. This particular one was inspired by an example puzzle sent in by Lane Walker in the USA. It actually had 45 solutions but an interesting <a href="/Cell_Forcing_Chains">Cell Forcing Chain</a> nevertheless. </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XWLink1.png" alt="The Pattern" /><figcaption>The Pattern
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-exotic-links/03-XWLink1.png" alt="The Pattern" /><figcaption>The Pattern
 </figcaption></figure>
 <br>In this pattern the chain has reached (or started at) <span class="hy">G6</span> on number 6 and the 6 is <span class="hg">ON</span>. Up column 6 are two more 6s which are turned <span class="hr">OFF</span> by <span class="hy">G6</span>.  Under normal circumstances we could chain <span class="hc">+6[G6] -6[B6] +6[B4] -6[D4]</span> and that would be the end of it.  The chain misses <span class="hy">D6</span> even though we know that <span class="hy">D6</span> must be <span class="hr">OFF</span> as well. Because we know that <span class="hy">D1</span> is forced <span class="hg">ON</span> and the chain can continue.<br><br>My correspondent was quite correct to follow this logic but there is a branching here impossible to capture in the very linear way Alternating Inference Chains are built. AIC's can't do two <span class="hr">OFF</span>s to make a link. </div>
 
 <div class="SRCell">The pattern considers four candidates N in a specific relationship to the input and output. The four candidates must be spread across two boxes and be in a different box from the input. If they were less separated they would be toggled en mass an you wouldn't need to employ this pattern. Also, two candidates N need to 'see' a third for an exit (output) and the other two need be a strong link, that is, <span class="hy">B4</span> and <span class="hy">B6</span> are the only two 6s in row B. <br><br>When and if I can fully implement Forcing Nets I think this sort of mini-loop or temporary branch will naturally come out in the wash, this sort of link probably being the simplest possible way a 'net' like pattern works, as opposed to the linear AIC. So it is easy to imagine extending this further to include more candidates and bigger patterns. For now the pattern is in the solver and some examples are now provided. In Ruud's top 50k stock I found 169 examples, so decent enough.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XWLink2b.png" alt="Example 1" /><figcaption>Example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-exotic-links/04-XWLink2b.png" alt="Example 1" /><figcaption>Example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1p03092i053e0t1h0805564a011q020u09071p1p0709081q1d21153h1p0t2o092n081515d1b945062f050p0p04030t054c0r43060709454l035u2b091104067vbv064e024f074n134d074d051r5b09490p">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=039000008500102000007080000000090800000605004300000670003009040006020700070500900">From the Start</a>
 </figcaption></figure>
 <br>In example 1 an AIC is discovered on <span class="hy">J3</span> using 8. Assuming it to be 8 we show by the chain that it cannot be so - therefore 8 can be removed.<br><span class="hc"><br>+8[J3] -8(XW[-E3/-B3+B2-E2]) +8[E1]-7[E1]+7[E5]-7[G5] +7[G4]-8[G4]+8[G1|G2]-8[J3]<br></span><br>The example is orientated the same way as the pattern above. The input <span class="hy">J3</span> picks up the four cells in <span class="hy">BE23</span> and because of the number of 8s elsewhere in rows B and E, forces <span class="hy">E1</span> to be <span class="hg">ON</span> for number 8. The chain continues back to <span class="hy">J3</span>.<br><br>I wondered what to call this pattern but I am a bit stumped. However I need a code in the results to draw the pattern correctly on the solver so I chose XW for X-Wing since this is a four cell formation, but it isn't quite the same. Any suggestions, happy to hear them.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XWLink3b.png" alt="Example 2" /><figcaption>Example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-aic-exotic-links/05-XWLink3b.png" alt="Example 2" /><figcaption>Example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B06092e1713082m022u484a0107201c8uc6860562601m090w016u2e095v054z6t2d3a042f63026q036r9naa059f2j0336172ra302aa085z5v04b75z06059i022f069i022v2v089i046005d4b6042e9i0106">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=690008020001700000500090100905000040020300050030000208004006002000200800050040016">From the Start</a>
 </figcaption></figure>
@@ -314,9 +314,9 @@ var pgFileName = 'AICs_with_Exotic_Links';
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-aic-exotic-links/06-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-aic-exotic-links/07-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
@@ -357,7 +357,7 @@ var pgFileName = 'AICs_with_Exotic_Links';
 <div class="posting" id="frmcomment16733"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Thursday 2-Dec-2021</div></div>
 <div class="w100pc">Hey Robert<br><br>I <b>think</b> you are quite correct, you don't need them to line up in a rectangle. I also think that you don't necessarily need an X-Wing to make the link, any AIC or even fish would suffice.<br><br>Now we've come to the point where we form links in an AIC using an AIC itself. Good lord.</div>
 <div class="w100pc" id="blog-reply16733"></div>
-<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><img src="puzimages/laugh.png" style="width:32px" alt="LOL"/></div></div><div id="blog-reply2637" class="w100pc"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><img src="../../assets/sudokuwiki-aic-exotic-links/08-laugh.png" style="width:32px" alt="LOL"/></div></div><div id="blog-reply2637" class="w100pc"></div>
 <div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(203,16733,2637)">Add to this Thread</div></div>
 <div class="posting" id="frmcomment16686"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 13-Jul-2021</div></div>
 <div class="w100pc">It seems to me it is not necessary that the four cells line up in a perfect rectangle.<br><br>In the first example, suppose the "6" in B4 were in A4 instead.  It would still work, as long as A4 and B6 were the only "6" values in that box.<br><br>I've got my own solver running a far more general version of this - essentially, follow all the implications of choosing one candidate to be "on" or "off" (not just those along a particular chain), and when all but one candidate in a unit is "off", then the remaining one must be "on".  (Also, if the only candidates in a unit that are not "off" by implication are in a group, then the group must be "on".)  This solves some of the unsolveables.  I need to get the output from this strategy into a readable form though, right now it's a total mess.<br></div>

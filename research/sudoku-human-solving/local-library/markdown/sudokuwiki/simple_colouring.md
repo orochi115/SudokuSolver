@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Simple_Colouring
 Markdown Content:
 # Simple Colouring - SudokuWiki.org
 
-[![Image 6: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 6: SudokuWiki](../../assets/sudokuwiki-simple-colouring/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 59 Shares 
 
-![Image 7: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 7: pinterest sharing button](../../assets/sudokuwiki-simple-colouring/01-pinterest.svg)
 
-![Image 8: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 8: facebook sharing button](../../assets/sudokuwiki-simple-colouring/02-facebook.svg)
 
-![Image 9: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 9: twitter sharing button](../../assets/sudokuwiki-simple-colouring/03-twitter.svg)
 
-![Image 10: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 10: blogger sharing button](../../assets/sudokuwiki-simple-colouring/04-blogger.svg)
 
-![Image 11: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 11: tumblr sharing button](../../assets/sudokuwiki-simple-colouring/05-tumblr.svg)
 
-![Image 12: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 12: messenger sharing button](../../assets/sudokuwiki-simple-colouring/06-messenger.svg)
 
-![Image 13: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 13: email sharing button](../../assets/sudokuwiki-simple-colouring/07-email.svg)
 
 # Simple Colouring
 
@@ -167,13 +167,13 @@ Simple Colouring, also known as **Single's Chains** is a chaining strategy and p
 
 A 'chain' is a series of links hopping from one candidate to another following very simple rules. A candidate can either be ON or OFF. That is, we either think it is a possible solution to that cell, or we do not. There are consequences to the rest of the board when we 'link' these two states. When we are starting out we don't know which will be ON or OFF so any two colours will do. 
 
-![Image 14: How to show Chains](https://www.sudokuwiki.org/PuzImages/ui_chains.png)
+![Image 14: How to show Chains](../../assets/sudokuwiki-simple-colouring/03-ui_chains.png)
 
 How to show Chains 
 
  On this board I have clicked on 5 in C8 to highlight all the 5s in the puzzle. You can also use the little tool under the list of strategies to focus on a specific number and view all the chains. Tick the "rows", "columns" and "boxes" and un-tick the other numbers. This gives us all the possible chains where there are only two remaining 5s left in any row, column or box. 
 
-![Image 15: All links on candidate 5](https://www.sudokuwiki.org/PuzImages/SC_EG1.png)
+![Image 15: All links on candidate 5](../../assets/sudokuwiki-simple-colouring/04-SC_EG1.png)
 
 All links on candidate 5 
 
@@ -185,7 +185,7 @@ Just a note on rule numbers: The solver uses the same search algorithm for both 
 
 ## Rule 2 - Twice in a Unit
 
-![Image 16: Simple Colouring Rule 2](https://www.sudokuwiki.org/PuzImages/SC_Rule2d.png)
+![Image 16: Simple Colouring Rule 2](../../assets/sudokuwiki-simple-colouring/05-SC_Rule2d.png)
 
 Simple Colouring Rule 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0i0f0e0d0b5v035v2j0r020h090c050f2b0e080c070a060b0i04090g430b05040c43064a030e0a0f0i4a070b060b0r03080g0r0e090316be060g01b6024i430z070i024i060d0c0b06b60d0c4icz436b) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000000030002090500080706004900054006030000070600380009300601020007020600060000000)
 
@@ -197,7 +197,7 @@ _(Actually yellow is the colour I use to show eliminated candidates. The solver 
 
 ## Rule 4 - Two colours 'elsewhere'
 
-![Image 17: Single Chains Rule 4](https://www.sudokuwiki.org/PuzImages/SC_Rule4c.png)
+![Image 17: Single Chains Rule 4](../../assets/sudokuwiki-simple-colouring/06-SC_Rule4c.png)
 
 Single Chains Rule 4 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d0e074zc27n021f0c0b0h0c1f05041f0g090i06010b0c0g0d0e08030l1g07040h091f051f0g0i0e0b0c0h0d1f050d080i01060g0c02070c1o4z4y0l05091m080i1m03070e1f0b1n1f0l050d8i7o030h0g) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=007000200000054009061000008300740905000000000508016002700000590800370000005000300)
 
@@ -209,7 +209,7 @@ Michael Wallis is an early pioneer of Simple Colouring and this rule family.
 
 This rule is shared with [3D Medusa](https://www.sudokuwiki.org/3D_Medusa).
 
-![Image 18: Single Chains Rule 4](https://www.sudokuwiki.org/PuzImages/SC_Rule4d.png)
+![Image 18: Single Chains Rule 4](../../assets/sudokuwiki-simple-colouring/07-SC_Rule4d.png)
 
 Single Chains Rule 4 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B360a0d0c5w2c0i054y3a052g045u09440n4z0o0i080e060a040o0g08062e0i012e050d0b0e0o010h040o070f0i0d2c092c050f0a08030a0h062c090d032c0e2g2e0e010o080f090d0i040o0f2e0e442b43) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000000050050409000008060400860010500001040700009050083006090300000108090040000000)
 
@@ -255,7 +255,7 @@ Please enter the
 
 letters you see:
 
-![Image 19: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 20: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 19: arrow](../../assets/sudokuwiki-simple-colouring/08-GRNARR.GIF)![Image 20: Enter these letters](../../assets/sudokuwiki-simple-colouring/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -1208,4 +1208,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 21: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 21: Buy Me a Coffee](../../assets/sudokuwiki-simple-colouring/08-coffee-20cup.svg)

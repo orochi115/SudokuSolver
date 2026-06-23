@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Fireworks - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-fireworks/09-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-fireworks/10-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-fireworks/11-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-fireworks/12-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Fireworks';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-fireworks/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-fireworks/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -259,20 +259,20 @@ var pgFileName = 'Fireworks';
 </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Firework1.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-fireworks/03-Firework1.png" alt="" /></figure>
 <br>To quote <b>shye</b> it is "built around a very simple idea, that being when a candidate in an intersecting row and column is limited to the same box, it must be placed in the intersecting cell".<br><br>Take row A and column 1 and consider candidate 9.  Clearly the cell marked with <span style="color:#88FF88"><b>X</b></span> would satisfy 9 for both the row and the column. Both the row and the column have one remaining cell outside box 1 - cells marked <span style="color:#ff00ff"><b>Y</b></span> and <span style="color:#22aaff"><b>Z</b></span>. A 9 in <span style="color:#ff00ff"><b>Y</b></span> would exclude <span style="color:#88FF88"><b>X</b></span> and necessitate another 9 in <span style="color:#22aaff"><b>Z</b></span> or maybe in the cells marked <span style="color:#22aaff"><b>a</b></span>. Same goes for 9 in <span style="color:#22aaff"><b>Z</b></span>.<br><br>The conclusion is that 9 must appear at least once in the three cells X, Y or Z. </div>
 
 <div class="SRCell">Knowing one candidate fits in X, Y and Z at least once doesn't get us very far since "there is no common seen cell to eliminate a candidate" but the pattern - a 'firework' - can explode outwards from the intersection if multiple candidates share the intersection. In the diagram above candidate 8 also works on the same logic as 9. <br><br>That gives us an interesting weak link between 8 and 9 in <span style="color:#88FF88"><b>X</b></span> that obliges at least one of <span style="color:#ff00ff"><b>Y</b></span> and <span style="color:#22aaff"><b>Z</b></span> to be 8 or 9. We could include this link in AICs and other chaining strategies.</div><br>
 
 <h2>Triple Firework</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Firework2.png" alt="Triple Firework example 1" /><figcaption>Triple Firework example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-fireworks/04-Firework2.png" alt="Triple Firework example 1" /><figcaption>Triple Firework example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=045000000000100070800023000000907100000000300080406020003000005070800006000000900">From the Start</a>
 </figcaption></figure>
 The magic starts when there are three candidates exhibiting the same firework pattern. Following <b>Shye</b>'s thread I'll reproduce "Triple Laser", the puzzle formulated by forum contributor <b>Qinlux</b> and then one of my own next.<br><br><span class="hy">A1</span>, <span class="hy">A9</span> and <span class="hy">J9</span> exhibit the firework pattern with candidates 1, 2 and 3. We know that each candidate must appear at least once in these three cells and we have three firework candidates so that makes a classic <b>Locked Set</b>.  We can't be certain which cells will ultimately be 1, 2 or 3 (except 3 is already excluded from <span class="hy">J9</span>) but a locked set excludes other candidates, so we can remove them. This greatly simplifies the rest of the puzzle which would otherwise require laborious chains.<br><br>Note that 1, 2 and 3 are absent from the blue shaded cells. This is how to spot the pattern. Also note that like triples in other strategies, it is not required that {1,2,3} be present in both wing cells, merely that they are present <i>across</i> the three cells. The pattern does require {1,2,3} in the intersection cell.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Firework4.png" alt="Triple Firework" /><figcaption>Triple Firework
+<figure style="width:450px"><img src="../../assets/sudokuwiki-fireworks/05-Firework4.png" alt="Triple Firework" /><figcaption>Triple Firework
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B02037v1n1n080g8i059u067n022v2v0h7q0d2q5u4a3y093y011i0bb60a064q168a03020g049e03360baa050h015u02055y2f2f090d0f1i82072208220b0a7q1ibmb61v1v020d077q010d0b092e2e0f0508">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=230008005060200000000090100006000320403000501025000900007080000000002070100900058">From the Start</a>
 </figcaption></figure>
@@ -280,7 +280,7 @@ The magic starts when there are three candidates exhibiting the same firework pa
 
 <h2>Quadruple Firework</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Firework3.png" alt="Quad Firework" /><figcaption>Quad Firework
+<figure style="width:450px"><img src="../../assets/sudokuwiki-fireworks/06-Firework3.png" alt="Quad Firework" /><figcaption>Quad Firework
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=002300500010040090000500006076000000800020040900000803000005002000006010000870000">From the Start</a>
 </figcaption></figure>
 Taking the idea to the next level - a quadruple firework display. Now, I've searched through thousands of difficult puzzles and not found another example beyond the demonstration puzzle <i>"Cobra Roll"</i> created by <b>jovi_al</b>, so I am using that puzzle to illustrate.<br><br>Actually, this is two double fireworks that happen to align on four cells. Down in the bottom left corner on <span class="hy">J1</span> we have two fireworks on candidates {1,2}. I've drawn the cells that don't contain 1 or 2 in light brown. The second double firework hangs on <span class="hy">D6</span> and the candidates {3,4}.  The wings of both these patterns are the same two cells: <span class="hy">D1</span> and <span class="hy">J6</span>.<br><br>While we have exactly four numbers in four cells the eliminations are a little bit more complicated than the triple. The intersection cells eliminate everything that is not a firework candidate, so <span class="hy">J1</span> will keep only {1,2} and <span class="hy">D6</span> will keep only {3,4}. While <span class="hy">D1</span> and <span class="hy">J6</span> will keep all four candidates {1,2,3,4}, if not already removed.<br><br>This pattern is rare because it not only requires four fireworks, they must be aligned just so, too many coincidences. But the logic is enjoyable.<br><br>There are a good many novel uses of this pattern in more advanced ways that I don't need to duplicate here, <a href="http://forum.enjoysudoku.com/fireworks-t39513.html">the thread is clear</a>. For this release of the solver I've included the two types above and will further document when or if I can code up more variants.<br><br></div>
@@ -336,9 +336,9 @@ Discovered by Klaus Brenner
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-fireworks/07-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-fireworks/08-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

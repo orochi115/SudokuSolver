@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Naked_Candidates
 Markdown Content:
 # Naked Candidates - SudokuWiki.org
 
-[![Image 7: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 7: SudokuWiki](../../assets/sudokuwiki-naked/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 2.9k Shares 
 
-![Image 8: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 8: pinterest sharing button](../../assets/sudokuwiki-naked/01-pinterest.svg)
 
-![Image 9: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 9: facebook sharing button](../../assets/sudokuwiki-naked/02-facebook.svg)
 
-![Image 10: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 10: twitter sharing button](../../assets/sudokuwiki-naked/03-twitter.svg)
 
-![Image 11: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 11: blogger sharing button](../../assets/sudokuwiki-naked/04-blogger.svg)
 
-![Image 12: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 12: tumblr sharing button](../../assets/sudokuwiki-naked/05-tumblr.svg)
 
-![Image 13: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 13: messenger sharing button](../../assets/sudokuwiki-naked/06-messenger.svg)
 
-![Image 14: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 14: email sharing button](../../assets/sudokuwiki-naked/07-email.svg)
 
 # Naked Candidates
 
@@ -175,7 +175,7 @@ A Naked Pair (also known as a Conjugate Pair) is a set of two candidate numbers 
 
 It is clear that the solution will contain those values in those two cells, and all other candidates with those numbers can be removed from whatever unit(s) they have in common.
 
-![Image 15: Naked Pairs examples](https://www.sudokuwiki.org/PuzImages/NP1.png)
+![Image 15: Naked Pairs examples](../../assets/sudokuwiki-naked/03-NP1.png)
 
 Naked Pairs examples : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=400000938032094100095300240370609004529001673604703090957008300003900400240030709) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=400000038002004100005300240070609004020000070600703090057008300003900400240000009)
 
@@ -185,7 +185,7 @@ The [6,7] in row C is also a Naked Pair. It is aligned just in the row, but it r
 
 There are other Naked Pairs at this point. You can identify them yourself or load the puzzle up in the solver to see them.
 
-![Image 16: Figure 2](https://www.sudokuwiki.org/PuzImages/NP2.png)
+![Image 16: Figure 2](../../assets/sudokuwiki-naked/04-NP2.png)
 
 Figure 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=080090030030000069902063158020804590851907046394605870563040987200000015010050020) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=080090030030000000002060108020800500800907006004005070503040900000000010010050020)
 
@@ -195,7 +195,7 @@ Just to show that pairs don't have to be aligned on a row or column, in this gro
 
 As Sluggy points out in the comments there are additional ways Naked Pairs can influence puzzles beyond vanilla Sudoku. The Killer Solver will identify Naked Pairs in a cage - and if the configuration of cells permits - there may be other cells that the pair can reach. C4 and D3 share no row, box or column but they do share a cage. Since 4 and 5 must be present in those two cells we can remove 4 and 5 from D4.
 
-![Image 17: Killer Naked Pair](https://www.sudokuwiki.org/puzimages/KillerNP01.png)
+![Image 17: Killer Naked Pair](../../assets/sudokuwiki-naked/05-KillerNP01.png)
 
 [](https://www.sudokuwiki.org/Naked_Candidates)
 # Naked Triples
@@ -220,13 +220,13 @@ The combinations of candidates for a Naked Triple will be one of the following:
 
 The last case is interesting and the advanced strategy [Y-Wing](https://www.sudokuwiki.org/Y_Wing_Strategy) uses this formation.
 
-![Image 18: Naked Triple](https://www.sudokuwiki.org/PuzImages/NT1.png)
+![Image 18: Naked Triple](../../assets/sudokuwiki-naked/06-NT1.png)
 
 Naked Triple : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=070408029002000004854020007008374200020000000003261700000093612200000403130642070) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=070008029002000004854020000008374200000000000003261700000090612200000400130600070)
 
 This first example is as straightforward as it gets. In row E, centre box, are the cells E4, E5 and E6 containing [5,8,9], [5,8] and [5,9] respectively. In total, those three cells contain [5,8,9], so we have fixed those numbers in those cells - just not which way round they will be. This allows us to remove those numbers from the rest of the unit the Triple is aligned on - namely the row.
 
-![Image 19: Naked Triples](https://www.sudokuwiki.org/PuzImages/NT2.png)
+![Image 19: Naked Triples](../../assets/sudokuwiki-naked/07-NT2.png)
 
 Naked Triples : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=294513006600842319300697254000056000040080060000470000730164005900735001400928637) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=200010000600800009300607054000056000040080060000470000730104005900005001000020007)
 
@@ -239,7 +239,7 @@ In terms of the candidates per cell, the column 1 triple is a {2/2/3} formation 
 
  A Naked Quad is rarer, especially in its full form, but is still useful if it can be spotted. The same logic from Naked Triples applies, but the reason it is so rare is because if a Quad is present, the remaining cells are more likely to be a Triple or Pair and the solver will highlight those first.
 
-![Image 20: Naked Quad example](https://www.sudokuwiki.org/PuzImages/NQ1.png)
+![Image 20: Naked Quad example](../../assets/sudokuwiki-naked/08-NQ1.png)
 
 Naked Quad example : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=000030086000020040090078520371856294900142375400397618200703859039205467700904132) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000030086000020000000008500371000094900000005400007600200700800030005000700004030)
 
@@ -265,7 +265,7 @@ Please enter the
 
 letters you see:
 
-![Image 21: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 22: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 21: arrow](../../assets/sudokuwiki-naked/09-GRNARR.GIF)![Image 22: Enter these letters](../../assets/sudokuwiki-naked/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -1082,4 +1082,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 23: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 23: Buy Me a Coffee](../../assets/sudokuwiki-naked/08-coffee-20cup.svg)

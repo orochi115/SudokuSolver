@@ -3,7 +3,7 @@ Title: 唯一矩形（UR） | 标准数独技巧教程
 URL Source: https://sudoku.kazusa.tech/full-marking-techniques/04-unique-rectangle/
 
 Markdown Content:
-[![Image 1](https://sudoku.kazusa.tech/~gitbook/image?url=https%3A%2F%2F2565926047-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Forganizations%252FSgQdjTbmYMpgKEk9PrFl%252Fsites%252Fsite_ySmaf%252Ficon%252FUSMjEX3MClpH2LeylhKt%252FSnipaste_2025-02-10_23-15-07.png%3Falt%3Dmedia%26token%3D5c94f4f5-0111-4af5-bf4d-43ffb8fc33c9&width=32&dpr=3&quality=100&sign=cddc2dd4&sv=2)![Image 2](https://sudoku.kazusa.tech/~gitbook/image?url=https%3A%2F%2F2565926047-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Forganizations%252FSgQdjTbmYMpgKEk9PrFl%252Fsites%252Fsite_ySmaf%252Ficon%252FUSMjEX3MClpH2LeylhKt%252FSnipaste_2025-02-10_23-15-07.png%3Falt%3Dmedia%26token%3D5c94f4f5-0111-4af5-bf4d-43ffb8fc33c9&width=32&dpr=3&quality=100&sign=cddc2dd4&sv=2) 标准数独技巧教程](https://sudoku.kazusa.tech/)
+[![Image 1](../../assets/chinese-kazusa-ur/01-image-url-https-3A-2F-2F2565926047-files-gitbook-io-2F-7E-2Ffiles-2Fv0.jpg)![Image 2](../../assets/chinese-kazusa-ur/01-image-url-https-3A-2F-2F2565926047-files-gitbook-io-2F-7E-2Ffiles-2Fv0.jpg) 标准数独技巧教程](https://sudoku.kazusa.tech/)
 
 ⌘Ctrl k
 

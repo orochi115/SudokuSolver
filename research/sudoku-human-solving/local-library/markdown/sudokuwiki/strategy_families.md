@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/strategy_families
 Markdown Content:
 # Strategy Families - SudokuWiki.org
 
-[![Image 1: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 1: SudokuWiki](../../assets/sudokuwiki-families/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 1.6k Shares 
 
-![Image 2: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 2: pinterest sharing button](../../assets/sudokuwiki-families/01-pinterest.svg)
 
-![Image 3: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 3: facebook sharing button](../../assets/sudokuwiki-families/02-facebook.svg)
 
-![Image 4: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 4: twitter sharing button](../../assets/sudokuwiki-families/03-twitter.svg)
 
-![Image 5: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 5: blogger sharing button](../../assets/sudokuwiki-families/04-blogger.svg)
 
-![Image 6: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 6: tumblr sharing button](../../assets/sudokuwiki-families/05-tumblr.svg)
 
-![Image 7: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 7: messenger sharing button](../../assets/sudokuwiki-families/06-messenger.svg)
 
-![Image 8: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 8: email sharing button](../../assets/sudokuwiki-families/07-email.svg)
 
 # Strategy Families
 
@@ -351,7 +351,7 @@ Please enter the
 
 letters you see:
 
-![Image 9: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 10: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 9: arrow](../../assets/sudokuwiki-families/03-GRNARR.GIF)![Image 10: Enter these letters](../../assets/sudokuwiki-families/04-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -672,4 +672,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 11: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 11: Buy Me a Coffee](../../assets/sudokuwiki-families/08-coffee-20cup.svg)

@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Forcing Nets - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-forcing-nets/13-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-forcing-nets/14-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-forcing-nets/15-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-forcing-nets/16-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +46,8 @@ var pgFileName = 'Forcing_Nets';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-forcing-nets/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-forcing-nets/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -255,12 +255,12 @@ var pgFileName = 'Forcing_Nets';
 
             <div class="contentshell">
 				<h1>Forcing Nets</h1><div class="SRCell">
-<figure style="width:260px"><img src="PuzImages/link4.png" alt="" /></figure>
+<figure style="width:260px"><img src="../../assets/sudokuwiki-forcing-nets/03-link4.png" alt="" /></figure>
 <div style="color:#6f6">20-March-2026. Forcing Nets released!</div><br>Forcing Nets extend <b>Forcing Chain</b> patterns like <a href="/Digit_Forcing_Chains">Digit Forcing Chains</a>. Forcing Chains are linear or made up of several linear chains. A 'net' suggests two dimensions rather than one. We start with an <span class="hg">ON</span> or <span class="hr">OFF</span> and follow the consequences. All candidates that can see the target candidate are flipped. An <span class="hg">ON</span> will effect all it can see. An <span class="hr">OFF</span> will propagate only if one other candidate is present in the row, column, box or cell (essence of a Stong Link).  In a 'net' two chain parts may converge on a cell and turn off two candidates leaving a third that must be <span class="hg">ON</span>. This third kicks off another chain fragment. If you go deep enough many if not most candidates will be assigned one state or another.<br><br>A successful Forcing Net finds one of these contradictions:<ol><li>All candidates in a cell turned <span class="hr">OFF</span></li><li>Two candidates in a cell turned <span class="hg">ON</span></li><li>All candidates in a unit turned <span class="hr">OFF</span></li><li>Two candidates in a unit turned <span class="hg">ON</span></li></ol>There is one more condition - not a contradiction - but a perfect cover of the board:<br><ol start="5"><li>All candidates are linked and one <span class="hg">ON</span> remains in each cell. This is <a href="Bowmans_bingo">Bowman's Bingo</a> and has it's own page and it is placed in the solver order as a 'last resort'.</li></ol>Given the contradiction cell(s) it is possible to back-track up the tree to the root node and claim it is <span class="hg">ON</span> (can be placed) or <span class="hr">OFF</span> (can be removed). The solver searches with an initial <span class="hr">OFF</span> and if none are found it tries <span class="hg">ON</span> . An <span class="hg">ON</span> candidate is attractive as the placement is more bottleneck breaking but there are many fewer. If I do both the search time gets too long. </div>
 
 <h2>Speed vs Utility</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ForcingNetEg7.png" alt="Unsolvable #689 showing a 3-chain FN" /><figcaption>Unsolvable #689 showing a 3-chain FN
+<figure style="width:450px"><img src="../../assets/sudokuwiki-forcing-nets/04-ForcingNetEg7.png" alt="Unsolvable #689 showing a 3-chain FN" /><figcaption>Unsolvable #689 showing a 3-chain FN
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B849k140h86042d13065m5y5q021y012i092m987s018y0792081a0wbf0662a28f5y7v028b03052k9m7x9e8r1n08bhb94c9625ci03078b1h0p093e0836051r0x5f045e038y02ab4z9f07485k01968y8s5a80">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000004006000201090001070800060000020350000008000000370009080500040302000700100000">From the Start</a>
 </figcaption></figure>
@@ -268,7 +268,7 @@ The algorithm is pretty fast if it is allowed to return the first Forcing Net it
 
 <h2>Interpreting the net start</h2>
 <div class="SRCell">
-<figure style="width:200px"><img src="PuzImages/fn_fragment.png" alt="" /></figure>
+<figure style="width:200px"><img src="../../assets/sudokuwiki-forcing-nets/05-fn_fragment.png" alt="" /></figure>
 The root candidate can be a bit confusing at times. To kick things off in this forcing net <span class="hy">G9</span> is <span class="hr">OFF</span>. But the results have two display conflicts:<ul><li>The 9 is correct for being OFF and the start of the chain. But also because of the contradiction it wants to be ON as that is result of the contradiction. Can’t do both</li><li>The four wants to be ON because -9[G9] and is drawn green. But as a result of the contradiction +9 is ON and that eliminates 4 in G9. So it draws yellow+red text</li></ul>I might try and get around this by adding a ring or larger circle that can indicate these states.<br></div>
 
 <h2>Testing and Implications</h2>
@@ -295,26 +295,26 @@ The root candidate can be a bit confusing at times. To kick things off in this f
 
 <h2>Manually looking for Forcing Nets</h2>
 <div class="SRCell">
-<figure style="width:470px"><img src="PuzImages/ChainsFeatureb.png" alt="" /></figure>
+<figure style="width:470px"><img src="../../assets/sudokuwiki-forcing-nets/06-ChainsFeatureb.png" alt="" /></figure>
 Take Step may find a Forcing Chain if the puzzle is hard but at any stage you can manually test and view Forcing Nets as have an implication simulator you can play with. Choose "Chains" above the main solver board. There is a slider allowing you to set the depth of the search. This will dynamically re-size the displayed Forcing Net.<br><br><br><br></div>
 
 <div class="SRCell">
-<figure style="width:400px"><img src="PuzImages/ForcingNetEg1.gif" alt="" /></figure>
+<figure style="width:400px"><img src="../../assets/sudokuwiki-forcing-nets/07-ForcingNetEg1.gif" alt="" /></figure>
 <br>Lets take a very trivial example to start with. <br><br>We know just from glancing at the board that 5 must go in <span class="hy">A6</span> as it is the last space for a 5. But we're going to ignore that and click on 5 in <span class="hy">F6</span> to turn it <span class="hg">ON</span>. <br><br>The slider level is depth 1 - the default. Immediately it turns off all the 5s it can see.<br><br>Moving the slider to depth 2 sets a bunch of candidates green as they are bi-value cells and must be the solutions if the other candidate is turned off.<br><br>Moving the slider to depth 3 turns <span class="hr">OFF</span> even more candidates because of the new green ones turned on.<br><br>And so on. The yellow cell indicates a contradiction telling us our original choice was wrong and we can eliminate that candidate. At the end it find that all 2s are removed from column 6, a compounded error.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ForcingNetEg02c.png" alt="" />: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0903080b04050f2b2j0h05067q0n7u2f0b020r067r070e7u0n0h0c020a0g060i0h040e8i1m7u020e080c2b2b0e070h0n040n0b090f0h0e7u7u010f070b030r0v0g7y0h02060e7u8i1q02057q0701087u">Load Example</a>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-forcing-nets/08-ForcingNetEg02c.png" alt="" />: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0903080b04050f2b2j0h05067q0n7u2f0b020r067r070e7u0n0h0c020a0g060i0h040e8i1m7u020e080c2b2b0e070h0n040n0b090f0h0e7u7u010f070b030r0v0g7y0h02060e7u8i1q02057q0701087u">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=093804500005600000206070000020060040000208000070040090000010703000002600002507180">From the Start</a>
 </figcaption></figure>
 <br>Here is a more complicated but real example. I targeted <span class="hy">B7</span> and got: "Forced Net: Two candidates in <span class="hy">H2</span> are <span class="hg">ON</span> so <span class="hy">B7</span> must be 9"<br><br>The candidate I clicked on was the 9 in B7 but I clicked twice to get the negative assertion -9[B7]. Unlike the positve +9[B7] this led to result by slider depth 6.<br><br>'But Andrew, this looks suspiciously like the first example in <a href="/3D_Medusa">3D Medusa</a>. What trick is this. Aren't you treading on old ground here?'<br><br>Well spotted and yes and no. Firstly I wanted an example that wasn't just a 'all candidates emptied a cell'. But also I wanted an intermediate example and yes 3D Medusa is a partial subset of Forcing Nets and we trace them in a similar way. But 3D Medusa is restricted to bi-value and bi-location links and we are going to go well beyond that. Interesting not every candidate in the example will find a contradiction and when it does it might be in a different part of the pattern. We are allowed to try out different 3D Medusa patterns in the same space with this feature. Try clicking on 1 in <span class="hy">C2</span>.<br><br><div id="resultdiv">Forced Net: Two candidates in <span class="hy">H2</span> are <span class="hg">ON</span> so <span class="hy">B7</span> must be 9</div><div id="resultdiv"><span class="hc">-9[<span class="hy">B7</span>]+9[<span class="hy">C7</span>]-4[<span class="hy">C7</span>]+4[<span class="hy">C2</span>]-1[<span class="hy">C2</span>]+1[<span class="hy">H2</span>]</span></div><div id="resultdiv"><span class="hc">-9[<span class="hy">B7</span>]+9[<span class="hy">B5</span>]-9[<span class="hy">J5</span>]+3[<span class="hy">J5</span>]-3[<span class="hy">J2</span>]+3[<span class="hy">H2</span>]</span></div><br>Some of the other rules of 3D Medusa do not pop out in the current version of Forcing Nets and I need to research further the exact overlap.<br><br></div>
 
 <h2>Grouped Cells</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ForcingNetEg3.gif" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-forcing-nets/09-ForcingNetEg3.gif" alt="" /></figure>
 Grouped cells also play a part in Forcing Nets just as they do in Forcing Chains. This illustration on a net fragment shows how the initial placement of 9 in <span class="hy">D2</span> removes the 9s from the rest of box 4.  The simulator detects there is only one 9 left in the row and adds it to the net to allow the net to continue growing. This example is in a relatively simple puzzle that doesn't need a Forcing Net but I teased it out as a clear example. Unlike the AICs draw on the board I don't add a box and just draw arrow from one of grouped cells to the next part of the link. <br><br>Unless the board has a very high density of candidates in most cases most nets will expand without using Grouped Cells. But I need to explain it here in case it looks like parts of a network appear disconnected.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><a href="Unsolvable 592"><img  src="PuzImages/ForcingNetEf4c.png" alt="" /></a></figure>
+<figure style="width:450px"><a href="Unsolvable 592"><img  src="../../assets/sudokuwiki-forcing-nets/10-ForcingNetEf4c.png" alt="" /></a></figure>
 <br>Can I use Forcing Nets to break open a weekly unsolvable? I clicked around on <a href="/sudoku.htm?bd=800000070040000005001000903002006000070050400300900080090070000600002010005300008">Unsolvable #592</a> and yes I found a bottleneck. Asserting 7 on <span class="hy">C1</span> caused <span class="hy">D2</span> to empty. So did 2 on the same cell so 5 was the solution. After still too many Bowmans and Pattern Overlays it solved :)<br><br>Feedback and comments appreciated.<br><br>Andrew Stuart</div>
 
 
@@ -353,9 +353,9 @@ Grouped cells also play a part in Forcing Nets just as they do in Forcing Chains
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-forcing-nets/11-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-forcing-nets/12-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

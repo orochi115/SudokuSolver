@@ -3,7 +3,7 @@ Title: Forcing Nets - SudokuWiki.org
 URL Source: https://www.sudokuwiki.org/Forcing_Nets
 
 Markdown Content:
-![Image 1](https://www.sudokuwiki.org/PuzImages/link4.png)
+![Image 1](../../assets/sudokuwiki-forcing-nets/03-link4.png)
 20-March-2026. Forcing Nets released!
 
 Forcing Nets extend **Forcing Chain** patterns like [Digit Forcing Chains](https://www.sudokuwiki.org/Digit_Forcing_Chains). Forcing Chains are linear or made up of several linear chains. A 'net' suggests two dimensions rather than one. We start with an ON or OFF and follow the consequences. All candidates that can see the target candidate are flipped. An ON will effect all it can see. An OFF will propagate only if one other candidate is present in the row, column, box or cell (essence of a Stong Link). In a 'net' two chain parts may converge on a cell and turn off two candidates leaving a third that must be ON. This third kicks off another chain fragment. If you go deep enough many if not most candidates will be assigned one state or another.
@@ -23,7 +23,7 @@ Given the contradiction cell(s) it is possible to back-track up the tree to the 
 
 ## Speed vs Utility
 
-![Image 2: Unsolvable #689 showing a 3-chain FN](https://www.sudokuwiki.org/PuzImages/ForcingNetEg7.png)
+![Image 2: Unsolvable #689 showing a 3-chain FN](../../assets/sudokuwiki-forcing-nets/04-ForcingNetEg7.png)
 
 Unsolvable #689 showing a 3-chain FN : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B849k140h86042d13065m5y5q021y012i092m987s018y0792081a0wbf0662a28f5y7v028b03052k9m7x9e8r1n08bhb94c9625ci03078b1h0p093e0836051r0x5f045e038y02ab4z9f07485k01968y8s5a80) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000004006000201090001070800060000020350000008000000370009080500040302000700100000)
 
@@ -43,7 +43,7 @@ Forcing Nets is available in all Sudoku, Jigsaw, Sudoku X and all Windoku solver
 
 ## Interpreting the net start
 
-![Image 3](https://www.sudokuwiki.org/PuzImages/fn_fragment.png)
+![Image 3](../../assets/sudokuwiki-forcing-nets/05-fn_fragment.png)
 The root candidate can be a bit confusing at times. To kick things off in this forcing net G9 is OFF. But the results have two display conflicts:
 
 *   The 9 is correct for being OFF and the start of the chain. But also because of the contradiction it wants to be ON as that is result of the contradiction. Can’t do both
@@ -113,10 +113,10 @@ Forcing Nets have busted open almost all of my existing 'unsolvables' so making 
 
 ## Manually looking for Forcing Nets
 
-![Image 4](https://www.sudokuwiki.org/PuzImages/ChainsFeatureb.png)
+![Image 4](../../assets/sudokuwiki-forcing-nets/06-ChainsFeatureb.png)
 Take Step may find a Forcing Chain if the puzzle is hard but at any stage you can manually test and view Forcing Nets as have an implication simulator you can play with. Choose "Chains" above the main solver board. There is a slider allowing you to set the depth of the search. This will dynamically re-size the displayed Forcing Net.
 
-![Image 5](https://www.sudokuwiki.org/PuzImages/ForcingNetEg1.gif)
+![Image 5](../../assets/sudokuwiki-forcing-nets/07-ForcingNetEg1.gif)
 Lets take a very trivial example to start with.
 
 We know just from glancing at the board that 5 must go in A6 as it is the last space for a 5. But we're going to ignore that and click on 5 in F6 to turn it ON.
@@ -129,7 +129,7 @@ Moving the slider to depth 3 turns OFF even more candidates because of the new g
 
 And so on. The yellow cell indicates a contradiction telling us our original choice was wrong and we can eliminate that candidate. At the end it find that all 2s are removed from column 6, a compounded error.
 
-![Image 6](https://www.sudokuwiki.org/PuzImages/ForcingNetEg02c.png): [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0903080b04050f2b2j0h05067q0n7u2f0b020r067r070e7u0n0h0c020a0g060i0h040e8i1m7u020e080c2b2b0e070h0n040n0b090f0h0e7u7u010f070b030r0v0g7y0h02060e7u8i1q02057q0701087u) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=093804500005600000206070000020060040000208000070040090000010703000002600002507180)
+![Image 6](../../assets/sudokuwiki-forcing-nets/08-ForcingNetEg02c.png): [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0903080b04050f2b2j0h05067q0n7u2f0b020r067r070e7u0n0h0c020a0g060i0h040e8i1m7u020e080c2b2b0e070h0n040n0b090f0h0e7u7u010f070b030r0v0g7y0h02060e7u8i1q02057q0701087u) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=093804500005600000206070000020060040000208000070040090000010703000002600002507180)
 Here is a more complicated but real example. I targeted B7 and got: "Forced Net: Two candidates in H2 are ON so B7 must be 9"
 
 The candidate I clicked on was the 9 in B7 but I clicked twice to get the negative assertion -9[B7]. Unlike the positve +9[B7] this led to result by slider depth 6.
@@ -148,12 +148,12 @@ Some of the other rules of 3D Medusa do not pop out in the current version of Fo
 
 ## Grouped Cells
 
-![Image 7](https://www.sudokuwiki.org/PuzImages/ForcingNetEg3.gif)
+![Image 7](../../assets/sudokuwiki-forcing-nets/09-ForcingNetEg3.gif)
 Grouped cells also play a part in Forcing Nets just as they do in Forcing Chains. This illustration on a net fragment shows how the initial placement of 9 in D2 removes the 9s from the rest of box 4. The simulator detects there is only one 9 left in the row and adds it to the net to allow the net to continue growing. This example is in a relatively simple puzzle that doesn't need a Forcing Net but I teased it out as a clear example. Unlike the AICs draw on the board I don't add a box and just draw arrow from one of grouped cells to the next part of the link.
 
 Unless the board has a very high density of candidates in most cases most nets will expand without using Grouped Cells. But I need to explain it here in case it looks like parts of a network appear disconnected.
 
-[![Image 8](https://www.sudokuwiki.org/PuzImages/ForcingNetEf4c.png)](https://www.sudokuwiki.org/Unsolvable%20592)
+[![Image 8](../../assets/sudokuwiki-forcing-nets/10-ForcingNetEf4c.png)](https://www.sudokuwiki.org/Unsolvable%20592)
 Can I use Forcing Nets to break open a weekly unsolvable? I clicked around on [Unsolvable #592](https://www.sudokuwiki.org/sudoku.htm?bd=800000070040000005001000903002006000070050400300900080090070000600002010005300008) and yes I found a bottleneck. Asserting 7 on C1 caused D2 to empty. So did 2 on the same cell so 5 was the solution. After still too many Bowmans and Pattern Overlays it solved :)
 
 Feedback and comments appreciated.

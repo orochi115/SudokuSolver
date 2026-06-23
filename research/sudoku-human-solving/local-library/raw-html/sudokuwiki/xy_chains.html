@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>XY-Chains - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-xy-chains/10-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-xy-chains/11-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-xy-chains/12-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-xy-chains/13-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'XY_Chains';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-xy-chains/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-xy-chains/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,7 +258,7 @@ var pgFileName = 'XY_Chains';
 				<h1>XY-Chains</h1><div class="SRCell">XY-Chains is a way to connect two parts of the board that can't directly "see" each other. The "X" and the "Y" in the name represent these two values in each chain link. If we can connect the ends we can make inferences and eliminate candidates.</div><br>
 
 <div class="SRCell">
-<figure style="width:440px"><img src="PuzImages/XYC1.png" alt="XY-Chain example 1" /><figcaption>XY-Chain example 1
+<figure style="width:440px"><img src="../../assets/sudokuwiki-xy-chains/03-XYC1.png" alt="XY-Chain example 1" /><figcaption>XY-Chain example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1g0818017o038207222e0i0s0e2c0f430r4e2e1u01049e0886021y05070h0b0d010f03090a0d0c060e090g0h0b09020f080c0g0d05014y030g091f05020r4a501u100c1f0d430i0g0d010i070h02120612">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=080103070000000000001408020570001039000609000920800051030905200000000000010702060">From the Start</a>
 </figcaption></figure>
@@ -271,7 +271,7 @@ Originally these were found by extending <a href="/Y_Wing_Strategy">Y-Wings</a> 
 
 <h2>Example 2</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XYC2b.png" alt="XY-Chain example 2" /><figcaption>XY-Chain example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xy-chains/04-XYC2b.png" alt="XY-Chain example 2" /><figcaption>XY-Chain example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f46040g4609020a0e0b07b646010e067q04057q0a1m1m0b0g7q0h0g010b050i0u0u080f4a06460102070u050i7u057q4a4e060a070b7n7u0e1q1q0v0h0b07030b060i070h0e040a434a07020e0r090f0c">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=004009200070010604500000000010500080060127050050006070000000007306070040007200900">From the Start</a>
 </figcaption></figure>
@@ -284,11 +284,11 @@ Originally these were found by extending <a href="/Y_Wing_Strategy">Y-Wings</a> 
 <div class="SRCell">September 2025. Here is a great observation I wished I'd picked up many years ago. Certainly dates from <a href="http://jcbonsai.free.fr/sudoku/JSudokuUserGuide/chainsTechniques.html" targe="_blank">at least 2008</a> but other references please let me know! I'm grateful to <b>Stefan</b> in the Netherlands for emphasising how relevant it is and why it was missing from the solver. This is a good boost for XY-Chains and in testing I've found around 8%-10% additional eliminations. Indeed the old example 2 has the property described and I've moved it to this section. XY-Chains of this type now have no start or end cells highlighted.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XYC_Rule2_Ani.gif" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xy-chains/05-XYC_Rule2_Ani.gif" alt="" /></figure>
 It all rests on whether the ends of the chain can see each other.<br><br>In this animation I've pulled out the essential parts of an XY-Chain from the following example. The chain starts on <span class="hy">B3</span> and ends on <span class="hy">B7</span>. The old strategy would have eliminated the 7 in <span class="hy">B5</span> and no more - since the rule is <i>"at least one end of the chain or the other must be the solution"</i>.<br><br>But if the two ends of the chains can see each other we get a continuous loop. The blue arrow bridges the gap since the 7s in <span class="hy">B3</span> and <span class="hy">B7</span> connect. We are going to see this a lot in <a href="/X_Cycles">X-Cycles</a> and later in <A href="/Weak_and_Strong_Links">Alternating Inference Chains</a>. The difference is that Strong Links are all on the bi-value cells. The arrows in the diagram illustrate the direction of inferences.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/XYC4.png" alt="Closed XYC example 1" /><figcaption>Closed XYC example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-xy-chains/06-XYC4.png" alt="Closed XYC example 1" /><figcaption>Closed XYC example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B022y0i1a3q3q08011i0f012i4e66092e050b082q030z3n02360d090z095w4o6g041j0o1i0d2g060p9l2f057s080z0o4406bs4m7n070d030f0r09170z020h070i0s0l074f470u060e0g08050w1s1i7y7q01">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=200000810010009050803002009090004000006000508000600070300900207000700060085000001">From the Start</a>
 </figcaption></figure>
@@ -351,9 +351,9 @@ They make good practice puzzles.
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-xy-chains/08-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-xy-chains/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

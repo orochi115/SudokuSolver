@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Almost Locked Sets - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-als/14-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-als/15-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-als/16-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-als/17-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Almost_Locked_Sets';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-als/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-als/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,7 +258,7 @@ var pgFileName = 'Almost_Locked_Sets';
 				<h1>Almost Locked Sets</h1><div class="SRCell">On the occasional Diabolical and most certainly on many Extreme Sudoku puzzles there will be many opportunities to whittle down the candidates by identifying and using <span class="hy">Almost Locked Sets</span>.  Lets think about the terms first. A <span class="hy">set</span> of candidates is <span class="hy">locked</span> if the number of candidates in a group of cells matches the number of cells they are in. For example, a Naked Pair of 3/7 on two cells is a <span class="hy">locked set</span>: two candidates in two cells. They are considered "locked" because we know all the candidates for the cells; we just don't know the solution order. <br><br><b>Any set of cells with exactly one extra candidate is "Almost Locked"</b>. The solver now uses curley {brackets} to denote them bringing them in line with AIC chain links.<br><br>Note: these examples require AICs and Forcing Chains to be unticked in the solver.<br><br>ALS is strongly related to <a href="/XYZ_Wing">XYZ-Wings</a> and <a href="/WXYZ_Wing">WXYZ-Wings</a> which are subsets of ALS.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS1.png" alt="Almost Locked Set example 1" /><figcaption>Almost Locked Set example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/03-ALS1.png" alt="Almost Locked Set example 1" /><figcaption>Almost Locked Set example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=910700003062003709735004086009372060023050070057048932270400300501237690390000027">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=910000003002003709000004086009300000020050070000008900270400000501200600300000027">From the Start</a>
 </figcaption></figure>
@@ -271,7 +271,7 @@ It's one away from being locked down.  All Naked Pairs, Triples, Quads etc are <
 <div class="SRCell">The N+1 definition also applies to single cells - they simply must have two candidates in them - the natural bi-value cell.  This next example uses a 3-cell ALS in combination with the 1-cell ALS.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS2.png" alt="Almost Locked Set example 2" /><figcaption>Almost Locked Set example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/04-ALS2.png" alt="Almost Locked Set example 2" /><figcaption>Almost Locked Set example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030680105601503000000001060004805630860000051057000980070408000000700008408050020">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030080105600003000000001060004000630860000051057000900070400000000700008408050020">From the Start</a>
 </figcaption></figure>
@@ -279,14 +279,14 @@ The yellow cell F1 is our first ALS.  The 1 and 3 in F1 can see F4 which is part
 
 <h2>More Complex Examples</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS3.png" alt="Almost Locked Set example 3" /><figcaption>Almost Locked Set example 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/05-ALS3.png" alt="Almost Locked Set example 3" /><figcaption>Almost Locked Set example 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600850580000010893100400000090003000000901300000040075003160648201390">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600050000000010803000400000090000000000901000000000075003160040201300">From the Start</a>
 </figcaption></figure>
 Both these next examples come from the same puzzle and almost follow on from each other. The definition of example 3 is <br><br><span class="hc">Rule 1: [J5] and {D5|D6|E4|E6|F6}, 5 is restricted common, other common candidate 7 can be removed from F5 </span><br><br>We have an enormous 5-cell ALS in brown with 5 as the <span class="hy">restricted common</span>. You can see that 5 occurs only in D5 and aligns with the yellow ALS J5.  Its pretty hard to pick out a 5-cell ALS but if you add the numbers available in the brown cells you can see there are 6 possibilities.  7 is shared by both ALSs and is not restricted so it can be removed.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS4.png" alt="Almost Locked Set example 4" /><figcaption>Almost Locked Set example 4
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/06-ALS4.png" alt="Almost Locked Set example 4" /><figcaption>Almost Locked Set example 4
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600850580000010893100400000090003000000901300000040075003160648201390">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600050000000000803000400000090000000000901000000000075003160040201300">From the Start</a>
 </figcaption></figure>
@@ -294,22 +294,22 @@ Still on number 7 the next step is another ALS combination, this time a 2-cell a
 
 <h2>Overlap with other strategies</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS_DLL2_wxyz.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/07-ALS_DLL2_wxyz.png" alt="" /></figure>
 There is overlap with other strategies as often noted in the comments on this and other pages. Here I have taken the <a href="sudoku.htm?bd=S9Baa0b050a089e3603049nb7d7039m0605cy02amb6e602a2a20acyaa9i04024y8m01aa0edu9v069f4q0bbu030rcy08837r079a8e0b0r8i1n071n091r0u080b0e0203c25m3u6i9m9e018bbnbf4a2j029m0603">first example</a> from <a href="https://hodoku.sourceforge.net/en/tech_als.php" target="_blank">HoDoKu</a> docs page "Singly Linked ALS-XZ". <br><br>The solver here first finds this as a WXYZ-Wing</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS_DLL2_aic.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/08-ALS_DLL2_aic.png" alt="" /></figure>
 <br>The eliminations can be expressed as an Alternating Inference Chain</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS_DLL2_als.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/09-ALS_DLL2_als.png" alt="" /></figure>
 <br>And then it gets to the Almost Locked Set.</div>
 
 <h2>ALS-XZ rule 2 — Double Linked Rule</h2>
 <div class="SRCell">Thanks to David Bird (in 2016) for the extension to the ALS-XZ rule that allows other candidates to be eliminated. And to STRMCKR for the example and <a href="http://forum.enjoysudoku.com/almost-locked-rules-for-now-t2510-15.html#p284617">forum post</a>.  There is earlier discussion (2009) on the <a href="http://forum.enjoysudoku.com/restricted-common-adjacency-rules-t6642.html">same forum here</a>. Sorry this has taken seven years to document!</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/ALS_DLL1b.png" alt="Double Linked Rule example" /><figcaption>Double Linked Rule example
+<figure style="width:450px"><img src="../../assets/sudokuwiki-als/10-ALS_DLL1b.png" alt="Double Linked Rule example" /><figcaption>Double Linked Rule example
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Ba49xa358d8bgay03aq069g9m059s8001089ea208031m017uay023m4d0l0r090507031m4z6n062r0r4e0v6a0902bz9za344541r6a2i6b2e2e0643b6b7020504820408071g1w8i0103838302031m22du36c2">Load Example</a>
 </figcaption></figure>
 <br>When there are two restricted common candidates it will be the case that each one of them will be false in one of the ALSs locking all their other member digits. In practise this means that any candidate in the ALS that is unique to that ALS (and not the other) is a solution somewhere in that ALS set - so other cells that can see all members of the ALS can have that candidate removed.<br><br>In STRMCKR's example 2 and 4 are the restricted common candidates. For ALS {D2|D3} candidate 1 is unique to {D2|D3} and 1 does not appear in {B2|B3|B9}. All thoses 1's in box 4 can be removed.<br><br>Likewise 7 and 9 are only found in row and are 'locked in' to <span class="hy">B239</span> so can be removed from the rest of the row. <i>(Turn off AIC and Forcing Chains)</i></div>
@@ -352,9 +352,9 @@ There is overlap with other strategies as often noted in the comments on this an
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-als/11-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-als/12-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
@@ -399,7 +399,7 @@ There is overlap with other strategies as often noted in the comments on this an
 </div><div id="blog-reply2838" class="w100pc"></div>
 <div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(84,16971,2838)">Add to this Thread</div></div>
 <div class="posting" id="frmcomment16756"><div class="w100pc"><div class="w60pc"><h2>... by: ALSFAIR INLOVEANDWAR</h2></div><div class="w40pc datepost">Friday 7-Jan-2022</div></div>
-<div class="w100pc">Hello Andrew<br><br>I have several examples of two overlapping ALS where one cell can be described as existing is both sets.  If one accepts that this is allowed then eliminations are possible according to the ALS xz rules.  The link to the diagram is below (sorry didn't know how to paste one in)<br>ï¿¼ï¿¼<br><br><a href="https://imgur.com/9qCE336"><img src="https://i.imgur.com/9qCE336.png" title="source: imgur.com" /></a><br><br>Set A {1,3,5,6} is the two green cells plus the yellow cell. n = 4 so n-1 = 3 cells<br>Set B {3,5} ids the yellow cell<br><br>The overlapping cell is the yellow one.<br><br>Restricted common x = 3 which will only end up in A or B<br>Common Candidate z = 5 which is eliminated and shown as the red cell. <br><br>Is this legal ? I have several other of these which worked perfectly for solutions to difficult puzzles. However....<br><br><br><br></div>
+<div class="w100pc">Hello Andrew<br><br>I have several examples of two overlapping ALS where one cell can be described as existing is both sets.  If one accepts that this is allowed then eliminations are possible according to the ALS xz rules.  The link to the diagram is below (sorry didn't know how to paste one in)<br>ï¿¼ï¿¼<br><br><a href="https://imgur.com/9qCE336"><img src="../../assets/sudokuwiki-als/13-9qCE336.png" title="source: imgur.com" /></a><br><br>Set A {1,3,5,6} is the two green cells plus the yellow cell. n = 4 so n-1 = 3 cells<br>Set B {3,5} ids the yellow cell<br><br>The overlapping cell is the yellow one.<br><br>Restricted common x = 3 which will only end up in A or B<br>Common Candidate z = 5 which is eliminated and shown as the red cell. <br><br>Is this legal ? I have several other of these which worked perfectly for solutions to difficult puzzles. However....<br><br><br><br></div>
 <div class="w100pc" id="blog-reply16756"></div>
 <div class="post-reply" id="reply2810"><table class="w100pc"><tr><td class="post-writes">Cerberus replies:</td><td class="datepost">Thursday 19-Oct-2023</td></tr>
 <tr><td colspan="2">I see no-one answer your post, ALSFAIR INLOVEANDWAR.<br>I understand it is not legal as the restricted common (3) shares the overlap.</td></tr>

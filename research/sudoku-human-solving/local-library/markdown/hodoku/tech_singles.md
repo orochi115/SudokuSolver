@@ -16,7 +16,7 @@ Markdown Content:
 
 Singles are the most basic techniques in solving sudokus and within the singles the **Full House** is the easiest as well.
 
-[![Image 1: Sudoku technique: Example for Full+House](https://hodoku.sourceforge.net/examples/fh01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fh01&tech=Full+House)[![Image 2: Sudoku technique: Example for Full+House](https://hodoku.sourceforge.net/examples/fh02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fh02&tech=Full+House)
+[![Image 1: Sudoku technique: Example for Full+House](../../assets/hodoku-singles/01-fh01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fh01&tech=Full+House)[![Image 2: Sudoku technique: Example for Full+House](../../assets/hodoku-singles/02-fh02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=fh02&tech=Full+House)
 
 A Full House is simply the last digit that can be placed in a house. If it is the last digit for the whole grid, it is sometimes called "Last Digit". In the example above on the left block 8 has only one unfilled cell left. The only missing digit is 6, r9c6 must therefore be a 6.
 
@@ -26,7 +26,7 @@ In the example on the right the Full House is in row 5: Only digit 1 is missing.
 
 ## [](https://hodoku.sourceforge.net/en/tech_singles.php)Hidden Single
 
-[![Image 3: Sudoku technique: Example for Hidden+Single](https://hodoku.sourceforge.net/examples/h101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h101&tech=Hidden+Single)[![Image 4: Sudoku technique: Example for Hidden+Single](https://hodoku.sourceforge.net/examples/h102.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h102&tech=Hidden+Single)
+[![Image 3: Sudoku technique: Example for Hidden+Single](../../assets/hodoku-singles/03-h101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h101&tech=Hidden+Single)[![Image 4: Sudoku technique: Example for Hidden+Single](../../assets/hodoku-singles/04-h102.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h102&tech=Hidden+Single)
 
 Hidden Single means that for a given digit and house only one cell is left to place that digit. The cell itself has more than one candidate left, the correct digit is thus _hidden_ amongst the rest.
 
@@ -38,7 +38,7 @@ In the right example one of several Hidden Singles can be found in r6c4: Digit 3
 
 ## [](https://hodoku.sourceforge.net/en/tech_singles.php)Naked Single
 
-[![Image 5: Sudoku technique: Example for Naked+Single](https://hodoku.sourceforge.net/examples/n101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=n101&tech=Naked+Single)[![Image 6: Sudoku technique: Example for Naked+Single](https://hodoku.sourceforge.net/examples/n102.png)](https://hodoku.sourceforge.net/en/show_example.php?file=n102&tech=Naked+Single)
+[![Image 5: Sudoku technique: Example for Naked+Single](../../assets/hodoku-singles/05-n101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=n101&tech=Naked+Single)[![Image 6: Sudoku technique: Example for Naked+Single](../../assets/hodoku-singles/06-n102.png)](https://hodoku.sourceforge.net/en/show_example.php?file=n102&tech=Naked+Single)
 
 Naked Single means that in a specific cell only one digit remains possible (the last remaining candidate has no other candidates to hide behind and is thus _naked_). The digit must then go into that cell.
 
@@ -54,7 +54,7 @@ Finding Full Houses is self explanatory. Hidden and Naked Singles are not so eas
 
 When playing by hand, Hidden Singles can be found by "cross hatching": Concentrate on one digit and one block. Draw lines through all rows and columns that already have an instance of that digit set (in your mind only please). If only one cell is left, that cell is a Hidden Single for that digit.
 
-[![Image 7: Sudoku technique: Example for Hidden+Single+%28cross+hatching%29](https://hodoku.sourceforge.net/examples/h103.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h103&tech=Hidden+Single+%28cross+hatching%29)[![Image 8: Sudoku technique: Example for Hidden+Single+%28filters%29](https://hodoku.sourceforge.net/examples/h104.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h104&tech=Hidden+Single+%28filters%29)
+[![Image 7: Sudoku technique: Example for Hidden+Single+%28cross+hatching%29](../../assets/hodoku-singles/07-h103.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h103&tech=Hidden+Single+%28cross+hatching%29)[![Image 8: Sudoku technique: Example for Hidden+Single+%28filters%29](../../assets/hodoku-singles/08-h104.png)](https://hodoku.sourceforge.net/en/show_example.php?file=h104&tech=Hidden+Single+%28filters%29)
 
 The image on the left shows that technique for digit 3 in block 5: All cells in that block are "blocked" by a placed digit 3, r6c4 is the last possible cell for digit 3 in block 5.
 

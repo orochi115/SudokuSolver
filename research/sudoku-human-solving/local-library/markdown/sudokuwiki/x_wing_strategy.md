@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/X_Wing_Strategy
 Markdown Content:
 # X-Wing Strategy - SudokuWiki.org
 
-[![Image 6: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 6: SudokuWiki](../../assets/sudokuwiki-xwing/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,25 +147,25 @@ Other
 
 1.7k Shares 
 
-![Image 7: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 7: pinterest sharing button](../../assets/sudokuwiki-xwing/01-pinterest.svg)
 
-![Image 8: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 8: facebook sharing button](../../assets/sudokuwiki-xwing/02-facebook.svg)
 
-![Image 9: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 9: twitter sharing button](../../assets/sudokuwiki-xwing/03-twitter.svg)
 
-![Image 10: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 10: blogger sharing button](../../assets/sudokuwiki-xwing/04-blogger.svg)
 
-![Image 11: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 11: tumblr sharing button](../../assets/sudokuwiki-xwing/05-tumblr.svg)
 
-![Image 12: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 12: messenger sharing button](../../assets/sudokuwiki-xwing/06-messenger.svg)
 
-![Image 13: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 13: email sharing button](../../assets/sudokuwiki-xwing/07-email.svg)
 
 # X-Wing Strategy
 
 This strategy is looking at single numbers in rows and columns. It should be easier to spot in a game as we can concentrate on just one number at a time. 
 
-![Image 14: X-Wing example 1](https://www.sudokuwiki.org/PuzImages/XWingAnni.gif)
+![Image 14: X-Wing example 1](../../assets/sudokuwiki-xwing/03-XWingAnni.gif)
 
 X-Wing example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B015y2e685w68050609040i022e0e0f0a2e085y050f0a5u090b042e2u2e0i06042c0810012q0f0dd0015w9i102e020a089e03050f9e0d5y042e05d0609i010f095y0e5y0f0a045y0206020166cy669id205) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=100000569402000008050009040000640801000010000208035000040500010900000402621000005)
 
@@ -187,13 +187,13 @@ then all other candidates for this value in the columns can be eliminated._
 
 The reverse is also true for 2 columns with 2 common rows. Since this strategy works in the other direction as well, we will look at an example next.
 
-![Image 15: X-Wing example 2](https://www.sudokuwiki.org/PuzImages/XWing2b.png)
+![Image 15: X-Wing example 2](../../assets/sudokuwiki-xwing/04-XWing2b.png)
 
 X-Wing example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4n144p5i6q7a360i0407064a0i014a0o050o1a091a263e023608011q078w580556bk01bc2714290758094w0o4816088c0s030a8c060g02045i014y5iba07c652016u54096u48040509127a5s707i0a0o54) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000000004760010050090002081070050010000709000080030060240100070010090045900000000)
 
 In this second example I've chosen a Sudoku puzzle where an enormous number of candidates can be removed using two X-Wings. The first is a '2-Wing'. The orange high lighted cells show the X-Wing formation. Note that the orientation is in the columns this time, as opposed to rows as above. Looking at columns we can see that candidate 2 only occurs twice - in the orange cells. Which ever way the 2s could be placed (E5/J8 or E8/J5) six other 2s in the rows can be removed - the yellow highlighted numbers.
 
-![Image 16: X-Wing example 3](https://www.sudokuwiki.org/PuzImages/XWing3b.png)
+![Image 16: X-Wing example 3](../../assets/sudokuwiki-xwing/05-XWing3b.png)
 
 X-Wing example 3 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4n0b4n5i6q7a360i0407064a0i014a0o050o1a091a263e023608011q077o580556bk01bc2712270758094u0o4616087o0s030a8c060g02045i014y5iba07c652016u54096u48040509127a5q707i0a0o52)
 
@@ -229,11 +229,11 @@ Now we have 6 combinations:
 
 Here is an example of combination 5. Starting from 2 rows and eliminating in 2 boxes, in this case the last two boxes in the Sudoku. The rows are 7 and 8 and they each have two **7**s. Our x-Wing is now a trapezoid but the logic is the same. We can be certain that 7 can be eliminated in the red circled cells.
 
-![Image 17: X-Wing Example](https://www.sudokuwiki.org/PuzImages/xwingG1.png)
+![Image 17: X-Wing Example](../../assets/sudokuwiki-xwing/06-xwingG1.png)
 
 But HOLD UP one moment. There is a simpler strategy that does the same job!
 
-![Image 18: X-Wing Example](https://www.sudokuwiki.org/PuzImages/xwingG2.png)
+![Image 18: X-Wing Example](../../assets/sudokuwiki-xwing/07-xwingG2.png)
 
 A and B above are a pointing pair. This removes the same 7s in the same place. Combination 6 is also the complement of a pointing pair. Combinations 3 and 4 are also complements of the Line/Box Reduction. Our generalisation of X-Wing to boxes hasn't profited us at all. We learn that
 
@@ -277,7 +277,7 @@ Please enter the
 
 letters you see:
 
-![Image 19: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 20: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 19: arrow](../../assets/sudokuwiki-xwing/08-GRNARR.GIF)![Image 20: Enter these letters](../../assets/sudokuwiki-xwing/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -851,4 +851,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 21: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 21: Buy Me a Coffee](../../assets/sudokuwiki-xwing/08-coffee-20cup.svg)

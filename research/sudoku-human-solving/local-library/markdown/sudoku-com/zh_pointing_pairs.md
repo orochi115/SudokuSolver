@@ -74,7 +74,7 @@ Markdown Content:
 
 我们来看看左上角的这个宫。所有可能包含数字 4 的单元格都在一列中。由于数字 4 应该出现在这个宫中至少一次，那么这里其中一个突出显示的单元格必然包含 4。
 
-![Image 3](https://sudoku.com/img/post-images/1646982891-11.%20Pointing%20pairs_1.png)![Image 4](https://sudoku.com/img/post-images/1646982899-11.%20Pointing%20pairs_2.png)
+![Image 3](../../assets/sudokucom-zh-pointing-pairs/01-1646982891-11.-20Pointing-20pairs_1.png)![Image 4](../../assets/sudokucom-zh-pointing-pairs/02-1646982899-11.-20Pointing-20pairs_2.png)
 
 由此，我们可以安全排除这一列的所有单元格包含 4 的可能。
 
@@ -88,7 +88,7 @@ Markdown Content:
 
 [宫区块三数组](https://sudoku.com/zh/shu-du-gui-ze/gong-qu-kuai-san-shu-zu/)
 
-![Image 5: sudoku app icon](https://sudoku.com/img/icon-app.png)
+![Image 5: sudoku app icon](../../assets/sudokucom-zh-pointing-pairs/03-icon-app.png)
 
 Sudoku.com - 数字游戏
 

@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Simple Colouring - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-simple-colouring/10-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-simple-colouring/11-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-simple-colouring/12-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-simple-colouring/13-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Simple_Colouring';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-simple-colouring/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-simple-colouring/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,12 +258,12 @@ var pgFileName = 'Simple_Colouring';
 				<h1>Simple Colouring</h1><div class="SRCell">Simple Colouring, also known as <b>Single's Chains</b> is a chaining strategy and part of a large family of such strategies. 'Simple' refers to the idea that one candidate number is considered - in contrast to 'multi-colouring' which is the basis of <a href="/3D_Medusa">3D Medusa</a>.  Simple Colouring also related to <a href="/X_Cycles">X-Cycles</a>.<br><br>A 'chain' is a series of links hopping from one candidate to another following very simple rules.  A candidate can either be <font color=#00FF00>ON</font> or <font color=red>OFF</font>. That is, we either think it is a possible solution to that cell, or we do not. There are consequences to the rest of the board when we 'link' these two states. When we are starting out we don't know which will be ON or OFF so any two colours will do. </div><br>
 
 <div class="SRCell">
-<figure style="width:260px"><img src="PuzImages/ui_chains.png" alt="How to show Chains" /><figcaption>How to show Chains
+<figure style="width:260px"><img src="../../assets/sudokuwiki-simple-colouring/03-ui_chains.png" alt="How to show Chains" /><figcaption>How to show Chains
 </figcaption></figure>
 On this board I have clicked on 5 in <span class="hy">C8</span> to highlight all the 5s in the puzzle. You can also use the little tool under the list of strategies to focus on a specific number and view all the chains. Tick the "rows", "columns" and "boxes" and un-tick the other numbers. This gives us all the possible chains where there are only two remaining 5s left in any row, column or box. </div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SC_EG1.png" alt="All links on candidate 5" /><figcaption>All links on candidate 5
+<figure style="width:450px"><img src="../../assets/sudokuwiki-simple-colouring/04-SC_EG1.png" alt="All links on candidate 5" /><figcaption>All links on candidate 5
 </figcaption></figure>
 The technical term for these are 'bi-location' links. Where there are three or more 5s - for example in box 1 and box 6, no links are possible within those boxes. But there are plenty about.<br><br>Now, the Colouring aspect which sometimes gives this strategy its name, is illustrated in the rules below. Each end of each link can be assigned one of two colours. You can start in any position, taking any 5 on the board and give it one colour. Then follow each chain link <span class="hy">alternating the colour</span>. The strategy is all about recognising that one of those colours will be the solution and the other not. The rules that follow identify the contradictions that allow us to eliminate candidates or decide which colour (which end of every link) is the solution.</div>
 
@@ -271,7 +271,7 @@ The technical term for these are 'bi-location' links. Where there are three or m
 
 <h2>Rule 2 - Twice in a Unit</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SC_Rule2d.png" alt="Simple Colouring Rule 2" /><figcaption>Simple Colouring Rule 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-simple-colouring/05-SC_Rule2d.png" alt="Simple Colouring Rule 2" /><figcaption>Simple Colouring Rule 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0i0f0e0d0b5v035v2j0r020h090c050f2b0e080c070a060b0i04090g430b05040c43064a030e0a0f0i4a070b060b0r03080g0r0e090316be060g01b6024i430z070i024i060d0c0b06b60d0c4icz436b">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000030002090500080706004900054006030000070600380009300601020007020600060000000">From the Start</a>
 </figcaption></figure>
@@ -279,14 +279,14 @@ The technical term for these are 'bi-location' links. Where there are three or m
 
 <h2>Rule 4 - Two colours 'elsewhere'</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SC_Rule4c.png" alt="Single Chains Rule 4" /><figcaption>Single Chains Rule 4
+<figure style="width:450px"><img src="../../assets/sudokuwiki-simple-colouring/06-SC_Rule4c.png" alt="Single Chains Rule 4" /><figcaption>Single Chains Rule 4
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d0e074zc27n021f0c0b0h0c1f05041f0g090i06010b0c0g0d0e08030l1g07040h091f051f0g0i0e0b0c0h0d1f050d080i01060g0c02070c1o4z4y0l05091m080i1m03070e1f0b1n1f0l050d8i7o030h0g">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=007000200000054009061000008300740905000000000508016002700000590800370000005000300">From the Start</a>
 </figcaption></figure>
 If we can eliminate "off chain" in a cell we can certainly do so off-chain. This is a great example puzzle for Rule 4 - there are two in succession and I'm showing the first here. Consider the row J elimination in <span class="hy">J3</span>. Either <span class="hy">H2</span> is 7 or - follow the chain - <span class="hy">J8</span> is 7.  One or the other. Since the 7 at <span class="hy">J3</span> can see both ends of the chain it can be removed. You've heard that story before in earlier strategies. With Simple Colouring the 7 in <span class="hy">J3</span> can 'see' two different colours elsewhere. Same rule applies to <span class="hy">H5</span>.<br><br>If you have looked at <a href="/X_Cycles">X-Cycles</a> you'll spot how these two strategies overlap - if your colouring happens to form a loop, as it does here.  Also, if you've read as far as AICs you may recognize the pattern of 3s as a classic double alternating Nice Loop with a discontinuity in <span class="hy">B5</span>. But that's another story.<br><br>Michael Wallis is an early pioneer of Simple Colouring and this rule family. <br>This rule is shared with <a href="/3D_Medusa">3D Medusa</a>.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SC_Rule4d.png" alt="Single Chains Rule 4" /><figcaption>Single Chains Rule 4
+<figure style="width:450px"><img src="../../assets/sudokuwiki-simple-colouring/07-SC_Rule4d.png" alt="Single Chains Rule 4" /><figcaption>Single Chains Rule 4
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B360a0d0c5w2c0i054y3a052g045u09440n4z0o0i080e060a040o0g08062e0i012e050d0b0e0o010h040o070f0i0d2c092c050f0a08030a0h062c090d032c0e2g2e0e010o080f090d0i040o0f2e0e442b43">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000050050409000008060400860010500001040700009050083006090300000108090040000000">From the Start</a>
 </figcaption></figure>
@@ -347,9 +347,9 @@ COPYTHIS
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-simple-colouring/08-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-simple-colouring/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

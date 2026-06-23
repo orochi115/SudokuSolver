@@ -67,7 +67,7 @@ The above is enough to understand basic chains, and it is probably best to start
 
 Group Links form inferences between more than two candidates. Normally we use only two candidates to form a link: If they are the only instances within their house, they are strongly linked, if there are other instances left, they are weakly linked. If we consider intersections between houses as well, we can build a slightly more advanced type of link. Consider the example below (taken from [Locked Candidates](https://hodoku.sourceforge.net/en/tech_intersections.php)):
 
-[![Image 1: Sudoku technique: Example for Group+nodes](https://hodoku.sourceforge.net/examples/lc101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=lc101&tech=Group+nodes)
+[![Image 1: Sudoku technique: Example for Group+nodes](../../assets/hodoku-chains/01-lc101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=lc101&tech=Group+nodes)
 
 Look at candidates 5 in row 3 (ignore the colors for now, they are from the Locked Candidates move). We have three instances of candidate 5 in that row (columns 1, 2, and 7). Any two of those candidates are weakly linked, a strong link cannot be built in row 3 (too many candidates). A strong link does exist in block 1 between r3c1 and r3c2 (only two instances of candidate 5 in block 1), but not between one of r3c12 and r3c7. That changes, if we consider r3c12 as one node, a _Group Node_. We can then make the following conclusions:
 
@@ -81,7 +81,7 @@ As with any strong link they can form a weak link too:
 
 Links can exist between group nodes too as can be seen in the example below:
 
-[![Image 2: Sudoku technique: Example for Group+nodes](https://hodoku.sourceforge.net/examples/gn101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gn101&tech=Group+nodes)
+[![Image 2: Sudoku technique: Example for Group+nodes](../../assets/hodoku-chains/02-gn101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gn101&tech=Group+nodes)
 
 Let's look at candidate 2 in row 9, column 4, and block 8 (to make following the explanation easier, the cells have been colored): We have a grouped strong link in row 9 between r9c9 and r9c56 and another in column 4 between r6c4 and r78c4. Both links work as described above.
 
@@ -155,7 +155,7 @@ Remote Pair is the simplest chaining technique. It considers only bivalue cells 
 
 Remote Pairs can be replicated by one or two Simple Color moves.
 
-[![Image 3: Sudoku technique: Example for Remote+Pair](https://hodoku.sourceforge.net/examples/rp01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=rp01&tech=Remote+Pair)[![Image 4: Sudoku technique: Example for Remote+Pair](https://hodoku.sourceforge.net/examples/rp02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=rp02&tech=Remote+Pair)
+[![Image 3: Sudoku technique: Example for Remote+Pair](../../assets/hodoku-chains/03-rp01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=rp01&tech=Remote+Pair)[![Image 4: Sudoku technique: Example for Remote+Pair](../../assets/hodoku-chains/04-rp02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=rp02&tech=Remote+Pair)
 
 Example on the left: If r2c7 is 5, r3c1 must be 5 as well and r2c2 and r6c1 must be 4 or vice versa. In other words: If r2c7 is 5, r6c1 is 4; if r2c7 is 4, r6c1 is 5 (the cells r2c7 and r6c1 have opposite polarity). Any cell that sees those two cells (in the example r6c7) can be neither 4 nor 5.
 
@@ -169,7 +169,7 @@ X-Chains are chains that use one digit only. X-Chains of length 4 are sometimes 
 
 The important thing with X-Chains is, that they have to start and end with a strong link. This ensures that one of the endpoints actually contains the chain digit. That digit can be removed from any cell that sees both ends of the chain.
 
-[![Image 5: Sudoku technique: Example for X-Chain](https://hodoku.sourceforge.net/examples/x01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=x01&tech=X-Chain)[![Image 6: Sudoku technique: Example for X-Chain](https://hodoku.sourceforge.net/examples/x02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=x02&tech=X-Chain)
+[![Image 5: Sudoku technique: Example for X-Chain](../../assets/hodoku-chains/05-x01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=x01&tech=X-Chain)[![Image 6: Sudoku technique: Example for X-Chain](../../assets/hodoku-chains/06-x02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=x02&tech=X-Chain)
 
 On the left: If r1c2 is not 7, r1c9 has to be 7, r2c8 cannot be 7, r7c8 has to be 7, r7c3 cannot be 7 and r4c3 has to be 7. If on the other hand r4c3 is not 7, then r7c3 has to be 7, r7c8 cannot be 7, r2c8 has to be 7, r1c9 cannot be 7, and r1c2 has to be 7. Conclusion: One of r1c2 and r4c3 must be 7. r4c2 sees both cells and can't be 7 as well.
 
@@ -183,7 +183,7 @@ An XY-Chain is a chain that uses only bivalue cells (similar to Remote Pairs), b
 
 As with Remote Pairs all strong links are within the cells, all weak links are between the cells.
 
-[![Image 7: Sudoku technique: Example for XY-Chain](https://hodoku.sourceforge.net/examples/xyc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyc01&tech=XY-Chain)[![Image 8: Sudoku technique: Example for XY-Chain](https://hodoku.sourceforge.net/examples/xyc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyc02&tech=XY-Chain)
+[![Image 7: Sudoku technique: Example for XY-Chain](../../assets/hodoku-chains/07-xyc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyc01&tech=XY-Chain)[![Image 8: Sudoku technique: Example for XY-Chain](../../assets/hodoku-chains/08-xyc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyc02&tech=XY-Chain)
 
 Example on the left: 3- r7c4 -9- r5c4 -8- r5c6 -2- r2c6 -3 (read: if r7c4 is not 3 it has to be 9; r5c4 cannot be 9 and has to be 8; r5c6 cannot be 8 and has to be 2; r2c6 cannot be 2 and has to be 3; try the other way round yourself). If you look at column 6 you can see, that it has only two instances of candidate 2 left. r5c6 and r2c6 are therefore strongly linked by candidate 2. For the XY-Chain we don't need that strong link, we need a weak one here. We can take the strong link and use it as weak link as stated [above](https://hodoku.sourceforge.net/en/tech_chains.php#strong_link).
 
@@ -211,7 +211,7 @@ The link back to the original cell decides the type of the loop: Discontinuous o
 
 If the loop closes with a contradiction, it is discontinuous. The effects can best be seen using the examples below.
 
-[![Image 9: Sudoku technique: Example for Discontinuous+Nice+Loop+%28delete+candidate%29](https://hodoku.sourceforge.net/examples/dnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=dnl01&tech=Discontinuous+Nice+Loop+%28delete+candidate%29)[![Image 10: Sudoku technique: Example for Discontinuous+Nice+Loop+%28set+cell%29](https://hodoku.sourceforge.net/examples/dnl02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=dnl02&tech=Discontinuous+Nice+Loop+%28set+cell%29)
+[![Image 9: Sudoku technique: Example for Discontinuous+Nice+Loop+%28delete+candidate%29](../../assets/hodoku-chains/09-dnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=dnl01&tech=Discontinuous+Nice+Loop+%28delete+candidate%29)[![Image 10: Sudoku technique: Example for Discontinuous+Nice+Loop+%28set+cell%29](../../assets/hodoku-chains/10-dnl02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=dnl02&tech=Discontinuous+Nice+Loop+%28set+cell%29)
 
 Example on the left: r1c8 -7- r7c8 -8- r7c9 -4- r4c9 -5- r4c8 =5= r1c8. The loop starts with a weak link on 7 (the initial premise is "if r1c8 is 7"), but the start cell is reached again via a strong link on 5. That means: "if r1c8 is 7 it is 5", or (since 5 and 7 share a cell and are therefore weakly linked) "if r1c8 is 7 it is not 7" - a clear contradiction, that proves that the premise was false. 7 can be eliminated from r1c8.
 
@@ -223,7 +223,7 @@ Any AIC can be seen as a combination of one or more Discontinuous Nice Loops (Ho
 
 An AIC Type 1 starts and ends on a strong link for the same digit, thus proving that that digit has to be placed in one of the end cells of the AIC. This eliminates that digit from all cells that can see both ends of the AIC.
 
-[![Image 11: Sudoku technique: Example for Alternate+Inference+Chain+Type+1](https://hodoku.sourceforge.net/examples/aic101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic101&tech=Alternate+Inference+Chain+Type+1)[![Image 12: Sudoku technique: Example for Alternate+Inference+Chain+Type+1+%28cannibalistic%29](https://hodoku.sourceforge.net/examples/aic102.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic102&tech=Alternate+Inference+Chain+Type+1+%28cannibalistic%29)
+[![Image 11: Sudoku technique: Example for Alternate+Inference+Chain+Type+1](../../assets/hodoku-chains/11-aic101.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic101&tech=Alternate+Inference+Chain+Type+1)[![Image 12: Sudoku technique: Example for Alternate+Inference+Chain+Type+1+%28cannibalistic%29](../../assets/hodoku-chains/12-aic102.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic102&tech=Alternate+Inference+Chain+Type+1+%28cannibalistic%29)
 
 On the left: 5- r1c2 -3- r1c4 =3= r3c4 =9= r7c4 =2= r7c2 -2- r8c3 -5. Either r1c2 or r8c3 is 5, so none of r123c3,r78c2 can be 5.
 
@@ -233,7 +233,7 @@ On the right: 6- r2c5 -7- r2c1 =7= r6c1 =6= r6c7 -6- r2c7 =6= r3c8 -6. What's sp
 
 An AIC Type 2 starts and ends on a strong link for two different digits in two cells, that see each other. This proves that the end digit can't be in the start cell and the start digit cannot be in the end cell.
 
-[![Image 13: Sudoku technique: Example for Alternate+Inference+Chain+Type+2](https://hodoku.sourceforge.net/examples/aic201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic201&tech=Alternate+Inference+Chain+Type+2)[![Image 14: Sudoku technique: Example for Alternate+Inference+Chain+Type+2](https://hodoku.sourceforge.net/examples/aic202.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic202&tech=Alternate+Inference+Chain+Type+2)
+[![Image 13: Sudoku technique: Example for Alternate+Inference+Chain+Type+2](../../assets/hodoku-chains/13-aic201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic201&tech=Alternate+Inference+Chain+Type+2)[![Image 14: Sudoku technique: Example for Alternate+Inference+Chain+Type+2](../../assets/hodoku-chains/14-aic202.png)](https://hodoku.sourceforge.net/en/show_example.php?file=aic202&tech=Alternate+Inference+Chain+Type+2)
 
 On the left: 4- r6c2 =4= r9c2 -4- r9c5 -9- r5c5 =9= r5c4 =8= r6c4 -8. We start with 4 in r6c2 and end with 8 in r6c4. 4 cannot be in r6c4 and 8 cannot be in r6c2. Prove for candidate 4: If r6c2<>4 then r6c4=8, which means r6c4 cannot be 4. But if r6c2=4, r6c4 cannot be 4 either, because the cells see each other. We have a verity that proves, that r6c4 cannot be 4.
 
@@ -245,7 +245,7 @@ Continuous Nice Loops and AIC Loops are exactly the same thing. They occur not a
 
 What makes Continuous Nice Loops so effective is that all weak links in the loop are converted into strong links. That means that all additional candidates in the houses or cells providing the weak links can be eliminated.
 
-[![Image 15: Sudoku technique: Example for Continuous+Nice+Loop%2FAIC+Loop](https://hodoku.sourceforge.net/examples/cnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=cnl01&tech=Continuous+Nice+Loop%2FAIC+Loop)[![Image 16: Sudoku technique: Example for Continuous+Nice+Loop%2FAIC+Loop](https://hodoku.sourceforge.net/examples/cnl02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=cnl02&tech=Continuous+Nice+Loop%2FAIC+Loop)
+[![Image 15: Sudoku technique: Example for Continuous+Nice+Loop%2FAIC+Loop](../../assets/hodoku-chains/15-cnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=cnl01&tech=Continuous+Nice+Loop%2FAIC+Loop)[![Image 16: Sudoku technique: Example for Continuous+Nice+Loop%2FAIC+Loop](../../assets/hodoku-chains/16-cnl02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=cnl02&tech=Continuous+Nice+Loop%2FAIC+Loop)
 
 Example on the left: 5= r7c6 =2= r6c6 -2- r4c5 -3- r8c5 =3= r8c6 =5= r7c6 =2. Cell r7c6 is left on a strong link on 2 and reached again on a strong link on 5 (first propagation rule). A weak link exists between candidates 2 and 5 in cell r7c6, all rules for building AICs are complied with. The eliminations: The first weak link is within the start cell between candidates 2 and 5, all other candidates in that cell can be eliminated (6 and 8). The next weak link is in block 5 between 2 in r6c6 and 2 in r4c5, all other candidates 2 in block 5 can be eliminated. Next weak link on candidate 3 in column 5 (eliminates 3 from r26c5), and last but not least weak link between 3 and 5 in r8c6 (eliminates 8 in that cell).
 
@@ -259,13 +259,13 @@ Example on the right: 9= r7c5 =1= r7c9 =7= r3c9 -7- r3c3 =7= r1c3 =5= r1c6 -5- r
 
 The only difference between (normal) Nice Loops/AICs and Grouped Nice Loops/Grouped AICs is, that the latter use [group links](https://hodoku.sourceforge.net/en/tech_chains.php#in3).
 
-[![Image 17: Sudoku technique: Example for Grouped+Discontinuous+Nice+Loop+%28set+cell%29](https://hodoku.sourceforge.net/examples/gdnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gdnl01&tech=Grouped+Discontinuous+Nice+Loop+%28set+cell%29)[![Image 18: Sudoku technique: Example for Grouped+Continuous+Nice+Loop%2FAIC+Loop](https://hodoku.sourceforge.net/examples/gcnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gcnl01&tech=Grouped+Continuous+Nice+Loop%2FAIC+Loop)
+[![Image 17: Sudoku technique: Example for Grouped+Discontinuous+Nice+Loop+%28set+cell%29](../../assets/hodoku-chains/17-gdnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gdnl01&tech=Grouped+Discontinuous+Nice+Loop+%28set+cell%29)[![Image 18: Sudoku technique: Example for Grouped+Continuous+Nice+Loop%2FAIC+Loop](../../assets/hodoku-chains/18-gcnl01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gcnl01&tech=Grouped+Continuous+Nice+Loop%2FAIC+Loop)
 
 On the left: Grouped Discontinuous Nice Loop r7c1 =2= r2c1 -2- r2c5 =2= r1c5 =8= r13c4 -8- r5c4 -3- r5c3 -2- r79c3 =2= r7c1. The two group links are for candidate 8 in cells r13c4 and for candidate 2 in r79c3. The logic for the first group link goes as follows: If r1c5 is not 8 then either r1c4 or r3c4 has to be 8; that means that r5c3 cannot be 8. For the second group link: If r5c3 is 2, then neither r7c3 nor r9c3 can be 2; that means that r7c1 has to be 2.
 
 On the right: Grouped Continuous Nice Loop 2= r6c4 =1= r6c3 -1- r9c3 =1= r9c9 =2= r9c56 -2- r78c4 =2= r6c4 =1. The group links are both on candidate 2: Intersection of row 9 with block 8 (r9c56) and intersection of column 4 with block 8 (r78c4). The logic: If r9c9 is not 2, then either r9c5 or r9c6 has to be two; that means that neither r8c4 nor r7c4 can be 2 and it follows that r6c4 has to be 2. The weak link between the group nodes r9c56 and r78c4 occurs in block 8 and eliminates all other candidates 2 from that block.
 
-[![Image 19: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+1](https://hodoku.sourceforge.net/examples/gaic01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic01&tech=Grouped+Alternate+Inference+Chain+Type+1)[![Image 20: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+2](https://hodoku.sourceforge.net/examples/gaic02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic02&tech=Grouped+Alternate+Inference+Chain+Type+2)
+[![Image 19: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+1](../../assets/hodoku-chains/19-gaic01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic01&tech=Grouped+Alternate+Inference+Chain+Type+1)[![Image 20: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+2](../../assets/hodoku-chains/20-gaic02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic02&tech=Grouped+Alternate+Inference+Chain+Type+2)
 
 On the left: Grouped AIC 5- r7c2 -6- r6c2 -3- r6c4 -7- r45c5 =7= r3c5 =6= r3c6 -6- r9c6 -5 (group link on 7 in r45c5 - same logic as above).
 
@@ -277,7 +277,7 @@ If we allow ALS as nodes in chains and loops, things get really interesting (and
 
 ALS nodes in Grouped Continuous Nice Loops are especially interesting: If we take all ALS candidates, subtract the candidates used to enter and to leave the ALS (they are normal weak links that become strong links as usual in continuous loops), the remaining candidates become locked within the ALS cells and can provide eliminations in all cells, that see all instances of one of the locked candidates within the ALS. Please note that this possible only in continuous loops.
 
-[![Image 21: Sudoku technique: Example for Grouped+Discontinuous+Nice+Loop+with+ALS+node](https://hodoku.sourceforge.net/examples/gdnlals01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gdnlals01&tech=Grouped+Discontinuous+Nice+Loop+with+ALS+node)[![Image 22: Sudoku technique: Example for Grouped+Continuous+Nice+Loop%2FAIC+Loop+with+ALS+node](https://hodoku.sourceforge.net/examples/gcnlals01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gcnlals01&tech=Grouped+Continuous+Nice+Loop%2FAIC+Loop+with+ALS+node)
+[![Image 21: Sudoku technique: Example for Grouped+Discontinuous+Nice+Loop+with+ALS+node](../../assets/hodoku-chains/21-gdnlals01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gdnlals01&tech=Grouped+Discontinuous+Nice+Loop+with+ALS+node)[![Image 22: Sudoku technique: Example for Grouped+Continuous+Nice+Loop%2FAIC+Loop+with+ALS+node](../../assets/hodoku-chains/22-gcnlals01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gcnlals01&tech=Grouped+Continuous+Nice+Loop%2FAIC+Loop+with+ALS+node)
 
 On the left: Grouped Discontinuous Nice Loop r8c2 -5- r7c12 =5= r7c5 =2= r8c5 -2- ALS:r8c34 -5- r8c2. We start simple: If 5 is set in r8c2 (premise), neither r7c1 nor r7c2 can be 5, r7c5 has to be 5 and can't be 2, r8c5 has to be 2 and r8c3 cannot be 2. But r8c3 was the only candidate 2 in the ALS r8c34 {256}. That reduces the ALS to a locked set on candidates {56} in r8c34. Possible eliminations by that Locked Set (and thus possible weak links for our chain) are 5 in r8c2 and r8c5 and 6 in r8c6. We are only interested in r8c2, since this is our start cell. The weak link contradicts the premise, 5 can be eliminated from r8c2.
 
@@ -285,7 +285,7 @@ On the right: The sudoku is the same as for our Grouped Continuous Nice Loop exa
 
 The loop: Grouped Continuous Nice Loop 2= r9c9 =3= r9c6 -3- ALS:r6c56 -2- r6c4 =2= r78c4 -2- r9c56 =2= r9c9 =3. The weak link within cell r9c9 eliminates candidate 1, the weak link into the ALS (candidate 3) eliminates all other 3s from column 6. The ALS is left using candidate 2, which would eliminate other 2s from row 6 if there were any. But the ALS has still one candidate left: candidate 8. It gets locked within the ALS cells r6c56 and eliminates 8 from all cells that see both those cells (8 eliminations total). The eliminations for candidate 2 each see one ALS cell as well, but they are cannot be eliminated by the ALS: Firstly each cell would have to see all instances of canddiate 2 within the ALS and secondly 2 is not locked within the ALS, it is the exit candidate. The 2s are eliminated by the weak link between group node r78c4 and group node r9c56 (both in block 8).
 
-[![Image 23: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node](https://hodoku.sourceforge.net/examples/gaic1als02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic1als02&tech=Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node)[![Image 24: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node](https://hodoku.sourceforge.net/examples/gaic1als01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic1als01&tech=Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node)
+[![Image 23: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node](../../assets/hodoku-chains/23-gaic1als02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic1als02&tech=Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node)[![Image 24: Sudoku technique: Example for Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node](../../assets/hodoku-chains/24-gaic1als01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=gaic1als01&tech=Grouped+Alternate+Inference+Chain+Type+1+with+ALS+node)
 
 Finally two examples of AICs with ALS nodes:
 

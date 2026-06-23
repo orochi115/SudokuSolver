@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Unique Rectangles - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-unique-rectangles/23-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-unique-rectangles/24-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-unique-rectangles/25-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-unique-rectangles/26-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Unique_Rectangles';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-unique-rectangles/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-unique-rectangles/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -255,17 +255,17 @@ var pgFileName = 'Unique_Rectangles';
 			
 
             <div class="contentshell">
-				<h1>Unique Rectangles</h1><div class="SRCell">Unique Rectangles takes advantage of the fact that published Sudokus have only one solution. If your Sudoku source does not guarantee this then this strategy will not work.  But it is very powerful and there are quite a few interesting variants. <br><br><b><u>Credits first</u></b>: The initial ideas for these strategies I lifted wholesale from <b>MadOverLord</b>'s description (11 Jun 05) on the forum at www.sudoku.com. (Sadly the thread is no longer hosted). Many others have since added to and improved them. I have provided my own examples. (please email me for other credit requests). I will stick to MadOverLord's nomenclature.<br><br><p><img src="puzimages/showURCycle.png" style="padding-left:20px;float:right"><span class="hc">27th January 2025</span><br>Added the ability to cycle through all <b>Unique Rectangles</b> found when the first is displayed.<br>Similar to how chains can cycle.</p></div><br>
+				<h1>Unique Rectangles</h1><div class="SRCell">Unique Rectangles takes advantage of the fact that published Sudokus have only one solution. If your Sudoku source does not guarantee this then this strategy will not work.  But it is very powerful and there are quite a few interesting variants. <br><br><b><u>Credits first</u></b>: The initial ideas for these strategies I lifted wholesale from <b>MadOverLord</b>'s description (11 Jun 05) on the forum at www.sudoku.com. (Sadly the thread is no longer hosted). Many others have since added to and improved them. I have provided my own examples. (please email me for other credit requests). I will stick to MadOverLord's nomenclature.<br><br><p><img src="../../assets/sudokuwiki-unique-rectangles/03-showURCycle.png" style="padding-left:20px;float:right"><span class="hc">27th January 2025</span><br>Added the ability to cycle through all <b>Unique Rectangles</b> found when the first is displayed.<br>Similar to how chains can cycle.</p></div><br>
 
 <h2>Noticing the 'Deadly Pattern'</h2>
 <div class="SRCell">
-<figure style="width:320px"><img src="PuzImages/urect1.png" alt="The 'Deadly Pattern'" /><figcaption>The 'Deadly Pattern'
+<figure style="width:320px"><img src="../../assets/sudokuwiki-unique-rectangles/04-urect1.png" alt="The 'Deadly Pattern'" /><figcaption>The 'Deadly Pattern'
 </figcaption></figure>
 In Figure 1 we have two example rectangles formed by four cells each. The pattern in red marked A consists of four conjugate pairs of 4/5.  They reside on two rows, two columns and two boxes.  Such a group of four pairs is impossible in a Sudoku with one solution. The reason?  Pick any cell with 4/5. If the cell solution was 4 then we quickly know what the other three cells are. But it would be equally possible to have 5 in that cell and the others would be the reverse.  There are two solutions to any Sudoku with this <span class="hy">deadly pattern</span>. If you have achieved this state in your solution something has gone wrong.<br><br>The pattern ringed in green looks like a deadly pattern but there is a crucial difference. The 7/9 still resides on two rows and two columns, but instead of two boxes it is spread over four boxes. Now, such a situation is fine since you can't guarantee that swapping the 7 and 9 in an alternate manner will produce two valid Sudokus. One of them is the real solution, the other a mess.  Why?  Swapping the 7 and 9 around places them in different boxes and 1 to 9 must exist in each box only once. In the red example, swapping within the box does not change the content of that box.<br><br></div>
 
 <h2>Type 1 Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect2.png" alt="Unique Rectangle Figure 2" /><figcaption>Unique Rectangle Figure 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/05-urect2.png" alt="Unique Rectangle Figure 2" /><figcaption>Unique Rectangle Figure 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e9e06030204080a0e08050o0f090a0s0g0u0s0w0a070h0e7o8m1i857p04820c0706087o030h82820f0b0a0d077o0607040a0h030e7o987w840a0g038a8i0h9u9i860h040f8202011n0r08020509071i1q">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=006324800850090000000700000004007680300000007067400300000003000000040021008259700">From the Start</a>
 </figcaption></figure>
@@ -275,14 +275,14 @@ For all Unique Rectangles we are going to look for <i>potential</i> <span class=
 <div class="SRCell">In Figure 3 we have a similar pattern, but this time, <span class="hy">A5</span> and <span class="hy">A6</span> (cells which are also in the same box) both have a single extra possibility - in this case, 7. <br><br>To make subsequent discussion easier to follow, we will refer to the two squares that only have two possibilities as the <span class="hy">floor</span> squares (because they form the foundation of the Unique Rectangle); the other two squares, with extra possibilities shall be called the <span class="hy">roof</span> squares.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect3.png" alt="Unique Rectangle Figure 3" /><figcaption>Unique Rectangle Figure 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/06-urect3.png" alt="Unique Rectangle Figure 3" /><figcaption>Unique Rectangle Figure 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d022r0i2r2r0c0h0f1306130b4n4j070904082e090u062i020e0a070r4z56be037n0b0e09164i0162020f2i030b0v1j059mai7n2i080n7r044602b6050f070608020g0z0z0d030i129u2q1q7y8q0h010b">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=020000000060000794809060200700003000900102003000500008004020507682000030000000010">From the Start</a>
 </figcaption></figure>
 In this <b>"Type-2 Unique Rectangle"</b>, one of the boxes contains the <span class="hy">floor</span> squares, and the other contains the <span class="hy">roof</span> squares. In order to avoid the deadly pattern, 7 must appear in either <span class="hy">A5</span> or <span class="hy">A6</span> (the <span class="hy">roof</span> squares). Therefore, it can be removed from all other cells in the units (row, column and box) that contain <i>both</i> of the <span class="hy"><b>roof</b></span> cells (in this case, row 1 and box 2). <br><br>Now that you've gotten your head around the basic unique rectangle concept, the proof should come clear:<br><br>If neither <span class="hy">A5</span> or <span class="hy">A6</span> contains an 7, then they both become cells with possibilities 1/5. This results in the deadly pattern - so one of those cells must be the 7, and none of the other squares in the intersecting units can contain 7. So <span class="hy">A3</span> and <span class="hy">C6</span> can have 7 removed. This cracks the Sudoku.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URECT2_2.png" alt="Unique Rectangle Figure 4" /><figcaption>Unique Rectangle Figure 4
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/07-URECT2_2.png" alt="Unique Rectangle Figure 4" /><figcaption>Unique Rectangle Figure 4
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B17071n091v032208024vcm8v5f024zb29y2m02cm8m045e07928601060u055u4602012m090n027r2q86045y065y077y081f7q1f020u0509462m024b05662f064u1y024z074zby874e4q013e0356096i0262">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070903080000020000200407001605000109020000060708000205900205006000070000010309020">From the Start</a>
 </figcaption></figure>
@@ -290,7 +290,7 @@ In this <b>"Type-2 Unique Rectangle"</b>, one of the boxes contains the <span cl
 
 <h2>Type 2B Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect4.png" alt="Unique Rectangle Figure 5" /><figcaption>Unique Rectangle Figure 5
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/08-urect4.png" alt="Unique Rectangle Figure 5" /><figcaption>Unique Rectangle Figure 5
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2c0d0a080f050c0i2c5w092s0n040n6a065w4y031u0g090b0d4i011i0b08132u2f0i041u050a0i060b045u5u031q071m0i120h020a1u010e2m0u082e0f0b092k062k16010i6a03620i0h2m022u060a2q2i">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000805000090040060030090001008000040500604003070000200100080009060010030000206000">From the Start</a>
 </figcaption></figure>
@@ -298,7 +298,7 @@ There is a second variant of Type-2 Unique Rectangles as illustrated In Figure 5
 
 <h2>Type 2C Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URect2Cb.png" alt="Unique Rectangle Figure 6" /><figcaption>Unique Rectangle Figure 6
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/09-URect2Cb.png" alt="Unique Rectangle Figure 6" /><figcaption>Unique Rectangle Figure 6
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0h2k090w1n1g2e053b0e031f081n078k1p7o1n0s371c091w081n3b0b090d062q0h01032q070h1i0914011w1g041i01052c2g0438090h7z2i022y088y121f937u0e0h011m037o078k7r062f2s2c84040h87">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=009000050030807000000090800090600130700901004015004090002080000000103070060000400">From the Start</a>
 </figcaption></figure>
@@ -306,14 +306,14 @@ HoDoKu <a href="http://hodoku.sourceforge.net/en/tech_ur.php#u5">records this as
 
 <h2>Type 2D Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URectType2D.png" alt="Naked Quint + UR" /><figcaption>Naked Quint + UR
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/10-URectType2D.png" alt="Naked Quint + UR" /><figcaption>Naked Quint + UR
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2i0h10391p1o2s030i060a102c09032y0h2y032i0i08050s2c0a060h060a140o070904100i0c041w1g0h012q2s0b0507090r0r0h060c017u1i1k07051q7o082q9e1i04088k3q9w012y020h1j1j8j3y9u2y">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000030600093000300850006060007940004000100057900060100075008000480001020000000">From the Start</a>
 </figcaption></figure>
 David Hollenberg kindly brought to my attention to this example (turn off 3D Medusa to see) which he initially analysed as a Naked Quint with values {2,4,5,7,9) allowing {4,5,7} to be removed from <span class="hy">J7</span>. Stefan Boumans simplified this into a pattern I think is worth separating out. At least half the Type 3b below and some Type 4 are reduced to this pattern avoiding unnecessary complication.<br><br>We have a potential Deadly Rectangle on <span class="hy">GH37</span> but if you look carefully 3 and 6 are only found in one cell outside the DR in box 9 (and in column 7). To avoid the Deadly Rectangle we must use candidates outside of it but 3 and 6 only occur in <span class="hy">J7</span>. That fact allows us to remove all other candidates from <span class="hy">J7</span>.<br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URectType2D_2.png" alt="Type 2d example 2" /><figcaption>Type 2d example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/11-URectType2D_2.png" alt="Type 2d example 2" /><figcaption>Type 2d example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1f0b1v43030d6q8ydu08090d0e0f070o0o0103071v430i020d1u4y2c045u030e0f0a7ob80l060n0g080i0e040o0i0e460b0d01520752360c0i040b0h360105050a02060g0c0i08040d0h360i010e3c1k3c">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000030000890007001370002000040300000060080040000001070000400015502600084000010000">From the Start</a>
 </figcaption></figure>
@@ -322,7 +322,7 @@ I include this example to illustrate the overlap with Type 3b. I coloured the cy
 
 <h2>Type 3 Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect3a.png" alt="Unique Rectangle Figure 7" /><figcaption>Unique Rectangle Figure 7
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/12-urect3a.png" alt="Unique Rectangle Figure 7" /><figcaption>Unique Rectangle Figure 7
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B8i8i45050l03040743052e0l082d047r067q042e432b09064705020805070p0n09060l040302040643070509437n7n060s4a054403070208052e06019i047q371f092m2m082h0l052b04030905022b0806">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000503470500800000000090002850000600024607590006000037200060000000008005043902000">From the Start</a>
 </figcaption></figure>
@@ -332,7 +332,7 @@ Choose the second after the Type 5 to see this in the solver.<br><br>In this var
 
 <h2>Type 3b Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect3b_v2.png" alt="Unique Rectangle Figure 8" /><figcaption>Unique Rectangle Figure 8
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/13-urect3b_v2.png" alt="Unique Rectangle Figure 8" /><figcaption>Unique Rectangle Figure 8
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e2b83020z06080d030u43020i470v3605360u064i074m1a0b0a09380d034z092d374y05aa05c253372f3b020d015w4y5i042w095236050i0d1j1l081i070l1g031f0z2t2r040i0h080l070d1i090e1i0l">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000206803002000050060700009003090005050000020100040900500008070030000400807009000">From the Start</a>
 </figcaption></figure>
@@ -342,14 +342,14 @@ Choose the second after the Type 5 to see this in the solver.<br><br>In this var
 <div class="SRCell">So far Type 3 and 3b have worked with a pseudo-cell linking with a bi-value cell to make a pseudo pair. This is a valid locked set. Well, locked sets don't have to be pairs, they can involve three candidates over three cells.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URectType3B_1.png" alt="Type 3b with a Triple " /><figcaption>Type 3b with a Triple 
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/14-URectType3B_1.png" alt="Type 3b with a Triple " /><figcaption>Type 3b with a Triple 
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B4o04014k1y5e070i484o0f0i6c126a0d48014846077n047n0f05482e09102y082y010o0f0d5v1006830382445w5z5z069v029v82045y0f050d0c070b080a0i09020h0r1f1n0c0g052b2b03bm82bm02060d">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=800900000020070050019500600200000970100000008054000002001009720090050060000006004">From the Start</a>
 </figcaption></figure>
 In this nicely symmetric example we have a deadly rectangle based on 1 and 9. The remaining candidates in the Roof are 5 and 8.  Whether there are one or two of either 5 and 7 in the Roof is not important. We know 5 OR 7 has to appear in <span class="hy">F46</span>. Members of a Locked Set must all see each other, so we are looking at other cells that align with the roof, namely row F or box 5.  For a Triple cell Locked Set we need two other cells that contain 5 and 7 and one other candidate not present in the Roof. <span class="hy">D4</span> and <span class="hy">D6</span> contain {4,5,7}. With our pseudo-cell that makes a Naked Triple. Naked Triple rules apply so 5 and 7 can be removed from <span class="hy">E5</span> - the only other cell to see all parts of the locked set.<br><br>All credit to David Hollenberg for working this insight that nicely expands the strategy. </div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URectType3B_2.png" alt="UR 3B example 2" /><figcaption>UR 3B example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/15-URectType3B_2.png" alt="UR 3B example 2" /><figcaption>UR 3B example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B7u060c0e2i0h01029e7u070b031m01cic2820e0h0a09381g3a043a0g0a161o0390968i080h03091m0a1u020722060b160g08828e7q0a0a054y5009075a521s0c0i4y011g046q05380b04074y0e0cc2018i">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=060000120070301000000900040000030008039000270600080000050097000000104050047000010">From the Start</a>
 </figcaption></figure>
@@ -359,7 +359,7 @@ In this nicely symmetric example we have a deadly rectangle based on 1 and 9. Th
 <div class="SRCell"> - Cracking the Rectangle with Conjugate Pairs. (See also <a href="/Extended_Unique_Rectangles#type4">Extended UR Type 4</a>.)<br><br>An interesting observation is that it is sometimes possible to remove one of the original pair of possibilities from the roof squares. Consider the following puzzle in Figure 10 which is a continuation of the Sudoku puzzle used in the first example.<br><br>Look closely at the roof squares, <span class="hy">A4</span> and <span class="hy">A6</span>, but this time, don't look at their extra possibilities; look at the possibilities they share with the floor squares. <br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect5new.png" alt="Unique Rectangle Figure 10" /><figcaption>Unique Rectangle Figure 10
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/16-urect5new.png" alt="Unique Rectangle Figure 10" /><figcaption>Unique Rectangle Figure 10
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0d032s3o0937435u5x10432s462s47060i04094306642c6303052d14061001087o070d7q46090a3604360e0246440g047o0305b6010f0a04087q367q023605071003181w4c7n4y7n0f100i6c015w0d035u">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=030090000000000604906000350060180700090040020004035010048000205703000000000010030">From the Start</a>
 </figcaption></figure>
@@ -367,7 +367,7 @@ In this nicely symmetric example we have a deadly rectangle based on 1 and 9. Th
 
 <h2>Type 4B Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/urect6.png" alt="Unique Rectangle Figure 11" /><figcaption>Unique Rectangle Figure 11
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/17-urect6.png" alt="Unique Rectangle Figure 11" /><figcaption>Unique Rectangle Figure 11
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0g0d0h030e09010b0686820a070b0f0h047q7q0b060d4343077q05021u7q8j040z8608071u0g0dc20c4k848j7n01087q8i0710108m04047q020z7n0g06870h8i010g4ic2030d820b088m05028j047q0g7r">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000309106000700040006000705200040087000000000180070004402000600010003000805204000">From the Start</a>
 </figcaption></figure>
@@ -375,14 +375,14 @@ And, as you might expect, there is a <b>Type-4B Unique Rectangle</b> variant, in
 
 <h2>Type 5 Unique Rectangles</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URType5.png" alt="Unique Rectangle Type 5" /><figcaption>Unique Rectangle Type 5
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/18-URType5.png" alt="Unique Rectangle Type 5" /><figcaption>Unique Rectangle Type 5
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B07bmbq0484064448017u028m089f2b3e3a05015m5e0c2s2c70093g038j049g2d056s6s38b8071u7o034422011m440z11062l65032s097w039h0e3g2k7n380805b7d12c6s037n0438064a5w0164092s2s03">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=700406001020800005100000090304005000070030010000600309030000008500003040600109003">From the Start</a>
 </figcaption></figure>
 <br>As of January 2021 we have a new Unique Rectangle elimination! Thanks to Ivar Agy from Norway who shared an example with me. Not to say that it might have been discovered elsewhere, I can't check, but please come forward if there are earlier references. Since it is vaguely related to Type 1 (in that it attacks candidates in the rectangle, not outside), and is quite simple to spot, the solver searches for it after Type 1 and before the others. However, I am obliged to call Type 5 since I don't want to re-number everything. <br><br>Any rectangle across two boxes that contains two candidates in all four cells might have two opposite corners containing only two candidates, like the {2,8} in <span class="hy">E6</span> and <span class="hy">F1</span>. If one of those candidates is linked to the other corners with strong links (ie no other 2s or 8s in the two rows and two columns of the rectangle), it could create a Deadly Rectangle. We are looking for a diagonal Naked Pair - each cell can't see the other, but it is locked. If 2 (the weakly linked candidate in the pair) was <span class="hg">ON</span> in either <span class="hy">E6</span> or <span class="hy">F1</span> it would force 8 to be in the other corners. This is not allowed so 2 can be removed from the Naked Pair. Very cool.<br><br><a href="/sudoku.htm?bd=008950304094030000000824009050300090387269541000508023105082930000005480806093005">Ivar's example</a> can be found if you turn off 3D Medusa first.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/URType5b.png" alt="Type 5 Example 2<br>(untick XY-Chains)" /><figcaption>Type 5 Example 2<br>(untick XY-Chains)
+<figure style="width:450px"><img src="../../assets/sudokuwiki-unique-rectangles/19-URType5b.png" alt="Type 5 Example 2<br>(untick XY-Chains)" /><figcaption>Type 5 Example 2<br>(untick XY-Chains)
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1m091g0t080e0l070c034c051p071m8lb74z440g011k0i1i1w4i04070604090c0b0z4j4j050a0i5u0f5u0d0c0244440c0e0d010706090918383i0a3i08161u1n164y5602ca038b071n036q6y05e28j021f">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090080070305070000001000004764900000500000002000001769900000800000020307030050020">From the Start</a>
 </figcaption></figure>
@@ -441,9 +441,9 @@ Created by Klaus Brenner
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-unique-rectangles/20-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-unique-rectangles/21-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
@@ -607,7 +607,7 @@ Created by Klaus Brenner
 <table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(72,16184,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16172"><div class="w100pc"><div class="w60pc"><h2>... by: Thinkist</h2></div><div class="w40pc datepost">Friday 29-Apr-2016</div></div>
 <div class="w100pc">Hello again...<br><br>I came to a clearer realization on why I dislike uniqueness strategies: they mess with the solution count if a sudoku happens to have multiple solutions, erroneously decimating otherwise valid solutions.  I point you to an example of mine <a href="/sudoku.htm?bd=805307094073109206901000703100090400240031000507000010350000001010970000000010038"><u>here</u></a>.  It has 63 solutions, but 4 URs erroneously deduce it to 3, and then one use of the BUG strategy erroneously deduces it to 1.  So, this makes the puzzle appear valid when in fact it should have 63 solutions all along and the solver should fail to complete correctly.  The chaining, netting, and simple combinatoric strategies don't mess with the solution count.  In those cases, simply because there is more than one solution, the solver will merely fail to complete correctly rather than throw up an error.  I believe that any puzzle (or "puzzle", if you will) that throws up a contradiction should have 0 solutions from the start, not because of a uniqueness strategy.<br><br>Re-reading your reply to my first comment, I'm glad that you've not decided to add a solution count before any logical solving takes place, as that would of course ruin the purpose of using the solver, which is to showcase a bottom-up approach to sudoku solving rather than cheat it with a brute-force top-down approach.<br><br>And for the record, I realize that any valid sudoku puzzle should have only a single solution.  The point I'm trying to make is that uniqueness strategies aren't the best way to find it (which is why I still have them unchecked in the solver).  In essence, they assume what you are trying to prove (via chaining, netting, and simple combinatoric strategies): that the puzzle has a unique solution.</div>
 <div class="w100pc" id="blog-reply16172"></div>
-<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I'm interested in your assertion "The chaining, netting, and simple combinatoric strategies don't mess with the solution count". If true it would be one way of showing that a puzzle might be valid (by completing using such strategies) but it would require some kind of proof to show that all a) all valid sudoku puzzles can be solved using only these strategies minus uniqueness strategies and b) that all multi-solution (non-valid) puzzles cannot complete.<br>The problem with a) is that I don’t know of a solver that claims to solve all puzzles (certainly I don't pretend mine is the most advanced and I have a long job queue of improvements) and the problem with b) is that I'm sure a non-valid puzzle could accidentally complete giving the impression of a single solution solved logically. Wish I had one to hand, but I strongly suppose it. <br><br><img style="float:right" src="PuzImages/strattime.png" alt="Strategy Time">I think there are good reasons to set aside uniqueness strategies especially from a purist POV but I've always considered muli-solution puzzles to be broken or mis-defined puzzles. They look like ducks, walk like ducks, but are not in fact ducks. They are another class of object, to be filtered away. That's not to deny they are interesting in their own right but they are outside the scope of the solver (mine at least).<br><br>However there is a good practical reason for using logic rather than brute force for solution counting, as the attached graph tries to show. It’s a crude diagram I knocked up to illustrate a point in a previous correspondence, but there is a point at which brute force becomes much slower than logic and it’s a function of clue density.<br></div></div><div id="blog-reply2537" class="w100pc"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I'm interested in your assertion "The chaining, netting, and simple combinatoric strategies don't mess with the solution count". If true it would be one way of showing that a puzzle might be valid (by completing using such strategies) but it would require some kind of proof to show that all a) all valid sudoku puzzles can be solved using only these strategies minus uniqueness strategies and b) that all multi-solution (non-valid) puzzles cannot complete.<br>The problem with a) is that I don’t know of a solver that claims to solve all puzzles (certainly I don't pretend mine is the most advanced and I have a long job queue of improvements) and the problem with b) is that I'm sure a non-valid puzzle could accidentally complete giving the impression of a single solution solved logically. Wish I had one to hand, but I strongly suppose it. <br><br><img style="float:right" src="../../assets/sudokuwiki-unique-rectangles/22-strattime.png" alt="Strategy Time">I think there are good reasons to set aside uniqueness strategies especially from a purist POV but I've always considered muli-solution puzzles to be broken or mis-defined puzzles. They look like ducks, walk like ducks, but are not in fact ducks. They are another class of object, to be filtered away. That's not to deny they are interesting in their own right but they are outside the scope of the solver (mine at least).<br><br>However there is a good practical reason for using logic rather than brute force for solution counting, as the attached graph tries to show. It’s a crude diagram I knocked up to illustrate a point in a previous correspondence, but there is a point at which brute force becomes much slower than logic and it’s a function of clue density.<br></div></div><div id="blog-reply2537" class="w100pc"></div>
 <div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(72,16172,2537)">Add to this Thread</div></div>
 <div class="posting" id="frmcomment15985"><div class="w100pc"><div class="w60pc"><h2>... by: Master Shuriken</h2></div><div class="w40pc datepost">Tuesday 27-Jan-2015</div></div>
 <div class="w100pc">You could have another strategy which is an extension of unique rectangles (extension of both 2x2 and 3x3).<br><br>If you have, for example empty boxes in A1, A2, H1, J2, H9, J9 with 2 clues (1,2) in each box, this wouldn't be possible.<br><br>You could extend this *uniqueness chain* as long as you like through the puzzle and extend it to triples, too, (as long as you make sure that there would be 2 solutions if everything else was filled in).<br><br>Like the unique rectangle, it would tell you something which is not possible, and could help eliminate clues, etc.</div>

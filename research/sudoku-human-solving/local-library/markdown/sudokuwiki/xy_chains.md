@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/XY_Chains
 Markdown Content:
 # XY-Chains - SudokuWiki.org
 
-[![Image 6: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 6: SudokuWiki](../../assets/sudokuwiki-xy-chains/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,25 +147,25 @@ Other
 
 119 Shares 
 
-![Image 7: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 7: pinterest sharing button](../../assets/sudokuwiki-xy-chains/01-pinterest.svg)
 
-![Image 8: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 8: facebook sharing button](../../assets/sudokuwiki-xy-chains/02-facebook.svg)
 
-![Image 9: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 9: twitter sharing button](../../assets/sudokuwiki-xy-chains/03-twitter.svg)
 
-![Image 10: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 10: blogger sharing button](../../assets/sudokuwiki-xy-chains/04-blogger.svg)
 
-![Image 11: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 11: tumblr sharing button](../../assets/sudokuwiki-xy-chains/05-tumblr.svg)
 
-![Image 12: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 12: messenger sharing button](../../assets/sudokuwiki-xy-chains/06-messenger.svg)
 
-![Image 13: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 13: email sharing button](../../assets/sudokuwiki-xy-chains/07-email.svg)
 
 # XY-Chains
 
 XY-Chains is a way to connect two parts of the board that can't directly "see" each other. The "X" and the "Y" in the name represent these two values in each chain link. If we can connect the ends we can make inferences and eliminate candidates.
 
-![Image 14: XY-Chain example 1](https://www.sudokuwiki.org/PuzImages/XYC1.png)
+![Image 14: XY-Chain example 1](../../assets/sudokuwiki-xy-chains/03-XYC1.png)
 
 XY-Chain example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B1g0818017o038207222e0i0s0e2c0f430r4e2e1u01049e0886021y05070h0b0d010f03090a0d0c060e090g0h0b09020f080c0g0d05014y030g091f05020r4a501u100c1f0d430i0g0d010i070h02120612) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=080103070000000000001408020570001039000609000920800051030905200000000000010702060)
 
@@ -197,7 +197,7 @@ In later documentation on [Grouped X-Cycles](https://www.sudokuwiki.org/Grouped_
 
 ## Example 2
 
-![Image 15: XY-Chain example 2](https://www.sudokuwiki.org/PuzImages/XYC2b.png)
+![Image 15: XY-Chain example 2](../../assets/sudokuwiki-xy-chains/04-XYC2b.png)
 
 XY-Chain example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f46040g4609020a0e0b07b646010e067q04057q0a1m1m0b0g7q0h0g010b050i0u0u080f4a06460102070u050i7u057q4a4e060a070b7n7u0e1q1q0v0h0b07030b060i070h0e040a434a07020e0r090f0c) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=004009200070010604500000000010500080060127050050006070000000007306070040007200900)
 
@@ -217,13 +217,13 @@ Currently XY-Chains do not use exotic links as this would turn a 'diabolical' st
 
 September 2025. Here is a great observation I wished I'd picked up many years ago. Certainly dates from [at least 2008](http://jcbonsai.free.fr/sudoku/JSudokuUserGuide/chainsTechniques.html) but other references please let me know! I'm grateful to **Stefan** in the Netherlands for emphasising how relevant it is and why it was missing from the solver. This is a good boost for XY-Chains and in testing I've found around 8%-10% additional eliminations. Indeed the old example 2 has the property described and I've moved it to this section. XY-Chains of this type now have no start or end cells highlighted.
 
-![Image 16](https://www.sudokuwiki.org/PuzImages/XYC_Rule2_Ani.gif) It all rests on whether the ends of the chain can see each other.
+![Image 16](../../assets/sudokuwiki-xy-chains/05-XYC_Rule2_Ani.gif) It all rests on whether the ends of the chain can see each other.
 
 In this animation I've pulled out the essential parts of an XY-Chain from the following example. The chain starts on B3 and ends on B7. The old strategy would have eliminated the 7 in B5 and no more - since the rule is _"at least one end of the chain or the other must be the solution"_.
 
 But if the two ends of the chains can see each other we get a continuous loop. The blue arrow bridges the gap since the 7s in B3 and B7 connect. We are going to see this a lot in [X-Cycles](https://www.sudokuwiki.org/X_Cycles) and later in [Alternating Inference Chains](https://www.sudokuwiki.org/Weak_and_Strong_Links). The difference is that Strong Links are all on the bi-value cells. The arrows in the diagram illustrate the direction of inferences.
 
-![Image 17: Closed XYC example 1](https://www.sudokuwiki.org/PuzImages/XYC4.png)
+![Image 17: Closed XYC example 1](../../assets/sudokuwiki-xy-chains/06-XYC4.png)
 
 Closed XYC example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B022y0i1a3q3q08011i0f012i4e66092e050b082q030z3n02360d090z095w4o6g041j0o1i0d2g060p9l2f057s080z0o4406bs4m7n070d030f0r09170z020h070i0s0l074f470u060e0g08050w1s1i7y7q01) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=200000810010009050803002009090004000006000508000600070300900207000700060085000001)
 
@@ -277,7 +277,7 @@ Please enter the
 
 letters you see:
 
-![Image 19: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 20: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 19: arrow](../../assets/sudokuwiki-xy-chains/08-GRNARR.GIF)![Image 20: Enter these letters](../../assets/sudokuwiki-xy-chains/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -931,4 +931,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 21: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 21: Buy Me a Coffee](../../assets/sudokuwiki-xy-chains/09-coffee-20cup.svg)

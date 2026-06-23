@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Y_Wing_Strategy
 Markdown Content:
 # Y-Wing Strategy - SudokuWiki.org
 
-[![Image 8: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 8: SudokuWiki](../../assets/sudokuwiki-ywing/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,23 +147,23 @@ Other
 
 264 Shares 
 
-![Image 9: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 9: pinterest sharing button](../../assets/sudokuwiki-ywing/01-pinterest.svg)
 
-![Image 10: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 10: facebook sharing button](../../assets/sudokuwiki-ywing/02-facebook.svg)
 
-![Image 11: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 11: twitter sharing button](../../assets/sudokuwiki-ywing/03-twitter.svg)
 
-![Image 12: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 12: blogger sharing button](../../assets/sudokuwiki-ywing/04-blogger.svg)
 
-![Image 13: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 13: tumblr sharing button](../../assets/sudokuwiki-ywing/05-tumblr.svg)
 
-![Image 14: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 14: messenger sharing button](../../assets/sudokuwiki-ywing/06-messenger.svg)
 
-![Image 15: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 15: email sharing button](../../assets/sudokuwiki-ywing/07-email.svg)
 
 # Y-Wing Strategy
 
-![Image 16: Y-Wing Figure 1](https://www.sudokuwiki.org/PuzImages/YWing1.png)
+![Image 16: Y-Wing Figure 1](../../assets/sudokuwiki-ywing/03-YWing1.png)
 
 Y-Wing Figure 1 
 
@@ -173,7 +173,7 @@ Lets look at Figure 1 for the theory.
 
 A, B and C are three different candidate numbers in a rectangular formation. Three of the corners have two candidates AC, AB and BC. The cell marked AB is the key. If the solution to that cell turns out to be A then C will definitely occur in the lower left corner.If AB turns out to be B then C is certain to occur in the top right corner. C is a _complementary_ pair.
 
-![Image 17: Y-Wing Figure 2](https://www.sudokuwiki.org/PuzImages/YWing2.png)
+![Image 17: Y-Wing Figure 2](../../assets/sudokuwiki-ywing/04-YWing2.png)
 
 Y-Wing Figure 2 
 
@@ -183,13 +183,13 @@ It's impossible for a C to live there and it can be removed.
 
 In Figure 2 I'm demonstrating the sphere of influence two example cells have, marked red and blue. X can 'see' all the red cells, Z can 'see' all the blue ones. In this case there are two cells which overlap and these are 'seen' by both.
 
-![Image 18: Y-Wing Figure 3](https://www.sudokuwiki.org/PuzImages/YWing1b.png)
+![Image 18: Y-Wing Figure 3](../../assets/sudokuwiki-ywing/05-YWing1b.png)
 
 Y-Wing Figure 3 
 
  If our A, B and C are aligned more closely they can 'see' a great deal more cells than just the corner of the rectangle they make. In Figure 3 BC can see AB because they share the same box. AC can see AB because they share the same row. BC and AC can see all the cells marked with a red C where this Y-Wing can eliminate whatever number C is.
 
-![Image 19: Y-Wing Example 1](https://www.sudokuwiki.org/PuzImages/YWing3b.png)
+![Image 19: Y-Wing Example 1](../../assets/sudokuwiki-ywing/06-YWing3b.png)
 
 Y-Wing Example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f069f0e0d2c082g0n9h2d2b03090h0l0e0f040l050h0f2g0d2g092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=034500000802060400600008000003900004050000090900005800000300008001040605000007120)
 
@@ -197,19 +197,19 @@ I have found (June 2025) a new 'tough' Sudoku puzzle with a sequence of five Y-W
 
 The first Y-Wing is a rectangular alignment which is close to the theory diagram. The AB cell in A1 links 7 with the pair on A7 and the 1 in E1. The number common to both the _pincer_ cells is 2 which must go in either A7 or E1 so 2 in E7 can be removed.
 
-![Image 20: Y-Wing Example 2](https://www.sudokuwiki.org/PuzImages/YWing4c.png)
+![Image 20: Y-Wing Example 2](../../assets/sudokuwiki-ywing/07-YWing4c.png)
 
 Y-Wing Example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f069f0e0d2c082g0n9f2d2b03090h0l0e0f040l050h0f2g0d2e092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c)
 
 The second Y-Wing has four target cells show in pink but three of them are solved cells so of no use. But there is a 7 in C2 that can be eliminated. The 7s in A1 and C5 are linked to A6 by 1 and 2 respectively. One end of the pincer or the other must be 7.
 
-![Image 21: Y-Wing Example 3](https://www.sudokuwiki.org/PuzImages/YWing5c.png)
+![Image 21: Y-Wing Example 3](../../assets/sudokuwiki-ywing/08-YWing5c.png)
 
 Y-Wing Example 3 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f067n0e0d2c082g0n9f2d2b03090h0l0e0f040l050h0f2g0d2e092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c)
 
 The third step is a similar pincer movement. A6 is connected to A7 by 2 and to B4 by 1. Looking along row B we can remove 7 from B9
 
-![Image 22: Double y-Wing](https://www.sudokuwiki.org/PuzImages/YWing6.png)
+![Image 22: Double y-Wing](../../assets/sudokuwiki-ywing/09-YWing6.png)
 
 Double y-Wing : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=607945023395062000402037569743516298569283741821000635970650312136020050250301006)
 
@@ -251,7 +251,7 @@ Please enter the
 
 letters you see:
 
-![Image 23: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 24: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 23: arrow](../../assets/sudokuwiki-ywing/10-GRNARR.GIF)![Image 24: Enter these letters](../../assets/sudokuwiki-ywing/11-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -772,4 +772,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 25: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 25: Buy Me a Coffee](../../assets/sudokuwiki-ywing/08-coffee-20cup.svg)

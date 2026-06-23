@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Guardians - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-guardians/09-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-guardians/10-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-guardians/11-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-guardians/12-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Guardians';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-guardians/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-guardians/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,7 +258,7 @@ var pgFileName = 'Guardians';
 				<h1>Guardians</h1><div class="SRCell">(a.k.a. Broken Wings, Turbot-Fish, Oddagon)<br><div style="color:#f88">As of March 2010 this strategy has been deprecated. It is a complicated way of looking at what is ultimately a nice loop with off-chain eliminations. It has been removed from the solver.</div><br><div style="color:#8f8">As of May 2025 this strategy if being looked at again especially with regards to the more powerful extensions developed in recent years. Diagrams and text have been modernised.</div><br>This strategy works with single numbers. <br>We've already used closed loops of <span class="hy">conjugate pairs</span> to find things like <a href="#XW">X-Wings</a> and <a href="#SF">Swordfish</a>.  X-Wings contains 4 cells in a perfect rectangle.  Swordfish requires 6 or 9 cells in a grid.  This strategy works with odd numbers of pairs in a loop starting with 5.  There are several varieties depending on how 'perfect' the loop is.<br><br>Let us use the words <span class="hy">perfect pair</span> instead of <b>conjugate pair</b> to mean any number that exists only twice in one unit (row, column or box).  This means we can use <span class="hy"><b>imperfect</b></span> to mean a number that occurs three or more times in a unit. (Obviously if it only occurred once it would solve that cell).<br><br>Credits: I want to thank <b>Rod Hagglund</b> for explaining this technique although for Type 1 Single Guardians (this first example) <A href="Simple_Colouring">Simple Colouring</a> might be simpler logic.  Some of the Type 2 and Type 3 Guardians can also be attacked with <A href="Multi_Colouring_Strategy">Multi-Colouring</a> but I've not discovered how with the two examples below.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Guard1.png" alt="Guardian 1" /><figcaption>Guardian 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-guardians/03-Guard1.png" alt="Guardian 1" /><figcaption>Guardian 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=138257694009148007742963100076591040904700001021084970005409710297015400413870509">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=008057600000000007040903000070590040900000001020084070000409010200000000003870500">From the Start</a>
 </figcaption></figure>
@@ -268,14 +268,14 @@ In Figure 1 we have highlighted the number <b>3</b>.  Amongst all the candidate 
 
 <h2>Type 2 - Double Guardians</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Guard2.png" alt="Guardian 2" /><figcaption>Guardian 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-guardians/04-Guard2.png" alt="Guardian 2" /><figcaption>Guardian 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=103896520020753010090214063010569382200437195030182070002945031350621040001378250">Load Example</a>
 </figcaption></figure>
 In Figure 2 we have highlighted the number <b>7</b>.  Amongst all the candidate 7's is a loop of five 7's.  There are two <span class="hy">imperfect connections</span> in the loop:<br><span class="hy">H3</span> - <span class="hy">H9</span> - along the row<br><span class="hy">H3</span> - <span class="hy">G2</span> - within the box<br><br>This gives us two <span class="hy">guardian</span> 7's in <span class="hy">G1</span> and <span class="hy">H7</span> marked in yellow squares. Whatever cells these two can both 'see' we can eliminate the 7 from them.  Since in this example they form the opposite corners of a rectangle we can safely remove the 7 from <span class="hy">G7</span> marked in red. The other corner, <span class="hy">H1</span>, contains a solved square.<br><br>Solving <span class="hy">G7</span> allows us to complete the puzzle using other strategies.</div>
 
 <h2>Type 3 - Disruptive Guardians</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Guard3.png" alt="Guardian 3" /><figcaption>Guardian 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-guardians/05-Guard3.png" alt="Guardian 3" /><figcaption>Guardian 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0l078i05cacb4d037o0882042d9e03060z9w0l038y3he2e34d4a9w044i0136023mcyb603070603087u7u05020109024i03012q5u06041yb6071n5q570l7u1w1u0402093m37030z081y01b61m5q027u071u">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070500030804003600030000000401020003763800521920310064007000000042900308010002070">From the Start</a>
 </figcaption></figure>
@@ -285,7 +285,7 @@ In Figure 3 we have highlighted the number <b>1</b>.  Amongst all the candidate 
 <div class="SRCell">I have been reading the forums trying to catch up on the Oddagon discussion. I came across <a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251454" target="_blank">this thread</a> and example by <b>borescoper</b> (2016) and it seemed an accessible pattern. This is not currently in the released server, but I am accumulating useful patterns here.<br><br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/DoubleOddagon.png" alt="Bi-Value Oddagon example" /><figcaption>Bi-Value Oddagon example
+<figure style="width:450px"><img src="../../assets/sudokuwiki-guardians/06-DoubleOddagon.png" alt="Bi-Value Oddagon example" /><figcaption>Bi-Value Oddagon example
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B02060807090503040109130z060u4e02074i2q2u04010o4809064i1u858584078l080304560r03bg1o8t07057o6ia484c01c80017o060r7o06800880057p070z0807841w8k047p03038c8416010706087o">Load Example</a>
 </figcaption></figure>
 <br>Five bi-value cells in a loop will form a <span class="hy">double Oddagon</span> which, without any extra candidates, will be a <span class="hy">Deadly Loop</span> since they cannot all resolve to solutions. The double-Oddagon really stands out against the rest of the board as similar paired cells draw the eye.<br><br>We need three such pairs plus two more cells with one extra candidate. In bonescoper's example <span class="hy">F8</span>, <span class="hy">E9</span> and <span class="hy">J9</span> contain {2,9}.  So do <span class="hy">F3</span> and <span class="hy">J3</span> - but they also have 5. This 5 is <i>necessary</i> in that it must be used to avoid the Deadly Loop - so as it aligns on column 3 we can eliminate others 5s in the column.<br></div>
@@ -326,9 +326,9 @@ In Figure 3 we have highlighted the number <b>1</b>.  Amongst all the candidate 
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-guardians/07-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-guardians/08-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

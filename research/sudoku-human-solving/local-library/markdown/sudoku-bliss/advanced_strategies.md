@@ -40,7 +40,7 @@ The [W-wing strategy](https://sudokubliss.com/guides/finding-w-wing) is an elimi
 | Conditions for failure | The bi-value cells share a unit, or the strong link doesn’t align. |
 
 ![Image 1: w-wing advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/w-wing-advanced-sudoku-strategy-example.webp)
+strategy example](../../assets/sudokubliss-advanced/02-w-wing-advanced-sudoku-strategy-example.webp)
 
 To find a W-wing:
 
@@ -61,7 +61,7 @@ The [Y-wing](https://sudokubliss.com/guides/Finding-Y-Wing-Styles) (or XY-wing) 
 | Conditions for failure | The pincer cells see each other, or the pivot cell doesn’t see both pincers. |
 
 ![Image 2: y-wing advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/y-wing-advanced-sudoku-strategy-example.webp)
+strategy example](../../assets/sudokubliss-advanced/03-y-wing-advanced-sudoku-strategy-example.webp)
 
 To find the Y-wing pattern:
 
@@ -86,7 +86,7 @@ This pattern creates a logical trap where one candidate must be true—allowing 
 | Conditions for failure | The pincers don’t see the pivot cell, or the cells don’t have shared candidates. |
 
 ![Image 3: xyz-wing advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/xyz-wing-advanced-sudoku-strategy-example.webp)
+strategy example](../../assets/sudokubliss-advanced/04-xyz-wing-advanced-sudoku-strategy-example.webp)
 
 To find an XYZ-wing:
 
@@ -127,7 +127,7 @@ Because the candidate must occupy one of the cells in each base set, you can eli
 | Conditions for failure | Matching cells don’t align in the same columns or rows. |
 
 ![Image 4: x-wing advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/x-wing-advanced-sudoku-strategy-example.webp)
+strategy example](../../assets/sudokubliss-advanced/05-x-wing-advanced-sudoku-strategy-example.webp)
 
 X-wings can be oriented in horizontal or vertical positions based on their base sets. Base sets in rows create horizontal X-wings, and base sets in columns create vertical X-wings.
 
@@ -157,7 +157,7 @@ Because the candidate must go somewhere in the cells where base and cover sets o
 | Conditions for failure | The candidate appears in more than three positions in a base set, or aligned positions don’t fall in the same three cover sets. |
 
 ![Image 5: swordfish advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/swordfish-advanced-sudoku-strategy-example.png)
+strategy example](../../assets/sudokubliss-advanced/06-swordfish-advanced-sudoku-strategy-example.png)
 
 Like X-wings, swordfish patterns can be oriented in horizontal (base sets are rows) or vertical (base sets are columns) directions. To find a horizontal swordfish:
 
@@ -192,7 +192,7 @@ By analyzing the intersection and alignment of those cells, you can determine th
 | Conditions for failure | The candidate appears more than twice in the column (or row), or the floor isn’t aligned in the same row (or column). |
 
 ![Image 6: skyscraper advanced 
-sudoku strategy example](https://sudokubliss.com/content-uploads/skyscraper-advanced-sudoku-strategy-example.webp)
+sudoku strategy example](../../assets/sudokubliss-advanced/07-skyscraper-advanced-sudoku-strategy-example.webp)
 
 The skyscraper is a powerful technique because it can be formed in all directions. So the floor could be formed in rows with the roof pointing left or right, or the floor could be formed in columns with the roof pointing up or down.
 
@@ -226,7 +226,7 @@ The [unique rectangle](https://sudokubliss.com/guides/Unique-Rectangles) strateg
 | Conditions for failure | The two candidates aren’t aligned in the same two columns and rows, creating a rectangle. |
 
 ![Image 7: unique rectangles 
-advanced sudoku strategy example](https://sudokubliss.com/content-uploads/unique-rectangle-advanced-sudoku-strategy-example.webp)
+advanced sudoku strategy example](../../assets/sudokubliss-advanced/08-unique-rectangle-advanced-sudoku-strategy-example.webp)
 
 To find a unique rectangle:
 
@@ -253,7 +253,7 @@ You can find two different types of locked candidates:
 | Conditions for failure | The candidate appears in more than one row or column within the block or in multiple blocks along the row or column. |
 
 ![Image 8: locked candidates 
-advanced sudoku strategy example](https://sudokubliss.com/content-uploads/locked-candidate-advanced-sudoku-strategy-example.webp)
+advanced sudoku strategy example](../../assets/sudokubliss-advanced/09-locked-candidate-advanced-sudoku-strategy-example.webp)
 
 To find a pointing candidate:
 
@@ -287,7 +287,7 @@ To eliminate candidate z, the following must be true of z:
 | Conditions for failure | Candidate z appears only once, or the x candidates don’t see each other. |
 
 ![Image 9: als-xz advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/als-xz-advanced-sudoku-strategy-example.webp)
+strategy example](../../assets/sudokubliss-advanced/10-als-xz-advanced-sudoku-strategy-example.webp)
 
 To find eliminations with ALS-XZ:
 
@@ -314,7 +314,7 @@ Chain techniques build logic chains by linking candidates through strong and wea
 | Conditions for failure | The chains lead to different results and don’t narrow the possibilities, or if no contradiction is found in either path, no conclusion can be drawn. |
 
 ![Image 10: forcing chains 
-advanced sudoku strategy example](https://sudokubliss.com/content-uploads/forcing-chains-advanced-sudoku-strategy-example.webp)
+advanced sudoku strategy example](../../assets/sudokubliss-advanced/11-forcing-chains-advanced-sudoku-strategy-example.webp)
 
 To use the forcing chains technique:
 
@@ -341,7 +341,7 @@ X-cycles are a powerful form of alternating inference chains (AIC) used to elimi
 | Conditions for failure | The loop doesn’t alternate properly, uses multiple candidates, or doesn’t form a closed loop. |
 
 ![Image 11: x-cycles advanced sudoku 
-strategy example](https://sudokubliss.com/content-uploads/X-cycles-advanced-sudoku-strategy-example.webp)
+strategy example](../../assets/sudokubliss-advanced/12-X-cycles-advanced-sudoku-strategy-example.webp)
 
 To find an X-cycle:
 

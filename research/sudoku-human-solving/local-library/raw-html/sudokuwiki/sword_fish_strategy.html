@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Swordfish Strategy - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-swordfish/11-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-swordfish/12-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-swordfish/13-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-swordfish/14-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Sword_Fish_Strategy';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-swordfish/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-swordfish/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,21 +258,21 @@ var pgFileName = 'Sword_Fish_Strategy';
 				<h1>Swordfish Strategy</h1><div class="SRCell">With <a href="/X_Wing_Strategy">X-Wings</a> we looked at a rectangle formed by four numbers at the corners. This allowed us to exclude other occurrences of that number in either the row or column. We can extend this pattern to nine cells and achieve even more eliminations.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SFdiag1.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-swordfish/03-SFdiag1.png" alt="" /></figure>
 <br>A Swordfish is a 3 by 3 nine-cell pattern where a candidate is found on three different rows (or three columns) and they line up in the opposite direction.  Eventually we will fix three candidates somewhere in those cells which excludes all other candidates in those units.<br><br>The shaded cells show the Swordfish where X is unique to three cells in columns 2, 4 and 6. They are aligned on rows A, C and F.  This means we can remove all candidate X in the other positions on those rows.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SFdiag2.png" alt="X-Wing inside a Swordfish" /><figcaption>X-Wing inside a Swordfish
+<figure style="width:450px"><img src="../../assets/sudokuwiki-swordfish/04-SFdiag2.png" alt="X-Wing inside a Swordfish" /><figcaption>X-Wing inside a Swordfish
 </figcaption></figure>
 <br>If you are not convinced that the shaded cells really must contain the solutions we can argue this way.  All Swordfishes will break down into X-Wings and because we know X-Wings work, so will the Swordfish.<br><br>Take this arrangement of candidate A and let’s pretend that <span class="hy">E6</span> is the solution. We ‘remove’ the rest of A in column 6 and row E. That leaves a X-Wing in <span class="hy">AC24</span>.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SFdiag3.png" alt="Another way to cut it" /><figcaption>Another way to cut it
+<figure style="width:450px"><img src="../../assets/sudokuwiki-swordfish/05-SFdiag3.png" alt="Another way to cut it" /><figcaption>Another way to cut it
 </figcaption></figure>
 If that works for <span class="hy">E6</span>, let’s try another cell. Pretending <span class="hy">C2</span> is a solution we remove the rest of A in row C and column 2. Again we get an X-Wing.<br>So all cells in the 3 by 3 grid are ‘locked’ together.<br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SF3b.png" alt="Perfect 3-3-3 Swordfish" /><figcaption>Perfect 3-3-3 Swordfish
+<figure style="width:450px"><img src="../../assets/sudokuwiki-swordfish/06-SF3b.png" alt="Perfect 3-3-3 Swordfish" /><figcaption>Perfect 3-3-3 Swordfish
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B050b0i0d014y0g4y03624b0682cy0343bv02624b0302cy1ub71ubf4a0e0203b64bb707060f0c0g7n054b0bbfbf01094a0f0b07050c4a0c5u4j0z0f09040b5v022i17080c0z067n9f090f430g040b0c4305">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=500010003006003002003200000002300076000050000190007500000009400200800600900040005">From the Start</a>
 </figcaption></figure>
@@ -281,14 +281,14 @@ If that works for <span class="hy">E6</span>, let’s try another cell. Pretendi
 <div class="SRCell">If you remember how Naked and Hidden Triples work you'll remember that they require three numbers in three cells - in total. It's not necessary for every number to be in all three cells. So it is with the Swordfish. <br><br>Swordfishes come in a number of variations depending on the number of X present in the nine cells that make up a Swordfish.  With an X-Wing you need candidate X in all four cells of the 2 by 2 formation, but with the 3 by 3 Swordfish formation you don't need X in every cell - just as long as it is spread out over 3 by 3 cells.  The next example has 9 twice in each column and is called a 2-2-2 Swordfish. <br><br><br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SF1bnew.png" alt="Swordfish Example 1" /><figcaption>Swordfish Example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-swordfish/07-SF1bnew.png" alt="Swordfish Example 1" /><figcaption>Swordfish Example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B090b0f4u4a6e0a2q6a0e0307c201c20402b608040a84829w069u030b0e0i0g030408010f0g0a0dbm06bm840c840c06080102829u0d9u019e021i821i9u08040d08057o070a03067o0f9e0cbw4abo9w9u01">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=900000000037010420840000603000034810000060000068120000102000084085070360000000001">From the Start</a>
 </figcaption></figure>
 <br>This is a 2-2-2 formation Swordfish in the columns and eliminates in the rows.  I have labelled the three pairs <span class="hy">AA</span>, <span class="hy">BB</span> and <span class="hy">CC</span> which form each "2" in the name. Notice how they are staggered so that they still cover three columns. This is a minimal Swordfish but it does the job. We have six 9s that can go in one swoop.<br>(Turn Rectangle Elimination off)</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SF2b.png" alt="Swordfish example 2" /><figcaption>Swordfish example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-swordfish/08-SF2b.png" alt="Swordfish example 2" /><figcaption>Swordfish example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2r026b2b040c6b06092z1703080i0602162z0i06632b020e630c6308092k050f2c2i010c0f17317w0c9gdm4q6i2y032y7u0h01a202060c4q227o017o5m074q0z4j09060g04034i0b02071m0c050h1n090r">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=020040069003806200060020000890500010000000000030001026000010070009604300270050090">From the Start</a>
 </figcaption></figure>
@@ -348,9 +348,9 @@ They make good practice puzzles.<br>
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-swordfish/09-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-swordfish/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

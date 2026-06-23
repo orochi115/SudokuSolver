@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/BUG
 Markdown Content:
 # BUG - SudokuWiki.org
 
-[![Image 4: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 4: SudokuWiki](../../assets/sudokuwiki-bug/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 232 Shares 
 
-![Image 5: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 5: pinterest sharing button](../../assets/sudokuwiki-bug/01-pinterest.svg)
 
-![Image 6: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 6: facebook sharing button](../../assets/sudokuwiki-bug/02-facebook.svg)
 
-![Image 7: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 7: twitter sharing button](../../assets/sudokuwiki-bug/03-twitter.svg)
 
-![Image 8: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 8: blogger sharing button](../../assets/sudokuwiki-bug/04-blogger.svg)
 
-![Image 9: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 9: tumblr sharing button](../../assets/sudokuwiki-bug/05-tumblr.svg)
 
-![Image 10: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 10: messenger sharing button](../../assets/sudokuwiki-bug/06-messenger.svg)
 
-![Image 11: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 11: email sharing button](../../assets/sudokuwiki-bug/07-email.svg)
 
 # BUG+1
 
@@ -185,7 +185,7 @@ The BUG cell is F8.
 
 Thus, in order to kill the BUG, F8 must be 3. All alternatives allow two solutions since there are two of everything across all remaining rows and columns.
 
-![Image 13: 27 Clue minimal BUG](https://www.sudokuwiki.org/PuzImages/BUG2.png)
+![Image 13: 27 Clue minimal BUG](../../assets/sudokuwiki-bug/04-BUG2.png)
 
 27 Clue minimal BUG : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=001000706736000005500000082000078000000520000000139000392000500600000137050000400)
 
@@ -193,7 +193,7 @@ It is possible for the BUG to exist in a sea of bi-value cells, such as this one
 
 ## Sudoku X BUGs - careful!
 
-![Image 14: False Positive BUG](https://www.sudokuwiki.org/PuzImages/FalseBUG.png)
+![Image 14: False Positive BUG](../../assets/sudokuwiki-bug/05-FalseBUG.png)
 
 False Positive BUG : [Load Example](https://www.sudokuwiki.org/SudokuX.aspx?bd=X9B035u010b0d8206b69u0b0d0f82080g0c0a82b6822q0c0f015u04020e0b09080g0d01060c040f5u0a020c0e9eb60a5u03828206040b5u07014i060c0b0i4i0db60c0b0d0a825u2q0f0f82040g820h020c01) or : [From the Start](https://www.sudokuwiki.org/SudokuX.aspx?bd=301000600000080000000001042009800160400020000003006400710600000000000000004000201)
 
@@ -235,7 +235,7 @@ Please enter the
 
 letters you see:
 
-![Image 15: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 16: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 15: arrow](../../assets/sudokuwiki-bug/06-GRNARR.GIF)![Image 16: Enter these letters](../../assets/sudokuwiki-bug/07-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -646,4 +646,4 @@ Add to this Thread
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 17: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 17: Buy Me a Coffee](../../assets/sudokuwiki-bug/09-coffee-20cup.svg)

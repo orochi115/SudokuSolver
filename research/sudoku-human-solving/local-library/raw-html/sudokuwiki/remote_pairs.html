@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Remote Pairs - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-remote-pairs/09-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-remote-pairs/10-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-remote-pairs/11-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-remote-pairs/12-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Remote_Pairs';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-remote-pairs/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-remote-pairs/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,23 +258,23 @@ var pgFileName = 'Remote_Pairs';
 				<h1>Remote Pairs</h1><div class="SRCell">This strategy has been entirely subsumed into the various Chaining strategies, particularly Simple Colouring.</div><br>
 
 <div class="SRCell">
-<figure style="width:300px"><img src="PuzImages/RP1.jpg" alt="Remote Pair 1" /><figcaption>Remote Pair 1
+<figure style="width:300px"><img src="../../assets/sudokuwiki-remote-pairs/03-RP1.jpg" alt="Remote Pair 1" /><figcaption>Remote Pair 1
 </figcaption></figure>
 I coined <span class="hy">Remote Pairs</span> (back in 2005) to distinguish this strategy/test/check, whatever, from the simpler more obvious pairs. Since first writing about it the strategy has been expanded in several directions and is more common than first thought.<br><br>Pairs occur where two or more cells have the same two possible numbers. A <span class="hy">locked pair</span> is two such cells which <i>lock</i> each other in. For example, in the diagram on the right in the top row: 6 and 9 occur twice (labelled <span class="hy">A</span> and <span class="hy">B</span>) as a pair on the same row. This means the number 6 and the number 9 MUST both occur in these two cells. We can therefore eliminate other 6s and 9s from the same row. Same rule applies to boxes and columns. This forms the basis of Test 3 in my solver.<br><br>On the diagram on the right I have marked all <span class="hy">locked pairs</span> with a red line. These are <span class="hy">AB, AC, BD, CD</span> and <span class="hy">DE</span>. <br><br>The point of this test/strategy is that we want to eliminate the 9 from cell <span class="hy">Z</span> and leave the 8. Can we do this logically, or must we guess?  What about cell <span class="hy">X</span> which also looks like a candidate for removing the 6 and 9?</div>
 
 <div class="SRCell">To do this we must prove that <span class="hy">A</span> and <span class="hy">E</span> are themselves a locked pair. But how can we do this when they are not in the same row, column or box? We must also prove that <span class="hy">B</span> and <span class="hy">E</span> are NOT a locked pair, otherwise we'd have to remove the 6 and 9 from <span class="hy">X</span> as well. Visually we can see that if <span class="hy">B</span> is a 6 then <span class="hy">D</span> must be a nine so that <span class="hy">E</span> must be a 6. <span class="hy">B</span> and <span class="hy">E</span> are <span class="hy">complementary pairs</span> since they MUST have the same number, be it 6 or 9.<br>Likewise <span class="hy">A</span> and <span class="hy">D</span>.</div><br>
 
 <div class="SRCell">
-<figure style="width:300px"><img src="PuzImages/RP2.jpg" alt="Remote Pair 2" /><figcaption>Remote Pair 2
+<figure style="width:300px"><img src="../../assets/sudokuwiki-remote-pairs/04-RP2.jpg" alt="Remote Pair 2" /><figcaption>Remote Pair 2
 </figcaption></figure>
 Consider Figure 1. We have five cells with the same pairs of numbers. Arranged in a pentagon as a network diagram each cell has four links to every other cell.<br>I have drawn in red the links between <span class="hy">locked pairs</span> and ignored all other links. Let us say these links have a distance of 1 between the nodes.<br><br>Now, in figure 2, we map all the pathways of distance 2. Valid pathways must be along the routes defined in Figure 1.  What we are mapping here is all the <span class="hy">complementary pairs</span>, and I've drawn the links green. Topologically there cannot be ANY red links matching two locked pairs with<br>distance 2.<br><br>In figure 3, we are mapping all the possible pathways of distance 3. These paths represent connections between newly discovered <span class="hy">locked pairs</span>. There are only two possible paths in this example, and again they can only be between <span class="hy">locked pairs</span> at this distance.<br><br>If we had more nodes we could carry on like this and look for distance 4 paths representing new <span class="hy">complementary pairs</span> but distance 4 is not possible in this example.</div>
 
 <div class="SRCell">However, we now know that we can show that <span class="hy">AE</span> is a <span class="hy">locked pair</span> if we can show that its minimum distance is an odd number (or distance mod 2 = 1 in arithmetical terms). They become a special locked pair I call a <span class="hy">remote pair</span>. Thus we may safely remove the 9 from <span class="hy">Z</span>. Because the distance between <span class="hy">BE</span> is an even number (2) we know we have a <span class="hy">complementary pair</span> and the information is useless for deciding the fate of <span class="hy">X</span>. Its important to remember numbers can be removed from any cell that both ends of the chain can see, so consider boxes as well as rows and columns.<br><br>Now the problem has been generalised we may proceed to code the rule into an algorithm. Test 9 on the solver page is the result.</div><br>
 
-<div class="SRCell">Lets look at another example. This looks complicated because we have seven pairs<br><br>(marked <span class="hy">A,B,C,D,E,F</span> and <span class="hy">G</span>). Our targets are <span class="hr">X</span> and <span class="hr">Z</span> which can be got at by an attack from <span class="hy">AD</span> and <span class="hy">AG</span>.<br><br><center><img src="PuzImages/RemotePairs2.jpg" width=427 height=196 ALT="Remote Pair 3"></center><br><br>We would like to remove the 3 and 8 from <span class="hr">Z</span> and <span class="hr">X</span>.  However, it is only safe to remove<br>the numbers from <span class="hr">Z</span>. Why? Because <span class="hy">AD</span> is an odd number of <i>locked pairs</i> from each other (<span class="hy">ACED</span> or <span class="hy">ACBFGD</span>). <span class="hy">AG</span>, whether you go via <span class="hy">ACBFG</span> or <span class="hy">ACEDG</span> are even numbers apart.</div><br>
+<div class="SRCell">Lets look at another example. This looks complicated because we have seven pairs<br><br>(marked <span class="hy">A,B,C,D,E,F</span> and <span class="hy">G</span>). Our targets are <span class="hr">X</span> and <span class="hr">Z</span> which can be got at by an attack from <span class="hy">AD</span> and <span class="hy">AG</span>.<br><br><center><img src="../../assets/sudokuwiki-remote-pairs/05-RemotePairs2.jpg" width=427 height=196 ALT="Remote Pair 3"></center><br><br>We would like to remove the 3 and 8 from <span class="hr">Z</span> and <span class="hr">X</span>.  However, it is only safe to remove<br>the numbers from <span class="hr">Z</span>. Why? Because <span class="hy">AD</span> is an odd number of <i>locked pairs</i> from each other (<span class="hy">ACED</span> or <span class="hy">ACBFGD</span>). <span class="hy">AG</span>, whether you go via <span class="hy">ACBFG</span> or <span class="hy">ACEDG</span> are even numbers apart.</div><br>
 
 <div class="SRCell">
-<figure style="width:300px"><img src="PuzImages/RemotePairs3.jpg" alt="Remote Pairs Example" /><figcaption>Remote Pairs Example
+<figure style="width:300px"><img src="../../assets/sudokuwiki-remote-pairs/06-RemotePairs3.jpg" alt="Remote Pairs Example" /><figcaption>Remote Pairs Example
 </figcaption></figure>
 A word of warning though. It is essential that the line of attack is supported by a contiguous line of locked pairs. In the example on the right we have four pairs of <b>3/4</b> at <span class="hy">A,B,C</span> and <span class="hy">D</span>. However, while <span class="hy">AB</span> is connected and so is <span class="hy">CD</span>, there is no connection between the two groups.  Therefore the elimination of the <b>3/4</b>s on <span class="hr">Z</span> and <span class="hr">X</span> are not legal or logical.<br><br><b>Credits</b><br><br>I'd like to credit the person who posted the board I've worked from but they didn't leave a name. The debate on this<br>problem is on <a target="_new" href="http://www.sudoku.org.uk/discus/messages/29/51.html?1117005685">this discussion forum</a><sup>dead link</sup>. Philip Frampton summarised the solution for <span class="hy">Z</span> most concisely.<br> <br><font color=cyan><b>New: March 2007.</b> Mihail Iusut has written a particularly interesting formal paper on the relationship between Remote Pairs and XY-Chains. You can <a target="_rpnew" href="sudoku/Remote_Pairs_and_XY_Chains.pdf">download this here</a>.</font></div>
 
@@ -314,9 +314,9 @@ A word of warning though. It is essential that the line of attack is supported b
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-remote-pairs/07-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-remote-pairs/08-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

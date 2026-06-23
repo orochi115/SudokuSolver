@@ -1,0 +1,308 @@
+[
+  {
+    "id": "HODOKU-SINGLES",
+    "external": 8,
+    "rewritten": 0,
+    "missing": 8
+  },
+  {
+    "id": "HODOKU-INTERSECTIONS",
+    "external": 6,
+    "rewritten": 0,
+    "missing": 6
+  },
+  {
+    "id": "HODOKU-NAKED",
+    "external": 10,
+    "rewritten": 0,
+    "missing": 10
+  },
+  {
+    "id": "HODOKU-HIDDEN",
+    "external": 7,
+    "rewritten": 0,
+    "missing": 7
+  },
+  {
+    "id": "HODOKU-BASIC-FISH",
+    "external": 6,
+    "rewritten": 0,
+    "missing": 6
+  },
+  {
+    "id": "HODOKU-FINNED-FISH",
+    "external": 6,
+    "rewritten": 0,
+    "missing": 6
+  },
+  {
+    "id": "HODOKU-COMPLEX-FISH",
+    "external": 9,
+    "rewritten": 0,
+    "missing": 9
+  },
+  {
+    "id": "HODOKU-SDP",
+    "external": 16,
+    "rewritten": 0,
+    "missing": 16
+  },
+  {
+    "id": "HODOKU-WINGS",
+    "external": 6,
+    "rewritten": 0,
+    "missing": 6
+  },
+  {
+    "id": "HODOKU-COLORING",
+    "external": 4,
+    "rewritten": 0,
+    "missing": 4
+  },
+  {
+    "id": "HODOKU-CHAINS",
+    "external": 24,
+    "rewritten": 0,
+    "missing": 24
+  },
+  {
+    "id": "HODOKU-ALS",
+    "external": 10,
+    "rewritten": 0,
+    "missing": 10
+  },
+  {
+    "id": "HODOKU-UNIQUENESS",
+    "external": 27,
+    "rewritten": 0,
+    "missing": 27
+  },
+  {
+    "id": "HODOKU-MISC",
+    "external": 6,
+    "rewritten": 0,
+    "missing": 6
+  },
+  {
+    "id": "HODOKU-LAST",
+    "external": 14,
+    "rewritten": 0,
+    "missing": 14
+  },
+  {
+    "id": "SUDOKUWIKI-FAMILIES",
+    "external": 11,
+    "rewritten": 3,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-LOGIC-VS-BRUTE",
+    "external": 2,
+    "rewritten": 2,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUWIKI-NAKED",
+    "external": 17,
+    "rewritten": 9,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-HIDDEN",
+    "external": 16,
+    "rewritten": 8,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-INTERSECTION",
+    "external": 17,
+    "rewritten": 6,
+    "missing": 11
+  },
+  {
+    "id": "SUDOKUWIKI-XWING",
+    "external": 16,
+    "rewritten": 8,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-YWING",
+    "external": 18,
+    "rewritten": 10,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-SWORDFISH",
+    "external": 17,
+    "rewritten": 9,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-SIMPLE-COLOURING",
+    "external": 16,
+    "rewritten": 8,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-AIC",
+    "external": 4,
+    "rewritten": 4,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUWIKI-UNIQUE-RECTANGLES",
+    "external": 29,
+    "rewritten": 21,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-ALS",
+    "external": 20,
+    "rewritten": 12,
+    "missing": 8
+  },
+  {
+    "id": "SOTD-FORCING-CHAINS",
+    "external": 6,
+    "rewritten": 6,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUCOM-POINTING-PAIRS",
+    "external": 3,
+    "rewritten": 3,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUCOM-ZH-POINTING-PAIRS",
+    "external": 3,
+    "rewritten": 3,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUCOM-ZH-XWING",
+    "external": 3,
+    "rewritten": 3,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUBLISS-ADVANCED",
+    "external": 11,
+    "rewritten": 11,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUBLISS-ALS",
+    "external": 4,
+    "rewritten": 4,
+    "missing": 0
+  },
+  {
+    "id": "CHINESE-JWANGL5-ADVANCED",
+    "external": 25,
+    "rewritten": 25,
+    "missing": 0
+  },
+  {
+    "id": "CHINESE-KAZUSA-WING-CONSTRUCTION",
+    "external": 8,
+    "rewritten": 8,
+    "missing": 0
+  },
+  {
+    "id": "CHINESE-KAZUSA-UR",
+    "external": 1,
+    "rewritten": 1,
+    "missing": 0
+  },
+  {
+    "id": "CHINESE-CN-SUDOKUPUZZLE-XWING",
+    "external": 2,
+    "rewritten": 2,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUWIKI-XY-CHAINS",
+    "external": 16,
+    "rewritten": 7,
+    "missing": 9
+  },
+  {
+    "id": "SUDOKUWIKI-X-CYCLES",
+    "external": 9,
+    "rewritten": 8,
+    "missing": 1
+  },
+  {
+    "id": "SUDOKUWIKI-3D-MEDUSA",
+    "external": 23,
+    "rewritten": 12,
+    "missing": 11
+  },
+  {
+    "id": "SUDOKUWIKI-W-WING",
+    "external": 5,
+    "rewritten": 5,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUWIKI-XYZ-WING",
+    "external": 15,
+    "rewritten": 7,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-BUG",
+    "external": 14,
+    "rewritten": 5,
+    "missing": 9
+  },
+  {
+    "id": "SUDOKUWIKI-FORCING-NETS",
+    "external": 8,
+    "rewritten": 8,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUWIKI-AIC-GROUPS",
+    "external": 3,
+    "rewritten": 3,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUWIKI-AIC-ALSS",
+    "external": 17,
+    "rewritten": 9,
+    "missing": 8
+  },
+  {
+    "id": "SUDOKUWIKI-AIC-URS",
+    "external": 3,
+    "rewritten": 3,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUCOM-ZH-SWORDFISH",
+    "external": 5,
+    "rewritten": 5,
+    "missing": 0
+  },
+  {
+    "id": "SUDOKUCOM-ZH-YWING",
+    "external": 3,
+    "rewritten": 3,
+    "missing": 0
+  },
+  {
+    "id": "CHINESE-CN-SUDOKUPUZZLE-XYWING",
+    "external": 2,
+    "rewritten": 0,
+    "missing": 2
+  },
+  {
+    "id": "CHINESE-CN-SUDOKUPUZZLE-UR",
+    "external": 4,
+    "rewritten": 4,
+    "missing": 0
+  }
+]

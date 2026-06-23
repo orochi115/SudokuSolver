@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Tridagons - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-tridagon/12-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-tridagon/13-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-tridagon/14-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-tridagon/15-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +46,8 @@ var pgFileName = 'Tridagons';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-tridagon/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-tridagon/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,36 +258,36 @@ var pgFileName = 'Tridagons';
 
 <h2>Cyclical Parity</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Trigagon3.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-tridagon/03-Trigagon3.png" alt="" /></figure>
 This pattern is interested in boxes with triples that span all three columns and rows in a box. There are six ways to do this. Three of these ways are said to be "<span class="hy">rising</span>" (the orange cells) since looking at them from left to right the cells migrate up and to the right as you read them. This is to do with their relative adjacency not their numbers, although we need the numbers to show which are which and show they fit without conflict. The yellow cells are "<span class="hy">falling</span>". <br><br>All six patterns are either rising or falling so we can think of their "parity". If rising they go 1 to 2 and 2 to 3 and 3 to 1 since it is "cyclical". Hence the theory talks of these boxes having "cyclical parity".<br><br>Next, for every set of three numbers we are interested in how to fill each <b>stack</b> (three vertical boxes) and <b>band</b> (three horizonal boxes). It is a property of Sudoku that<ul><li>All <b>rising</b> patterns have a <u>different</u> parity for the band and the stack</li><li>All <b>falling</b> patterns have the <u>same</u> parity for the band and the stack</li></ul></div>
 
 <div class="SRCell">
-<figure style="width:575px"><img src="PuzImages/Trigagon4.png" alt="" /></figure>
+<figure style="width:575px"><img src="../../assets/sudokuwiki-tridagon/04-Trigagon4.png" alt="" /></figure>
 </div>
 
 <div class="SRCell">So how is this useful? If you have a rising pattern in box 4 (doesn't matter which, so drawing it in a line) and you have a rising pattern in box 1 – the diagonal – we are forced to consider a falling pattern for box 2. Which I've coloured in yellow. If we try another rising pattern there is no way to fit {1,2,3} into box 1 that doesn't cause a conflict.</div><br>
 
 <div class="SRCell">
-<figure style="width:350px"><img src="PuzImages/Trigagon5.png" alt="" /></figure>
+<figure style="width:350px"><img src="../../assets/sudokuwiki-tridagon/05-Trigagon5.png" alt="" /></figure>
 It turns out that if you have four boxes in a square (or rectangle) that all possess three cells with the same triple in them - and three of the patterns are rising and one is falling, or three are falling and one is rising - then this situation blocks any solution to the whole puzzle.<br><br>To save the puzzle from having zero solutions some additional candidates are required to be present on one of the cells in the pattern. If there is one cell with any number of additional candidates that cell can have the triple removed from it. These extra candidates are called <span class="hy">Guardians</span>.<br><br>The pattern that stood out when first identified looked a little like "Thor's Hammer" so that is another name of this strategy.<br><br></div>
 
 <h2>Examples</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Trigagon6.png" alt="Example 1" /><figcaption>Example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-tridagon/06-Trigagon6.png" alt="Example 1" /><figcaption>Example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0102cycy03040eb60f05cy0302b6069nbfd7cy06040105cy9g0cb8cy0102cy040c0605cy04cy0506b60103b8d00603b6de02de9nbfd7bcbmb70407bo7p06899ga2ab031f84087x8dbcbuc3bm1fbo7x078h">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000001000000234000005060000070000007208096029560008096052000208607000750980000">From the Start</a>
 </figcaption></figure>
 Here is the first and classic example from Phil's Folly docs. I am breaking my rule about finding my own examples. I don't believe I can do that in a reasonable amount of time so I will pinch all the examples and <a href="http://www.philsfolly.net.au/Sudoku/tridagon_help.htm" target="_blank">provide a link</a> instead.<br><br>There is a single 5 guardian in <span class="hy">F6</span> which must be the solution to this cell.<br><br>It is not a difficult pattern to spot so the solver tries at the start of the 'diabolicals'. But I've bundled it under "<a href="/Static_Patterns">various static patterns</a>' as I don't think it will be discovered much outside the test lists.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Trigagon8.png" alt="Example 2" /><figcaption>Example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-tridagon/07-Trigagon8.png" alt="Example 2" /><figcaption>Example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B09080711111z150d1x06050d5xd147d5bb5x0b0n0n04de5edebm76070i4j034j0d06024j04024j4j060i4j07030n064n2c2c4j044j094n070f4j0d02brbr4j4n0n02094j074n0f044j0d0i06034j2c4j2c">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=987000000650000000000400000700300620420060073060000409070002000002907004000630000">From the Start</a>
 </figcaption></figure>
 <br>Just to emphasis that the patterns within each box can be any of the three suitable for the parity. Not just straight diagonals.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Trigagon7.png" alt="Example 3" /><figcaption>Example 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-tridagon/08-Trigagon7.png" alt="Example 3" /><figcaption>Example 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B8uee1y1ud69ecy01028kec5g1ucy01039e047ucy01d602030506cy8kc450cy0104cy05030e01070306b60402b67q044602cy05019e06011k1sd6d6d08k0u05071w247v037o8k087n080o090r05062c0u2b">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000012000001304001023560000014053017360420040205106100000005700030080809056000">From the Start</a>
 </figcaption></figure>
@@ -295,7 +295,7 @@ Here is the first and classic example from Phil's Folly docs. I am breaking my r
 
 <h2>More than one Guardian</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Trigagon9.png" alt="Pointing Pair Guardians" /><figcaption>Pointing Pair Guardians
+<figure style="width:450px"><img src="../../assets/sudokuwiki-tridagon/09-Trigagon9.png" alt="Pointing Pair Guardians" /><figcaption>Pointing Pair Guardians
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0102034q4q5m074y09228a220g438i0203436qb66q020n8m1f04050b0c4q4q0701bubm064q010906024u4q074e364q36094u4u4r4l4h0c4q014q092c5m5g644q070203064qbvbn4b09064q0a4q2c034k64">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=123000709000000230000200045000071006019620070000900000001090000072360000960000300">From the Start</a>
 </figcaption></figure>
@@ -337,9 +337,9 @@ A single extra candidate among the twelve cells in the pattern gives us a positi
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-tridagon/10-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-tridagon/11-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

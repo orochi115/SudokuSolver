@@ -35,7 +35,7 @@ XY翼包含三个关键元素：
 
 我们来看第一个例子，展示一个典型的XY翼结构。
 
-![Image 1: XY翼示例1](https://cn.sudokupuzzle.org/sudoku-guide/image/xy-wing-1.png)
+![Image 1: XY翼示例1](../../assets/chinese-cn-sudokupuzzle-xywing/01-xy-wing-1.png)
 
 图1：轴心R7C5{6,9}，翼R8C4{5,6}和R7C7{5,9}，删除R8C8的候选数5
 
@@ -80,7 +80,7 @@ XY翼包含三个关键元素：
 
 接下来我们看另一个例子，展示不同位置关系的XY翼。
 
-![Image 2: XY翼示例2](https://cn.sudokupuzzle.org/sudoku-guide/image/xy-wing-2.png)
+![Image 2: XY翼示例2](../../assets/chinese-cn-sudokupuzzle-xywing/02-xy-wing-2.png)
 
 图2：轴心R6C3{6,8}，翼R1C3{6,9}和R6C7{8,9}，删除R1C7的候选数9
 

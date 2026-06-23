@@ -20,7 +20,7 @@ Take two rows (the base sets). If you can find two columns, such that all candid
 
 If you exchange the terms rows and columns in the description above, you get an X-Wing in the columns.
 
-[![Image 1: Sudoku technique: Example for X-Wing](https://hodoku.sourceforge.net/examples/bf201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf201&tech=X-Wing)[![Image 2: Sudoku technique: Example for X-Wing](https://hodoku.sourceforge.net/examples/bf202.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf202&tech=X-Wing)
+[![Image 1: Sudoku technique: Example for X-Wing](../../assets/hodoku-basic-fish/01-bf201.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf201&tech=X-Wing)[![Image 2: Sudoku technique: Example for X-Wing](../../assets/hodoku-basic-fish/02-bf202.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf202&tech=X-Wing)
 
 Take the example on the left: The base sets are the rows 2 and 5 (they have candidate 5 at r2c58 and r5c58. Columns 5 and 8 are the cover sets: All candidates from the base sets are contained in that columns. What's left is a 5 in r4c5: It is part of a cover set, but not of a base set. That candidate can be eliminated.
 
@@ -34,7 +34,7 @@ The example on the right shows an X-Wing in the columns: The base sets are colum
 
 Swordfishes work exactly the same way as X-Wings, just with three base and three cover sets instead of only two.
 
-[![Image 3: Sudoku technique: Example for Swordfish](https://hodoku.sourceforge.net/examples/bf301.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf301&tech=Swordfish)[![Image 4: Sudoku technique: Example for Swordfish](https://hodoku.sourceforge.net/examples/bf302.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf302&tech=Swordfish)
+[![Image 3: Sudoku technique: Example for Swordfish](../../assets/hodoku-basic-fish/03-bf301.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf301&tech=Swordfish)[![Image 4: Sudoku technique: Example for Swordfish](../../assets/hodoku-basic-fish/04-bf302.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf302&tech=Swordfish)
 
 On the left the base sets are rows 1, 2, and 9. The cover sets are columns 1, 5, and 8, the fish digit is 2. Candidates 2 in r7c1 and in r6c8 are cover candidates that are not base candidates and can be eliminated.
 
@@ -46,7 +46,7 @@ On the right base sets r247 are combined with cover sets c235 to eliminate 4 fro
 
 Jellyfishes need four base and four cover sets. Both examples below are taken from the [Pure Jellyfish Collection](http://forum.enjoysudoku.com/viewtopic.php?t=5776) in the [New Sudoku Player's Forum](http://forum.enjoysudoku.com/).
 
-[![Image 5: Sudoku technique: Example for Jellyfish](https://hodoku.sourceforge.net/examples/bf401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf401&tech=Jellyfish)[![Image 6: Sudoku technique: Example for Jellyfish](https://hodoku.sourceforge.net/examples/bf402.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf402&tech=Jellyfish)
+[![Image 5: Sudoku technique: Example for Jellyfish](../../assets/hodoku-basic-fish/05-bf401.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf401&tech=Jellyfish)[![Image 6: Sudoku technique: Example for Jellyfish](../../assets/hodoku-basic-fish/06-bf402.png)](https://hodoku.sourceforge.net/en/show_example.php?file=bf402&tech=Jellyfish)
 
 On the left we have a Jellyfish in r3467/c1259 for digit 7, eliminating all the candidates marked in red. On the right the Jellyfish is in r1367/c2589, also for digit 7.
 

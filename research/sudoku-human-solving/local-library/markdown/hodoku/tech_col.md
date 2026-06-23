@@ -23,7 +23,7 @@ Simple Colors uses only two different colors. Starting with one cell of a conjug
 1.   An uncolored cell that sees cells of opposite colors (Color Trap): Since the cells with the same color are either all true or all false, one of the two colored cells has to be true, and the uncolored cell can never have the color candidate placed.
 2.   Two cells with the same color seeing each other (Color Wrap): The cells with that color are either all true or all false. All true is impossible (we would get the same digit twice in the same house), so they must all be false.
 
-[![Image 1: Sudoku technique: Example for Simple+Colors](https://hodoku.sourceforge.net/examples/sc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sc01&tech=Simple+Colors)[![Image 2: Sudoku technique: Example for Simple+Colors](https://hodoku.sourceforge.net/examples/sc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sc02&tech=Simple+Colors)
+[![Image 1: Sudoku technique: Example for Simple+Colors](../../assets/hodoku-coloring/01-sc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sc01&tech=Simple+Colors)[![Image 2: Sudoku technique: Example for Simple+Colors](../../assets/hodoku-coloring/02-sc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sc02&tech=Simple+Colors)
 
 The example on the left shows a Color Trap: Cell r1c9 sees cells r1c4 and r8c9 and those cells have opposite colors. Candidate 3 can be eliminated from r1c9. The same argument holds for r3c9 and r8c1.
 
@@ -40,7 +40,7 @@ Multi Colors uses more than one pair of colors to color regions formed by conjug
 
 Multi Colors have the same power as [X-Chains](https://hodoku.sourceforge.net/en/tech_chains.php#x). HoDoKu currently supports only two color pairs in its Multi Colors implementation, so not all X-Chains produce the equivalent Multi Colors step in HoDoKu.
 
-[![Image 3: Sudoku technique: Example for Multi+Colors](https://hodoku.sourceforge.net/examples/mc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=mc01&tech=Multi+Colors)[![Image 4: Sudoku technique: Example for Multi+Colors](https://hodoku.sourceforge.net/examples/mc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=mc02&tech=Multi+Colors)
+[![Image 3: Sudoku technique: Example for Multi+Colors](../../assets/hodoku-coloring/03-mc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=mc01&tech=Multi+Colors)[![Image 4: Sudoku technique: Example for Multi+Colors](../../assets/hodoku-coloring/04-mc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=mc02&tech=Multi+Colors)
 
 The example on the left shows type 1 for candidate 1: We use two colors. r1c5 has color 1a, r1c7 has color 1b; r2c9 has 2a and r5c9 has 2b. r1c7 and r2c9 belong two different color pairs, but share the same house (block 3). Since only one of them can possibly be true (they can both be false!), either all cells with color 1a or all cells with color 2b have to be true. Cells r5c23 see both colors and cannot therefore contain the color candidate.
 

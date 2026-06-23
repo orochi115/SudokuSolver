@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>W-Wing Strategy - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-w-wing/10-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-w-wing/11-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-w-wing/12-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-w-wing/13-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,8 @@ var pgFileName = 'W_Wing_Strategy';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-w-wing/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-w-wing/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -257,35 +257,35 @@ var pgFileName = 'W_Wing_Strategy';
 
 <h2>The Double W-Wing or Remote Pair Chain</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WWing01b.png" alt="Remote Pair Chain" /><figcaption>Remote Pair Chain
+<figure style="width:450px"><img src="../../assets/sudokuwiki-w-wing/03-WWing01b.png" alt="Remote Pair Chain" /><figcaption>Remote Pair Chain
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f017u020c0e08077u0b050g0i0d0h0c0f017ybibi0a07060e7u0b087u121202070a7u068e807w120f0a7u0h0g010g0f04080i0b0e037y0f8008050w070a7u07bgbw0f0a0s7u034i1a4e010g0i0u0f024i">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=010200870050000001000076000800027006000000000100480003000850700700000030001000020">From the Start</a>
 </figcaption></figure>
 To explain this strategy it is worth discussing the exception rather than the rule. Consider this &#39;tough&#39; puzzle at this point. There happen to be a lot of 4/9 cells on the board. Pairs like this don't appear in isolation - if there are two in the same row, column or box they would be <a href="/Naked_Candidates">Naked Pairs</a> and we'd have used them to remove other 4s and 9s in those units. But we are past that point. <br><br>Instead we can check if there are two cells with 4 and 9 that can't see each other (not a conjugate pair) but can be connected to each other using other 4+9 cells. This is the case with <span class="hy">A3</span> and <span class="hy">H7</span>.  They are connected by strong links via <span class="hy">A9</span> and <span class="hy">G9</span>.  The solver is displaying an alternating strong/weak chain not just <a href="/Weak_and_Strong_Links">because weak links can be strong</a> but because we alternate on and off. The solver is showing one of four possible chains logic: <ul><li><span class="hy">A3</span> is 4 implying <span class="hy">H7</span> must be not 4, so 9.</li><li><span class="hy">A3</span> is 9 implying <span class="hy">H7</span> must be not 9, so 4.</li><li><span class="hy">A3</span> is not 4 (must be 9) implying <span class="hy">H7</span> must be 4.</li><li><span class="hy">A3</span> is not 9 (must be 4) implying <span class="hy">H7</span> must be 9.</li></ul>Any of these are proofs. It means that any cell that can see both ends of the chain cannot have a 4 or a 9. Such as cell is <span class="hy">H3</span></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WWing02b.png" alt="Remote Pair Chain 2" /><figcaption>Remote Pair Chain 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-w-wing/04-WWing02b.png" alt="Remote Pair Chain 2" /><figcaption>Remote Pair Chain 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0f017u020c0e08077u0b050g0i0d0h0c0f017ybibi0a07060e7u0b087u121202070a7u068e807w120f0a7u0h0g010g0f04080i0b0e037y0f8008050w070a7u07bg4k0f0a0s7u034i1a4e010g0i0u0f024i">Load Example</a>
 </figcaption></figure>
 <br>In the very next step is another elimination of 4s and 9s, this time in <span class="hy">H2</span>. A slightly different set of cells but I'm sure the pattern and logic is clear.<br><br>The name for this pattern is a Remote Pair Chain. A more convoluted explanation for this appears here as <a href="/Remote_Pairs">Remote Pairs</a>. A long time ago I removed it from the solver as it was wholly a subset of <a href="/XY_Chains">XY-Chains</a>. But the length-4 version it is still simple to spot and worth using before the broader XY-Chain logic is invoked.<br><br>Using this pattern three times saves six <a href="/Rectangle_Elimination">Rectangle Eliminations</a>. Untick W-Wings and try.<br><br>Note: Remote Pairs can be more than four cells long. But the next size is six and then eight - so even numbers. The coincidence of so many identical bi-values cells means they are increasingly rare at longer lengths but keep an eye out.<br><br>So what does this have to do with 'W-Wing'?</div>
 
 <h2>The Single W-Wing</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WWing03b.png" alt="W-Wing example 1" /><figcaption>W-Wing example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-w-wing/05-WWing03b.png" alt="W-Wing example 1" /><figcaption>W-Wing example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B7n0h1m1q021i0z82077o1m0c050a07088k8s0l05071m090h1p031p121m08090g20280128070a0i1k0420201w0812021m0h1i01090g260h090a1k051k07041i0d0g02011i091y0h1y060c0e0g080d0l7o7p">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000020007000507800057090030008900010700040008020001900090050740002109000600080000">From the Start</a>
 </figcaption></figure>
 In this puzzle we've found two cells with 3 and 6 in them - cells <span class="hy">A6</span> and <span class="hy">F5</span>. They cannot see each other.  We cannot connect them through 3 but we can connect them through a strong link on 6 (the yellow cells). <br><br>If <span class="hy">A6</span> is not a 3 it must be 6. That gives us a weak link from +6 to -6 in <span class="hy">A3</span>.  -6 in <span class="hy">A3</span> forces +6 in <span class="hy">F3</span> - a strong link (this is the important - it must be strong). +6 in <span class="hy">F3</span> removes 6 in <span class="hy">F5</span> making it 3. Reverse the chain logic and we prove that 3 must be in one of those orange cells. There are two cells that can see both ends and contains 3 - <span class="hy">D6</span> and <span class="hy">E6</span> and we can remove 3 from them.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WWing04b.png" alt="W-Wing example 2" /><figcaption>W-Wing example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-w-wing/06-WWing04b.png" alt="W-Wing example 2" /><figcaption>W-Wing example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B7n0h1m1q021i0z82077o1m0c050a07088k8s0l05071m090h1p031p121m08090g1w280128070a0i1k041w201w0812021m0h1i01090g260h090a1k051k07041i0d0g02011i091y0h1y060c0e0g080d0l7o7p">Load Example</a>
 </figcaption></figure>
 <br>We can go again in the very next step. This time it is {2/9} in <span class="hy">B1</span> connected to <span class="hy">J8</span> via the strong link on 9 between <span class="hy">A1</span> and <span class="hy">A8</span>. Trace the logic in both directions to satisfy yourself that one end of the W-Wing (orange cells) must be 2.<br><br>It might be clear now that if all the cells share the same digits you have two mirrored Single W-Wings and therefore a Double or a Remote Pair Chain. <br><br>There is one further W-Wing after this step. See if you can spot it.</div>
 
 <h2>W-Wings 'Split Double' variety</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WWing05b.png" alt="Split W-Wing example" /><figcaption>Split W-Wing example
+<figure style="width:450px"><img src="../../assets/sudokuwiki-w-wing/07-WWing05b.png" alt="Split W-Wing example" /><figcaption>Split W-Wing example
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0e2i0i0h010c062i0b0c1n1m070b090h0r052b080b0f050d09032b1m053e01030h0b093e0h0c3e0b090e2j373f0i020a0d06070e080c3e09030e080a2i023e020r0h030g060r0e0i3737050i040b0c370h">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000010600000709005080050930050130090000090000020067080093080020200306000005040000">From the Start</a>
 </figcaption></figure>
@@ -330,9 +330,9 @@ There is one more configuration that should be mentioned. It is possible there a
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-w-wing/08-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-w-wing/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

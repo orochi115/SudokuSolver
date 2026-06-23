@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Avoidable Rectangles - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-avoidable-rectangles/09-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-avoidable-rectangles/10-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-avoidable-rectangles/11-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-avoidable-rectangles/12-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Avoidable_Rectangles';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-avoidable-rectangles/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-avoidable-rectangles/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -260,19 +260,19 @@ var pgFileName = 'Avoidable_Rectangles';
 </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AVR1.png" alt="Avoidable Rectangle" /><figcaption>Avoidable Rectangle
+<figure style="width:450px"><img src="../../assets/sudokuwiki-avoidable-rectangles/03-AVR1.png" alt="Avoidable Rectangle" /><figcaption>Avoidable Rectangle
 </figcaption></figure>
 <br>To appreciate this strategy, we have to put ourselves in the shoes of the puzzle creator, not the puzzle solver.<br><br>Consider the solution in diagram to the right. We have four cells that are shaded. To create a Sudoku puzzle, some removal process has to take place  - some method of taking out numbers so that they can be filled in again by a puzzle solver. The crucial constraint is that the puzzle must have a unique solution. If the puzzle maker removed all four shaded cells, then there would be at least two solutions, since the 1 and the 2 are interchangeable in this situation.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AVR2.png" alt="Avoidable Rectangle" /><figcaption>Avoidable Rectangle
+<figure style="width:450px"><img src="../../assets/sudokuwiki-avoidable-rectangles/04-AVR2.png" alt="Avoidable Rectangle" /><figcaption>Avoidable Rectangle
 </figcaption></figure>
 Notice that we are talking about a rectangle that crosses exactly two boxes. This is the same deadly pattern formation we’ve discussed in <a href="/Unique_Rectangles">Unique Rectangles</a>. If our four cells are in four boxes, the puzzle maker can remove all numbers, since they are not interchangeable. To the puzzle maker, the four shaded cells above are an “<span class="hy">unavoidable set</span>”: he or she can’t avoid leaving one or more of these numbers as a clue.<br></div>
 
 <div class="SRCell"><br>There are millions of possible puzzles derivable from a completed Sudoku board. The top third of the puzzle above is just one example. Notice, however, that at least one of the four cells (C5) from our example is a clue - which avoids creating a double solution.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/AVR3.png" alt="Avoidable rectangle" /><figcaption>Avoidable rectangle
+<figure style="width:450px"><img src="../../assets/sudokuwiki-avoidable-rectangles/05-AVR3.png" alt="Avoidable rectangle" /><figcaption>Avoidable rectangle
 </figcaption></figure>
 The next picture shows the state of play (in the top third of a puzzle) near the end. From the point of view of the puzzle solver aware of “unavoidable sets”, we can spot a very interesting rectangle in <span class="hy">B4</span>, <span class="hy">C4</span>, <span class="hy">B7</span> and <span class="hy">C7</span>. It seems that we’ve found an interchangeable pair of 5s and 8s.</div>
 
@@ -282,7 +282,7 @@ The next picture shows the state of play (in the top third of a puzzle) near the
 <div class="SRCell">The Deadly Pattern of four cells in exactly two rows, two columns and two boxes can be extended to three rows, three columns and three boxes. This applies to both <a href="/Unique_Rectangles">Unique Rectangle</a> and <b>Avoidable Rectangles</b>.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/TDP.png" alt="Triple Deadly Pattern" /><figcaption>Triple Deadly Pattern
+<figure style="width:450px"><img src="../../assets/sudokuwiki-avoidable-rectangles/06-TDP.png" alt="Triple Deadly Pattern" /><figcaption>Triple Deadly Pattern
 </figcaption></figure>
 <br>Consider this set of numbers here. {1,4,8} are solutions in a finished puzzle - the rest of the numbers have been removed. From the point of view of an Avoidable Rectangle the puzzle maker must make at least two of these numbers clues - and two different numbers at that. I've shown in green two example cells that will ensure there is a single solution. If none of these nine cells were clues then the puzzle solver would fine {1,4,8} in all those places and any combination would give a solution. So the puzzle maker is forced to insert <i>at least</i> two clues.</div>
 
@@ -322,9 +322,9 @@ The next picture shows the state of play (in the top third of a puzzle) near the
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-avoidable-rectangles/07-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-avoidable-rectangles/08-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

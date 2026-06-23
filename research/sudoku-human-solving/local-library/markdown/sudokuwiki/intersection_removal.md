@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Intersection_Removal
 Markdown Content:
 # Intersection Removal - SudokuWiki.org
 
-[![Image 7: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 7: SudokuWiki](../../assets/sudokuwiki-intersection/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
  Shares 
 
-![Image 8: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 8: pinterest sharing button](../../assets/sudokuwiki-intersection/01-pinterest.svg)
 
-![Image 9: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 9: facebook sharing button](../../assets/sudokuwiki-intersection/02-facebook.svg)
 
-![Image 10: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 10: twitter sharing button](../../assets/sudokuwiki-intersection/03-twitter.svg)
 
-![Image 11: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 11: blogger sharing button](../../assets/sudokuwiki-intersection/04-blogger.svg)
 
-![Image 12: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 12: tumblr sharing button](../../assets/sudokuwiki-intersection/05-tumblr.svg)
 
-![Image 13: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 13: messenger sharing button](../../assets/sudokuwiki-intersection/06-messenger.svg)
 
-![Image 14: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 14: email sharing button](../../assets/sudokuwiki-intersection/07-email.svg)
 
 # Intersection Removal
 
@@ -170,7 +170,7 @@ If any one number occurs twice or three times in just one unit (any row, column 
 
 ## Pointing Pairs, Pointing Triples
 
-![Image 15: Pointing Pairs](https://www.sudokuwiki.org/PuzImages/PP1.png)
+![Image 15: Pointing Pairs](../../assets/sudokuwiki-intersection/03-PP1.png)
 
 Pointing Pairs : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4s010g091803064a4c281c1i2t082q7r7v81094g520l1o1m054b074i0g024i018i04038i4nbqba048y02b70gc34306040c07b6020eb707bk01447wbeba0f0558bgc22q032qb7bfbf4ebi05067u010g02bi) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=010903600000080000900000507002010430000402000064070200701000005000030000005601020)
 
@@ -178,7 +178,7 @@ Pointing Pairs : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4s01
 
 Here are two Pointing Pairs at the same time on this tough rated puzzle. The 3s in B7 and B9 are alone in box 3 and they are aligned on the row. So looking along the row we can remove all the 3s in Box 1. In a similar manner the 2s in G4 and G5 point along the row to G2.
 
-![Image 16: Pointing Pairs Example 2](https://www.sudokuwiki.org/PuzImages/PP2.png)
+![Image 16: Pointing Pairs Example 2](../../assets/sudokuwiki-intersection/04-PP2.png)
 
 Pointing Pairs Example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=032006100410000000000901000500090004060000070300020005000508000000000019007000860)
 
@@ -192,7 +192,7 @@ Here is a Pointing Triple found in a tough grade puzzle containing many wholesom
 
 ## Box Line Reduction
 
-![Image 18: Box/Line Reduction](https://www.sudokuwiki.org/PuzImages/BLR1b.png)
+![Image 18: Box/Line Reduction](../../assets/sudokuwiki-intersection/06-BLR1b.png)
 
 Box/Line Reduction : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=016007803090800000870001260048000300650009082039000650060900020080002936924600510) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=016007803000800000070001060048000300600000002009000650060900020000002000904600510)
 
@@ -236,7 +236,7 @@ Please enter the
 
 letters you see:
 
-![Image 21: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 22: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 21: arrow](../../assets/sudokuwiki-intersection/09-GRNARR.GIF)![Image 22: Enter these letters](../../assets/sudokuwiki-intersection/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -710,4 +710,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 23: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 23: Buy Me a Coffee](../../assets/sudokuwiki-intersection/11-coffee-20cup.svg)

@@ -84,14 +84,14 @@ In fact, when finished with the coloring at the end of step 3, you have three di
 </p>
 <a name="Example_1"></a><h3> Example 1 </h3>
 <p><i>Multicolors. In this situation, X-Colors finds the same move as the Multiple Colors Technique.</i>
-</p><p><img src="./images/XCEx1.png" alt="image:XCEx1.png" width="497" height="497" longdesc="/wiki/Image:XCEx1.png">
+</p><p><img src="../../assets/sudopedia-x-colors/01-XCEx1.png" alt="image:XCEx1.png" width="497" height="497" longdesc="/wiki/Image:XCEx1.png">
 </p><p>Focusing on <b>2</b>, we mark the conjugate pair <b>r9c2</b> (blue) and <b>r9c8</b> (green). (Cells marked with <b>1</b>). Step 2 does not mark any more cells.
 </p><p>Step 3 allows us to mark <b>r2c1</b> Blue, because it is the only cell in its box that is not a peer of <b>r9c2</b>. (Cell marked with <b>2</b>). No more cells can be marked in Step 3.
 </p><p>Step 4.1 allows removal of the candidate <b>2</b> from <b>r2c8</b>, because it is peer both of <b>r2c1</b> (blue) and <b>r9c8</b> (green). (Cell marked with <b>X</b>).
 </p>
 <a name="Example_2"></a><h3> Example 2 </h3>
 <p><i>Elimination not found by Single or Multiple Colors.</i>
-</p><p><img src="./images/XCEx2.png" alt="image:XCEx2.png" width="497" height="497" longdesc="/wiki/Image:XCEx2.png">
+</p><p><img src="../../assets/sudopedia-x-colors/02-XCEx2.png" alt="image:XCEx2.png" width="497" height="497" longdesc="/wiki/Image:XCEx2.png">
 </p><p>Focusing on <b>6</b>, we mark the conjugate pair <b>r1c4</b> (blue) and <b>r2c5</b> (green).
 </p><p>Step 2 allows us to mark <b>r4c4</b> green. (All these cells are marked with <b>1</b>).
 </p><p>Step 3 allows in the first iteration to mark <b>r9c6</b> green, and <b>r5c8</b> green, because they are the only cells in their boxes that are not peers of <b>r2c5</b> and <b>r4c4</b> respectively. (Cell marked with <b>2</b>).
@@ -102,34 +102,34 @@ In fact, when finished with the coloring at the end of step 3, you have three di
 </p>
 <a name="Example_3"></a><h3> Example 3 </h3>
 <p><i>Both elimination of candidates and contradiction, found in the same puzzle.</i>
-</p><p><img src="./images/XCEx3.png" alt="image:XCEx3.png" width="497" height="497" longdesc="/wiki/Image:XCEx3.png">
+</p><p><img src="../../assets/sudopedia-x-colors/03-XCEx3.png" alt="image:XCEx3.png" width="497" height="497" longdesc="/wiki/Image:XCEx3.png">
 </p><p>In a similar way as Example 2, and you can easily find the way to exclude the cells marked with <b>X</b> (<b>r2c7</b> and <b>r2c9</b>), as they share as peer a green cell (<b>r1c8</b> in its house) and a blue cell (<b>r2c3</b> in its row).
 </p><p>BUT also you can see that <b>r1c8</b> (already marked green) is the only cell in its box which is not a peer of <b>r2c3</b>, so, as Step 3 states, you can mark it BLUE.  The result is a contradiction (a cell marked simultaneously green and blue) and two cells in a row (r1) and in a column (c8) with the same color (blue).
 </p><p>Then, as Step 4.2 states, the cells marked green are TRUE.  You can immediately solve all the green cells (<b>r1c8</b>, <b>r7c2</b> and <b>r9c5</b>) because all of them are an <b>8</b>.  Note that, even if you have found a contradiction with blue cells, you CANNOT assume that ALL BLUE CELLS ARE FALSE.  You can only conclude in that situation that GREEN CELLS ARE TRUE.
 </p>
 <a name="Example_4"></a><h3> Example 4 </h3>
 <p><i>Elimination after multiple iterations of Step 3.</i>
-</p><p><img src="./images/XCEx4.png" alt="image:XCEx4.png" width="497" height="497" longdesc="/wiki/Image:XCEx4.png">
+</p><p><img src="../../assets/sudopedia-x-colors/04-XCEx4.png" alt="image:XCEx4.png" width="497" height="497" longdesc="/wiki/Image:XCEx4.png">
 </p><p>This is a nice example of how several iterations in Step 3 can find eliminations.  In this position, focusing on <b>5</b>, there is only one conjugate pair: <b>r5c6</b> and <b>r7c6</b> (Cells marked with <b>1</b>).
 </p><p>After Step 2, no more cells can be marked.  Single Colors and Multiple Colors are useless here.
 </p><p>Performing various iterations of Step 3, we can mark green different cells (only one cell each iteration), marked with numbers <b>2</b> to <b>5</b>.  When Step 3 cannot mark any more cells, we can exclude the candidate <b>5</b> from cells marked <b>X</b> (Step 4.1)
 </p>
 <a name="Example_5"></a><h3> Example 5 </h3>
 <p><i>Contradiction.</i>
-</p><p><img src="./images/XCEx5.png" alt="image:XCEx5.png" width="497" height="497" longdesc="/wiki/Image:XCEx5.png">
+</p><p><img src="../../assets/sudopedia-x-colors/05-XCEx5.png" alt="image:XCEx5.png" width="497" height="497" longdesc="/wiki/Image:XCEx5.png">
 </p><p>After Step 1 and 2 we have colored cells marked <b>1</b>.
 </p><p>Step 3 colors (blue) two cells of column 9 (<b>r2c9</b> and <b>r7c9</b>).  That's a contradiction, and you can conclude, as stated in Step 4.2, that Green cells (in this case, <b>r8c6</b>) are TRUE.  Once again, in this position you cannot conclude that Blue Cells are false, but that Green Cells are True.
 </p>
 <a name="Example_6"></a><h3> Example 6 </h3>
 <p><i>Contradiction, and No cells left in one house to be colored with one color.</i>
 </p><p>This position can also be solved with Multicolors, but it can be used to address the rare situation in which one house cannot hold any cell of a given color (Step 4.3).
-</p><p><img src="./images/XCEx6.png" alt="image:XCEx6.png" width="497" height="497" longdesc="/wiki/Image:XCEx6.png">
+</p><p><img src="../../assets/sudopedia-x-colors/06-XCEx6.png" alt="image:XCEx6.png" width="497" height="497" longdesc="/wiki/Image:XCEx6.png">
 </p><p>Focusing on <b>1</b>, and after initial Coloring (Cells marked <b>1</b>), and even before applying Step 3, you can see that all cells in the lower-left box are peers of green cells.
 </p><p>No one cell can then be marked green in this box, so, as Step 4.3 states, you can conclude that BLUE CELLS ARE TRUE, and they contain a <b>1</b>.
 </p>
 <a name="Augmenting_X-Colors_with_Single-Digit_Techniques"></a><h2> Augmenting X-Colors with Single-Digit Techniques </h2>
 <p>The X-Colors technique can be further augmented with <a href="./Single-digit.html" title="Single-digit">single-digit</a> <a href="./Technique.html" title="Technique">techniques</a> for faster or further eliminations. The following example shows how we can replicate <a href="./Empty_Rectangle.html" title="Empty Rectangle">Empty Rectangle</a> using X-Colors plus <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a>:
-</p><p><img src="./images/XColorsER.png" alt="image:XColorsER.png" width="497" height="497" longdesc="/wiki/Image:XColorsER.png">
+</p><p><img src="../../assets/sudopedia-x-colors/07-XColorsER.png" alt="image:XColorsER.png" width="497" height="497" longdesc="/wiki/Image:XColorsER.png">
 </p><p>After the initial coloring for digit <b>8</b>, <b>r5c3</b> cannot be colored blue so either <b>r4c1</b> or <b>r6c1</b> can be colored blue, although we don't know which one. But we do get a <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a> in the fourth box due to these two cells. Since <b>r3c1</b> is pointed to by these cells and <b>r3c1</b> also sees a green cell, we can eliminate <b>8</b> from <b>r3c1</b>. This shows how we can replicate <a href="./Empty_Rectangle.html" title="Empty Rectangle">Empty Rectangle</a> using X-Colors with <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a>. (In this example, the same elimination can be made after four iterations of Step 3, but by using <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a> we need only two iterations.)
 </p><p>We can also conceive of X-Colors augmented with other <a href="./Single-digit.html" title="Single-digit">single-digit</a> <a href="./Technique.html" title="Technique">techniques</a> such as <a href="./Swordfish.html" title="Swordfish">Swordfish</a>, <a href="./Jellyfish.html" title="Jellyfish">Jellyfish</a> and so on. 
 Not with <a href="./X-Wing.html" title="X-Wing">X-Wing</a>, due to the fact that X-Colors makes the same eliminations than X-Wing (actually, <a href="./Multi-Colors.html" title="Multi-Colors">Multi-Colors</a> already do the same eliminations than X-Wing, and X-Colors completely covers Multi-Colors).
@@ -148,7 +148,7 @@ This page was last modified 19:29, 11 November 2008.
 <hr>
 <div id="footer">
 <div id="f-copyrightico">
-<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="../../assets/sudopedia-x-colors/08-gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
 </div>
 <ul id="f-list">
 <li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>

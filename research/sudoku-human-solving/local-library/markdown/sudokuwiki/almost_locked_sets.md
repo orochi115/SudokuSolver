@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/Almost_Locked_Sets
 Markdown Content:
 # Almost Locked Sets - SudokuWiki.org
 
-[![Image 9: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 9: SudokuWiki](../../assets/sudokuwiki-als/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 47 Shares 
 
-![Image 10: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 10: pinterest sharing button](../../assets/sudokuwiki-als/01-pinterest.svg)
 
-![Image 11: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 11: facebook sharing button](../../assets/sudokuwiki-als/02-facebook.svg)
 
-![Image 12: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 12: twitter sharing button](../../assets/sudokuwiki-als/03-twitter.svg)
 
-![Image 13: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 13: blogger sharing button](../../assets/sudokuwiki-als/04-blogger.svg)
 
-![Image 14: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 14: tumblr sharing button](../../assets/sudokuwiki-als/05-tumblr.svg)
 
-![Image 15: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 15: messenger sharing button](../../assets/sudokuwiki-als/06-messenger.svg)
 
-![Image 16: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 16: email sharing button](../../assets/sudokuwiki-als/07-email.svg)
 
 # Almost Locked Sets
 
@@ -171,7 +171,7 @@ Note: these examples require AICs and Forcing Chains to be unticked in the solve
 
 ALS is strongly related to [XYZ-Wings](https://www.sudokuwiki.org/XYZ_Wing) and [WXYZ-Wings](https://www.sudokuwiki.org/WXYZ_Wing) which are subsets of ALS.
 
-![Image 17: Almost Locked Set example 1](https://www.sudokuwiki.org/PuzImages/ALS1.png)
+![Image 17: Almost Locked Set example 1](../../assets/sudokuwiki-als/03-ALS1.png)
 
 Almost Locked Set example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=910700003062003709735004086009372060023050070057048932270400300501237690390000027) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=910000003002003709000004086009300000020050070000008900270400000501200600300000027)
 
@@ -191,7 +191,7 @@ Making an interesting observation is one thing, but what's the proof? Think of t
 
 The N+1 definition also applies to single cells - they simply must have two candidates in them - the natural bi-value cell. This next example uses a 3-cell ALS in combination with the 1-cell ALS.
 
-![Image 18: Almost Locked Set example 2](https://www.sudokuwiki.org/PuzImages/ALS2.png)
+![Image 18: Almost Locked Set example 2](../../assets/sudokuwiki-als/04-ALS2.png)
 
 Almost Locked Set example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=030680105601503000000001060004805630860000051057000980070408000000700008408050020) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=030080105600003000000001060004000630860000051057000900070400000000700008408050020)
 
@@ -201,7 +201,7 @@ The XZ rules says we can use that 3 to look for other 3s that share units with b
 
 ## More Complex Examples
 
-![Image 19: Almost Locked Set example 3](https://www.sudokuwiki.org/PuzImages/ALS3.png)
+![Image 19: Almost Locked Set example 3](../../assets/sudokuwiki-als/05-ALS3.png)
 
 Almost Locked Set example 3 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600850580000010893100400000090003000000901300000040075003160648201390) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600050000000010803000400000090000000000901000000000075003160040201300)
 
@@ -211,7 +211,7 @@ Rule 1: [J5] and {D5|D6|E4|E6|F6}, 5 is restricted common, other common candidat
 
 We have an enormous 5-cell ALS in brown with 5 as the restricted common. You can see that 5 occurs only in D5 and aligns with the yellow ALS J5. Its pretty hard to pick out a 5-cell ALS but if you add the numbers available in the brown cells you can see there are 6 possibilities. 7 is shared by both ALSs and is not restricted so it can be removed.
 
-![Image 20: Almost Locked Set example 4](https://www.sudokuwiki.org/PuzImages/ALS4.png)
+![Image 20: Almost Locked Set example 4](../../assets/sudokuwiki-als/06-ALS4.png)
 
 Almost Locked Set example 4 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600850580000010893100400000090003000000901300000040075003160648201390) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=006805030034600050000000000803000400000090000000000901000000000075003160040201300)
 
@@ -221,15 +221,15 @@ Rule 1: {A2|A7} and {G2|G5|G6|G9}, 1 is restricted common, other common candidat
 
 ## Overlap with other strategies
 
-![Image 21](https://www.sudokuwiki.org/PuzImages/ALS_DLL2_wxyz.png) There is overlap with other strategies as often noted in the comments on this and other pages. Here I have taken the [first example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Baa0b050a089e3603049nb7d7039m0605cy02amb6e602a2a20acyaa9i04024y8m01aa0edu9v069f4q0bbu030rcy08837r079a8e0b0r8i1n071n091r0u080b0e0203c25m3u6i9m9e018bbnbf4a2j029m0603) from [HoDoKu](https://hodoku.sourceforge.net/en/tech_als.php) docs page "Singly Linked ALS-XZ". 
+![Image 21](../../assets/sudokuwiki-als/07-ALS_DLL2_wxyz.png) There is overlap with other strategies as often noted in the comments on this and other pages. Here I have taken the [first example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Baa0b050a089e3603049nb7d7039m0605cy02amb6e602a2a20acyaa9i04024y8m01aa0edu9v069f4q0bbu030rcy08837r079a8e0b0r8i1n071n091r0u080b0e0203c25m3u6i9m9e018bbnbf4a2j029m0603) from [HoDoKu](https://hodoku.sourceforge.net/en/tech_als.php) docs page "Singly Linked ALS-XZ". 
 
 The solver here first finds this as a WXYZ-Wing
 
-![Image 22](https://www.sudokuwiki.org/PuzImages/ALS_DLL2_aic.png)
+![Image 22](../../assets/sudokuwiki-als/08-ALS_DLL2_aic.png)
 
 The eliminations can be expressed as an Alternating Inference Chain
 
-![Image 23](https://www.sudokuwiki.org/PuzImages/ALS_DLL2_als.png)
+![Image 23](../../assets/sudokuwiki-als/09-ALS_DLL2_als.png)
 
 And then it gets to the Almost Locked Set.
 
@@ -237,7 +237,7 @@ And then it gets to the Almost Locked Set.
 
 Thanks to David Bird (in 2016) for the extension to the ALS-XZ rule that allows other candidates to be eliminated. And to STRMCKR for the example and [forum post](http://forum.enjoysudoku.com/almost-locked-rules-for-now-t2510-15.html#p284617). There is earlier discussion (2009) on the [same forum here](http://forum.enjoysudoku.com/restricted-common-adjacency-rules-t6642.html). Sorry this has taken seven years to document!
 
-![Image 24: Double Linked Rule example](https://www.sudokuwiki.org/PuzImages/ALS_DLL1b.png)
+![Image 24: Double Linked Rule example](../../assets/sudokuwiki-als/10-ALS_DLL1b.png)
 
 Double Linked Rule example : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Ba49xa358d8bgay03aq069g9m059s8001089ea208031m017uay023m4d0l0r090507031m4z6n062r0r4e0v6a0902bz9za344541r6a2i6b2e2e0643b6b7020504820408071g1w8i0103838302031m22du36c2)
 
@@ -299,7 +299,7 @@ Please enter the
 
 letters you see:
 
-![Image 25: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 26: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 25: arrow](../../assets/sudokuwiki-als/11-GRNARR.GIF)![Image 26: Enter these letters](../../assets/sudokuwiki-als/12-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -406,7 +406,7 @@ I have several examples of two overlapping ALS where one cell can be described a
 
 ï¿¼ï¿¼
 
-[![Image 27: source: imgur.com](https://i.imgur.com/9qCE336.png)](https://imgur.com/9qCE336)
+[![Image 27: source: imgur.com](../../assets/sudokuwiki-als/13-9qCE336.png)](https://imgur.com/9qCE336)
 
 Set A {1,3,5,6} is the two green cells plus the yellow cell. n = 4 so n-1 = 3 cells
 
@@ -807,4 +807,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 28: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 28: Buy Me a Coffee](../../assets/sudokuwiki-als/08-coffee-20cup.svg)

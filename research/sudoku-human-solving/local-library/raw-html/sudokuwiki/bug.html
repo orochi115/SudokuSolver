@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>BUG - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-bug/08-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-bug/09-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-bug/10-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-bug/11-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +46,8 @@ var pgFileName = 'BUG';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-bug/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-bug/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -263,14 +263,14 @@ var pgFileName = 'BUG';
 Here is an example written up by Peter<br><br>The BUG cell is <span class="hy">F8</span>. <br><ol><li>If the solution was 4 we'd have two 4s in column 8 and row F</li><br><li>If the solution was 6 we'd also have two 6s in column 8 and row F.</li><br><li>Putting 3 in <span class="hy">F8</span> sets up three 3s in column 8 and three in row F.</li></ol>Thus, in order to kill the BUG, <span class="hy">F8</span> must be 3. All alternatives allow two solutions since there are two of everything across all remaining rows and columns.<br><br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/BUG2.png" alt="27 Clue minimal BUG" /><figcaption>27 Clue minimal BUG
+<figure style="width:450px"><img src="../../assets/sudokuwiki-bug/04-BUG2.png" alt="27 Clue minimal BUG" /><figcaption>27 Clue minimal BUG
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=001000706736000005500000082000078000000520000000139000392000500600000137050000400">From the Start</a>
 </figcaption></figure>
 <br>It is possible for the BUG to exist in a sea of bi-value cells, such as this one discovered by Klaus Brenner. It is also notable for having two whole boxes with only bi-value cells.</div>
 
 <h2>Sudoku X BUGs - careful!</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/FalseBUG.png" alt="False Positive BUG" /><figcaption>False Positive BUG
+<figure style="width:450px"><img src="../../assets/sudokuwiki-bug/05-FalseBUG.png" alt="False Positive BUG" /><figcaption>False Positive BUG
 : <a rel="nofollow" href="https://www.sudokuwiki.org/SudokuX.aspx?bd=X9B035u010b0d8206b69u0b0d0f82080g0c0a82b6822q0c0f015u04020e0b09080g0d01060c040f5u0a020c0e9eb60a5u03828206040b5u07014i060c0b0i4i0db60c0b0d0a825u2q0f0f82040g820h020c01">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/SudokuX.aspx?bd=301000600000080000000001042009800160400020000003006400710600000000000000004000201">From the Start</a>
 </figcaption></figure>
@@ -325,9 +325,9 @@ Only the first is somewhat trivial. They make good practice puzzles.
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-bug/06-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-bug/07-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

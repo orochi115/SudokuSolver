@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/X_Cycles
 Markdown Content:
 # X-Cycles - SudokuWiki.org
 
-[![Image 6: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 6: SudokuWiki](../../assets/sudokuwiki-x-cycles/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -153,7 +153,7 @@ A 'chain' is a series of links hopping from one candidate to another following v
 
 Note: February 2026. Usually there are many chains with eliminations at any one step. The solver searches for all of them and sorts them into a list using some criteria such as number of eliminations, whether they lead to a solved cell, how many exotic links they have (more to lower priority) but the big one is how short the chain is. As of February 2026 shorter chains always take priority over longer ones. This ensures that patterns like **Kites** and S**kyscrapers** are returned. These are X-Cycles with five cells in certain patterns (The solvers says 6 as it double counts the first and last) and are relatively easy to spot. I intend to add them earlier in the strategy order. 
 
-![Image 7: Figure 1: Nice Loop on 9](https://www.sudokuwiki.org/PuzImages/NiceL1.png)
+![Image 7: Figure 1: Nice Loop on 9](../../assets/sudokuwiki-x-cycles/03-NiceL1.png)
 
 Figure 1: Nice Loop on 9 
 
@@ -171,7 +171,7 @@ A => !B (if A, then not B)
 
 **Strong** and **Weak** links _alternate_ just as candidates are turned OFF and ON. When we turn a candidate X ON we effectively remove ALL other candidates of X in ALL other units. However, when we turn a candidate X OFF it has no effect unless the unit has only two of X in it. 
 
-![Image 8: Figure 2: Nice Loop on 4](https://www.sudokuwiki.org/PuzImages/NiceL2.png)
+![Image 8: Figure 2: Nice Loop on 4](../../assets/sudokuwiki-x-cycles/04-NiceL2.png)
 
 Figure 2: Nice Loop on 4 
 
@@ -204,7 +204,7 @@ Even with the convention of starting with the top left-most cell, there are four
 
 I've deliberately used neutral colours in the diagram above (yellow and blue) not to given the impression there only one way to write the same chain. However, the solver will return very positive red and green highlighting but that's because it has discovered one of those four ways first and discarded the other three identical ways.
 
-![Image 9: Figure 3: Nice Loop on 8](https://www.sudokuwiki.org/PuzImages/NiceL3b.png)
+![Image 9: Figure 3: Nice Loop on 8](../../assets/sudokuwiki-x-cycles/05-NiceL3b.png)
 
 Figure 3: Nice Loop on 8 
 
@@ -226,7 +226,7 @@ The yellow cells are units where other 8s can be eliminated, which in this case 
 
 Nice Loops that alternate all the way round are said to be 'continuous', and they must have an even number of nodes. With a continuous X-Cycle, candidates are not removed from the loop since the loop does not have any flaws. Instead we are looking to eliminate on the units that can be seen by two or more cells that belong to the loop. 
 
-![Image 10: Figure 4: Nice Loop on 8](https://www.sudokuwiki.org/PuzImages/NiceL4b.png)
+![Image 10: Figure 4: Nice Loop on 8](../../assets/sudokuwiki-x-cycles/06-NiceL4b.png)
 
 Figure 4: Nice Loop on 8 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4a0f030e0b4a010i0g054b0i06074f0b4a0u074b0b434e094e0e060a0304070i05060b0h0f0i0e0b46462i2i0a0b0g08040a0609030e090e36035663626z020u4a36430502663f094e0b010i5662056y0u) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=003000100500670000700009006034705600000000000008406930900300002000052009001000500)
 
@@ -252,7 +252,7 @@ In summary we can see that
 
 Although there are many other parallels as well.
 
-![Image 11: Cool Off Chain Nice Loop](https://www.sudokuwiki.org/PuzImages/NiceNiceLb.png)
+![Image 11: Cool Off Chain Nice Loop](../../assets/sudokuwiki-x-cycles/07-NiceNiceLb.png)
 
 Cool Off Chain Nice Loop : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B014m82dad27y029u0fdw5g90cyd17p039v049k047o059l06cy9f5v1k071x8m93088204141k2008ae0486019k2w0u0917022v136a066e8s1g8s012007220814055107cec8801m0p0p585103565g183u2d09) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=100000200000000304040506000070008040008040100090200060000107080507000000003000009)
 
@@ -280,7 +280,7 @@ Please enter the
 
 letters you see:
 
-![Image 12: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 13: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 12: arrow](../../assets/sudokuwiki-x-cycles/08-GRNARR.GIF)![Image 13: Enter these letters](../../assets/sudokuwiki-x-cycles/09-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -664,4 +664,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 14: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 14: Buy Me a Coffee](../../assets/sudokuwiki-x-cycles/01-coffee-20cup.svg)

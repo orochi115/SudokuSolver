@@ -23,7 +23,7 @@ This constellation is a Sue de Coq: You can eliminate all row cell candidates fr
 
 The term "row" in the definition above can be replaced throughout with "column".
 
-[![Image 1: Sudoku technique: Example for Sue+de+Coq+%28basic+variant%29](https://hodoku.sourceforge.net/examples/sdc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc01&tech=Sue+de+Coq+%28basic+variant%29)[![Image 2: Sudoku technique: Example for Sue+de+Coq+%28basic+variant%29](https://hodoku.sourceforge.net/examples/sdc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc02&tech=Sue+de+Coq+%28basic+variant%29)
+[![Image 1: Sudoku technique: Example for Sue+de+Coq+%28basic+variant%29](../../assets/hodoku-misc/01-sdc01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc01&tech=Sue+de+Coq+%28basic+variant%29)[![Image 2: Sudoku technique: Example for Sue+de+Coq+%28basic+variant%29](../../assets/hodoku-misc/02-sdc02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc02&tech=Sue+de+Coq+%28basic+variant%29)
 
 Example on the left: The intersection cells are r7c13. They contain the candidates {3459}. The row cell is r7c7 containing {45}, the block cell is r8c3 containing {39}. 4 and 5 can be eliminated from the rest of the row and 3 and 9 can be eliminated from the rest of the block.
 
@@ -48,13 +48,13 @@ Consider the set of unfilled cells C that lies at the intersection of Box B and 
 
 Some examples:
 
-[![Image 3: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](https://hodoku.sourceforge.net/examples/sdc04.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc04&tech=Sue+de+Coq+%28extended+variant%29)[![Image 4: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](https://hodoku.sourceforge.net/examples/sdc03.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc03&tech=Sue+de+Coq+%28extended+variant%29)
+[![Image 3: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](../../assets/hodoku-misc/03-sdc04.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc04&tech=Sue+de+Coq+%28extended+variant%29)[![Image 4: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](../../assets/hodoku-misc/04-sdc03.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc03&tech=Sue+de+Coq+%28extended+variant%29)
 
 On the left: Intersection cells r46c8 with candidates {3578}, column cell r8c8 {35} and block cells r4c7,r5c9 {789}. This is pretty much our standard case, except that the block cells contain candidate 9, which is not drawn from the intersection. That's why two block cells are necessary.
 
 On the right: Intersection r456c1 - {123479}. 6 candidates in three cells is one to many. One of the additional sets has to be three candidates in two cells. In the example it is the column: r89c1 containing {234}. The block set has an additional candidate 5 not drawn from the intersection.
 
-[![Image 5: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](https://hodoku.sourceforge.net/examples/sdc05.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc05&tech=Sue+de+Coq+%28extended+variant%29)[![Image 6: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](https://hodoku.sourceforge.net/examples/sdc06.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc06&tech=Sue+de+Coq+%28extended+variant%29)
+[![Image 5: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](../../assets/hodoku-misc/05-sdc05.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc05&tech=Sue+de+Coq+%28extended+variant%29)[![Image 6: Sudoku technique: Example for Sue+de+Coq+%28extended+variant%29](../../assets/hodoku-misc/06-sdc06.png)](https://hodoku.sourceforge.net/en/show_example.php?file=sdc06&tech=Sue+de+Coq+%28extended+variant%29)
 
 The example on the left was posted on the Player's Forum: It is a standard 4 candidates in two cells variant, but both additional sets (column cells and block cells) contain an additional candidate, which is the same in both cases (candidate 1).
 

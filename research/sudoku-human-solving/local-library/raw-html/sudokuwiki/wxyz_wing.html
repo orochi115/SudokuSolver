@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>WXYZ-Wing - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-wxyz-wing/14-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-wxyz-wing/15-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-wxyz-wing/16-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-wxyz-wing/17-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'WXYZ_Wing';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-wxyz-wing/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-wxyz-wing/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -259,19 +259,19 @@ var pgFileName = 'WXYZ_Wing';
 
 <h2>Type 1</h2>
 <div class="SRCell">
-<figure style="width:400px"><img src="PuzImages/wxyzname.png" alt="WXYZ-Wing theory" /><figcaption>WXYZ-Wing theory
+<figure style="width:400px"><img src="../../assets/sudokuwiki-wxyz-wing/03-wxyzname.png" alt="WXYZ-Wing theory" /><figcaption>WXYZ-Wing theory
 </figcaption></figure>
 Its name derives from the four numbers W, X, Y and Z that must be in exactly four cells. In my narrow definition we need a <i>hinge</i> cell containing all four candidates WXYZ and three outlier cells each containing a pair wZ, xZ and yZ - Z being the common number.<br><br>The easy principle is that each possible value of the hinge cell results in a Z value in one of the cells in the WXYZ-Wing pattern, thus leaving no room for a Z on any cell all four can 'see'.<br></div>
 
 <div class="SRCell"><br>That is the narrow definition and a glance at <a href="/XYZ_Wing">XYZ Wing</a> will show you its the same idea plus one more cell.  You could expand it to a five cell pattern and five numbers.<br><br>Now, lets consider StrmCkr's more general definition:<br><b>WXYZ-Wings can be considered as a group of 4 cells and 4 digits, restricted to exactly two units, that has exactly one non-restricted common digit.</b> We use that digit (Z) to eliminate since at least one of Z will be the solution.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/wxyzname2.png" alt="Non-Restricted Common Digit" /><figcaption>Non-Restricted Common Digit
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/04-wxyzname2.png" alt="Non-Restricted Common Digit" /><figcaption>Non-Restricted Common Digit
 </figcaption></figure>
 So what is a <span class="hy">non-restricted common digit</span>? <br><br>Well, a  <span class="hy">restricted</span> digit is one where all the instances of candidate N in the pattern can see each other. On the diagram to the left I have connected the W candidates - because they share the same box, and I can connect the Xs and Ys as they share a row. Only Z is non-restricted because some of the Zs - ie the one in <span class="hy">C1</span> CANNOT see the Zs in <span class="hy">B4</span> and <span class="hy">B5</span>.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WXYZ1.png" alt="WXYZ-Wing example 1" /><figcaption>WXYZ-Wing example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/05-WXYZ1.png" alt="WXYZ-Wing example 1" /><figcaption>WXYZ-Wing example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bc38jb7bn0b04070c4j050db70307b60b064302030g5f0z5e83b70407918582038408041v8i900c040h01829g3m7n08049u069w830l03030l456r0r6q1m05094b074j5e09031m4302bf830602174i0c5v5v">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000004700500370060230000004700030840000401000084060003300000059070093002006200000">From the Start</a>
 </figcaption></figure>
@@ -280,14 +280,14 @@ So what is a <span class="hy">non-restricted common digit</span>? <br><br>Well, 
 <div class="SRCell">A Type 1 WXYZ elimination will always be made on the non-restricted candidate. We are looking for a 9 elsewhere that can see every 9 in the four cells of our WXYZ pattern. That 9 is on <span class="hy">D2</span>.<br><br>It is important to note is that StrmCkr's rule says nothing about the hinge requiring four candidates and the other cells two. Like Quads, we need <i>in total</i> four candidates in four cells. This is a four-cell <span class="hy">Locked Set</span>. StrmCkr makes this point in his second corollary, So lets look at some examples where the is a thinner spread of four candidates. <br><br>Interestingly, where Z is present in less than four cells, ie three or just two cells of the four - more eliminations are possible because there are less cells that the eliminated candidates need to 'see'. I believe my new implementation WXYZ gives more variants than the 10 StrmCkr lists as exemplars.<br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WXYZ2.png" alt="WXYZ-Wing example 2" /><figcaption>WXYZ-Wing example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/06-WXYZ2.png" alt="WXYZ-Wing example 2" /><figcaption>WXYZ-Wing example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0804021u1u0307010936aa0301cy045e4k1g05aa012cd0b84y03048i03081g018k0407057u0216038207010608011u07224q5e020903034i062k3010094q012i6a160903015e4k1g02010908221u031607">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=802003709000104000500000004008000405020307060107000200300000001000901000209800307">From the Start</a>
 </figcaption></figure>
 <br>The second WXYZ example is orientated in columns rather than rows, but works the same. The hinge cell in <span class="hy">D6</span> conspicuously fails to contain the non-restricted candidate 5, but no matter. Whatever the final solution of <span class="hy">D6</span> a 5 is forced into either <span class="hy">E5</span> or one of the two cells <span class="hy">G6</span>/<span class="hy">J6</span>.  The outliers are nice easy pairs - like my original narrow definition, but the improvement is not needing 5 (Z) in the hinge every time.<br><br>The solver tells us<br><span class="hc">WXYZ Wing<br>The four cells {D6,E5,G6,J6} contain in total 2/5/6/9.<br>Candidate 5 determines the 'wing' cells (in yellow) and one or other of those 5s must be true. Therefore...<br>5 can be taken off F6<br>5 can be taken off G5<br>5 can be taken off J5</span></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WXYZ3.png" alt="WXYZ-Wing example 3" /><figcaption>WXYZ-Wing example 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/07-WXYZ3.png" alt="WXYZ-Wing example 3" /><figcaption>WXYZ-Wing example 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B30132t3i3c2k0826099o7q08amag050n1q1j8a068201babe071a02bmbm90aaar03859g048407948i047n89081301048602decy069i2u03bm04cy9g0684016acy029f059j9f04ae6u06bn9vda9l9p889g6e">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000009008005000060100702000003004070040080100200600304006010020500400600000000">From the Start</a>
 </figcaption></figure>
@@ -295,7 +295,7 @@ So what is a <span class="hy">non-restricted common digit</span>? <br><br>Well, 
 
 <h2>Update August 2025</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WXYZ5.png" alt="WXYZ-Wing example 4" /><figcaption>WXYZ-Wing example 4
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/08-WXYZ5.png" alt="WXYZ-Wing example 4" /><figcaption>WXYZ-Wing example 4
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B091o034q380162186c081o1m1a3c1u9q199h0705014e0o094e0644010807121i1u020904120u16070902010806028i8i01040805070306074i0901034a184k127q020608049e0z9v0401b60205070603b6">Load Example</a>
 </figcaption></figure>
 I had a good tip from <b>Lukas Beyeler</b> who showed me I was not capturing all possible WXYZ-Wings. All the cells in the pattern are restricted to two units but my search was looking for them in a row+box or a column+box. It seems I was not considering the row and column situation. <br><br>From a puzzle on my own document pages he found this example. The non-restricted candidate 5 is present in the hinge <span class="hy">B4</span> and in the two wing cells <span class="hy">B6</span> and <span class="hy">D4</span> - which importantly cannot see each other. This example also shows it is not essential that all wing cells contain 5 as <span class="hy">B3</span> does not. We can remove the 5 in <span class="hy">A4</span> as it can see all 5s in the pattern.<br><br>If you "Take Step" past the next Pointing Pair there is a very similar WXYZ-Wing with the same features.</div>
@@ -304,19 +304,19 @@ I had a good tip from <b>Lukas Beyeler</b> who showed me I was not capturing all
 <div class="SRCell">I am very grateful to <b>David Hollenberg</b> again for providing a detailed argument for a more expansive WXYZ-Wing pattern which I have included in the solver from version 2.31 (February 10th 2025). I am going with his suggestion to call it Type 2. Looking through my past emails I see <b>Ed Logg</b> from California also recommended this pattern back in 2020. I'm also going to have to pick through the page comments to see who else thought of this and check for other variants.<br><br>In one way this pattern is simpler to state and define that Type 1 which talks about finding one non-restricted candidate. </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/wxyz_type2_name2.png" alt="Type 2 Pattern" /><figcaption>Type 2 Pattern
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/09-wxyz_type2_name2.png" alt="Type 2 Pattern" /><figcaption>Type 2 Pattern
 </figcaption></figure>
 What we need is two cells in the same box and same row (or column) that <i>in total</i> contain four candidates (the hinge). These are the two orange cells in the pattern diagram here. It is not necessary for both cells to contain all four, they must have four between them. <br><br>Now, if there are two other cells that cannot see each other and contain two each of the four in the WXYZ and one is in the same box and the other is elsewhere along the row (or column), we can make multiple eliminations in many places.<br><br>Shown in the diagram is the fact that candidates XZ in the row eliminates everywhere else in the row. And Candidates WY can eliminate in the rest of the box where the hinge is. <br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WXYZ_Type2_01.png" alt="Type 2 Example 1" /><figcaption>Type 2 Example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/10-WXYZ_Type2_01.png" alt="Type 2 Example 1" /><figcaption>Type 2 Example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e019m5w6s0e4a4y03060e080r0r0c020i072i0b03096q4y05560adecy0b06cy040c014ib7030f5v057ncy020dbn049e03cz02cy6a0fbeb6014q0c07064q0b036q054c584y016209026q2i4jc37n62034i">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=010000003608000207003900500000604010030050020040302000001007600305000109200000030">From the Start</a>
 </figcaption></figure>
 From my stock I've picked a nice puzzle with two consecutive Type 2 WXYZ-wings.  <br><br>Cells <span class="hy">D12</span> contain {5,7,8,9} between them both. These cells can see <span class="hy">D9</span> (the XZ cell) which contains {5,8} and <span class="hy">F3</span> which contains {7,9}. So 8 can be taken off <span class="hy">D5</span>, 9 can be taken off <span class="hy">E1</span> and  9 can be taken off <span class="hy">F1</span>.<br><br>So what about all that 'non-restricted candidate' stuff? In this pattern all the common<br>digits are restricted. As David reports "<b>every candidate in a cell that is outside a Type 2 and that can see the occurrences of its digit in the WXYZ Wing can be eliminated</b>"<br><br>In the second example we'll reason through a proof. <br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/WXYZ_Type2_02.png" alt="Type 2 Example 2" /><figcaption>Type 2 Example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-wxyz-wing/11-WXYZ_Type2_02.png" alt="Type 2 Example 2" /><figcaption>Type 2 Example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e019m5w6s0e4a4y03060e080r0r0c020i072i0b03096q4y05560adecy0b069e040c014i43030f5v057ncy020d4j049e03cz02cy6a0fbeb6014q0c07064q0b036q054c584y016209026q2i4jc37n62034i">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000000000000000000000000000000000000000000000000000000000000000000000000000">From the Start</a>
 </figcaption></figure>
@@ -358,9 +358,9 @@ From my stock I've picked a nice puzzle with two consecutive Type 2 WXYZ-wings. 
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-wxyz-wing/12-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-wxyz-wing/13-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

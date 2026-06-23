@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Finned X-Wing - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-finned-xwing/08-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-finned-xwing/09-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-finned-xwing/10-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-finned-xwing/11-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Finned_X_Wing';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-finned-xwing/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-finned-xwing/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -258,14 +258,14 @@ var pgFileName = 'Finned_X_Wing';
 				<h1>Finned X-Wing</h1><div class="SRCell">This is a very subtle yet beautiful extension of logic. We're looking at formations that could potentially be <a href="X_Wing_Strategy">X-Wings</a> but have a corner that's not quite right.  In an X-Wing we are looking for four cells in a rectangle which contain a candidate N that exists just twice in either the two rows that form the rectangle or the two columns.  Our Finned version is still a rectangle but it has extra candidates of the number in question that prevent one of the two pairs we need from existing.<br><br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/FXW1.png" alt="Finned X-Wing Example" /><figcaption>Finned X-Wing Example
+<figure style="width:450px"><img src="../../assets/sudokuwiki-finned-xwing/03-FXW1.png" alt="Finned X-Wing Example" /><figcaption>Finned X-Wing Example
 </figcaption></figure>
 Let's look at the distribution of 8 candidates on the board in Figure 1. We have a potential X-Wing marked with the green X. The two blue lines show the top pair of 8s and the potential pair of 8s on the bottom row, F.  It's not a real X-Wing because two cells have gotten in the way. These are the green <span class="hg">+8s</span> marked in <span class="hy">F8</span> and <span class="hy">F9</span>. If these cells didn't exist, we'd be able to eliminate 8s in columns 1 and 7 (marked with a green strike-out line).<br><br>These <span class="hg">+8</span> cells are the '<b>fin</b>'. The '<b>fin</b>' or '<b>fillet</b>' rule goes as follows:<br><br><b>If you can form an X-Wing by ignoring the fin cells, then you can keep your elimination of any cell that shares the same unit as all the cells in the fin.</b></div>
 
 <div class="SRCell">It's important to remember we can only have one fin at a time!<br>In our example, the <span class="hr">-8</span> is the only cell that shares a box with the <span class="hg">+8</span> cells. It would have been eliminated anyway if the X-Wing were real. However, none of the other X-Wing eliminations are valid.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/FXW2b.png" alt="Finned X-Wing Example" /><figcaption>Finned X-Wing Example
+<figure style="width:450px"><img src="../../assets/sudokuwiki-finned-xwing/04-FXW2b.png" alt="Finned X-Wing Example" /><figcaption>Finned X-Wing Example
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B070e0d1h8k080l038l0h03060r9g9p2q9g9x0a0i0b0c0536080436020d05094y1f2e5u2f1i4y470704050lb87p0i5u5v0l4403060e042602090h013e32362u266q5y1o3c3g09012w1q012e05agak2m3808">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=700008030036000000000050840205900000000745000000003604029010000000000910010500008">From the Start</a>
 </figcaption></figure>
@@ -274,7 +274,7 @@ Let's look at the distribution of 8 candidates on the board in Figure 1. We have
 <div class="SRCell"><h1>Sashimi Finned X-Wings</h1><a href="/Grouped_X_Cycles">Grouped X-Cycles</a> will be found in the solver before Sashimis so uncheck them to see the examples here.</div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/SFXW1b.png" alt="Sashimi Finned X-Wing" /><figcaption>Sashimi Finned X-Wing
+<figure style="width:450px"><img src="../../assets/sudokuwiki-finned-xwing/05-SFXW1b.png" alt="Sashimi Finned X-Wing" /><figcaption>Sashimi Finned X-Wing
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B033e361m0a02050i0h7w180a7u088a0g060c8i081u071y8m0b0401078k1w8q2201030h1o1o980c0h07968q0a1o0a8q08021q8u8q0g0505010i0c1m081m020g1g03380a093e0h0e1m0h3604050b360a0c09">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=300002500000080060080700041700001300000070000008200005510008020030090000004500009">From the Start</a>
 </figcaption></figure>
@@ -324,9 +324,9 @@ Here is a puzzle found by Klaus Brenner with two Finned X-Wings and no other str
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-finned-xwing/06-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-finned-xwing/07-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

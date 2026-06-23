@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Gurths Theorem - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-gurth/11-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-gurth/12-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-gurth/13-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-gurth/14-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Gurths_Theorem';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-gurth/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-gurth/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -263,7 +263,7 @@ However, my investigations show this is only a useful strategy in a very limited
 </div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Gurth1.png" alt="Top-Left to Bottom Right Symmetry" /><figcaption>Top-Left to Bottom Right Symmetry
+<figure style="width:450px"><img src="../../assets/sudokuwiki-gurth/03-Gurth1.png" alt="Top-Left to Bottom Right Symmetry" /><figcaption>Top-Left to Bottom Right Symmetry
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000001002003000040050060700000800070007003800900050001006080200040600007200009060">Load Example</a>
 </figcaption></figure>
 <br>Lets begin with <i>'Shining Mirror'</i>, the example from Simon and Mark's video which is also in the example list on the solver. <br><br>With the colouring I've employed it's clear that something very symmetrical is going on across the diagonal red line (top left to bottom right). Every clue matches either to itself or to exactly one other number. <br><span class="hy">3</span> maps onto <span class="hy">5</span>, <br><span class="hy">6</span> maps onto <span class="hy">7</span> and <br><span class="hy">1</span> maps onto <span class="hy">9</span>. <br>The remaining three numbers <span class="hy">2, 4</span> and <span class="hy">8</span> map onto themselves.</div>
@@ -271,12 +271,12 @@ However, my investigations show this is only a useful strategy in a very limited
 <div class="SRCell">Gurth's Symmetrical Placement idea states that<ol><li><i>if a puzzles clues are symmetrical</i> and</li><li><i>the puzzle has a unique solution</i>, then</li><li><b>The solution will also be symmetrical.</b></li></ol>Which means that ALL the numbers will continue to map in the same way across the whole board. Sounds like a gold mine for solving!<br><br>An important point first. <b>All the clues</b> must have a complement - it's no good if there is a stray clue somewhere with an empty cell on the opposite side. Nor can only some be mapped 1:1, every number must map 1:1 only once. That's quite a restriction.<br><br>Second point: What is a symmetry?  If you rotate a puzzle 90 degrees it will look like a completely different puzzle, especially if is on a different page in a book. However, it will have the same grade and will solve in exactly the same way in a solver. Changing all the numbers, eg from 9s into 1s, 8s into 2s, will have the same non-effect. Same puzzle in essence. The technical word for this is <b>Automorphism</b>. <br></div><br>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Gurth2.png" alt="Vertical symmetry does not work" /><figcaption>Vertical symmetry does not work
+<figure style="width:450px"><img src="../../assets/sudokuwiki-gurth/04-Gurth2.png" alt="Vertical symmetry does not work" /><figcaption>Vertical symmetry does not work
 </figcaption></figure>
 In the example of <i>Shining Mirror</i> we can use the diagonal reflection from top left to bottom right. Because the cells <span class="hy">A1</span>, <span class="hy">B2</span> to <span class="hy">J9</span> are complements of themselves (they do not reflect elsewhere) it is inevitable that the numbers on that line map to themselves. Which is why 2=2, 4=4 and 8=8. For a diagonal reflection there must be at least 3 numbers that behave like this, which makes it useful for solving this particular puzzle.<br><br>Lets briefly consider vertical and horizontal reflection. Because the axis of the reflection is along an entire row, row E, every number 1 to 9 must be in that row and along that axis. That means that the 1:1 mapping for each number will be for all numbers. That makes it impossible to have a full board with that property though-out. So we can forget vertical and horizontal as potential symmetries.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Gurth3.png" alt="Rotational Symmetry" /><figcaption>Rotational Symmetry
+<figure style="width:450px"><img src="../../assets/sudokuwiki-gurth/05-Gurth3.png" alt="Rotational Symmetry" /><figcaption>Rotational Symmetry
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=020000709400080020009020406000507000067000230000204000305070900070010005902000070">Load Example</a>
 </figcaption></figure>
 <br>Lets take a look at a rotational symmetry, this one a full half turn or 180°. This is more difficult to spot in the wild, it takes some staring to see that every clue apart from 9, maps only onto one other number, if you rotate around the center cell by a half turn. I have coloured the mappings. We can see that since 9 alone maps to itself, the center cell <span class="hy">E5</span> must be 9. This cell is the only cell that stands still under the rotation. We'd have spotted that anyway, since it is the last available number in that cell (Naked Single). Elswhere<br><span class="hy">1</span> maps onto <span class="hy">8</span>, <br><span class="hy">2</span> maps onto <span class="hy">7</span>,<br><span class="hy">3</span> maps onto <span class="hy">6</span> and<br><span class="hy">4</span> maps onto <span class="hy">5</span>. </div>
@@ -290,18 +290,18 @@ In order for this assertion to be false, we have to show that there is a way of 
 
 <h2>How useful is this strategy?</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Gurth4.png" alt="Shining Mirror" /><figcaption>Shining Mirror
+<figure style="width:450px"><img src="../../assets/sudokuwiki-gurth/06-Gurth4.png" alt="Shining Mirror" /><figcaption>Shining Mirror
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000001002003000040050060700000800070007003800900050001006080200040600007200009060">Load Example</a>
 </figcaption></figure>
 <br>Somewhat. In my original implementation in 2019 I only concentrated on direct eliminations. However in late 2025 it was improved to removed all mirrored candidates after any successful strategy. This considerably reduces the complexity of Gurth-compliant puzzles. But these puzzles are still few and far between.<br><br>Take a look at Shining Mirror when the new board is freshly loaded and "Take Step" has been clicked once to get to "Show Possibles". This is the first initial clear out of candidates based on the clues. If the puzzle is Gurth-compatible then not only will the clues and the solution be symmetrical and map 1:1 but the entire candidate distribution will as well! This means that we can make no more useful eliminations anywhere on the board that have not already been eliminated by the clues!<br><br>An example is <span class="hy">A7</span> which maps by reflection into <span class="hy">G1</span>.  The remaining candidates in <span class="hy">A7</span> are {3,5,6,9} and these map 1:1 to <span class="hy">G1</span>'s possibles {5,3,7,1}<br><br>The only cells where eliminations are useful are in the cells that map to themselves in reflection, in this case the diagonal. Now, for Shining Mirror, it is necessary to use Gurth's idea to crack open the puzzle. But it is only possible because these cells are restricted to 3 numbers. The eliminations are shown in yellow.<br><br>For the rotated puzzle we only have one cell that maps to itself (<span class="hy">E5</span>). I believe this example was specially created to show a possible Gurth-compatible example in rotation, but it solves trivially. I would love to find more examples and I hope readers can send them in. I suspect that   hard puzzles that can use Gurth's idea are very few and far between.<br><br>Update: <a href="sudoku.htm?bd=000000605000300090080004001040020970000000000031080060900600020010007000504000000">Riddle of Sho</a> is a rotational 'Gurth' puzzle and the solver finds three eliminations in different steps.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Gurth5.png" alt="" /></figure>
+<figure style="width:450px"><img src="../../assets/sudokuwiki-gurth/07-Gurth5.png" alt="" /></figure>
 I've done a search through my databases and lists, collections of puzzles from the internet and all the ones I've made myself for stock. It is alarming to find not a single example of a symmetrical puzzle anywhere. I'm also looking at 90° rotations as well. Firstly I thought maybe I was making puzzles with a bias such that certain types of patterns were very unlikely to be produced. That is possible. <br><br>To give an idea of the search space I've reproduced this table from the <a href="https://en.wikipedia.org/wiki/Mathematics_of_Sudoku#Automorphic_Sudokus">wikipedia page</a>. These figures are for <a href="http://sudopedia.enjoysudoku.com/Canonical_Form.html">canonical puzzles</a> - which is really the entire universe of possible boards.  Since this is the total for every kind of symmetry it would be better to know what fraction are diagonal and rotational symmetries only. Perhaps readers can help and it would improve the estimate how often this likely to be seen.<br><br>So while Gurth's observation is facinating, I suspect it is too esoteric to be useful, but it does deepen our understanding of the nature of the puzzle. In any case, the solver will now alert the user to a compatible puzzle and insert the strategy into this list.</div>
 
 <h2>Update November 2019</h2>
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/Gurth6.png" alt="E5 is interesting" /><figcaption>E5 is interesting
+<figure style="width:450px"><img src="../../assets/sudokuwiki-gurth/08-Gurth6.png" alt="E5 is interesting" /><figcaption>E5 is interesting
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000010210003480039800200060304900000000000001607040008002170026700098090000000">From the Start</a>
 </figcaption></figure>
 This puzzle is interesting. I was sent it by someone viewing another video from Cracking Cryptic.  Before the Nov 17th update it crashed the solver as 5 was mapping to 0. This is because the puzzle seems Gurth Compatible (180° rotation) except that 5 is not a clue at the start, and therefore has no mapping. However, 5 is an available candidate in <span class="hy">E5</span> and if you manually set this clue it will detect and some eliminations are made. This is the only square where a "ghost" mapping can be made - and it is onto itself.<br><br>I was wondering how to alert the user to a potential Gurth puzzle when it lacks one mapping. To be safe and not crash the solver I've put in a test to negate detection in this case.<br><br>(Also fixed a bug with the mirrored Gurth eliminations)<br><br></div>
@@ -362,9 +362,9 @@ This puzzle is interesting. I was sent it by someone viewing another video from 
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-gurth/09-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-gurth/10-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

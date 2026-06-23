@@ -5,7 +5,7 @@ URL Source: https://www.sudokuwiki.org/XYZ_Wing
 Markdown Content:
 # XYZ-Wing - SudokuWiki.org
 
-[![Image 5: SudokuWiki](https://www.sudokuwiki.org/images/SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
+[![Image 5: SudokuWiki](../../assets/sudokuwiki-xyz-wing/02-SudokuWiki_MidNoBorder.png)](https://www.sudokuwiki.org/Main_Page)
 
 SudokuWiki.org
 
@@ -147,19 +147,19 @@ Other
 
 140 Shares 
 
-![Image 6: pinterest sharing button](https://platform-cdn.sharethis.com/img/pinterest.svg)
+![Image 6: pinterest sharing button](../../assets/sudokuwiki-xyz-wing/01-pinterest.svg)
 
-![Image 7: facebook sharing button](https://platform-cdn.sharethis.com/img/facebook.svg)
+![Image 7: facebook sharing button](../../assets/sudokuwiki-xyz-wing/02-facebook.svg)
 
-![Image 8: twitter sharing button](https://platform-cdn.sharethis.com/img/twitter.svg)
+![Image 8: twitter sharing button](../../assets/sudokuwiki-xyz-wing/03-twitter.svg)
 
-![Image 9: blogger sharing button](https://platform-cdn.sharethis.com/img/blogger.svg)
+![Image 9: blogger sharing button](../../assets/sudokuwiki-xyz-wing/04-blogger.svg)
 
-![Image 10: tumblr sharing button](https://platform-cdn.sharethis.com/img/tumblr.svg)
+![Image 10: tumblr sharing button](../../assets/sudokuwiki-xyz-wing/05-tumblr.svg)
 
-![Image 11: messenger sharing button](https://platform-cdn.sharethis.com/img/messenger.svg)
+![Image 11: messenger sharing button](../../assets/sudokuwiki-xyz-wing/06-messenger.svg)
 
-![Image 12: email sharing button](https://platform-cdn.sharethis.com/img/email.svg)
+![Image 12: email sharing button](../../assets/sudokuwiki-xyz-wing/07-email.svg)
 
 # XYZ-Wing
 
@@ -167,25 +167,25 @@ This is an extension of [Y-Wing](https://www.sudokuwiki.org/y_wing_strategy) or 
 
 It follows therefore that one or other of the three cells must contain the common number; and hence any extraneous cell (there can only be two of them!) that "sees" all three cells of the Extended Trio cannot have that number as its true value. 
 
-![Image 13: XYZ-Wing theory](https://www.sudokuwiki.org/PuzImages/xyzname.png)
+![Image 13: XYZ-Wing theory](../../assets/sudokuwiki-xyz-wing/03-xyzname.png)
 
 XYZ-Wing theory 
 
 It gets its name from the three numbers X, Y and Z that are required in the hinge. The outer cells in the formation will be XZ and YZ, Z being the common number.
 
-![Image 14: Y-Wing Equivalent](https://www.sudokuwiki.org/PuzImages/xyzname2.png)
+![Image 14: Y-Wing Equivalent](../../assets/sudokuwiki-xyz-wing/04-xyzname2.png)
 
 Y-Wing Equivalent 
 
 It is worth comparing the XYZ-Wing to the Y-Wing for a moment. Lets drop the Z candidate from the hinge. The diagram on the right is the result. With just two Zs in the pincer cells we get more cells elsewhere which could potentially contain a Z to eliminate. The overlap is greater with less cells to line up.
 
-![Image 15: XYZ-Wing example 1](https://www.sudokuwiki.org/PuzImages/xyz1b.png)
+![Image 15: XYZ-Wing example 1](../../assets/sudokuwiki-xyz-wing/05-xyz1b.png)
 
 XYZ-Wing example 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B46090b1m4a01070e1q050v3f022iaa1q7n081n4b3f9603ea027n1m46070e0n450409060l02460r7r06b64b0g050r060907114k4b030t1n170823093m1z0b3b07191n2319031v0h090i1103082t3o1v0437) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=090001700500200008000030200070004960200060005069700030008090000700003009003800040)
 
  In this example the candidate number is **1** and F9 is the _Hinge_. It can see a 1/2 in D9 and a 1/4 in F1. We can reason this way: If D9 contains a 2 then F1 and F9 become a naked pair of 1/4 - and the naked pair rule applies. Same with F1. If that's a 4 then D9 and F9 become a naked pair of 1/2 each. If any of the three are 1 then 1 is still part of the formation. Any 1 visible to all three cells must be removed, in this case in F7.
 
-![Image 16: XYZ-Wing example 2](https://www.sudokuwiki.org/PuzImages/xyz2b.png)
+![Image 16: XYZ-Wing example 2](../../assets/sudokuwiki-xyz-wing/06-xyz2b.png)
 
 XYZ-Wing example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B069e9r2q340w11170h050n0v091s0h1p1n0708022i3m3u0196038i03043m020z0936081f0b9eaq0z081m0c3e8j0a088i031m078q02050g0547041j1i4z0902091j496r3d056r37040d1f456r0i1g773n03) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=600000000500900007820001030340209080000080000080307025050400092900005004000000003)
 
@@ -231,7 +231,7 @@ Please enter the
 
 letters you see:
 
-![Image 17: arrow](https://www.sudokuwiki.org/images/GRNARR.GIF)![Image 18: Enter these letters](https://www.sudokuwiki.org/lanap.aspx?Command=CreateImage&TextStyle=19&ImageWidth=140)- [x]  Remember me
+![Image 17: arrow](../../assets/sudokuwiki-xyz-wing/07-GRNARR.GIF)![Image 18: Enter these letters](../../assets/sudokuwiki-xyz-wing/08-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx)- [x]  Remember me
 
 Please ensure your comment is relevant to this article.
 
@@ -351,4 +351,4 @@ REPLY TO THIS POST
 
  Copyright [Andrew Stuart](https://www.sudokuwiki.org/) @ [Syndicated Puzzles](https://www.syndicatedpuzzles.com/), [Privacy](https://www.sudokuwiki.org/privacy), 2007-2026 
 
-![Image 19: Buy Me a Coffee](https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg)
+![Image 19: Buy Me a Coffee](../../assets/sudokuwiki-xyz-wing/08-coffee-20cup.svg)

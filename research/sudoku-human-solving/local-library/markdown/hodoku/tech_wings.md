@@ -15,7 +15,7 @@ Markdown Content:
 
 An XY-Wing is really a short [XY-Chain](https://hodoku.sourceforge.net/en/tech_chains.php#xyc) that is described as a pattern and thus can be found more easily. We start by looking for a bivalue cell (the pivot). The possible candidates in that cell are called X and Y. Now we try to find two other cells that see the pivot (the pincers). One of those cells contains candidates X and Z (Z is an arbitrary candidate different from X and Y) and the other candidates Y and Z. Now Z can be eliminated from any cell that sees both pincers.
 
-[![Image 1: Sudoku technique: Example for XY-Wing](https://hodoku.sourceforge.net/examples/xy01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xy01&tech=XY-Wing)[![Image 2: Sudoku technique: Example for XY-Wing](https://hodoku.sourceforge.net/examples/xy02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xy02&tech=XY-Wing)
+[![Image 1: Sudoku technique: Example for XY-Wing](../../assets/hodoku-wings/01-xy01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xy01&tech=XY-Wing)[![Image 2: Sudoku technique: Example for XY-Wing](../../assets/hodoku-wings/02-xy02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xy02&tech=XY-Wing)
 
 Example on the left: Cell r1c3 (the pivot) contains candidates 5 (X) and 7 (Y). Cell r1c6 shares row 1 with the pivot and contains candidates 5 (X) and 2 (Z), cell r2c1 shares box 1 with the pivot and contains candidates 7 (Y) and 2 (Z). Cell r2c6 sees both pincers (r1c6 and r2c1). It cannot contain 2 (Z).
 
@@ -29,7 +29,7 @@ Example on the right: X=1, Y=6, Z=9; pivot in r4c1, pincers in r4c4 and r5c2. Fi
 
 The XYZ-Wing is an enhanced version of an [XY-Wing](https://hodoku.sourceforge.net/en/tech_wings.php#xy): Now the pivot contains not only candidates X and Y but Z as well. Consequently Z can only be eliminated from cells that see not only the pincers, but the pivot as well.
 
-[![Image 3: Sudoku technique: Example for XYZ-Wing](https://hodoku.sourceforge.net/examples/xyz01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyz01&tech=XYZ-Wing)[![Image 4: Sudoku technique: Example for XYZ-Wing](https://hodoku.sourceforge.net/examples/xyz02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyz02&tech=XYZ-Wing)
+[![Image 3: Sudoku technique: Example for XYZ-Wing](../../assets/hodoku-wings/03-xyz01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyz01&tech=XYZ-Wing)[![Image 4: Sudoku technique: Example for XYZ-Wing](../../assets/hodoku-wings/04-xyz02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=xyz02&tech=XYZ-Wing)
 
 On the left: Pivot r7c2, pincers r2c2 and r7c1. If r7c2=4, r2c2=7 => r9c2<>7; if r7c2=5, r7c1=7 => r9c2<>7; if r7c2=7 => r9c2<>7.
 
@@ -43,7 +43,7 @@ Expanded wings with even more candidates have been described, but they are hard 
 
 W-Wings are easy to spot and often very efficient. They consist of two bivalue cells with the same candidates, that are connected by a [strong link](https://hodoku.sourceforge.net/en/tech_chains.php#strong_link) on one of the candidates. The other candidate can be eliminated from all cells seeing both bivalue cells. Since a W-Wing is a chain internally, a prove of the logic written in plain text, as can be seen below, is complicated. The pattern itself, however, is easy to spot ([filters](https://hodoku.sourceforge.net/en/docs_play.php#filters) can be a great help here).
 
-[![Image 5: Sudoku technique: Example for W-Wing](https://hodoku.sourceforge.net/examples/w01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=w01&tech=W-Wing)[![Image 6: Sudoku technique: Example for W-Wing](https://hodoku.sourceforge.net/examples/w02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=w02&tech=W-Wing)
+[![Image 5: Sudoku technique: Example for W-Wing](../../assets/hodoku-wings/05-w01.png)](https://hodoku.sourceforge.net/en/show_example.php?file=w01&tech=W-Wing)[![Image 6: Sudoku technique: Example for W-Wing](../../assets/hodoku-wings/06-w02.png)](https://hodoku.sourceforge.net/en/show_example.php?file=w02&tech=W-Wing)
 
 On the left: The bivalue cells are r4c4 and r8c9 (candidates 5 and 9). The [strong link](https://hodoku.sourceforge.net/en/tech_chains.php#strong_link) is for candidate 9 in column 8 (column 8 has only two possibilities for candidate 9, which means, that if one of them is not set, the other has to be set - strong link). One end of the strong link sees r4c4 the other sees r8c9. Candidate 5 can be eliminated from every cell that sees both r4c4 and r8c9.
 

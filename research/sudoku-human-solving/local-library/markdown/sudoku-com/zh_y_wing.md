@@ -76,11 +76,11 @@ Markdown Content:
 
 然后，我们再找两个也有 2 条笔记的单元格。这些单元格（叫做“钳”）应该和“折点”位于同一行、同一列或同一宫中。每个“钳”中的两个数字之一应该与“折点”中的相同。两个“钳”中的另一个数字相同。
 
-![Image 3](https://sudoku.com/img/post-images/1646984491-14.%20Y-wing_1.png)
+![Image 3](../../assets/sudokucom-zh-ywing/01-1646984491-14.-20Y-wing_1.png)
 
 现在，我们来看看两个“钳”在哪里交叉。我们看到是在最下面一行中的单元格。如果这个单元格包含两个“钳”共享的笔记，那么我们可以将其排除。在这种情况下，应该是数字 4，因为两个“钳”中都有 4。
 
-![Image 4](https://sudoku.com/img/post-images/1646984497-14.%20Y-wing_2.png)
+![Image 4](../../assets/sudokucom-zh-ywing/02-1646984497-14.-20Y-wing_2.png)
 
 这就是“Y 翼”解法的原理。它是一种高级数独策略，您可能需要一些时间和练习才能弄明白。
 
@@ -90,7 +90,7 @@ Markdown Content:
 
 [剑鱼](https://sudoku.com/zh/shu-du-gui-ze/jian-yu/)
 
-![Image 5: sudoku app icon](https://sudoku.com/img/icon-app.png)
+![Image 5: sudoku app icon](../../assets/sudokucom-zh-ywing/03-icon-app.png)
 
 Sudoku.com - 数字游戏
 

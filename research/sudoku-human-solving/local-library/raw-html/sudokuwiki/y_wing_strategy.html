@@ -5,10 +5,10 @@
 <meta charset="UTF-8">
 <title>Y-Wing Strategy - SudokuWiki.org</title>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/sudokuwiki-ywing/12-apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/sudokuwiki-ywing/13-favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/sudokuwiki-ywing/14-favicon-16x16.png">
+<link rel="mask-icon" href="../../assets/sudokuwiki-ywing/15-safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#2b5797">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,8 @@ var pgFileName = 'Y_Wing_Strategy';
 			<div class="toparea">
 				<div class="topareasubgrid">
 					<div class="appicondiv" style="text-align:left">
-	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
-                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+	                    <!--a href="https://x.com/SudokuWiki"><img src="../../assets/sudokuwiki-ywing/01-Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="../../assets/sudokuwiki-ywing/02-SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
 					</div>
 					<div class="wikititle">
 						<div class="css-3d-text">SudokuWiki.org</div>
@@ -256,41 +256,41 @@ var pgFileName = 'Y_Wing_Strategy';
 
             <div class="contentshell">
 				<h1>Y-Wing Strategy</h1><div class="SRCell">
-<figure style="width:350px"><img src="PuzImages/YWing1.png" alt="Y-Wing Figure 1" /><figcaption>Y-Wing Figure 1
+<figure style="width:350px"><img src="../../assets/sudokuwiki-ywing/03-YWing1.png" alt="Y-Wing Figure 1" /><figcaption>Y-Wing Figure 1
 </figcaption></figure>
 This is an excellent candidate eliminator. The name derives from the fact that it looks like an X-Wing - but with three corners, not four.  The fourth corner is where the candidate can be removed but it leads us to much more as we'll see in a minute.<br><br>Lets look at Figure 1 for the theory.  <br><br><span class="hy">A, B</span> and <span class="hy">C</span> are three different candidate numbers in a rectangular formation. Three of the corners have two candidates <span class="hy">AC</span>, <span class="hy">AB</span> and <span class="hy">BC</span>. The cell marked <span class="hy">AB</span> is the key.  If the solution to that cell turns out to be <span class="hy">A</span> then <span class="hy">C</span> will definitely occur in the lower left corner.If <span class="hy">AB</span> turns out to be <span class="hy">B</span> then <span class="hy">C</span> is certain to occur in the top right corner. <span class="hy">C</span> is a <i>complementary</i> pair.<br><br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/YWing2.png" alt="Y-Wing Figure 2" /><figcaption>Y-Wing Figure 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-ywing/04-YWing2.png" alt="Y-Wing Figure 2" /><figcaption>Y-Wing Figure 2
 </figcaption></figure>
 So whatever happens, <span class="hy">C</span> is certain in one of those two cells marked <span class="hy">C</span>. The red <span color=red>C</span> can be 'seen' by both <span class="hy">C</span>s - the cell is a confluence of both <span class="hy">BC</span> and <span class="hy">AC</span>.<br>It's impossible for a <span class="hy">C</span> to live there and it can be removed.<br> <br>In Figure 2 I'm demonstrating the sphere of influence two example cells have, marked red and blue.  <span class="hy">X</span> can 'see' all the red cells, <span class="hy">Z</span> can 'see' all the blue ones. In this case there are two cells which overlap and these are 'seen' by both.</div>
 
 <div class="SRCell">
-<figure style="width:350px"><img src="PuzImages/YWing1b.png" alt="Y-Wing Figure 3" /><figcaption>Y-Wing Figure 3
+<figure style="width:350px"><img src="../../assets/sudokuwiki-ywing/05-YWing1b.png" alt="Y-Wing Figure 3" /><figcaption>Y-Wing Figure 3
 </figcaption></figure>
 If our <span class="hy">A</span>, <span class="hy">B</span> and <span class="hy">C</span> are aligned more closely they can 'see' a great deal more cells than just the corner of the rectangle they make. In Figure 3 <span class="hy">BC</span> can see <span class="hy">AB</span> because they share the same box. <span class="hy">AC</span> can see <span class="hy">AB</span> because they share the same row.  <span class="hy">BC</span> and <span class="hy">AC</span> can see all the cells marked with a red <span color=red>C</span> where this Y-Wing can eliminate whatever number <span class="hy">C</span> is.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/YWing3b.png" alt="Y-Wing Example 1" /><figcaption>Y-Wing Example 1
+<figure style="width:450px"><img src="../../assets/sudokuwiki-ywing/06-YWing3b.png" alt="Y-Wing Example 1" /><figcaption>Y-Wing Example 1
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f069f0e0d2c082g0n9h2d2b03090h0l0e0f040l050h0f2g0d2g092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c">Load Example</a>
  or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=034500000802060400600008000003900004050000090900005800000300008001040605000007120">From the Start</a>
 </figcaption></figure>
 <br>I have found (June 2025) a new 'tough' Sudoku puzzle with a sequence of five Y-Wings to illustrate the full range of this strategy. The first three are pictured here but you can load the puzzle into the solver to see the remaining examples.<br><br>The first Y-Wing is a rectangular alignment which is close to the theory diagram. The AB cell in <span class="hy">A1</span> links 7 with the pair on <span class="hy">A7</span> and the 1 in <span class="hy">E1</span>.  The number common to both the <i>pincer</i> cells is 2 which must go in either <span class="hy">A7</span> or <span class="hy">E1</span> so 2 in <span class="hy">E7</span> can be removed.</div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/YWing4c.png" alt="Y-Wing Example 2" /><figcaption>Y-Wing Example 2
+<figure style="width:450px"><img src="../../assets/sudokuwiki-ywing/07-YWing4c.png" alt="Y-Wing Example 2" /><figcaption>Y-Wing Example 2
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f069f0e0d2c082g0n9f2d2b03090h0l0e0f040l050h0f2g0d2e092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c">Load Example</a>
 </figcaption></figure>
 <br>The second Y-Wing has four target cells show in <font color=#ff88ff>pink</font> but three of them are solved cells so of no use. But there is a 7 in <span class="hy">C2</span> that can be eliminated.  The 7s in <span class="hy">A1</span> and <span class="hy">C5</span> are linked to <span class="hy">A6</span> by 1 and 2 respectively. One end of the pincer or the other must be 7.<br></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/YWing5c.png" alt="Y-Wing Example 3" /><figcaption>Y-Wing Example 3
+<figure style="width:450px"><img src="../../assets/sudokuwiki-ywing/08-YWing5c.png" alt="Y-Wing Example 3" /><figcaption>Y-Wing Example 3
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0304050i0l2c0h0f089f022b060c040e9f067n0e0d2c082g0n9f2d2b03090h0l0e0f040l050h0f2g0d2e092d090d0f2b2g05080n2d0e0b0g030a0f0i0d080c0h010b040i060g050d0f0i0h0e0701020c">Load Example</a>
 </figcaption></figure>
 <br>The third step is a similar pincer movement. <span class="hy">A6</span> is connected to <span class="hy">A7</span> by 2 and to <span class="hy">B4</span> by 1. Looking along row B we can remove 7 from <span class="hy">B9</span></div>
 
 <div class="SRCell">
-<figure style="width:450px"><img src="PuzImages/YWing6.png" alt="Double y-Wing" /><figcaption>Double y-Wing
+<figure style="width:450px"><img src="../../assets/sudokuwiki-ywing/09-YWing6.png" alt="Double y-Wing" /><figcaption>Double y-Wing
 : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=607945023395062000402037569743516298569283741821000635970650312136020050250301006">From the Start</a>
 </figcaption></figure>
 <br>So here is a tricky situation. Doesn't seem obvious at first sight which 89 in <span class="hy">H6</span> or <span class="hy">H7</span> could make the Y-WIng. Why did the solver pick <span class="hy">H6</span>? Well there is a double and mirrored Y-Wing here. The solver just returned the first. Equally valid is a hinge on <span class="hy">J8</span> and a common candidate 9 allowing 9 to be removed from <span class="hy">H6</span>. The result is the same - fixing 8 and 9 on those cells.</div>
@@ -349,9 +349,9 @@ They make good practice puzzles.
                         <tr>
                             <td width="20%">
                                 Please enter the<br>letters you see:<br>
-                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="../../assets/sudokuwiki-ywing/10-GRNARR.GIF" alt="arrow" />
                             </td>
-                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%"><img src="../../assets/sudokuwiki-ywing/11-lanap-Command-CreateImage-TextStyle-19-ImageWidth-140.aspx" alt="Enter these letters" id="CaptchaImage" /></td>
                             <td width="40%" align="center">
                                 <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
                                 <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>

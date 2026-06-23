@@ -25,7 +25,7 @@ You should also be armed with the ideas of [Strong and Weak links](https://www.s
 
 Nice Loops that alternate all the way round are said to be 'continuous', and they must have an even number of nodes. With a continuous AIC, candidates are not removed from the loop since the loop does not have any flaws. Instead we are looking to eliminate on the units that can be seen by two or more cells that belong to the loop.
 
-![Image 1: AIC Rule 1](https://www.sudokuwiki.org/PuzImages/AIC1c.png)
+![Image 1: AIC Rule 1](../../assets/sudokuwiki-aic/03-AIC1c.png)
 
 AIC Rule 1 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B1v8j4i6a046b83030b020c074j0z09060d4j0z7v4q02030683074j090r0c4j0f4q020z071v3f162b0b2i0h0i0c082b020c0i2r0z0f040c050a0907020d0h0f0g0h06040z0z030b090d020i0f080c0g0z0z) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000040030207009600000236070900000207000000000802000004050972000006400309020080000)
 
@@ -69,7 +69,7 @@ Thus...there is no contradiction in the loop. The nice thing about Nice Loops is
 
 So having proved the loop we can look for extra candidates on any unit linked by the chain - or indeed, extra candidates in the same cell where an ON/OFF has occurred.
 
-![Image 2: Off-chain eliminations in cells](https://www.sudokuwiki.org/PuzImages/AIC5b.png)
+![Image 2: Off-chain eliminations in cells](../../assets/sudokuwiki-aic/04-AIC5b.png)
 
 Off-chain eliminations in cells : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B05be8q4d074c0t8s037q019q061a1c3008a25262024v4v092z223v0p061b6o4v6o091a2y078a8f1b9b260826027s8c08349a3232013u456c2r094u6m061c17c4038y4q5m0118078a049uar2u023q138608) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=500070003010600080002009000060000900700000002008000010000900600030001070400020008)
 
@@ -91,7 +91,7 @@ Now we turn to flawed loops - ones that show a discontinuity. In terms of strong
 
 **If the adjacent links are links with strong inference (solid line), a candidate can be fixed in the cell at the discontinuity.** It removes all other candidates as is the solution to that cell. This type is unfortunately much rarer than the Nice Loop Rule 3, two weak links.
 
-![Image 3: AIC Rule 2](https://www.sudokuwiki.org/PuzImages/AIC2c.png)
+![Image 3: AIC Rule 2](../../assets/sudokuwiki-aic/05-AIC2c.png)
 
 AIC Rule 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B0504037n0h7n0b0g060bdudu0c2216014q82b60ac2072202be4q0c074o4i11090z4y52047y86010616080g7q0b06b8be0s030g05b6017uaaay080b038q0a82464602820a968q220g018y968a0g96030208) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=543000006000000100000702000700090004001608000600030501000803000002000000100000328)
 
@@ -115,7 +115,7 @@ Our third rule dictates what happens when two weak links form a discontinuity in
 
 If the adjacent links are links with weak inference (broken line), a candidate can be eliminated from the cell at the discontinuity. In terms of ON/OFF this is where you try and set a candidate to be ON but the loop comes round and shows that doing so forces that candiate to be turned OFF.
 
-![Image 4: AIC Rule 3](https://www.sudokuwiki.org/PuzImages/AIC3.png)
+![Image 4: AIC Rule 3](../../assets/sudokuwiki-aic/06-AIC3.png)
 
 AIC Rule 3 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9Bbu4q060a039m2q02cyb6030a9e0e020604cy070b8a8i0h8q0c820102067u050g01087q0u832q080d0f0c029f9e0r2i03020i082j0605034q18cy0l9u2z2r06220907030l1u17080s5e01106q043m092u0o) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=006030020030002640700000001260501800008000200003208065300000006097300080010040900)
 

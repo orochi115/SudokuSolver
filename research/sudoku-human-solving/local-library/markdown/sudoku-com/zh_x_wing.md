@@ -74,11 +74,11 @@ Markdown Content:
 
 我们来看看这两行。它们都有两个单元格包含笔记 4。由于 4 不能重复出现在同一行或同一列中，因此我们可以安全地假设 4 将被放在对角线上：位于浅蓝色单元格或深蓝色单元格中。
 
-![Image 3](https://sudoku.com/img/post-images/1691408445-X-wing_1.png)
+![Image 3](../../assets/sudokucom-zh-xwing/01-1691408445-X-wing_1.png)
 
 现在我们缩小来看看涉及到的列。由于 4 放在对角线上，那么这两列就都已经包含数字 4。这说明我们不能再在这两列填入 4。
 
-![Image 4](https://sudoku.com/img/post-images/1691408472-X-wing_2.png)
+![Image 4](../../assets/sudokucom-zh-xwing/02-1691408472-X-wing_2.png)
 
 因此，我们可以自信地将这两列中所有剩余笔记中的 4 删除。
 
@@ -90,7 +90,7 @@ Markdown Content:
 
 [Y 翼](https://sudoku.com/zh/shu-du-gui-ze/y-yi/)
 
-![Image 5: sudoku app icon](https://sudoku.com/img/icon-app.png)
+![Image 5: sudoku app icon](../../assets/sudokucom-zh-xwing/03-icon-app.png)
 
 Sudoku.com - 数字游戏
 
