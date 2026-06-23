@@ -122,7 +122,15 @@ At the diagram step, blue base cells and yellow witnesses map to:
 
 **Elimination: `r2c4<>7`** (brute-force solution places `9`).
 
-Secondary example — Subset Counting (faithful to `SUDOPEDIA-SUBSET-COUNTING`, abstract in source): select 4 cells `S` with candidates among `{4,5,7,8}` where `place(4)=2` (r3c2,r9c1), `place(5)=1`, `place(7)=1`, `place(8)=1`, so `Σ place = 5 = |S| + 1`. A peer (blue) cell taking `4` removes `4` from r3c2, r9c1, r9c2, dropping `place(4)` from `2` to `0` (decrease `2`): `Σ` becomes `5 − 2 = 3 < 4 = |S|` — impossible, so the blue cell `≠ 4`. (Removing `4` from r5c2 only drops `Σ` by `1` to `4 = |S|`, which is not yet a contradiction, so no elimination there.) The selected cells form a WXYZ-Wing, which gives the same elimination. *Grid fixture for this secondary step still pending (`assets/sudopedia-subset-counting/01-WXYZWing.png`).*
+### Verified — Sudopedia Subset Counting / WXYZ-Wing (human transcription, 2026-06-24)
+Givens (from `assets/sudopedia-subset-counting/01-WXYZWing.png`):
+
+`861423975000789641900615823695842137000367589000591264239176458000250396006930712`
+
+Yellow selected set `S` (4 cells, candidates among `{4,5,7,8}`): `r3c2` {4,7}, `r6c2` {7,8}, `r9c1` {4,5},
+`r9c2` {4,5,8}. Blue peer: `r8c2` {1,4,7,8} (4 greyed in source). **`r8c2<>4`** (solution `1`).
+Same elimination as the WXYZ-Wing corollary (`place(4)=2` in `r3c2,r9c1,r9c2`; assigning `4` to the
+blue peer drops `Σ place` below `|S|`).
 
 ## Soundness
 

@@ -706,6 +706,14 @@ describe('research card worked examples (ground-truth verification)', () => {
       );
     });
 
+    it('subset counting Sudopedia WXYZ-Wing example eliminates 4 from r8c2', () => {
+      expectSound(
+        'subset-counting-wxyz-wing',
+        '861423975000789641900615823695842137000367589000591264239176458000250396006930712',
+        { eliminations: [{ cell: rc(8, 2), digit: 4 }] },
+      );
+    });
+
     it('sue de coq extended eliminates from row/box (HoDoKu sdc03)', () => {
       expectSound(
         'sue-de-coq-sdc03',
