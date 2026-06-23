@@ -959,5 +959,17 @@ describe('research card worked examples (ground-truth verification)', () => {
       expect(result.solvable).toBe(true);
       expect(result.unique).toBe(true);
     });
+
+    it('SudokuWiki AVR narrative Type 1 places 9 in r2c4 (B4)', () => {
+      // Top-third givens from 04-AVR2.png; rows 4–9 from 03-AVR1.png full grid (unique puzzle).
+      expectSound(
+        'avoidable-rectangle-sudokuwiki-b4',
+        '500403001000000000040020039475632198926158437138749652813275946297864315654391287',
+        {
+          eliminations: [{ cell: rc(2, 4), digit: 8 }],
+          placements: [{ cell: rc(2, 4), digit: 9 }],
+        },
+      );
+    });
   });
 });

@@ -130,10 +130,14 @@ Verified unique/solvable (`packages/engine/test/worked-examples.test.ts`). The p
 restored state is a mid-solve snapshot, not the narrative `B4={8,9}` diagram step; the Type 1
 elimination at that snapshot still awaits a restored-state candidate match.
 
-### SudokuWiki canonical narrative (B4/C4/B7/C7) — CITED, step pending
-SudokuWiki's B4/C4/B7/C7 figure (`C4=5`, `B7=5`, `C7=8`, `B4={8,9}` ⇒ `B4=9`) is a pedagogical
-screenshot without a plain 81-char givens string. Logic matches Type 1 above; use HoDoKu ar102 for a
-fully fixture-tested Type 1 grid.
+### Verified — SudokuWiki AVR narrative Type 1 (B4/C4/B7/C7)
+SudokuWiki figures `03-AVR1.png` (full grid) + `04-AVR2.png` (top-third givens) + `05-AVR3.png`
+(step: `C4=5`, `B7=5`, `C7=8`, `B4={8,9}` ⇒ `B4=9`). Fixture givens (04-AVR2 clues + rows 4–9 from
+03-AVR1 to pin a unique puzzle):
+
+`500403001000000000040020039475632198926158437138749652813275946297864315654391287`
+
+Avoidable Rectangle Type 1: `5/8` rectangle at `r2c4,r2c7,r3c4,r3c7` ⇒ **`r2c4<>8`**, **`r2c4=9`**.
 
 ## Soundness
 
