@@ -92,9 +92,11 @@ Two same-color candidates in **H2** ⇒ opposite color solves (**Jacobs corollar
 Grid: `900407000876050004000200030060000100430000059005000060090002000200030486000708002`
 Unit+cell contradictions on **E5/E6** and **F5** ⇒ `r5c5<>1`, `r5c5<>7`, `r5c6<>7`, `r6c5<>1`.
 
-**CITED — Rule 2** (SudokuWiki "From the Start", whole-color step not yet fixture-tested):
+**Verified — Rule 2** (SudokuWiki "From the Start"; column-7 yellow-7 subset at restored state):
 Grid: `300050000250300010004607500090200805070000030408005060005408300030006084000020006`
-Two same-color **7**s in **column 7** ⇒ Rule 2 whole-color flip (requires prior Rule-6 steps in the source walkthrough).
+
+Two same-color **7**s in **column 7** trigger Rule 2 whole-color flip ⇒ at minimum
+**`r1c7,r2c7,r8c7,r9c7<>7`** (full yellow-7 purge is wider; source requires prior Rule-6 steps).
 
 **Verified — Rule 2 exemplars** (SudokuWiki, uniqueness only):
 - Exemplar 3: `000000009010503000003290700400001300900050008006300005008037400000108060700000000`

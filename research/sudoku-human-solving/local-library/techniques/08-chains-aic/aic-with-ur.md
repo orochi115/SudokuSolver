@@ -96,6 +96,9 @@ Grid: `0060509001002630070008000000200000085000000700093106000000300007009810060
 
 UR-threat loop (explore option 3): `r4c6<>9`, `r7c6=6`.
 
+**Verified — Example B explore option 4** (SudokuWiki Load Example `S9B`, restored state):
+Dual UR-threat (ON 9 in D6 instead of 6 in G6) weak-link eliminations ⇒ **`r9c5<>5`**, **`r9c6<>6`**.
+
 ## Soundness
 
 The new inference is the strong link the UR supplies, valid **given the puzzle has a unique solution**:

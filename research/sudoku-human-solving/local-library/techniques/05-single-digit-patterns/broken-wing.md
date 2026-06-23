@@ -93,6 +93,11 @@ Exact result (Case 1): **place `d` in r5c8** (`r5c8 = d`).
 
 SUDOPEDIA single-guardian sketch (abstract, no 81-char grid): loop `r5c2,r2c2,r2c5,r1c6,r5c6`, guardian `r5c8`, deduction `r5c8=d`.
 
+**Verified — SudokuWiki Guardian 1** (single guardian, digit 3):
+Grid: `008057600000000007040903000070590040900000001020084070000409010200000000003870500`
+
+Five-cell loop on 3 with one imperfect box-6 link ⇒ guardian **`r4c7=3`** (D7).
+
 **Verified — SudokuWiki Guardian 2** (double guardians, digit 7):
 Grid: `103896520020753010090214063010569382200437195030182070002945031350621040001378250`
 

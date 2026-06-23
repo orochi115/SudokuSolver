@@ -142,6 +142,14 @@ describe('research card worked examples (ground-truth verification)', () => {
         { eliminations: [{ cell: rc(7, 4), digit: 1 }] },
       );
     });
+
+    it('broken wing single guardian places 3 in D7 (SudokuWiki Guardian 1)', () => {
+      expectSound(
+        'broken-wing-guardian1',
+        '008057600000000007040903000070590040900000001020084070000409010200000000003870500',
+        { placements: [{ cell: rc(4, 7), digit: 3 }] },
+      );
+    });
   });
 
   describe('06-wings', () => {
@@ -254,6 +262,21 @@ describe('research card worked examples (ground-truth verification)', () => {
       const result = checkPuzzle('900008007000000060000710403005030006009802000100090800403059000050000000700600000');
       expect(result.solvable).toBe(true);
       expect(result.unique).toBe(true);
+    });
+
+    it('Rule 2 twice-in-unit eliminates yellow 7s from column 7 (SudokuWiki FTS)', () => {
+      expectSound(
+        '3d-medusa-r2',
+        '300050000250300010004607500090200805070000030408005060005408300030006084000020006',
+        {
+          eliminations: [
+            { cell: rc(1, 7), digit: 7 },
+            { cell: rc(2, 7), digit: 7 },
+            { cell: rc(8, 7), digit: 7 },
+            { cell: rc(9, 7), digit: 7 },
+          ],
+        },
+      );
     });
   });
 
@@ -592,6 +615,22 @@ describe('research card worked examples (ground-truth verification)', () => {
           { cell: rc(5, 6), digit: 4 },
           { cell: rc(1, 9), digit: 6 },
           { cell: rc(4, 9), digit: 6 },
+        ],
+        highlights: { cells: [], candidates: [], links: [] },
+      });
+      expect(result.ok).toBe(true);
+    });
+
+    it('aic-with-ur Example B explore option 4 weak-link eliminations pass restored-state check', () => {
+      const s9b =
+        'S9B4g4e060a050g090w0o010i160206030h16070o120g087u7u110f150f020u160g8a0n7n08050a4e0f7u440o07804a0g09030144061018b64y4k1603220g438507160s0908011414067q5i01070b1u04b682';
+      const result = verifyRestoredStepSoundness(s9b, {
+        strategyId: 'aic-with-ur',
+        difficulty: 100,
+        placements: [],
+        eliminations: [
+          { cell: rc(9, 5), digit: 5 },
+          { cell: rc(9, 6), digit: 6 },
         ],
         highlights: { cells: [], candidates: [], links: [] },
       });
