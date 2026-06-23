@@ -96,6 +96,14 @@ Use stable citation IDs in technique cards and synthesis documents.
 - `ENJOYSUDOKU-AHS`: New Sudoku Players' Forum "Almost Hidden Set - XZ rule" thread.
 - `ENJOYSUDOKU-TRIDAGON`: New Sudoku Players' Forum "The tridagon rule" thread.
 
+## Coverage Gap Fill (added 2026-06-23)
+
+- `SUDOKUWIKI-RECTANGLE-ELIMINATION`: SudokuWiki Rectangle Elimination page; current replacement/alias for Empty Rectangles and grouped-AIC reading.
+- `ENJOYSUDOKU-BIVALUE-ODDAGON`: New Sudoku Players' Forum odd bivalue loop / bivalue oddagon thread.
+- `SUDOKUONE-RANK-LOGIC`: Allan Barker / SudokuOne universal logic and rank/base-cover rules.
+- `ENJOYSUDOKU-SET-EXPLANATIONS`: New Sudoku Players' Forum discussion of Set Equivalence Theory, MSLS overlap, and programmability concerns.
+- `JORDAN-PHISTOMEFEL`: Jordan Eldredge summary of the Phistomefel ring and SET relation.
+
 ## Citation Style
 
 Use inline source lists in technique cards:

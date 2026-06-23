@@ -25,15 +25,17 @@ The local Sudoku human-solving library now covers the previously selected inform
 
 | Type | Count |
 |---|---:|
-| Manifest source entries | 85 |
-| Local Markdown source files | 85 |
-| Local raw HTML source files | 85 |
-| Technique cards | 39 |
+| Manifest source entries | 90 |
+| Local Markdown source files | 90 |
+| Local raw HTML source files | 90 |
+| Technique cards | 41 |
 | Index/mapping files | 6 |
 
 > Update 2026-06-23: added 5 exotic sources (`SUDOKUWIKI-EXOCET`, `SUDOKUWIKI-SK-LOOP`, `ENJOYSUDOKU-MSLS`, `SUDOKUWIKI-FIREWORKS`, `SUDOKUWIKI-APE`; new `enjoysudoku` group) and 5 technique cards (Exocet, SK-Loop, MSLS, Fireworks, Aligned Pair/Triple Exclusion) under `11-exotic/`, in support of [`docs/plans/diabolical-727.md`](../../../../docs/plans/diabolical-727.md)'s P2 exotic tier.
 
 > Update 2026-06-23 (card-library expansion): added 24 source mirrors (13 SudokuWiki, 9 Sudopedia, 2 enjoysudoku) and 21 technique cards (Finned/Sashimi Fish, Franken/Mutant Fish, Broken Wing, Bent Sets, Remote Pairs, WXYZ-Wing, 3D Medusa, Multi-Coloring, AIC-with-ALS/-Exotic-Links/-UR, Grouped AIC, Nice Loops, Twinned XY-Chains, XY-Chain, AHS, Avoidable Rectangle, Extended UR, Gurth's Theorem, Subset Exclusion, Tridagon). Also reconciled stale citation IDs in card frontmatter (`SUDOKUWIKI-NAKED-CANDIDATES`→`SUDOKUWIKI-NAKED`, `SUDOKUWIKI-HIDDEN-CANDIDATES`→`SUDOKUWIKI-HIDDEN`, `SUDOPEDIA-ALS`→`SUDOKUWIKI-ALS`, `SUDOKUWIKI-FINNED-X-WING`→`SUDOKUWIKI-FINNED-XWING`, `SUDOKUWIKI-X-WING`→`SUDOKUWIKI-XWING`). Counts above reflect post-update totals.
+
+> Update 2026-06-23 (coverage-gap fill): added 5 source notes and 2 cards for Rectangle Elimination plus Rank/SET/Phistomefel/Oddagon boundary coverage. P3 red-line names are now boundary-card covered rather than marked as missing implementation cards.
 
 ## Coverage Assessment
 
@@ -42,12 +44,12 @@ The local Sudoku human-solving library now covers the previously selected inform
 - Foundations: candidates, houses, peers, strong/weak links.
 - Basic solving: singles, locked candidates, naked/hidden subsets.
 - Fish: fish theory, X-Wing, Swordfish, Jellyfish, finned/sashimi, complex fish.
-- Single-digit patterns: Skyscraper, 2-String Kite, Turbot Fish, Empty Rectangle.
+- Single-digit patterns: Skyscraper, 2-String Kite, Turbot Fish, Empty Rectangle, Rectangle Elimination.
 - Wings: XY-Wing/Y-Wing, XYZ-Wing, W-Wing.
 - Chains: X-chain, XY-chain, Nice Loop, AIC, grouped links, ALS in chains.
 - ALS: ALS-XZ, doubly linked ALS-XZ, ALS-XY-Wing, ALS chains, Death Blossom.
 - Uniqueness: Unique Rectangle family, Avoidable Rectangle, BUG+1.
-- Exotic/last resort: Sue de Coq, forcing chains/nets, templates, Kraken Fish, brute-force boundary.
+- Exotic/last resort: Sue de Coq, Rank/SET/Phistomefel/Oddagon theory boundary, forcing chains/nets, templates, Kraken Fish, brute-force boundary.
 - Chinese terminology: bilingual names and Chinese source explanations.
 
 ### Supplemental Coverage Added

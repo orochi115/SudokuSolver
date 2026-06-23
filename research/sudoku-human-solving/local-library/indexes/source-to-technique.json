@@ -9,7 +9,7 @@
   "HODOKU-BASIC-FISH": ["technique.fish-base-cover"],
   "HODOKU-FINNED-FISH": ["technique.fish-base-cover"],
   "HODOKU-COMPLEX-FISH": ["technique.fish-base-cover"],
-  "HODOKU-SDP": ["technique.turbot-family"],
+  "HODOKU-SDP": ["technique.turbot-family", "technique.rectangle-elimination"],
   "HODOKU-WINGS": ["technique.wings", "technique.wxyz-wing"],
   "HODOKU-COLORING": ["technique.simple-coloring", "technique.3d-medusa", "technique.multi-coloring"],
   "HODOKU-CHAINS": ["technique.candidates-and-links", "technique.aic", "technique.aic-with-als", "technique.grouped-aic", "technique.nice-loops", "technique.xy-chain"],
@@ -42,7 +42,7 @@
   "CHINESE-KAZUSA-UR": ["technique.unique-rectangle-bug"],
   "CHINESE-CN-SUDOKUPUZZLE-XWING": ["technique.fish-base-cover"],
   "SUDOKUWIKI-XY-CHAINS": ["technique.aic", "technique.twinned-xy-chains", "technique.xy-chain"],
-  "SUDOKUWIKI-X-CYCLES": ["technique.turbot-family", "technique.aic", "technique.grouped-aic", "technique.nice-loops"],
+  "SUDOKUWIKI-X-CYCLES": ["technique.turbot-family", "technique.rectangle-elimination", "technique.aic", "technique.grouped-aic", "technique.nice-loops"],
   "SUDOKUWIKI-3D-MEDUSA": ["technique.simple-coloring", "technique.aic", "technique.3d-medusa"],
   "SUDOKUWIKI-W-WING": ["technique.wings", "technique.bent-sets", "technique.remote-pairs"],
   "SUDOKUWIKI-XYZ-WING": ["technique.wings"],
@@ -83,5 +83,10 @@
   "SUDOPEDIA-SUBSET-EXCLUSION": ["technique.subset-exclusion"],
   "SUDOPEDIA-SUBSET-COUNTING": ["technique.subset-exclusion"],
   "ENJOYSUDOKU-AHS": ["technique.ahs"],
-  "ENJOYSUDOKU-TRIDAGON": ["technique.tridagon"]
+  "ENJOYSUDOKU-TRIDAGON": ["technique.tridagon"],
+  "SUDOKUWIKI-RECTANGLE-ELIMINATION": ["technique.rectangle-elimination", "technique.turbot-family", "technique.grouped-aic"],
+  "ENJOYSUDOKU-BIVALUE-ODDAGON": ["technique.rank-set-theory", "technique.tridagon", "technique.broken-wing"],
+  "SUDOKUONE-RANK-LOGIC": ["technique.rank-set-theory", "technique.msls", "technique.broken-wing"],
+  "ENJOYSUDOKU-SET-EXPLANATIONS": ["technique.rank-set-theory", "technique.msls", "technique.sk-loop"],
+  "JORDAN-PHISTOMEFEL": ["technique.rank-set-theory", "technique.msls", "technique.sk-loop"]
 }

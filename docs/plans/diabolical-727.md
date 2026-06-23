@@ -30,10 +30,12 @@
 
 - **✅ 实现级**：有专卡，含精确模式定义 + 触发判定 + 全部消除/落子情形 + 退化/边界 + 关系 + worked example + soundness（实现级模板九节，见下）。
 - **✅\* 实现级（例待验证）**：卡已达实现级，但其 worked example 为源派生/构造、**尚未用本仓库引擎验证**消除集（见 [§ worked-example 验证 backlog](#文档缺口-backlog已基本完成)）。
+- **✅△ 规则实现级（仅片段/图示例）**：规则/判定足够实现，但 worked example 只有候选片段、源图示或理论示例；实现前必须补 81-char/restored-state 夹具。
+- **◇ 理论/边界卡**：用于记录成体系来源、包含关系或排除理由，不承诺直接实现。
 - **◐ 概要**：有卡但仅"规则 + 扫描"，缺精确约束 / 边界 / 例子。
 - **✗ 缺文档**：无专卡且无可用源镜像。
 
-> 现状（2026-06-23 卡片补全后）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级专卡（39 张）**；其中一部分的 worked example 仍待引擎验证（标 ✅\*）。仅 P3（红线，默认不实现）保持边界卡。库存计数与源镜像见 [`research/sudoku-human-solving/local-library/audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（85 源 / 39 卡）。
+> 现状（2026-06-23 缺口补齐后）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级或边界级专卡（41 张）**；其中一部分的 worked example 仍待引擎验证（标 ✅\*），另一部分只有片段/图示示例（标 ✅△）。仅 P3（红线，默认不实现）保持边界卡。库存计数与源镜像见 [`research/sudoku-human-solving/local-library/audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（90 源 / 41 卡）。
 
 ## 已实现（31，仅供参照，不再规划；其研究卡已于 2026-06-23 升级到实现级）
 
@@ -60,6 +62,7 @@ last-resort：`forcing-chain`。
 | 技巧 | 分册 | 文档状态 | 研究卡 | 说明 |
 |---|---|---|---|---|
 | Finned / Sashimi X-Wing·Swordfish·Jellyfish | 04-fish | ✅\* | `04-fish/finned-sashimi.md` | 现有 fish 的受控扩展（cover set + fin 格；仅消除"看到全部 fin"的 cover 格）。退化为 Sashimi（缺角）。**仅做到 jellyfish 大小**（更大鱼见有意排除）。 |
+| Rectangle Elimination（SudokuWiki 现行 Empty Rectangle 表述） | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/rectangle-elimination.md` | 明确补齐 SudokuWiki 2023+ Tough 策略；实现上吸收进 Empty Rectangle / grouped X-Cycle / grouped AIC，不重复增加逻辑力。 |
 | Grouped AIC / Grouped Nice Loops | 08-chains-aic | ✅ | `08-chains-aic/grouped-aic.md` | 给链搜索加 **group node**。 |
 | 不连续 / 连续 Nice Loop | 08-chains-aic | ✅ | `08-chains-aic/nice-loops.md` | 链端点重合 → 强制落子/消除；727 最大族。 |
 | XY-Chain（显式） | 08-chains-aic | ✅ | `08-chains-aic/xy-chain.md` | 双值格链，AIC 的常见特例（Remote Pairs ⊂ XY-Chain ⊂ AIC）。 |
@@ -100,20 +103,21 @@ last-resort：`forcing-chain`。
 | Sue de Coq 扩展（更大 SdC / 双线） | 11-exotic | ✅\* | `11-exotic/sue-de-coq.md` |
 | AIC with exotic links | 08-chains-aic | ✅ | `08-chains-aic/aic-with-exotic-links.md` |
 | Twinned XY-Chains | 08-chains-aic | ✅\* | `08-chains-aic/twinned-xy-chains.md` |
-| Franken / Mutant fish（含 Endo Fins / Cannibalism 精炼、Siamese 呈现） | 04-fish | ✅\* | `04-fish/franken-mutant.md` |
+| Franken / Mutant fish（含 Endo Fins / Cannibalism 精炼、Siamese 呈现） | 04-fish | ✅△ | `04-fish/franken-mutant.md` |
 | Gurth's Symmetrical Placement（对称占位） | 10-uniqueness | ✅ | `10-uniqueness/gurth.md`（仅对称题有效，727 上低频） |
+| Rank / SET / Phistomefel / Oddagon 理论边界 | 11-exotic | ◇ | `11-exotic/rank-set-theory.md` | 成体系现代资料补齐；作为 MSLS/SK/Oddagon/Tridagon/Broken-Wing 的理论映射，不作为默认策略。 |
 
 ### P3 — 最后手段 / 红线（默认不实现；仅在确需时 flag 后引入；此处仅枚举命名）
 
 | 技巧 | 分册 | 文档状态 | 研究卡 / 源 |
 |---|---|---|---|
-| Forcing Chains 子类：Digit / Nishio / Cell / Unit(Region) Forcing Chains、Double Implication Chain (DIC) | 12-last-resort | ◐策略边界 | `12-last-resort/forcing-vs-enumeration.md`；源 `forcing_nets.md`。仅命名枚举，不实现 |
-| Forcing Nets（cell / region / contradiction / verity） | 12-last-resort | ◐策略边界 | 同上 |
-| Kraken Fish | 12-last-resort | ✗ | 同册边界卡（接受不写算法） |
-| Tabling / Trebor's Tables | 12-last-resort | ✗ | 枚举类，红线 |
-| Pattern Overlay Method (POM) | 12-last-resort | ✗ | 同上 |
-| Templates / Bowman's Bingo | 12-last-resort | ✗ | 同上 |
-| GEM（Graded Equivalence Marks）/ Braid Analysis | 12-last-resort | ✗ | 临近枚举，归红线 |
+| Forcing Chains 子类：Digit / Nishio / Cell / Unit(Region) Forcing Chains、Double Implication Chain (DIC) | 12-last-resort | ◇边界卡 | `12-last-resort/forcing-vs-enumeration.md`；源 `forcing_nets.md`。仅命名枚举，不实现 |
+| Forcing Nets（cell / region / contradiction / verity） | 12-last-resort | ◇边界卡 | 同上 |
+| Kraken Fish（Type 1 / Type 2） | 12-last-resort | ◇边界卡 | 同上；HoDoKu 将其定义为 fish + chains，归红线 |
+| Tabling / Trebor's Tables | 12-last-resort | ◇边界卡 | 枚举类，红线 |
+| Pattern Overlay Method (POM) | 12-last-resort | ◇边界卡 | 同上 |
+| Templates / Bowman's Bingo | 12-last-resort | ◇边界卡 | 同上 |
+| GEM（Graded Equivalence Marks）/ Braid Analysis | 12-last-resort | ◇边界卡 | 临近枚举，归红线 |
 
 > P3 越过了"人类解法"边界（趋近枚举/试错）。项目目标是在动用 P3 **之前**达到 100%；若仍有残留再显式决策。
 
@@ -125,6 +129,9 @@ last-resort：`forcing-chain`。
 - **Oriented chains / nrczt 3D chains（Berthier）**：解法器/学术专用，非人类实践树。
 - **Trial & Error / Bifurcation / Ariadne's Thread / 猜测 / 回溯 / 暴力计数**：红线定义之外。
 - **Constraint Subsets**：meta 框架（subset+fish 的统一视角），非离散落子动作。
+- **Rank Logic / SET / Phistomefel / Fred intersection theory**：meta 框架或恒等定理；其可实现代表已拆为 MSLS、SK-Loop、Subset Exclusion、Broken Wing、Tridagon 等具名卡。泛化搜索暂不实现。
+- **Bivalue Oddagon / Oddagon 泛化**：作为 Broken Wing / Guardians / Tridagon 的理论亲缘记录在 `rank-set-theory.md`；不新增泛用 oddagon 搜索器，除非后续有 727 证据证明具名特例不足。
+- **AALS / AAALS / Almost Fish 泛化**：ALS/AIC 的更高阶扩展，搜索空间与 forcing-net 接近；先用 ALS、AHS、AIC with ALS/exotic links 覆盖。
 - **Reverse BUG / Reverse ER 等"反向"边角形**：极冷门，列此备查。
 - **变体规则**（Jigsaw/Windoku/Killer/Sudoku-X：Law of Leftovers、9 Windows、cage 规则等）：非经典 9×9，727 域外。
 - **Multivalue X-Wing**：SudokuWiki 已废弃，被标准 X-Wing/finned fish 吸收。
@@ -140,6 +147,8 @@ last-resort：`forcing-chain`。
 7. **多扇区族**：SK-Loop 是 MSLS 的首发特例（每个 SK-Loop 蕴含一个 MSLS）。
 8. **Exocet**：Double Exocet = 两耦合 Exocet；APE/ATE ⊂ Subset Exclusion（非对齐推广）。
 9. **染色变体**：X-Colors / Weak Colors / Color Wing / Supercoloring 多被 Multi-Coloring / 3D Medusa 吸收——交叉标注，不单独实现。
+10. **Rectangle Elimination**：SudokuWiki 当前将其列为 Tough 策略并说明其替代 Empty Rectangle；实现上仍是 Empty Rectangle / grouped X-Cycle / grouped AIC 的 presentation alias。
+11. **Rank/SET 理论族**：MSLS/SK/Phistomefel/Subset Counting/Oddagon 可以互相解释；计划只实现具名、可界定、可测试的子技巧。
 
 ## 实现级研究卡模板（每张卡须满足以下章节，才算 ✅）
 
@@ -155,20 +164,20 @@ last-resort：`forcing-chain`。
 
 ## 文档缺口 backlog（已基本完成）
 
-**卡片书写：✅ 完成（2026-06-23）。** 原三桶工作（A 网络抓取新建、B 富源 curate、C 升级 ◐ 卡）已全部落地：00–11 分册的 P0/P1/P2 技巧 + 全部已实现技巧均有实现级专卡，共 **39 张**；新增 **24 个非 HoDoKu 源镜像**（markdown + raw-html）并登记进 manifest / 索引 / citation-map / bibliography（85 源，audit 全绿）。
+**卡片书写：✅ 基本完成（2026-06-23）。** 原三桶工作（A 网络抓取新建、B 富源 curate、C 升级 ◐ 卡）已全部落地；本轮又补齐 Rectangle Elimination、Kraken 边界、Rank/SET/Phistomefel/Oddagon 口径。00–11 分册的 P0/P1/P2 技巧 + 全部已实现技巧均有实现级或边界级专卡，共 **41 张**；源镜像/研究摘要已登记进 manifest / 索引 / citation-map / bibliography（90 源）。
 
-**唯一剩余项：worked-example 引擎验证。** 标 **✅\*** 的卡，其 worked example 是源派生或构造的盘面，消除集来自源文叙述但**尚未用本仓库 `packages/engine` / 暴力解独立验证**。待验证清单（按卡）：
+**唯一剩余项：worked-example 补全 / 引擎验证。** 标 **✅\*** 的卡，其 worked example 是源派生或构造的盘面，消除集来自源文叙述但**尚未用本仓库 `packages/engine` / 暴力解独立验证**；标 **✅△** 的卡还需要先补成 81-char/restored-state 夹具。待处理清单（按卡）：
 
-- 04-fish：`finned-sashimi.md`、`franken-mutant.md`（后者为 Sudopedia 示意图，非整盘）
-- 05：`turbot-family.md`（skyscraper 草图）、`broken-wing.md`（单数字草图）
-- 06-wings：`bent-sets.md`（ALPair/ALTriple 示意，整盘交叉引用 XYZ-Wing 源盘）
+- 04-fish：`finned-sashimi.md`；`franken-mutant.md` 为 ✅△（Sudopedia 示意图，非整盘）
+- 05：`rectangle-elimination.md`（源 81-char 有，post-basics 候选待核）、`turbot-family.md`（skyscraper 草图）、`broken-wing.md`（单数字草图）
+- 06-wings：`bent-sets.md` 为 ✅△（ALPair/ALTriple 示意，整盘交叉引用 XYZ-Wing 源盘）
 - 07：`multi-coloring.md`、`3d-medusa.md`（盘面来自源，逐格候选未像素级核对）
 - 08-chains：`aic-with-ur.md`（Example B 源仅图示）、`twinned-xy-chains.md`（源无显式消除列表）
 - 10：`avoidable-rectangle.md`（AR1 构造盘）
-- 11-exotic：`exocet.md`、`sk-loop.md`（Easter Monster 盘真实、逐链候选待核）、`msls.md`、`fireworks.md`、`aligned-exclusion.md`、`sue-de-coq.md`、`subset-exclusion.md`
+- 11-exotic：`exocet.md`、`sk-loop.md`（Easter Monster 盘真实、逐链候选待核）、`msls.md`、`fireworks.md`、`aligned-exclusion.md`、`sue-de-coq.md`、`subset-exclusion.md`；`rank-set-theory.md` 是理论边界卡，不作为 restored-state 用例来源
 - 01–03 basics：`singles.md`（Full/Naked 盘构造）、`locked-candidates.md`、`naked-hidden-subsets.md`（盘为源串、命中格转写自叙述）
 
-> 验证方式（实现期顺带做）：把每个 ✅\* 的 worked example 作为 restored-state 夹具喂给引擎/暴力解，核对消除集；通过后该卡升为 ✅。**未验证不影响"规则/约束无歧义"**——它影响的是"示例本身是否 100% 准确"。
+> 验证方式（实现期顺带做）：把每个 ✅\* 的 worked example 作为 restored-state 夹具喂给引擎/暴力解，核对消除集；把每个 ✅△ 先补成可复现候选状态，再做同样验证。通过后该卡升为 ✅。**未验证不影响"规则/约束无歧义"**——它影响的是"示例本身是否 100% 准确"。
 
 ## 实施方法
 

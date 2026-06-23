@@ -16,6 +16,7 @@
 ## Single-Digit Chain Logic
 
 - Turbot family
+- Rectangle Elimination
 - Coloring
 - X-Chains
 - Broken Wing (Guardians)
@@ -48,6 +49,7 @@
 
 ## Rank-0 / Multi-Sector Set Logic
 
+- Rank / SET / Phistomefel boundary
 - Multi-Sector Locked Sets (MSLS)
 - SK-Loop (Domino Loop)
 - Exocet
@@ -63,6 +65,7 @@
 - Extended Unique Rectangle
 - Gurth's Theorem
 - Tridagon
+- Bivalue Oddagon / Oddagon boundary
 
 ## Branching Implication Logic
 

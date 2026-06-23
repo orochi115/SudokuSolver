@@ -8,6 +8,7 @@
 | Naked and Hidden Subsets | `../techniques/03-subsets/naked-hidden-subsets.md` | HODOKU-NAKED, HODOKU-HIDDEN |
 | Fish Base/Cover Model | `../techniques/04-fish/fish-base-cover.md` | HODOKU-FISH-GENERAL, HODOKU-BASIC-FISH |
 | Turbot Family | `../techniques/05-single-digit-patterns/turbot-family.md` | HODOKU-SDP, CHINESE-JWANGL5-ADVANCED |
+| Rectangle Elimination | `../techniques/05-single-digit-patterns/rectangle-elimination.md` | SUDOKUWIKI-RECTANGLE-ELIMINATION, HODOKU-SDP, SUDOKUWIKI-X-CYCLES |
 | Wings | `../techniques/06-wings/xy-xyz-w-wings.md` | HODOKU-WINGS, SUDOKUWIKI-YWING |
 | Coloring | `../techniques/07-coloring/simple-coloring.md` | HODOKU-COLORING |
 | AIC | `../techniques/08-chains-aic/aic.md` | HODOKU-CHAINS, SUDOKUWIKI-AIC |
@@ -40,4 +41,5 @@
 | Gurth's Theorem | `../techniques/10-uniqueness/gurth.md` | SUDOKUWIKI-GURTH |
 | Subset Exclusion | `../techniques/11-exotic/subset-exclusion.md` | SUDOPEDIA-SUBSET-EXCLUSION, SUDOPEDIA-SUBSET-COUNTING |
 | Tridagon | `../techniques/11-exotic/tridagon.md` | ENJOYSUDOKU-TRIDAGON, SUDOKUWIKI-TRIDAGON |
+| Rank / SET / Oddagon Boundary | `../techniques/11-exotic/rank-set-theory.md` | SUDOKUONE-RANK-LOGIC, ENJOYSUDOKU-SET-EXPLANATIONS, JORDAN-PHISTOMEFEL, ENJOYSUDOKU-BIVALUE-ODDAGON |
 | Forcing Boundary | `../techniques/12-last-resort/forcing-vs-enumeration.md` | HODOKU-LAST, SUDOKUWIKI-LOGIC-VS-BRUTE |

@@ -8,6 +8,7 @@ strategyId: turbot-fish
 sources:
   - HODOKU-SDP
   - SUDOKUWIKI-X-CYCLES
+  - SUDOKUWIKI-RECTANGLE-ELIMINATION
   - CHINESE-JWANGL5-ADVANCED
 ---
 
@@ -15,7 +16,7 @@ sources:
 
 ## One-Sentence Rule
 
-For a single digit, a short alternating chain of strong and weak links (Skyscraper, 2-String Kite, Empty Rectangle, generic Turbot Fish, and longer X-Cycles) proves that one of two endpoint cells must hold the digit, so the digit is eliminated from every cell that sees both endpoints (discontinuous case) or from off-chain cells sharing a weak-link unit (continuous case).
+For a single digit, a short alternating chain of strong and weak links (Skyscraper, 2-String Kite, Empty Rectangle / Rectangle Elimination, generic Turbot Fish, and longer X-Cycles) proves that one of two endpoint cells must hold the digit, so the digit is eliminated from every cell that sees both endpoints (discontinuous case) or from off-chain cells sharing a weak-link unit (continuous case).
 
 ## 精确模式定义
 
@@ -34,6 +35,7 @@ A **single-digit chain** is an alternating sequence of nodes `n0 ~ n1 ~ … ~ nk
 | Skyscraper | 3 (strong-weak-strong) | 4 single cells | two parallel lines (both rows or both cols) each a conjugate pair on `d`; the two "base" ends share one line (the cross-line) |
 | 2-String Kite | 3 (strong-weak-strong) | 4 single cells | one row conjugate pair + one column conjugate pair; one end of each lies in a common box (the weak link is inside that box) |
 | Empty Rectangle (ER) | 3 (strong-weak-strong) | 1 grouped node + 2 single cells | in one box `d` is confined to exactly one row AND one column (their intersection cells = the ER "hinge"); a conjugate pair in a crossing line links to it |
+| Rectangle Elimination (RE) | 3+ (grouped discontinuous chain) | hinge + weak wing + strong wing + fourth-corner house | SudokuWiki's current presentation/replacement for Empty Rectangle; assuming a weak wing true forces a strong wing true and empties the fourth-corner house |
 | Turbot Fish | 3 (strong-weak-strong) | 4 single cells (generic) | the generic two-strong-link single-digit chain: strong + weak + strong, endpoints not collinear in the obvious X-Wing way |
 | X-Cycle (discontinuous) | odd, >=3 | single or grouped | alternating chain whose two ends are joined by a weak link, producing a contradiction at one node |
 | X-Cycle (continuous) | even, >=4 | single or grouped | a closed loop with perfectly alternating strong/weak links |
@@ -73,6 +75,9 @@ exists box B and a "crossing" line L (row or column) with |cells(d,L)| == 2:
   => the target is any cell that lies in the ER's free line AND sees convCellOut.
 ```
 (Equivalently: ER hinge box + conjugate pair; HoDoKu treats this as a Finned Mutant X-Wing or a Grouped Nice Loop.)
+
+**Rectangle Elimination**:
+See `rectangle-elimination.md` for the implementation-ready presentation. In this family card, treat RE as an Empty Rectangle / grouped X-Cycle naming specialization unless the taxonomy deliberately wants a separate teaching `strategyId`.
 
 **Generic Turbot Fish** (covers all three above):
 ```
@@ -124,6 +129,7 @@ CRITICAL for the engine — these are the SAME underlying object; implement ONE 
 - **Fishy Cycle / Nice Loop (single digit) = X-Cycle.** "X-Cycle" is the SudokuWiki name; "Nice Loop on `d`" / "Fishy Cycle" are aliases for the same single-digit alternating loop.
 - **Skyscraper / Kite = Sashimi X-Wings.** HoDoKu: a Skyscraper "can be seen as two Sashimi X-Wings."
 - **Empty Rectangle = Finned Mutant X-Wing = Grouped Nice Loop** (HoDoKu's two equivalent readings).
+- **Rectangle Elimination = SudokuWiki's current Empty Rectangle replacement**. SudokuWiki says it can also be expressed as AIC with at least one grouped cell. It should be implemented by the same grouped single-digit chain machinery and only surfaced separately for naming/order.
 - **Simple Colouring overlap**: continuous X-Cycles produce eliminations identical to a colouring wrap/trap on `d`; many Turbot patterns are also reachable by Simple Colouring. The engine should pick the simplest/shortest explanation.
 - **Broken Wing / Guardians** (see `broken-wing.md`): an ODD single-digit near-loop; complementary to the continuous (even) X-Cycle. Not the same move but the same link machinery.
 
@@ -166,4 +172,4 @@ A worked **continuous** example (Case B) is given by HODOKU/SUDOKUWIKI X-Cycles 
 
 ## Sources
 
-HODOKU-SDP (Skyscraper, 2-String Kite incl. Dual, Turbot Fish, Empty Rectangle incl. two-candidate and Dual; equivalences to Sashimi X-Wing, Finned Mutant X-Wing, Grouped Nice Loop). SUDOKUWIKI-X-CYCLES (Nice Loop Rules 1 & 2, continuous vs discontinuous, X-Wing = continuous len-4 X-Cycle, Swordfish 2-2-2 = len-6, Figure-4 digit-8 worked loop). CHINESE-JWANGL5-ADVANCED (Chinese terminology: 摩天楼/双线风筝/空矩形/多宝鱼).
+HODOKU-SDP (Skyscraper, 2-String Kite incl. Dual, Turbot Fish, Empty Rectangle incl. two-candidate and Dual; equivalences to Sashimi X-Wing, Finned Mutant X-Wing, Grouped Nice Loop). SUDOKUWIKI-X-CYCLES (Nice Loop Rules 1 & 2, continuous vs discontinuous, X-Wing = continuous len-4 X-Cycle, Swordfish 2-2-2 = len-6, Figure-4 digit-8 worked loop). SUDOKUWIKI-RECTANGLE-ELIMINATION (current SudokuWiki replacement/presentation for Empty Rectangle, with grouped-AIC equivalence and 81-char exemplars). CHINESE-JWANGL5-ADVANCED (Chinese terminology: 摩天楼/双线风筝/空矩形/多宝鱼).

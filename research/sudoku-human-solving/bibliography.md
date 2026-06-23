@@ -27,6 +27,7 @@ Access date for this local library expansion: 2026-06-01.
 - Supplemental pages added later: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
 - Exotic pages added 2026-06-23: Exocet, SK Loops, Fireworks, Aligned Pair Exclusion.
 - Card-library pages added 2026-06-23: Jellyfish, Finned X-Wing, Finned Swordfish, Guardians, WXYZ-Wing, Remote Pairs, Chute Remote Pairs, AICs with Exotic Links, Twinned XY-Chains, Avoidable Rectangles, Extended Unique Rectangles, Gurth's Theorem, and Tridagons.
+- Gap-fill page added 2026-06-23: Rectangle Elimination, used to clarify its current SudokuWiki status as an Empty Rectangle replacement / grouped-AIC presentation.
 - Use: primary taxonomy and explanatory source. Copyright unclear for redistribution, so cite and paraphrase in downstream work.
 
 ### Sudopedia
@@ -89,7 +90,25 @@ Access date for this local library expansion: 2026-06-01.
 - Local raw HTML: `local-library/raw-html/enjoysudoku/`
 - Coverage: Multi-Sector Locked Sets (MSLS) and related rank-0 set logic.
 - Threads added 2026-06-23: "Almost Hidden Set - XZ rule" (AHS) and "The tridagon rule" (tridagon / Thor's Hammer).
+- Gap-fill threads added 2026-06-23: "Odd Bivalue Loop (bivalue oddagon)" and "Good Set-Equivalence-Theory Explanations".
 - Use: primary source for exotic rank-0 techniques; attribute original posters, paraphrase, cite thread URL.
+
+### SudokuOne / Allan Barker
+
+- Source ID prefix: `SUDOKUONE-*`
+- Site: https://sudoku.allanbarker.com/
+- Local Markdown: `local-library/markdown/sudokuone/`
+- Local raw HTML: `local-library/raw-html/sudokuone/`
+- Coverage: universal logic, rank/base-cover rules, dark logic, broken-wing/odd-loop theory.
+- Use: theory boundary and framework mapping; do not quote extensively unless license is clarified.
+
+### Other Web Notes
+
+- Source ID prefix: `JORDAN-*`
+- Local Markdown: `local-library/markdown/other/`
+- Local raw HTML: `local-library/raw-html/other/`
+- Coverage: Phistomefel ring summary and SET relation.
+- Use: supplemental plain-language explanation; cite source URL.
 
 ## Copyright Handling
 
