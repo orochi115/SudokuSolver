@@ -93,6 +93,7 @@ Nesting of the chain family (each is a restriction of the next):
 - **Skyscraper / 2-String Kite / Turbot Fish** = short open X-Chains.
 - **Y-Wing / XYZ-Wing** = shortest XY-Chains / AICs.
 - **W-Wing** = a short AIC: two bivalue `XY` cells linked by a strong link on one digit.
+- **S-Wing / L-Wing / H-Wing / IW / M-Wing** = community names for short 3–4-link, 2–3-digit AIC / Nice-Loop shapes. Treat them as presentation aliases, not separate solving power. The EnjoySudoku Local-Wing discussion explicitly frames L-Wing as a short AIC Type-2 / Nice-Loop form and notes that W/M/S/IW/L/H wings would not exist independently outside AIC naming.
 - **3D Medusa, Simple Colouring** = AIC read as a colouring on a connected strong-link cluster.
 - See `xy-chain.md` (bivalue-only AIC), `nice-loops.md` (closed loops), `grouped-aic.md` (group nodes). AICs further extend to ALS and UR links (out of scope here).
 
@@ -147,3 +148,4 @@ Chaining alternating implications from an ON endpoint, the standard case-split i
 - SUDOKUWIKI-X-CYCLES — *X-Cycles (Part 1)*, sudokuwiki.org/X_Cycles (strong/weak link definitions, single-digit Nice Loops, X-Wing/Swordfish as continuous cycles).
 - HODOKU-CHAINS — hodoku.sourceforge.net chains documentation (Type 1 / Type 2 AIC terminology).
 - CHINESE-JWANGL5-ADVANCED — Chinese advanced-technique reference (链 terminology).
+- External audit note, not a local source ID: EnjoySudoku `local-wing-t34685.html` (L-Wing definition and explicit short-wing-as-AIC classification).

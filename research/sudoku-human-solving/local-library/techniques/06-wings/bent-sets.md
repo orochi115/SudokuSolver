@@ -96,6 +96,8 @@ seeing the line-`{X,Y}` cell, the box-`{X,Y}` cell, and lying off the intersecti
 
 ## Worked example
 
+Status: direct Almost Locked Pair and Almost Locked Triple fixtures are verified in `packages/engine/test/worked-examples.test.ts`; the Sudopedia schematics remain the minimal pattern-definition reference.
+
 ### Almost Locked Pair (Sudopedia ALC illustration — cite `SUDOPEDIA-ALMOST-LOCKED-CANDIDATES`; FLAG: schematic, not a full grid)
 Sudopedia gives a schematic, not an 81-char puzzle. Layout (box 1 + row 1):
 - Row 1: `I = r1c1,r1c2,r1c3` (intersection, marked `*`), `r1c4 = {X,Y}` (line-ALS `L`).
@@ -105,10 +107,45 @@ Sudopedia gives a schematic, not an 81-char puzzle. Layout (box 1 + row 1):
   `X` and `Y`; symmetric for `r1c4=Y`.
 - Elimination: **`X` and `Y` removed from all starred cells** (box-1 cells off `I`/`B`).
 
+### Verified Almost Locked Pair (Gordon Fick / EnjoySudoku, 2021)
+
+Source puzzle, 81-char givens:
+
+```text
+6....7..4..45..7...9..4..8..8.2....3..3...2..5....3.1...1.9..6.4....51...6.3....2
+```
+
+Source candidate state: `r3c4={1,6}` is the bivalue line-ALS, and mini-line `r3b3` must contain exactly one of `{1,6}` because rows 1–2 of box 3 contain `{1,6}` only at `r2c9`. The virtual locked pair removes:
+
+- `r3c1<>1`
+- `r3c6<>1`
+- `r3c6<>6`
+- `r2c9<>9`
+
+Verified (2026-06-24, `packages/engine/test/worked-examples.test.ts`) against the brute-force unique solution.
+
 ### Almost Locked Triple (Sudopedia ALC "More examples" — cite `SUDOPEDIA-ALMOST-LOCKED-CANDIDATES`; FLAG: schematic)
 - `S={X,Y,Z}`. Line-ALS = `r1c4,r1c5` both `{X,Y,Z}`; box-ALS = `r2c1,r2c2` both `{X,Y,Z}`;
   intersection `I=r1c1..r1c3`; `/` = cells without `S`.
 - Elimination: **`X`, `Y`, `Z` removed from all starred cells**.
+
+### Verified Almost Locked Triple (Gordon Fick / EnjoySudoku, 2021)
+
+Source puzzle, 81-char givens:
+
+```text
+5..9..3...3......4....6..8.1..4.2.....2.3.......5.67..6....98....8.....1.4.....3.
+```
+
+Source candidate state: in box 6, `r4c7` and `r4c8` form the two-cell ALS on `{5,6,9}`; in row 5 the digits `{5,6,9}` occur outside box 6 only in `r5c1` and `r5c2`, so mini-line `r5b6` must contain exactly one of `{5,6,9}`. The virtual locked triple gives ten source eliminations:
+
+- `r5c1<>4,7,8`
+- `r5c2<>7,8`
+- `r4c9<>5,6,9`
+- `r6c8<>9`
+- `r6c9<>9`
+
+Verified (2026-06-24, `packages/engine/test/worked-examples.test.ts`) against the brute-force unique solution.
 
 ### Verified 81-char instance (via XYZ-Wing Example 1, `xy-xyz-w-wings.md`)
 
@@ -116,7 +153,7 @@ Givens: `09000170050020000800003020007000496020006000506970003000809000070000300
 
 Almost Locked Triple bent at a line-box intersection — same elimination as XYZ-Wing Example 1: **`1` removed from `r6c7` (F7)**.
 
-Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`). The Sudopedia schematics above remain the pattern-definition reference; use this grid for regression fixtures.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`). This remains an additional equivalent-state regression fixture.
 
 ## Soundness
 
@@ -136,4 +173,4 @@ line-box intersection. ∎
 
 ## Sources
 
-SUDOPEDIA-ALMOST-LOCKED-CANDIDATES, SUDOKUWIKI-WXYZ-WING, SUDOKUWIKI-W-WING
+SUDOPEDIA-ALMOST-LOCKED-CANDIDATES, SUDOKUWIKI-WXYZ-WING, SUDOKUWIKI-W-WING. External audit note, not a local source ID: EnjoySudoku `almost-locked-pair-and-almost-locked-triple-t39348.html` (Gordon Fick ALP/ALT source grids and eliminations).

@@ -55,6 +55,7 @@ This is a boundary card, so it records framework rules rather than an implementa
 - **Search explosion**: unconstrained base/cover or SET search approaches template/tabling territory; bound it or exclude it.
 - **Classic 9x9 only**: SET is popular in variants, but variant-only deductions remain outside this roadmap.
 - **AALS/AAALS**: noted for completeness; keep out of the default engine until ALS/AIC/MSLS coverage is exhausted and a concrete corpus need appears.
+- **Distinction Theory**: a SudokuTheory / EnjoySudoku uniqueness framework based on row/column distinction, UA/MUG/deadly-pattern reasoning, and row/column swap arguments. Track it here as a theory-boundary item; do not add a generic detector without a narrower named pattern, explicit uniqueness assumption, and restored-state examples.
 
 ## 与其他技巧的关系
 
@@ -63,6 +64,7 @@ This is a boundary card, so it records framework rules rather than an implementa
 - **Phistomefel**: a SET theorem; often explains SK/MSLS-style eliminations but is not by itself a candidate-level detector.
 - **Broken Wing / Guardians / Oddagon**: odd-loop/dark-logic family; existing `broken-wing.md` and `tridagon.md` cover implementable named cases.
 - **Constraint Subsets**: similar meta-level umbrella; keep excluded as a framework rather than a step.
+- **Distinction Theory**: related to uniqueness / unavoidable-set / MUG reasoning, but currently not mapped to a bounded default strategy in this roadmap.
 
 ## Worked example
 
@@ -82,4 +84,4 @@ Rank/SET soundness follows from exact-cover counting: every selected row/column/
 
 ## Sources
 
-SUDOKUONE-RANK-LOGIC (rank/base-cover definitions and dark logic); ENJOYSUDOKU-SET-EXPLANATIONS (forum discussion of SET as a broad property, MSLS overlap, and programmability concerns); JORDAN-PHISTOMEFEL (plain-language Phistomefel theorem summary); ENJOYSUDOKU-BIVALUE-ODDAGON (bivalue oddagon examples); ENJOYSUDOKU-MSLS (MSLS/rank-0 practical representative).
+SUDOKUONE-RANK-LOGIC (rank/base-cover definitions and dark logic); ENJOYSUDOKU-SET-EXPLANATIONS (forum discussion of SET as a broad property, MSLS overlap, and programmability concerns); JORDAN-PHISTOMEFEL (plain-language Phistomefel theorem summary); ENJOYSUDOKU-BIVALUE-ODDAGON (bivalue oddagon examples); ENJOYSUDOKU-MSLS (MSLS/rank-0 practical representative). External audit note, not a local source ID: EnjoySudoku `distinction-theory-t35042.html` (row/column distinction and uniqueness/deadly-pattern examples).

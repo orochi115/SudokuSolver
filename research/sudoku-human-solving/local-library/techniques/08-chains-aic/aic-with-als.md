@@ -71,6 +71,7 @@ These EXTEND the AIC engine of `aic.md`: the ALS node is just another way to jus
 - **Almost Locked Sets (ALS-XZ, ALS-XY-Wing, Death Blossom)** are the standalone ALS techniques; an ALS-XZ rule is essentially a two-ALS AIC. This card is the *single-ALS-as-chain-node* form.
 - **Sue-de-Coq** can be read as an ALS interaction.
 - **W-Wing / XY-Wing** are degenerate AICs whose "almost pair" reasoning the ALS node generalises.
+- **ALS-W-Wing** is a community name for the W-Wing pattern with the bivalue endpoints expanded into ALS nodes, plus a strong link on the W-wing connector digit. It is covered by ALS-chain / AIC-with-ALS machinery; do not add a separate detector unless the trace layer needs this alias.
 - Plain forms: `aic.md` (engine), `nice-loops.md` (loops), `xy-chain.md` (bivalue-only).
 
 ## Worked example
@@ -117,3 +118,4 @@ Let the ALS be N cells (mutually seeing) with exactly N+1 candidates, the extra 
 - SUDOKUWIKI-AIC — *Alternating Inference Chains*, sudokuwiki.org/Alternating_Inference_Chains (Nice Loop Rules 1/2/3 the outcomes reuse).
 - HODOKU-CHAINS — hodoku.sourceforge.net chains/loops documentation (ALS-in-chain terminology; the Dec-2025 enhancement examples were drawn from HoDoKu's page).
 - CHINESE-JWANGL5-ADVANCED — Chinese advanced reference (ALS 链 terminology).
+- External audit note, not a local source ID: EnjoySudoku `als-w-wing-example-t6492.html` and `als-w-wings-rings-t36860.html` (ALS-W-Wing as W-Wing with bivalue cells expanded to ALS nodes; notes that catch-all coverage is ALS chain + AIC chain code).

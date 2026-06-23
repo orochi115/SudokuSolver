@@ -81,7 +81,7 @@ last-resort：`forcing-chain`。
 | Almost Hidden Sets (AHS) 作链节点 | 09-als | ✅ | `09-als/ahs.md`（ALS 的对偶：N 数字落在 N+1 格） |
 | WXYZ-Wing | 06-wings | ✅ | `06-wings/wxyz-wing.md` |
 | Remote Pairs | 06-wings | ✅ | `06-wings/remote-pairs.md`（XY-Chain 特例） |
-| Almost Locked Pair/Triple（Bent Sets）/ Chute Remote Pairs | 06-wings | ✅ | `06-wings/bent-sets.md`（+ chute 见 `remote-pairs.md`） |
+| Almost Locked Pair/Triple（Bent Sets）/ Chute Remote Pairs | 06-wings | ✅ | `06-wings/bent-sets.md`（+ chute 见 `remote-pairs.md`；ALP/ALT 直接 fixture 已补） |
 | Broken Wing / Guardians | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/broken-wing.md`（SW Guardian 1/2/3 已验证） |
 | Avoidable Rectangle Type 1–4（一般 AR） | 10-uniqueness | ✅ | `10-uniqueness/avoidable-rectangle.md`（HoDoKu ar101/ar102/ar201/ar202 已验证） |
 | Extended Unique Rectangle（2×3 / 3 数） | 10-uniqueness | ✅ | `10-uniqueness/extended-ur.md` |
@@ -130,26 +130,27 @@ last-resort：`forcing-chain`。
 - **Trial & Error / Bifurcation / Ariadne's Thread / 猜测 / 回溯 / 暴力计数**：红线定义之外。
 - **Constraint Subsets**：meta 框架（subset+fish 的统一视角），非离散落子动作。
 - **Rank Logic / SET / Phistomefel / Fred intersection theory**：meta 框架或恒等定理；其可实现代表已拆为 MSLS、SK-Loop、Subset Exclusion、Broken Wing、Tridagon 等具名卡。泛化搜索暂不实现。
+- **Distinction Theory**：EnjoySudoku / SudokuTheory 上的唯一性/UA/MUG 理论框架，偏行列可交换与 deadly pattern 证明；归入理论边界，不做泛化搜索，除非后续有 bounded detector + 727 证据。
 - **Bivalue Oddagon / Oddagon 泛化**：作为 Broken Wing / Guardians / Tridagon 的理论亲缘记录在 `rank-set-theory.md`；不新增泛用 oddagon 搜索器，除非后续有 727 证据证明具名特例不足。
 - **AALS / AAALS / Almost Fish 泛化**：ALS/AIC 的更高阶扩展，搜索空间与 forcing-net 接近；先用 ALS、AHS、AIC with ALS/exotic links 覆盖。
 - **Reverse BUG / Reverse ER 等"反向"边角形**：极冷门，列此备查。
 - **变体规则**（Jigsaw/Windoku/Killer/Sudoku-X：Law of Leftovers、9 Windows、cage 规则等）：非经典 9×9，727 域外。
 - **Multivalue X-Wing**：SudokuWiki 已废弃，被标准 X-Wing/finned fish 吸收。
 - **Y-Wing Chains**：SudokuWiki 已标 deprecated，逻辑 ⊂ XY-Chain（见 overlap §2）。
-- **M-Wing / M-Ring**（enjoysudoku 论坛别名）：极冷门社区技巧，视为 AIC/XY-Chain 族的非标准命名，不单独实现。
+- **社区短 wing 别名：S-Wing / L-Wing / H-Wing / IW / M-Wing / M-Ring**（enjoysudoku / SudokuTheory / 中文链教程）：均为 3–4 链接、2–3 数字的短 Nice Loop / AIC 命名形；不单独实现，教学 trace 需要时只加 alias。
 
 ### 重叠 / 包含关系（交叉标注，避免重复实现或独立去重出错）
 
 1. **单数字强链族**：Turbot Fish = skyscraper/2-string-kite/empty-rectangle 的统一 4-链形；X-Cycle = 单数字 Nice Loop；Fishy Cycle = X-Cycle 别名；X-Wing = 长度 4 的连续 X-Cycle。→ 不要实现成 4 个独立探测器，写成"单数字链"统一说明。
-2. **链族嵌套**：Remote Pairs ⊂ XY-Chain ⊂ AIC；Y-Wing Chain（已废弃名）⊂ XY-Chain；W-Wing 是短双值链。
+2. **链族嵌套**：Remote Pairs ⊂ XY-Chain ⊂ AIC；Y-Wing Chain（已废弃名）⊂ XY-Chain；W-Wing 是短双值链；S/L/H/IW/M 等社区 wing 名称是短 AIC / Nice Loop 命名形。
 3. **链引擎合一**：Grouped AIC / 连续·不连续 Nice Loop / 基础 AIC 是**同一链引擎 + 开关**（分组开关、开链 vs 环），按 feature flag 推进，而非三个技巧。
 4. **uniqueness 重叠**：Hidden UR ↔ UR Type 6（对角 hidden）逻辑重叠。
-5. **ALS 嵌套**：ALS-XY-Wing 是一般 ALS 链的 len-2 特例。
+5. **ALS 嵌套**：ALS-XY-Wing 是一般 ALS 链的 len-2 特例；ALS-W-Wing 是 W-Wing 的 ALS 扩展，可由 ALS chain / AIC with ALS nodes 吸收，不单独实现。
 6. **SdC**：已实现基型 vs "扩展"需界定差异（更大 SdC / 双线 SdC）。
 7. **多扇区族**：SK-Loop 是 MSLS 的首发特例（每个 SK-Loop 蕴含一个 MSLS）。
 8. **Exocet**：Double Exocet = 两耦合 Exocet；APE/ATE ⊂ Subset Exclusion（非对齐推广）。
 9. **染色变体**：X-Colors / Weak Colors / Color Wing / Supercoloring 多被 Multi-Coloring / 3D Medusa 吸收——交叉标注，不单独实现。
-10. **Rectangle Elimination**：SudokuWiki 当前将其列为 Tough 策略并说明其替代 Empty Rectangle；实现上仍是 Empty Rectangle / grouped X-Cycle / grouped AIC 的 presentation alias。
+10. **Rectangle Elimination**：SudokuWiki 当前将其列为 Tough 策略并说明其替代 Empty Rectangle；实现上仍是 Empty Rectangle / ERI Pair（Empty Rectangle Intersection Pair）/ grouped X-Cycle / grouped AIC 的 presentation alias。
 11. **Rank/SET 理论族**：MSLS/SK/Phistomefel/Subset Counting/Oddagon 可以互相解释；计划只实现具名、可界定、可测试的子技巧。
 
 ## 实现级研究卡模板（每张卡须满足以下章节，才算 ✅）
@@ -164,11 +165,13 @@ last-resort：`forcing-chain`。
 8. **Soundness 说明**：推导为何成立（uniqueness 类须显式写"假设唯一解"）。
 9. **Sources**：源镜像文件名，保持可追溯。
 
+> 例外：`◇` 理论/边界卡和 P3 红线卡只记录覆盖口径、包含/排除理由与来源；它们不要求 restored-state / 81-char fixture。若将来晋升为可实现策略，必须拆出独立实现卡并补齐九节模板。
+
 ## 文档缺口 backlog
 
 **卡片书写：✅ 完成（2026-06-23）。** 41 张专卡 + 90 源镜像已登记。
 
-**引擎验证：十二轮完成（2026-06-24）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 81 例**，覆盖：
+**引擎验证：十二轮完成（2026-06-24）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 83 例**，覆盖：
 
 | 卡 | 验证项 |
 |---|---|
@@ -181,7 +184,7 @@ last-resort：`forcing-chain`。
 | `05/broken-wing` | Guardian 1 `r4c7=3`、Guardian 2 `r7c7<>7`、Guardian 3 `r7c4<>1` |
 | `05/turbot-family` | HoDoKu Skyscraper `r1c78,r3c45<>1` |
 | `06/xy-xyz-w-wings` | XY/XYZ/W-Wing 各一例 |
-| `06/bent-sets` | ALTriple via XYZ-Wing 源盘 |
+| `06/bent-sets` | ALP `r3c1,r3c6<>1; r3c6<>6; r2c9<>9` + ALT 10 处消除 + ALTriple via XYZ-Wing 源盘 |
 | `07/simple-coloring` | Color Trap `r9c3<>7` |
 | `07/multi-coloring` | HoDoKu mc01/mc02 + X-Colors Ex1–6/ER（Sudopedia 人工转写） |
 | `07/3d-medusa` | R1–R5 + R2 FTS/全局 16 格 `<>7`；R2 Exemplars 3/4/5/8 唯一性 |
@@ -197,7 +200,7 @@ last-resort：`forcing-chain`。
 | `11-exotic/subset-exclusion` | Sudopedia SE `r2c4<>7` + Subset Counting `r8c2<>4`（人工转写 givens） |
 | `10/avoidable-rectangle` | HoDoKu ar101/ar102 Type1 + ar201/ar202 Type2 + Frisbee S9B givens + SudokuWiki B4 叙事例 `r2c4=9` |
 
-**仍待验证（✅\*）** — 规则已写清，消除集或 restored-state 候选网格待核：*（当前无剩余 worked-example backlog）*
+**仍待补直接 fixture（✅△）** — 规则已写清，但直接 restored-state/81-char 用例待补：*（当前无剩余 worked-example backlog）*
 
 > 验证方式：向 `worked-examples.test.ts` 追加用例 → 通过后更新卡内 FLAG 为 `Verified` 并在此表划掉。Restored-state 候选掩码（post-basics 精确态）可在实现期与策略探测器一并补写。
 

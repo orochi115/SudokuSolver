@@ -174,10 +174,31 @@ describe('research card worked examples (ground-truth verification)', () => {
       });
     });
 
-    it('almost locked pair via xyz-wing example eliminates from starred cells', () => {
-      // Bent-set ALP is subsumed by XYZ-Wing Example 1 (cited in bent-sets.md).
-      expectSound('bent-sets-alp', '090001700500200008000030200070004960200060005069700030008090000700003009003800040', {
-        eliminations: [{ cell: rc(6, 7), digit: 1 }],
+    it('almost locked pair removes {1,6} from row 3 and 9 from r2c9', () => {
+      expectSound('bent-sets-alp', '6....7..4..45..7...9..4..8..8.2....3..3...2..5....3.1...1.9..6.4....51...6.3....2', {
+        eliminations: [
+          { cell: rc(3, 1), digit: 1 },
+          { cell: rc(3, 6), digit: 1 },
+          { cell: rc(3, 6), digit: 6 },
+          { cell: rc(2, 9), digit: 9 },
+        ],
+      });
+    });
+
+    it('almost locked triple eliminates row and box extras from the virtual locked triple', () => {
+      expectSound('bent-sets-alt', '5..9..3...3......4....6..8.1..4.2.....2.3.......5.67..6....98....8.....1.4.....3.', {
+        eliminations: [
+          { cell: rc(5, 1), digit: 4 },
+          { cell: rc(5, 1), digit: 7 },
+          { cell: rc(5, 1), digit: 8 },
+          { cell: rc(5, 2), digit: 7 },
+          { cell: rc(5, 2), digit: 8 },
+          { cell: rc(4, 9), digit: 5 },
+          { cell: rc(4, 9), digit: 6 },
+          { cell: rc(4, 9), digit: 9 },
+          { cell: rc(6, 8), digit: 9 },
+          { cell: rc(6, 9), digit: 9 },
+        ],
       });
     });
   });
