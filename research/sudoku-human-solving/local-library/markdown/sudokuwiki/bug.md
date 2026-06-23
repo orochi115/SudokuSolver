@@ -169,7 +169,7 @@ The principle behind BUG is the observation that any Sudoku where all remaining 
 
 Thanks to Peter Hopkins for re-engaging me with BUG (July 2015). He has found the original discussion which goes back to November 2005. [Here is the link](http://forum.enjoysudoku.com/is-there-a-simpler-way-to-solve-this-t2277.html). From my testing of large data sets I believe that every instance of BUG can be solved by an [XY-Chain](https://www.sudokuwiki.org/XY_Chains). Hence it is positioned just before that strategy in the solver - it is an easy solution if you can recognise the pattern. Other simpler strategies may also do the same job but not as completely as XY-Chains.
 
-![Image 12: BUG Example](https://www.sudokuwiki.org/PuzImages/BUG1b.png)
+![Image 12: BUG Example](../../assets/sudokuwiki-bug/wayback-12-BUG1b.png)
 
 BUG Example : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=030000000109000008008007560900020057000080000520070006073800400800000901000000080)
 

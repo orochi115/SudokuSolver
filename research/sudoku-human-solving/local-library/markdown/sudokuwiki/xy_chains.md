@@ -231,7 +231,7 @@ The alternating red and green candidates show us that all round the chain the so
 
 This is [Nice Loop Rule 1](https://www.sudokuwiki.org/Alternating_Inference_Chains) This neatly ties together the family of chaining strategies.
 
-![Image 18: Closed XYC example 2](https://www.sudokuwiki.org/PuzImages/XYC4b.png)
+![Image 18: Closed XYC example 2](../../assets/sudokuwiki-xy-chains/wayback-08-XYC4b.png)
 
 Closed XYC example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4a0i0217434j03070662014yak03c405444c0c3m5e3g6s440a094c090c1m08051g0g0s015u3m5f031h04c24kb8021u5n1f09074y4q030f080i2s2c0c0d0a2q0e0b039f04b7b606cy0104078y4yci020cbm) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=002000376010030500000000090900850001000304000200097003080000000003040060147000200)
 

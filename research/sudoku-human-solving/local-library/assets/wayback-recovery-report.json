@@ -1,0 +1,95 @@
+[
+  {
+    "id": "SUDOKUWIKI-INTERSECTION",
+    "url": "https://www.sudokuwiki.org/PuzImages/PP3.png",
+    "error": "The operation was aborted due to timeout"
+  },
+  {
+    "id": "SUDOKUWIKI-INTERSECTION",
+    "url": "https://www.sudokuwiki.org/PuzImages/BLR2.png",
+    "foundSnapshots": 2,
+    "saved": {
+      "timestamp": "20130628140539",
+      "original": "http://www.sudokuwiki.org/PuzImages/BLR2.png",
+      "contentType": "image/png",
+      "file": "research/sudoku-human-solving/local-library/assets/sudokuwiki-intersection/wayback-02-BLR2.png"
+    }
+  },
+  {
+    "id": "SUDOKUWIKI-INTERSECTION",
+    "url": "https://www.sudokuwiki.org/PuzImages/BLR3.png",
+    "error": "The operation was aborted due to timeout"
+  },
+  {
+    "id": "CHINESE-JWANGL5-ADVANCED",
+    "url": "https://jwangl5.github.io/favicon.ico",
+    "error": "The operation was aborted due to timeout"
+  },
+  {
+    "id": "CHINESE-JWANGL5-ADVANCED",
+    "url": "https://jwangl5.github.io/favicon-32x32.png",
+    "foundSnapshots": 0,
+    "saved": null
+  },
+  {
+    "id": "CHINESE-JWANGL5-ADVANCED",
+    "url": "https://jwangl5.github.io/favicon-16x16.png",
+    "foundSnapshots": 0,
+    "saved": null
+  },
+  {
+    "id": "CHINESE-JWANGL5-ADVANCED",
+    "url": "https://jwangl5.github.io/apple-touch-icon.png",
+    "foundSnapshots": 0,
+    "saved": null
+  },
+  {
+    "id": "SUDOKUWIKI-XY-CHAINS",
+    "url": "https://www.sudokuwiki.org/PuzImages/XYC4b.png",
+    "foundSnapshots": 1,
+    "saved": {
+      "timestamp": "20251026031318",
+      "original": "https://www.sudokuwiki.org/PuzImages/XYC4b.png",
+      "contentType": "image/png",
+      "file": "research/sudoku-human-solving/local-library/assets/sudokuwiki-xy-chains/wayback-08-XYC4b.png"
+    }
+  },
+  {
+    "id": "SUDOKUWIKI-3D-MEDUSA",
+    "url": "http://www.img-load.de/images-i1752871b39bx4.jpg",
+    "error": "The operation was aborted due to timeout"
+  },
+  {
+    "id": "SUDOKUWIKI-3D-MEDUSA",
+    "url": "http://www.img-load.de/images-i1752873b1to13.jpg",
+    "foundSnapshots": 2,
+    "saved": {
+      "timestamp": "20150905100752",
+      "original": "http://www.img-load.de/images-i1752873b1to13.jpg",
+      "contentType": "image/jpeg",
+      "file": "research/sudoku-human-solving/local-library/assets/sudokuwiki-3d-medusa/wayback-10-images-i1752873b1to13.jpg"
+    }
+  },
+  {
+    "id": "SUDOKUWIKI-3D-MEDUSA",
+    "url": "http://www.img-load.de/images-i1752906bla974.jpg",
+    "foundSnapshots": 2,
+    "saved": {
+      "timestamp": "20150905090829",
+      "original": "http://www.img-load.de/images-i1752906bla974.jpg",
+      "contentType": "image/jpeg",
+      "file": "research/sudoku-human-solving/local-library/assets/sudokuwiki-3d-medusa/wayback-11-images-i1752906bla974.jpg"
+    }
+  },
+  {
+    "id": "SUDOKUWIKI-BUG",
+    "url": "https://www.sudokuwiki.org/PuzImages/BUG1b.png",
+    "foundSnapshots": 1,
+    "saved": {
+      "timestamp": "20260429144310",
+      "original": "https://www.sudokuwiki.org/PuzImages/BUG1b.png",
+      "contentType": "image/png",
+      "file": "research/sudoku-human-solving/local-library/assets/sudokuwiki-bug/wayback-12-BUG1b.png"
+    }
+  }
+]

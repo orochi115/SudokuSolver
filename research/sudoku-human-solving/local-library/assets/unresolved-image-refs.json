@@ -1,0 +1,38 @@
+{
+  "html": {
+    "sources": 2,
+    "total": 5,
+    "rows": [
+      {
+        "id": "CHINESE-JWANGL5-ADVANCED",
+        "count": 4,
+        "urls": [
+          "https://jwangl5.github.io/favicon.ico",
+          "https://jwangl5.github.io/favicon-32x32.png",
+          "https://jwangl5.github.io/favicon-16x16.png",
+          "https://jwangl5.github.io/apple-touch-icon.png"
+        ]
+      },
+      {
+        "id": "SUDOKUWIKI-3D-MEDUSA",
+        "count": 1,
+        "urls": [
+          "http://www.img-load.de/images-i1752871b39bx4.jpg"
+        ]
+      }
+    ]
+  },
+  "markdown": {
+    "sources": 1,
+    "total": 1,
+    "rows": [
+      {
+        "id": "SUDOKUWIKI-3D-MEDUSA",
+        "count": 1,
+        "urls": [
+          "http://www.img-load.de/images-i1752871b39bx4.jpg"
+        ]
+      }
+    ]
+  }
+}

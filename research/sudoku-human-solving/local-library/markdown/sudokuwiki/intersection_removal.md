@@ -184,7 +184,7 @@ Pointing Pairs Example 2 : [Load Example](https://www.sudokuwiki.org/sudoku.htm?
 
 Now this is a rather special puzzle and a little extreme, but if we look at the whole board you can see I have highlighted a whole cluster of Pointing Pairs. It is obviously not necessary to spot everyone to progress the board but there are so many good examples it is worth looking at. The eliminations are highlighted in yellow. You should be able to see which eliminations belong to which Pointing Pair. A couple are consequences of a previous elimination.
 
-![Image 17: Pointing Triple](https://www.sudokuwiki.org/PuzImages/PP3.png)
+![Image 17: Pointing Triple](../../assets/sudokuwiki-intersection/wayback-01-PP3.png)
 
 Pointing Triple : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B090c2j2i0543701p39022j2j060343620i050h0e069m9m022m0v2f1m7o03010h8q0e071g3f3f0e2m023i090h1j3f087o9q9m051s1t1l3i3g2k082i2m010e0i05aa0h0b019i3a1i042n9n9n0e069q2g0o08) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=900050000200630005006002000003100070000020900080005000000800100500010004000060008)
 
@@ -200,13 +200,13 @@ Box/Line Reduction : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=016
 
 This Sudoku contains numerous Pointing Pairs and Box/Line Reductions and is worth stepping through from the start. Consider row A. The only 2s left are in A4 and A5 which means we should check the rest of the box. 2 has to go somewhere on row A and it will be in one of those two cells. So we can eliminate 2 from B5, C4 and C5.
 
-![Image 19: Box/Line Reduction](https://www.sudokuwiki.org/PuzImages/BLR2.png)
+![Image 19: Box/Line Reduction](../../assets/sudokuwiki-intersection/wayback-02-BLR2.png)
 
 Box/Line Reduction : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B160106188c07087u031a0i140826262l2i2z0h07141a8e010s068a2d04082t3p1u039e9f060e2b2n2n0i2j0h022d0c092l654a06052j2v062v096b4i2i02622r0h2r2z2z020i0c0f090b04065y4605015u) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=016007803000800000070001060048000300600000002009000650060900020000002000904600510)
 
  In the very next step of the same puzzle we have two 4s alone in column 8. That fixes 4 to be in either cell A8 or B8. We can remove the other 4s in box 3 and get our next solved cell: 2 in C7.
 
-![Image 20: Triple BLR](https://www.sudokuwiki.org/PuzImages/BLR3.png)
+![Image 20: Triple BLR](../../assets/sudokuwiki-intersection/wayback-03-BLR3.png)
 
 Triple BLR : [Load Example](https://www.sudokuwiki.org/sudoku.htm?bd=S9B4y0b4y090d030g010e0i0n046b2d2r060o4407050n4z1h1fba04b80e3baf0408ab7n9gac026rdv37abab0d0e030d37ab0c0502b79edu1i040b3maeaq7q0801475z052b9j0d02069e1j093b023b080e2e0d) or : [From the Start](https://www.sudokuwiki.org/sudoku.htm?bd=000903010004000600750000040000480000200000003000052000040000081005000260090208000)
 

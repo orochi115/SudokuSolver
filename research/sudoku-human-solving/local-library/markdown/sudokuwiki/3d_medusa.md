@@ -761,7 +761,7 @@ This is a Set with normal 3D-Medusa coloring. The bivalue coloring of this chain
 
 Now you can shift to the second level of coloring and chose any colored candidate that if it was true would color other candidates.
 
-![Image 30: 2nd level coloring](http://www.img-load.de/images-i1752873b1to13.jpg)
+![Image 30: 2nd level coloring](../../assets/sudokuwiki-3d-medusa/wayback-10-images-i1752873b1to13.jpg)
 
 Look at the yellow 5 candidate in R2C6. If yellow WAS true, then the 5 in R2C6 would clean R3C5 and R5C6 and thus both cells would be 2. You thus can color these in your 2nd level color that is related to the the 1st level color with the strength of "would be true if yellow was true" i here chose orange as related to yellow.
 
@@ -791,7 +791,7 @@ The now yellow 2 in R6C8 would clean all but one candidate in R6C7 thus with ano
 
 Now look at Row 5: 
 
-![Image 31: 2nd level 3D Medusa coloring contradiction](http://www.img-load.de/images-i1752906bla974.jpg)
+![Image 31: 2nd level 3D Medusa coloring contradiction](../../assets/sudokuwiki-3d-medusa/wayback-11-images-i1752906bla974.jpg)
 
 The now first level yellow 9 together with the second level orange 2 clean for a second level orange 5 in R5C8 and all of these together with the yellow 7 in R1C9 clean for an orange 3 in R5C9.
 
