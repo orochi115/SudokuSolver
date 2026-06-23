@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Extended Unique Rectangles - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Discussion of Extended Unique Rectangles taking 2x2 Unique Rectangles to 3x2"/>
+<meta name="twitter:description" content="Discussion of Extended Unique Rectangles taking 2x2 Unique Rectangles to 3x2">
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Extended_Unique_Rectangles';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Extended_Unique_Rectangles">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Extended Unique Rectangles</h1><div class="SRCell">Unique Rectangles can be larger structures than simple 2 by 2.  <br>In this extension I show how the solver can now detect 2 by 3.  <br>Just as a <a href="/Naked_Candidates#NP">Naked Pair</a> or <a href="/Hidden_Candidates#HP">Hidden Pair</a> can be extended to a Triple, so can the cells that form Unique Rectangles. <br><br>A <b>Triple</b> is any three cells with <i>a total</i> of three candidates left. That doesn't always mean<br><span class="hy">[1,2,3] + [1,2,3] + [1,2,3]</span><br>Which is exactly three candidates in three cells. Other Triples will have some digits missing, like<br><span class="hy">[1,2,3] + [1,2,3] + [2,3]</span><br><span class="hy">[1,2] + [1,2,3] + [1,2,3]</span><br><span class="hy">[1,2,3] + [1,2] + [2,3]</span><br>And the ultimate skinny triple will have two out of three in each cell:<br><span class="hy">[1,2] + [1,3] + [2,3]</span><br>But all of these have - in total - three candidates in three cells.<br><br></div><br>
+
+<h2>Type 1</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EUR0.png" alt="Extended Deadly Pattern" /><figcaption>Extended Deadly Pattern
+</figcaption></figure>
+Now, 2 by 3 is a bit of an odd shape. Other extensions, like <a href="/X_Wing_Strategy">X-Wing</a> to <a href="/Sword_Fish_Strategy">Swordfish</a> jump from 2 by 2 (four cells) to 3 by 3 (nine cells).  We don't need to search for a nine-cell 3 by 3 although they do theoretically exist. Take a look at the diagram to the right. In the left hand side marked <span class="hr">A</span> I've drawn the full 3 by 3 Deadly Rectangle. <br><br>Note: it must occupy exactly three rows, three columns and three boxes. <br><br>To the right labelled <span class="hg">B</span> I've marked out a candidate distribution of 1s, 4s and 8s. For each row and each column you'll see a Triple. If we've arrived at this state we're in trouble because there are many ways to settle those cells in all combinations of 1, 4 and 8. The only thing that saves us are the extra candidates marked in green.</div>
+
+<div class="SRCell">Here's how we go from the 3 by 3 <i>ideal</i> pattern to the much more likely 2 by 3 version: Take away any one of the columns with numbers and you still have a multiple solution problem. For example, if we took away column 8 (and ignored the green extra candidates for a moment), we could still fill column 7 with 1 + 8 + 4 (going down the rows), 4 + 1 + 8 and 4 + 8 + 1.  Same for column 9. We could fill it with 4 + 1 + 8 or 4 + 8 + 1 or 8 + 4 + 1.  If you take any column away it looks like the problem stays a problem. So conclusion - don't worry about looking for 3 by 3 Deadly Patterns - they will come out in the wash when you find 2 by 3.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EUR1.png" alt="Example Extended UR" /><figcaption>Example Extended UR
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=907024305842365917030907400004009600000246009009000040000492876796050234428673591">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=007020305802060910030900000000000600000246000009000000000002070096050204408070500">From the Start</a>
+</figcaption></figure>
+<br>In this first example we have an Extended Deadly Pattern based on the three candidates {1,3,5}. The yellow cells mark the pattern. Notice this pattern is vertical like the theory example above - but as we are not looking for (and don't have) a 3 by 3, we need to look out for the pattern working horizontally as well. One of these is below.<br><br>The only type of UR I've implemented in the solver, so far, is <span class="hy">Unique Rectangle Type 1</span>.<br><br>This says that the odd cell out - the cell with an extra candidate or two - is the key. Those extra candidates must be part of the solution. If they didn't exist we've have a full Deadly Pattern and we need to avoid that at all costs. So 6 in <span class="hy">C1</span> is the extra candidate - it must be the solution, so we can remove 1 and 5 from <span class="hy">C1</span> and progress.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EUR2.png" alt="Example Extended UR 2" /><figcaption>Example Extended UR 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=063820000700009206219007380032090800900000002001002539124978653856200007397040128">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=063020000700009206010007000032000800900000002001000530000900050806200007000040120">From the Start</a>
+</figcaption></figure>
+<br>Here is a similar Extended Unique Rectangle based on the cells AEH78 (which just means cells on rows A, E and H and columns 7 and 8). The Triple is {4,7,9} and we have 1 and 6 - on cell <span class="hy">E8</span>. That's the get-out-of jail card avoiding the bigger Deadly Pattern.  Take away the 4 and 7 from <span class="hy">E8</span> and we're back into single solution territory.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EUR3.png" alt="Example Extended UR 3" /><figcaption>Example Extended UR 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090801520851092604020005918009650040400000006060084100070006480006478205048509060">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090801020801092600020000010009650040000000000060084100070000080006470205040509060">From the Start</a>
+</figcaption></figure>
+<br>Finally a horizontal example. <br><br>The Triple {3,7,8} sits over the two rows D and E.  There is a mixture of bi-value and tri-value cells but we clearly have two triples with the same values very close to each other.  We have to use the extra candidates provided.  There is a lone 1 in <span class="hy">D2</span> that gets us out of trouble. </div>
+
+<h2>Type 2</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EUR_T2.png" alt="EUR Type 2" /><figcaption>EUR Type 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B010h167u070f7o84030w0w0g8e138206087v091q26020n082b2r0r4y054y0g0b04037n7n0u0u02080901050f0g0g0i010612124404441s1s5a014y07bg7s055c0709124y140r0p44050a467q047s5w2g06">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100070003000000680900208000050004300002891500001600040000107005079000000500040006">From the Start</a>
+</figcaption></figure>
+Type 2 extends the same idea found in <a href="/Unique_Rectangles">Unique Rectangles</a> to three boxes and three candidates. The <span class="hy">Floor</span> (yellow cells) is now four cells instead of two. Some of these cells can only have two candidates in them, but all four must have exactly three in total. <br><br>We can look in both the row and the column for the Roof cells (orange). We need to find two more cells that are in a different box and have exactly one extra candidate in both.  In the example our Deadly Rectangle triple is {2/3/4}. The extra candidate in <span class="hy">G12</span> is 6. The logic is that 6 must appear in either of <span class="hy">G1</span> OR <span class="hy">G2</span> since without it a deadly Rectangle on  {2/3/4} would be created. Knowing this allows us to remove all 6s in the row and box.<br><br>If the orientation of the Type 2 was the other way round we'd eliminate in the box and column.<br><br>Many thanks to prompts in the comments below and to <b>Ross Trusler</b> for the example he found in the first puzzle in the <a href="/Fireworks">Fireworks</a> strategy. Turn off Fireworks to get it to show.</div>
+
+<h2>Type 4 <a name=type4></a></h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EUR_T4a.png" alt="Pieter's Type 4 EUR" /><figcaption>Pieter's Type 4 EUR
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=017060200240103076506027001790602080152000764860705020470006012620901437001274600">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=007060200040103070500000001090602080100000004060705020400000002020901030001070600">From the Start</a>
+</figcaption></figure>
+We can extend the <a href="/Unique_Rectangles#type4">Type 4 Unique Rectangle</a> in an interesting way as decribed in a comment below by <b>Pieter</b>. I'm going to use his example first. <br><br>Instead of a single locked pair of cells we can have two - if they are in different boxes and the roof is in a different box as well.<br><br>To see this example you do need to turn off the Tough and XY Chain strategies so the solver can find it. The double Locked Pairs on <span class="hy">DF35</span> (locked by the 4's) which effectively solve to a 1/3 Locked Pair, which then become a UR Type 4 with <span class="hy">D7/F7 </span> locked by the 1's, eliminating the 3's. You can see there are no other 1s in column 7 or box 6.</div>
+
+<div class="SRCell">I will admit, instances of the Extended Unique Rectangle are not common, but if you are just getting into Unique Rectangle you'll be looking for the very common Type 1.  I think it's worth keeping an eye out for this formation at the same time. You will notice a similar cluster of common candidates and it's just possible - if you remember the three boxes spread rule - that you'll find one when you're looking for the 2 by 2 version.</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Unique_Rectangles">Unique Rectangles</a></td><td class="w50pc cright">Continue to <a href="Hidden_Unique_Rectangles">Hidden Unique Rectangles</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=167&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Extended_Unique_Rectangles" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(167,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17301"><div class="w100pc"><div class="w60pc"><h2>... by: Ilyes</h2></div><div class="w40pc datepost">Thursday 2-Oct-2025</div></div>
+<div class="w100pc">I tried to wrap my head around EUR but the transition from a 3x3 to a 3x2 isn't doing it for me.<br><br>I think, if I'm not wrong, this is working because of a more general deadly pattern which is that in a solved Sudoku, if you take one column for example and select any set of cells that has no givens (initial clues) and select another set of cells in another column in the same chute that is adjacent to the first set (meaning that the cells in both sets lie on the same rows), then these two sets, regardless of how they spread among the blocks, cannot contain the same set of numbers because they will be perfectly swappable.<br><br>So for instance, in a solved Sudoku, if in a chute you have :<br><br>13<br>94<br>39<br>41<br><br>It doesn't matter if the column cells are in different blocks or not (in this case they can't anyway because there are 4 cells) then both sets can be swapped and still result in a valid Sudoku. This seems to me a deadly pattern.<br><br>Now to bring this back to a solving strategy, I would state it as the following :<br>In a chute, there can be no two locked sets (size doesn't matter) of the same candidates that are adjacent.<br><br>I hope I'm not missing something obvious and I'm not wrong.<br><br>I checked all the examples you gave and I believe all adhere to my reasoning.<br></div>
+<div class="w100pc" id="blog-reply17301"></div>
+<div class="post-reply" id="reply3007"><table class="w100pc"><tr><td class="post-writes">Ilyes replies:</td><td class="datepost">Thursday 2-Oct-2025</td></tr>
+<tr><td colspan="2">When explaining the deadly pattern, the two sets shouldn't have givens (initial clues), not just the first set as my poor wording could lead to believe.</td></tr>
+</table></div>
+</div><div id="blog-reply3007" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,17301,3007)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17163"><div class="w100pc"><div class="w60pc"><h2>... by: martin</h2></div><div class="w40pc datepost">Friday 22-Nov-2024</div></div>
+<div class="w100pc">I would think that type 1 and 2 extension are somewhat contrived and difficult to identify<br>The type 4 extension, however, is what I would call a transitive extension.<br>Theoretical at least, it applies to longer chains as well.<br>There is a couple of patterns of a similar nature (closed in themselves, hence deadly), that are easy to spot.<br>In either case, drop in a different candidate anywhere for a free out of jail card.  Otherwise, you will have to admit the possible multiple solution.<br><br>A 90-degree bend:<br><br>(1,5)  o  o |     o (1,5)  o | o  o  o<br><br>(1,5)  o  o | (1,5)    o   o | o  o  o<br><br>    o  o  o |     o    o   o | o  o  o<br><br>    -  -  - +     -    -   - + -  -  -<br><br>    o  o  o | (1,5) (1,5)  o | o  o  o<br><br>    o  o  o |     o     o  o | o  o  o<br><br>    o  o  o |     o     o  o | o  o  o<br><br><br>and as already pointed out by BCorso, the permutation of 3 digits:<br><br>(1,5)  o  o |  o  (1,5)  o | o  o  o<br><br>(1,9)  o  o |  o  (1,9)  o | o  o  o<br><br>(5,9)  o  o |  o  (5,9)  o | o  o  o<br><br>    -  -  - +  -      -  - + -  -  -<br>etc.<br><br>Of course the transitive combo remains intact as stated as EUR Type 4:<br><br>(1,5)  o  o |  o  (1,9)  o | o  o (5,9)<br><br>(1,5)  o  o |  o  (1,9)  o | o  o (5,9)<br><br>    o  o  o |  o      o  o | o  o    o<br><br>    -  -  - +  -      -  - + -  -    -<br><br>While these are out there and spotable, there are way more.</div>
+<div class="w100pc" id="blog-reply17163"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,17163,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16887"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Thursday 2-Feb-2023</div></div>
+<div class="w100pc">@Tapio Ranta-aho.<br>Assuming the "12" pairs are Naked Pairs (no other candidates), this is virtually a "stretched" Type 1 UR. <br> <br>Also @Andrew<br>I refer you to Jonathan Handojo's comment on 2021-06-9 finding that the Solver skips UR's and jumps to WXYZ, similar to my earlier comment on 2019-12-16. <br> <br>I also found a sorta Type 5 in your daily puzzle for 2023-01-21 but not in the Solver order, which I will try to retrieve and send separately. <br> <br>As always thanks for a fabulous website! <br> <br>Ciao, Pieter </div>
+<div class="w100pc" id="blog-reply16887"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,16887,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16846"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Tuesday 25-Oct-2022</div></div>
+<div class="w100pc">Type 2 and Type 3 EURs are also possible.<br>Hidden EURs too.</div>
+<div class="w100pc" id="blog-reply16846"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>As of Jan 2024, added Type 2. Will work on Type 3 next. Thanks!</div></div><div id="blog-reply2654" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,16846,2654)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16845"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Tuesday 25-Oct-2022</div></div>
+<div class="w100pc">I think the term you're looking for is not "double locked pairs", it's "ALS".</div>
+<div class="w100pc" id="blog-reply16845"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I don't think there are enough surplus candidates (ie one extra) to be an ALS</div></div><div id="blog-reply2653" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,16845,2653)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16814"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Friday 27-May-2022</div></div>
+<div class="w100pc">Hi Andrew<br>I believe I have found an Extended UR in your Daily Sudoku for 2022-05-7, not a 2x3, but a 3x2. After solving the basics (and turning various strategies off?) one can arrive at this board (as I did on paper): <br>bd=800000251001507830053812607145936782730285410008174503314628975080751300500000108<br> <br>The EUR is in AJ456, however, the solver does not find it, I think cuz you haven't implemented this variety yet? <br> <br>Also, I noticed several of my and others' earlier comments which you may not have seen or replied to yet.  <br> <br>Thanks and kudos as always!<br> <br>Ciao, Pieter<br> </div>
+<div class="w100pc" id="blog-reply16814"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,16814,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16704"><div class="w100pc"><div class="w60pc"><h2>... by: Travi</h2></div><div class="w40pc datepost">Friday 20-Aug-2021</div></div>
+<div class="w100pc">I've just found your site, and it's a spectacular resource!<br><br>Apologies if I'm repeating something that's already known (I'm fairly new to sudoku), but there's an additional way to extend the principle of unique rectangles.   Unfortunately, I don't have an example handy, but consider the following:<br><br>In column 1, we have a 1-2 pair in boxes A1 and D1.   <br>In column 2, we have a 1-2 pair in boxes A2 and E2.  <br>In column 4, we have a 1-2 pair in boxes D4 and E4.<br><br>I'm calling this a "crooked" rectangle, and it's another deadly pattern.  Of course the 'rectangle' can bend in this fashion more than once, but as long as the bends eventually line up with a pair in the same row/column at both ends it's a deadly pattern.<br><br>Aaaand scrolling down I just saw Brett Yarberry describing exactly this phenomenon.   Guess I'm several years late to the party.</div>
+<div class="w100pc" id="blog-reply16704"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,16704,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16555"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Monday 2-Mar-2020</div></div>
+<div class="w100pc">Hi Andrew<br>As always thanks for a fabulous website! I have learned so much about Sudoku from your site. <br> <br>Solving your <a href = "https://www.sudokuwiki.org/sudoku.htm?bd=..........8..4.63..9..6172....7..5.3.7..1..6.3.8..9....3715..8..51.7..4..........">Daily Sudoku for 2020-02-1</a> I believe it has multiple HURs and an Extended UR which the solver does not find.<br> <br>After solving the basics, and turning Tough strategies off, the solver (V2.08) skips all URs to a WXYZ Wing. <br> <br>I have commented separately on the HURs. <br> <br>The EUR is, I believe, a Type 1 in AFJ89. Using Swordfish terminology, I see it as a 2-2-2 EUR. I also see EURs as overlapping URs similarly to how you do. <br> <br>For this example, my picture is this:<br>- The double conjugate pairs of 7s in FJ89 reduces the locked pairs of 1/7 in F8/F9, and 5/7 in J8/J9, to a virtual locked pair of 1/5s. <br>- the virtual 1/5 locked pair in FJ89 combines with the 1/5 in A8 to form a Type 1 UR, eliminating the 1 and the 5 from A9.<br> <br>Is this correct?<br> <br>Ciao, Pieter   </div>
+<div class="w100pc" id="blog-reply16555"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Pieter<br>The solver can (now) find this example if the tough strategies and XY-Chain are turned off</div></div><div id="blog-reply2610" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,16555,2610)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16379"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Sunday 24-Jun-2018</div></div>
+<div class="w100pc">Hi Andrew<br>I believe I've found an example of an EUR Type 4, but when I plugged it in to the solver I was disappointed that the solver didn't find it. ðŸ™ Then I read that you have only implemented EUR Type 1 (though you call it simply a UR, not an EUR. Clarification?). <br> <br>In your reply to Ian below (2014-06-12) you mention that you "picture that the EUR is composed of several overlapping URs". This one is exactly that - two 2x2 URs - and I also think I have seen this structure before. <br> <br>The original puzzle is:<br>bd=007060200040103070500000001090602080100000004060705020400000002020901030001070600<br> <br>which solves to <br>bd=017060200240103076506027001790602080152000764860705020470006012620901437001274600<br> <br>At this point, if you turn off the Tough and earlier Diabolical strategies the solver will find the Hidden UR on EG45, but not the EUR on DF357. Easily spotted is the double Locked Pairs on DF35 (locked by the 4's) which effectively solve to a 1/3 Locked Pair, which then become a UR Type 4 with D7/F7 locked by the 1's, eliminating the 3's. <br> <br>Personally I have no trouble detecting UR's types 1-4 but honestly I just can't get my head around 2b, 2c, 3b! When you're familiar with UR's in general I find they tend to stick out like dog's balls parallel to locked pairs, and I often find them even before I've checked for X-Wings, etc! Surely an EUR Type 4 can't be too difficult to program?<br> <br>Always love perusing your website! <br> <br>Thanks!<br>Pieter   ðŸ™‚<br></div>
+<div class="w100pc" id="blog-reply16379"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Finally implemented this, four years later! Sorry it took so long. Very good extension.</div></div><div id="blog-reply2563" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,16379,2563)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16031"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Australia </h2></div><div class="w40pc datepost">Thursday 28-May-2015</div></div>
+<div class="w100pc">Hi Andrew,<br>Firstly Congratulations on your Solver's 10 year anniversary which I just noticed is TODAY, 28th of May!'' An amazing milestone!!! <br> <br>I was completing the diabolical sudoku on an old printout of your Daily Sudoku for 26/9/2014 when I happened to notice an EUR (which I was not previously familiar with). You mention they are not very common so I thought I'd point it out. You need to turn XY chains and 3DM off for the solver to find it. <br><br>Thanks as always for your great website. <br><br>Here's to the next 10 years!!!  ;-)  :-D<br> <br>Ciao<br>Pieter  :-)</div>
+<div class="w100pc" id="blog-reply16031"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks Pieter!</div></div><div id="blog-reply2501" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,16031,2501)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16005"><div class="w100pc"><div class="w60pc"><h2>... by: Brett Yarberry</h2></div><div class="w40pc datepost">Tuesday 24-Mar-2015</div></div>
+<div class="w100pc">There are several other ways of arranging groups of cells in a "deadly pattern".<br>Besides the standard 2x2 pattern and the 2x3 pattern, there are:<br><br>A .  . | B . . | . . . <br>B .  . |  . . . | A . . <br> .  .  . | A . . | B . . <br><br><br>A .  . | B .  . | .  .  . <br>B .  . | C .  . | .  .  . <br>C .  . | A .  . | .  .  . <br><br><br> . A . |  B .  .| .  .  . <br>B .  . | A .  . | .  .  . <br> .  .  . | .  .  . | .  .  . <br>~ ~ ~ ~ ~ ~ ~ ~ ~<br>B A . | .  .  . | .  .  . <br> .  .  . | .  .  . | .  .  . <br> .  .  . | .  .  . | .  .  . <br><br>There are even more complex patterns, but I hope these simple ones could be useful.</div>
+<div class="w100pc" id="blog-reply16005"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Going to have to pursue this!</div></div><div id="blog-reply2499" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,16005,2499)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15933"><div class="w100pc"><div class="w60pc"><h2>... by: Ian</h2></div><div class="w40pc datepost">Thursday 12-Jun-2014</div></div>
+<div class="w100pc">Hi, Andrew.<br>Been trying to see what additional benefit the extended UR brings to the solution over the regular one and I have to confess that I can't actually see any. Is not an extended UR just a regular UR with a locked set and intersections between the locking doublet and the 'roof' cells?<br>Allow me to elucidate... In your top extended UR; Let E13 and G13 be a regular UR on 13 and 35 respectively and, as a consequence, let C3 be a doublet locking rows E and G together. This, effectively, makes E3 and G3 'floor' cells implying that E1 and G1 may be considered 'roof' cells. Since C1 subtends both roof cells and the locking doublet, is this not a bog-standard Type 3 Regular UR? I would continue to argue the case that all extended UR's are special (or specific) cases of 1 or more generic regular UR's. If I am misisng something, please would you point it out for me. I'd be very grateful. Absolutely brilliant site and thank you for your excellent insights. Cheers! Ian</div>
+<div class="w100pc" id="blog-reply15933"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I find URs quite difficult to pluck out of a board, other people find them quite easily.  So it's quite possible I'm missing a link between URs and EURs. But the way I picture it is that the EUR is composed of several overlapping URS, maybe two, maybe three. Like sword-fishes that collapse into X-Wings.  So in one sense you are right, these are UR of type X + something (I don’t know if that’s true for all cases).  URs are vary variable - and I'm sure I don’t have a definitive detection system - and one way to I figured to make detection easier was to think in terms of a higher level framework. I 'get' the way Naked/Hidden Pairs upgrade into Naked/Hidden Triples, and that motif is elegant (to me) in the way URs can triple-up from base pairs. But it is  perfectly valid to state a problem in different terms, like there are several ways to proof a mathematical problem. It's all down to which way is easier to fit into ones noggin.</div></div><div id="blog-reply2473" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,15933,2473)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15874"><div class="w100pc"><div class="w60pc"><h2>... by: Mark</h2></div><div class="w40pc datepost">Saturday 4-Jan-2014</div></div>
+<div class="w100pc">Mr. Stuart,<br>In your Extended Unique Rectangles, example one where you have {1,3,5} as the main entries which might cause a deadly pattern if it was not for the presence of the extra candidate 6, I have gone through it several times, and I have NOT found a deadly pattern. Would you please kindly respond to my email and tell me where I am wrong. I spent too much time on it, and I know you are a very busy person; however, I would greatly appreciate if you respond.<br>Note: I can easily see the deadly pattern in example 2 and 3.<br><br>Best regards,<br><br>Mark<br></div>
+<div class="w100pc" id="blog-reply15874"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks for writing in, got quite a bag-full over the Christmas period.<br><br>All three examples are pretty close in pattern. Do you agree that in the first example if the 6 wasn't there then all the colored cells would contain only 1, 3 and 5?  Some cells are missing one of the numbers which cuts down the number of combinations that could complete those cells, but not down to one, so it's a multiple solution without the 6. <br><br>Just the first two I can think of staring at the cells:<br><br>1 - 5<br>3 - 1<br>5 - 3<br><br>5 - 1<br>1 - 3<br>3 - 5<br><br>Hope that helps a bit<br></div></div><div id="blog-reply2455" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,15874,2455)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15756"><div class="w100pc"><div class="w60pc"><h2>... by: RenStimpy</h2></div><div class="w40pc datepost">Monday 11-Mar-2013</div></div>
+<div class="w100pc">To bcorso,<br><br>I believe example 3 proves this theory to be incorrect. Unless I misunderstand what you're saying, the 38 pair on E2 and the 37 pairs on column 6 would imply that 7 & 8 are the only choices for the two cells in column 7. However, J7 eventually evaluates to be 7, meaning you really only had a choice between 3 and 8 for three of the cells in the extended UR.<br><br>To Andrew,<br><br>Great website! If I had an extra arm I'd give you three thumbs up!</div>
+<div class="w100pc" id="blog-reply15756"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,15756,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15741"><div class="w100pc"><div class="w60pc"><h2>... by: bcorso</h2></div><div class="w40pc datepost">Sunday 10-Feb-2013</div></div>
+<div class="w100pc">Hey Andrew,<br><br>Regarding my previous post. I've come to the conclusion that the only deadly pattern available for a 3x2 extended UR is of the form <br><br>xy  |  xy<br>xz  |  xz<br>yz  |  yz<br><br>That is, to get a 3 x 2 deadly pattern each row must only contain 2 candidates, those 2 candidates must be the same for each row, and those 2 candidates can not be the same for any column. This leaves only permutations of the above patterns as possible deadly patterns.<br><br>Proof: <br>First off, each cell MUST only contain two candidates AND those two candidates MUST be the same for both deadly cells in that row. This is because a deadly pattern means that if ALL other cells are filled in on the board, there still exists multiple solutions. Thus, if all other cells in the rows are filled in, there are only two candidates that can be placed in the deadly cells of that row, and those candidates are the same for both of the cells.<br><br>Second, the pairs in the columns cannot be the same. This follows from the fact that if there were two pairs that matched, there would no solution (instead of multiple solutions). For example, if xz was repeated twice in the column:<br><br>xy  |  xy<br>xz  |  xz<br>xz  |  xz<br><br>Then there would be no solution because the second and third column would have to have the same solution, which is impossible.</div>
+<div class="w100pc" id="blog-reply15741"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,15741,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15740"><div class="w100pc"><div class="w60pc"><h2>... by: bcorso</h2></div><div class="w40pc datepost">Sunday 10-Feb-2013</div></div>
+<div class="w100pc">Hey Andrew,<br><br>Please let me know if I am missing something important, but I see a flaw in the extended URs that you present here.<br><br>The way I understand it, a deadly solution only exists if the candidates in the "deadly" cells cannot see any other cell with those candidates (because the deadly cells cannot solve themselves, thus they need other cells to make further eliminations).<br><br>For example, in the 2x2 deadly URs it is deadly because the 4 cells contain a naked pair in the row, col, and box and the "naked pair" technique will remove those candidates from every cell those deadly cells can see. Thus, the naked pairs have multiple solutions because they cannot solve themselves.<br><br>Now, in the extended URs I image you would need the same circumstance, the deadly cells cannot see any other cells with their candidates, otherwise that cell can be used to break the deadly pattern. This brings me to your examples here. In both examples you only require a triple in the row OR col. but this obviously leaves cells (outside the deadly cells) with the same candidates which are in the same box and col OR row respectively.<br><br>I'm interested in hearing your solution, thanks Andrew.</div>
+<div class="w100pc" id="blog-reply15740"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(167,15740,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15694"><div class="w100pc"><div class="w60pc"><h2>... by: Dale Kloss</h2></div><div class="w40pc datepost">Sunday 16-Dec-2012</div></div>
+<div class="w100pc">Help!!! I am having a problem with your first Extended Unique Rectangle example. Let me explain by tabulating the possible solutions of [C1,C3,E1,E3,G1,G3].<br><br>First the two Extended Deadly pattern solutions: <br><br>    1 5    5 1<br>    3 1    1 3<br>    5 3    3 5<br><br>I don't see a problem with these as horizontally the 2 solutions are deadly, the patterns are deadly inside the 3 boxes, and they are deadly vertically. Since we are told the solution to the entire puzzle is unique they can be eliminated as possible solutions.<br><br><br>Now let's tabulate the other two possible solutions:<br><br>Pattern A:   1 5      Pattern B:        6    |   (1,5)<br>                   5 3                       (1,3,5)   |   (1,5)  <br>                   3 1                       (1,3,5)   |   (1,3,5) <br><br><br>This is where I have the problem. I don't see Pattern A as Deadly with respect to row E of the first two solutions nor Deadly with respect to row G of the first two solutions since the candidate sets are different. Nor is it Deadly with respect to Boxes 4 and 7 since the candidate sets are different. <br>Conclusion ? Either Pattern A or B destroys the Deadly pattern. We can't say that just the 6 destroys the pattern ?<br><br>One bright spot: By comparing Patterns A and B we see that we can eliminate the 5 in cell C1.<br><br><br><br><br></div>
+<div class="w100pc" id="blog-reply15694"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I've had another good look at this example. <br><br>Let's call the first two patterns you described as C and D as they are unnamed. <br><br>Pattern B is not deadly because it's actually going to be the solution, ie 6 in C1 and some combination of the other candidates in the other cells which will come out in the wash later.  <br><br>Pattern A is deadly with both C and D. Now, A with C doesn't look swappable in isolation because they both share 1 and 5 in C1 and C3. But they do swap candidates in cells E1,E3 and G1,G3.  So in isolation just thinking about A and C we are effectively using four cells out of 6 to prove a point which seems insufficient because C1 and C3 are not being swapped. However, the super-set pattern AC can be swapped with pattern D. So we have three patterns which in combination can create swappable cells.  This is the neat thing about triples - we don't need every candidate to be swappable in all cells, just as long as each cell and each candidate can be swapped in at least one combination.  <br><br>Another way to think about it: It would be easier to show the total swapability of all patterns if we had a 1,3 and 5 in all six cells. The fact we are missing a 3 in C1 and C3 and a 5 in E3 merely restricts the number of swappable patterns available to patterns A, C and D. The minimum number of swappable patterns is two and we would get that in slightly more rare situations where all cells contained 2 candidates (apart from the extra one candidate) similar to the second example.<br></div></div><div id="blog-reply2393" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,15694,2393)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15674"><div class="w100pc"><div class="w60pc"><h2>... by: Ehsan Vessal</h2></div><div class="w40pc datepost">Sunday 7-Oct-2012</div></div>
+<div class="w100pc">Very cool Andrew! I just wanted to note that Peter Gordon in his Mensa Guide to solving Sudoku somewhat touches on what you are talking about here when he introduces what he calls "Gordonian Polygons". He has some examples here of not only rectangular shapes, but pentagonal and hexagonal shapes formed by possible candidates. </div>
+<div class="w100pc" id="blog-reply15674"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Interesting, I'll check into that</div></div><div id="blog-reply2384" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(167,15674,2384)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 24-August-2012. Views: 171259<br>
+			This page was last modified on 27-January-2024.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10269139b50f853',t:'MTc4MjIwNjM1OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

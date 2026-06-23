@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Chute Remote Pairs - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="A simple pattern to try early on"/>
+<meta name="twitter:description" content="A simple pattern to try early on">
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Chute_Remote_Pairs';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Chute_Remote_Pairs">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Chute Remote Pairs</h1><div class="SRCell">Added 24-Jan-2025<br>This is an excellent and simple pattern we can employ just with eye-balling some cells with the same pair of numbers in them. I've placed it near the start of the 'tough' strategies after <a href="/X_Wing_Strategy">X-Wing</a> as  it is quite common, doesn't require us to think about strong and weak links, and does not take long to evaluate. Very grateful for <b>Andy Potvin</b> from the United States for promoting the idea to me and sending examples. The idea goes <a href="http://forum.enjoysudoku.com/two-definitions-of-w-wing-terminology-question-t6452.html" target="_blank">way back</a> and is a break out from W-Wings. I think it is sufficiently distinct to be worth having on it's own but I will be re-evaluating W-Wings soon to see how much they are worth including in their own right. <br><br>If you want to see what CRP replaces, untick it and [<<] (back-step) and [Take Step]<br><br>All these examples are from tough puzzles and each has two Chute Remote Pairs in them. In testing I've found some 620 examples in 2000 random diabolicals and I've gained an overall speed increase of about 2%. So it is simplifying the solve paths for more than a quarter of puzzles.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/CRP00.png" alt="Example 1" /><figcaption>Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2j0b5v0962050f2i0c0i5u0e560c566201022i060c0a644c62050i03095u4a054c2d062b0e5u0f03440a0i2c040l040l0g060i0c08052c032c0e4a560r091f08050i1m010c2k2k360f0a0d020i070e0c0h">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000905000000000012060000050390050060000300004040060085030000090850010000000207000">From the Start</a>
+</figcaption></figure>
+<br>The first example gives the classic pattern. We're looking for two bi-value cells with the same candidates in the same <span class="hy"><i>Chute</i></span>, which is a horizontal or vertical set of the three boxes. There are six chutes in a 9x9 Sudoku.<br><br>Both the green cells <span class="hy">A8</span> and <span class="hy">C1</span> here have {4/7}. The next step is to check they can't 'see' each other, ie they are not a Naked Pair but instead a <span class="hy">Remote Pair</span>.<br><br>Given that pattern there will exist exactly three cells in the unused box in the same chute and I have marked these in yellow {<span class="hy">B4</span>, <span class="hy">B5</span>, <span class="hy">B6</span>).<br><br>The rule says, <br><b>If the yellow cells have only ONE of the candidates in the green cells then that candidate can be eliminated from all cells seen by both green cells.</b> I've marked these in <span style="color:#faf">pink</span>.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/CRP02.png" alt="Example 2" /><figcaption>Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b0b5v0962050f2i0c0i5u0e560c566201020d060c0a5w445u050i03095u4a054c2d062b0e5u0f03440a0i2c040l040l0g060i0c08052c032c0e4a560r091f08050i1m010c2k2k360f0a0d020i070e0c0h">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000905000000000012060000050390050060000300004040060085030000090850010000000207000">From the Start</a>
+</figcaption></figure>
+<br>Later on in the puzzle the pattern is found again. We'll try and prove the rule with this second example. <br><br>2 and 8 exist in <span class="hy">C6</span> and <span class="hy">E5</span>.  2 exists in the third box in <span class="hy">J4</span>. Note - it does not matter that this is a clue or solved cell. What is important is the 8 is no where in any of the yellow cells.<br><br>If 2 really was the solution to <span class="hy">C5</span> or <span class="hy">D6</span> (the elimination cells) that would force an 8 in both of the green cells. However looking down the column that would remove all 8s from box 8 and we can already see there is no 8 in column 4.  </div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/CRP03.png" alt="Example 3" /><figcaption>Example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0c057u0f0h0b7u010g0a7u0f050703bg0sb80g02080i0d01030f0e06d69q020e9eb72eb7b6019g0d0c9ec405c40e9e9k0a06087o2e040b0f05080a0d07090c4a5u2b0c09060e0s0l7u037n0g0b0e1n081f">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=050000010000573000028001300600200000010000050000068004005800790000096000030000080">From the Start</a>
+</figcaption></figure>
+The third example contains two Chute Remote Pairs and I've displayed one here.<br><br>{7,9} in <span class="hy">D6</span> and <span class="hy">F2</span> form a Remote Pair. Looking horizontally along the chute to box 6 we see 9 is present in the yellow cells but 7 is not.  <br><br>This gives us two eliminations of 9 in <span class="hy">D2</span> and <span class="hy">D3</span>. The solver reports:<br><br><span class="hc">Chute Remote Pair<br>7 cannot be set in the yellow cells {E7,E8,E9} and with the Remote Pair in D6 and F2 it means:<br>9 can be taken off D2<br>9 can be taken off D3</span></div>
+
+<h2>Double Eliminaton</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/CRP06.png" alt="Double Elimination" /><figcaption>Double Elimination
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B310z31030i060h102i0306302s4i6i01092i2i0i0801102i100c0f2302273m1z092i080n090h1r381j2b2i0l050z0713044p4j7o067r2r0c2r0i0d02060z0h0h04091u1v0z0c07021g0z1g080g03820d7n">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000306000360000190008100000020009080900000005070400060000002600049000072000803000">From the Start</a>
+</figcaption></figure>
+Now it is possible to extend the rule to eliminate both numbers found in the Remote Pair - but it is much rarer. Normally the puzzle will have made these eliminations with simpler strategies. I found eight double eliminations in 2000 tough puzzles where the single version occured about 245 times.<br><br>In the final example {4,7} is not present in any of the yellow cells. It is a coincidence this example has all the yellow cells as clues and solved numbers but it makes checking a little easier<br><br>We look around for any 4 or 7 that can be seen by <span class="hy">B9</span> AND <span class="hy">C1</span> and <span class="hy">B3</span> fits the bill.<br><br><span class="hc">Chute Remote Pair<br>Neither 4/7 can be set in the yellow cells {A4,A5,A6} and with the Remote Pair in B9 and C1 it means:<br>4/7 can be taken off B3</span><br><br><br></div>
+
+<h2>Bonus Eliminations</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/CRP07.png" alt="Bonus Eliminations" /><figcaption>Bonus Eliminations
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B8i058i0801070304020207030405090108060108040206039e9e05050308aa0401acac9eaa8i02030805aa01040401aaaa9g1g050308du8i0105035004ac9e030405aa9g50dwac01du02aa019e04du0503">Load Example</a>
+</figcaption></figure>
+While you are looking at the common cells in a double elimination there are in fact more cells to check. In the example shown here I've coloured in some purple cells.<br><br>The simple rule is that if one green cell is X the other is Y. And vice versa. This eliminates not just common cells (pink) but in cells the same box as the green cells box and along the row (or column).  Check the following:<br><br>If <span class="hy">J5</span> is 7, then 7 is removed from <span class="hy">J123</span> thus 7 must be somewhere in <span class="hy">G123</span>, and so 7 cannot be in the rest of row G which means <span class="hy">G9</span> is 9<br><br>Likewise, if <span class="hy">J5</span> is 9, 9 is removed from <span class="hy">J123</span>, so 9 must be somewhere in <span class="hy">G123</span> - so 9 cannot be in the rest of row G which means <span class="hy">G9</span> is 7.<br><br>All this is possible because 7 and 9 do NOT appear in the yellow cells.<br>The solver will report these eliminations with the note <u>'either end' rule</u><br><br><div class="hc">Neither 7/9 can be set in the yellow cells {H1,H2,H3} and with the Remote Pair in G9 and J5 it means:<br>7/9 can be taken off J7<br>7/9 can be taken off G8 ('either end' rule)</div><br><hr><br></div>
+
+<div class="SRCell">Some further testing running 'Ruud's Top 50,000' through the offline solver I get a 1% speed increase - less than 2% because these have so many more AIC searches to do and AIC dwarfs all other strategies in terms of cost. 16,814 CRPs were used in 14,384 puzzles (28.8%) - a lot but there is a bias since CRP benefits from being so close to the top of the strategy ordering. The strategies that reduce the most are Y-Wings (>3k), XY-Chains (2k), 3D Medusa (1k). Simple Colouring and Rectangle Elimination down by only about ~500.</div><br>
+
+<h2>Chute Remote Pair Exemplars</h2>
+<div class="SRCell">These puzzles require the CRP strategy at some point but are otherwise trivial or have a few other similar level strategies.<br>
+They make good practice puzzles.
+<ul>
+<li><a href="/sudoku.htm?bd=060000200000401073800000004400700100008903700001005000200000000310209000005000030">Exemplar 1, x3 (uncheck UR1) (score 6.5)</a></li>
+<li><a href="/sudoku.htm?bd=008400200070000050230000094060390000009050300000062070340000067080000010001007900">Exemplar 2, x3 (score 6.6)</a></li>
+<li><a href="/sudoku.htm?bd=010000306000208007400706000000000014100070003590000000000309000200604000304000050">Exemplar 3, x3 (score 6.6)</a></li>
+<li><a href="/sudoku.htm?bd=003000800000060053200100000050000097007208300060000000000006005590010000001000908">Exemplar 4, x3 (score 6.9)</a></li>
+<li><a href="/sudoku.htm?bd=800007004040259007000080000508000000720000035000000906000020000200438070100700002">Exemplar 5, x3 (score 6.9)</a></li>
+<li><a href="/sudoku.htm?bd=005000000003720400070500030900080007300000084100030002060007010001006900000000500">Exemplar 6, x3 (score 7.2)</a></li>
+<li><a href="/sudoku.htm?bd=000408000004060000080200605028006500700000004009300170205004090000090700000102000">Exemplar 7, x3 (score 7.6)</a></li>
+<li><a href="/sudoku.htm?bd=006007900410000080000604000005030007001709500800050100000306000020000064004200800">Exemplar 8, x3 (score 7.8)</a></li>
+<li><a href="/sudoku.htm?bd=000209000203000908900005010002000100100926004005000700060500009408000605000307000">Exemplar 9, x3 (score 7.8)</a></li>
+<li><a href="/sudoku.htm?bd=500698001090100800000000000780000605000060000301000079000000000007009050100845006">Exemplar 10, x3 (score 8.5)</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Intersection_Removal">Intersection Removal</a></td><td class="w50pc cright">Continue to <a href="Y_Wing_Strategy">Y-Wings</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=236&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Chute_Remote_Pairs" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(236,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17435"><div class="w100pc"><div class="w60pc"><h2>... by: hider Alduhami</h2></div><div class="w40pc datepost">Tuesday 2-Jun-2026</div></div>
+<div class="w100pc">Why can't the 9 be removed from F3 in example 3</div>
+<div class="w100pc" id="blog-reply17435"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>F3 can’t ‘see’ D6</div></div><div id="blog-reply3094" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(236,17435,3094)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17397"><div class="w100pc"><div class="w60pc"><h2>... by: Aleksi</h2></div><div class="w40pc datepost">Sunday 8-Mar-2026</div></div>
+<div class="w100pc">In the third example, why isn't <9> removed from F3? I can quite understand the logic, but if the logic tells to remove <9> from D2,D3, why isn't it also removed from F3? </div>
+<div class="w100pc" id="blog-reply17397"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(236,17397,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17302"><div class="w100pc"><div class="w60pc"><h2>... by: Henrik Harder</h2></div><div class="w40pc datepost">Monday 6-Oct-2025</div></div>
+<div class="w100pc">The first example should show that both 4 and seven must be eliminated. That means that A1 must have 1 and C7 must have 8 as solutions,</div>
+<div class="w100pc" id="blog-reply17302"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(236,17302,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17250"><div class="w100pc"><div class="w60pc"><h2>... by: Howard Weiss</h2></div><div class="w40pc datepost">Sunday 6-Jul-2025</div></div>
+<div class="w100pc">Hi <br><br>with regard to Exemplar 1, I find two other elimation.<br><br>In columns 1, 2,3 only F2 and G3 have values 7 and 9, Yellow cells are A1, B1, C1.  Only 9 appears in those cells. Cell D3 sees both F2 and G3 and contains a 9 -> eliminate 9 from D3<br><br>In columns 7,8,9 only C7 and E9 contain values 5 and 6.  Yellow cells are G8, H8, J8.  Only 5 appears in those cells. Cell A9 sees both C7 and E9 and contains a 5 -> eliminate 5 in A9<br><br>Am I missing something?<br><br>Howard Weiss </div>
+<div class="w100pc" id="blog-reply17250"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(236,17250,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17190"><div class="w100pc"><div class="w60pc"><h2>... by: STRMCKR</h2></div><div class="w40pc datepost">Wednesday 12-Feb-2025</div></div>
+<div class="w100pc">THIS is W-wing/ring  from 2007 not something New at all. <br><br>http://forum.enjoysudoku.com/two-definitions-of-w-wing-terminology-question-t6452.html<br><br>i tried to have you to implement all the named wings/rings of A.I.C methods years ago: <br><br>Split wing, L{1,2,3} W, M{2,3}, Hybrid(1,2,3} -  Wings / Rings<br><br>{single chain} <br>n X ERi,  rec't Kites, dual ER etc   <br><br>your solver is Niceloops based and struggles to replicate them as many of the named chains have External Eliminations ie not Singular cell{s} contradictions. <br><br> where these named  as niceloops are DNL inwhich  it takes a collection of DNL to replicate  the 1 a.i.c.  <br><br>same applies to A.I.C rings which are replicate in appearance by CNL however  they have internal and external Eliminations. Meaning it takes many CNL / or DNL to replicated all the eliminations of the 1 move. <br><br>A  direct link to how some of the named methods from years past are detected. <br><br>http://forum.enjoysudoku.com/named-chains-wings-rings-structure-for-i-ding-in-code-t42435.html<br><br>beyond flustered:  <br>http://forum.enjoysudoku.com/post266297.html#p266297<br><br><br>strmckr <br></div>
+<div class="w100pc" id="blog-reply17190"></div>
+</div><div id="blog-reply3094" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(236,17190,3094)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17187"><div class="w100pc"><div class="w60pc"><h2>... by: nono</h2></div><div class="w40pc datepost">Friday 7-Feb-2025</div></div>
+<div class="w100pc">is it please perhaps possible to give us some examples that do not match the bonus eliminations. thanks .</div>
+<div class="w100pc" id="blog-reply17187"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(236,17187,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17183"><div class="w100pc"><div class="w60pc"><h2>... by: Hans Burch</h2></div><div class="w40pc datepost">Friday 31-Jan-2025</div></div>
+<div class="w100pc">I name them Timberlake pairs, he mentend them in his videos. They can be every where.</div>
+<div class="w100pc" id="blog-reply17183"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(236,17183,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 24-January-2025. Views: 106253<br>
+			This page was last modified on 16-June-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10256e26b5cb1e9',t:'MTc4MjIwNTYxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

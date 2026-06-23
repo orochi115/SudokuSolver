@@ -25,13 +25,15 @@ The local Sudoku human-solving library now covers the previously selected inform
 
 | Type | Count |
 |---|---:|
-| Manifest source entries | 61 |
-| Local Markdown source files | 61 |
-| Local raw HTML source files | 61 |
-| Technique cards | 18 |
+| Manifest source entries | 85 |
+| Local Markdown source files | 85 |
+| Local raw HTML source files | 85 |
+| Technique cards | 39 |
 | Index/mapping files | 6 |
 
-> Update 2026-06-23: added 5 exotic sources (`SUDOKUWIKI-EXOCET`, `SUDOKUWIKI-SK-LOOP`, `ENJOYSUDOKU-MSLS`, `SUDOKUWIKI-FIREWORKS`, `SUDOKUWIKI-APE`; new `enjoysudoku` group) and 5 technique cards (Exocet, SK-Loop, MSLS, Fireworks, Aligned Pair/Triple Exclusion) under `11-exotic/`, in support of [`docs/plans/diabolical-727.md`](../../../../docs/plans/diabolical-727.md)'s P2 exotic tier. Counts above reflect post-update totals.
+> Update 2026-06-23: added 5 exotic sources (`SUDOKUWIKI-EXOCET`, `SUDOKUWIKI-SK-LOOP`, `ENJOYSUDOKU-MSLS`, `SUDOKUWIKI-FIREWORKS`, `SUDOKUWIKI-APE`; new `enjoysudoku` group) and 5 technique cards (Exocet, SK-Loop, MSLS, Fireworks, Aligned Pair/Triple Exclusion) under `11-exotic/`, in support of [`docs/plans/diabolical-727.md`](../../../../docs/plans/diabolical-727.md)'s P2 exotic tier.
+
+> Update 2026-06-23 (card-library expansion): added 24 source mirrors (13 SudokuWiki, 9 Sudopedia, 2 enjoysudoku) and 21 technique cards (Finned/Sashimi Fish, Franken/Mutant Fish, Broken Wing, Bent Sets, Remote Pairs, WXYZ-Wing, 3D Medusa, Multi-Coloring, AIC-with-ALS/-Exotic-Links/-UR, Grouped AIC, Nice Loops, Twinned XY-Chains, XY-Chain, AHS, Avoidable Rectangle, Extended UR, Gurth's Theorem, Subset Exclusion, Tridagon). Also reconciled stale citation IDs in card frontmatter (`SUDOKUWIKI-NAKED-CANDIDATES`→`SUDOKUWIKI-NAKED`, `SUDOKUWIKI-HIDDEN-CANDIDATES`→`SUDOKUWIKI-HIDDEN`, `SUDOPEDIA-ALS`→`SUDOKUWIKI-ALS`, `SUDOKUWIKI-FINNED-X-WING`→`SUDOKUWIKI-FINNED-XWING`, `SUDOKUWIKI-X-WING`→`SUDOKUWIKI-XWING`). Counts above reflect post-update totals.
 
 ## Coverage Assessment
 

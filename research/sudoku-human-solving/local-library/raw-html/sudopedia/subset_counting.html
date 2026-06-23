@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd"><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- start content -->
+	<meta name="keywords" content="Subset Counting,ALS-XZ,Aligned Pair Exclusion,Aligned Triple Exclusion,Almost Locked Set,Candidate,Cells,Contradiction,Digit,Eliminate,Peer">
+	<title>Subset Counting - Sudopedia Mirror</title>
+<!-- end content -->
+
+</head>
+<body>
+<div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
+<a name="top" id="top"></a>
+<div id="siteNotice"><p>Mirrored from <b>Sudopedia</b>, the Free Sudoku Reference Guide</p></div>
+<hr>
+
+<!-- start content -->
+<h1 class="firstHeading">Subset Counting</h1>
+			<p><b>Subset Counting</b> is a highly advanced <a href="./Solving_Technique.html" title="Solving technique">solving technique</a> that requires a lot of searching, counting, testing and calculating. Thus, it is not a technique suitable for your everyday <a href="./Sudoku.html" title="Sudoku">Sudoku</a>, but one that should be reserved for the extremely difficult puzzles.
+</p><p>Subset Counting can replicate <a href="./XY-Wing.html" title="XY-Wing">XY-Wing</a>, <a href="./XYZ-Wing.html" title="XYZ-Wing">XYZ-Wing</a>, <a href="./WXYZ-Wing.html" title="WXYZ-Wing">WXYZ-Wing</a>, <a href="./Aligned_Pair_Exclusion.html" title="Aligned Pair Exclusion">Aligned Pair Exclusion</a>, <a href="./Aligned_Triple_Exclusion.html" title="Aligned Triple Exclusion">Aligned Triple Exclusion</a> and <a href="./ALS-XZ.html" title="ALS-XZ">ALS-XZ</a> moves, but there may be broader applications which have not been investigated yet.
+</p><p>The theorem behind Subset Counting is sometimes called <b>Extended Subset Principle</b>. Hence, the terms "Subset Counting" and "Extended Subset Principle" may be used interchangeably.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class='toclevel-1'><a href="./Subset_Counting.html#How_it_works"><span class="tocnumber">1</span> <span class="toctext">How it works</span></a></li>
+<li class='toclevel-1'><a href="./Subset_Counting.html#Example"><span class="tocnumber">2</span> <span class="toctext">Example</span></a></li>
+<li class='toclevel-1'><a href="./Subset_Counting.html#Remarks"><span class="tocnumber">3</span> <span class="toctext">Remarks</span></a></li>
+<li class='toclevel-1'><a href="./Subset_Counting.html#External_link"><span class="tocnumber">4</span> <span class="toctext">External link</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="How_it_works"></a><h2> How it works </h2>
+<p>Select a group of <a href="./Cells.html" title="Cells">cells</a> which you would like to investigate. The best choice - for now - is a group of cells which forms an <a href="./Almost_Locked_Set.html" title="Almost Locked Set">Almost Locked Set</a>. These offer the best chance to produce results.
+</p><p>For each <a href="./Digit.html" title="Digit">digit</a>, count the number of ways it can be placed in the selected cells. There is no need to look at interaction between digits. Just test each digit on its own. Now calculate the sum of these counts. When it is less than the number of selected cells, you've done something wrong, because that cannot happen in a <a href="./Valid.html" title="Valid">valid</a> puzzle. When it is equal to the number of selected cells, you've overlooked something. There is only one way to complete these cells. 
+</p><p>Continue with this technique when the total count is 1 or 2 more than the number of selected cells, and there is 1 digit that has a count greater than this surplus.
+</p><p>Now check the grid to see if there is a candidate that can reduce the total count below the number of selected cells. Focus your attention on <a href="./Peer.html" title="Peer">peers</a> of the cells for which removing the candidates for the same digit will reduce the total count below the set size. You can eliminate each candidate that would cause this to happen.
+</p>
+<a name="Example"></a><h2> Example </h2>
+<table cellspacing="8" cellpadding="0">
+<tr>
+<td>
+<p><img src="./images/WXYZWing.png" alt="image:WXYZWing.png" width="350" height="352" longdesc="/wiki/Image:WXYZWing.png">
+</p>
+</td><td>
+<p>This example illustrates how Subset Counting works. It works on any selected set of cells so long you can make eliminations.
+</p><p>We start off by selecting the 4 cells marked yellow. For now, let us ignore how these cells were selected. Note that the selected cells have the digits 4, 5, 7 and 8 as their <a href="./Candidate.html" title="Candidate">candidates</a>. We now determine the maximum number of times each of these digits can be placed in the selected cells:
+</p>
+<ul><li> The digit 4 can be placed in a maximum of 2 cells, in <b>r3c2</b> and <b>r9c1</b>.
+</li><li> The digit 5 can be placed in a maximum of 1 cell, in <b>r9c1</b> or <b>r9c2</b>.
+</li><li> The digit 7 can be placed in a maximum of 1 cell, in <b>r3c2</b> or <b>r6c2</b>.
+</li><li> The digit 8 can be placed in a maximum of 1 cell, in <b>r6c2</b> or <b>r9c2</b>.
+</li></ul>
+<p>Summing up the maximum number of placements, we obtain 2 + 1 + 1 + 1 = 5.
+</p><p>Now suppose the blue cell contains the digit 4. This <a href="./Eliminate.html" title="Eliminate">eliminates</a> the digit 4 from <b>r3c2</b>, <b>r9c1</b> and <b>r9c2</b>, so the maximum number of cells the digit 4 can be placed drops to 0, i.e. a decrease of 2. Thus the the sum is changed to 5 - 2 = 3. This means that you can only place a maximum of 3 digits into these 4 cells, which is impossible. This <a href="./Contradiction.html" title="Contradiction">contradiction</a> means that the blue cell cannot contain the digit 4, so we can eliminate it.
+</p><p>On the other hand, we cannot eliminate the digit 4 from <b>r5c2</b> yet, because the decrease of sum is only 1, which equates to the number of selected cells and does not cause a contradiction.
+</p><p>Actually, the selected cells form a <a href="./WXYZ-Wing.html" title="WXYZ-Wing">WXYZ-Wing</a>. The WXYZ-Wing gives the same elimination.
+</p>
+</td></tr></table>
+<a name="Remarks"></a><h2> Remarks </h2>
+<p>The above example illustrates both the power and difficulty in applying the Subset Counting technique. The difficulty lies in how to select cells for the counting. However, the power of this technique makes it quite possible to devise other easier to use techniques, with the correctness of these easier techniques "proven immediately from the Extended Subset Principle".
+</p>
+<a name="External_link"></a><h2> External link </h2>
+<ul><li> <a href="http://homepages.cwi.nl/~aeb/games/sudoku/solving12.html" class='external text' title="http://homepages.cwi.nl/~aeb/games/sudoku/solving12.html" rel="nofollow">Subsets</a> (from the <i>Extended Subset Principle</i> section onwards)
+</li></ul>
+
+This page was last modified 10:16, 7 January 2007.
+<!-- end content -->
+&nbsp;<br>
+<hr>
+<div id="footer">
+<div id="f-copyrightico">
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+</div>
+<ul id="f-list">
+<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>
+<li id="about"><a href="About.html" title="Sudopedia:About">About Sudopedia</a></li>
+<li id="disclaimer"><a href="General_disclaimer.html" title="Sudopedia:General disclaimer">Disclaimers</a></li>
+<li id="mirrored">Mirrored from <a href="http://sudopedia.org">sudopedia.org</a></li>
+</ul>
+</div>
+</div>
+
+</body></html>

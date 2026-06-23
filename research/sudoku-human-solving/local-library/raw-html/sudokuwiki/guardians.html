@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Guardians - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy (depreciated). Guardians is a complicated way of looking at what is ultimately a nice loop with off-chain eliminations."/>
+<meta name="twitter:description" content="Sudoku Strategy (depreciated). Guardians is a complicated way of looking at what is ultimately a nice loop with off-chain eliminations.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/Guard1.jpg"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/Guard1.jpg" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Guardians';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Guardians">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Guardians</h1><div class="SRCell">(a.k.a. Broken Wings, Turbot-Fish, Oddagon)<br><div style="color:#f88">As of March 2010 this strategy has been deprecated. It is a complicated way of looking at what is ultimately a nice loop with off-chain eliminations. It has been removed from the solver.</div><br><div style="color:#8f8">As of May 2025 this strategy if being looked at again especially with regards to the more powerful extensions developed in recent years. Diagrams and text have been modernised.</div><br>This strategy works with single numbers. <br>We've already used closed loops of <span class="hy">conjugate pairs</span> to find things like <a href="#XW">X-Wings</a> and <a href="#SF">Swordfish</a>.  X-Wings contains 4 cells in a perfect rectangle.  Swordfish requires 6 or 9 cells in a grid.  This strategy works with odd numbers of pairs in a loop starting with 5.  There are several varieties depending on how 'perfect' the loop is.<br><br>Let us use the words <span class="hy">perfect pair</span> instead of <b>conjugate pair</b> to mean any number that exists only twice in one unit (row, column or box).  This means we can use <span class="hy"><b>imperfect</b></span> to mean a number that occurs three or more times in a unit. (Obviously if it only occurred once it would solve that cell).<br><br>Credits: I want to thank <b>Rod Hagglund</b> for explaining this technique although for Type 1 Single Guardians (this first example) <A href="Simple_Colouring">Simple Colouring</a> might be simpler logic.  Some of the Type 2 and Type 3 Guardians can also be attacked with <A href="Multi_Colouring_Strategy">Multi-Colouring</a> but I've not discovered how with the two examples below.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Guard1.png" alt="Guardian 1" /><figcaption>Guardian 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=138257694009148007742963100076591040904700001021084970005409710297015400413870509">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=008057600000000007040903000070590040900000001020084070000409010200000000003870500">From the Start</a>
+</figcaption></figure>
+In Figure 1 we have highlighted the number <b>3</b>.  Amongst all the candidate threes is a loop of five 3's.  They form four <span class="hy">perfect pairs</span>:<br><span class="hy">E7</span> - <span class="hy">E5</span> - along the row<br><span class="hy">E5</span> - <span class="hy">G5</span> - along the column<br><span class="hy">G5</span> - <span class="hy">G9</span> - along the row<br><span class="hy">G9</span> - <span class="hy">D9</span> - along the column<br><br>To close the loop we have an <span class="hy">imperfect triplet</span> in the sixth box.<br><br>The question is: can a closed loop of five candidate cells be constructed with each cell perfectly-paired with the next linking cells in the loop?  The answer is no.  Such a formation is impossible in a Sudoku puzzle and is called a <span class="hy">Deadly Loop</span>.  In such a loop, if you "placed" a candidate in any one of the cells and followed the consequences around the loop, you'd generate an automatic contradiction - forcing the number to disappear entirely from a row, cell or block, or to appear twice in a single line or block, depending on how you proceed. <br><br><!--(Note: You have to turn off Simple Colouring)--></div>
+
+<div class="SRCell"><br>To repeat, In an actual Sudoku there can never be a closed loop of five perfectly paired cells. And that is exactly where the solving technique lies. Any such structure must have one or more cells that disrupt the perfect pairings.  We can refer to the cells which prevent one of the pairings from being perfect as <span class="hy">guardians</span>. Here's the trick: logically, one or more of the guardians  must contain the candidate number.  If none of the guardian cells were <i>real</i>, then the pairings would all be perfect and, as was already noted, that is flat-out impossible in a valid Sudoku.  Accordingly, we can make the following assertions:<br><ul><li>If there is only one guardian cell, the candidate number can be installed in that cell.</li><li>If there is more than one guardian, any cell that is seen by all the guardian cells cannot contain the candidate number; hence</li><li>If all the guardian cells are in a single column, row or block of the Broken Wing, the candidate can be erased from both the Broken Wing cells in that column, row or block.</li></ul><h2>Type 1 - Single Guardians</h2>The variants of this strategy depend on how many <span class="hy">Imperfect</span> connections there are in the loop.  To achieve one guardian there must be four <span class="hy">perfect pairs</span> and one <span class="hy">Imperfect</span> connection. Figure 1 illustrates this.  That one guardian is the cell that disrupts the 5-loop from being <i>perfect</i>. Under Figure 1 is the X-Cycle equivalent chain found by the solver (there are many possible ones). </div><br>
+
+<h2>Type 2 - Double Guardians</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Guard2.png" alt="Guardian 2" /><figcaption>Guardian 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=103896520020753010090214063010569382200437195030182070002945031350621040001378250">Load Example</a>
+</figcaption></figure>
+In Figure 2 we have highlighted the number <b>7</b>.  Amongst all the candidate 7's is a loop of five 7's.  There are two <span class="hy">imperfect connections</span> in the loop:<br><span class="hy">H3</span> - <span class="hy">H9</span> - along the row<br><span class="hy">H3</span> - <span class="hy">G2</span> - within the box<br><br>This gives us two <span class="hy">guardian</span> 7's in <span class="hy">G1</span> and <span class="hy">H7</span> marked in yellow squares. Whatever cells these two can both 'see' we can eliminate the 7 from them.  Since in this example they form the opposite corners of a rectangle we can safely remove the 7 from <span class="hy">G7</span> marked in red. The other corner, <span class="hy">H1</span>, contains a solved square.<br><br>Solving <span class="hy">G7</span> allows us to complete the puzzle using other strategies.</div>
+
+<h2>Type 3 - Disruptive Guardians</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Guard3.png" alt="Guardian 3" /><figcaption>Guardian 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0l078i05cacb4d037o0882042d9e03060z9w0l038y3he2e34d4a9w044i0136023mcyb603070603087u7u05020109024i03012q5u06041yb6071n5q570l7u1w1u0402093m37030z081y01b61m5q027u071u">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070500030804003600030000000401020003763800521920310064007000000042900308010002070">From the Start</a>
+</figcaption></figure>
+In Figure 3 we have highlighted the number <b>1</b>.  Amongst all the candidate 1's is a loop of five 1's.  There are two <span class="hy">imperfect connections</span> in the loop:<br><span class="hy">B4</span> - <span class="hy">G4</span> - along the column<br><span class="hy">G4</span> - <span class="hy">G7</span> - along the row<br><br>This gives us two <span class="hy">guardian</span> 1's in <span class="hy">C4</span> and <span class="hy">G6</span> marked in yellow squares.  <br>Whatever cells these two can both 'see' we can eliminate the 1 from them. Like in the example above, they form the opposite corners of a rectangle but the difference is that we're eliminating a 1 that's actually part of the loop. This is perfectly legitimate and follows from Rule 3 described above. The elimination occurs because <span class="hy">G4</span> can be seen by both guardians.</div>
+
+<h2>The Bi-Value Oddagon</h2>
+<div class="SRCell">I have been reading the forums trying to catch up on the Oddagon discussion. I came across <a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251454" target="_blank">this thread</a> and example by <b>borescoper</b> (2016) and it seemed an accessible pattern. This is not currently in the released server, but I am accumulating useful patterns here.<br><br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/DoubleOddagon.png" alt="Bi-Value Oddagon example" /><figcaption>Bi-Value Oddagon example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B02060807090503040109130z060u4e02074i2q2u04010o4809064i1u858584078l080304560r03bg1o8t07057o6ia484c01c80017o060r7o06800880057p070z0807841w8k047p03038c8416010706087o">Load Example</a>
+</figcaption></figure>
+<br>Five bi-value cells in a loop will form a <span class="hy">double Oddagon</span> which, without any extra candidates, will be a <span class="hy">Deadly Loop</span> since they cannot all resolve to solutions. The double-Oddagon really stands out against the rest of the board as similar paired cells draw the eye.<br><br>We need three such pairs plus two more cells with one extra candidate. In bonescoper's example <span class="hy">F8</span>, <span class="hy">E9</span> and <span class="hy">J9</span> contain {2,9}.  So do <span class="hy">F3</span> and <span class="hy">J3</span> - but they also have 5. This 5 is <i>necessary</i> in that it must be used to avoid the Deadly Loop - so as it aligns on column 3 we can eliminate others 5s in the column.<br></div>
+
+
+
+
+
+
+	<br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=73&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Guardians" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(73,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17053"><div class="w100pc"><div class="w60pc"><h2>... by: Aleksandra Z</h2></div><div class="w40pc datepost">Wednesday 10-Jan-2024</div></div>
+<div class="w100pc">Despite this idea having been long since removed from the solving, I am reading it now for the first time—along with various others—and am quite amazed at the amount of previous work which a few small colour-chains can replace!<br><br>Even the actual chain examples are often much longer than they need to be, almost always some shorter part of the chain will suffice, and almost always it could avoid using boxes and stay with rows and columns which form little spirals. I imagine the solving insists first on making a chain as big as it can, even if it would feel a bit more like a human solution with smaller sections which are easier to notice!<br><br>The first picture here is quite obvious with the column 7 highlights removed; we have a spiral section which removes 2/3 from Box 6 Row 5 (and indeed Box 5 Row 4, were it needed), placing the 8-digit immediately.<br><br>The second picture is similar; retain only the highlights in columns 2 and 9, and we can see a quite large spiral which removes 7 from Box 7 Row 8 and Box 9 Row 7, making a little more progress than is shown. It allows some quite sneaky alternation in the top-right to get a 6 in Box 6.<br><br>The third picture is far too complicated, and also a quite good example of chains getting larger than needed! Instead, highlight the 1-positions only in rows 2 and 8 to see a spiral which removes 1 from Box 2 Column 6 and from Box 8 Column 4. That leaves a matching 4/6 pair in the latter rod, which solves a 7 further up in Column 4.<br><br>That is not to say that longer chains and box-bridges are never needed, only that just a small spiral piece is sufficient very often!</div>
+<div class="w100pc" id="blog-reply17053"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(73,17053,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 88306<br>
+			This page was last modified on 25-May-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10259f72aa320f9',t:'MTc4MjIwNTc0MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

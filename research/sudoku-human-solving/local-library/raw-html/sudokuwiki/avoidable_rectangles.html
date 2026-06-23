@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Avoidable Rectangles - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Avoidable Rectangles is a strategy which, uniquely among all strategies, relies on clues and solved cells rather than potential candidates."/>
+<meta name="twitter:description" content="Sudoku Strategy. Avoidable Rectangles is a strategy which, uniquely among all strategies, relies on clues and solved cells rather than potential candidates.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/AVR1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/AVR1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Avoidable_Rectangles';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Avoidable_Rectangles">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Avoidable Rectangles</h1><div class="SRCell">Avoidable Rectangles are a most unusual strategy - and, to this author's knowledge, the only one that makes use of solved cells. We are used to the idea that a solution kills all the other numbers of the same value along the row, column and box, meaning that all information about that cell has been used up. Apparently, this is not so.
+
+</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AVR1.png" alt="Avoidable Rectangle" /><figcaption>Avoidable Rectangle
+</figcaption></figure>
+<br>To appreciate this strategy, we have to put ourselves in the shoes of the puzzle creator, not the puzzle solver.<br><br>Consider the solution in diagram to the right. We have four cells that are shaded. To create a Sudoku puzzle, some removal process has to take place  - some method of taking out numbers so that they can be filled in again by a puzzle solver. The crucial constraint is that the puzzle must have a unique solution. If the puzzle maker removed all four shaded cells, then there would be at least two solutions, since the 1 and the 2 are interchangeable in this situation.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AVR2.png" alt="Avoidable Rectangle" /><figcaption>Avoidable Rectangle
+</figcaption></figure>
+Notice that we are talking about a rectangle that crosses exactly two boxes. This is the same deadly pattern formation we’ve discussed in <a href="/Unique_Rectangles">Unique Rectangles</a>. If our four cells are in four boxes, the puzzle maker can remove all numbers, since they are not interchangeable. To the puzzle maker, the four shaded cells above are an “<span class="hy">unavoidable set</span>”: he or she can’t avoid leaving one or more of these numbers as a clue.<br></div>
+
+<div class="SRCell"><br>There are millions of possible puzzles derivable from a completed Sudoku board. The top third of the puzzle above is just one example. Notice, however, that at least one of the four cells (C5) from our example is a clue - which avoids creating a double solution.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/AVR3.png" alt="Avoidable rectangle" /><figcaption>Avoidable rectangle
+</figcaption></figure>
+The next picture shows the state of play (in the top third of a puzzle) near the end. From the point of view of the puzzle solver aware of “unavoidable sets”, we can spot a very interesting rectangle in <span class="hy">B4</span>, <span class="hy">C4</span>, <span class="hy">B7</span> and <span class="hy">C7</span>. It seems that we’ve found an interchangeable pair of 5s and 8s.</div>
+
+<div class="SRCell">Work on the puzzle so far has fixed 5 in C4 and B7 and 8 in C7, but the final corner has two options ‑ an 8 or a 9. If B4 really were an 8, then we’d have the same situation as in the case of the 1 and 2 where the puzzle maker was forced to leave a clue. Since our newly identified rectangle does not contain a clue in the corners, we can’t have an interchangeable pair here. The 8 is not a valid solution, so we can remove it and place a 9 in B4.<br><br>So the rule of Avoidable Rectangles is:<br><br><b>We can remove a candidate that forms a potential interchangeable pair with three other cells spread over two boxes where the three other cells are solved cells (not clues).</b><br><br><span style="color:#cfc">Update March 2026</span>: This strategy does now exist in the solver since the user can distinguish between clues and solved cells. If you turn off 3D Medusa this Avoidable Rectangle <a href="/Sudoku.aspx?bd=S9B1u2b040i2q021v03084i2b02066e2e17170903095e044i0a071w10900301082c9e1u1w04901g3m130d7q4j5h2t04446a0z0l0603092t444c090n0n054a0706011m1i0g0i08021612070546020f0d09430n">example now shows up</a>. (credit for finding: <i>Frisbee</i>) <br></div><br>
+
+<h2>Higher Order Avoidable Rectangles</h2>
+<div class="SRCell">The Deadly Pattern of four cells in exactly two rows, two columns and two boxes can be extended to three rows, three columns and three boxes. This applies to both <a href="/Unique_Rectangles">Unique Rectangle</a> and <b>Avoidable Rectangles</b>.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/TDP.png" alt="Triple Deadly Pattern" /><figcaption>Triple Deadly Pattern
+</figcaption></figure>
+<br>Consider this set of numbers here. {1,4,8} are solutions in a finished puzzle - the rest of the numbers have been removed. From the point of view of an Avoidable Rectangle the puzzle maker must make at least two of these numbers clues - and two different numbers at that. I've shown in green two example cells that will ensure there is a single solution. If none of these nine cells were clues then the puzzle solver would fine {1,4,8} in all those places and any combination would give a solution. So the puzzle maker is forced to insert <i>at least</i> two clues.</div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Hidden_Unique_Rectangles">Hidden Unique Rectangles</a></td><td class="w50pc cright">Continue to <a href="BUG">BUG</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=109&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Avoidable_Rectangles" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(109,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17044"><div class="w100pc"><div class="w60pc"><h2>... by: Charles Cochems</h2></div><div class="w40pc datepost">Monday 1-Jan-2024</div></div>
+<div class="w100pc">This strategy is essentially using a unique rectangle type 1 after it's already been destroyed.<br><br>Solving the three cells eliminated one of the two candidates, but that doesn't stop you from eliminating the other one!<br><br>And that's the takeaway. You can still use an already destroyed unique rectangle, even if other deductions destroyed it before you spotted it.<br><br>This probably works for other unique rectangle types as well, but this is the one that's easiest to spot. :)  </div>
+<div class="w100pc" id="blog-reply17044"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,17044,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16990"><div class="w100pc"><div class="w60pc"><h2>... by: Luc Lion</h2></div><div class="w40pc datepost">Sunday 20-Aug-2023</div></div>
+<div class="w100pc">I disagree with your statement that "This strategy does not exist in the solver because it relies on knowledge of what the original clues were".<br><br>In your example with 5s and 8s in B4, C4, B7 and C7, it does NOT matter which value was a clue (or a given) and which value has been deduced. If you place a 8 in B4, you create a pattern that opens the door to a duplicate solution. The solutions with {B4, C4, B7, C7} = {8, 5, 5, 8} is fully interchangeable with {B4, C4, B7, C7} = {5, 8, 8, 5}<br><br>This is because all logical deductions that are made for solving a sudoku puzzle are based on the exclusion rule within a house (no value can appear twice in a house) which leads to strong links and weak links between value candidates (or between candidates and a naked candidate or solved cell, if we look at the grid before completing all direct eliminations). These logical "links" generate a mathematical "equivalence relation" between value candidates; it can be worded as "has a logical link with". This relation is reflexive, symmetric and transitive and thus it creates equivalence classes between all value candidates or maked candidates (solved cells).<br><br>These classes are logically separated and this means that the global solution will be unique if all classes have a unique solution. If, for instance, class A has 2 solutions, class B has 3 solutions and class C has 2 solutions, the global grid will have 12 solutions. And is any class has zero solution, the global grid has no solution either.<br><br>The properties of equivalence classes is implcitly used in the strategies; "Bi-value grave" (1 class is the solved cells, and 1 class is the bi-value cells plus the potential bi-value cell), "Avoidable rectangle" (the 4 cells of the rectangle compose a class), and the "Unique rectangles" (the 4 cells form a separate class when the conditions for forming a "deadly <br>pattern" are fulfilled. <br>In all these 3 strategies, the logic combines:1. the recognition of the equivalence class, or its potential creation, 2. the recognition that, if the class is created, it generates 2 solutions (within the class), 3. the condition that prevent the creation of the class are thus considered true.<br>That logic could also be used in the case where the class holds zero internal solution. However, in all practical cases I have studied, the prevention of the zero solution condition was internal to the class and, thus, there was no need to identify the condition for generating the class or preventing its generation.<br><br>Let's come back to the example with B4, C4, B7 and C7 associated with values 5s and 8s as drawn above. If B4 is an 8, the 4 cells are an isolated subset (to the point of view of exclusion rules or "link"). That is, all the solved cells or value candidates with which any of the 4 cells has a strong link or a weak link are another one of the 4 cell values. The impact on other candidates in the 2 boxes or in the 2 lines and 2 columns that are concerned is exactly the same for one or another solution.<br><br>And this is independant on whether the cells have been valued as a given or from other logical deductions. The key is: if B4 receiving value 8 is a solution, then  {B4, C4, B7, C7} = {5, 8, 8, 5} is also a solution. Thus B4 must NOT receive 8.<br><br>And, by the way, the strategy behind "Avoidable rectangle" can be extended to other patterns than rectangle provided that all value candidates within these cells for an equivalence class through the relation "has a strong or weak link with". Then is these cells form a deadly pattern like being all but one bi-value cells, then the equivalence class must be broken.<br><br>I hope that I have not been too long or too confused.<br>Best regards,<br>Luc Lion<br></div>
+<div class="w100pc" id="blog-reply16990"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Luc. Sorry you couldn't publish your interesting analysis immediately, there was an issue with mailing the confirmation email. However I like what you say and will comment further.</div><div class="post-reply" id="reply2933"><table class="w100pc"><tr><td class="post-writes">Davin replies:</td><td class="datepost">Friday 11-Jul-2025</td></tr>
+<tr><td colspan="2">I did not understand some of what you were trying to say, but this seems to be an overcomplicated POV of the situation.<br>The distinction between solved cells and given digits DOES matter. A given digit in the pattern stops you from swapping around numbers and creating an extra solution. (that is the point of the given digit, its value cannot be changed.)</td></tr>
+</table></div>
+</div><div id="blog-reply2933" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,16990,2933)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16512"><div class="w100pc"><div class="w60pc"><h2>... by: Stephen Lucerne</h2></div><div class="w40pc datepost">Monday 28-Oct-2019</div></div>
+<div class="w100pc">This is highly underrated. I found this to be one of the quickest and most used strategies on cracking expert puzzles. It's extremely intuitive and easy to spot, and will come in handy in every puzzle you encounter unlike most expert strategies. I would suggest this as a need to know for beginners even.</div>
+<div class="w100pc" id="blog-reply16512"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,16512,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16171"><div class="w100pc"><div class="w60pc"><h2>... by: John</h2></div><div class="w40pc datepost">Wednesday 27-Apr-2016</div></div>
+<div class="w100pc">Love your site, I'm just wondering if you've done any statistics on this strategy. I've been looking for it in puzzles (I really want to find one!), but I often notice that in cases where it would've been used other unique rectangle strategies have already eliminated the candidate. I assume it's fairly rare to actually get an elimination this way. </div>
+<div class="w100pc" id="blog-reply16171"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I think you might have missed the last paragraph of the article (which I've just reworded to be clearer)<br><br>My offline solver which does keep track of clues (since they are inputs) does include this strategy. A recent run on Ruud's top 50,000 set - my favourite test set - finds 22 instances. Could be more since its dependent on the order, but I include it just after Jelly-Fish and before the other UR strategies</div></div><div id="blog-reply2536" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,16171,2536)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15860"><div class="w100pc"><div class="w60pc"><h2>... by: Tom</h2></div><div class="w40pc datepost">Thursday 14-Nov-2013</div></div>
+<div class="w100pc">I think it's crucial to add that the UR can be used when there are exactly two candidates in the cell in question. It never worked for me when I had 3 candidates there..</div>
+<div class="w100pc" id="blog-reply15860"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Not true. Here is <a href="sudoku.htm?bd=6..5.......4...2..5.9.3...6...2...7..8..5..3..1...6...9...6.3.1..7...9.......4..5">a counter example</a>.  Take step to the point where an APE occurs and go [back]. At that point "cells AC26 allow 7 to be taken off A6". Obviously with 3+ candidates we can only remove one candidate, so it is less useful than a bi-value cell elimination.</div></div><div id="blog-reply2450" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,15860,2450)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15624"><div class="w100pc"><div class="w60pc"><h2>... by: Duncan</h2></div><div class="w40pc datepost">Friday 4-May-2012</div></div>
+<div class="w100pc">Good and detailed explanation. I use this "impossible ambiguity" strategy in killer and in kakuro as well where it is equally valid.<br><br>One thing to look out for as well is when the ambiguity extends over three vertical pairs of cells in a horizontal line (or vice versa), which I have seen a couple of times.</div>
+<div class="w100pc" id="blog-reply15624"></div>
+<div class="post-reply" id="reply2934"><table class="w100pc"><tr><td class="post-writes">Davin replies:</td><td class="datepost">Friday 11-Jul-2025</td></tr>
+<tr><td colspan="2">Be wary of applying this to Killer; swapping numbers around may invalidate the cage constraint. You can use it only if the 4 cells are spread over 2 cages.</td></tr>
+</table></div>
+</div><div id="blog-reply2934" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,15624,2934)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15551"><div class="w100pc"><div class="w60pc"><h2>... by: Eric</h2></div><div class="w40pc datepost">Sunday 11-Dec-2011</div></div>
+<div class="w100pc">Nice strategy if you are out of options, but there must be another way to solve the puzzle. There MUST be another way to remove a candidate, otherwise multiple solutions are possible.</div>
+<div class="w100pc" id="blog-reply15551"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Indeed, but that is because I dont possess all logical strategies although I do try and incorporate new ideas as soon as possible. Lack of a logical solution does not imply multiple solutions, however. But a multi-solution puzzle definitely can't be solved logically. </div></div><div id="blog-reply2342" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,15551,2342)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15475"><div class="w100pc"><div class="w60pc"><h2>... by: Quescaisje</h2></div><div class="w40pc datepost">Saturday 19-Mar-2011</div></div>
+<div class="w100pc">This elegant tactic finds good use in AI Escargot, viz. the rectangle formed by E2/3, H2/3. <br><br>bill</div>
+<div class="w100pc" id="blog-reply15475"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,15475,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15361"><div class="w100pc"><div class="w60pc"><h2>... by: CS Vidyasagar</h2></div><div class="w40pc datepost">Wednesday 3-Mar-2010</div></div>
+<div class="w100pc">Excellent exposition. One does come across such situations and this weapon will enhance our fire power in demolishing Sudoku puzzles. If one reads your excellent explanations of DEADLY RECTANGLES, then this article becomes crystal clear.<br>I shall try and locate such Avoidable Rectangles and send them to you. <br>thanks and regards,<br>Vidyasagar</div>
+<div class="w100pc" id="blog-reply15361"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,15361,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15321"><div class="w100pc"><div class="w60pc"><h2>... by: Leo Salmonsson</h2></div><div class="w40pc datepost">Wednesday 20-Jan-2010</div></div>
+<div class="w100pc">Really good explenation. I liked it a lot.<br>Easy to follow and easy to understand. Ill be back to this site for more.<br><br>Thanks a lot!</div>
+<div class="w100pc" id="blog-reply15321"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,15321,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15307"><div class="w100pc"><div class="w60pc"><h2>... by: paolo</h2></div><div class="w40pc datepost">Saturday 12-Dec-2009</div></div>
+<div class="w100pc">can't get your example, but maybe I'm missing something.<br>In the last example IF YOU PUT 5 in B7-C4 and 8 in C7 this means that you had some reason to put that numbers there. In other words that 5s and 8 cannt be swapped. Otherwise they should not have been placed. So it is arbitrary to deduce from them the impossibility of having an 8 in B4.<br>I mean that (IMHO of course) you won't ever arrive in that position (last example) because you should have applied the UNIQUE RECTANGLE tecnique before, in case.<br>Hope my explanation is understandable.....<br><br>paolo</div>
+<div class="w100pc" id="blog-reply15307"></div>
+<div class="post-reply" id="reply2740"><table class="w100pc"><tr><td class="post-writes">Yossarian replies:</td><td class="datepost">Tuesday 26-Jul-2011</td></tr>
+<tr><td colspan="2">@ Paolo and Malikov:<br><br>Your argumentation is right. You should consider the following argument instead: <br>Imagine at the end you have a solution containing the 8 in that cell. Then you can find a second solution swapping those 4 cells, which is also a solution to the given sudoku. <br>This is impossible as we know there is only one solution to the given sudoku. <br>So the 8 cannot go in that cell.<br><br>Hope this helps understanding, <br>philipp<br></td></tr>
+</table></div>
+</div><div id="blog-reply2740" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,15307,2740)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15274"><div class="w100pc"><div class="w60pc"><h2>... by: Pritt Galford</h2></div><div class="w40pc datepost">Thursday 17-Sep-2009</div></div>
+<div class="w100pc">Regarding your webpage about Avoidable Rectangles, I have a problem understanding your explanation.  I think perhaps the problem arises not with your logic, but with the example instead.<br><br>Look at filled-in cells A3 & A9, and C3 & C9.  They are an interrelated pair, thus allowing two solutions to the puzzle which is a no, no.  There are others of the same problem in the example.<br><br>Also see the top 1/3rd of the puzzle of your last example on the same webpage.  It has cell A5 with candidates 8 & 9 but nine is already filled in at J5.<br><br>Bottom line: I think your Avoidable Rectangle logic is correct and sound, but I'm finding there sure are a lot, in fact it's rather a common occurrence, especially in difficult Sudokus, to find multiple solutions which are violations of the unique solution rule.  Your thoughts, please.</div>
+<div class="w100pc" id="blog-reply15274"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>A3 & A9, and C3 & C9 are not four cells in two boxes. Avoidable Rectangles only apply if all four cells are in exactly two boxes. You will find that A3 & A9, and C3 & C9 are fixed by other numbers elsewhere and are not swappable.</div></div><div id="blog-reply2283" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(109,15274,2283)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15249"><div class="w100pc"><div class="w60pc"><h2>... by: Malikov</h2></div><div class="w40pc datepost">Tuesday 7-Jul-2009</div></div>
+<div class="w100pc">I agree with the above comments, this being a great site and all, but don't start charging admission. You'll find that 99% of people do Sudoku for fun, and won't be willing to pay when there are hundreds of free sites they can access.</div>
+<div class="w100pc" id="blog-reply15249"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,15249,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15227"><div class="w100pc"><div class="w60pc"><h2>... by: Ken Stephens</h2></div><div class="w40pc datepost">Friday 22-May-2009</div></div>
+<div class="w100pc">I understand the logic based on the information given, that "the three other cells are solved cells (not clues)".  However I do not understand how they CAN be solved cells if they would have been interchangeable but for the contents of the fourth cell.  <br><br>Thanks for a great site which explains things so clearly and on just the right level.</div>
+<div class="w100pc" id="blog-reply15227"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,15227,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15217"><div class="w100pc"><div class="w60pc"><h2>... by: Gary Maness</h2></div><div class="w40pc datepost">Sunday 26-Apr-2009</div></div>
+<div class="w100pc">I have a question on this one.  I recently used my own variation on this idea that involved 2 pairs that didn't quite form a rectangle.  In fact two cells could see the forth but the third could only be seen by one of the others that I had solved.  But using the same logic I thought that since there were no clues on any of those cells, if the target number, 8 were possible then there would be two solutions.  <br><br>Do you have Sudoku Dragon?  I can send you the partially solved puzzle.  i am interested to know if this forms a rule or did I just get lucky!  I mean, in your example, the two end cells, the 5's could see the forht cell and the first cell, the 8.  In mine the end cells could the target, but only one could see the first cell.<br><br>I hope this makes sense.  BTW, I LOVE this site.  I have learned so much about the game.  You should consider charging admission!  I do plan on buying the Index.Dat program and the book when I can though.<br><br>Thanks a bunch.</div>
+<div class="w100pc" id="blog-reply15217"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(109,15217,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 13-April-2008. Views: 241518<br>
+			This page was last modified on 1-March-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a102690d2f4cf92c',t:'MTc4MjIwNjM1OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

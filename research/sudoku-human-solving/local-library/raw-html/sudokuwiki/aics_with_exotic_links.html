@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>AICs with Exotic Links - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Using more exotic links to make Alternating Inference Chains"/>
+<meta name="twitter:description" content="Using more exotic links to make Alternating Inference Chains">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/XWLink1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/XWLink1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'AICs_with_Exotic_Links';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_AICs_with_Exotic_Links">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>AICs with Exotic Links</h1><div class="SRCell">We have seen with <a href="/AIC_with_ALSs">ALSs</a> and <a href="/Using_Unique_Rectangles_as_Links_in_Chains">Unique Rectangles</a> that it is possible to use some tricks to increase the availability of links to make chains. Going beyond simple alternating single digits is very useful for all chaining strategies. This particular one was inspired by an example puzzle sent in by Lane Walker in the USA. It actually had 45 solutions but an interesting <a href="/Cell_Forcing_Chains">Cell Forcing Chain</a> nevertheless. </div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XWLink1.png" alt="The Pattern" /><figcaption>The Pattern
+</figcaption></figure>
+<br>In this pattern the chain has reached (or started at) <span class="hy">G6</span> on number 6 and the 6 is <span class="hg">ON</span>. Up column 6 are two more 6s which are turned <span class="hr">OFF</span> by <span class="hy">G6</span>.  Under normal circumstances we could chain <span class="hc">+6[G6] -6[B6] +6[B4] -6[D4]</span> and that would be the end of it.  The chain misses <span class="hy">D6</span> even though we know that <span class="hy">D6</span> must be <span class="hr">OFF</span> as well. Because we know that <span class="hy">D1</span> is forced <span class="hg">ON</span> and the chain can continue.<br><br>My correspondent was quite correct to follow this logic but there is a branching here impossible to capture in the very linear way Alternating Inference Chains are built. AIC's can't do two <span class="hr">OFF</span>s to make a link. </div>
+
+<div class="SRCell">The pattern considers four candidates N in a specific relationship to the input and output. The four candidates must be spread across two boxes and be in a different box from the input. If they were less separated they would be toggled en mass an you wouldn't need to employ this pattern. Also, two candidates N need to 'see' a third for an exit (output) and the other two need be a strong link, that is, <span class="hy">B4</span> and <span class="hy">B6</span> are the only two 6s in row B. <br><br>When and if I can fully implement Forcing Nets I think this sort of mini-loop or temporary branch will naturally come out in the wash, this sort of link probably being the simplest possible way a 'net' like pattern works, as opposed to the linear AIC. So it is easy to imagine extending this further to include more candidates and bigger patterns. For now the pattern is in the solver and some examples are now provided. In Ruud's top 50k stock I found 169 examples, so decent enough.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XWLink2b.png" alt="Example 1" /><figcaption>Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1p03092i053e0t1h0805564a011q020u09071p1p0709081q1d21153h1p0t2o092n081515d1b945062f050p0p04030t054c0r43060709454l035u2b091104067vbv064e024f074n134d074d051r5b09490p">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=039000008500102000007080000000090800000605004300000670003009040006020700070500900">From the Start</a>
+</figcaption></figure>
+<br>In example 1 an AIC is discovered on <span class="hy">J3</span> using 8. Assuming it to be 8 we show by the chain that it cannot be so - therefore 8 can be removed.<br><span class="hc"><br>+8[J3] -8(XW[-E3/-B3+B2-E2]) +8[E1]-7[E1]+7[E5]-7[G5] +7[G4]-8[G4]+8[G1|G2]-8[J3]<br></span><br>The example is orientated the same way as the pattern above. The input <span class="hy">J3</span> picks up the four cells in <span class="hy">BE23</span> and because of the number of 8s elsewhere in rows B and E, forces <span class="hy">E1</span> to be <span class="hg">ON</span> for number 8. The chain continues back to <span class="hy">J3</span>.<br><br>I wondered what to call this pattern but I am a bit stumped. However I need a code in the results to draw the pattern correctly on the solver so I chose XW for X-Wing since this is a four cell formation, but it isn't quite the same. Any suggestions, happy to hear them.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/XWLink3b.png" alt="Example 2" /><figcaption>Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B06092e1713082m022u484a0107201c8uc6860562601m090w016u2e095v054z6t2d3a042f63026q036r9naa059f2j0336172ra302aa085z5v04b75z06059i022f069i022v2v089i046005d4b6042e9i0106">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=690008020001700000500090100905000040020300050030000208004006002000200800050040016">From the Start</a>
+</figcaption></figure>
+<br>Example 2 is more spread out. It starts on <span class="hy">F6</span> with 5 being <span class="hg">ON</span>. This goes straight into the pattern with the four cells <span class="hy">BH56</span> and spitting out an <span class="hg">+5</span> on <span class="hy">B9</span><br><span class="hc"><br>+5[F6] <br>-5(XW[-B6/-H6+H5-B5]) +5[B9] <br>-9[B9]+9[E9]-9[F8] +9[F6]-5[F6]<br>- Contradiction: When F6 is set to 5 the chain implies it cannot be 5 - it can be removed<br></span><br>You can see there are only three 5s in row B and two (the strong link) in row H.</div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Using_Unique_Rectangles_as_Links_in_Chains">URs in AICs</a></td><td class="w50pc cright">Continue to <a href="Digit_Forcing_Chains">Digit Forcing Chains</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=203&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="AICs_with_Exotic_Links" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(203,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17051"><div class="w100pc"><div class="w60pc"><h2>... by: Hanson</h2></div><div class="w40pc datepost">Friday 5-Jan-2024</div></div>
+<div class="w100pc">I think you're right to call this formation an X-wing, since it is essentially a group that is considered on if and only if two of its cells are on (making the X-wing true). Then, the group could be weakly linked to all other candidates its rows and columns. This can also be extended to larger 3-row groups like swordfishes, where 3 cells of the group must be on.<br><br>Also, I noticed this can theoretically work in a finned X-wing formation like in this position I made up: https://www.sudokuwiki.org/sudoku.htm?bd=134506908000000000000000000305607000000004000081000700000000006000000000000000000<br>The cells on AD58 including D7 and D9 can be used in a chain to remove the 2 on F8,  since the six cell region can be considered weakly linked to the 2 on F8. The solver only catches the elimination if 2 is manually removed from D7 and D9.<br>I'm not sure how common this extension is, though. But overall, pretty interesting strategy.</div>
+<div class="w100pc" id="blog-reply17051"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Good ideas there Hanson</div></div><div id="blog-reply2798" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(203,17051,2798)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16733"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Thursday 2-Dec-2021</div></div>
+<div class="w100pc">Hey Robert<br><br>I <b>think</b> you are quite correct, you don't need them to line up in a rectangle. I also think that you don't necessarily need an X-Wing to make the link, any AIC or even fish would suffice.<br><br>Now we've come to the point where we form links in an AIC using an AIC itself. Good lord.</div>
+<div class="w100pc" id="blog-reply16733"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><img src="puzimages/laugh.png" style="width:32px" alt="LOL"/></div></div><div id="blog-reply2637" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(203,16733,2637)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16686"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 13-Jul-2021</div></div>
+<div class="w100pc">It seems to me it is not necessary that the four cells line up in a perfect rectangle.<br><br>In the first example, suppose the "6" in B4 were in A4 instead.  It would still work, as long as A4 and B6 were the only "6" values in that box.<br><br>I've got my own solver running a far more general version of this - essentially, follow all the implications of choosing one candidate to be "on" or "off" (not just those along a particular chain), and when all but one candidate in a unit is "off", then the remaining one must be "on".  (Also, if the only candidates in a unit that are not "off" by implication are in a group, then the group must be "on".)  This solves some of the unsolveables.  I need to get the output from this strategy into a readable form though, right now it's a total mess.<br></div>
+<div class="w100pc" id="blog-reply16686"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(203,16686,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16672"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Thursday 17-Jun-2021</div></div>
+<div class="w100pc">I feel like these are very similar to Finned X-Wings in the sense that either the fin is true, or the X-Wing is true, which still allows you to eliminate candidates which are eliminated when either the fin or the X-wing is true.<br><br>For example in the first diagram, D1 is the fin and BD46 is the X-wing, which can be interpreted as a strong link.<br><br>This also means that Finned X-Wings are a subset of this strategy.</div>
+<div class="w100pc" id="blog-reply16672"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(203,16672,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16656"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Thursday 4-Feb-2021</div></div>
+<div class="w100pc">The true 6 in G6 implies a true 6 in D1<br>By contrapositive, a false 6 in G6 implies a false 6 in D1.<br><br>Which means if the 6 in G6 is false, then an X-wing is formed at cells BD46, which makes the 6 in G6 false.<br><br>So you could consider this an AIC with an "almost X-wing" / "finned X-wing".<br></div>
+<div class="w100pc" id="blog-reply16656"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(203,16656,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 29-April-2020. Views: 16446<br>
+			This page was last modified on 29-April-2020.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a102683da8bafd30',t:'MTc4MjIwNjMyNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Tridagons - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="The Tridagon or Thor's Hammer is a Sudoku strategy discovered by Denis Berthier"/>
+<meta name="twitter:description" content="The Tridagon or Thor's Hammer is a Sudoku strategy discovered by Denis Berthier">
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Tridagons';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Tridagons">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Tridagons</h1><div class="SRCell">The Tridagon (a.k.a."<b>Thor's Hammer</b>") is a pattern <a href="hhttp://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318373">first described by Denis Berthier</a> and much developed on New Sudoku Player's Forum between 2022 and 2025. I have been reluctant at first to include it as it seemed contrived - relying on a spread of candidates that are very unlikely to appear in randomly created puzzles, let alone published ones. But people have generated long lists of puzzles where Tridagon is necessary and as this site is (partially) devoted to exploring the very hardest puzzles, I rolled up my sleeves and got stuck in. I am going to follow the outline given on <a href="http://www.philsfolly.net.au/Sudoku/tridagon_help.htm">Phil's Folly</a> as it compresses the pattern down to it's essence and by-passes a lot of speculative development.<br><br>While it has a distinctive pattern it is a difficult strategy to prove logically. I've found Ryokousha's Cyclical Parity theory the most convincing (good links to further reading <a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318373" target="_blank">on the forum</a>) and <a href="https://www.youtube.com/watch?v=V7RC1hJ8vZ8" target="_blank">Rangsk's video</a> on this very watchable. <br></div><br>
+
+<h2>Cyclical Parity</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Trigagon3.png" alt="" /></figure>
+This pattern is interested in boxes with triples that span all three columns and rows in a box. There are six ways to do this. Three of these ways are said to be "<span class="hy">rising</span>" (the orange cells) since looking at them from left to right the cells migrate up and to the right as you read them. This is to do with their relative adjacency not their numbers, although we need the numbers to show which are which and show they fit without conflict. The yellow cells are "<span class="hy">falling</span>". <br><br>All six patterns are either rising or falling so we can think of their "parity". If rising they go 1 to 2 and 2 to 3 and 3 to 1 since it is "cyclical". Hence the theory talks of these boxes having "cyclical parity".<br><br>Next, for every set of three numbers we are interested in how to fill each <b>stack</b> (three vertical boxes) and <b>band</b> (three horizonal boxes). It is a property of Sudoku that<ul><li>All <b>rising</b> patterns have a <u>different</u> parity for the band and the stack</li><li>All <b>falling</b> patterns have the <u>same</u> parity for the band and the stack</li></ul></div>
+
+<div class="SRCell">
+<figure style="width:575px"><img src="PuzImages/Trigagon4.png" alt="" /></figure>
+</div>
+
+<div class="SRCell">So how is this useful? If you have a rising pattern in box 4 (doesn't matter which, so drawing it in a line) and you have a rising pattern in box 1 – the diagonal – we are forced to consider a falling pattern for box 2. Which I've coloured in yellow. If we try another rising pattern there is no way to fit {1,2,3} into box 1 that doesn't cause a conflict.</div><br>
+
+<div class="SRCell">
+<figure style="width:350px"><img src="PuzImages/Trigagon5.png" alt="" /></figure>
+It turns out that if you have four boxes in a square (or rectangle) that all possess three cells with the same triple in them - and three of the patterns are rising and one is falling, or three are falling and one is rising - then this situation blocks any solution to the whole puzzle.<br><br>To save the puzzle from having zero solutions some additional candidates are required to be present on one of the cells in the pattern. If there is one cell with any number of additional candidates that cell can have the triple removed from it. These extra candidates are called <span class="hy">Guardians</span>.<br><br>The pattern that stood out when first identified looked a little like "Thor's Hammer" so that is another name of this strategy.<br><br></div>
+
+<h2>Examples</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Trigagon6.png" alt="Example 1" /><figcaption>Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0102cycy03040eb60f05cy0302b6069nbfd7cy06040105cy9g0cb8cy0102cy040c0605cy04cy0506b60103b8d00603b6de02de9nbfd7bcbmb70407bo7p06899ga2ab031f84087x8dbcbuc3bm1fbo7x078h">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000001000000234000005060000070000007208096029560008096052000208607000750980000">From the Start</a>
+</figcaption></figure>
+Here is the first and classic example from Phil's Folly docs. I am breaking my rule about finding my own examples. I don't believe I can do that in a reasonable amount of time so I will pinch all the examples and <a href="http://www.philsfolly.net.au/Sudoku/tridagon_help.htm" target="_blank">provide a link</a> instead.<br><br>There is a single 5 guardian in <span class="hy">F6</span> which must be the solution to this cell.<br><br>It is not a difficult pattern to spot so the solver tries at the start of the 'diabolicals'. But I've bundled it under "<a href="/Static_Patterns">various static patterns</a>' as I don't think it will be discovered much outside the test lists.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Trigagon8.png" alt="Example 2" /><figcaption>Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B09080711111z150d1x06050d5xd147d5bb5x0b0n0n04de5edebm76070i4j034j0d06024j04024j4j060i4j07030n064n2c2c4j044j094n070f4j0d02brbr4j4n0n02094j074n0f044j0d0i06034j2c4j2c">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=987000000650000000000400000700300620420060073060000409070002000002907004000630000">From the Start</a>
+</figcaption></figure>
+<br>Just to emphasis that the patterns within each box can be any of the three suitable for the parity. Not just straight diagonals.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Trigagon7.png" alt="Example 3" /><figcaption>Example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B8uee1y1ud69ecy01028kec5g1ucy01039e047ucy01d602030506cy8kc450cy0104cy05030e01070306b60402b67q044602cy05019e06011k1sd6d6d08k0u05071w247v037o8k087n080o090r05062c0u2b">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000012000001304001023560000014053017360420040205106100000005700030080809056000">From the Start</a>
+</figcaption></figure>
+<br>It is important to appreciate the the triples are similar to Naked and Hidden Triples. In that it matters there are three numbers IN TOTAL across three cells, not that there are the same three numbers IN EACH cell. So while most examples will be {123} + {123} + {123} it could be as sparse as {12} + {13} + {23}. <br><br>Here is an example: 4 found to be the solution in <span class="hy">C4</span>.</div>
+
+<h2>More than one Guardian</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Trigagon9.png" alt="Pointing Pair Guardians" /><figcaption>Pointing Pair Guardians
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0102034q4q5m074y09228a220g438i0203436qb66q020n8m1f04050b0c4q4q0701bubm064q010906024u4q074e364q36094u4u4r4l4h0c4q014q092c5m5g644q070203064qbvbn4b09064q0a4q2c034k64">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=123000709000000230000200045000071006019620070000900000001090000072360000960000300">From the Start</a>
+</figcaption></figure>
+A single extra candidate among the twelve cells in the pattern gives us a positive and useful action. But what can we do if more than one cell has a guardian? If they are two numbers A and B then at least one of A or B must be true, perhaps both. However that is insufficient to lead to an elimination. <br><br>Phil on Phil's Folly encourages us to think of A and B as a new link and try to use it in a chain such as an AIC. That is a tough programming challenge.<br><br>But if A and B are the same number and can see each other they become a Pointing Pair. We can remove other candidates in the same box, and along the row and column if the pair are suitably aligned. However the number of useful instances of this are very low. Running through a one Tridagon test file where I found 15,500 useful Tridagons in 33,600 puzzles, I extracted just 22 Pointing Pair eliminations. This is one example.<br><br></div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Unique_Rectangles">Unique Rectangles</a></td><td class="w50pc cright">Continue to <a href="Fireworks">Fireworks</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=249&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Tridagons" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(249,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17413"><div class="w100pc"><div class="w60pc"><h2>... by: tebo</h2></div><div class="w40pc datepost">Sunday 5-Apr-2026</div></div>
+<div class="w100pc">The Example 1 "From the Start" Puzzle does not match the illustration.  Also, the Puzzle illustrated does not match Phil's Puzzle (His has a 9 at R8C9).</div>
+<div class="w100pc" id="blog-reply17413"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Okay it is the first in the list after the words "THs where one or more...". As it is not a minimal puzzle I'm not worried about the missing 9. Although I wouldn't have deleted it myself, I think that version must be somewhere.</div></div><div id="blog-reply3070" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(249,17413,3070)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17324"><div class="w100pc"><div class="w60pc"><h2>... by: TenPeter</h2></div><div class="w40pc datepost">Friday 21-Nov-2025</div></div>
+<div class="w100pc">The cyclical parity argument is too restrictive for the definition of Tridagon pattern.  A more complete proof using r(T&E)3 is given by Denis Berthier in " Hierarchical Classifications in Constraint Satisfaction (Second Edition), Chapter 5, 2024, available from Prof. Berthier's Git Hub webpage.  There are also a number of databases of puzzles with very high SER > 11 ratings with occurrence of Tridagon patterns, both Non-Degenerate (most of the examples on the page above) and Degenerate (example 3 above).<br><br>An example where the cyclical parity proof is problematic is puzzle Type 3 #10  from Phil's Folly website.<br>740058900908607500065940700087005000609800000450090000806000400000000003000080601<br>This puzzle has 2 overlapping Tridagon patterns each with three guardians.  One of the Tridagon pattern has a rising triple and the other has a falling triplet.  They are in the same block and both patterns have to be "broken" to solve the puzzle.  It is actually very easy to solve.  <br><br><br>  </div>
+<div class="w100pc" id="blog-reply17324"></div>
+<div class="post-reply" id="reply3079"><table class="w100pc"><tr><td class="post-writes">Tron replies:</td><td class="datepost">Friday 24-Apr-2026</td></tr>
+<tr><td colspan="2">确实我也遇到了这个题，用三值死环的两种形态很容易就确定了第五宫的数字，但奇怪的是这个网站的程序有三值死环的模式却无法破解该数独迷题</td></tr>
+</table></div>
+</div><div id="blog-reply3079" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(249,17324,3079)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17319"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Saturday 15-Nov-2025</div></div>
+<div class="w100pc">The solver is missing some eliminations in the "More than one Guardian" scenario.<br><br>One of the examples from Phil's folly:<br><br>........1.....2.3...4.15.......346...47..8.1.6.31.78...78...1.63...8..744.67.138.<br><br>After applying basic strategies, there is a tridagon pattern on candidates 259 in boxes 4679, with 2 guardians digits: 1 in r4c3 and 1 in r8c3. Since the guardians are all the same digit, and since the candidate 1 in r2c3 sees all of the guardians, it should be eliminated.</div>
+<div class="w100pc" id="blog-reply17319"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks Anon. I'm sure to work on Tridagons again as this was a 'first stab' and I'll start here. </div></div><div id="blog-reply3021" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(249,17319,3021)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17298"><div class="w100pc"><div class="w60pc"><h2>... by: Davin</h2></div><div class="w40pc datepost">Wednesday 24-Sep-2025</div></div>
+<div class="w100pc">Just wanted to say, the pattern and the eliminations are correct, but it is wrong to say that the Thor Hammer is a deadly pattern.<br>It doesn't force >1 solutions, it is straight up not solvable (i.e. forces 0 solutions). It is not a uniqueness strategy.<br><br>Billablog has a nice writeup on Tridagons here, with a proof of why it works: <br><a href="https://billerbop.blogspot.com/2025/08/solving-loki-119-with-oddagons.html" target="_blank">https://billerbop.blogspot.com/2025/08/solving-loki-119-with-oddagons.html</a><br>Goes into great detail about Oddagons, and an application of it to Loki, an SE 11.9 puzzle (the highest known SE grade) that is completely dismantled by Oddagons.</div>
+<div class="w100pc" id="blog-reply17298"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Important point and text amended but still needs polishing. Will read the link with interest. </div></div><div id="blog-reply3006" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(249,17298,3006)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 19-September-2025. Views: 8574<br>
+			This page was last modified on 20-September-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1026c9d7d161bd5',t:'MTc4MjIwNjUwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

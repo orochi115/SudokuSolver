@@ -19,4 +19,25 @@
 | Multi-Sector Locked Sets (MSLS) | `../techniques/11-exotic/msls.md` | ENJOYSUDOKU-MSLS, SUDOKUWIKI-SK-LOOP |
 | Fireworks | `../techniques/11-exotic/fireworks.md` | SUDOKUWIKI-FIREWORKS |
 | Aligned Pair/Triple Exclusion | `../techniques/11-exotic/aligned-exclusion.md` | SUDOKUWIKI-APE, SUDOPEDIA-SOLVING-TECHNIQUE |
+| Finned & Sashimi Fish | `../techniques/04-fish/finned-sashimi.md` | SUDOKUWIKI-FINNED-XWING, SUDOKUWIKI-FINNED-SWORDFISH, SUDOPEDIA-FINNED-FISH |
+| Franken & Mutant Fish | `../techniques/04-fish/franken-mutant.md` | SUDOPEDIA-FRANKEN-FISH, SUDOPEDIA-MUTANT-FISH |
+| Broken Wing (Guardians) | `../techniques/05-single-digit-patterns/broken-wing.md` | SUDOPEDIA-BROKEN-WING, SUDOKUWIKI-GUARDIANS |
+| Bent Sets (Almost Locked Candidates) | `../techniques/06-wings/bent-sets.md` | SUDOPEDIA-ALMOST-LOCKED-CANDIDATES, SUDOKUWIKI-WXYZ-WING |
+| Remote Pairs | `../techniques/06-wings/remote-pairs.md` | SUDOKUWIKI-REMOTE-PAIRS, SUDOKUWIKI-CHUTE-REMOTE-PAIRS |
+| WXYZ-Wing | `../techniques/06-wings/wxyz-wing.md` | SUDOKUWIKI-WXYZ-WING, HODOKU-WINGS |
+| 3D Medusa | `../techniques/07-coloring/3d-medusa.md` | SUDOKUWIKI-3D-MEDUSA, SUDOPEDIA-X-COLORS |
+| Multi-Coloring | `../techniques/07-coloring/multi-coloring.md` | SUDOPEDIA-X-COLORS, HODOKU-COLORING |
+| AIC with ALS | `../techniques/08-chains-aic/aic-with-als.md` | SUDOKUWIKI-AIC-ALSS, SUDOKUWIKI-AIC |
+| AIC with Exotic Links | `../techniques/08-chains-aic/aic-with-exotic-links.md` | SUDOKUWIKI-AIC-EXOTIC-LINKS, SUDOKUWIKI-FINNED-XWING |
+| AIC with Unique Rectangle | `../techniques/08-chains-aic/aic-with-ur.md` | SUDOKUWIKI-AIC-URS, SUDOKUWIKI-UNIQUE-RECTANGLES |
+| Grouped AIC | `../techniques/08-chains-aic/grouped-aic.md` | SUDOKUWIKI-AIC-GROUPS, HODOKU-CHAINS |
+| Nice Loops | `../techniques/08-chains-aic/nice-loops.md` | SUDOKUWIKI-X-CYCLES, SUDOKUWIKI-AIC |
+| Twinned XY-Chains | `../techniques/08-chains-aic/twinned-xy-chains.md` | SUDOKUWIKI-TWINNED-XY-CHAINS, SUDOKUWIKI-XY-CHAINS |
+| XY-Chain | `../techniques/08-chains-aic/xy-chain.md` | SUDOKUWIKI-XY-CHAINS, HODOKU-CHAINS |
+| Almost Hidden Sets | `../techniques/09-als/ahs.md` | ENJOYSUDOKU-AHS, HODOKU-ALS |
+| Avoidable Rectangle | `../techniques/10-uniqueness/avoidable-rectangle.md` | SUDOKUWIKI-AVOIDABLE-RECTANGLES, HODOKU-UNIQUENESS |
+| Extended Unique Rectangle | `../techniques/10-uniqueness/extended-ur.md` | SUDOKUWIKI-EXTENDED-RECTANGLES, HODOKU-UNIQUENESS |
+| Gurth's Theorem | `../techniques/10-uniqueness/gurth.md` | SUDOKUWIKI-GURTH |
+| Subset Exclusion | `../techniques/11-exotic/subset-exclusion.md` | SUDOPEDIA-SUBSET-EXCLUSION, SUDOPEDIA-SUBSET-COUNTING |
+| Tridagon | `../techniques/11-exotic/tridagon.md` | ENJOYSUDOKU-TRIDAGON, SUDOKUWIKI-TRIDAGON |
 | Forcing Boundary | `../techniques/12-last-resort/forcing-vs-enumeration.md` | HODOKU-LAST, SUDOKUWIKI-LOGIC-VS-BRUTE |

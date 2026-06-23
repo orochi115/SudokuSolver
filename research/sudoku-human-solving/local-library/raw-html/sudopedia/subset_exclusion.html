@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd"><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- start content -->
+	<meta name="keywords" content="Subset Exclusion,Aligned Pair Exclusion,Aligned Triple Exclusion,Almost Locked Set,Candidate,Cell,Death Blossom,Eliminate">
+	<title>Subset Exclusion - Sudopedia Mirror</title>
+<!-- end content -->
+
+</head>
+<body>
+<div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
+<a name="top" id="top"></a>
+<div id="siteNotice"><p>Mirrored from <b>Sudopedia</b>, the Free Sudoku Reference Guide</p></div>
+<hr>
+
+<!-- start content -->
+<h1 class="firstHeading">Subset Exclusion</h1>
+			<blockquote><i>The name <b>Subset Exclusion</b> is not commonly used in the Sudoku community. This article is created as a bridge between <b><a href="./Aligned_Pair_Exclusion.html" title="Aligned Pair Exclusion">Aligned Pair Exclusion</a></b> and <b><a href="./Death_Blossom.html" title="Death Blossom">Death Blossom</a></b>.</i></blockquote>
+<p><b><a href="./Aligned_Pair_Exclusion.html" title="Aligned Pair Exclusion">Aligned Pair Exclusion</a></b> can be extended to <b><a href="./Aligned_Triple_Exclusion.html" title="Aligned Triple Exclusion">Aligned Triple Exclusion</a></b> and so on. In fact, the set of cells to be enumerated does not need to be aligned at all. Lacking a better name, let us call the resultant technique <b>Subset Exclusion</b>.
+</p>
+<a name="Example"></a><h2> Example </h2>
+<table cellspacing="8" cellpadding="0">
+<tr>
+<td>
+<p><img src="./images/SubsetExclusion.png" alt="image:SubsetExclusion.png" width="350" height="352" longdesc="/wiki/Image:SubsetExclusion.png">
+</p>
+</td><td>
+<p>We can enumerate the possible combinations of the blue <a href="./Cell.html" title="Cell">cells</a> as in <a href="./Aligned_Pair_Exclusion.html" title="Aligned Pair Exclusion">Aligned Pair Exclusion</a>. The following list shows the possible combinations, from top to bottom:
+</p>
+<pre>5+2+4
+5+2+6
+5+6+4
+5+7+4*
+5+7+6*
+5+9+4*
+5+9+6*
+7+2+4
+7+2+6
+7+6+4
+7+9+4
+7+9+6
+</pre>
+<p>The starred combinations are those that causes any of the yellow cells to have no <a href="./Candidate.html" title="Candidate">candidates</a> at all, so these combinations can be removed from the list. As a result, we find that 7 can be <a href="./Eliminate.html" title="Eliminate">eliminated</a> from <b>r2c4</b>.
+</p>
+</td></tr></table>
+<a name="Death_Blossom"></a><h2> Death Blossom </h2>
+<p>The <b><a href="./Death_Blossom.html" title="Death Blossom">Death Blossom</a></b> technique is actually an instance of <b>Subset Exclusion</b> where all but one of the cells to be enumerated falls neatly into <a href="./Almost_Locked_Set.html" title="Almost Locked Set">Almost Locked Sets</a>.
+</p>
+
+This page was last modified 11:08, 25 November 2006.
+<!-- end content -->
+&nbsp;<br>
+<hr>
+<div id="footer">
+<div id="f-copyrightico">
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+</div>
+<ul id="f-list">
+<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>
+<li id="about"><a href="About.html" title="Sudopedia:About">About Sudopedia</a></li>
+<li id="disclaimer"><a href="General_disclaimer.html" title="Sudopedia:General disclaimer">Disclaimers</a></li>
+<li id="mirrored">Mirrored from <a href="http://sudopedia.org">sudopedia.org</a></li>
+</ul>
+</div>
+</div>
+
+</body></html>

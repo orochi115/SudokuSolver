@@ -69,6 +69,33 @@ Use stable citation IDs in technique cards and synthesis documents.
 - `SUDOKUWIKI-FIREWORKS`: SudokuWiki Fireworks page.
 - `SUDOKUWIKI-APE`: SudokuWiki Aligned Pair Exclusion page (ATE extension cross-referenced from Sudopedia).
 
+## Card Library Expansion (added 2026-06-23)
+
+- `SUDOKUWIKI-JELLYFISH`: SudokuWiki Jellyfish page.
+- `SUDOKUWIKI-FINNED-XWING`: SudokuWiki Finned X-Wing page.
+- `SUDOKUWIKI-FINNED-SWORDFISH`: SudokuWiki Finned Swordfish page.
+- `SUDOKUWIKI-GUARDIANS`: SudokuWiki Guardians (broken wing) page.
+- `SUDOKUWIKI-WXYZ-WING`: SudokuWiki WXYZ-Wing page.
+- `SUDOKUWIKI-REMOTE-PAIRS`: SudokuWiki Remote Pairs page.
+- `SUDOKUWIKI-CHUTE-REMOTE-PAIRS`: SudokuWiki Chute Remote Pairs page.
+- `SUDOKUWIKI-AIC-EXOTIC-LINKS`: SudokuWiki AICs with Exotic Links page.
+- `SUDOKUWIKI-TWINNED-XY-CHAINS`: SudokuWiki Twinned XY-Chains page.
+- `SUDOKUWIKI-AVOIDABLE-RECTANGLES`: SudokuWiki Avoidable Rectangles page.
+- `SUDOKUWIKI-EXTENDED-RECTANGLES`: SudokuWiki Extended Unique Rectangles page.
+- `SUDOKUWIKI-GURTH`: SudokuWiki Gurth's Theorem page.
+- `SUDOKUWIKI-TRIDAGON`: SudokuWiki Tridagons page.
+- `SUDOPEDIA-FISH`: Sudopedia Fish (base/cover sets) page.
+- `SUDOPEDIA-FINNED-FISH`: Sudopedia Finned Fish page.
+- `SUDOPEDIA-FRANKEN-FISH`: Sudopedia Franken Fish page.
+- `SUDOPEDIA-MUTANT-FISH`: Sudopedia Mutant Fish page.
+- `SUDOPEDIA-BROKEN-WING`: Sudopedia Broken Wing page.
+- `SUDOPEDIA-ALMOST-LOCKED-CANDIDATES`: Sudopedia Almost Locked Candidates (bent sets) page.
+- `SUDOPEDIA-X-COLORS`: Sudopedia X-Colors page.
+- `SUDOPEDIA-SUBSET-EXCLUSION`: Sudopedia Subset Exclusion page.
+- `SUDOPEDIA-SUBSET-COUNTING`: Sudopedia Subset Counting page.
+- `ENJOYSUDOKU-AHS`: New Sudoku Players' Forum "Almost Hidden Set - XZ rule" thread.
+- `ENJOYSUDOKU-TRIDAGON`: New Sudoku Players' Forum "The tridagon rule" thread.
+
 ## Citation Style
 
 Use inline source lists in technique cards:

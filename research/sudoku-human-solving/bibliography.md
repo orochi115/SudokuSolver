@@ -26,6 +26,7 @@ Access date for this local library expansion: 2026-06-01.
 - Coverage: strategy families, logical vs brute force, intersections, subsets, X-Wing, Y-Wing, Swordfish, coloring, AIC, uniqueness, ALS.
 - Supplemental pages added later: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
 - Exotic pages added 2026-06-23: Exocet, SK Loops, Fireworks, Aligned Pair Exclusion.
+- Card-library pages added 2026-06-23: Jellyfish, Finned X-Wing, Finned Swordfish, Guardians, WXYZ-Wing, Remote Pairs, Chute Remote Pairs, AICs with Exotic Links, Twinned XY-Chains, Avoidable Rectangles, Extended Unique Rectangles, Gurth's Theorem, and Tridagons.
 - Use: primary taxonomy and explanatory source. Copyright unclear for redistribution, so cite and paraphrase in downstream work.
 
 ### Sudopedia
@@ -36,6 +37,7 @@ Access date for this local library expansion: 2026-06-01.
 - Local Markdown: `local-library/markdown/sudopedia/`
 - Local raw HTML: `local-library/raw-html/sudopedia/`
 - Coverage: broad technique taxonomy from singles to brute force.
+- Card-library pages added 2026-06-23: Fish, Finned Fish, Franken Fish, Mutant Fish, Broken Wing, Almost Locked Candidates, X-Colors, Subset Exclusion, and Subset Counting (mirrored from the enjoysudoku-hosted Sudopedia at sudopedia.enjoysudoku.com, GNU FDL 1.2).
 - Use: primary cross-reference taxonomy.
 
 ### Sudoku of the Day
@@ -86,6 +88,7 @@ Access date for this local library expansion: 2026-06-01.
 - Local Markdown: `local-library/markdown/enjoysudoku/`
 - Local raw HTML: `local-library/raw-html/enjoysudoku/`
 - Coverage: Multi-Sector Locked Sets (MSLS) and related rank-0 set logic.
+- Threads added 2026-06-23: "Almost Hidden Set - XZ rule" (AHS) and "The tridagon rule" (tridagon / Thor's Hammer).
 - Use: primary source for exotic rank-0 techniques; attribute original posters, paraphrase, cite thread URL.
 
 ## Copyright Handling

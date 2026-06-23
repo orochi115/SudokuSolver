@@ -1,0 +1,585 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd"><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- start content -->
+	<meta name="keywords" content="Broken Wing,Guardian,Implication,Loop,Single-digit,Solving technique,Turbot Fish">
+	<title>Broken Wing - Sudopedia Mirror</title>
+<!-- end content -->
+
+</head>
+<body>
+<div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
+<a name="top" id="top"></a>
+<div id="siteNotice"><p>Mirrored from <b>Sudopedia</b>, the Free Sudoku Reference Guide</p></div>
+<hr>
+
+<!-- start content -->
+<h1 class="firstHeading">Broken Wing</h1>
+			<p>A <b>Broken Wing</b> is a <a href="./Single-digit.html" title="Single-digit">single-digit</a> pattern similar to a <a href="./Turbot_Fish.html" title="Turbot Fish">Turbot Fish</a>.
+</p><p>It is also a <a href="./Solving_Technique.html" title="Solving technique">solving technique</a> that uses this pattern.
+</p>
+<a name="How_it_works"></a><h2> How it works </h2>
+<p>A correct Sudoku cannot contain a closed <a href="./Loop.html" title="Loop">loop</a> with an odd number of strong links. Every candidate would contradict itself when the <a href="./Implication.html" title="Implication">implications</a> through the loop are followed. When a single-digit pattern is present that is almost a closed loop, the grid must contain one or more candidates that prevent this pattern from forming an odd-sized, strong links only loop. These candidates are the <a href="./Guardian.html" title="Guardian">guardians</a>. One of these guardians must be true, which is the premise for this technique. Several logical deductions can be made using this premise.
+</p>
+<a name="Single_Guardian"></a><h2> Single Guardian </h2>
+<p>Here is an example of a pattern that contains only a single guardian:
+</p>
+<table border="2" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> X
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> X
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> G
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr></table>
+<p>The cells marked with <b>X</b> forms a loop r5c2 - r2c2 - r2c5 - r1c6 - r5c6 which already has 4 strong links. The dashes mark the cells that do not contain any candidates for this digit. If the guardian <b>G</b> in r5c8 were removed, 
+the loop of 5 strong links would be closed, making the puzzle invalid. As a result, we can place the selected digit in the single guardian.
+</p>
+<a name="Multiple_Guardians"></a><h2> Multiple Guardians </h2>
+<p>Here is a pattern that contains 2 guardians:
+</p>
+<table border="2" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px">
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> X
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> G
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> X
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> G
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> *
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr></table>
+<p>The same loop forms the basis. Now there are 2 guardians, both in column 8. We know that at least one of them must be true. Therefore we can eliminate the remaining candidates for this digit from column 8 (the * cells).
+</p>
+<table border="2" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px">
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> X
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> G
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> X
+</td><td width="20px"> G
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> X*
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> --
+</td><td width="20px"> --
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> --
+</td><td width="20px"> .
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> --
+</td></tr></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></table>
+</td></tr></table>
+<p>It is also possible to use the guardians to eliminate the cells that are part of the loop.
+</p><p><br />
+<b>ALTERNATE BROKEN WING SOLVING TECHNIQUES</b>
+</p><p>The broken wing pattern is actually a group of 6 unique patterns with anywhere from 1 to 4 conjugate pairs in the pattern.  The bad news is that the guardian technique is only rarely useful in solving any of these patterns. The problem is there are frequently too many guardian cells. The good news is that for 4 of these 6 patterns, simple coloring and multi-coloring/or X-chains on the pattern itself can be used to solve or partially solve the broken wing pattern.  
+</p><p>Example 1 is an example of a color wrap broken wing pattern.  It has 4 strong links and only one weak link.  Simple coloring reveals that this will always result in a color wrap in the two cells
+that make up the weak link.  In this case the entire broken wing pattern is solved.
+</p><p>Example 2 is an example of a multi-color broken wing pattern.  It has 3 strong links and 2 weak links which break up the strong links into a one link chain and a two link chain.  The ends of the 2 link chain which must be the same color see both cells of the one link chain and therefore the center of the chain must be X.  In this case 3 of the 5 cells in the pattern are solved.
+</p><p>The color trap broken wing pattern is the only other possible pattern with 3 strong cells.  An example of this is shown below.  Here the three strong links form a simple color chain and a trap occurs in the yellow cell which is common to both weak links.  On occasion all of the cells in this broken wing pattern may contain identical XY pairs.  In this case the color chain 
+is valid for both digits and both can be removed from the trap cell.  In other words it becomes a dual color chain.
+</p><p><br /> 
+</p>
+<table border="1" cellpadding="6" cellspacing="0" width="40%">
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td> - </td><td> - </td><td bgcolor="aqua" width="20"> X </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td> - </td><td bgcolor="aqua" width="20"> X </td><td> - </td>
+<td> - </td><td bgcolor="red" width="20"> X </td><td> - </td>
+<td> - </td><td> - </td><td> - </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td> - </td><td> - </td><td> - </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td bgcolor="red"> X </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="yellow"> X </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr>
+<tr align="center">
+<td bgcolor="silver"> </td><td> - </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td>
+<td bgcolor="silver"> </td><td bgcolor="silver"> </td><td bgcolor="silver"> </td></tr></table>
+<p><br />
+The AIC example which is shown on another page of this website consists of two strong links separated by weak links.  One cell in this pattern can be eliminated either with multicoloring or with the X-chain tecnique.
+</p><p>This leaves two unique patterns.  One is a pattern with only a single strong link.  The other is a pattern with two adjacent strong links.  If the guardian technique doesn't work on these two patterns, the patterns will not help you solve the puzzle.
+</p>
+This page was last modified 22:29, 5 November 2009.
+<!-- end content -->
+&nbsp;<br>
+<hr>
+<div id="footer">
+<div id="f-copyrightico">
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+</div>
+<ul id="f-list">
+<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>
+<li id="about"><a href="About.html" title="Sudopedia:About">About Sudopedia</a></li>
+<li id="disclaimer"><a href="General_disclaimer.html" title="Sudopedia:General disclaimer">Disclaimers</a></li>
+<li id="mirrored">Mirrored from <a href="http://sudopedia.org">sudopedia.org</a></li>
+</ul>
+</div>
+</div>
+
+</body></html>

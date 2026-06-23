@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd"><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- start content -->
+	<meta name="keywords" content="Fish,Box,Cage,Candidate,Column,Constraint,Defining set,Eliminate,Fin,Finned Fish,Finned Jellyfish">
+	<title>Fish - Sudopedia Mirror</title>
+<!-- end content -->
+
+</head>
+<body>
+<div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
+<a name="top" id="top"></a>
+<div id="siteNotice"><p>Mirrored from <b>Sudopedia</b>, the Free Sudoku Reference Guide</p></div>
+<hr>
+
+<!-- start content -->
+<h1 class="firstHeading">Fish</h1>
+			<p>The term <b>fish</b> is now accepted by most players as a name for all <a href="./Single-digit.html" title="Single-digit">single-digit</a> <a href="./Solving_Technique.html" title="Solving technique">solving techniques</a> which <a href="./Eliminate.html" title="Eliminate">eliminate</a> <a href="./Candidate.html" title="Candidate">candidates</a> by comparing sets of <a href="./Row.html" title="Row">rows</a> and <a href="./Column.html" title="Column">columns</a>.
+</p><p>Aliases are <b>seafood</b> and <b>sealife</b>.
+</p><p>Not all sizes of fish were discovered at the same time. Size 2 was already familiar to many players before they realized that the same trick could also be performed with more than 2 rows and columns. Here is a list of names given to fish of different sizes. They are often seen as different solving techniques. The term <b>Swordfish</b> has also been in use for all types of fish with more than 2 rows or columns.
+</p>
+<table id="toc" class="toc" summary="Contents"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> </div>
+<ul>
+<li class="toclevel-1"><a href="./Fish.html#Introducing_Boxes"><span class="tocnumber">1</span> <span class="toctext">Introducing Boxes</span></a></li>
+<li class="toclevel-1"><a href="./Fish.html#Constraint_Sets"><span class="tocnumber">2</span> <span class="toctext">Constraint Sets</span></a></li>
+<li class="toclevel-1"><a href="./Fish.html#Fins"><span class="tocnumber">3</span> <span class="toctext">Fins</span></a></li>
+<li class="toclevel-1"><a href="./Fish.html#Species"><span class="tocnumber">4</span> <span class="toctext">Species</span></a></li>
+<li class="toclevel-1"><a href="./Fish.html#Fish_and_Subsets"><span class="tocnumber">5</span> <span class="toctext">Fish and Subsets</span></a></li>
+<li class="toclevel-1"><a href="./Fish.html#External_Links"><span class="tocnumber">6</span> <span class="toctext">External Links</span></a></li>
+<li class="toclevel-1"><a href="./Fish.html#See_Also"><span class="tocnumber">7</span> <span class="toctext">See Also</span></a></li>
+</ul>
+</td></tr></tbody></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introducing_Boxes"></a><h2> Introducing Boxes </h2>
+<p>It became clear in the <a href="http://forum.enjoysudoku.com/viewtopic.php?p=23576#23576" class="external text" title="http://forum.enjoysudoku.com/viewtopic.php?p=23576#23576" rel="nofollow">big fish</a> discussion that fish did not need to be restricted to rows and columns alone. It is also possible to include <a href="./Box.html" title="Box">boxes</a> in the pattern. Nowadays, any single-digit pattern that compares 2 partially overlapping <a href="./Constraint.html" title="Constraint">constraint</a> sets of equal size is called a <b>fish</b>. In standard Sudoku, the sets can contain <a href="./Row.html" title="Row">rows</a>, <a href="./Column.html" title="Column">columns</a>, and <a href="./Box.html" title="Box">boxes</a>. In <a href="./Sudoku_Variations.html" title="Sudoku Variations">Sudoku Variations</a> with additional constraints, any combination is possible. This viewpoint allows us to redefine a <a href="./Law_of_Leftovers.html" title="Law of Leftovers">Law of Leftovers</a> move as a fish pattern. In <a href="./Killer.html" title="Killer">Killer</a> Sudoku, constraint sets can also include <a href="./Cage.html" title="Cage">cages</a>, as long as each cage involved is known to contain the digit on which the Fish pattern is based.
+</p>
+<a name="Constraint_Sets"></a><h2> Constraint Sets </h2>
+<p>In each fish, we consider 2 sets of constraints. Both sets must partially overlap. The sets are called the <a href="./Defining_set.html" title="Defining set">defining set</a> and the <a href="./Secondary_set.html" title="Secondary set">secondary set</a>.
+</p><p>These are the rules to select these sets:
+</p>
+<ul><li> <a href="./House.html" title="House">Houses</a> may overlap within a set, but in the defining set, the overlapping cells may not contain any candidates. It is imperative that each candidate can only satisfy a single constraint within this set.
+</li><li> Each house in the defining set must overlap at least one house in the secondary set.
+</li><li> Each house in the secondary set must overlap at least one house in the defining set.
+</li><li> All candidates in the defining set must also belong to a house in the secondary set. Each of the overlapping candidates must belong to a single house in the secondary set.
+</li><li> The secondary set must have candidates which do not belong to the defining set. These surplus candidates are the ones to be eliminated. The surplus candidates may belong to more than one house in the secondary set.
+</li></ul>
+<a name="Fins"></a><h2> Fins </h2>
+<p>A <a href="./Fin.html" title="Fin">fin</a> is a candidate or group of candidates in the defining set, which does not belong to the secondary set. It is a surplus to the underlying fish pattern. For each finned version of a fish pattern, we can only eliminate in cells in that we could eliminate with respect to the fish pattern and that can see all fins.
+</p>
+<a name="Species"></a><h2> Species </h2>
+<dl><dt> Basic Fish
+</dt><dd> Rows vs. columns or columns vs. rows.
+</dd><dd> <a href="./X-Wing.html" title="X-Wing">X-Wing</a> (2) | <a href="./Swordfish.html" title="Swordfish">Swordfish</a> (3) | <a href="./Jellyfish.html" title="Jellyfish">Jellyfish</a> (4) | <a href="./Squirmbag.html" title="Squirmbag">Squirmbag</a> (5)
+</dd></dl>
+<dl><dt> <a href="./Finned_Fish.html" title="Finned Fish">Finned Fish</a>
+</dt><dd> Basic Fish with additional candidates in a single box.
+</dd><dd> <a href="./Finned_X-Wing.html" title="Finned X-Wing">Finned X-Wing</a> | <a href="./Finned_Swordfish.html" title="Finned Swordfish">Finned Swordfish</a> | <a href="./Finned_Jellyfish.html" title="Finned Jellyfish">Finned Jellyfish</a>
+</dd></dl>
+<dl><dt> <a href="./Sashimi_Fish.html" title="Sashimi Fish">Sashimi Fish</a>
+</dt><dd> Finned Fish without candidates for the basic pattern in the box containing the fin.
+</dd><dd> <a href="./Sashimi_X-Wing.html" title="Sashimi X-Wing">Sashimi X-Wing</a> | <a href="./Sashimi_Swordfish.html" title="Sashimi Swordfish">Sashimi Swordfish</a> | <a href="./Sashimi_Jellyfish.html" title="Sashimi Jellyfish">Sashimi Jellyfish</a>
+</dd></dl>
+<dl><dt> <a href="./Franken_Fish.html" title="Franken Fish">Franken Fish</a>
+</dt><dd> Boxes are allowed in either the defining set or the secondary set.
+</dd><dd> <a href="./Franken_Swordfish.html" title="Franken Swordfish">Franken Swordfish</a> | <a href="./Franken_Jellyfish.html" title="Franken Jellyfish">Franken Jellyfish</a>
+</dd></dl>
+<dl><dt> <a href="./Mutant_Fish.html" title="Mutant Fish">Mutant Fish</a>
+</dt><dd> Any type of fish which does not fit in one of the other categories.
+</dd><dd> <a href="./Mutant_Swordfish.html" title="Mutant Swordfish">Mutant Swordfish</a> | <a href="./Mutant_Jellyfish.html" title="Mutant Jellyfish">Mutant Jellyfish</a>
+</dd></dl>
+<dl><dt> <a href="./Kraken_Fish.html" title="Kraken Fish">Kraken Fish</a>
+</dt><dd> A fish pattern with indirect connections to a candidate which can be eliminated.
+</dd></dl>
+<p>Some people use the term <b>N-Fish</b> to refer to a (basic) fish of <b>N</b> <a href="./Row.html" title="Row">rows</a> or <a href="./Column.html" title="Column">columns</a>. That is:
+</p>
+<ul><li> A <b>1-Fish</b> is a <a href="./Hidden_Single.html" title="Hidden Single">Hidden Single</a>.
+</li><li> A <b>2-Fish</b> is a <a href="./X-Wing.html" title="X-Wing">X-Wing</a>.
+</li><li> A <b>3-Fish</b> is a <a href="./Swordfish.html" title="Swordfish">Swordfish</a>.
+</li><li> A <b>4-Fish</b> is a <a href="./Jellyfish.html" title="Jellyfish">Jellyfish</a>.
+</li><li> A <b>5-Fish</b> is a <a href="./Squirmbag.html" title="Squirmbag">Squirmbag</a>.
+</li></ul>
+<a name="Fish_and_Subsets"></a><h2> Fish and Subsets </h2>
+<p>Fish and <a href="./Subset.html" title="Subset">Subsets</a> are complementary to each other. One can transform a problem of finding a fish into a problem of finding a subset, and vice versa. See <a href="./Fish_and_Subsets.html" title="Fish and Subsets">Fish and Subsets</a> for more.
+</p>
+<a name="External_Links"></a><h2> External Links </h2>
+<ul><li> <a href="http://forum.enjoysudoku.com/viewtopic.php?t=3496" class="external text" title="http://forum.enjoysudoku.com/viewtopic.php?t=3496" rel="nofollow">Big fish</a>
+</li><li> <a href="http://forum.enjoysudoku.com/viewtopic.php?t=4993" class="external text" title="http://forum.enjoysudoku.com/viewtopic.php?t=4993" rel="nofollow">The Ultimate FISH Guide</a>
+</li></ul>
+<a name="See_Also"></a><h2> See Also </h2>
+<ul><li> <a href="./Fish_diagram.html" title="Sudopedia:Fish diagram">Project:Fish diagram</a>
+</li><li> <a href="./Skewed_Fish.html" title="Skewed Fish">Skewed Fish</a> (<a href="./Sudoku-X.html" title="Sudoku-X">Sudoku-X</a>)
+</li></ul>
+
+This page was last modified 15:08, 30 January 2008.
+<!-- end content -->
+&nbsp;<br>
+<hr>
+<div id="footer">
+<div id="f-copyrightico">
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+</div>
+<ul id="f-list">
+<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>
+<li id="about"><a href="About.html" title="Sudopedia:About">About Sudopedia</a></li>
+<li id="disclaimer"><a href="General_disclaimer.html" title="Sudopedia:General disclaimer">Disclaimers</a></li>
+<li id="mirrored">Mirrored from <a href="http://sudopedia.org">sudopedia.org</a></li>
+</ul>
+</div>
+</div>
+
+</body></html>

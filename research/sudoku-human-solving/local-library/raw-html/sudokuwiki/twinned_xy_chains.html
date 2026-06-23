@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Twinned XY-Chains - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+
+
+<script>
+var pgFileName = 'Twinned_XY_Chains';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Twinned_XY_Chains">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Twinned XY-Chains</h1><div class="SRCell">Regretfully this has been in my inbox for three years but I'm glad I don't throw things away lightly. <br><b>Nils Leder</b> from Germany wrote to me with a novel pattern I think is worth including in the solver. He's doing some sophisticated puzzle variant stuff on logic-masters.de and you can see more of <a href="https://logic-masters.de/Raetselportal/Benutzer/eingestellt.php?name=sujoyku" target="_blank">his work here</a>.<br><br>This pattern is not terribly common but that might mean my implementation of the idea is too tightly coded and I'm not finding other valid instances - or my understanding of the pattern isn't sufficiently broad. I was getting more hits at one point but also false positives which we don't want.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/TWXY01.png" alt="Original example by Nils Leder " /><figcaption>Original example by Nils Leder 
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9f0887049i021u923m9o80805y060544800106808g01d2ba4k8g6i7x078t1ubucb03234a0r0508020u1r09071m038r8r5udmcb5f23020h8sak1u011m3o1w03051s3k464g5a391h090l1l1l09140704081u">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=080402000000065001600100000070000300058200970300000002800010003500000009000907480">From the Start</a>
+</figcaption></figure>
+<br>The pattern is six cells arranged in a 3 by 2 or 2 by 3 formation. Being in different boxes does not appear to matter. So this isn't like some other patterns (eg Unique Rectangles). The pattern requires there are six candidates found in those six cells but because not all cells can see all other cells in the formation we can't assume all six must appear once in those cells. That would be too easy.<br><br>In Nils' example <span class="hy">E1, E5, E9, J1, J5</span> and <span class="hy">J9</span> have two candidates taken from a set {1,2,3,4,5,6} except for <span class="hy">J5</span> which has three {2,3,5}. There are no two candidates N which are not paired, ie could be a link. As Nils writes:<br><br>"The interesting thing is that the cells always are forced to contain each of the numbers 1 to 6. One could describe them as intertwined XY-Cycles since, if the option 5 is removed from <span class="hy">J5</span>, the cells <span class="hy">E1, E5, J1</span> and <span class="hy">J5</span> form an XY-cycle on the numbers {1,2,3,4}.  And if, on the other hand, the option 2 is removed from <span class="hy">J5</span>, then the cells <span class="hy">E5, E9, J5</span> and <span class="hy">J9</span> form an XY-cycle on {3,4,5,6}."<br><br>"So there definitely exists an XY-cycle although one cannot tell if it’s on the left or on the right side in rows E and J. But as the digit 4 appears in both potential XY-cycles, one XY-cycle will also ‘activate’ the other one."<br><br>I'd also add because all candidates of the same value can see each other there will never be two of N in these cells and five in total candidates. That (and the Twinned XY-Cycles) make this is a giant Naked set. We can eliminate off-chain in the direction of all pairs of numbers.<br><br>In finding similar patterns I'm drawn to looking first for a triple of bi-value cells in one row or column. Checking of one candidate is in all three cells (as 4 is in <span class="hy">E1, E5</span> and <span class="hy">E9</span>). Then looking for another row with 2 and 3 candidate cells to make 6. I'm not specifically looking for strong links and if they were all strong (bi-location) there would be no eliminations.</div>
+
+<h2>Example 2</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/TWXY02.png" alt="Example 2" /><figcaption>Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B08050t091g3g2d0c37807y7w7g017g5w90767p06074k034k04844j2y024r034y3e4316099nd7032k059o060s4b06bebu0sb80148074u9kd2064404b805012e89bbbp4l07bo7q1m1ma39n8b1v8i039e0802">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=850900000000010000067030400020300009003050600600001070006040510000070000000003082">From the Start</a>
+</figcaption></figure>
+<br>Lets look at another example, this time found in Ruud's top 50k test list. The inclusion of this strategy knocks the puzzle down from an extreme (659) to a diabolical (223).<br><br>Orientated in the column we have 6 as the common candidate in cells <span class="hy">A5</span>, <span class="hy">D5</span> and <span class="hy">J5</span>. These look onto cells <span class="hy">A7</span> with {1,2,7}, <span class="hy">D7</span> and <span class="hy">J7</span>. The two XY-Chains must be traced from row A which is the shared row, unlike the first example where the triple was in the middle. </div>
+
+<h2>Example 3</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/TWXY03.png" alt="Example 3" /><figcaption>Example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B02070h0f1212040i0a0d1u0901020h03362q131y130g0d091g08105u0a2i034y1g053g09di86324c011w6s3k6806021abebm07430v4e9j7q02058m1j5v2n667r080f7o07040l050o2v042v44460p092h06">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=270000400009120300000009080000300509000010000620007000002500000080074050040000906">From the Start</a>
+</figcaption></figure>
+And to finish lets consider a pattern which does not follow the single triple cell examples looked at so far. This shows that the solver is looking a bit wider than the original example but I still think there is room for improvement.<br><br>The critical aspect that makes this work that all of the candidates of the same value are still visible to each other. That means we can work with three 4s, three 8s and three 2s as they are sticking to their respective rows. The other numbers 1, 3 and 9 are paired in their columns. The XY-Chain is more of an analogy now as the necessity of a candidate in one place removes two in two other cells, which is not typical of XY-Chains.</div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Fireworks">Fireworks</a></td><td class="w50pc cright">Continue to <a href="SK_Loops">SK Loops</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=241&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Twinned_XY_Chains" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(241,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17379"><div class="w100pc"><div class="w60pc"><h2>... by: Jan Bouwman</h2></div><div class="w40pc datepost">Tuesday 27-Jan-2026</div></div>
+<div class="w100pc">Hello Andrew,<br>Thanks for all your work on Sudoku's. <br>Your sentence "I'd also add because all candidates of the same value can see each other there will never be two of N in these cells" in the description for this strategy made me wonder if this could be used as an extended locked set.<br>So instead of looking for 6 cells in a 3 by 2 or 2 by 3 formation, I just search for any group of 6 cells that have 6 candidates and where all candidates of the same value can see each other.<br>I have tried this with thousands of puzzles, also with 4, 5 and 7 cells in a group and that gave a lot of hits and never a false positive.<br>Such a group of cells is not bound to a single row, column or square.<br>E.q. in the example https://www.sudokuwiki.org/sudoku.htm?bd=S9B36083m1v1o033g090t048m01078k0h201w143a02au1v8q1708370v4z1n4y03050b0i1n07091i1k0d010g201w08052n2g0i08060w0t0x6tab045f360z2s0384602e5y4i2m090130063b05ae023i0r2i087u<br>the cells D123 together with EFH2 form a group of 6 with candidates 134678 and every candidate can see all other candidates with the same value.<br>Because of this the following eliminations are possible: 3 from B2, 6 from E3 and 7 from H2.<br>Using this mechanism my solver also finds the Twinned XY Chain that is meant in the example. <br><br>So I now am working with 'naked quads' that are not bound to row, column or square and that has a consequence, 'naked quints', 'naked sextets' and so on are now also possible.<br>My next step will be to extend my ALSs (extend with N cells with N+1 candidates that all can see each other, not bound to row, column or square).<br><br>Up till now, everything works as I hoped and I did not find any false positives.<br>Would you be so kind to share your thoughts about what I am doing.<br><br>Kind regards, Jan Bouwman<br></div>
+<div class="w100pc" id="blog-reply17379"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I am sure your are onto something there. I am glad that this specific example is found using Almost Locked Sets. Turn off everything else to see.</div></div><div id="blog-reply3069" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(241,17379,3069)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17245"><div class="w100pc"><div class="w60pc"><h2>... by: strmckr</h2></div><div class="w40pc datepost">Monday 9-Jun-2025</div></div>
+<div class="w100pc">ALS  2 degrees of  freedom   { distributed disjointed subset} <br> not new by a long shot this is from 2005 - 2007 on the forums <br><br>this theory is actually where Sue de Coqs and Death-blooms :  classify  <br><br>as APE, ATE, AQE ...{etc}  depreciated and evolved into ALS rules over counting iterative arguments of the aforementioned methods from 2005 and earlier.    <br><br>this is a 5 Sector Disjointed Subset  found under  <br><br>ALS 2 DOF  exclusion rule { which makes this  a RING} <br>1) (12789) r1c479 <br>   a)  (2689) @  r149c5 <br>   <br> x : (1,a : 2,8,9) <br><br>since a & 1 have +1 > D.O.F  worth of unique R.C.C,   1 & A are locked sets  with 2 of the RCC in A or 1  <br><br>{ specifically any als cannot have more then +1  worth of RCC > DOF  else both sets have less then N values for the sets.}  <br><br>thus <br>all non RCC of 1 is restricted to 1 {1,7}, all non RCC of A are restricted to A.<br>each RCC of 1&A are restricted to 1&a, <br><br>for advanced ALS elimination rules see: <br><br> http://forum.enjoysudoku.com/viewtopic.php?t=2510<br><br>for advanced DDS:  <br>http://forum.enjoysudoku.com/viewtopic.php?t=5423<br><br>+------------+--------------+---------------+<br>| -2  -2  -2 | -2  (26)  -2 | (127)  -2  -2 |<br>| .   .   .  | .   -6    .  | -17    .   .  |<br>| .   .   .  | .   -6    .  | -17    .   .  |<br>+------------+--------------+---------------+<br>| -8  -8  -8 | -8  (68)  -8 | (18)   -8  -8 |<br>| .   .   .  | .   -6    .  | -17    .   .  |<br>| .   .   .  | .   -6    .  | -17    .   .  |<br>+------------+--------------+---------------+<br>| .   .   .  | .   -6    .  | -17    .   .  |<br>| .   .   .  | .   -6    .  | -17    .   .  |<br>| -9  -9  -9 | -9  (69)  -9 | (79)   -9  -9 |<br>+------------+--------------+---------------+<br><br>ps this is also found via  NAKED m.s.l.s   <br> <br> ie the forums much older version that uses sets  which has searchable aspects of set compared to blind iteration of Psi ring {S.E.T} .   MSLS has 3 versions  pure naked, pure hidden,  combination of naked and hidden set as a balance equation specifically all of which are 1:1  translatable to NxN+K fish.  <br><br><br></div>
+<div class="w100pc" id="blog-reply17245"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(241,17245,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17242"><div class="w100pc"><div class="w60pc"><h2>... by: Billa</h2></div><div class="w40pc datepost">Friday 6-Jun-2025</div></div>
+<div class="w100pc">MSLS: 6 Cells r59c159, 6 Links 4r5 ,25r9, 1c1, 3c5, 6c9<br>9 Eliminations: r14c1<>1, r9c23<>2, r138c5<>3, r5c6<>4, r1c9<>6<br><br>This is a simple example of an MSLS, nothing new.</div>
+<div class="w100pc" id="blog-reply17242"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Multi-Sector Locked Sets. <br>I'm sure there are precedents and earlier patterns. And alternative terminology.<br>Will keep delving<br></div></div><div id="blog-reply2916" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(241,17242,2916)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17233"><div class="w100pc"><div class="w60pc"><h2>... by: Tim</h2></div><div class="w40pc datepost">Thursday 22-May-2025</div></div>
+<div class="w100pc">Hello,<br><br>    I have had success with the Twinned XY-Chains if the 6 cells are in at least 3 boxes.  I saw from some of the puzzles I plugged into your solver, you find Twinned XY-Chains in 3 box patterns.  Have you limited your solver to 3+ box patterns?  In example 3, if you start from the step before the Twinned XY-Chains is found, and delete the 8 from F4 before continuing, you do not eliminate the 8s in BOX 6, in E7 and E9.  It looks like you can extend Twinned XY-Chains to boxes as long as all occurrences of the candidate are in that box.  Since you do not appear to have done this, do you have evidence that box eliminations are not valid?<br><br>Thanks for all your work on your solver.<br>It has helped me a lot.<br><br>Tim</div>
+<div class="w100pc" id="blog-reply17233"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Excellent question.<br>So I wanted to really check this before replying and I think I’ve done enough of that now.<br>Yes you can eliminate in the box if the link with N is in the same box and there are exactly 2 of N in that row or column to align with. However I only found one case in Ruud’s 50,000 set. Not that there are many Twinned XY-Cycles to start with (like 7 I think). So it’s a bunch of code for a small gain but not costly so I’ve kept it. You can <a href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B36083m1v1o033g090t048m01078k0h201w143a02au1v8q1708370v4z1n4y03050b0i1n07091i1k0d010g201w08052n2g0i08060w0t0x6tab045f360z2s0384602e5y4i2m090130063b05ae023i0r2i087u">view the example here</a><br></div></div><div id="blog-reply2908" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(241,17233,2908)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 14-May-2025. Views: 7627<br>
+			This page was last modified on 14-May-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10267548c230f58',t:'MTc4MjIwNjI4OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

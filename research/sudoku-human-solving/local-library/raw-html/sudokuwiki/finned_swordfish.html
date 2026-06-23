@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Finned Swordfish - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Finned Sword-Fish extends the Sword-Fish strategy but it has extra candidates of X that prevent one of the three trios normally required. Eliminations are still possible in this fin."/>
+<meta name="twitter:description" content="Sudoku Strategy. Finned Sword-Fish extends the Sword-Fish strategy but it has extra candidates of X that prevent one of the three trios normally required. Eliminations are still possible in this fin.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/FSF1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/FSF1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Finned_Swordfish';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Finned_Swordfish">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Finned Swordfish</h1><div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FSF1b.png" alt="Finned SwordFish Example 1" /><figcaption>Finned SwordFish Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B069i05040a089i2e020h7y7y92070b8e26010b019q92868i2y083a092e08020f052f2f040u0e3i0a0h7u0bae3a011o1o077u03088i050u088j9286ai33022e058i8j8m02ai2n2n0h070w0w081a01061a09">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=605408002000070001010000080908205004000000000100703805080000020500020000700801609">From the Start</a>
+</figcaption></figure>
+This is a particularly extreme Sudoku puzzle but the Finned Swordfish is nicely arranged.  As discussed in the article on <a href="Swordfish_Strategy">SwordFish</a> it is not necessary for every cell in the 3 by 3 formation to contain the candidate, in this example candidate 3.  This SwordFish is a 2-2-3 version since we have 3 twice in the first column, twice in the second column and three times in the third column. It is orientated on the columns since they are the units where candidate 3 occurs no more than three times. We are eliminating in the rows.<br><br>Now, that said it is not a perfect Swordfish because the centre column 5 contains an extra 3 in J5, which ruins the whole formation. However, the Finned Rule says we can ignore it if we confine the eliminations to the box where the fin is, namely box 8.  There is one 3 that we can remove, on G4.<br><br><br></div>
+
+<h2>Sashimi Variety</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FSSF1b.png" alt="Finned Sashimi Example 1" /><figcaption>Finned Sashimi Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B027ybi874nbb0f7n0gb707b60645048503857r0f057t077t080d7p0e080b7r0f7r7r070d047q0g080p057t7p067q010f9k0d9k7s050h5y12012w0960040f109i027q0413069v0883068abe2t4l5x9x7p03">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=200000000070604030005070800080000070400805006010000050001090400020406080600000003">From the Start</a>
+</figcaption></figure>
+<br>Two examples now of the Sashimi variety of Finned SwordFishies. <br><br>Figure two is a little more bunched up but we have a 2-2-3 formation based on eliminations in rows. The exceptional candidate 3 which blocks this from being a perfect SwordFish is on G2.  But we can invoke the Sashimi observation to ignore the lack of a 3 on H2, one of the corners of the SwordFish. Eliminating in row H and box 7 we an remove the 3 from H1.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FSSF2b.png" alt="Finned Sashimi Example 2" /><figcaption>Finned Sashimi Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B04021i2b6q433b0905bq2u922t0d2r3d38604i2q01093o0304385w2u0612080i022q010d2q04020c012q09080f0a090h042q062s032c880a0706140408107s88120d2t6gdf383o9k0608862s2w9u2g0401">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=420000095000000000001903400060802010042010980090406030007604800000000000680000041">From the Start</a>
+</figcaption></figure>
+<br>The second example illustrates that the Sashimi cell doesn't have to be a clue or a solved cell. The brown cell A6 simply lacks the candidate 7, which had been removed using previous logical strategies.  The double fin is in green, A4 and A5.  This is quite a restricted SwordFish, which in row orientation is a 1-2-2 formation - but it works!<br><br>(Turn Grouped X-Cycles off)</div>
+
+<div class="SRCell">Here is a lovely Sudoku made by Klaus Brenner (April 2012). <br>Try <a href="/sudoku.htm?bd=003080100090007000000600002010003004002000500300900070700004000000100090005020600">loading this one</a>. It contains<ul><li>1 X-Wing on 6</li><li>1 Finned-X-Wing on 6</li><li>1 Swordfish on 9</li><li>1 Finned Swordfish on 6, brown cell H9 never contained a 6 </li><li>1 Finned Sashimi Swordfish on 6, brown cell G8 never contained a 6</li></ul><br> <br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FSSF3.png" alt="Double Sashimi" /><figcaption>Double Sashimi
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1w0g030d0810011u0i1g091f1413070d5e5e4q4q4b060i0z0g0c025e010g101u030i50040i56025u3f4z051f0c035m5609235h44074z07540i4m1y04484l4j565c56013q5e0o096a0a46055y020i060d5u">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070001090000700006004090500069003010300000009020600870005020700100007000090100080">From the Start</a>
+</figcaption></figure>
+<br>As of August 2025 a slightly more subtle pattern is detected thanks to an old post by Reetou. If the Sashimi ignores the missing X value in one corner then the double Sashimi ignores X in two! I've found a number in my stock. Here is one based on <span class="hy">BEJ268</span>. The missing 5s are in <span class="hy">J2</span> and <span class="hy">J8</span>. It may be worth checking both boxes for fins and eliminations - if not one then the other. </div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Finned_X_Wing">Finned X-Wing</a></td><td class="w50pc cright">Continue to <a href="Franken_Sword_Fish">Franken Sword Fish</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=83&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Finned_Swordfish" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(83,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment16707"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Sunday 22-Aug-2021</div></div>
+<div class="w100pc">I like this strategy very much, and have found it useful.  I have implemented it in my own solver, along with finned x-wing and finned jellyfish - no need to go to larger fish, because the existence of a larger fish (finned or not) requires the existence of a conjugate fish which is of jellyfish size or smaller.<br><br>On the "Aligned Pair Exclusion" page, I have described a strategy I have implemented in my solver, which I call "dynamic locked sets" - it is a generalisation of the idea of an ALS in an alternating inference chain.  Most useful in a forcing net, but it could come up in an AIC as well.  I have similarly implemented, within my "forcing net" algorithm, dynamic groups, dynamic finless fish, and dynamic finned fish.<br><br>Here are the statistics on how many puzzles in my small database of 245 can be solved using my forcing net software, with its various dynamic options.  Every combination is shown, except that there is no easy way to include finned fish without also including unfinned fish.<br><br>Basic (no "dynamic" options) - 165<br>With dynamic groups only - 168<br>With dynamic locked sets only - 169<br>With dynamic finless fish only - 167<br>With dynamic finless fish and dynamic finned fish only - 195<br>With dynamic groups and dynamic locked sets only - 173<br>With dynamic groups and dynamic finless fish only - 169<br>With dynamic groups, dynamic finless fish, and dynamic finned fish only - 203<br>With dynamic locked sets and dynamic finless fish only - 172<br>With dynamic locked sets, dynamic finless fish, and dynamic finned fish only - 206<br>With dynamic groups, dynamic locked sets, and dynamic finless fish only - 173<br>With dynamic groups, dynamic locked sets, dynamic finless fish, and dynamic finned fish - 209<br><br>The final 209 number includes a good number of the "unsolveables", although this technique definitely remains stumped by some other unsolveables.<br><br>Granted, 245 is not a huge sample, but based on the results above, I feel like there could be a lot of mileage to be had by incorporating the concept of an "almost (finned) fish" into the AIC algorithm, or its generalisation, a "dynamic (finned) fish" (either in an AIC, or in a general forcing net).<br><br>Something to consider :)</div>
+<div class="w100pc" id="blog-reply16707"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(83,16707,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16643"><div class="w100pc"><div class="w60pc"><h2>... by: dontsaymyid</h2></div><div class="w40pc datepost">Monday 11-Jan-2021</div></div>
+<div class="w100pc">I used my own solver to find some examples on finned/sashimi sudoku and found something interesting.<br><br>While solving puzzle<br>080040070000005800040700020063500002200000005800002760010007030009300000050080010<br><br>after some singles and finned X-Wing, puzzle gets into this state:<br><br><pre>+---------------+------------------+-----------------+<br>| 1569 8   2    | 169  4    1369   | 13569 7   169   |<br>| 169  3   7    | 16   2    5      | 8     49  1469  |<br>| 1569 4   16   | 7    1369 8      | 1356  2   136   |<br>+---------------+------------------+-----------------+<br>| 14   6   3    | 5    7    149    | 149   8   2     |<br>| 2    7   14   | 8    1369 13469  | 1349  49  5     |<br>| 8    9   5    | 14   13   2      | 7     6   134   |<br>+---------------+------------------+-----------------+<br>| 46   1   8    | 2469 5    7      | 2469  3   469   |<br>| 7    2   9    | 3    16   146    | 46    5   8     |<br>| 3    5   46   | 2469 8    469    | 2469  1   7     |<br>+---------------+------------------+-----------------+</pre><br><br>My solver printed<br>"Finned Swordfish<br>On candidate 4. A fish goes from Column 1, 8, and 9 to Row B, D, and G. On Box 6, the fish has two fins E8 and F9. Therefore...<br>4 taken off from Cell D7."<br>(Actually this is a sashimi, but it was meaningless to tell sashimi apart from finned one.)<br><br>A sashimi swordfish with two non-aligned fins. I used your solver to see how it solves the puzzle, (turned off GXC and ER) but seems like the finned swordfish algorithm does not find this case.</div>
+<div class="w100pc" id="blog-reply16643"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This looks good. Next chance I have I'll see what I need to do to detect it.</div></div><div id="blog-reply2962" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(83,16643,2962)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16242"><div class="w100pc"><div class="w60pc"><h2>... by: Reetou</h2></div><div class="w40pc datepost">Friday 10-Feb-2017</div></div>
+<div class="w100pc">I'm trying to implement finned/sashimi swordfish in my own solver and using your solver to verify results.<br>While solving puzzle 7.9.........4..2.7.2....3...72......3...17.6.9..2...345347..1.929.........1......<br><br>After some other steps, puzzle gets into this state:<br><pre><br>+--------------+-----------------------+------------------+<br>| 7   568  9   | 13568  23568   123568 | 4568  1458  1568 |<br>| 1   568  3   | 4      5689    5689   | 2     589   7    |<br>| 4   2    68  | 15689  7       15689  | 3     1589  1568 |<br>+--------------+-----------------------+------------------+<br>| 68  7    2   | 35689  345689  345689 | 589   158   158  |<br>| 3   4    58  | 589    1       7      | 589   6     2    |<br>| 9   1    568 | 2      568     568    | 7     3     4    |<br>+--------------+-----------------------+------------------+<br>| 5   3    4   | 7      68      68     | 1     2     9    |<br>| 2   9    7   | 135    345     1345   | 4568  458   3568 |<br>| 68  68   1   | 359    23459   23459  | 45    7     35   |<br>+--------------+-----------------------+------------------+<br></pre><br>There is a sashimi swordfish in rows 2, 6, 7 and columns 3, 5, 6 with fin in r2c2 which eliminates 6 from r3c3.<br><br>Am I missing something or just found space for improvement of your solver? Which is brilliant anyway.</div>
+<div class="w100pc" id="blog-reply16242"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Excellent example. As of August 2025 the solver now detects this type. Before I was ignoring Sword-Fish were there were too many fins (more than 1). If you consider column 2 instead of 3 there is another Sashimi where the fin is F3. However there is no elimination. But that was causing the no-show.</div></div><div id="blog-reply2961" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(83,16242,2961)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15676"><div class="w100pc"><div class="w60pc"><h2>... by: Ludi</h2></div><div class="w40pc datepost">Wednesday 17-Oct-2012</div></div>
+<div class="w100pc">In order not to miss out on possible finned swordfish scenarios I would just like to confirm that I do understand the exact definition of this configuration correctly.  Does the "fin" have to be the a second or third candidate in one of the defining columns (or rows) of the swordfish, or can it actually be a fourth candidate in a defining column (or row)?</div>
+<div class="w100pc" id="blog-reply15676"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The fin sticks out from the formation, so it is not one of the 9 candidate positions in the 3x3 formation. Ie, not one of the yellow cells in my examples. But it has to be aligned in the direction of the formation (so that it's absence would create a proper Sword-Fish). Hope that helps</div></div><div id="blog-reply2385" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(83,15676,2385)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15500"><div class="w100pc"><div class="w60pc"><h2>... by: Rainer</h2></div><div class="w40pc datepost">Friday 3-Jun-2011</div></div>
+<div class="w100pc">The explanation of example 2 is flawed or the description of the rule is wrong.<br><br>Applying the same logic as in the Finned Sashimi Example 1 to Example 2, I find an 'imperfect' 2-1-2 SwordFish in columns 1, 6 and 7. <br>Accordingly, A6 in Example 2 has the same role than H2 in Example 1; a cell of the SwordFish that does not contain the candidate.<br>Thinking in columns the 'fin' would be B6; restricting elimination to the box of the SwordFish, A4 and A5 could be deleted.<br><br>The example argues the other way round: A4 and A5 being a 'double fin' and B6 to be deleted!<br><br>Where is the fault?</div>
+<div class="w100pc" id="blog-reply15500"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This sword-fish can't be rotated just using the same cells, ADE167, because there are numerous other 7s in those columns, J6, B7, F7, H7 and J7. That torpedoes a sword-fish in that direction.</div></div><div id="blog-reply2324" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(83,15500,2324)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 256017<br>
+			This page was last modified on 27-August-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1025916fd45108e',t:'MTc4MjIwNTcwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

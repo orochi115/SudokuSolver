@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Jellyfish Strategy - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Jelly-Fish extends Sword-Fish into four rows and four columns. Candidate eliminations are possible where the cells that form the Jelly-Fish are the only possible places for a solution on candidate N." "/>
+<meta name="twitter:description" content="Sudoku Strategy. Jelly-Fish extends Sword-Fish into four rows and four columns. Candidate eliminations are possible where the cells that form the Jelly-Fish are the only possible places for a solution on candidate N." ">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/jellyfish3.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/jellyfish3.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Jelly_Fish_Strategy';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Jelly_Fish_Strategy">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Jellyfish Strategy</h1><div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/JellyFish1.png" alt="Jellyfish Diagram" /><figcaption>Jellyfish Diagram
+</figcaption></figure>
+Jellyfish extends Swordfish one further row and column. We are looking for either<br><ul><br><li>four rows such that, <i>in total</i>, four cells are occupied in the row by a candidate number; or<br><li>four columns such that, <i>in total</i>, four cells are occupied in the column by a candidate number<br></ul><br>If this configuration is found then we can look in the opposite direction (if by row then down the column, if by column then across the row.  If any candidates are found they can be eliminated. After the elimination both conditions above will hold.<br><br>This diagram shows a full Jellyfish with four X found in four columns and aligned on four rows. It means we can remove any X found in the columns and it leaves behind a 4 by 4 grid.<br>			  <br></div>
+
+<div class="SRCell">How does it work?  Pick any yellow cell in the example above that contains an X. Keeping an eye on it. Pretend the solution actually is X. All others Xs in the row and columns are suppressed. What we're left with is a Swordfish.  The Swordfish logic then applies. Pick any X in the Swordfish and it reduces to an X-Wing. Since any combination of Xs on the grid are possible there is no room for Xs outside the grid - that align on the grid rows and columns.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/JellyFish2.png" alt="Partial Jellyfish" /><figcaption>Partial Jellyfish
+</figcaption></figure>
+Finding exactly candidate X in all sixteen cells (a 4-4-4-4 formation) is extremely unlikely. But the logic of Jellyfish (and Swordfish) is that we only need four X <span class="hy">in total</span> over the four rows and columns. Here is a minimal spread of a particular candidate X - a 2-2-2-2 formation.  Most of the time you will have a mixture of two, three or four candidates lined up. <br><br>One way to double check the logic is to pretend any of the crossed out Xs is a solution. When you do that and trace the consequences you will find at least one row (or column) with no X left - clearly a bad consequence.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/JellyFish3b.png" alt="Example Jellyfish" /><figcaption>Example Jellyfish
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B492b482d069g05804h11041g039x082b7o374p37092t2t045z2g6x3602040h2q1y09012u9e030e0l7x7o620662aa08013m7u1y022m1a0r0e48095w2c062o2l488i54045w012e059g0t7n071u031u0r087o">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000060500040308000009004000024000910030000060081000200000900600000401050007030080">From the Start</a>
+</figcaption></figure>
+This is a real Jellyfish example, one of the very few I have that does actually show up in the solver - a crazy hard extreme. It is based on the candidate 7 as show by the green highlighted candidates. The cells in the pattern are orange. The pattern establishes that we have 7 common to four rows (B,D,E and H) which are aligned on four columns (1,5,7 and 9). Therefore four 7s must go in those yellow cells. <br><br>This is a 2-3-3-2 formation Jelly Fish since there are 7s absent in B1 and H2.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/JellyFish4b.png" alt="18 elimination Jellyfish" /><figcaption>18 elimination Jellyfish
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000070030920019025630004000210000000000057090460095140370000000000042367590">From the Start</a>
+</figcaption></figure>
+<br>I am pleased to report a massive catch by Klaus Brenner from Germany. He has created a 31 clue Sudoku with a required JellyFish containing an amazing 18 eliminations. <br><br>Well done Klaus!<br><br><i>8th October 2012</i><br><br>(Turn off Rectangle Elimination)</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/JellyFish5b.png" alt="Perfect Jellyfish" /><figcaption>Perfect Jellyfish
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0p050p07040i1h081h0t08091u1w032i2s19062c2k4i4k01030i18bc044obrbq071106152h2g3t0d1y1g082s09d49k7ccncm502i2s1dd0065wbad20484014k057q46020a4y8i0d07d80164c2du058k0350">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=050740080089003000600001300040007060000000809000000000060004010500200007010005030">From the Start</a>
+</figcaption></figure>
+<br><br>To my knowledge this is the first <span class="hy">Perfect</span> 4-4-4-4 Jellyfish. Perfect in the sense that every 2 in the sixteen cells that form the pattern - the 2 is still a candidate.  In the examples above, each contain some cells that are clues or solutions.  This type of formation is pretty rare in Swordfishes, let alone Jellyfish. Klaus Brenner also found this puzzle.<br><br><i>13th July 2014</i><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/JellyFish6b.png" alt="20 eliminations" /><figcaption>20 eliminations
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000017020803003000204084053706000000000072010005048071502035040601000000000">From the Start</a>
+</figcaption></figure>
+<br>I have a new crop of Jelly-Fish discovered by Klaus. This one is a maximally eliminating pattern taking off all twenty 9s.</div>
+
+<div class="SRCell"><h2>Jellyfish Exemplars</h2>
+These puzzles require the Jellyfish strategy at early on (but are diabolical puzzles overall).<br>
+They make good practice puzzles.<br>
+All discovered by Klaus Brenner
+<ul>
+<li><a href="/sudoku.htm?bd=140000097970000016000000000000453000060170000730020000000000000420060071610000039">Exemplar 3 x2 (score 8.0)</a></li>
+<li><a href="/sudoku.htm?bd=000000000803024010901076080607083920000009100000000000708010030000000000102030690">Exemplar 2 x2 (score 8.7)</a></li>
+<li><a href="/sudoku.htm?bd=000000000003024609000036501024067905000000000075041203001093704009005100000000000">Exemplar 4 x1 (score 8.8, 19/20 eliminations)</a></li>
+<li><a href="/sudoku.htm?bd=000000000009003100081024905064059203000000000023006501015000309000000000096005408">Exemplar 5 x1 (score 9.2, 19/20 eliminations)</a></li>
+<li><a href="/sudoku.htm?bd=040070010002350000060000080000000000000109020670000300003090006080704000020010004">Exemplar 1 x1 (score 10.2, perfect JF)</a></li>
+</ul>
+</div><br>
+
+<div class="SRCell">Exotic variations of the Swordfish continue with the <a href="Finned_SwordFish">Finned Swordfish</a> and <a href="Franken_Sword_Fish">Franken Swordfish</a>.</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Sword_Fish_Strategy">Swordfish Strategy</a></td><td class="w50pc cright">Continue to <a href="Simple_Colouring">Singles Chains</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=61&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Jelly_Fish_Strategy" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(61,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment16316"><div class="w100pc"><div class="w60pc"><h2>... by: Jonesvan</h2></div><div class="w40pc datepost">Thursday 2-Nov-2017</div></div>
+<div class="w100pc">Regarding the 3-2-3-3 formation above why did you select rows 1,4,6 & 9 and columns 1,3,7,9.  Could you not have selected row 3 &7 and columns 3&8?  Or rows 2&8 and columns 4&6?  Iâ€™m confused which rows and columns to select to make the patter?  Iâ€™m having a mentally block with this pattern as it seems  there are multiple options?</div>
+<div class="w100pc" id="blog-reply16316"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>(Example has been replaced)</div></div><div id="blog-reply2790" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(61,16316,2790)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16267"><div class="w100pc"><div class="w60pc"><h2>... by: speter</h2></div><div class="w40pc datepost">Monday 22-May-2017</div></div>
+<div class="w100pc">In your first example (top row = ..17538..); I can't work out how to discard candidate 2's at B1, G1, H1 & H9; and unless they are eliminated the jellyfish isn't there. ;-)<br><br>Can you please explain how the candidate 2 at B1 (for example) is eliminated!?</div>
+<div class="w100pc" id="blog-reply16267"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(61,16267,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15680"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Oz</h2></div><div class="w40pc datepost">Monday 29-Oct-2012</div></div>
+<div class="w100pc">Hi Andrew<br>I found an interesting Jelly-Fish (my first ever, actually) in the <a href="http://sudoku-help.com/mX/mXsudoku.php?puzz=1513~Expert">local paper</a>  <a href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000092000360700203009600102008050060010100905006200708005036509140000000000">[Load Puzzle]</a>. <br><br>It's interesting cuz there are 2 simultaneous Jelly-Fish on 4's! The Solver finds CDFG2357 (a 3-4-2-3 J/F), but there is also one at ABEJ1469 (a 3-4-4-3), and also interestingly, the same 7 eliminations are made by both.<br><br>BTW - Since I use Letters & Numbers to define cells, I found the rYcX notation totally confused me at first! "JF=r3467c2357"???</div>
+<div class="w100pc" id="blog-reply15680"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is an interesting example. To see the second Jelly Fish, use the [<<] back button and then rotate once 90 degress (either way). Hit take step a few times.</div></div><div id="blog-reply2387" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(61,15680,2387)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15326"><div class="w100pc"><div class="w60pc"><h2>... by: John Francis</h2></div><div class="w40pc datepost">Saturday 23-Jan-2010</div></div>
+<div class="w100pc">John White observes:<br><br>  You can extend all of these in the following ways:<br><br>    A. You are not restricted to rows and colums.<br>    B. As with X-Wing and Swordfish, you can 'Fin' Jellyfish.<br>    C. Why stop at 4......<br><br>The reason for stopping at 4 is because of the symmetry between possible candidates in a cell and potential sites for a given digit.<br><br>It's best explained by considering Naked and Hidden n-tuples.<br>Consider a Naked heptuple.  This is a set of seven cells in one set (row, col or box) which between them only have seven different candidates.  This means that these seven cells will contain those seven values in some order.<br><br>Now describe that situation it another way. The cells *not* in the n-tuple are the only ones which can include numbers not in those n candidates.<br>This is the description of a hidden (9-n)-tuple (hidden pair, in this case).<br><br>This means there's no need to go beyond 4 in describing a strategy; Naked quints are the same as hidden quads, and so on.  For a strategy described using numbers greater than four there is an equivalent description using smaller numbers (and interchanging the roles of candidates in a cell and positions for a digit).<br><br></div>
+<div class="w100pc" id="blog-reply15326"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(61,15326,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15256"><div class="w100pc"><div class="w60pc"><h2>... by: John White</h2></div><div class="w40pc datepost">Friday 24-Jul-2009</div></div>
+<div class="w100pc">Jelly fish is a sub category of a more general system:<br><br>Take any group of N disjoint (not overlapping) sets(row,column or box) and compare them to any other group of N disjoint sets. If the overlap of these two groups contains all the possible candidates for any given number then you can remove all the candidates in the other group that are not in the overlapping area.<br><br>If N=2 you get X-Wing<br>If N=3 you get Swordfish<br>If N=4 you get Jellyfish<br><br>What this means is that you can extend all of these in the following ways:<br><br>A. You are not restricted to rows and colums.<br>B. As with X-Wing and Swordfish, you can 'Fin' Jellyfish.<br>C. Why stop at 4......<br><br>(Finning: if all candidates from one of the groups that are not contained in the overlap can be contained by one more set (row, colum or box) (the set must not be in the original 2 groups!), then the candidates contained in overlap of this extra set and the second group can be removed.</div>
+<div class="w100pc" id="blog-reply15256"></div>
+<div class="post-reply" id="reply2789"><table class="w100pc"><tr><td class="post-writes">Philipp Huebner replies:</td><td class="datepost">Saturday 22-Aug-2009</td></tr>
+<tr><td colspan="2">Shouldn't John White's main sentence be: "If the overlap of these two groups contains all the possible candidates for any given number in one of the groups then you can remove all the candidates in the other group that are not in the overlapping area." (I added: "... in one of the groups ...")</td></tr>
+</table></div>
+</div><div id="blog-reply2789" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(61,15256,2789)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 284453<br>
+			This page was last modified on 31-December-2018.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1025908c8f44bd7',t:'MTc4MjIwNTcwMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

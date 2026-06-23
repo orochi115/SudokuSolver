@@ -1,0 +1,393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd"><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- start content -->
+	<meta name="keywords" content="Almost Locked Candidates,Almost Locked Set,Box,Candidate,Cell,Digit,Elimination,Line,Locked Candidates,Solving technique,Technique">
+	<title>Almost Locked Candidates - Sudopedia Mirror</title>
+<!-- end content -->
+
+</head>
+<body>
+<div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
+<a name="top" id="top"></a>
+<div id="siteNotice"><p>Mirrored from <b>Sudopedia</b>, the Free Sudoku Reference Guide</p></div>
+<hr>
+
+<!-- start content -->
+<h1 class="firstHeading">Almost Locked Candidates</h1>
+			<div style="border:1px solid #e0e0e0;margin-top:12px" id="example"><i>This article describes a Sudoku <a href="./Solving_Technique.html" title="Solving technique">solving technique</a> that is currently being actively developed by the Sudoku community. As the technique gets further developed by the community, the technique itself may receive substantial revisions. The name of this technique may also be changed in due time.</i></div>
+<p><br>
+The <b>Almost Locked Candidates</b>, or <b>ALC</b>, <a href="./Technique.html" title="Technique">technique</a> refers to a <a href="./Line.html" title="Line">line</a>-<a href="./Box.html" title="Box">box</a> intersection and a set of <a href="./Digit.html" title="Digit">digits</a> <b>S</b> such that:
+</p>
+<ul><li> An <a href="./Almost_Locked_Set.html" title="Almost Locked Set">Almost Locked Set</a> (ALS) for the set of digits <b>S</b> exists in the line outside the intersection; and
+</li><li> An ALS for the set of digits <b>S</b> exists in the box outside the intersection.
+</li></ul>
+<p>Then the following <a href="./Elimination.html" title="Elimination">eliminations</a> can be made:
+</p>
+<ul><li> If all the <a href="./Cell.html" title="Cell">cells</a> in the line that are not in the intersection or the line-ALS contains no digits from <b>S</b>, then the digits from <b>S</b> can be eliminated from the cells in the box that are not in the intersection or the box-ALS.
+</li><li> If all the <a href="./Cell.html" title="Cell">cells</a> in the box that are not in the intersection or the box-ALS contains no digits from <b>S</b>, then the digits from <b>S</b> can be eliminated from the cells in the line that are not in the intersection or the line-ALS.
+</li></ul>
+<table id="toc" class="toc" summary="Contents"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> </div>
+<ul>
+<li class="toclevel-1"><a href="./Almost_Locked_Candidates.html#Illustration"><span class="tocnumber">1</span> <span class="toctext">Illustration</span></a></li>
+<li class="toclevel-1"><a href="./Almost_Locked_Candidates.html#More_examples"><span class="tocnumber">2</span> <span class="toctext">More examples</span></a></li>
+<li class="toclevel-1"><a href="./Almost_Locked_Candidates.html#External_link"><span class="tocnumber">3</span> <span class="toctext">External link</span></a></li>
+<li class="toclevel-1"><a href="./Almost_Locked_Candidates.html#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></tbody></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Illustration"></a><h2> Illustration </h2>
+<p>The ALC technique is best illustrated by using a example.
+</p>
+<table border="2" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> XY
+</td><td width="20px"> *
+</td><td width="20px"> *
+</td></tr>
+<tr>
+<td width="20px"> *
+</td><td width="20px"> *
+</td><td width="20px"> *
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> XY
+</td><td width="20px"> /
+</td><td width="20px"> /
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> /
+</td><td width="20px"> /
+</td><td width="20px"> /
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr>
+<tr>
+<td width="20px"> .
+</td><td width="20px"> .
+</td><td width="20px"> .
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+<p>In the above grid, each cell marked <b>XY</b> means that it has the <a href="./Candidate.html" title="Candidate">candidates</a> <b>X</b> and <b>Y</b>, and each cell marked <b>/</b> means that it does not have <b>X</b> or <b>Y</b> as candidates. Now, if <b>r1c4=X</b>, then all the candidates for <b>Y</b> in row 1 are being confined in box 1. This triggers a <a href="./Locked_Candidates.html" title="Locked Candidates">Locked Candidates</a> move, resulting in <b>Y</b> being eliminated from all cells in box 1 that are outside the intersection. But this also means that <b>r2c1=X</b>, so all the cells marked <b>*</b> cannot contain the digits <b>X</b> or <b>Y</b>. A similar deduction can be made if <b>r1c4=Y</b>. Therefore, in both cases, we can safely eliminate <b>X</b> and <b>Y</b> from all cells marked <b>*</b>.
+</p>
+<a name="More_examples"></a><h2> More examples </h2>
+<table border="2" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> XYZ
+</td><td width="30px"> XYZ
+</td><td width="30px"> *
+</td></tr>
+<tr>
+<td width="30px"> *
+</td><td width="30px"> *
+</td><td width="30px"> *
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> XYZ
+</td><td width="30px"> XYZ
+</td><td width="30px"> /
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> /
+</td><td width="30px"> /
+</td><td width="30px"> /
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td></tr>
+<tr>
+<td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td><td>
+<table border="1" cellpadding="2" cellspacing="0" style="border-top-color:#c0c0c0;border-left-color:#c0c0c0;background:#f8f8f8;font-face:courier new;text-align:center">
+<tbody><tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr>
+<tr>
+<td width="30px"> .
+</td><td width="30px"> .
+</td><td width="30px"> .
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+<p><b>X</b>, <b>Y</b> and <b>Z</b> can be eliminated from all cells marked <b>*</b>.
+</p>
+<a name="External_link"></a><h2> External link </h2>
+<ul><li> <a href="http://forum.enjoysudoku.com/viewtopic.php?t=5186" class="external text" title="http://forum.enjoysudoku.com/viewtopic.php?t=5186" rel="nofollow">Variation of Locked Candidates</a>
+</li><li> <a href="http://www.sudocue.net/forum/viewtopic.php?t=607" class="external text" title="http://www.sudocue.net/forum/viewtopic.php?t=607" rel="nofollow">Almost Locked Candidates</a>
+</li></ul>
+<a name="See_also"></a><h2> See also </h2>
+<ul><li> <a href="./Locked_Candidates.html" title="Locked Candidates">Locked Candidates</a>
+</li><li> <a href="./Almost_Locked_Set.html" title="Almost Locked Set">Almost Locked Set</a>
+</li></ul>
+
+This page was last modified 18:25, 12 April 2007.
+<!-- end content -->
+&nbsp;<br>
+<hr>
+<div id="footer">
+<div id="f-copyrightico">
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+</div>
+<ul id="f-list">
+<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>
+<li id="about"><a href="About.html" title="Sudopedia:About">About Sudopedia</a></li>
+<li id="disclaimer"><a href="General_disclaimer.html" title="Sudopedia:General disclaimer">Disclaimers</a></li>
+<li id="mirrored">Mirrored from <a href="http://sudopedia.org">sudopedia.org</a></li>
+</ul>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Gurths Theorem - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Gurth's Symmetrical Placement Theory is discussed"/>
+<meta name="twitter:description" content="Gurth's Symmetrical Placement Theory is discussed">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/Gurth1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/Gurth1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Gurths_Theorem';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Gurths_Theorem">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<div class="SRCell"><h1>Gurth's Symmetrical Placement Theorem</h1>
+
+I have been inspired to add a strategy to the solver by the excellent video by Cracking The Cryptic, posted in August 2019 on <a href="https://www.youtube.com/watch?v=ac7Y97t2Wns">YouTube</a>. The first instance of this technique was documented by the discussants <a href="http://forum.enjoysudoku.com/the-riddle-of-sho-t4392-15.html">on this thread</a> way back in 2007, so it's been known about for a long time, but as the video mentions, few solvers test for it. 
+
+However, my investigations show this is only a useful strategy in a very limited number of puzzles and, within the subset of qualifying boards, not all can be progressed with this knowledge. More later. Wikipedia has a good page on the mathematics of Sudoku and a section in <a href="https://en.wikipedia.org/wiki/Mathematics_of_Sudoku#Automorphic_Sudokus">Automorphic Sudokus</a> which is the type of puzzle we are going to discuss. 
+</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Gurth1.png" alt="Top-Left to Bottom Right Symmetry" /><figcaption>Top-Left to Bottom Right Symmetry
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000001002003000040050060700000800070007003800900050001006080200040600007200009060">Load Example</a>
+</figcaption></figure>
+<br>Lets begin with <i>'Shining Mirror'</i>, the example from Simon and Mark's video which is also in the example list on the solver. <br><br>With the colouring I've employed it's clear that something very symmetrical is going on across the diagonal red line (top left to bottom right). Every clue matches either to itself or to exactly one other number. <br><span class="hy">3</span> maps onto <span class="hy">5</span>, <br><span class="hy">6</span> maps onto <span class="hy">7</span> and <br><span class="hy">1</span> maps onto <span class="hy">9</span>. <br>The remaining three numbers <span class="hy">2, 4</span> and <span class="hy">8</span> map onto themselves.</div>
+
+<div class="SRCell">Gurth's Symmetrical Placement idea states that<ol><li><i>if a puzzles clues are symmetrical</i> and</li><li><i>the puzzle has a unique solution</i>, then</li><li><b>The solution will also be symmetrical.</b></li></ol>Which means that ALL the numbers will continue to map in the same way across the whole board. Sounds like a gold mine for solving!<br><br>An important point first. <b>All the clues</b> must have a complement - it's no good if there is a stray clue somewhere with an empty cell on the opposite side. Nor can only some be mapped 1:1, every number must map 1:1 only once. That's quite a restriction.<br><br>Second point: What is a symmetry?  If you rotate a puzzle 90 degrees it will look like a completely different puzzle, especially if is on a different page in a book. However, it will have the same grade and will solve in exactly the same way in a solver. Changing all the numbers, eg from 9s into 1s, 8s into 2s, will have the same non-effect. Same puzzle in essence. The technical word for this is <b>Automorphism</b>. <br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Gurth2.png" alt="Vertical symmetry does not work" /><figcaption>Vertical symmetry does not work
+</figcaption></figure>
+In the example of <i>Shining Mirror</i> we can use the diagonal reflection from top left to bottom right. Because the cells <span class="hy">A1</span>, <span class="hy">B2</span> to <span class="hy">J9</span> are complements of themselves (they do not reflect elsewhere) it is inevitable that the numbers on that line map to themselves. Which is why 2=2, 4=4 and 8=8. For a diagonal reflection there must be at least 3 numbers that behave like this, which makes it useful for solving this particular puzzle.<br><br>Lets briefly consider vertical and horizontal reflection. Because the axis of the reflection is along an entire row, row E, every number 1 to 9 must be in that row and along that axis. That means that the 1:1 mapping for each number will be for all numbers. That makes it impossible to have a full board with that property though-out. So we can forget vertical and horizontal as potential symmetries.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Gurth3.png" alt="Rotational Symmetry" /><figcaption>Rotational Symmetry
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=020000709400080020009020406000507000067000230000204000305070900070010005902000070">Load Example</a>
+</figcaption></figure>
+<br>Lets take a look at a rotational symmetry, this one a full half turn or 180°. This is more difficult to spot in the wild, it takes some staring to see that every clue apart from 9, maps only onto one other number, if you rotate around the center cell by a half turn. I have coloured the mappings. We can see that since 9 alone maps to itself, the center cell <span class="hy">E5</span> must be 9. This cell is the only cell that stands still under the rotation. We'd have spotted that anyway, since it is the last available number in that cell (Naked Single). Elswhere<br><span class="hy">1</span> maps onto <span class="hy">8</span>, <br><span class="hy">2</span> maps onto <span class="hy">7</span>,<br><span class="hy">3</span> maps onto <span class="hy">6</span> and<br><span class="hy">4</span> maps onto <span class="hy">5</span>. </div>
+
+<h2>Why is the Theorem True?</h2>
+<div class="SRCell">If a true symmetrical placement exists then we will get back the original puzzle after doing both the reflection or rotation and then the mapping (permutation). These two steps done in sequence will return the puzzle to the original state. Gurth's observation is that if the subset of the board which are the clues have this property, then the entire solved puzzle will as well.
+
+In order for this assertion to be false, we have to show that there is a way of filling in the puzzle in such a way that the symmetry is broken. This can only be done if there is more than one solution. If that argument sounds a little circular, then do have a watch of the video which shows a proof by contradiction. 
+
+</div><br>
+
+<h2>How useful is this strategy?</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Gurth4.png" alt="Shining Mirror" /><figcaption>Shining Mirror
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000001002003000040050060700000800070007003800900050001006080200040600007200009060">Load Example</a>
+</figcaption></figure>
+<br>Somewhat. In my original implementation in 2019 I only concentrated on direct eliminations. However in late 2025 it was improved to removed all mirrored candidates after any successful strategy. This considerably reduces the complexity of Gurth-compliant puzzles. But these puzzles are still few and far between.<br><br>Take a look at Shining Mirror when the new board is freshly loaded and "Take Step" has been clicked once to get to "Show Possibles". This is the first initial clear out of candidates based on the clues. If the puzzle is Gurth-compatible then not only will the clues and the solution be symmetrical and map 1:1 but the entire candidate distribution will as well! This means that we can make no more useful eliminations anywhere on the board that have not already been eliminated by the clues!<br><br>An example is <span class="hy">A7</span> which maps by reflection into <span class="hy">G1</span>.  The remaining candidates in <span class="hy">A7</span> are {3,5,6,9} and these map 1:1 to <span class="hy">G1</span>'s possibles {5,3,7,1}<br><br>The only cells where eliminations are useful are in the cells that map to themselves in reflection, in this case the diagonal. Now, for Shining Mirror, it is necessary to use Gurth's idea to crack open the puzzle. But it is only possible because these cells are restricted to 3 numbers. The eliminations are shown in yellow.<br><br>For the rotated puzzle we only have one cell that maps to itself (<span class="hy">E5</span>). I believe this example was specially created to show a possible Gurth-compatible example in rotation, but it solves trivially. I would love to find more examples and I hope readers can send them in. I suspect that   hard puzzles that can use Gurth's idea are very few and far between.<br><br>Update: <a href="sudoku.htm?bd=000000605000300090080004001040020970000000000031080060900600020010007000504000000">Riddle of Sho</a> is a rotational 'Gurth' puzzle and the solver finds three eliminations in different steps.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Gurth5.png" alt="" /></figure>
+I've done a search through my databases and lists, collections of puzzles from the internet and all the ones I've made myself for stock. It is alarming to find not a single example of a symmetrical puzzle anywhere. I'm also looking at 90° rotations as well. Firstly I thought maybe I was making puzzles with a bias such that certain types of patterns were very unlikely to be produced. That is possible. <br><br>To give an idea of the search space I've reproduced this table from the <a href="https://en.wikipedia.org/wiki/Mathematics_of_Sudoku#Automorphic_Sudokus">wikipedia page</a>. These figures are for <a href="http://sudopedia.enjoysudoku.com/Canonical_Form.html">canonical puzzles</a> - which is really the entire universe of possible boards.  Since this is the total for every kind of symmetry it would be better to know what fraction are diagonal and rotational symmetries only. Perhaps readers can help and it would improve the estimate how often this likely to be seen.<br><br>So while Gurth's observation is facinating, I suspect it is too esoteric to be useful, but it does deepen our understanding of the nature of the puzzle. In any case, the solver will now alert the user to a compatible puzzle and insert the strategy into this list.</div>
+
+<h2>Update November 2019</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Gurth6.png" alt="E5 is interesting" /><figcaption>E5 is interesting
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000010210003480039800200060304900000000000001607040008002170026700098090000000">From the Start</a>
+</figcaption></figure>
+This puzzle is interesting. I was sent it by someone viewing another video from Cracking Cryptic.  Before the Nov 17th update it crashed the solver as 5 was mapping to 0. This is because the puzzle seems Gurth Compatible (180° rotation) except that 5 is not a clue at the start, and therefore has no mapping. However, 5 is an available candidate in <span class="hy">E5</span> and if you manually set this clue it will detect and some eliminations are made. This is the only square where a "ghost" mapping can be made - and it is onto itself.<br><br>I was wondering how to alert the user to a potential Gurth puzzle when it lacks one mapping. To be safe and not crash the solver I've put in a test to negate detection in this case.<br><br>(Also fixed a bug with the mirrored Gurth eliminations)<br><br></div>
+
+<div class="SRCell">Dominique Provent has sent me a nice example set of puzzles that use Gurth's Theorem. All are unsolvable without the trick being employed.
+<ul>
+<li><a target="_blank" href="/sudoku.htm?bd=700020010080600700005004009010500090900000600003000004070010020600200900002003000">Puzzle 1</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=100000000007800600040005003020003400000010090005600008030700004000090050006002700">Puzzle 2</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=200000500070001090004500008001030060000800001050007900100006200060900040003050000">Puzzle 3</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=200000400001400006040007030010004080000020009005100600100003007006800090030090500">Puzzle 4</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=200000500070001090004500008001030050000800009050004200100002400060100070003060000">Puzzle 5</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=200000800070009030004600002003400100000006090050030004100800200060050000002004007">Puzzle 6</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=001300200020001005300000000100005006000080090030400700200006007000090080040700600">Puzzle 7</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=200000600070900010004000008050260001000109050000054300100008200060090070003600000">Puzzle 8</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=200000300070900080004000001050708600000025008000690050100800000060009040003060002">Puzzle 9</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=030020009400100070007004800050001020600000500003500004008010060070600200900003008">Puzzle 10</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=000003009070400100005610030036000520002000001400000300020504600004100070800020000">Puzzle 11</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=800020900000100060005004001070500030300000700004000002600010800090200000007003004">Puzzle 12</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=000020030060700500000004001010500060800000700004000009050010080900600200007003006">Puzzle 13</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=000002700090600005000040030030500010008000006100000200700001500006200008050030040">Puzzle 14</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=000002800050600004000030060070400050001000009900000300800001400007500006040020070">Puzzle 15</a></li>
+<li><a target="_blank" href="/sudoku.htm?bd=002007004040100800601000000010003002000090070500800300030008005000050090400600700">Puzzle 16</a></li>
+</ul></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="BUG">BUG</a></td><td class="w50pc cright">Continue to <a href="Sudoku_X_Strategies">Sudoku X Pitfalls</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=199&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Gurths_Theorem" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(199,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment16830"><div class="w100pc"><div class="w60pc"><h2>... by: goran</h2></div><div class="w40pc datepost">Tuesday 9-Aug-2022</div></div>
+<div class="w100pc">Could you pls update sudoku 16x16.</div>
+<div class="w100pc" id="blog-reply16830"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Is there really a demand? Lot of work and the compute cycles for 16x16 are enormous. And getting the clues down to a reasonable number requires a new solution count algorithm. I've asked for help for that but no takers yet.</div></div><div id="blog-reply2816" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(199,16830,2816)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16660"><div class="w100pc"><div class="w60pc"><h2>... by: Sanjay</h2></div><div class="w40pc datepost">Sunday 30-May-2021</div></div>
+<div class="w100pc">Another relevant puzzle from cracking the cryptic (30 May 2021, "The Perfect Sudoku").  <br>I sometimes use this solver to make progress, even when the puzzle has additional constraints.  In this case, there are the thermo(s), by manually editing the options as we go through the solve.  I typically disable the options that rely on uniqueness (like the unique rectangles, extended unique rects and hidden unique rects).<br>The reason I bring this to your attention is that, your solver detected a Gurths incorrectly, even after I edited the options that break the symmetry. (Explicitly, R2C3 is odd, and R3C2 is unconstrained). <br><br>I am reproducing the text from "Email This Board" below for reference.<br><br><a href="sudoku.htm?bd=000080006000004500000000070000000080200050694060000000050040000003210000400060000">Click on this link</a><br><br></div>
+<div class="w100pc" id="blog-reply16660"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yeah. Since the puzzle has a zillion solutions (since it is not a classic sudoku) it will generate false eliminations with complex strategies. But interesting nonetheless.</div><div class="post-reply" id="reply3023"><table class="w100pc"><tr><td class="post-writes">Davin replies:</td><td class="datepost">Sunday 23-Nov-2025</td></tr>
+<tr><td colspan="2">GSP is a uniqueness strategy, similar to UR's and the like. So it will make false eliminations.</td></tr>
+</table></div>
+</div><div id="blog-reply3023" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(199,16660,3023)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16646"><div class="w100pc"><div class="w60pc"><h2>... by: sscg13</h2></div><div class="w40pc datepost">Wednesday 20-Jan-2021</div></div>
+<div class="w100pc">Actually it is computationally feasible to check 6^8 isomorphisms.<br>I have a program that can do so, and it takes a couple of seconds per puzzle.<br>For example, Golden Nugget and Easter Monster are not isomorphic to any symmetric-clued puzzles (too bad).<br></div>
+<div class="w100pc" id="blog-reply16646"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16646,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16627"><div class="w100pc"><div class="w60pc"><h2>... by: James</h2></div><div class="w40pc datepost">Saturday 17-Oct-2020</div></div>
+<div class="w100pc">Perhaps you could 'sort' sets of rows and columns into a canonical order, but reverse it on both sides of the puzzle and use this to find permuted symmetry.</div>
+<div class="w100pc" id="blog-reply16627"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16627,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16625"><div class="w100pc"><div class="w60pc"><h2>... by: Mr Cats</h2></div><div class="w40pc datepost">Tuesday 13-Oct-2020</div></div>
+<div class="w100pc">To add to what Ralp has said:<br>You can switch around rows within a tier or columns within a stack while preserving uniqueness (in addition to swapping tiers or stacks); therefore if a grid is solvable using Gurth's theorem while the board is nice and symmetric, it must somehow retain that aspect of symmetricality under such transformations. Is there a way to determine if a given sudoku can be transformed into a symmetric sudoku, so that you may apply Gurths theorem in some (albeit tangled) way? Is there a test for "hidden" symmetricality? <br><br>There are (3!^4)^2 = 1679616 different ways to transform a grid by swapping rows within tiers, columns within stacks, and tiers and stacks themselves; it would be impractical to check each individual transformation. I imagine there must be *some* invariant per board which can be calculated that determines symmetricality.</div>
+<div class="w100pc" id="blog-reply16625"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16625,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16622"><div class="w100pc"><div class="w60pc"><h2>... by: Jesse Chisholm</h2></div><div class="w40pc datepost">Sunday 4-Oct-2020</div></div>
+<div class="w100pc">re: psuedo-Gurth<br>It seems the pattern you describe for this puzzle (Update November 2019) should work to alert on this style.<br>* E5 is not a given clue.<br>* there is a digit not represented in the given clues<br>* all eight other digits fit the Gurth 180-degree rotational symmetry pattern.<br>> alert with 'guess' that the missing digit 'might' go in E5.<br><br>-Jesse</div>
+<div class="w100pc" id="blog-reply16622"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16622,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16603"><div class="w100pc"><div class="w60pc"><h2>... by: mturner</h2></div><div class="w40pc datepost">Monday 27-Jul-2020</div></div>
+<div class="w100pc">I'm always interested in new solving techniques. The caveat for me is that existing techniques must not be able to solve the sample puzzle. In this case, After a Jellyfish on 3's, An X-Wing on 4's, and X-Wing on 6, a Jellyfish on 7's, and a locked set on row 5, the puzzle is cracked.</div>
+<div class="w100pc" id="blog-reply16603"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16603,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16563"><div class="w100pc"><div class="w60pc"><h2>... by: Ralp</h2></div><div class="w40pc datepost">Saturday 14-Mar-2020</div></div>
+<div class="w100pc">Since sudokus can be moved left/right and up/down by 3 columns/rows and still work and solve the same, doesnt this mean that this method should work for permutations of symmetrical puzzles like the examples shown above where this is the case (both reflection and rotation)?<br><br>If so, the solver currently (2020/03/15) doesnt appear to support this as "Shining Mirror" moved up by 3 columns does not detect this method or solve at all.<br>Proof: sudokuwiki.org/sudoku.htm?bd=000800070007003800900050001006080200040600007200009060000001002003000040050060700</div>
+<div class="w100pc" id="blog-reply16563"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16563,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16546"><div class="w100pc"><div class="w60pc"><h2>... by: MarcT</h2></div><div class="w40pc datepost">Monday 27-Jan-2020</div></div>
+<div class="w100pc">In Riddle of Sho, the solver is not making the most of Gurth by placing the 5 (which maps to itself) in E5.</div>
+<div class="w100pc" id="blog-reply16546"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(199,16546,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16524"><div class="w100pc"><div class="w60pc"><h2>... by: pie314271</h2></div><div class="w40pc datepost">Saturday 16-Nov-2019</div></div>
+<div class="w100pc">Another comment - I've noticed something unusual about the solver now with Gurth's Theorem. I loaded up the Riddle of Sho example (which worked before) but it claims to have Gurth's theorem when the candidates don't align. It probably has to do with the way the candidates are being checked here.<br><br>That said, I'm not even sure about this, because when I throw it in the Solve Path now, it works, but running through the steps manually gives an infinite loop (error).<br><br>~pie314271</div>
+<div class="w100pc" id="blog-reply16524"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes I see the problem. Getting wrongness back from the backend. I will try and fix asap<br><br>UPDATE: Ok now fixed! Plus there was a keyboard break in the code which is a no-no for a server side program. Probably causing the hang.</div></div><div id="blog-reply2601" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(199,16524,2601)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16522"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter, Newtown, Australia</h2></div><div class="w40pc datepost">Sunday 3-Nov-2019</div></div>
+<div class="w100pc">Hi Andrew<br>Interesting theorem. <br><br>I noticed  the "Load Sudoku" link is hiding behind the bottom of the puzzle (W10/Firefox) AND is incorrect - the "sudoku.htm?bd=" bit is missing. <br><br>Also, in the paragraph "An example is A7 which maps by reflection into G1. The remaining candidates in A7 are {3,5,6,9} and these map 1:1 to G1's possibles {1,3,5,7}", since this page is documentation of an explanatory nature, may I suggest that the order of the candidates in the last bit reads "... these map 1:1 to G1's possibles {5,3,7,1}", reflecting the 1:1 mapping. <br><br>Also, I noticed the footer to this page is not showing the number of page views. <br><br>Thanks<br><br>Ciao, Pieter</div>
+<div class="w100pc" id="blog-reply16522"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Updated these, except I cant find the first point.</div></div><div id="blog-reply2600" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(199,16522,2600)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 28-September-2019. Views: 48168<br>
+			This page was last modified on 25-January-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1026917ecf5fde4',t:'MTc4MjIwNjM2MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

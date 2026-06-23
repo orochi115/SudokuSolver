@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>WXYZ-Wing - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. WXYZ-Wings extend XYZ-Wings to four numbers and are four cell formations used to eliminate candidate elsewhere. They use a common candidate method to find contradictions."/>
+<meta name="twitter:description" content="Sudoku Strategy. WXYZ-Wings extend XYZ-Wings to four numbers and are four cell formations used to eliminate candidate elsewhere. They use a common candidate method to find contradictions.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/wxyzname.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/wxyzname.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'WXYZ_Wing';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_WXYZ_Wing">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>WXYZ-Wing</h1><div class="SRCell">This is an extension of <a href="/XYZ_Wing">XYZ-Wing</a> that uses four cells instead of three. A.k.a. <span class="hy">Bent Quads</span>.<br><br>I am grateful to <b>SudoNova</b> posting below and <b>StrmCkr</b> who posted about this strategy way back when <a href="http://forum.enjoysudoku.com/wxyz-wings-t30012.html">on this page</a>. I only got round to appreciating the insights recently but the much expanded version of WXYZ is now in version 1.96+ of the solver. Previously I'd restricted the scope to a very narrow definition. Using one of my test libraries, the 50k set from Ruud, I increased the detection from 299 instances to 8313, so it is definitely worth looking out for.<br><br>I'm going to start with my narrow definition if only to show how this is an extension of the three-cell XYZ-Wing.<br></div><br>
+
+<h2>Type 1</h2>
+<div class="SRCell">
+<figure style="width:400px"><img src="PuzImages/wxyzname.png" alt="WXYZ-Wing theory" /><figcaption>WXYZ-Wing theory
+</figcaption></figure>
+Its name derives from the four numbers W, X, Y and Z that must be in exactly four cells. In my narrow definition we need a <i>hinge</i> cell containing all four candidates WXYZ and three outlier cells each containing a pair wZ, xZ and yZ - Z being the common number.<br><br>The easy principle is that each possible value of the hinge cell results in a Z value in one of the cells in the WXYZ-Wing pattern, thus leaving no room for a Z on any cell all four can 'see'.<br></div>
+
+<div class="SRCell"><br>That is the narrow definition and a glance at <a href="/XYZ_Wing">XYZ Wing</a> will show you its the same idea plus one more cell.  You could expand it to a five cell pattern and five numbers.<br><br>Now, lets consider StrmCkr's more general definition:<br><b>WXYZ-Wings can be considered as a group of 4 cells and 4 digits, restricted to exactly two units, that has exactly one non-restricted common digit.</b> We use that digit (Z) to eliminate since at least one of Z will be the solution.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/wxyzname2.png" alt="Non-Restricted Common Digit" /><figcaption>Non-Restricted Common Digit
+</figcaption></figure>
+So what is a <span class="hy">non-restricted common digit</span>? <br><br>Well, a  <span class="hy">restricted</span> digit is one where all the instances of candidate N in the pattern can see each other. On the diagram to the left I have connected the W candidates - because they share the same box, and I can connect the Xs and Ys as they share a row. Only Z is non-restricted because some of the Zs - ie the one in <span class="hy">C1</span> CANNOT see the Zs in <span class="hy">B4</span> and <span class="hy">B5</span>.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WXYZ1.png" alt="WXYZ-Wing example 1" /><figcaption>WXYZ-Wing example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9Bc38jb7bn0b04070c4j050db70307b60b064302030g5f0z5e83b70407918582038408041v8i900c040h01829g3m7n08049u069w830l03030l456r0r6q1m05094b074j5e09031m4302bf830602174i0c5v5v">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000004700500370060230000004700030840000401000084060003300000059070093002006200000">From the Start</a>
+</figcaption></figure>
+<br>In the first example I show a classic WYXZ wing - in that it has all four candidates (1/2/5/9) in the hinge cell <span class="hy">D3</span> marked in brown. The three outlier cells, marked in yellow each contain a 9 (our Z) plus some of the other four candidates.<br><br>I have also marked in rings the spread of candidates 1, 2 and 5. You will see that both 1s can 'see' each other because they are in the same box. The 2s can 'see' each other because they are on the same row and the three 5s can all see each other since they share the same row as well. That makes 1, 2 and 5 <i>restricted</i> in the four cell pattern.  <br><br>Candidate 9 is different. At least one 9 (in <span class="hy">F1</span>) cannot see at least one other 9 - the 9s in <span class="hy">D4</span> and <span class="hy">D6</span>.  That makes it the only <i>non-restricted</i> candidate. <br><br></div>
+
+<div class="SRCell">A Type 1 WXYZ elimination will always be made on the non-restricted candidate. We are looking for a 9 elsewhere that can see every 9 in the four cells of our WXYZ pattern. That 9 is on <span class="hy">D2</span>.<br><br>It is important to note is that StrmCkr's rule says nothing about the hinge requiring four candidates and the other cells two. Like Quads, we need <i>in total</i> four candidates in four cells. This is a four-cell <span class="hy">Locked Set</span>. StrmCkr makes this point in his second corollary, So lets look at some examples where the is a thinner spread of four candidates. <br><br>Interestingly, where Z is present in less than four cells, ie three or just two cells of the four - more eliminations are possible because there are less cells that the eliminated candidates need to 'see'. I believe my new implementation WXYZ gives more variants than the 10 StrmCkr lists as exemplars.<br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WXYZ2.png" alt="WXYZ-Wing example 2" /><figcaption>WXYZ-Wing example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0804021u1u0307010936aa0301cy045e4k1g05aa012cd0b84y03048i03081g018k0407057u0216038207010608011u07224q5e020903034i062k3010094q012i6a160903015e4k1g02010908221u031607">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=802003709000104000500000004008000405020307060107000200300000001000901000209800307">From the Start</a>
+</figcaption></figure>
+<br>The second WXYZ example is orientated in columns rather than rows, but works the same. The hinge cell in <span class="hy">D6</span> conspicuously fails to contain the non-restricted candidate 5, but no matter. Whatever the final solution of <span class="hy">D6</span> a 5 is forced into either <span class="hy">E5</span> or one of the two cells <span class="hy">G6</span>/<span class="hy">J6</span>.  The outliers are nice easy pairs - like my original narrow definition, but the improvement is not needing 5 (Z) in the hinge every time.<br><br>The solver tells us<br><span class="hc">WXYZ Wing<br>The four cells {D6,E5,G6,J6} contain in total 2/5/6/9.<br>Candidate 5 determines the 'wing' cells (in yellow) and one or other of those 5s must be true. Therefore...<br>5 can be taken off F6<br>5 can be taken off G5<br>5 can be taken off J5</span></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WXYZ3.png" alt="WXYZ-Wing example 3" /><figcaption>WXYZ-Wing example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B30132t3i3c2k0826099o7q08amag050n1q1j8a068201babe071a02bmbm90aaar03859g048407948i047n89081301048602decy069i2u03bm04cy9g0684016acy029f059j9f04ae6u06bn9vda9l9p889g6e">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000009008005000060100702000003004070040080100200600304006010020500400600000000">From the Start</a>
+</figcaption></figure>
+<br>Here is an example where the non-restricted common digit is present in just two pincer cells. We don't have to worry about 3s 'seeing' the brown cells as they don't have a 3 in them.  Consider how the hinge cell in <span class="hy">C1</span> solves when each digit is looked at. Suppose <span class="hy">C1</span> is 4. That makes <span class="hy">C8</span> contain 3/5. <span class="hy">C8</span> + <span class="hy">C3</span> + <span class="hy">B2</span> now becomes an Y-Wing - and eliminates 3s in the same way. Interesting!<br><br>The solver returns<br><span class="hc">WXYZ Wing<br>The four cells {C1,B2,C8,C3} contain in total 3/4/5/9.<br>Candidate 3 determines the 'wing' cells (in yellow) and one or other of those 3s must be true. Therefore...<br>3 can be taken off B7<br>3 can be taken off B8<br>3 can be taken off B9</span><br></div>
+
+<h2>Update August 2025</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WXYZ5.png" alt="WXYZ-Wing example 4" /><figcaption>WXYZ-Wing example 4
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B091o034q380162186c081o1m1a3c1u9q199h0705014e0o094e0644010807121i1u020904120u16070902010806028i8i01040805070306074i0901034a184k127q020608049e0z9v0401b60205070603b6">Load Example</a>
+</figcaption></figure>
+I had a good tip from <b>Lukas Beyeler</b> who showed me I was not capturing all possible WXYZ-Wings. All the cells in the pattern are restricted to two units but my search was looking for them in a row+box or a column+box. It seems I was not considering the row and column situation. <br><br>From a puzzle on my own document pages he found this example. The non-restricted candidate 5 is present in the hinge <span class="hy">B4</span> and in the two wing cells <span class="hy">B6</span> and <span class="hy">D4</span> - which importantly cannot see each other. This example also shows it is not essential that all wing cells contain 5 as <span class="hy">B3</span> does not. We can remove the 5 in <span class="hy">A4</span> as it can see all 5s in the pattern.<br><br>If you "Take Step" past the next Pointing Pair there is a very similar WXYZ-Wing with the same features.</div>
+
+<h2>Type 2</h2>
+<div class="SRCell">I am very grateful to <b>David Hollenberg</b> again for providing a detailed argument for a more expansive WXYZ-Wing pattern which I have included in the solver from version 2.31 (February 10th 2025). I am going with his suggestion to call it Type 2. Looking through my past emails I see <b>Ed Logg</b> from California also recommended this pattern back in 2020. I'm also going to have to pick through the page comments to see who else thought of this and check for other variants.<br><br>In one way this pattern is simpler to state and define that Type 1 which talks about finding one non-restricted candidate. </div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/wxyz_type2_name2.png" alt="Type 2 Pattern" /><figcaption>Type 2 Pattern
+</figcaption></figure>
+What we need is two cells in the same box and same row (or column) that <i>in total</i> contain four candidates (the hinge). These are the two orange cells in the pattern diagram here. It is not necessary for both cells to contain all four, they must have four between them. <br><br>Now, if there are two other cells that cannot see each other and contain two each of the four in the WXYZ and one is in the same box and the other is elsewhere along the row (or column), we can make multiple eliminations in many places.<br><br>Shown in the diagram is the fact that candidates XZ in the row eliminates everywhere else in the row. And Candidates WY can eliminate in the rest of the box where the hinge is. <br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WXYZ_Type2_01.png" alt="Type 2 Example 1" /><figcaption>Type 2 Example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e019m5w6s0e4a4y03060e080r0r0c020i072i0b03096q4y05560adecy0b06cy040c014ib7030f5v057ncy020dbn049e03cz02cy6a0fbeb6014q0c07064q0b036q054c584y016209026q2i4jc37n62034i">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=010000003608000207003900500000604010030050020040302000001007600305000109200000030">From the Start</a>
+</figcaption></figure>
+From my stock I've picked a nice puzzle with two consecutive Type 2 WXYZ-wings.  <br><br>Cells <span class="hy">D12</span> contain {5,7,8,9} between them both. These cells can see <span class="hy">D9</span> (the XZ cell) which contains {5,8} and <span class="hy">F3</span> which contains {7,9}. So 8 can be taken off <span class="hy">D5</span>, 9 can be taken off <span class="hy">E1</span> and  9 can be taken off <span class="hy">F1</span>.<br><br>So what about all that 'non-restricted candidate' stuff? In this pattern all the common<br>digits are restricted. As David reports "<b>every candidate in a cell that is outside a Type 2 and that can see the occurrences of its digit in the WXYZ Wing can be eliminated</b>"<br><br>In the second example we'll reason through a proof. <br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/WXYZ_Type2_02.png" alt="Type 2 Example 2" /><figcaption>Type 2 Example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B9e019m5w6s0e4a4y03060e080r0r0c020i072i0b03096q4y05560adecy0b069e040c014i43030f5v057ncy020d4j049e03cz02cy6a0fbeb6014q0c07064q0b036q054c584y016209026q2i4jc37n62034i">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000000000000000000000000000000000000000000000000000000000000000000000000000">From the Start</a>
+</figcaption></figure>
+<br>In this puzzle all the WXYZ digits {1,7,8,9} are restricted (i.e., all occurrences of each digit occur only in the same row, the same column, or the same box).   <br>So all the 1 values in the wing can see each other and the same is true for the 7 values, 8 values, and 9 values.  Now take a cell outside the WXYZ Wing, for example <span class="hy">F5</span>  that has 9 as a possible candidate. Let's assume that 9 is the solution for that cell. Since it can see all of the 9 values in the wing (<span class="hy">D5</span> and <span class="hy">E6</span>), they would be eliminated. <br><br>We would then have a wing with 4 cells but only 3 possible candidates (1, 7, and 8). So by <br>the Pigeonhole Principal one of these digits must appear in more than one cell of the wing. <br>But this is impossible, since each digit is restricted so we would have (for example) two 1 values in the same row, column or box. So our original assumption that 9 is the solution for the cell outside the wing must be wrong and it can be eliminated as a candidate in that cell. <br><br>How common is Type 2 compared to Type 1?<br>I've only tested this on about 300 puzzles known to have an WXYZ-wing and it found 58 type 2s and 675 Type 1, so about 8%. And this was with checking for Type 2 first.<br><br></div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="XYZ_Wing">XYZ-Wings</a></td><td class="w50pc cright">Continue to <a href="Fireworks">Fireworks</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=69&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="WXYZ_Wing" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(69,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17303"><div class="w100pc"><div class="w60pc"><h2>... by: Strmckr</h2></div><div class="w40pc datepost">Tuesday 7-Oct-2025</div></div>
+<div class="w100pc">ALL: the named <br> xy ,xyz ,wxyz ,vwxyz ,uvwxyz ,tuvwxyz, stuvwxyz,rstuvwxyz <br><br>are found under  ALS xz rules with 1 RCC { wing} or 2 RCC { rings } <br> <br>classed under B.a.r.n.s {als xz}  <br> which is specifically a collection of N cells with N digits over 2 ALS <br>    using the Size N for the id name tag. <br><br>aside:  <br>the counting approach i hinted at also works but also covers more <br>  as it also tags  als with > dof past size 1 as it doesn't consider the cells as ALS. <br><br> Counting methods are no longer used on the players forum as we moved to Boolean logic gates  over iterative approaches.  <br><br><br>Counting method I talked about way way back: <br><br>{wing} <br>a collection of N cells with N digits   having:  N-1 RCC {Sector based}:<br><br>  so that 1 value {z} is shared by the set and can be eliminated from its collective peers <br><br>{Ring}<br>a collection of N cells with N cells  having N RCC { sector based} :  so that each RCC is restricted its respective Cells. <br><br>even my old thread mentions to use ALS -xz rules but that was missed in the Collary <br><br>Ring example: <br>+--------------------+---------------+----------------+<br>| -36    -36    -36  | .    .    .   | .    .     .   |<br>| -3678  (678)  (38) | -78  -78  -78 | -78  (78)  -78 |<br>| -36    (36)   -36  | .    .    .   | .    .     .   |<br>+--------------------+---------------+----------------+<br>| .      .      .    | .    .    .   | .    .     .   |<br>| .      .      .    | .    .    .   | .    .     .   |<br>| .      .      .    | .    .    .   | .    .     .   |<br>+--------------------+---------------+----------------+<br>| .      .      .    | .    .    .   | .    .     .   |<br>| .      .      .    | .    .    .   | .    .     .   |<br>| .      .      .    | .    .    .   | .    .     .   |<br>+--------------------+---------------+----------------+<br><br>see my wiki for further ALS  reading. <br><br>https://www.reddit.com/r/sudoku/wiki/als-terminology/<br><br></div>
+<div class="w100pc" id="blog-reply17303"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div><div style="color:#eef"><br>I appreciate the examples and write up on Reddit. I have been working on satisfying myself that the Wing Family sets are subsets of ALS. The main difference was until today I was not looking for the X-Wing examples in your list, but a tweak allows me to. In wondering whether it is worth getting the solver to look for VWXYZ and beyond it seems it is only beneficial to do so if the pattern is simpler than the ALS. For Y, XYZ and WXYZ (marginally) I think it is worth splitting out. But any larger, no. <br><br>For the sake of thoroughness and to make your examples more accessible I have typed them in and stated where my solver finds them and what Wing they are. The only ones I can't confirm are where a Naked Pair or Triple gets there first as my solver does not allow those to be skipped.<br><br>Note: Uncheck all other strategies to view ALS versions. Check Wing strategy to see the Wing result<br><br>From <a href="https://www.reddit.com/r/sudoku/wiki/als-terminology/" target="_blank">https://www.reddit.com/r/sudoku/wiki/als-terminology/</a><br><br><b><u>ALS XZ rule {1 RCC} examples:</u></b><br><br><a target="_blank" href="/sudoku.htm?bd=S9B5v1f040905430203365z132s45460604092q091y1007040o08011u1609034a064q0702010208060301070504091607010s09180306080604080502090107032f022q064647094i040n13094b074f064i02">Load Puzzle 1</a><br>First instance - XYZ Wing, uncheck, 1st ALS of 4<br>Second instance - XYZ Wing, uncheck, and 2nd ALS of 27<br><br><a target="_blank" href="/sudoku.htm?bd=S9B3601090508022e1m2m08040203367n9u1f2q3a052e36047n02087n2r026b3609046q032b09030r083605360r022i0662010203cy059m0207060401081209121308130912070402061a091a021206010708">Load Puzzle 2</a><br>First instance - Y-Wing, uncheck, and 3rd ALS of 46<br>Second instance - 1st ALS of 46<br><a target="_blank" href="/sudoku.htm?bd=S9B027y060107057u087q7n7z7z081g1g9m059i070805090304060201040208051f092b033605077n031h1g088j04067r7r040807027n05030r070205087n1n8i7n0602077u03050r0808057u067u01030702">Load Puzzle 3</a> <br>First instance - Y-Wing, uncheck, then 1st ALS of 7<br>Second instance - 3rd ALS of 7<br>Third instance - 6th ALS of 7<br><a target="_blank" href="/sudoku.htm?bd=S9B03060z0282077n040807090801060402030511160s0803827n070608160306011007090s06010s2e9e7q08050s100709044i4k06010304462b2e02470506090z462r094a060u022b090206052i0n0u082b">Load Puzzle 4</a> <br>First instance - WXYZ Wing, uncheck, then 2nd ALS of 34<br><br><b><u>Als XZ Double Link rules examples:</u></b><br><br><a target="_blank" href="/sudoku.htm?bd=S9B042s2u08092u012c0608012e06022e7u057u9u9w06042q01082g2e2q2y01091a0802061a060302070116160908828a08021a06070u01010609052i0203082i02082i03062i820182032q2y010809062i02">Load Puzzle 5</a><br>First instance - X-wing, uncheck, then 1st ALS of 2 <br><a target="_blank" href="/sudoku.htm?bd=S9B056201020603cy5u7u0u062c0108092c050u0948440705045454010209030604080501074a6262827n0z1k1k1i010506030207040908074605047n067n46021i01090807021i0405564c4c82030zdv6q8i">Load Puzzle 6</a><br>First instance - ALS 15/39 but I get 3-als + 1+als first<br><a target="_blank" href="/sudoku.htm?bd=S9B107s7o062q089k0401227z7v7u2q029i3a081o0708017u037o1g05017o05037o070608042c087s7o060405012g2k060w0508012g2g09030l36080l05040936090t0t070p0608050o0805360s0w09012g3c">Load Puzzle 7</a><br>First instance - X-Wing, uncheck, then 1st ALS of 5<br>Second instance - Inaccessible as Naked Pair gets it<br><a target="_blank" href="/sudoku.htm?bd=S9B2q8204069e014602462e7q089i0502010604060102460u4a09070509021u011m031608072u043q2q081u02010901082q029m8a160306040701bq7sbm0682484o9292bq01ci0704484o9292048o07468201">Load Puzzle 8</a><br>First instance - Inaccessible as Naked Triple gets it<br><br>Puzzle 9 skipped as example is Naked Pair<br>            <br><b><u>Once you are comfortable with size 1,2 expand into size 3</u></b> <br><br><a target="_blank" href="/sudoku.htm?bd=S9B1y22071i08012209028i0108028q05071m0394221o078u0u0108221w08091f220s0323073m031f8j3u08220297043m1h8n3q2g081v8z363e03080209222323010905042e06022e0808021m05012e092e1m">Load Puzzle 10</a><br>First instance - WXYZ-Wing or 1/10 ALS<br>Second instance - 10/10 ALS<br>Third instance - Inaccessible as Naked Pair gets it<br><a target="_blank" href="/sudoku.htm?bd=S9B5i7a025zb7cz9r6zce52045y5zb705026rc601095y0406022e5u050402430503430609074m6f6f0902061b4r4e094n06430704134j02075ebm4y04038202015e5f0402bncz9u038i021z8737839f083u8q">Load Puzzle 11</a><br>First instance - 2/8 ALS no other wing<br><a target="_blank" href="/sudoku.htm?bd=S9B02080501030407060903070602094i014a4q7n7n0407064i4k034k5u065w042c010905039v7p9h082s030s2k062q0403062s0944015w62055w0901060364644b0p45124a0706094s067qcy124a024q6201">Load Puzzle 12</a><br>First instance - Cannot find the 4-als + 1-als. Does find another unrelated<br><a target="_blank" href="/sudoku.htm?bd=S9B01b602077u4y03051m03b604c2845g071g01070605030t0l090s08090108020604050307020506010307087u7u040703050809060102060o07b6111104b612050o09042c50016q1i0804018i9u0302aa8y">Load Puzzle 13</a><br>First instance - Cannot find exact one, do find 14 others and WXYZ-wing in nearly same position<br></div></div></div><div id="blog-reply3028" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,17303,3028)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17275"><div class="w100pc"><div class="w60pc"><h2>... by: Liz A.</h2></div><div class="w40pc datepost">Tuesday 5-Aug-2025</div></div>
+<div class="w100pc">I think Eric Bryant's example might be most easily analyzed as a case of the Almost Locked Set - XZ rule, where the two ALS's are<br><br>Set A = B4, B5, C6 {2346}<br>Set B = C7 {36}<br><br>The restricted common digit is 3. If any cell that can see all the 6's in both sets could B a 6, then set A would reduce to a locked pair {24} and C6 would have to be 3, forcing C7 to be 6, which contradicts the assumption that another 6 can see C7. Thus, any 6 that can see all the 6's in sets A and B can be eliminated. The only 6 that meets that criterion is the one in C5.<br><br>I think any Type 1 WXYZ wing (as well as any XYZ wing or XY wing) can be analyzed in terms of ALS's. I don't know if a Type 2 WXYZ wing can always be analyzed as a Sue de Coq, though.</div>
+<div class="w100pc" id="blog-reply17275"></div>
+<div class="post-reply" id="reply3008"><table class="w100pc"><tr><td class="post-writes">Strmckr replies:</td><td class="datepost">Tuesday 7-Oct-2025</td></tr>
+<tr><td colspan="2">sue de coqs are classed under  ALS DOF  {degrees of freedom}<br>    they often overlap als xz with 2 RCC <br> <br>there is known versions that have no als xz  equivalent which proved this classification. <br></td></tr>
+</table></div>
+<div class="post-reply" id="reply3082"><table class="w100pc"><tr><td class="post-writes">Liz replies:</td><td class="datepost">Sunday 31-May-2026</td></tr>
+<tr><td colspan="2">It certainly isn't obvious to me that an SDC must also be an ALS-XZ, but i don't think I've ever seen an example of one that isn't. Do you have one?<br><br>(Sorry, I realise this isn't about WXYZ wings... thread creep.)</td></tr>
+</table></div>
+</div><div id="blog-reply3082" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,17275,3082)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17274"><div class="w100pc"><div class="w60pc"><h2>... by: Liz</h2></div><div class="w40pc datepost">Tuesday 5-Aug-2025</div></div>
+<div class="w100pc">Your second example can also be analyzed as a very basic Sue de Coq. The intersection cells have {1789}, the block cell has {79}, the row cell has {18}. Thus you can eliminate 7 and 9 from the block (F5), and 8 from the row (E7), as done in your example.</div>
+<div class="w100pc" id="blog-reply17274"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,17274,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17265"><div class="w100pc"><div class="w60pc"><h2>... by: Eric Bryant</h2></div><div class="w40pc datepost">Friday 25-Jul-2025</div></div>
+<div class="w100pc">I'm having a tough time understanding the wording shown in the solver.<br><br>Load https://www.sudokuwiki.org/sudoku.htm?bd=S9B5e56011a090702564e07031m0s1o080i05015g4c091b231q1i6y66010i6206030s0e5w5w4y6y026i6i091i0a5y0c6q0e5w5w01046s090i0a032k3g1o080s0e045w5u0i44050a030650054y4h4d0w07090s<br>Click "Take Step" 3 times and you'll reach a WXYZ Wing.<br><br>Two hinge cells highlighted orange:<br>B4, with candidates 24<br>C6, with candidates 346<br>Two wing cells highlighted yellow:<br>B5, with candidates 246<br>C7, with candidates 36<br><br>The solver says:<br><br>WXYZ Wing<br>WXYZ Wing Type 1: The four cells {C6,B4,C7,B5} contain in total 2/3/4/6.<br>Candidate 6 determines the 'wing' cells (in yellow) and one or other of those 6s must be true. Therefore...<br>6 can be taken off C5<br><br>I certainly agree with the conclusion (that 6 should be eliminated from C5) though maybe not the logic in getting there.<br>For example, look at C7. If it's 6, that rules out 6 @ C5. Easy enough.<br>If it's 3, that removes 3 from C6. The remaining 3 highlighted cells devolve into a WXY Wing, and the solution from there is straightforward.<br><br>What I don't get is:<br>"Candidate 6 determines the 'wing' cells (in yellow) and one or other of those 6s must be true."<br>What I at first assume that to mean is, one of the other of those wing cell 6s, in yellow.<br>In other words, if C7 is not 6, then B5 is. But I can't prove this to be the case.<br>Testing out the various candidates in the highlighted cells, I could place the other 6 at B5, C6, or... unknown.<br>And if 6 were limited to only the wing cells, then it should be removed from C6, which is not the case.<br>So, it appears "one or other of those 6s" refers to not just those in the wing cells, but any of the highlighted cells.<br>I'd consider rewording the solver's description of what's happening here for greater clarity.</div>
+<div class="w100pc" id="blog-reply17265"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Good comment. This is a difficult example as the hinge isn't clear. With my detection I start with a single hinge cell and look for the other three. Because one of the wing cells (B4) does not contain a 6 it is not coloured yellow and remains orange making it look like a second hinge cell. This sometimes works visually, eg the docs examples. But not in your example and it's misleading to colour it a hinge cell. <br><br>In my detection I pair B4 and B4 (because they share a unit and both see hinge) and I OR their candidates. Then I AND them with the fourth cell C7 to get the non-restricted digit 6. Sometimes the pair will contain the candidate in both cells in which case they are both set to yellow. But they don't need to contain X in both. So they should both be yellow to make it clear they are a grouped wing cell.<br><br>Going to change the wording of Type 1 to<br><font color=#fff>WXYZ Wing Type 1: The four cells {C6,B4,C7,B5} contain in total 2/3/4/6 <b>with the hinge on C6</b></font>.<br><br>I am convinced though that the logic is correct. Also – we only know a) one or other or both 6 is in B5 and/or C7 or b) 6 is in C6. It doesn't help that several of the example no longer find an WXYZ-Wing even with certain newer strategies turned off, so I’ll look for some refresh ones.<br><br>Changes when I patch the solver again.</div></div><div id="blog-reply2939" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,17265,2939)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17251"><div class="w100pc"><div class="w60pc"><h2>... by: Davin</h2></div><div class="w40pc datepost">Thursday 10-Jul-2025</div></div>
+<div class="w100pc">Type 2 seems to be the exact same as the Sue-de-Coq strategy.</div>
+<div class="w100pc" id="blog-reply17251"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,17251,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17052"><div class="w100pc"><div class="w60pc"><h2>... by: Matti</h2></div><div class="w40pc datepost">Saturday 6-Jan-2024</div></div>
+<div class="w100pc">These WXYZ-Wings seem to deal with Almost Locked Sets.<br>I have found a very practical way to look at ALSes in general.<br>ALS is often almost a Locked Set, it just has one extra candidate digit in its cells. N cells which all see each other, containing N+1 different candidates.<br>With a Locked Set you can eliminate candidates in row, column or block.<br><br>There are two cases:<br>1. The extra candidate (without which we have a Locked Set) is false: Check the eliminations which the Locked Set causes.<br>2. The extra candidate is true: Check the eliminations which the extra candidate itself causes.<br><br>Now you can make those eliminations which are common to cases 1. and 2.<br>This is actually how those finned Swordfishes, Jellyfishes etc. work.<br><br>WXYZ-Wing example 4:<br>Almost Locked Set {F2=[1,9], F4=[2,8,9], F6=[2,8,9]}, extra candidate is 1 in F2.<br><br>1. F2 is 9. We have the Locked Set which eliminates 8 from F3, (and 8 and 9 from F9). Since 8 has to be in either F4 or F6, 8 is eliminated from D4 and D6 (and E5).<br><br>2. F2 is 1. D1 is 8 which eliminates 8 from F3, D4 and D6 (and D3, D8, E2 and E3).<br><br>Thus, common eliminations for 8 are F3, D4 and D6, just like in the example picture.<br><br>I have found that checking ALSes is often pretty intuitive way to find eliminations and solutions to cells.</div>
+<div class="w100pc" id="blog-reply17052"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,17052,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16919"><div class="w100pc"><div class="w60pc"><h2>... by: Liz A.</h2></div><div class="w40pc datepost">Thursday 6-Apr-2023</div></div>
+<div class="w100pc">I have an example of a pattern that your solver identifies as a WXYZ-Wing that does not seem to have a non-restricted common digit, in that the digit on which the single elimination is made can see all the other instances of that digit in the pattern. The logic that forces the elimination is certainly solid, but I was curious about the definition the solver uses to identify it as a WXYZ-Wing. Is there a way to upload a screenshot here, or some other way to send you my example?<br><br>Liz</div>
+<div class="w100pc" id="blog-reply16919"></div>
+</div><div id="blog-reply2939" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,16919,2939)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16705"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Saturday 21-Aug-2021</div></div>
+<div class="w100pc">More thinking about this one - it's been a while.<br><br>In my database of 244 "advanced" puzzles (those which require something more than naked/hidden singles/pairs/triples/quads, pointing pairs/triples, or box/line reduction), the addition of the various wing strategies gets me 13 fully solved, and 231 only partially solved.<br><br>Referencing my earlier post, the "star" configuration may exist, but it is either degenerate (any eliminations can be found by the basic strategies listed above, the Y-wing, and the XYZ-wing), or there are no eliminations at all (in the non-degenerate case, it is impossible for a target cell to be linked to all instances of the common digit).  So the software I wrote doesn't search for this one, it only searches for the chain, the loop, the augmented triangle, and the diamond.<br><br>In any event, I found all four of these possibilities occur and result in eliminations, and disabling any one of them in my software results in some puzzles not fully solved.<br><br>So the chain, the loop, the augmented triangle, and the diamond are all relevant.<br><br>I mention this, because some web sites I see seem to assume that the WXYZ-wing has a group of three cells that share a unit, and this is not the case in the chain or the loop.<br><br>I'll think now about how these are special cases of ALS . . .</div>
+<div class="w100pc" id="blog-reply16705"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16705,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16641"><div class="w100pc"><div class="w60pc"><h2>... by: Howard</h2></div><div class="w40pc datepost">Monday 21-Dec-2020</div></div>
+<div class="w100pc">Dear Mr Andrew Stuart,<br>Please help me with my doubts on the WXYZ-Wing strategy.<br>As I understand, basically WXYZ-Wing is defined as a group of 4 cells with 4 digits, that has exactly one non-restricted common digit (NRCD).  The NRCD cannot be the solution in any cells that (1) are outside the WXYZ-Wing group and (2) can see all the cells of the group where the NRCD is present.  However, based on my experience, it seems that this applies to all the digits of the WXYZ-Wing group, not necessarily NRCD. Cells that are outside the WXYZ-Wing and can see all the group cells with the digit cannot have the digit as solution as well.<br>In the WXYZ-Wing example 2 above, I think digit 6 inD6 andJ6  allow removal of digit 6 in E6 although digit 5 is the NRCD.<br>May I have your comments, please.<br>Howard<br></div>
+<div class="w100pc" id="blog-reply16641"></div>
+<div class="post-reply" id="reply2800"><table class="w100pc"><tr><td class="post-writes">David Harkness replies:</td><td class="datepost">Wednesday 8-Nov-2023</td></tr>
+<tr><td colspan="2">I believe Howard is correct.<br><br>In example 2 above, the 6 in F6 can be eliminated because it sees both 6s (D6 and J6), one of which must be ON. The 2 in C6 may also be eliminated because it sees both 2s (D6 and G6). Generally, any external candidate that sees all of one of the digits in the four WXYZ-Wing cells may be eliminated.<br><br>David<br></td></tr>
+</table></div>
+</div><div id="blog-reply2800" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,16641,2800)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16584"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Saturday 23-May-2020</div></div>
+<div class="w100pc">Just some thoughts below . . .<br><br>I've spent a fair amount of time thinking about this one.  The definition does not specify how the cells are linked to each other.  It could even apply to four completely independent cells (that is, no cell linked to any other cell), but it would be somewhat trvial in this case, because at least one cell would have only the unrestricted value, and we could get the same inference using simpler methods.<br><br>So I am thinking the only configurations that are not trivial (that is, where we can't get the same inference by different methods) are shown below.  Cells are called A, B, C, and D.<br><br>The "chain": links are A<->B, B<->C, and C<->D.  No links between any other pairs of cells.<br><br>The "star": links are A<->B, B<->C, and B<->D.  No links between any other pairs of cells.<br><br>The "loop": links are A<->B, B<->C, C<->D, and D<->A.  No links between any other pairs of cells.<br><br>The "augmented triangle": links are A<->B, B<->C, C<->A, and A<->D.  No links between any other pairs of cells.<br><br>The "diamond": links are A<->B, B<->C, C<->D, D<->A, and A<->C.  No link between B and D.<br><br>These configurations are all possible logical arrangements with three, four, or five links between pairs of cells.  In any configuration with zero, one, two, or six links between pairs of cells, we get the exact same inference as in WXYZ-wing, and possibly more, using simpler methods.<br><br>It also occurs to me that this method is very much analogous to Y-wing and XYZ-wing.  If we defined a strategy as one in which there are three cells, containing a total of three disctinct numbers between them, with one of the three numbers unrestricted, then Y-wing plus XYZ-wing cover the non-trivial cases (those that cannot be analysed using simpler methods).  The XYZ-wing is analogous to your original, simple version of WXYZ-wing, and the Y-wing is the additional non-trivial configuration if the definition is expanded analogously to the way WXYZ-wing was expanded.<br><br>Does that all sound correct?<br></div>
+<div class="w100pc" id="blog-reply16584"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16584,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16547"><div class="w100pc"><div class="w60pc"><h2>... by: Harold Binley</h2></div><div class="w40pc datepost">Tuesday 28-Jan-2020</div></div>
+<div class="w100pc">Andrew,<br>Once again thanks for your website giving me the ability to check my progress on Sudokus and also to provide a hint/solution to one more step. <br>Iâ€™ve been working through the Daily Telegraphâ€™s Diabolical Soduku 4684 and needed help in the next step. Your solver suggested an WXYZ wing so I looked up your documentation link for this strategy.<br><br>Working through your example  WXYZ-Wing example 4 , after the 2 Y wings and the first XYZ wing, (IE before the XY cycle), the position includes the following candidates in these cells:<br>D1	1  8<br>F2	1  8  9<br>F4	2  8  9<br>F6	2  8  9<br><br>According to your website  -â€œ StrmCkr's more general definition - WXYZ-Wings can be considered as a group of 4 cells and 4 digits, that has exactly one non-restricted common digit.â€ I believe in the current situation 1, 8, 9 are restricted digits.<br><br>If F2, as I believe, is still the hinge cell, then - <br>if F2 is 9  then F4 and F6 become a naked pair and eliminate the 8 in F3 and D4 and D6, (plus others);<br>if F2 is 1 then D1 is 8, so eliminates the 8s in F3 and D4 and D6,  (plus others);  and<br>if F2 is 8 then eliminates the 8 in D1, F3, F4 and F6, (plus others). And it is this, I believe, which prevents this strategy being applicable.<br>Am I right, or have I missed something?<br><br>I appreciate that not all strategies can be applied earlier than the appropriate stage, (eg a naked pair strategy can only be applied when there are only two candidates in each cell), but from what Iâ€™ve read the wxyz-wing strategy is applicable in this case.<br><br>H</div>
+<div class="w100pc" id="blog-reply16547"></div>
+<div class="post-reply" id="reply2888"><table class="w100pc"><tr><td class="post-writes">Arthur BÃ¡rbaro replies:</td><td class="datepost">Saturday 8-Feb-2020</td></tr>
+<tr><td colspan="2">Dear Harold Binley (from the comment of 2020-01-28),<br>I think you got it wrong: the restricted numbers in that case are 1 2 9 (because all 1s see each other, all 2s see each other, and all 9s see each other), and the not-restricted one is the 8 (because the 8s in F don't see the 8 in D). Thus, as by StrmCkr's rule, the 8 doesn't need to be in the hinge (F2), but all 8s to be eliminated need to see all other three non-hinge cells (as is the case in F3 D4 D6, as shown in the picture).<br>I hope I got it right and explained it well. =)</td></tr>
+</table></div>
+</div><div id="blog-reply2888" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,16547,2888)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16483"><div class="w100pc"><div class="w60pc"><h2>... by: tebo</h2></div><div class="w40pc datepost">Monday 1-Jul-2019</div></div>
+<div class="w100pc">Sometimes in our concise definition of a strategy, we overlook stating how the action to be taken formulates the strategy itself.  I suggest a general definition of WXYZ-Wing something like:<br><br>A WXYZ-Wing is a Bent group of four cells with four candidates (naked), that have exactly one non-restricted common candidate, where the elimination cell(s) can see all occurances of the non-restricted candidate in the group.<br><br>In your example #1, Cells A1-A3-B3-E1 form a WXYZ-Wing according to StrmCkr's more general definition (as quoted).  However, removal of 9 from D3 cannot be done because it does not "see" the hing cell.  You later make the clarification when you state "We are looking for a 9 elsewhere that can see every 9 in the four cells".  Strmckr also points out the importance of this distinction in his comment of 18-DEC-2015.</div>
+<div class="w100pc" id="blog-reply16483"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16483,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16482"><div class="w100pc"><div class="w60pc"><h2>... by: tebo</h2></div><div class="w40pc datepost">Monday 1-Jul-2019</div></div>
+<div class="w100pc">Sometimes in our concise definition of a strategy, we overlook stating how the action to be taken formulates the strategy itself.  I suggest a general definition of WXYZ-Wing something like:<br><br>A WXYZ-Wing is a Bent group of four cells with four candidates (naked), that have exactly one non-restricted common candidate, where the elimination cell(s) can see all occurrences of the non-restricted candidate in the group.<br><br>In your Example #1, Cells A1-A3-B3-E1 form a WXYZ-Wing according to StrmCkr's more general definition (as you quote).  However, removal of 9 from D3 cannot be done because it does not "see" the hinge cell.  You later make the clarification when you state "We are looking for a 9 elsewhere that can see every 9 in the four cells".  Strmckr also points out the importance of this distinction in his comment of 18-DEC-2015.</div>
+<div class="w100pc" id="blog-reply16482"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16482,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16463"><div class="w100pc"><div class="w60pc"><h2>... by: DENNEY C SMITH</h2></div><div class="w40pc datepost">Tuesday 23-Apr-2019</div></div>
+<div class="w100pc">Dear Andrew,<br>On puzzle http://www.sudokuwiki.org/sudoku.htm?bd=090001700500200008000030200070004960200060005069700030008090000700003009003800040<br>it seems to me, and it was a eureka moment when I found it, that there is a WXYZ at cells A6 (1,3,8); D5 (1,9); D6 (1,3); F5 (8,9). In cell E6 the 5 is already eliminated. From E6 the WXYZ eliminates the 1 and 8 leaving only the 2. The solver says there is no WXYZ at this point in the puzzle. How am I misunderstanding the use of WXYZ?</div>
+<div class="w100pc" id="blog-reply16463"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16463,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16358"><div class="w100pc"><div class="w60pc"><h2>... by: Strmckr</h2></div><div class="w40pc datepost">Wednesday 11-Apr-2018</div></div>
+<div class="w100pc">    .---------------.------------.-----------------.<br>    | 5    478  1   | 2   6   3  | 789    78    49 |<br>    | 34   6    247 | 1   8   9  | 237    5     34 |<br>    | 9    238  28  | 7   5   4  | 2368   2368  1  |<br>    :---------------+------------+-----------------:<br>    | 2    9    3   | 6   4   8  | 5      1     7  |<br>    | 48   478  478 | 59  19  15 | 236    236   36 |<br>    | 1    5    6   | 3   2   7  | 4      9     8  |<br>    :---------------+------------+-----------------:<br>    | 7    38   5   | 4   19  6  | 1389   38    2  |<br>    | 36   1    9   | 8   7   2  | 36     4     5  |<br>    | 468  248  248 | 59  3   15 | 16789  678   69 |<br>    '---------------'------------'-----------------'<br><br><br>case study puzzle for technique testing.<br><br>als-xz double linked rule can and does apply to some formations  of<br><br>wxyz-wings: <br><br>{that is if there is 2 restricted commons between A&B then all cells become locked sets and all peer cells for each candidate with in A&B can be eliminated}<br><br>Almost Locked Set XZ-Rule {double link rule}: A=r1c8 {78}, B=r79c8,r8c7 {3678}, X=7,8 => r3c8<>8, r7c7<>3, r9c79<>6<br><br>{ps the double linked rule is missing from your code on the als-xz, and als-xy engine.} <br><br>you might also note that this is also accounts for  sue de coq eliminations as well. :)  <br><br></div>
+<div class="w100pc" id="blog-reply16358"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16358,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16254"><div class="w100pc"><div class="w60pc"><h2>... by: Howard</h2></div><div class="w40pc datepost">Saturday 18-Mar-2017</div></div>
+<div class="w100pc">WXYZ-Wings are considered as a group of 4 cells and 4 digits, that has exactly one non-restricted common digit.<br>If there is more than one non-restricted common digit, is the group still a WXYZ-Wing?</div>
+<div class="w100pc" id="blog-reply16254"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16254,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16158"><div class="w100pc"><div class="w60pc"><h2>... by: YBB</h2></div><div class="w40pc datepost">Wednesday 16-Mar-2016</div></div>
+<div class="w100pc">1) wing: A3,B3,G2,G3   hinge: G3   eliminates: 1 in H3<br>2) wing: A4,B6,C5,I6   hinge: B6   eliminates: 5 in C6<br>3) wing: A9,B9,C5,C7   hinge: C7   eliminates: 1 in C8<br>4) wing: A9,B9,C5,C8   hinge: C8   eliminates: 1 in C7<br>5) wing: D3,D4,D6,F1   hinge: D3   eliminates: 9 in D2<br>6) wing: D4,F1,F4,F7   hinge: F4   eliminates: 9 in F6<br>7) wing: G2,G3,H1,H8   hinge: H1   eliminates: 1 in H3<br>8) wing: G2,G3,H3,H8   hinge: H3   eliminates: 1 in H1<br><br>Could you kindly verify the list and explain why certain of them are invalid.<br>Also note the elimination in H3,H1 and C7,C8.<br>Would these constitute as contradictions?<br>Unfortunately, the example would still be correct even if all the eliminations are effected. I am afraid, this wouldn't be so with every puzzle.</div>
+<div class="w100pc" id="blog-reply16158"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16158,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16102"><div class="w100pc"><div class="w60pc"><h2>... by: strmckr</h2></div><div class="w40pc datepost">Friday 18-Dec-2015</div></div>
+<div class="w100pc">Fred Kong<br><br>potential wxyz wing  eliminations  only occur when the  elimination cell  sees all "z" candidates  contained in the wxyz wing. <br><br>ie:  a2 cannot directly see the "3" in h1 <br><br> </div>
+<div class="w100pc" id="blog-reply16102"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,16102,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15889"><div class="w100pc"><div class="w60pc"><h2>... by: Fred Kong</h2></div><div class="w40pc datepost">Monday 3-Mar-2014</div></div>
+<div class="w100pc">Dear Andrew, <br>I am very thankful to have learned about your WXYZ-Wings theory. With this skill I have solved quite a few very toughed puzzles in my not-completed storage.<br>However, I met an exception. That is Puzzle 125 in your book: Extreme Sudoku For Dummies.<br>Please take a look at where I cannot go any further:<br><br>| 6 35 8 | 579 4579 4579 | 1 347 2 |<br>| 1 4 7 | 3 6 2 | 9 58 58 |<br>| 239 25 29 | 8 457 1 | 46 467 37 |<br>|----------------------+----------------------+----------------------|<br>| 4 28 1 | 256 3 56 | 7 9 568 |<br>| 78 9 3 | 1567 14578 4567 | 458  2 568 |<br>| 278 6 5 | 279 4789 479 | 3 48 1 |<br>|----------------------+----------------------+----------------------|<br>| 289 1 269 | 4 59 3 | 568 5678 79 |<br>| 39 7 4 | 56 2 8 | 56 1 39 |<br>| 5 38 69 | 1679 179 679 | 2 38 4 |<br><br>I found there is a WXYZ-Wing set as C1, G1, H1 and I2. I thought the Z should be 3, and I could eliminate the 3 in A2 cell. But I could not go to the right end. According to the Answer page, A2 cell is 3.<br><br>Please tell me why I cannot use WXYZ-Wing as the above.<br><br>Thanks.<br><br>Fred Kong<br></div>
+<div class="w100pc" id="blog-reply15889"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,15889,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15848"><div class="w100pc"><div class="w60pc"><h2>... by: Gcd</h2></div><div class="w40pc datepost">Sunday 22-Sep-2013</div></div>
+<div class="w100pc"> | 4      5678   1679   | 789    789    3      | 2      569    1568   |<br> | 159    58     19     | 6      2489   2489   | 1458   7      3      |<br> | 2379   23678  3679   | 4789   5      1      | 48     469    68     |<br> |----------------------+----------------------+----------------------|<br> | 37     9      2      | 1378   1378   58     | 6      35     4      |<br> | 6      1      4      | 39     239    259    | 35     8      7      |<br> | 357    357    8      | 347    347    6      | 9      1      2      |<br> |----------------------+----------------------+----------------------|<br> | 12379  237    1379   | 5      6      489    | 13478  34     18     |<br> | 8      4      1369   | 139    139    7      | 135    2      156    |<br> | 137    367    5      | 2      1348   48     | 13478  346    9      |<br><br>Your Solver shows  this wxyz  uses H4, H5,G6 G9   3,9,8,1 With 1 being excluded from H7. This is from your Sunday daily puzzle of a Sudoku from early September.\<br><br>But if you change to G9 to G8, you now have 1,3,8,4 and the 3 in H7 now see's 3'3  all of the wing 3's yet it cannot be excluded. Why not? Where have I made my error?<br></div>
+<div class="w100pc" id="blog-reply15848"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,15848,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15780"><div class="w100pc"><div class="w60pc"><h2>... by: strmckr</h2></div><div class="w40pc datepost">Saturday 13-Apr-2013</div></div>
+<div class="w100pc">i have covered more extensively the idea of bent quads on numerous  forum boards for extending this strategy.   prior to 2010 <br><br>http://forum.enjoysudoku.com/wxyz-wings-t30012.html<br><br>however it can be noted that most if not all  wxyz - wings are specific simplified cases of als-xz rule.<br></div>
+<div class="w100pc" id="blog-reply15780"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Correct and I've put your link in the text. I have now completed the expansion of the search algorithm to get these cases. </div><div class="post-reply" id="reply2890"><table class="w100pc"><tr><td class="post-writes">Caleb Andrews replies:</td><td class="datepost">Friday 27-Dec-2013</td></tr>
+<tr><td colspan="2">As a tidbit, I believe that y-wings, xyz-wings, and wxyz-wings are all subject to the same general rule. As strmckr pointed out, "WXYZ-Wings can be considered as a group of 4 cells and 4 digits, that has exactly one non-restricted common digit." Can't this be extended to any size? "for any group (a) of n cells which contain only n digits and have exactly 1 non-restricted digit (z), any other cell which sees all the cells in group a which contain z cannot itself contain z." If this is true, I think the largest size "wing" would contain 7 cells and 7 values, though there may be larger ones. I recently finished writing a program which solves for all these wings, and from initial testing it seems to be correct.</td></tr>
+</table></div>
+<div class="post-reply" id="reply2891"><table class="w100pc"><tr><td class="post-writes">strmckr replies:</td><td class="datepost">Monday 30-Dec-2013</td></tr>
+<tr><td colspan="2">Andrew Stuart writes:<br><br>Correct and I've put your link in the text. I have now completed the expansion of the search algorithm to get these cases. <br><br>thanks for the update, as for the remark on more then 10 cases, true there is a large list of positional locations for the 4 cells{ i originally mapped out 20 ish cases},  however after  rotation, reflection, relabeling, band swaping ect is applied   the 1 - 4  types I've identified and cross checked via programing should be the minimal exemplars.   if you do have any examples cases that don't match my 4 primary types and hold additional eliminations feel free to email me as id  love to examine them.<br><br>strmckr </td></tr>
+</table></div>
+</div><div id="blog-reply2891" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,15780,2891)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15466"><div class="w100pc"><div class="w60pc"><h2>... by: SudoNova</h2></div><div class="w40pc datepost">Monday 28-Feb-2011</div></div>
+<div class="w100pc"><br>On various Sudoku sites on the internet I have found about a dozen different cases for the use of this technique.   I would like to propose the following 'one-size-fits-all' strategy and so allow many more cases to be found.<br><br>The strategy for Bent Quads (WXYZ-wing) can be summarised like this.   If there are 4 cells having 4 digits each (W, X, Y, Z) distributed within them such that any 2 cells aren't a pair and any 3 cells aren't a triple.   The cells aren't all in the same house but they are inter-linked somehow.<br><br>One of the cells in the quad has digits WZ (I call this a 'spy' cell), and the other 3 cells of the quad form an 'alliance'.   Outside the quad is a 'rogue' cell with digit Z among its candidates and if the rogue declares war, the spy acts as a 5th columnist  -  unless the alliance can prevent this.<br><br>The rogue cell can see all the Z-digits in the alliance and the spy cells.   The spy cell can see all the other W-digits in the alliance.   So if the Z-digit is given as a solution in the rogue cell, all the Z-digits are eliminated from the quad, and the W-digit is now placed in the spy cell removing the W-digits from the alliance cells.<br><br>This leaves the X and Y digits distributed in the 3 remaining cells of the quad<br><br>There are { 27 } combinations in which X, Y or XY can be distributed in 3 cells so that the allies can then defeat the rogue Z-digit<br><br>these are . . .<br><br>XY-XY-XY	these cells must all be in the same house   { 1 }<br><br>XY-XY-X, XY-XY-Y, XY-X-XY, XY-Y-XY, X-XY-XY, Y-XY-XY <br>same house   { 6 }<br><br>the next 3 cases follow a similar pattern<br><br>XY-X-Y, etc	the cell with XY must be a pivot	{ 6 }<br><br>XY-X-X, etc	the cells X-X must be in the same house	{ 6 }<br><br>X-X-Y, etc	the cells X-X must be in the same house	{ 6 }<br><br>and the last 2 are . . .<br><br>X-X-X, Y-Y-Y	impossible!   it means that the 4th digit<br>is missing	{ 2 }<br><br><br>If any of the above conditions are met then the Z-digit can be eliminated from the rogue cell.<br><br>This idea could be extended to form any N-wing format, but the logistics are astronomical.<br><br>The number of combinations of the remaining (N-2) digits to fit in<br>the (N-1) alliance cells is given by the formula<br><br>                  C = {[2^(N-2)]-1}^{N-1}<br><br>So the above 4-wing has 27 (3^3), a 5-wing has 2401 (7^4) and the 6-wing has 759375 (15^5).<br><br>Also, we could remove the restriction that the spy cell only has W and Z in its candidates and have any combination with X or Y included, but using a modified version of the above formula means that the 4-wing now has 2401 combinations of W, X or Y to consider instead of just 27 <br>combinations of X or Y.</div>
+<div class="w100pc" id="blog-reply15466"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>This is sound and could form the basis of a more generalised theory.</div></div><div id="blog-reply2314" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,15466,2314)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15449"><div class="w100pc"><div class="w60pc"><h2>... by: Mats Anderbok</h2></div><div class="w40pc datepost">Monday 24-Jan-2011</div></div>
+<div class="w100pc">Why don't you have a WXY-wing? With 3 candidates in the hinge, I think it fits in perfectly between XY-wing and WXYZ-wing. Now it isn't caught until APE. </div>
+<div class="w100pc" id="blog-reply15449"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,15449,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15387"><div class="w100pc"><div class="w60pc"><h2>... by: Nassir M</h2></div><div class="w40pc datepost">Saturday 8-May-2010</div></div>
+<div class="w100pc">also you could remove the  7s from c1 and c6 pls 4 from c1 and also to remove the 5 from A3 because the 5 is going to be either in B3 or C3.<br>Thanks</div>
+<div class="w100pc" id="blog-reply15387"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,15387,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15380"><div class="w100pc"><div class="w60pc"><h2>... by: rich schrader</h2></div><div class="w40pc datepost">Tuesday 13-Apr-2010</div></div>
+<div class="w100pc">Isn't this strategy another way of interpreting an ALS?</div>
+<div class="w100pc" id="blog-reply15380"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,15380,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15340"><div class="w100pc"><div class="w60pc"><h2>... by: Jeff Sanborn</h2></div><div class="w40pc datepost">Wednesday 10-Feb-2010</div></div>
+<div class="w100pc">What if the cell containing 4/9 were located at Row 1, Column 2 (instead of Row 3, Column 8).<br><br>Must there be one cell within the box and two cells in the row, or is it just a total of three cells that is important?<br><br>Furthermore, could you have a VWXYZ-wing if you had a hinge cell with five values and four outlying cells?  </div>
+<div class="w100pc" id="blog-reply15340"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>All the yellow cells must see the hinge - the brown cells.<br>Yes you could have a 5-cell VWXYZ-wing although I've not searched for one.</div></div><div id="blog-reply2289" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(69,15340,2289)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15323"><div class="w100pc"><div class="w60pc"><h2>... by: LokiMomus</h2></div><div class="w40pc datepost">Thursday 21-Jan-2010</div></div>
+<div class="w100pc">Is there a more generic strategy for this wxyz already mentioned? Couldnt find it, though I admit I havent read all strategies thoroughly. I don't have an example sudoku for this, but consider the given example and lets say row 3, column 5 has 379 as available options instead and i include an extra cell into the strategy, row 3, column 6, which has 379 as available options. Row 3, column 3 has instead the values 34579.<br><br>The theory still holds. Filling in the 9 in the yellow box will result in an invalid situation, so i can scratch the 9 in the yellow box.<br><br>In other words, the more generic requirement should be that there can be n cells of the same cellgroup as long as they have n+1 distinct symbols. (the +1 is for the symbol (9 in this case) that we are considering). The other rules stay intact.<br><br>The substrategy of wxyz-wing would be with n=1.<br><br>My question to you is: Is this strategy already mentioned on the site? If not, can it be solved by using multiple others?<br><br>Note:<br>This strategy can be even made more generic if there are more than 3 dimensions (special sudokus). In a traditional sudoku there are 3 dimensions (a cell is part of a horizontal cellgroup, a vertical cellgroup and a 3x3 cellgroup). A 4-dimensional sudoku would for example be a jigsaw sudoku on top of a traditional one.</div>
+<div class="w100pc" id="blog-reply15323"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(69,15323,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 283187<br>
+			This page was last modified on 17-August-2025.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10256d27eacddc2',t:'MTc4MjIwNTYxMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

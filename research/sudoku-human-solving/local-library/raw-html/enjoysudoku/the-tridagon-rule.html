@@ -1,0 +1,1025 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
+<head>
+<base href="http://forum.enjoysudoku.com/"/>
+<link rel="canonical" href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>The tridagon rule : Advanced solving techniques</title>
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="en-gb" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="content-language" content="en" />
+<meta name="title" content="The tridagon rule : Advanced solving techniques" />
+<meta name="description" content=". THE TRIDAGON ELIMINATION RULE Some forms of this rule have been known under the names of trivalue-oddagon or Thor's Hammer. As I can't see ..." />
+<meta name="keywords" content="such, single, links, the, list, tridagon, rule, link, clue" />
+<meta name="category" content="general" />
+<meta name="robots" content="index,follow" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="copyright" content="The New Sudoku Players Forum" />
+
+
+
+
+<!--
+	phpBB style name: prosilver
+	Based on style:   prosilver (this is the default phpBB3 style)
+	Original author:  Tom Beddard ( http://www.subBlue.com/ )
+	Modified by:
+-->
+
+<script type="text/javascript">
+// <![CDATA[
+	var jump_page = 'Enter the page number you wish to go to:';
+	var on_page = '1';
+	var per_page = '15';
+	var base_url = 'http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html';
+	var style_cookie = 'phpBBstyle';
+	var style_cookie_settings = '; path=/; domain=forum.enjoysudoku.com';
+	var onload_functions = new Array();
+	var onunload_functions = new Array();
+	// www.phpBB-SEO.com SEO TOOLKIT BEGIN
+	var seo_delim_start = '-';
+	var seo_static_pagination = 'page';
+	var seo_ext_pagination = '.html';
+	var seo_external = true;
+	var seo_external_sub = false;
+	var seo_ext_classes = false;
+	var seo_hashfix = false;
+	// www.phpBB-SEO.com SEO TOOLKIT END
+
+	
+
+	/**
+	* Find a member
+	*/
+	function find_username(url)
+	{
+		popup(url, 760, 570, '_usersearch');
+		return false;
+	}
+
+	/**
+	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
+	*/
+	window.onload = function()
+	{
+		for (var i = 0; i < onload_functions.length; i++)
+		{
+			eval(onload_functions[i]);
+		}
+	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
+// ]]>
+</script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/styleswitcher.js"></script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/forum_fn.js"></script>
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="http://forum.enjoysudoku.com/style.php?id=1&amp;lang=en&amp;sid=d8cc8af347e1a902033599e95b63fbfa" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/normal.css" rel="stylesheet" type="text/css" title="A" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
+
+
+
+</head>
+
+<body id="phpbb" class="section-viewtopic ltr">
+
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+	<div id="page-header">
+		<div class="headerbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<div id="site-description">
+				<a href="http://forum.enjoysudoku.com/" title="Board index" id="logo"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/site_logo.gif" width="52" height="52" alt="" title="" /></a>
+				<h1>The New Sudoku Players' Forum</h1>
+				<p>Sponsored by Enjoy Sudoku</p>
+				<p class="skiplink"><a href="#start_here">Skip to content</a></p>
+			</div>
+
+		
+			<div id="search-box">
+				<form action="./search.php?sid=d8cc8af347e1a902033599e95b63fbfa" method="get" id="search">
+				<fieldset>
+					<input name="keywords" id="keywords" type="text" maxlength="128" title="Search for keywords" class="inputbox search" value="Search…" onclick="if(this.value=='Search…')this.value='';" onblur="if(this.value=='')this.value='Search…';" />
+					<input class="button2" value="Search" type="submit" /><br />
+					<a href="./search.php?sid=d8cc8af347e1a902033599e95b63fbfa" title="View the advanced search options">Advanced search</a> <input type="hidden" name="sid" value="d8cc8af347e1a902033599e95b63fbfa" />
+
+				</fieldset>
+				</form>
+			</div>
+		
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+		<div class="navbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<ul class="linklist navlinks">
+				<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a>  <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/sudoku-the-puzzle-f5.html">Sudoku: the puzzle</a> <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html">Advanced solving techniques</a></li>
+
+				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="Change font size">Change font size</a></li>
+
+				<li class="rightside"><a href="http://forum.enjoysudoku.com/viewtopic.php?f=6&amp;t=39859&amp;start=0&amp;view=print&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Print view" accesskey="p" class="print">Print view</a></li>
+			</ul>
+
+			
+
+			<ul class="linklist rightside">
+				<li class="icon-faq"><a href="http://forum.enjoysudoku.com/faq.php?sid=d8cc8af347e1a902033599e95b63fbfa" title="Frequently Asked Questions">FAQ</a></li>
+				<li class="icon-register"><a href="http://forum.enjoysudoku.com/ucp.php?mode=register&amp;sid=d8cc8af347e1a902033599e95b63fbfa">Register</a></li>
+					<li class="icon-logout"><a href="http://forum.enjoysudoku.com/ucp.php?mode=login&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Login" accesskey="x">Login</a></li>
+				
+			</ul>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+	</div>
+
+	<a name="start_here"></a>
+	<div id="page-body">
+		
+<h2><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html">The tridagon rule</a></h2>
+<!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body --><div style="display: none !important;">Advanced methods and approaches for solving Sudoku puzzles<br /></div>
+
+<div class="topic-actions">
+
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=39859&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="search-box">
+			<form method="get" id="topic-search" action="./search.php?sid=d8cc8af347e1a902033599e95b63fbfa">
+			<fieldset>
+				<input class="inputbox search tiny"  type="text" name="keywords" id="search_keywords" size="20" value="Search this topic…" onclick="if(this.value=='Search this topic…')this.value='';" onblur="if(this.value=='')this.value='Search this topic…';" />
+				<input class="button2" type="submit" value="Search" />
+				<input type="hidden" name="t" value="39859" />
+<input type="hidden" name="sf" value="msgonly" />
+<input type="hidden" name="sid" value="d8cc8af347e1a902033599e95b63fbfa" />
+
+			</fieldset>
+			</form>
+		</div>
+	
+		<div class="pagination">
+			126 posts
+			 &bull; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>9</strong></a> &bull; <span><strong>1</strong><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-15.html">2</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-30.html">3</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-45.html">4</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-60.html">5</a><span class="page-dots"> ... </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-120.html">9</a></span>
+		</div>
+	
+
+</div>
+<div class="clear"></div>
+
+
+	<div id="p318373" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318373&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 class="first"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318373">The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318373.html#p318373"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Sun Mar 13, 2022 9:09 am </p>
+
+			
+
+			<div class="content"><span style="font-weight: bold">.<br />THE TRIDAGON ELIMINATION RULE</span><br />Some forms of this rule have been known under the names of trivalue-oddagon or Thor's Hammer.<br />As I can't see anything related to oddagons, neither in the pattern nor in the way the rule can be proven, and &quot;Thor's Hammer&quot; does not sound very serious, I've found this short name, but I'm ready to change it.<br />For references or some history, see the next post.<br /><br /><span style="color: #0000FF"><span style="font-weight: bold">Let there be four blocks forming a rectangle in two bands and two stacks:<br />     b11 b12<br />     b21 b22<br />Let there be three digits (the target digits), say 1 2 3, such that:<br />- in each of the four blocks, there are three cells in different rows and different columns such that:<br />--- each of these 4x3 cells contains the three digits,<br />--- eleven of these cells (the 123-cells) do not contain any other digit,<br />--- the twelfth cell (the target cell) contains at least one more digit,<br />- some additional conditions to be found below are satisfied.<br />Then the 3 target digits can be eliminated from the target cell.</span></span><br /><br />The purpose of this thread is:<br />- to find the necessary and sufficient additional conditions for the rule to be valid;<br />- to prove the rule in these conditions;<br />- to analyse the possibility of missing candidates in the 11 cells;<br />- to list references to the first mentions of (some versions of) this pattern<br />- to discuss examples;<br />...<br /><br /><br /><span style="font-weight: bold">My first goal here is to find the additional conditions, i.e. all the possible patterns of cells in b22.</span><br />I propose here a T&amp;E-ish direct proof, assuming the basic condition that in each block there is only one of the 3 cells per row and per column.<br />It will be very inelegant, but it will not use any uniqueness argument.<br /><br />First, notice that in such conditions, it is easy to:<br />- make permutations of stacks and bands such that the target cell is in block b11<br />- make permutations of rows in the first band such that the target cell is in row r1<br />- make permutations of the columns in each of the 2 stacks and then permutation of the rows in the band of b21 and b22, such that we have the following pattern, <span style="font-weight: bold">with the target cell in r1c1 and with the 123-cells of the first 3 blocks in their anti-diagonal</span>.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 123456789 .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br />! 123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br />Blocks not concerned by the pattern are not represented.<br />456789 means that each  of these candidates may be in the cell and at least one must be in it.<br />. means a cell that does not participate in the pattern or its proof<br />* means a cell for which we are trying to decide whether it can be part of the pattern<br />At this point, there is nothing we can say about where the 3 cells of interest in b22 are. We only know that, given the conditions at the start, they can form only 6 non-isomorphic patterns of cells in b22.<br /><br />Notice that, at this point, we have exhausted all the possibilities of applying isomorphisms.<br /><br />By symmetry of the conditions wrt 1, 2, 3, we can always assume that r1c1 = 1, which gives:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;23&nbsp; &nbsp; &nbsp; &nbsp; ! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br />! 23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;123&nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br /><br />Again, by symmetry of this situation wrt digits 2 and 3, we can always assume that r2c2 = 2, which gives:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12&nbsp; &nbsp; &nbsp; &nbsp; !<br />+-------------------------------+-------------------------------+<br />! 23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12&nbsp; &nbsp; &nbsp; &nbsp; ! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br /><br /><br /><span style="font-weight: bold">At this point, we can have either r4c1 = 2 or r4c1 = 3</span><br />First suppose that r4c1 = 2<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12&nbsp; &nbsp; &nbsp; &nbsp; !<br />+-------------------------------+-------------------------------+<br />! 2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br /><br />We can now have either r1c4 = 2 or r1c4 = 3<br />if r1c4 = 2<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br />! 2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 13*&nbsp; &nbsp; &nbsp; &nbsp;1*&nbsp; &nbsp; &nbsp; &nbsp; 3*&nbsp; &nbsp; &nbsp; &nbsp; !<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 1*&nbsp; &nbsp; &nbsp; &nbsp; 12*&nbsp; &nbsp; &nbsp; &nbsp;2*&nbsp; &nbsp; &nbsp; &nbsp; !<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 3*&nbsp; &nbsp; &nbsp; &nbsp; 2*&nbsp; &nbsp; &nbsp; &nbsp; 23*&nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br />At this point, we can check how a contradiction could arise in b22, depending on where the 3 cells with no other candidates are placed.<br />There are 3 cases:<br />cells 357 in b22 (anti-diagonal): 3 appears twice in b22<br />cells 249 in b22: 1 appears twice in b22<br />cells 168 in b22: 2 appears twice in b22<br /><br />if r1c4 = 3:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br />! 2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 1*&nbsp; &nbsp; &nbsp; &nbsp; 3*&nbsp; &nbsp; &nbsp; &nbsp; 13*&nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 12*&nbsp; &nbsp; &nbsp; &nbsp;2*&nbsp; &nbsp; &nbsp; &nbsp; 1*&nbsp; &nbsp; &nbsp; &nbsp; !<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 2*&nbsp; &nbsp; &nbsp; &nbsp; 23*&nbsp; &nbsp; &nbsp; &nbsp;3*&nbsp; &nbsp; &nbsp; &nbsp; !<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br />At this point, we can check how a contradiction could arise in b22, depending on where the 3 cells are placed.<br />There are 3 cases:<br />cells 357 in b22 (anti-diagonal): 2 appears twice in b22<br />cells 168 in b22: 1 appears twice in b22<br />cells 249 in b22: 3 appears twice in b22<br />Same possibilities as before<br /><br /><br /><br /><span style="font-weight: bold">At the point where we could have either r4c1 = 2 or r4c1 = 3</span><br />suppose r4c1 = 3<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 23&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;13&nbsp; &nbsp; &nbsp; &nbsp; .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;12&nbsp; &nbsp; &nbsp; &nbsp; !<br />+-------------------------------+-------------------------------+<br />! 3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! *&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;*&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br />We can now have either r1c4 = 2 or r1c4 = 3<br /><br />if r1c4 = 2:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br />! 3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 1*&nbsp; &nbsp; &nbsp; &nbsp; 12*&nbsp; &nbsp; &nbsp; &nbsp;2*&nbsp; &nbsp; &nbsp; &nbsp; !<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 3*&nbsp; &nbsp; &nbsp; &nbsp; 2*&nbsp; &nbsp; &nbsp; &nbsp; 23*&nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 13*&nbsp; &nbsp; &nbsp; &nbsp;1*&nbsp; &nbsp; &nbsp; &nbsp; 3*&nbsp; &nbsp; &nbsp; &nbsp; !<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br />At this point, we can check how a contradiction could arise in b22, depending on where the 3 cells are placed.<br />There are 3 cases:<br />cells 357 in b22 (anti-diagonal): 2 appears twice in b22<br />cells 168 in b22: 1 appears twice in b22<br />cells 249 in b22: 3 appears twice in b22<br />Same possibilities as before<br /><br />if r1c4 = 3:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------------------------------+-------------------------------+<br />! 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br />! 3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 12*&nbsp; &nbsp; &nbsp; &nbsp;2*&nbsp; &nbsp; &nbsp; &nbsp; 1*&nbsp; &nbsp; &nbsp; &nbsp; !<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 2*&nbsp; &nbsp; &nbsp; &nbsp; 23*&nbsp; &nbsp; &nbsp; &nbsp;3*&nbsp; &nbsp; &nbsp; &nbsp; !<br />! .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;! 1*&nbsp; &nbsp; &nbsp; &nbsp; 3*&nbsp; &nbsp; &nbsp; &nbsp; 13*&nbsp; &nbsp; &nbsp; &nbsp;!<br />+-------------------------------+-------------------------------+<br /></code></dd></dl><br />At this point, we can check how a contradiction could arise in b22, depending on where the 3 cells are placed.<br />There are 3 cases:<br />cells 357 in b22 (anti-diagonal): 1 appears twice in b22<br />cells 249 in b22: 2 appears twice in b22<br />cells 168 in b22: 3 appears twice in b22<br />Same possibilities as before<br /><br /><br /><span style="color: #0000FF"><span style="font-weight: bold">Conclusion: when the patterns of cells in the first 3 blocks are fixed as at the start (anti-diagonal, with the target cell in r1c1), there are three and only three possible patterns of 123-cells for the fourth block that make the rule valid:<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------+<br />! . . * !<br />! . * . !<br />! * . . !<br />+-------+<br /><br />+-------+<br />! . * . !<br />! * . . !<br />! . . * !<br />+-------+<br /><br />+-------+<br />! * . . !<br />! . . * !<br />! . * . !<br />+-------+<br /></code></dd></dl><br /></span></span><br />Notice that, when cell r1c1 is fixed, the first two are non-isomorphic, but the last two are isomorphic, via r2-&gt;r3, c2-&gt;c3, r5-&gt;r6, c5-&gt;c6.<br /><br />This is half of the possible patterns satisfying the conditions at the start.<br />.<br />[edit]: for non ambiguity, explicitly repeated the condition on target cell being in r1c1 in the conclusion.<br />[Edit 2]: take into account 999_spring remark.<br />[Edit3]: For an edited version of the contents of this thread, see Part III if the &quot;Augmented User Manual for CSP-Rules-V2.1&quot; ([AUM] , available on ResearchGate: <a href="https://www.researchgate.net/publication/365186265_Augmented_User_Manual_for_CSP-Rules-V21" class="postlink" rel="nofollow">https://www.researchgate.net/publication/365186265_Augmented_User_Manual_for_CSP-Rules-V21</a>), <br />also available as part of CSP-Rules (<a href="https://github.com/denis-berthier/CSP-Rules-V2.1" class="postlink" rel="nofollow">https://github.com/denis-berthier/CSP-Rules-V2.1</a>).</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a> on Fri May 12, 2023 4:21 am, edited 4 times in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318373">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318374" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318374&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318374">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318374.html#p318374"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Sun Mar 13, 2022 9:10 am </p>
+
+			
+
+			<div class="content">.<br /><span style="font-weight: bold">References</span><br /><br />This is just a quick sketch. Don't hesitate to propose more references.<br /><br />- following a series of new hard puzzles by mith, 1st mention of a new impossible pattern: <a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-810.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-810.html</a><br />- 1st mention of the name &quot;trivalue oddagon&quot; on this forum: <a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-811.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-811.html</a><br /><br />- eleven's first expianation of the pattern: <a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-816.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-816.html</a><br />- eleven's proof of the pattern: <a href="http://forum.enjoysudoku.com/post318379.html#p318379" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/post318379.html#p318379</a><br />- Coloin's identification of 6 cases: <a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-817.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-817.html</a><br /><br />- Mith's first 11.9 &quot;Loki&quot;, the 10th known puzzle with SER = 11.9: <a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-1030.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-1030.html</a><br />- Loki shown to be the 1st ever puzzle not in T&amp;E(2): <a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-1048.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-1048.html</a><br />- see also all the posts following the previous two and the discussion about &quot;trivalue oddagons&quot;<br /><br />- Resolutions of Loki: <a href="http://forum.enjoysudoku.com/loki-ser-11-9-t39840.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/loki-ser-11-9-t39840.html</a><br /><br />- videos of the pattern (by rangsk, developing ryokousha’s parity argument): <a href="https://www.youtube.com/_xMtwqTTK6o" class="postlink" rel="nofollow">https://www.youtube.com/_xMtwqTTK6o</a>, <a href="https://youtu.be/V7RC1hJ8vZ8" class="postlink" rel="nofollow">https://youtu.be/V7RC1hJ8vZ8</a><br /><br />- My interpretation of the pattern for easy coding as a resolution rule: <a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html" class="postlink" rel="nofollow">http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html</a><br />.<br /><br />[Edit: added references provided by mith]</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a> on Fri Aug 11, 2023 7:01 am, edited 5 times in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318374">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318378" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318378&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318378">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318378.html#p318378"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Sun Mar 13, 2022 11:32 am </p>
+
+			
+
+			<div class="content">.<br /><span style="font-weight: bold">Example: Loki</span><br /><br />After my first post, I decided to code this rule in SudoRules. Here is my first try with it. Note that, as tridagons rely on 12 CSP-variables (the 12 rc-cells), they are assigned complexity 12. That's why one appears only after a whip[9] in the following path.<br /><br />Loki (created by mith) was the first puzzle I found not to be in T&amp;E(2). This (indirectly) made me interested in tridagons. Here is Loki's solution, with this rule blended with whips.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>Resolution state after Singles and whips&#91;1&#93;:<br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />&nbsp; &nbsp;! 5&nbsp; &nbsp; &nbsp; 7&nbsp; &nbsp; &nbsp; 3468&nbsp; &nbsp;! 238&nbsp; &nbsp; 346&nbsp; &nbsp; 13&nbsp; &nbsp; &nbsp;! 9&nbsp; &nbsp; &nbsp; 123&nbsp; &nbsp; 136&nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 23469&nbsp; 2349&nbsp; &nbsp;3469&nbsp; &nbsp;! 2357&nbsp; &nbsp;34567&nbsp; 13579&nbsp; ! 3457&nbsp; &nbsp;12357&nbsp; 8&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 234689 1&nbsp; &nbsp; &nbsp; 34689&nbsp; ! 23578&nbsp; 34567&nbsp; 3579&nbsp; &nbsp;! 3457&nbsp; &nbsp;2357&nbsp; &nbsp;3567&nbsp; &nbsp;! <br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />&nbsp; &nbsp;! 379&nbsp; &nbsp; 359&nbsp; &nbsp; 1&nbsp; &nbsp; &nbsp; ! 6&nbsp; &nbsp; &nbsp; 8&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; ! 357&nbsp; &nbsp; 4&nbsp; &nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 3467&nbsp; &nbsp;345&nbsp; &nbsp; 34567&nbsp; ! 1&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; ! 8&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; 9&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 378&nbsp; &nbsp; 358&nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; ! 357&nbsp; &nbsp; 9&nbsp; &nbsp; &nbsp; 4&nbsp; &nbsp; &nbsp; ! 1&nbsp; &nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; ! <br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />&nbsp; &nbsp;! 134789 34589&nbsp; 345789 ! 357&nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; ! 357&nbsp; &nbsp; 135789 1357&nbsp; &nbsp;! <br />&nbsp; &nbsp;! 137&nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; ! 9&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; 8&nbsp; &nbsp; &nbsp; ! 2&nbsp; &nbsp; &nbsp; 1357&nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 23789&nbsp; 23589&nbsp; 35789&nbsp; ! 4&nbsp; &nbsp; &nbsp; 1&nbsp; &nbsp; &nbsp; 357&nbsp; &nbsp; ! 6&nbsp; &nbsp; &nbsp; 35789&nbsp; 357&nbsp; &nbsp; ! <br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />205 candidates.</code></dd></dl><br />hidden-pairs-in-a-column: c8{n8 n9}{r7 r9} ==&gt; r9c8≠7, r9c8≠5, r9c8≠3, r7c8≠7, r7c8≠5, r7c8≠3, r7c8≠1<br />whip[9]: b9n1{r7c9 r8c8} - b3n1{r2c8 r1c9} - r1c6{n1 n3} - c4n3{r3 r6} - c5n3{r5 r8} - r8c1{n3 n7} - r6n7{c1 c9} - r9n7{c9 c6} - r4n7{c6 .} ==&gt; r7c9≠3<br /><span style="font-weight: bold">tridagon in blocks b9, b8, b6 and b5 for digits 3, 5 and 7 ==&gt; r8c8≠3,5,7</span><br />singles ==&gt; r8c8=1, r1c9=1, r1c6=3, r1c8=2, r1c4=8, r2c6=1, r3c6=9, r3c9=6, r7c1=1<br />finned-x-wing-in-columns: n3{c4 c9}{r6 r7} ==&gt; r7c7≠3<br />hidden-single-in-a-block ==&gt; r9c9=3<br />whip[1]: b9n5{r7c9 .} ==&gt; r7c2≠5, r7c3≠5, r7c4≠5<br />whip[1]: b9n7{r7c9 .} ==&gt; r7c3≠7, r7c4≠7<br />singles ==&gt; r7c4=3, r5c5=3, r4c7=3<br />naked-pairs-in-a-row: r6{c4 c9}{n5 n7} ==&gt; r6c2≠5, r6c1≠7<br />finned-x-wing-in-rows: n7{r4 r9}{c6 c1} ==&gt; r8c1≠7<br />singles ==&gt; r8c1=3, r6c1=8, r6c2=3, r3c3=8, r2c3=3, r3c8=3<br />whip[1]: c3n9{r9 .} ==&gt; r7c2≠9, r9c1≠9, r9c2≠9<br />biv-chain[2]: r6n7{c4 c9} - c8n7{r5 r2} ==&gt; r2c4≠7<br />biv-chain[2]: r6n5{c4 c9} - c8n5{r5 r2} ==&gt; r2c4≠5<br />stte</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318378">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318380" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318380&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318380">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318380.html#p318380"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Sun Mar 13, 2022 11:47 am </p>
+
+			
+
+			<div class="content">.<br /><span style="font-weight: bold">Example 2:</span><br /><br /><blockquote><div><cite>denis_berthier wrote:</cite><blockquote><div><cite>mith wrote:</cite><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>. . . . . . . . 1<br />. . . . . 2 . . .<br />. . . . 3 . . 4 5<br />. . 6 . . . . . .<br />. 7 1 . 8 . . . .<br />3 2 . . 6 7 . . 8<br />. 6 . . 2 3 . . .<br />. 8 3 7 . . 1 . .<br />7 . 2 8 1 . 6 . .</code></dd></dl><br />This should be the 26c minimal, if I haven’t made a typo. The other is 27c.</div></blockquote><br /><span style="font-weight: bold">This is a new puzzle not in T&amp;E(2).<br />Like Loki, its is not in gT&amp;E(2) either; but it is in T&amp;E(W2, 2).</span></div></blockquote><br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>Resolution state after Singles and whips&#91;1&#93;:<br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />&nbsp; &nbsp;! 24569&nbsp; 3459&nbsp; &nbsp;45789&nbsp; ! 4569&nbsp; &nbsp;4579&nbsp; &nbsp;4589&nbsp; &nbsp;! 23789&nbsp; 236789 1&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 4569&nbsp; &nbsp;13459&nbsp; 45789&nbsp; ! 14569&nbsp; 4579&nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; ! 3789&nbsp; &nbsp;36789&nbsp; 3679&nbsp; &nbsp;! <br />&nbsp; &nbsp;! 269&nbsp; &nbsp; 19&nbsp; &nbsp; &nbsp;789&nbsp; &nbsp; ! 169&nbsp; &nbsp; 3&nbsp; &nbsp; &nbsp; 189&nbsp; &nbsp; ! 2789&nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; 5&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />&nbsp; &nbsp;! 8&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; ! 123459 459&nbsp; &nbsp; 1459&nbsp; &nbsp;! 234579 123579 23479&nbsp; ! <br />&nbsp; &nbsp;! 459&nbsp; &nbsp; 7&nbsp; &nbsp; &nbsp; 1&nbsp; &nbsp; &nbsp; ! 23459&nbsp; 8&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; ! 23459&nbsp; 23569&nbsp; 23469&nbsp; ! <br />&nbsp; &nbsp;! 3&nbsp; &nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; ! 1459&nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; 7&nbsp; &nbsp; &nbsp; ! 459&nbsp; &nbsp; 159&nbsp; &nbsp; 8&nbsp; &nbsp; &nbsp; ! <br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />&nbsp; &nbsp;! 1&nbsp; &nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; ! 459&nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; 3&nbsp; &nbsp; &nbsp; ! 45789&nbsp; 5789&nbsp; &nbsp;479&nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 459&nbsp; &nbsp; 8&nbsp; &nbsp; &nbsp; 3&nbsp; &nbsp; &nbsp; ! 7&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; ! 1&nbsp; &nbsp; &nbsp; 259&nbsp; &nbsp; 249&nbsp; &nbsp; ! <br />&nbsp; &nbsp;! 7&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; 2&nbsp; &nbsp; &nbsp; ! 8&nbsp; &nbsp; &nbsp; 1&nbsp; &nbsp; &nbsp; 459&nbsp; &nbsp; ! 6&nbsp; &nbsp; &nbsp; 359&nbsp; &nbsp; 349&nbsp; &nbsp; ! <br />&nbsp; &nbsp;+----------------------+----------------------+----------------------+ <br />205 candidates.</code></dd></dl><br /><br />hidden-pairs-in-a-column: c4{n2 n3}{r4 r5} ==&gt; r5c4≠9, r5c4≠5, r5c4≠4, r4c4≠9, r4c4≠5, r4c4≠4, r4c4≠1<br /><span style="font-weight: bold">tridagon for digits 4, 5 and 9 in blocks: <br />----- b5, cells: r6c4 (target cell), r5c6, r4c5<br />-----  b4, cells: r6c3, r5c1, r4c2<br />----- b8, cells: r7c4, r9c6, r8c5<br />----- b7, cells: r7c3, r9c2, r8c1<br /> ==&gt; r6c4≠4,5,9<br /></span><br />singles ==&gt; r6c4=1, r3c6=1, r3c2=9, r3c4=6, r3c1=2, r2c2=1, r1c2=3, r1c6=8, r4c8=1<br />finned-x-wing-in-columns: n4{c2 c6}{r9 r4} ==&gt; r4c5≠4<br />whip[1]: b5n4{r5c6 .} ==&gt; r9c6≠4<br />finned-x-wing-in-columns: n5{c2 c6}{r9 r4} ==&gt; r4c5≠5<br />singles ==&gt; r4c5=9, r9c6=9<br />naked-pairs-in-a-row: r4{c2 c6}{n4 n5} ==&gt; r4c9≠4, r4c7≠5, r4c7≠4<br />biv-chain[3]: c3n9{r7 r6} - r6c8{n9 n5} - r9n5{c8 c2} ==&gt; r7c3≠5<br />biv-chain[3]: r8c5{n4 n5} - b7n5{r8c1 r9c2} - r9n4{c2 c9} ==&gt; r8c9≠4<br />biv-chain[3]: c1n9{r5 r8} - b7n5{r8c1 r9c2} - c2n4{r9 r4} ==&gt; r5c1≠4<br />z-chain[3]: r8c9{n9 n2} - r8c8{n2 n5} - r6c8{n5 .} ==&gt; r7c8≠9<br />z-chain[3]: c8n7{r2 r7} - c8n8{r7 r2} - r3c7{n8 .} ==&gt; r1c7≠7, r2c9≠7, r2c7≠7<br />t-whip[3]: c3n9{r7 r6} - r6c8{n9 n5} - b9n5{r7c8 .} ==&gt; r7c7≠9<br />finned-x-wing-in-rows: n9{r7 r6}{c3 c9} ==&gt; r5c9≠9<br />t-whip[3]: c8n8{r7 r2} - r3c7{n8 n7} - c8n7{r1 .} ==&gt; r7c8≠5<br />t-whip[3]: r3c7{n8 n7} - c8n7{r2 r7} - r7n8{c8 .} ==&gt; r2c7≠8<br />biv-chain[4]: r6c8{n9 n5} - r9n5{c8 c2} - r4c2{n5 n4} - r6n4{c3 c7} ==&gt; r6c7≠9<br />finned-x-wing-in-rows: n9{r6 r7}{c3 c8} ==&gt; r8c8≠9<br />whip[1]: b9n9{r8c9 .} ==&gt; r2c9≠9<br />biv-chain[3]: r9n3{c8 c9} - r2c9{n3 n6} - b6n6{r5c9 r5c8} ==&gt; r5c8≠3<br />biv-chain[4]: r6c8{n5 n9} - c3n9{r6 r7} - c9n9{r7 r8} - b9n2{r8c9 r8c8} ==&gt; r8c8≠5<br />singles ==&gt; r8c8=2, r8c9=9, r7c3=9, r5c1=9, r6c8=9, r1c7=2, r2c7=9, r1c4=9<br />whip[1]: c7n3{r5 .} ==&gt; r4c9≠3, r5c9≠3<br />finned-x-wing-in-rows: n4{r8 r1}{c5 c1} ==&gt; r2c1≠4<br />finned-x-wing-in-rows: n5{r8 r1}{c5 c1} ==&gt; r2c1≠5<br />stte<br /><br /><br />Notice that, while Loki followed the first of the 3 patterns at the end of the first post, this puzzle follows the third (after isomorphisms that put them in the proper forms).<br /><br />[Edit]: added cell information to the printed form of the pattern.<br />The information displayed follows the conventions and order of the first post.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318380">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318421" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318421&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318421">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318421.html#p318421"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Mon Mar 14, 2022 12:37 pm </p>
+
+			
+
+			<div class="content">Haven't seen this post yesterday, so i posted <a href="http://forum.enjoysudoku.com/post318379.html#p318379" class="postlink" rel="nofollow">my proof</a> to the hardest thread.<br />It shows, that whenever you have a single rectangle in such a pattern (3 cells in 4 boxes of 2 bands/stacks, where in each box there is a single cell in minirow/column), it cannot be solved with 3 digits.<br />The 3 cases above in fact are equivalent (isomorph).<br />It also can be proven, that for each possible placement of one digit you are left with a bivalue oddagon for the other digits (but i needed to distinguish 7 cases for that), so in my eyes the name oddagon is justified.<br />Note that the <a href="http://forum.enjoysudoku.com/post306972.html#p306972" class="postlink" rel="nofollow">one rectangle</a> observation has been mentioned by Marek Stefanik already in July last year.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318421">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318422" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318422&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318422">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318422.html#p318422"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Mon Mar 14, 2022 12:46 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>eleven wrote:</cite>Haven't seen this post yesterday, so i posted <a href="http://forum.enjoysudoku.com/post318379.html#p318379" class="postlink" rel="nofollow">my proof</a> to the hardest thread.<br />It shows, that whenever you have a single rectangle in such a pattern (3 cells in 4 boxes of 2 bands/stacks, where in each box there is a single cell in minirow/column), it cannot be solved with 3 digits.</div></blockquote><br />OK, I've added it to the (currently short) list of references.<br /><br /><blockquote><div><cite>eleven wrote:</cite>The 3 cases above in fact are equivalent (isomorph).</div></blockquote><br />How do you change the 4th block without touching the first 3 (in particular, keeping the target cell in r1c1)?</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318422">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318431" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318431&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318431">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318431.html#p318431"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Mon Mar 14, 2022 3:56 pm </p>
+
+			
+
+			<div class="content">Ah, i see. I don't need a target cell, it suffices to know, that the 3-digit pattern isn't possible, so at least one of the extra candidates must be true.<br />If e.g. there was an extra candidate in 2 of the cells, the pattern would provide a strong link between them.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318431">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318432" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318432&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318432">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318432.html#p318432"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2596.html">999_Springs</a></strong> &raquo; Mon Mar 14, 2022 4:02 pm </p>
+
+			
+
+			<div class="content">i think there is no need to specifically distinguish a &quot;target cell&quot; in your definition of the pattern.<br /><br />the underlying logic behind the pattern is that if we limit the cells marked x to digits 1,2,3 only, then there is no solution:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>+-------+-------+<br />| x . . | x . . |<br />| . x . | . x . |<br />| . . x | . . x |<br />+-------+-------+<br />| x . . | . . x |<br />| . x . | . x . |<br />| . . x | x . . |<br />+-------+-------+</code></dd></dl><br />as a corollary of this, if we have <span style="font-style: italic">any number</span> of these cells containing <span style="font-style: italic">any number</span> of extra digits, then we know that <span style="font-style: italic">at least one</span> of the extra digits in any cell marked x must be true.<br /><br />since the pattern of x's in cells is isomorphic, by rearranging rows and columns, to the other two cases of trivalue oddagons with the x's in b5 in p168 and p249, then when proving that there is no solution, we can use this isomorphism to immediately get that the same pattern with the x's elsewhere in b5 also has no solution, thus, at least one of any additional candidates in the x cells must be true. this avoids the need to distinguish a target cell, and with it, the need to distinguish between the 3 cases that you did.<br /><br />your definition only allows for the specific case where one extra cell has additional candidates. thus, according to your definition, this pattern is <span style="text-decoration: underline">not</span> a trivalue oddagon, and would not be found by your solver as such:<br /><br />mith's 37-clue 11.5<br />........1....12.3..13.45....34...16.1.74.63.886..31..4.81.6...33.61.48.747....61.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>...|...|..1<br />...|.12|.3.<br />.13|.45|...<br />---+---+---<br />x34|...|16x<br />1x7|4.6|3x8<br />86x|.31|x.4<br />---+---+---<br />x81|.6.|x.3<br />3x6|1.4|8x7<br />47x|...|61x</code></dd></dl><br />the cells marked x form the trivalue oddagon pattern in digits 259, but we have 2 cells with extra candidates: extra 7 in r6c7 and extra 4 in r7c7.<br /><br />that means that at least one of 7r6c7 and 4r7c7 is true. whichever one of these is true will form a hidden pair with 8 in r13c8<br />=&gt; r1c8 =/= 259, r3c8 =/= 29<br /><br />i am guessing that, in your proof, if you did a case analysis for N&gt;1 target cells, it would be far more complicated.<br /><br />i think that by far the easiest way to view this pattern is as a &quot;deadly pattern&quot;, like a BUG or UR/UL, without the uniqueness assumption: the logic is the same otherwise; if we have a BUG or UR with any number of additional candidates in any number of cells, at least one of those additional candidates must be true. limiting it to only one cell with additional candidates is like only considering BUG type 1's and UR type 1's, when there are other types available (e.g. BUG type 2 is the case where N&gt;1 cells have one extra candidate, all of the same digit). but there is no need to do specific patterns for each type if you don't want to: in general, the derived inference you get from the additional candidates in such a deadly pattern can be used in a chain, just like any other inferences can - and it is only for convenience that we assign type numbers (1 to 6?) to the simplest versions of such chains for patterns easily recognisable to a human eye (the above example would be a &quot;type 3 with hidden pair&quot; using uniqueness pattern terminology)<br /><br />edit: i notice that eleven wrote the above post at the same time as i did, and we make the same point<br /><br />edit edit: even if you insist on a target cell in r1c1, you can still swap r23,c23,r56,c56 to get the case with the x's in b5p249, giving you only 2 cases to consider (target cell is either in the rectangle or it isn't) instead of 3</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318432">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2596.html">999_Springs</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 591</dd><dd><strong>Joined:</strong> 27 January 2007</dd><dd><strong>Location:</strong> In the toilet, flushing down springs, one by one.</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318434" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318434&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318434">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318434.html#p318434"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Mon Mar 14, 2022 4:41 pm </p>
+
+			
+
+			<div class="content">.<br />Hi eleven, 999_spring<br /><br />I understand you're interested in the contradictory situation. I'm more interested in expressing the resulting elimination rule. I see no contradiction in our approaches.<br />The target cell is where there is a difference and where changes happen during resolution, so it seems to me it's much more natural to specify it in the definition of the resolution rule.<br />eleven, you are right that I don't deal with the case of several cells with an additional candidates but, as you write, they could only provide &quot;strong links&quot;, i.e. no independent resolution rule. I can hardly imagine using such links (resulting from a very complex and extremely rare pattern) as parts of other patterns. In any case, this is not what I am dealing with here.<br /><br />Secondarily, from a programming POV in the CLIPS implementation of SudoRules, the pattern-matcher automatically takes all the isomorphisms into account. It's simpler to code the target cell as variable r1c1 instead of having to choose at the end which variable ricj among the 12 ones will be concerned by the eliminations. It took me only 2 hours to code my version of the rule.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318434">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318442" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318442&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318442">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318442.html#p318442"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member65215.html">mith</a></strong> &raquo; Mon Mar 14, 2022 10:22 pm </p>
+
+			
+
+			<div class="content">I was going to post this as an example of a non-direct deduction from the deadly pattern; it's not too different from what 999_Springs posted, but anyway:<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>........1.......2.....13.45...3.56...371.....6.5.78....6.73...8.785.1...3.1.86.5.&nbsp; ED=11.8/1.2/1.2</code></dd></dl><br /><br />Here, rather than two cells contained in a column which have extra digits, the two cells are confined to the same box (trivalue oddagon on 249, with 8r5c1 and 1r6c2 as guardians). This time, the result is that at exactly one of 18 is in r4c12, with the other in r4c8 (so -79r4c8, and 7 is in r4c9, reducing the puzzle to a ~9.2).<br /><br />It's perfectly reasonable to use the basic elimination (one cell as guardian, eliminate the three values from that cell) as a starting point, but I think it's going to miss more puzzles than you are expecting. At some point I'm intending to code up a search on the database to get an idea of exactly how frequent the basic elimination is vs. a two-or-more guardian case. (It's somewhat interesting that the puzzles to defeat T&amp;E(2) so far only have one guardian, but too small a sample size at this point to say that trend will continue.) This is to say nothing of the remote triples that are inherent in the trivalue structure, which can themselves be used as part of other patterns. Whether something like that is worth including in SudoRules is of course an entirely separate question, which I have very little opinion on.<br /><br />Also, tridagon just seems to be an abbreviation of trivalue oddagon? I'm not sure I understand any other reason for this name.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318442">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member65215.html">mith</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1002</dd><dd><strong>Joined:</strong> 14 July 2020</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318448" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318448&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318448">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318448.html#p318448"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Tue Mar 15, 2022 2:43 am </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>999_Springs wrote:</cite>edit edit: even if you insist on a target cell in r1c1, you can still swap r23,c23,r56,c56 to get the case with the x's in b5p249, giving you only 2 cases to consider (target cell is either in the rectangle or it isn't) instead of 3</div></blockquote><br />Just seen your second edit. I'm going to modify my first post.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318448">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318449" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318449&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318449">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318449.html#p318449"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Tue Mar 15, 2022 2:58 am </p>
+
+			
+
+			<div class="content">Hi mith<br />All this is a work in progress. As of now, I've taken into account only direct eliminations. If other rules appear, I'll see what I do.<br /><br /><blockquote><div><cite>mith wrote:</cite> tridagon just seems to be an abbreviation of trivalue oddagon? I'm not sure I understand any other reason for this name.</div></blockquote><br />Yes, tridagon is an abbreviation of &quot;trivalue oddagon&quot;. I don't like &quot;trivalue oddagon&quot;: it's too long and there's no oddagon anywhere in the resolution rule, unless you do some T&amp;E. But I didn't want to forget completely this initial name. That said, I'm not particularly attached to tridagon.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318449">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318451" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318451&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318451">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318451.html#p318451"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a></strong> &raquo; Tue Mar 15, 2022 6:35 am </p>
+
+			
+
+			<div class="content">.<br />In the first post of this thread, I found that, starting from the following pattern of cells in the 4 blocks<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code># . . | + . . <br />. + . | . + .<br />. . + | . . +<br />-------------<br />+ . . | x x x<br />. + . | x x x<br />. . + | x x x<br />where<br /># means fixed target cell, <br />+ means fixed 123-cell, <br />x means 123-cell to be determined</code></dd></dl><br />there were only 3 patterns of 123-cells for block b22 that allowed the elimination of the target:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>. . +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . + .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + . . <br />. + .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; + . .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . +<br />+ . .&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . . +&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; . + .</code></dd></dl><br />Under the above conditions, the first and second pattern are not equivalent but 999_spring noticed that the 2nd and 3rd are equivalent.<br /><br />The 1st pattern is easy to remember: 3 anti-diagonal blocks (with  target cell the first cell of the first of these blocks) + a diagonal one (b22). I shall call this pattern the <span style="font-weight: bold">antidiagonal type</span>:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code># . . | + . . <br />. + . | . + .<br />. . + | . . +<br />-------------<br />+ . . | . . +<br />. + . | . + .<br />. . + | + . .</code></dd></dl><br /><br />The 2nd (or 3rd) pattern is harder to describe. So, I looked for an equivalent form. Here is one, called the <span style="font-weight: bold">diagonal type</span>:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code># . . | . . +<br />. + . | . + .<br />. . + | + . .<br />-------------<br />. . + | . . +<br />. + . | . + .<br />+ . . | + . .<br />Same as first pattern, except that the 123-cells in blocks b12 and b21 are now on the diagonals instead of the anti-diagonals</code></dd></dl><br />Proving the equivalence is obvious; I leave it to the reader as an exercise.</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a> on Wed Mar 16, 2022 8:07 am, edited 1 time in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318451">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2659.html">denis_berthier</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 4678</dd><dd><strong>Joined:</strong> 19 June 2007</dd><dd><strong>Location:</strong> Paris</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="web-icon"><a href="https://www.researchgate.net/profile/Denis-Berthier/research" title="WWW: https://www.researchgate.net/profile/Denis-Berthier/research"><span>Website</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318462" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318462&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318462">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318462.html#p318462"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member81640.html">xzccs</a></strong> &raquo; Tue Mar 15, 2022 9:20 am </p>
+
+			
+
+			<div class="content">Hi everyone,<br /><br />I abstracted some conditions from the dead pattern which I think is the essence of it. Also I came up with a proof base on these conditions. (availble for n boxes case)<br /><img src="https://drive.google.com/uc?export=view&amp;id=1yMIQiuFDNn8X5MV-K6jdrEqP9Hhyv_mb" alt="Image" /><br />Conditions: <br />1.	There are n triples in n boxes.<br />2.	Only two cells in each row or column.<br />3.	Only connecting cells by weak links in rows and columns, it can be divided to a loop of length n and a loop of length 2n. (n is not necessary to be even, although odd case may not appear in strandard sudoku)<br /><br />Prove:<br /><img src="https://drive.google.com/uc?export=view&amp;id=1UBp9TZmktXFFT1nFmsCV8dvjP2WKSXa6" alt="Image" /><br />Abstracting as above, in the 2n-loop, it can be divided into n pairs within each block. All pairs are connected with parallel weak link, except for one cross weak link. (Actually any odd number of cross link is OK because it can be twisted into the one case like a rope loop). All the digital permutation (ordered) of the pairs can be divided in to two group: A and B.<br /><br />Then we can get the inference as follow:<br />1.	In the n-loop, It can’t be the same digit in adjacent position.<br />2.	In the 2n-loop, It can’t be the same digital combination (unordered) in adjacent position. (derived from 1)<br />3.	In the 2n-loop, within the two groups, pairs can be adjacent in parallel link but not in cross link, while between the two group, pairs can be adjacent in cross link but not in parallel link. (derived from 2)<br />4.	All pairs are connected by at least one parallel link, so they can be only group A or group B respectively. However, there is still a cross link, which means there must be a group-A-pair and a group-B-pair. Contradict.<br /><br />An interesting thing is that the condition 3 can be transform to “There are odd number of intersections of these links”, although I think it’s not so convenient as condition 3 unless we draw the links. Also note that condition 3 is a possible way to prove this pattern, it doesn’t mean it is the only way or the best way to observe.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318462">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member81640.html">xzccs</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 25</dd><dd><strong>Joined:</strong> 02 January 2022</dd><dd><strong>Location:</strong> Fiji</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="icq-icon"><a href="http://www.icq.com/people/344355388/" onclick="popup(this.href, 550, 320); return false;" title="ICQ"><span>ICQ</span></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p318535" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=318535&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#p318535">Re: The tridagon rule</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post318535.html#p318535"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Tue Mar 15, 2022 7:51 pm </p>
+
+			
+
+			<div class="content">Sorry, i don't understand. Maybe it's getting clearer, when you post the images.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile318535">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<form id="viewtopic" method="post" action="http://forum.enjoysudoku.com/the-tridagon-rule-t39859.html">
+
+	<fieldset class="display-options" style="margin-top: 0; ">
+		<a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-15.html" class="right-box right">Next</a>
+		<label>Display posts from previous: <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select></label>
+		<label>Sort by <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select></label> <label><select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select> <input type="submit" name="sort" value="Go" class="button2" /></label>
+		
+	</fieldset>
+
+	</form>
+	<hr />
+
+
+<div class="topic-actions">
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=39859&amp;sid=d8cc8af347e1a902033599e95b63fbfa" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="pagination">
+			126 posts
+			 &bull; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>9</strong></a> &bull; <span><strong>1</strong><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-15.html">2</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-30.html">3</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-45.html">4</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-60.html">5</a><span class="page-dots"> ... </span><a href="http://forum.enjoysudoku.com/the-tridagon-rule-t39859-120.html">9</a></span>
+		</div>
+	
+</div>
+
+
+	<p></p><p><a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html" class="left-box left" accesskey="r">Return to Advanced solving techniques</a></p>
+
+	<form method="post" id="jumpbox" action="http://forum.enjoysudoku.com/viewforum.php" onsubmit="if(this.f.value == -1){return false;}">
+
+	
+		<fieldset class="jumpbox">
+	
+			<label for="f" accesskey="j">Jump to:</label>
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+			
+				<option value="-1">Select a forum</option>
+			<option value="-1">------------------</option>
+				<option value="9">News and announcements</option>
+			
+				<option value="10">&nbsp; &nbsp;About the New Sudoku Players' Forum</option>
+			
+				<option value="5">Sudoku: the puzzle</option>
+			
+				<option value="7">&nbsp; &nbsp;General</option>
+			
+				<option value="33">&nbsp; &nbsp;Puzzles</option>
+			
+				<option value="4">&nbsp; &nbsp;Help with puzzles and solving techniques</option>
+			
+				<option value="6" selected="selected">&nbsp; &nbsp;Advanced solving techniques</option>
+			
+				<option value="8">&nbsp; &nbsp;Interactive games</option>
+			
+				<option value="18">&nbsp; &nbsp;Software</option>
+			
+				<option value="16">Resources</option>
+			
+				<option value="32">&nbsp; &nbsp;Published puzzles</option>
+			
+				<option value="31">&nbsp; &nbsp;Books</option>
+			
+				<option value="17">&nbsp; &nbsp;On the web</option>
+			
+				<option value="11">Related puzzles</option>
+			
+				<option value="12">&nbsp; &nbsp;Sudoku variants</option>
+			
+				<option value="13">&nbsp; &nbsp;Kakuro</option>
+			
+				<option value="14">&nbsp; &nbsp;Other logic puzzles</option>
+			
+				<option value="15">&nbsp; &nbsp;Inventors' studio</option>
+			
+				<option value="19">Off-topic</option>
+			
+				<option value="20">&nbsp; &nbsp;Coffee bar</option>
+			
+				<option value="29">&nbsp; &nbsp;Forum questions and feedback</option>
+			
+			</select>
+			<input type="submit" value="Go" class="button2" />
+		</fieldset>
+	</form>
+
+</div>
+
+<div id="page-footer">
+
+	<div class="navbar">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<ul class="linklist">
+			<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a></li>
+				
+			<li class="rightside"><a href="http://forum.enjoysudoku.com/the-team.html">The team</a> &bull; <a href="http://forum.enjoysudoku.com/ucp.php?mode=delete_cookies&amp;sid=d8cc8af347e1a902033599e95b63fbfa">Delete all board cookies</a> &bull; All times are UTC </li>
+		</ul>
+		
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<div class="copyright">Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group
+		<br /><br /><a href="http://www.phpbb-seo.com/" title="Search Engine Optimization"><img src="http://forum.enjoysudoku.com/images/phpbb-seo.png" alt="phpBB SEO"/></a>
+	</div>
+</div>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	
+</div>
+
+</body>
+</html>

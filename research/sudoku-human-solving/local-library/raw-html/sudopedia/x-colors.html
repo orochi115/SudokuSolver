@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd"><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!-- start content -->
+	<meta name="keywords" content="X-Colors,Candidate,Chain,Cluster,Coloring,Conjugate,Empty Rectangle,Jellyfish,Multi-Colors,Nishio,Pointing Pair">
+	<title>X-Colors - Sudopedia Mirror</title>
+<!-- end content -->
+
+</head>
+<body>
+<div id="wm-ipp" style="position: relative; padding-top: 0px; padding-right: 5px; padding-bottom: 0px; padding-left: 5px; min-height: 70px; min-width: 800px; z-index: 9000; display: block; ">
+<a name="top" id="top"></a>
+<div id="siteNotice"><p>Mirrored from <b>Sudopedia</b>, the Free Sudoku Reference Guide</p></div>
+<hr>
+
+<!-- start content -->
+<h1 class="firstHeading">X-Colors</h1>
+			<p><b>X-Colors</b>, or <b>eXtended Colors</b>, is a <a href="./Coloring.html" title="Coloring">coloring</a> technique that uses only 2 colors, even when <a href="./Weak_link.html" title="Weak link">weak links</a> are bridged. It is a relatively simple method that can be learned quickly and is capable of achieving the same results as more advanced techniques, such as <a href="./Multi-Colors.html" title="Multi-Colors">Multi-Colors</a> and single-digit <a href="./Chain.html" title="Chain">chains</a>.
+</p><p>This technique can be used on an initial color <a href="./Cluster.html" title="Cluster">cluster</a> of any size, although a larger cluster increases the chances of successfully finding candidates to remove.
+</p><p>X-Colors can be seen as an extension of the <a href="./Weak_Colors.html" title="Weak Colors">Weak Colors</a> technique. Both Weak Colors and X-Colors are based on a simple set of instructions, which must be executed repeatedly.
+</p><p>Occasionally, X-Colors can go as far as <a href="./Nishio.html" title="Nishio">Nishio</a>, the ultimate <a href="./Single-digit.html" title="Single-digit">single-digit</a> <a href="./Solving_Technique.html" title="Solving technique">solving technique</a>. This places the technique in a dangerous territory, since many solvers like to avoid Nishio.
+</p><p>X-Colors do the same job than both <a href="./Simple_Colors.html" title="Simple Colors">Simple Colors</a> and <a href="./Multi-Colors.html" title="Multi-Colors">Multi-Colors</a> with only two colors and a few simple steps, defined in an algorithmic way, and can solve situations that none of both can. However, X-Colors do not replace the multiple-digit <a href="./Ultracoloring.html" title="Ultracoloring">Ultracoloring</a> technique. See the examples below to better understand the technique.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class='toclevel-1'><a href="./X-Colors.html#Algorithm"><span class="tocnumber">1</span> <span class="toctext">Algorithm</span></a></li>
+<li class='toclevel-1'><a href="./X-Colors.html#Examples"><span class="tocnumber">2</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class='toclevel-2'><a href="./X-Colors.html#Example_1"><span class="tocnumber">2.1</span> <span class="toctext">Example 1</span></a></li>
+<li class='toclevel-2'><a href="./X-Colors.html#Example_2"><span class="tocnumber">2.2</span> <span class="toctext">Example 2</span></a></li>
+<li class='toclevel-2'><a href="./X-Colors.html#Example_3"><span class="tocnumber">2.3</span> <span class="toctext">Example 3</span></a></li>
+<li class='toclevel-2'><a href="./X-Colors.html#Example_4"><span class="tocnumber">2.4</span> <span class="toctext">Example 4</span></a></li>
+<li class='toclevel-2'><a href="./X-Colors.html#Example_5"><span class="tocnumber">2.5</span> <span class="toctext">Example 5</span></a></li>
+<li class='toclevel-2'><a href="./X-Colors.html#Example_6"><span class="tocnumber">2.6</span> <span class="toctext">Example 6</span></a></li>
+</ul>
+</li>
+<li class='toclevel-1'><a href="./X-Colors.html#Augmenting_X-Colors_with_Single-Digit_Techniques"><span class="tocnumber">3</span> <span class="toctext">Augmenting X-Colors with Single-Digit Techniques</span></a></li>
+<li class='toclevel-1'><a href="./X-Colors.html#External_Links"><span class="tocnumber">4</span> <span class="toctext">External Links</span></a></li>
+<li class='toclevel-1'><a href="./X-Colors.html#See_Also"><span class="tocnumber">5</span> <span class="toctext">See Also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Algorithm"></a><h2> Algorithm </h2>
+<p>Focus on one single <a href="./Candidate.html" title="Candidate">candidate</a> in the grid, as X-Colors is a single-digit technique.
+</p>
+<div style="border: 2px solid black; padding: 10px">
+<p><b>Step 1)</b> Select one pair of <a href="./Conjugate.html" title="Conjugate">conjugate</a> cells, color one of them with color <b>A</b> and the other with color <b>B</b>.
+</p><p><b>Step 2)</b> Until no more new cells can be found to be colored, do:
+</p>
+<dl><dd> <b>2.1)</b> Find a not colored cell that is pair-conjugated with one cell already colored (with any color <b>A</b> or <b>B</b>).
+</dd><dd> <b>2.2)</b> Color this new cell with the OPPOSITE color of its already colored pair-conjugated cell. That is, if the colored conjugated cell is Color <b>A</b>, then the new cell will be Color <b>B</b>, and vice versa.
+</dd></dl>
+<p><b>Step 3)</b> Until no more new cells can be found to be colored, do:
+</p>
+<dl><dd> <b>3.1)</b> If all but one and only one cell (called the <b>Exception Cell</b>) of all the candidates in a house are peers of cells colored with the same color (let's say color <b>A</b>), then this Exception cell can be colored with the SAME COLOR (<b>A</b>). 
+</dd></dl>
+<p><b>Step 4)</b> Once marked <b>A</b>-<b>B</b> all possible cells in the puzzle position:
+</p>
+<dl><dd> <b>4.1)</b> If one cell has two or more peers colored with both colors (<b>A</b> AND <b>B</b>), you can safely exclude this cell as a candidate for the focused digit.
+</dd><dd> <b>4.2)</b> If two or more cells of the same house (row, column or box) are colored with the same color <b>A</b>, then you can conclude that THE OTHER COLOR <b>B</b> IS TRUE.
+</dd><dd> <b>4.3)</b> If ALL the cells of a house are peers of cells colored with the same color <b>A</b>, you can conclude that THE OTHER COLOR <b>B</b> IS TRUE.
+</dd></dl>
+</div>
+<p>That's enough to define the whole coloring technique.
+In fact, when finished with the coloring at the end of step 3, you have three different clusters of cells: those colored <b>A</b>, those colored <b>B</b>, and those uncolored. 
+</p><p>Thus, there are the <b>True</b>/<b>False</b> implications:
+</p>
+<ol><li> If one cell colored <b>A</b> is identified as <b>True</b>, then the complete cluster of cells colored with the same color <b>A</b> are TRUE.
+</li><li> If one cell colored <b>A</b> is identified as <b>False</b>, then the complete cluster of cells colored with the Opposite Color <b>B</b> are TRUE.
+</li><li> If, following the technique's statements, you cannot prove any of the prior, then other techniques must be tried.
+</li></ol>
+<p>Please note that these two assertions DO NOT IMPLY that if <b>A</b> is true, then <b>B</b> is False, and vice versa.  This "ying-yang" sentence is only true when dealing exclusively with conjugate pairs of cells, and, in that case, trueing cells colored <b>A</b> will immediately eliminate candidates in peer cells, included those colored <b>B</b>, so the distinction is irrelevant.
+</p><p>Important things to pay attention to:
+</p>
+<ol><li> If we eliminate Step 3, what we have is the definition of <a href="./Simple_Colors.html" title="Simple Colors">Single Coloring</a>. It is Step 3 that makes the difference.  Its definition is quite simple, but it is very powerful.
+</li><li> During the process in Step 3, if you color <b>A</b> one cell that has a pair-conjugated cell that has not been colored <b>A</b> or <b>B</b> until then, YOU CANNOT COLOR THIS UNCOLORED CELL WITH THE OPPOSITE COLOR.  This is done in steps 1 and 2, but NOT in step 3).  And Steps 1, 2, 3, 4 are executed in sequence; it is not allowed to go back, for instance, from step 3 to 2.
+</li><li> Case 4.3 is very rare, and happens when there is not any <b>Exception Cell</b> in a house.
+</li><li> X-Colors solves every position solved by both Single and Multiple Coloring techniques, but it solves some more positions where neither of them can.  And it only uses two colors, which makes it easy to understand and use by humans.
+</li><li> X-Colors solves too the same situations that X-Wing can, with the same moves.  In fact, Multiple Colors does it too.  So, if in one puzzle position you check X-Colors before checking X-Wing, you can eliminate X-Wing from your arsenal of techniques:  it won't find any new moves in the puzzle.  Unfortunately, it is not true with the rest of Fishing techniques.
+</li></ol>
+<a name="Examples"></a><h2> Examples </h2>
+<p>They are a collection that shows all situations described before, except Single Colors. As X-Colors obviously solves the same puzzle situations as Single Colors, the author considers that examples of this are not of interest.
+</p><p>In these examples, the drawn lines (blue or green) are used to help understand the coloring implications of Step 3, marking all the cells of a house (box, line or column) that are affected by one or various cells already colored.
+</p>
+<a name="Example_1"></a><h3> Example 1 </h3>
+<p><i>Multicolors. In this situation, X-Colors finds the same move as the Multiple Colors Technique.</i>
+</p><p><img src="./images/XCEx1.png" alt="image:XCEx1.png" width="497" height="497" longdesc="/wiki/Image:XCEx1.png">
+</p><p>Focusing on <b>2</b>, we mark the conjugate pair <b>r9c2</b> (blue) and <b>r9c8</b> (green). (Cells marked with <b>1</b>). Step 2 does not mark any more cells.
+</p><p>Step 3 allows us to mark <b>r2c1</b> Blue, because it is the only cell in its box that is not a peer of <b>r9c2</b>. (Cell marked with <b>2</b>). No more cells can be marked in Step 3.
+</p><p>Step 4.1 allows removal of the candidate <b>2</b> from <b>r2c8</b>, because it is peer both of <b>r2c1</b> (blue) and <b>r9c8</b> (green). (Cell marked with <b>X</b>).
+</p>
+<a name="Example_2"></a><h3> Example 2 </h3>
+<p><i>Elimination not found by Single or Multiple Colors.</i>
+</p><p><img src="./images/XCEx2.png" alt="image:XCEx2.png" width="497" height="497" longdesc="/wiki/Image:XCEx2.png">
+</p><p>Focusing on <b>6</b>, we mark the conjugate pair <b>r1c4</b> (blue) and <b>r2c5</b> (green).
+</p><p>Step 2 allows us to mark <b>r4c4</b> green. (All these cells are marked with <b>1</b>).
+</p><p>Step 3 allows in the first iteration to mark <b>r9c6</b> green, and <b>r5c8</b> green, because they are the only cells in their boxes that are not peers of <b>r2c5</b> and <b>r4c4</b> respectively. (Cell marked with <b>2</b>).
+</p><p>Note that we can also mark <b>r5c8</b> green because it is the only cell in its row which is not a peer of <b>r4c4</b>, and we can also mark <b>r9c6</b> green because it is the only cell in its column which is not a peer of <b>r4c4</b>. The result is the same in this case.
+</p><p>Step 3, second iteration, allows us now to mark <b>r1c7</b> green.  It is the only cell of its box which is not a peer of green cells (in this example, <b>r2c5</b> and <b>r5c8</b> are peers of the rest of the cells of the box). (Cell marked with <b>3</b>).
+</p><p>We can mark more cells in subsequent iterations of Step 3 (<b>r3c1</b> green, and then <b>r8c3</b> green), but the results will be the same and are not shown.
+</p><p>Step 4.1 allows removal of the candidate <b>6</b> from <b>r1c1</b> and <b>r1c3</b>, because these cells are peers both of <b>r1c4</b> (blue) and <b>r1c7</b> (green). (Cells marked with <b>X</b>).
+</p>
+<a name="Example_3"></a><h3> Example 3 </h3>
+<p><i>Both elimination of candidates and contradiction, found in the same puzzle.</i>
+</p><p><img src="./images/XCEx3.png" alt="image:XCEx3.png" width="497" height="497" longdesc="/wiki/Image:XCEx3.png">
+</p><p>In a similar way as Example 2, and you can easily find the way to exclude the cells marked with <b>X</b> (<b>r2c7</b> and <b>r2c9</b>), as they share as peer a green cell (<b>r1c8</b> in its house) and a blue cell (<b>r2c3</b> in its row).
+</p><p>BUT also you can see that <b>r1c8</b> (already marked green) is the only cell in its box which is not a peer of <b>r2c3</b>, so, as Step 3 states, you can mark it BLUE.  The result is a contradiction (a cell marked simultaneously green and blue) and two cells in a row (r1) and in a column (c8) with the same color (blue).
+</p><p>Then, as Step 4.2 states, the cells marked green are TRUE.  You can immediately solve all the green cells (<b>r1c8</b>, <b>r7c2</b> and <b>r9c5</b>) because all of them are an <b>8</b>.  Note that, even if you have found a contradiction with blue cells, you CANNOT assume that ALL BLUE CELLS ARE FALSE.  You can only conclude in that situation that GREEN CELLS ARE TRUE.
+</p>
+<a name="Example_4"></a><h3> Example 4 </h3>
+<p><i>Elimination after multiple iterations of Step 3.</i>
+</p><p><img src="./images/XCEx4.png" alt="image:XCEx4.png" width="497" height="497" longdesc="/wiki/Image:XCEx4.png">
+</p><p>This is a nice example of how several iterations in Step 3 can find eliminations.  In this position, focusing on <b>5</b>, there is only one conjugate pair: <b>r5c6</b> and <b>r7c6</b> (Cells marked with <b>1</b>).
+</p><p>After Step 2, no more cells can be marked.  Single Colors and Multiple Colors are useless here.
+</p><p>Performing various iterations of Step 3, we can mark green different cells (only one cell each iteration), marked with numbers <b>2</b> to <b>5</b>.  When Step 3 cannot mark any more cells, we can exclude the candidate <b>5</b> from cells marked <b>X</b> (Step 4.1)
+</p>
+<a name="Example_5"></a><h3> Example 5 </h3>
+<p><i>Contradiction.</i>
+</p><p><img src="./images/XCEx5.png" alt="image:XCEx5.png" width="497" height="497" longdesc="/wiki/Image:XCEx5.png">
+</p><p>After Step 1 and 2 we have colored cells marked <b>1</b>.
+</p><p>Step 3 colors (blue) two cells of column 9 (<b>r2c9</b> and <b>r7c9</b>).  That's a contradiction, and you can conclude, as stated in Step 4.2, that Green cells (in this case, <b>r8c6</b>) are TRUE.  Once again, in this position you cannot conclude that Blue Cells are false, but that Green Cells are True.
+</p>
+<a name="Example_6"></a><h3> Example 6 </h3>
+<p><i>Contradiction, and No cells left in one house to be colored with one color.</i>
+</p><p>This position can also be solved with Multicolors, but it can be used to address the rare situation in which one house cannot hold any cell of a given color (Step 4.3).
+</p><p><img src="./images/XCEx6.png" alt="image:XCEx6.png" width="497" height="497" longdesc="/wiki/Image:XCEx6.png">
+</p><p>Focusing on <b>1</b>, and after initial Coloring (Cells marked <b>1</b>), and even before applying Step 3, you can see that all cells in the lower-left box are peers of green cells.
+</p><p>No one cell can then be marked green in this box, so, as Step 4.3 states, you can conclude that BLUE CELLS ARE TRUE, and they contain a <b>1</b>.
+</p>
+<a name="Augmenting_X-Colors_with_Single-Digit_Techniques"></a><h2> Augmenting X-Colors with Single-Digit Techniques </h2>
+<p>The X-Colors technique can be further augmented with <a href="./Single-digit.html" title="Single-digit">single-digit</a> <a href="./Technique.html" title="Technique">techniques</a> for faster or further eliminations. The following example shows how we can replicate <a href="./Empty_Rectangle.html" title="Empty Rectangle">Empty Rectangle</a> using X-Colors plus <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a>:
+</p><p><img src="./images/XColorsER.png" alt="image:XColorsER.png" width="497" height="497" longdesc="/wiki/Image:XColorsER.png">
+</p><p>After the initial coloring for digit <b>8</b>, <b>r5c3</b> cannot be colored blue so either <b>r4c1</b> or <b>r6c1</b> can be colored blue, although we don't know which one. But we do get a <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a> in the fourth box due to these two cells. Since <b>r3c1</b> is pointed to by these cells and <b>r3c1</b> also sees a green cell, we can eliminate <b>8</b> from <b>r3c1</b>. This shows how we can replicate <a href="./Empty_Rectangle.html" title="Empty Rectangle">Empty Rectangle</a> using X-Colors with <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a>. (In this example, the same elimination can be made after four iterations of Step 3, but by using <a href="./Pointing_Pair.html" title="Pointing Pair">Pointing Pair</a> we need only two iterations.)
+</p><p>We can also conceive of X-Colors augmented with other <a href="./Single-digit.html" title="Single-digit">single-digit</a> <a href="./Technique.html" title="Technique">techniques</a> such as <a href="./Swordfish.html" title="Swordfish">Swordfish</a>, <a href="./Jellyfish.html" title="Jellyfish">Jellyfish</a> and so on. 
+Not with <a href="./X-Wing.html" title="X-Wing">X-Wing</a>, due to the fact that X-Colors makes the same eliminations than X-Wing (actually, <a href="./Multi-Colors.html" title="Multi-Colors">Multi-Colors</a> already do the same eliminations than X-Wing, and X-Colors completely covers Multi-Colors).
+</p>
+<a name="External_Links"></a><h2> External Links </h2>
+<ul><li> <a href="http://www.sudoku.org.uk/discus/messages/2/2441.html?1158474920" class='external text' title="http://www.sudoku.org.uk/discus/messages/2/2441.html?1158474920" rel="nofollow">Introduction and discussion</a>
+</li></ul>
+<a name="See_Also"></a><h2> See Also </h2>
+<ul><li> <a href="./Weak_Colors.html" title="Weak Colors">Weak Colors</a>
+</li><li> <a href="./Coloring.html" title="Coloring">Coloring</a>
+</li></ul>
+
+This page was last modified 19:29, 11 November 2008.
+<!-- end content -->
+&nbsp;<br>
+<hr>
+<div id="footer">
+<div id="f-copyrightico">
+<a href="http://www.gnu.org/copyleft/fdl.html"><img src="images/gnu-fdl.png" alt="GNU Free Documentation License 1.2"></a>
+</div>
+<ul id="f-list">
+<li id="copyright">Content is available under <a href="http://www.gnu.org/copyleft/fdl.html" title="http://www.gnu.org/copyleft/fdl.html" rel="nofollow">GNU Free Documentation License 1.2</a>.</li>
+<li id="about"><a href="About.html" title="Sudopedia:About">About Sudopedia</a></li>
+<li id="disclaimer"><a href="General_disclaimer.html" title="Sudopedia:General disclaimer">Disclaimers</a></li>
+<li id="mirrored">Mirrored from <a href="http://sudopedia.org">sudopedia.org</a></li>
+</ul>
+</div>
+</div>
+
+</body></html>

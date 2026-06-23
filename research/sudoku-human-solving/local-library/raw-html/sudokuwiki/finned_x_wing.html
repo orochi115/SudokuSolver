@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Finned X-Wing - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Finned X-Wing extend X-Wings but it has extra candidates of X that prevent one of the two pairs normally required. Eliminations are still possible in this fin."/>
+<meta name="twitter:description" content="Sudoku Strategy. Finned X-Wing extend X-Wings but it has extra candidates of X that prevent one of the two pairs normally required. Eliminations are still possible in this fin.">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/FXW1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/FXW1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Finned_X_Wing';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Finned_X_Wing">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Finned X-Wing</h1><div class="SRCell">This is a very subtle yet beautiful extension of logic. We're looking at formations that could potentially be <a href="X_Wing_Strategy">X-Wings</a> but have a corner that's not quite right.  In an X-Wing we are looking for four cells in a rectangle which contain a candidate N that exists just twice in either the two rows that form the rectangle or the two columns.  Our Finned version is still a rectangle but it has extra candidates of the number in question that prevent one of the two pairs we need from existing.<br><br></div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FXW1.png" alt="Finned X-Wing Example" /><figcaption>Finned X-Wing Example
+</figcaption></figure>
+Let's look at the distribution of 8 candidates on the board in Figure 1. We have a potential X-Wing marked with the green X. The two blue lines show the top pair of 8s and the potential pair of 8s on the bottom row, F.  It's not a real X-Wing because two cells have gotten in the way. These are the green <span class="hg">+8s</span> marked in <span class="hy">F8</span> and <span class="hy">F9</span>. If these cells didn't exist, we'd be able to eliminate 8s in columns 1 and 7 (marked with a green strike-out line).<br><br>These <span class="hg">+8</span> cells are the '<b>fin</b>'. The '<b>fin</b>' or '<b>fillet</b>' rule goes as follows:<br><br><b>If you can form an X-Wing by ignoring the fin cells, then you can keep your elimination of any cell that shares the same unit as all the cells in the fin.</b></div>
+
+<div class="SRCell">It's important to remember we can only have one fin at a time!<br>In our example, the <span class="hr">-8</span> is the only cell that shares a box with the <span class="hg">+8</span> cells. It would have been eliminated anyway if the X-Wing were real. However, none of the other X-Wing eliminations are valid.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/FXW2b.png" alt="Finned X-Wing Example" /><figcaption>Finned X-Wing Example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B070e0d1h8k080l038l0h03060r9g9p2q9g9x0a0i0b0c0536080436020d05094y1f2e5u2f1i4y470704050lb87p0i5u5v0l4403060e042602090h013e32362u266q5y1o3c3g09012w1q012e05agak2m3808">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=700008030036000000000050840205900000000745000000003604029010000000000910010500008">From the Start</a>
+</figcaption></figure>
+<br>Turning to a real example, consider the potential X-Wing on 7 marked in yellow in Figure 2.  We would dearly like to remove all the 7s marked with a green circle. However, there are extra 7s in box 9, marked in green. These are the fin cells.  But the fin rule allows us to remove the 7 on <span class="hy">H9</span> at least (red circle).<br><br>Turn Grouped X-Cycles off</div>
+
+<div class="SRCell"><h1>Sashimi Finned X-Wings</h1><a href="/Grouped_X_Cycles">Grouped X-Cycles</a> will be found in the solver before Sashimis so uncheck them to see the examples here.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/SFXW1b.png" alt="Sashimi Finned X-Wing" /><figcaption>Sashimi Finned X-Wing
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B033e361m0a02050i0h7w180a7u088a0g060c8i081u071y8m0b0401078k1w8q2201030h1o1o980c0h07968q0a1o0a8q08021q8u8q0g0505010i0c1m081m020g1g03380a093e0h0e1m0h3604050b360a0c09">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=300002500000080060080700041700001300000070000008200005510008020030090000004500009">From the Start</a>
+</figcaption></figure>
+Now there is more to the idea of Finned X-Wings as I demonstrate in this example.<br><br>It so happens, that when using the "fin" or 'filleting' rule, it is permissible for the X-Wing to be missing a corner in the finned box. The logic can still be applied!  It's going to be fun to explain how and why it works, but first lets look at the example on the right.<br><br>We are looking at candidate <span class="hy">4</span>. The fin is again marked in green but the corner of the X-Wing missing.  There is no 4 at <span class="hy">D6</span> - which so happens to be a clue, and therefore was never a candidate 4 there at any time!  But it doesn't matter, we can remove the 4s from <span class="hy">E6</span> and <span class="hy">F6</span> because they are in the same box as the fin AND in the same column as the odd corner of the X-Wing, <span class="hy">H6</span>, in this example.<br><br>Where the Finned X-Wing is missing the candidate in the finned box, the type is called a <span class="hy">Sashimi</span> Finned X-Wing.<br><br></div>
+
+<div class="SRCell">It is possible to consider this example in another way. Either there will be a 4 in D9 or there will be a 4 in one of the two cells {D4,D5}. If the later then the 4s in E6/F6 must go (same box situation) or the 4 in D9 forces a chain giving us 6 in H9 and 4 in H6 - which also eliminates the 4s in E6/F6.</div><br>
+
+<div class="SRCell"><h2>Exemplar</h2>
+Here is a puzzle found by Klaus Brenner with two Finned X-Wings and no other strategies apart from Hidden Singles.<ul>
+<li><a href="/sudoku.htm?bd=900040000704080050080000100007600820620400000000000019000102000890700000000050003">Exemplar 1, x1 (score 232)</a></li>
+</ul>
+<br></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Almost_Locked_Sets">Almost Locked Sets</a></td><td class="w50pc cright">Continue to <a href="Finned_Swordfish">Finned Sword-Fish</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=82&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Finned_X_Wing" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(82,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17223"><div class="w100pc"><div class="w60pc"><h2>... by: Generalist</h2></div><div class="w40pc datepost">Monday 21-Apr-2025</div></div>
+<div class="w100pc">For some reason, in 030006000002400030800000004020600090700050000006020408500000070040005900009300546 after trivial deductions, the solver does not find available finned sashimi X-Wings when using only this strategy. XZF_Sudoku sees four of them, but the remaining three follows trvially when any of them is found (e.g. r6c2 != 5 due to the candidates in r24).</div>
+<div class="w100pc" id="blog-reply17223"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Could use a more pin-pointed step in the puzzle. Use "Email/Export". Thanks!</div></div><div id="blog-reply2977" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,17223,2977)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17021"><div class="w100pc"><div class="w60pc"><h2>... by: Bob</h2></div><div class="w40pc datepost">Thursday 16-Nov-2023</div></div>
+<div class="w100pc">Consider an example similar to the “ Sashimi Finned X-Wings” example but without the 4 in cell B6.<br>How then do we know if the D4 & D5 are the fibs and we should remove the 4s in cells E6 and F6 as in the example. <br>Or<br>If the cells E6 & F6 are the fins when looking at the pattern from the side and we should remove the 4s in cells D4 & D5?</div>
+<div class="w100pc" id="blog-reply17021"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,17021,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16918"><div class="w100pc"><div class="w60pc"><h2>... by: Dawn</h2></div><div class="w40pc datepost">Sunday 2-Apr-2023</div></div>
+<div class="w100pc">Hi, Andrew!<br><br>First of all, thank you for the amazing site and the work you keep putting in year after year.<br><br>I noticed something with the solver, which seems to have been spotted by Anton Delprado earlier as well. Namely, the fact that the solver finds finned x-wing but does not find the corresponding grouped x-cycle, even when the box is ticked. This is the grid with which I spotted this behavior:<br>https://www.sudokuwiki.org/sudoku.htm?bd=000100000100000000000000004020000000000000000030000000040000003050000002000000000<br><br>Interestingly, making the x-wing sashimi does let the solver find the grouped x-cycle(s):<br>https://www.sudokuwiki.org/sudoku.htm?bd=000100000100000000000000004020000000000000005030000000040000003050000002000000000<br><br>Is this intentional, so that the finned x-wing technique does show up even if grouped x-cycles are ticked on? Until now, I usually ticked off ERs and Finned X-Wings because I think they're grouped x-cycles, but maybe I was wrong to do that?</div>
+<div class="w100pc" id="blog-reply16918"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Not sure if this was the case in 2023 but since you wrote the solver does see the grouped X-Cycle if Finned X-Wing is unchecked. Good example</div></div><div id="blog-reply2844" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,16918,2844)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16655"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 2-Feb-2021</div></div>
+<div class="w100pc">Just like an X-wing is a special case of a "nice loop", this one can be viewed as a nice loop with groups.<br><br>In the example, the loop is D7-weak-B7-strong-B1-weak-F1-strong-F789-weak-D7<br><br>So D7 is at the discontinuity between two weak links, it can be eliminated.<br><br>I have to think about whether all finned X-wings are special cases of nice loops with groups.<br></div>
+<div class="w100pc" id="blog-reply16655"></div>
+<div class="post-reply" id="reply2746"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Friday 31-Dec-2021</td></tr>
+<tr><td colspan="2">Wait, you're actually right</td></tr>
+</table></div>
+</div><div id="blog-reply2746" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,16655,2746)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16185"><div class="w100pc"><div class="w60pc"><h2>... by: Kamil</h2></div><div class="w40pc datepost">Wednesday 13-Jul-2016</div></div>
+<div class="w100pc">Hi! I'm not very advanced solver, but I'm wondering why finned swordfish and finned X-wing are considered as extreme strategies. They are very easy to find and easy to understand. <br><br>Also I want to thank you for this amazing website.</div>
+<div class="w100pc" id="blog-reply16185"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,16185,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16068"><div class="w100pc"><div class="w60pc"><h2>... by: ElrATiff</h2></div><div class="w40pc datepost">Monday 7-Sep-2015</div></div>
+<div class="w100pc">Hi, Andrew!<br>Excelent site! Now I'm fully addicted to Sudoku World :)<br><br>Some typo in the end of article "Finned X-Wing" (wrong link for Exemplar 1, x1 (score 232)):<br><br>there is:<br>http://www.sudokuwiki.org/sudoku0htm?bd=...<br><br>must be:<br>http://www.sudokuwiki.org/sudoku.htm?bd=...</div>
+<div class="w100pc" id="blog-reply16068"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Fixed! Thanks!</div></div><div id="blog-reply2510" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,16068,2510)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16030"><div class="w100pc"><div class="w60pc"><h2>... by: Orion</h2></div><div class="w40pc datepost">Tuesday 26-May-2015</div></div>
+<div class="w100pc">Like David, I am confused concerning the reason the 7's in J7 & J8 are not being eliminated when I use the General rule:<br><br>"If you can form an X-Wing by ignoring the fin cells, then you can keep your elimination of any cell that shares the same unit as all the cells in the fin."  <br><br>The only thing that seems to make sense to me when I see these not eliminated would be if I interpreted the rule as follows:<br><br>"If you can form an X-Wing by ignoring the fin cells, then you can keep your elimination of any cell (that would be eliminated in a true X-wing) that shares the same unit as all the cells in the fin"<br><br>Any clarification you could provide would be appreciated.<br>Thank you for the Great site. </div>
+<div class="w100pc" id="blog-reply16030"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,16030,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16008"><div class="w100pc"><div class="w60pc"><h2>... by: Ate no basil</h2></div><div class="w40pc datepost">Thursday 2-Apr-2015</div></div>
+<div class="w100pc">Is it *required* that the fin be immediately adjacent to a corner of the x-wing?<br><br>For example, in the 4s example, could the fin be in D3 and D4? (rather than D4 and D5)<br><br>If that is indeed the case, then in my example we could still eliminate 4s in E6 and F6 (but not if the fin were shifted further left completely into box 4)</div>
+<div class="w100pc" id="blog-reply16008"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,16008,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15703"><div class="w100pc"><div class="w60pc"><h2>... by: Banjo</h2></div><div class="w40pc datepost">Wednesday 26-Dec-2012</div></div>
+<div class="w100pc">In your example of Finned Exwings, why is it that neither row D or H complete the Exwing with row B, instead of relying upon row F?  In fact, the combination of rows B, D, and H would seem to give a 2 x 3 situation would seem cannot exist.</div>
+<div class="w100pc" id="blog-reply15703"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,15703,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15606"><div class="w100pc"><div class="w60pc"><h2>... by: sean t</h2></div><div class="w40pc datepost">Tuesday 27-Mar-2012</div></div>
+<div class="w100pc">David,<br><br>In the example, the 7 in J7 and J8 cannot be eliminated because it is possible that  G6 contains a 7. If that's the case, then C9 does as well, but none of G7, G8, G9 or H9 do. That leaves only J7 and J8 as candidates for the 7 in box 9. Therefore, the 7 in J7 and J8 cannot be eliminated.<br><br>In general, for a finned x-wing, only those cells that can see all the fin cells AND are cells that would be eligible for elimination if it were just a regular x-wing can be eliminated. In this example, without the fin cells present, J7 and J8 would not be eligible for elimination via the regular x-wing.</div>
+<div class="w100pc" id="blog-reply15606"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,15606,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15574"><div class="w100pc"><div class="w60pc"><h2>... by: Anton Delprado</h2></div><div class="w40pc datepost">Wednesday 1-Feb-2012</div></div>
+<div class="w100pc">I agree with Roland that Finned X-Wings are just a specific form of Grouped X-Cycles. Also they are underneath Grouped X-Cycles in the solver. So why does the solver find them at all? Shouldn't it find them as Grouped X-Cycles first? or does the solver deliberately avoid classing them as Grouped X-Cycles?</div>
+<div class="w100pc" id="blog-reply15574"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi Anton<br>There are no restrictions on Grouped X-Cycles or any other strategy, especially in terms of 'letting through' to any other strategy. However, what I am searching for may be limited to how I search and the generalization I've made. I'll look again at the correspondance to X-Cycles and see if there is something the solver is missing.</div></div><div id="blog-reply2349" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,15574,2349)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15561"><div class="w100pc"><div class="w60pc"><h2>... by: David</h2></div><div class="w40pc datepost">Wednesday 28-Dec-2011</div></div>
+<div class="w100pc">In the "real example" given following the Finned X-Wing explanation, the rule that is stated is: "If you can form an X-Wing by ignoring the fin cells, then you can keep your elimination of any cell that shares the same unit as all the cells in the fin."  Why, then is only the red-circled 7 eliminated as sharing the same unit, but not the 7s at cells J7 and J8, which appear also to share the same unit (i.e. the box being the unit in which the two yelleo fin cells are located). I thought I understood the fin strategy, but if the 7s at J7 and J8  cannot be eliminated, the theory is completely lost on me!  Someone please explain why only the red-circled 7 is elinated but not that other two at J7 and J8. Thx.</div>
+<div class="w100pc" id="blog-reply15561"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,15561,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15490"><div class="w100pc"><div class="w60pc"><h2>... by: SueinOz</h2></div><div class="w40pc datepost">Thursday 28-Apr-2011</div></div>
+<div class="w100pc">I think in this example that the fin is green not yellow, and also the E5/F6 reference at the end should be E6/F6.<br><br>This site is so amazing! I'm learning so much. A few typos should be expected when your mind is full of all these incredible strategies. My head hurts just reading them!</div>
+<div class="w100pc" id="blog-reply15490"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Typos fixed - many thanks for spotting them and letting me know :)</div></div><div id="blog-reply2319" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,15490,2319)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15464"><div class="w100pc"><div class="w60pc"><h2>... by: John Wilcox</h2></div><div class="w40pc datepost">Saturday 26-Feb-2011</div></div>
+<div class="w100pc">Above, under Sashimi Finned X-Wings, 5th paragraph, 2nd line, I think the reference to E5/F6 should be E6/F6.  Same correction at the very end of the sentence.</div>
+<div class="w100pc" id="blog-reply15464"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,15464,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15313"><div class="w100pc"><div class="w60pc"><h2>... by: chanda</h2></div><div class="w40pc datepost">Thursday 31-Dec-2009</div></div>
+<div class="w100pc">It seems that all fins tend to be in a row inside a box??? If a fin is in a corner like... d4, d5, and e4 instead of d4 and d5 only as if "8" is unsolved? Also, which way does the fin point outwards? If I'm going to do a X-wing column first (not row first like yours) then my fin would be pointing downward (not sideward like yours). So this is invalid? <br>I understand this but which number is safe to remove? I've been testing this and every strategy in a sudoku with an answer key and most strategies are invalid because the answer key has different number than it would be if I used this strategy...</div>
+<div class="w100pc" id="blog-reply15313"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>The fin is in the opposite direction to eliminations. If the fins didn't exist it would be a normal X-Wing. </div></div><div id="blog-reply2987" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(82,15313,2987)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15296"><div class="w100pc"><div class="w60pc"><h2>... by: suneet</h2></div><div class="w40pc datepost">Tuesday 3-Nov-2009</div></div>
+<div class="w100pc">Despite removing tick mark solver does use this strategy. which normally it should not use in that case.  I request you to remove this anomaly <br>thanks, love your site</div>
+<div class="w100pc" id="blog-reply15296"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,15296,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15213"><div class="w100pc"><div class="w60pc"><h2>... by: Roland Zito-Wolf</h2></div><div class="w40pc datepost">Saturday 18-Apr-2009</div></div>
+<div class="w100pc"><br>It's worth mentioning that the finned x-wings can be explained as grouped x-cycles of the rule-3 nice loop variety, the kind with 2 weak links in a row.  <br><br>For example 1, we have C6=C9-H9-[G7,G8,G9]=G6-C6, allowing 7 at H9 to be removed. This clarifies why the 7 at H9 can be removed but not the ones at J7 and J8: only H9 has a link to C9. <br><br>The sashimi variation works because it uses exactly the same kind of grouped x-cycle: H9=H6-E4-[D4,D5]=D9-H9 and likewise for F5.<br><br>That raises the question of whether the Swordfish and Jellyfish can be related to more general strategies as well...<br><br>love your site!</div>
+<div class="w100pc" id="blog-reply15213"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(82,15213,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-April-2008. Views: 296176<br>
+			This page was last modified on 29-March-2015.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a102590feec56952',t:'MTc4MjIwNTcwMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

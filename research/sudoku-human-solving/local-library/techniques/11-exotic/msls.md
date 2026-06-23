@@ -1,5 +1,6 @@
 ---
 id: technique.msls
+strategyId: msls
 name_en: Multi-Sector Locked Sets
 name_zh: MSLS / 多扇区数组
 family: exotic
@@ -12,20 +13,115 @@ sources:
 
 ## One-Sentence Rule
 
-Choose a digit subset and a collection of "sector" houses (rows, columns, boxes) whose truths (cells that must be filled by the subset) exactly balance the links (the houses that can supply them) at rank 0, so the loop's cells form one giant locked set and any candidate of the subset that would consume a supply without meeting a demand can be eliminated.
+Choose a digit subset and a collection of "sector" houses whose truths (cells
+that must be filled by the subset) exactly balance the links (the houses that
+can supply them) at rank 0, so the loop's cells form one giant locked set and
+any subset candidate that would consume a supply without meeting a demand is
+eliminated.
 
-## Human Scan Procedure
+## 精确模式定义
 
-1. Pick a small digit subset D (e.g. 1 2 4 7) that recurs across a symmetric region of the grid.
-2. Choose base sets (truths): the rows/columns/cells that must each be filled by a digit of D — write them as e.g. `14r5 27r6 147r8 12r9`.
-3. Choose cover sets (links): the crossing houses that can supply those digits — e.g. `56c3 36c5 89c8 38c9`.
-4. Count: when the number of truths equals the number of links, the system is rank 0 — demands and supplies match exactly. Treat each loop cell as either a demand or a supply.
-5. The matched cells are now a locked multi-sector set: digits of D are simultaneously squeezed *out* of some cells (hidden behaviour) and excluded *from* others (naked behaviour).
-6. Eliminate every candidate that would reduce a supply without satisfying a demand — i.e. all non-D candidates in truth cells, and all D candidates seeing the cover that lie outside the set.
+- **Digit subset** `D`: a set of digits (e.g. `{1,2,4,7}`) recurring across a
+  symmetric region.
+- **Multiplicity** `M`: the pattern realises at most `M` copies of `D` over the
+  cell set.
+- **Base sets (truths)**: rows / columns / cells each of which must be filled by
+  a digit of `D`, written `digits·house`, e.g. `14r5 27r6 147r8 12r9` (row 5
+  supplies one of {1,4}, row 6 one of {2,7}, etc.).
+- **Cover sets (links)**: the crossing houses that can *supply* those digits,
+  e.g. `56c3 36c5 89c8 38c9`.
+- **Truth count** `T` = number of base-set obligations (counting digit·house
+  weight). **Link count** `K` = number of cover supplies.
+- **Rank** = `K − T` (covers minus truths). MSLS requires **rank 0**: `T = K` —
+  demands and supplies match exactly.
+- **Loop cells**: the cells at base×cover incidences; in rank-0 MSLS each is
+  either a **demand** (must take a `D` digit) or a **supply** (can provide one).
 
-## Formula Role
+## 触发判定
 
-The general rank-0 set-logic pattern that subsumes simple/multi fish, naked/hidden sets, Sue de Coq, and SK-Loops (which are its first-discovered, "virus-pattern" special case). It is powerful but hard to scan unaided; in a human workflow it sits at the extreme tier after AIC and ALS, used to break the band/stack-symmetric bottlenecks of the very hardest puzzles. The disciplined truth/link count is what distinguishes it from guess-driven last-resort methods.
+```
+choose subset D and base/cover collection
+T = sum of truths (demands)         # e.g. |{14r5,27r6,147r8,12r9}| weighted
+K = sum of links (supplies)         # e.g. |{56c3,36c5,89c8,38c9}|
+require: rank == K - T == 0          # rank-0 set logic
+require: each loop cell classifiable as exactly one of demand / supply
+=> MSLS over (D, base, cover)
+```
+
+The disciplined `T == K` count (not guess-driven enumeration) is what makes the
+pattern an MSLS rather than a trial.
+
+## 消除/落子规则（全部情形）
+
+In a rank-0 system demands and supplies match exactly, so any candidate that
+reduces a supply without satisfying a demand is eliminable:
+
+1. **Naked-side eliminations**: from each truth (demand) cell, remove every
+   candidate **not** in `D` (those cells are locked to `D`).
+2. **Hidden-side eliminations**: for each cover (link) house, remove every
+   candidate of `D` that lies **outside** the locked set in that house (the
+   subset digits are squeezed out of the rest of the supply house).
+3. **General rank-0 rule**: eliminate any subset candidate whose placement would
+   consume a supply while leaving some demand unmet — i.e. it lies outside the
+   matched loop on a covered unit.
+4. Eliminations only; placements follow when a cell drops to one candidate.
+
+## 退化与边界
+
+- `rank ≠ 0` (covers ≠ truths) is **not** an MSLS — a positive-rank set yields
+  weaker or no eliminations and needs extra logic.
+- If a loop cell is neither a clean demand nor a clean supply, the simple
+  demand/supply accounting breaks and the pattern is not in canonical form.
+- Community note: there is debate over the *exact* MSLS definition; some hold its
+  value is the *process* for spotting rank-0 patterns, and that the found pattern
+  should be reported in standard set-logic notation rather than the hybrid
+  truth/link shorthand.
+- Smaller rank-0 instances degenerate into named patterns (see relationships).
+
+## 与其他技巧的关系
+
+- MSLS is the general **rank-0 set-logic** pattern. It subsumes: simple fish,
+  multi-fish, naked/hidden subsets, **Sue de Coq**, and **SK-Loops**.
+- **SK-Loop ⊂ MSLS**: every SK-Loop implies an MSLS; SK-Loops are the
+  first-discovered special case ("virus patterns"); "baby SK-Loop" on two digits
+  = Steve K's **Hidden Pair Loops**.
+- A set-addition/subtraction reformulation (add a column and a row, subtract the
+  boxes) links MSLS to **Phistomefel's theorem** and Fred's intersection theory.
+- Sits at the extreme tier after AIC and ALS, used on band/stack-symmetric
+  bottlenecks of the hardest puzzles.
+
+## Worked example
+
+Canonical rank-0 MSLS (the enjoysudoku "Using MSLS" notation; candidate
+fragment):
+
+- Subset `D = {1,2,4,7}`.
+- Base sets (truths): `14r5 27r6 147r8 12r9`.
+- Cover sets (links): `56c3 36c5 89c8 38c9`.
+- Truth count `T = 4` houses, link count `K = 4` houses → **rank 0**.
+
+Eliminations (illustrative of the two behaviours):
+- *Naked side*: in the truth rows' locked cells, strip every candidate not in
+  `{1,2,4,7}`.
+- *Hidden side*: in cover columns `c3,c5,c8,c9`, remove `{1,2,4,7}` candidates
+  lying outside the matched loop cells — the subset is squeezed out of the rest
+  of those columns.
+
+> The base/cover notation is taken verbatim from the source; the concrete grid
+> and exact per-cell eliminations are reconstructed and **need engine
+> verification**. Use the forum "Using Multi-Sector Locked Sets" worked grid for
+> a verified instance.
+
+## Soundness
+
+At rank 0 the number of cells that *must* receive a `D` digit (truths) equals the
+number of independent houses that can *supply* a `D` digit (links). The loop
+cells therefore form one locked set: every supply is consumed by exactly one
+demand, with no slack. Placing a non-`D` digit in a truth cell would starve a
+demand; placing a `D` digit outside the loop on a covered house would consume a
+supply needed elsewhere — both contradict the exact balance. Hence both
+elimination classes are forced. This is the same counting argument that
+underlies fish and Sue de Coq, generalised across multiple sectors.
 
 ## Sources
 
