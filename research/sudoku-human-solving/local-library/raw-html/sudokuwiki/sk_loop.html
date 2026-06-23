@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>SK Loops - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="SK Loops are eight 2-cell bi-directional continuous loops"/>
+<meta name="twitter:description" content="SK Loops are eight 2-cell bi-directional continuous loops">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/SK_Loop1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/SK_Loop1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'SK_Loops';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_SK_Loops">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>SK Loops</h1><div class="SRCell">The reason SK Loops are in the <i>'diabolical'</i> strategies and not the <i>'extreme'</i> as this is quite a stand-out pattern. However, it was discovered (invented?) trying to solve the <b><a href="/sudoku.htm?bd=100000002090400050006000700050903000000070000000850040700000600030009080002000001">Easter Monster</a></b> and it requires a crowded field of candidates, which is typical of the very hardest puzzles. <br><br><b>Credits</b> first: I'm indebted to <b>pjb</b> or <b>Phil</b> from Sydney, Australia for his <a href="http://forum.enjoysudoku.com/sk-and-related-loops-t35883.html">write up here</a> and the many examples he's collected on <a href="http://www.philsfolly.net.au/Sudoku/loops_help.htm">his website here</a>. The solver will find SK Loops for all Phil's types from the vanilla down to Type H, but not as yet "Related Loops". In my implementation I don't discern 'types' as I've generalized the detection. SK Loops are apparently a subset of something larger but I've not explored this yet.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/SKLoop1.png" alt="Easter Monster, SK Loop" /><figcaption>Easter Monster, SK Loop
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100000002090400050006000700050903000000070000000850040700000600030009080002000001">From the Start</a>
+</figcaption></figure>
+<br>I'm going to start, as Phil does, with the Easter Monster, since the pattern is nicely spread out and symmetrical. SK Loops are bi-directional continuous loops meaning that the loop can be started at any point and you can trace the links in either direction. <br><br>First find four solved or given cells spread over four boxes such that they make a rectangle.  Phil distinguishes between givens (clues) and solved cells but I do not and I've not found a false positive because of this.<br><br>Shown in the diagram are four such numbers and surrounding them are eight 2-cell pairs containing <b>Hidden Pairs</b></div>
+
+<div class="SRCell">The pattern definition is then<i><ul><li>The loop requires 4 boxes in 2 bands and and 2 stacks, and 8 links, one link in each box, one link in each row and one link in each column.</li><li>In each box the cell at the intersection of the row cells and column cells is a given.</li><li>Loops can include single, double or triple links, as long as the sum of the links is less than or equal to 16.</li><li>Of the 2 cells involved in a row or column within a box, one of the two can be solved, but not a given.</li></ul></i>Since we have eight pairs of cells, sixteen numbers will be required to fill all those cells. The solver highlights candidates in green and blue. These are the alternative solutions. All sixteen cells will contain either the green numbers or the blue numbers, or exactly one green and one blue in each pair. (Sounds vague, but the first example here is an example of the later, as pointed out by Robert in the comments).<br><br>Now, the pattern definition requires <i>sum of the links is less than or equal to 16</i>. To see what we are counting, here is the formal definition of the loop<br><br><span class="hc"> (27=38)B13- (38=16)B79- (16=39)AC8- (39=27)GJ8- (27=45)H79- (45=16)H13- (16=48)GJ2- (48=27)AC2-</span><br><br>The solver always starts at the top-left most given cell and the row and loops clockwise, so pair <span class="hy">B13</span> starts. (Phil's starts in a different place in his documentation). <span class="hy">B13</span> is <b>Strongly Linked</b> to <span class="hy">B79</span> on the Hidden Pair {3,8}. Looking at all the links and counting the candidates in each pair we get <br><div class="ccenter">SK Loop Type <b>2-2-2-2-2-2-2-2-</b></div>and those numbers add up to 16.<br><br>Since we have identified the content of these sixteen cells as a <b>Locked Set</b> we can eliminate along the unit of alignment. So, since <span class="hy">B13</span> contains a blue {3,8} and <span class="hy">B79</span> contains a green {3,8} and the solution will be one or the other, so we can remove 3 and 8 from <span class="hy">B5</span> and <span class="hy">B6</span>.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/SKLoop2.png" alt="Type 3-1-3-1-3-1-3-1- SK Loop" /><figcaption>Type 3-1-3-1-3-1-3-1- SK Loop
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100020003040000050006000700000506000800090001000300000007000600050000090200030008">From the Start</a>
+</figcaption></figure>
+<br>This SK Loop alternates Triple and Single links instead of the classic doubles all round. This makes the type <b>3-1-3-1-3-1-3-1-</b> but those numbers still add up to 16.<br><br>Take a moment to trace some of the links in the diagram and compare to the definition of the loop:<br><span class="hc"> (579=8)A23- (8=469)A78- (469=2)BC9- (2=457)GH9- (457=1)J78- (1=469)J23- (469=3)GH1- (3=579)BC1-</span><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/SKLoop3.png" alt="SK Loop with Solved Cells" /><figcaption>SK Loop with Solved Cells
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=200000004080500070001020300000700090000060000070008000003000100090007050400001002">From the Start</a>
+</figcaption></figure>
+<br>Lastly we can consider the fourth element of the SK Loop definition, the cases where one of the two cells in a pair is a solved cell. Phil states this cannot be a given, but I am still searching for a counter example and the solver does not distinguish.<br><br>The type for this loop, <b>2-2-1-2-2-2-1-2-</b> now adds up to only 14, which is correct since two of the cells (colored in beige) have been used up.<br><br><span class="hc"> (34=69)B13- (69=1)B79- (1=68)AC8- (68=34)GJ8- (34=68)H79- (68=2)H13- (2=56)GJ2- (56=34)AC2-</span></div>
+
+<h2>Exemplars</h2>
+<div class="SRCell">I won't duplicate the excellent list provided by Phil on his <a href="http://www.philsfolly.net.au/Sudoku/loops_help.htm">help page here</a>.</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Twinned_XY_Chains">Twinned XY-Chains</a></td><td class="w50pc cright">Continue to <a href="Introducing_Chains_and_Links">Introducing Chains and Links</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=202&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="SK_Loops" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(202,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17322"><div class="w100pc"><div class="w60pc"><h2>... by: Visitor</h2></div><div class="w40pc datepost">Wednesday 19-Nov-2025</div></div>
+<div class="w100pc">I refer to the last figure, SK Loop with Solved Cells.<br><br>I understand the loop:<br>In the first box,<br>green 3 & blue 3 together with green 4 & blue 4 build two pairs (in A2,B1,B3 & C2),<br><br>same for the last box,<br>where green 3 & blue 3 together with green 4 & blue 4 build two pairs (in G8,H7,H9 & J8),<br><br>whereas in the third box<br>the green 1 in A8 and the blue 1 in B9 do not build two pairs together with a green 2 and a blue 2, but together with the solved 2 in B7<br><br>and in the seventh box<br>the green 2 in G2 and the blue 2 in H3 do not build two pairs together with a green 1 and a blue 1, but together with the solved 1 in H1<br><br>What I do not understand is the eliminations in rows B and H.<br>In row B<br>based on the assumption that green is ON, you need the eliminated digits to build a triple in the fields B5, B6 & B9 containing of the green 1, 6 & 9<br><br>In row H<br>based on the assumption that green is ON, you need the eliminated digits to build a triple in the fields H3, H4 & H5 containing of the green 2, 6 & 8<br><br>Anybody has an explanation for me on this? Thank you!</div>
+<div class="w100pc" id="blog-reply17322"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(202,17322,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17257"><div class="w100pc"><div class="w60pc"><h2>... by: Kyrie Iris</h2></div><div class="w40pc datepost">Tuesday 15-Jul-2025</div></div>
+<div class="w100pc">I maybe discovered lager method including SK Loops.<br><br>SK Loops and Twinned XY-Chains is subsets of this.<br><br>The conditions are the following three:<br><br>  1. Place candidates in each column, row, and box. Candidates of the same type are allowed. The cell at their intersection contains only that candidates.<br>  2. In each column, row, and box, if number of candidates in one unit is n, number of intersectrion cells in the unit must be n + 1 or more. If there are not, you need to add cells on that unit.We call these 'escape cell'. The escape cells must contain only the candidates in the unit. If there are too many intersection cells, they may be subject to deletion for reasons described in condition 3..<br>  3. The number of intersections and escape cells must be the total number of all candidates (including duplicates). If there are not enough, add escape cells.If there are too many, remove some intersection cells. However, do not remove escape cells. Also, if there is only one type of candidate in one intersection cell, remove the intersection cell.<br><br>If these conditions are satisfied, the candidates placed in each column, row, and box can be removed from the other cells in the unit.<br><br>I call this Extended XY-Chains (EXY), and if 'the total number of intersections and escape cells' = 'the total number of all candidates' is N, I write this as EXY(N).<br><br>I'm sorry that I can't make a specific example for this. But a simple candidates layout can be quickly created:<br><br>for example,<br>     1        2 3     4        5    6        7 8    9<br>A {2,5,6}         {3,5,6}      {4,5,6}        {2,4,7,6}<br>B<br>C<br>D                    {3,8}                            {2,7,8}<br>E<br>F         <br>G {1,2}            {1,3}                           {1,2,7}<br>H<br>J<br><br>A6 is escape cell.Total number of candidates = total number of cells is 9. The condition 1.2.3.of EXY are satisfied. By EXY 2,3,{2,7} can be removed from column1,4,9, and {4,5,6},8,1 can be removed from rowA,D,G.<br><br>In the case of Easter Mosnters, Box1 is {2,7},Box3 is {1,6}, Box7 is {1,6}, Box9 is {2,7}, and column 2 is {4,8}, column 8 is {3,9}, rowB is {3,8}, rowH is {4,5}. Total number of candidates = total number of cells is 16.The condition 1.2.3.of EXY are satisfied.<br><br><br><br>[Proof]<br>Prove it by mathematical induction.<br><br>(i) We need to consider the minimal possible pattern.This is the case when the number of candidates = the total number of cells is 4(N=4). In this case, condition 1.2.3. is satisfied by XY-Chains or two Locked Sets, and EXY(4) elimination rule is clearly true. For example, XY-Chains are {1,2},{2,3},{3,4},{4,1}, and Locked Sets are {1,2},{1,2},{3,4},{3,4}, etc.<br><br>(ii) Let 'number of candidates' = 'number of cells' = N > 4, and assume that EXY holds for N − 1 or less. Let us arbitrarily choose one intersection cell and assume that one of the candidates will be placed in it.Then,one number of candidates and cells in the unit to which the candidate belongs decreases by one, so condition 2. is satisfied.When we look at another unit to which that candidate belongs, the number of candidates does not decrease, but the number of cells decreases by one, so the number of cells in the unit may be equal to or greater than the number of candidates.<br><br>(a) If 'Number of cells'>'Number of candidates', focusing on the remaining cells, condition 1.2.3. holds for N − 1 candidates and N − 1 cells, so by induction assumption EXY(N − 1) holds. Therefore, EXY(N) holds, including the candidate selected initially.<br><br>(b) If 'Number of cells'='Number of candidates', remove them and consider the next step. Then, in the other unit removed cells belonged to, the number of candidates will not decrease, but only the number of cells will decrease, so this also means that the number of cells may be equal to or greater than the number of candidates (although it may never be less due to escape cells?).By repeating this operation, only those whose number is greater than the number of candidates remain.<br> Since the number of cells is finite, this operation can be completed a finite number of times. If the number of cells removed is m, then N−1−m candidates and N − 1 − m cells remain, and condition 1.2.3. is satisfied, so by induction assumption EXY(N − 1 − m) is satisfied. <br> Now, let’s look at the cells that were removed. The group of cells removed in the last operation has a unit in common with the previous EXY(N − 1 −m). Therefore, all candidates that belong to that unit are removed from the group of cells by that EXY. Then, since the number of cells is equal to the number of candidates, it becomes a Locked Set. If the number of candidates that are determined by this is k, then EXY(N −1−m+k) holds again.<br> Furthermore, the same can be said for the group of cells removed in the one more previous step, so by repeating this operation a finite number of times, it is possible to confirm that EXY(N − 1) holds. EXY(N) holds together with the initially selected candidate.<br><br> According to (a) and (b), if we try all possible candidates within the initially selected cell, we can see that EXY(N) holds in all cases. <br> <br> Therefore, if EXY holds for N − 1 or less, then EXY(N) holds even when N.<br>(Q.E.D.)</div>
+<div class="w100pc" id="blog-reply17257"></div>
+<div class="post-reply" id="reply2935"><table class="w100pc"><tr><td class="post-writes">Kyrie Iris replies:</td><td class="datepost">Tuesday 15-Jul-2025</td></tr>
+<tr><td colspan="2">Sorry for the hard to see example.<br><pre> ...1.........2.3...4........5.....6........7.8...9<br>A{2,5,6}........{3,5,6}......{4,5,6}........{2,4,7,6}<br>B<br>C<br>D.................{3,8}..........................{2,7,8}<br>E<br>F         <br>G{1,2}..........{1,3}............................{1,2,7}<br>H<br>J</pre></td></tr>
+</table></div>
+<div class="post-reply" id="reply2957"><table class="w100pc"><tr><td class="post-writes">Kyrie Iris replies:</td><td class="datepost">Tuesday 15-Jul-2025</td></tr>
+<tr><td colspan="2">I'll modify my previous comment.<br><br>In (i) of the proof by mathematical induction, I said that the minimal pattern was N=4, but N=1, 2, and 3 also exist.<br><br>N=2 and 3 are Locked Set. N=1 is the case where a single cell contains one candidate, which does not strictly satisfy condition 2.. However, for convenience we will also consider this as EXY(1).</td></tr>
+</table></div>
+<div class="post-reply" id="reply3076"><table class="w100pc"><tr><td class="post-writes">Maik replies:</td><td class="datepost">Tuesday 14-Apr-2026</td></tr>
+<tr><td colspan="2">Sounds like "Multisector Locked Sets" or a generalization of it: http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html<br><br>Regarding "Candidates of the same type are allowed" I would like to add that in intersection cells that have a candidate number that appears in more than one of the intersecting units, EXY allows to eliminate that candidate number in that cell, because each cell can only be fulfil exactly one unit candidate. <br><br>I also wonder if the distinction between intersection cells and escape cells in your description is necessary. As far as I can see, you can freely choose the set of cells as long as there are as many cells as unit candidates (and every cell has to be part of at least one relevant unit, obviously).</td></tr>
+</table></div>
+</div><div id="blog-reply3076" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(202,17257,3076)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16757"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Saturday 8-Jan-2022</div></div>
+<div class="w100pc">While Robert's explanation may work for the common 2-2-2-2- 2-2-2-2- type, it doesn't translate very well into the other types. I provide a better (in my opinion) proof:<br><br>All 16 digits are restricted commons, meaning each digit can only upto 1 time in the loop. Now the 16 cells should have 16 digits, so each of the 16 restricted commons should appear <b>exactly</b> once, which explains the eliminations.<br><br>And yeah, as I said, the givens/solved cells don't seem to be important.</div>
+<div class="w100pc" id="blog-reply16757"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(202,16757,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16753"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Friday 31-Dec-2021</div></div>
+<div class="w100pc">I don't get why the givens/solved cells are important. The logic seems perfectly correct even when the hinges have more than one candidate</div>
+<div class="w100pc" id="blog-reply16753"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(202,16753,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16654"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 2-Feb-2021</div></div>
+<div class="w100pc">OK, updating from my previous comment.<br><br>I think I have figured out the logic of the SK loop,and how the eliminations take place.  But the description has an issue - it is not a matter of all the blue being true or all the greens being true - in fact, in the easter monster puzzle, this is not the case.<br><br>Starting at B13, if {3,8} is "true" so that the two cells contain these two values, this propagates all the way around the chain, making all of the blue candidates true.  And if {2,7} is "true", this also propagates all the way around (the other direction), and makes all of the green candidates true.<br><br>But these are not the only two possibilities.  B13 could contain one of {3,8} and also one of {2,7}, and in fact this is what happens in the unique solution.  But we still get the eliminations in this case.  Suppose there is no "3" in B13 or B79.  Then if B13 also contains no "8", it must contain {2,7}, and all the green candidates are "true", including the {3,8} in B79 - this contradicts the assumption that B79 contains no "3".  So B13 must contain an "8", meaning B79 cannot.  But then B79 does not contain a "3" and does not contain an "8", so it must contain the blue candidates, so that all the blue candidates are true, including {3,8} in B13.  So this is also contradictory.  So if B13 and B79 do not contain a "3", B13 containing no "8" results in a contradiction, and B13 containing an "8" also results in a contradiction - therefore, B13 or B79 must contain a 3.  By the analogous reasoning, B13 and B79 must contain an "8".  However, it does not have to be the same group - in the unique solution, it is B13 that contains the "3", and B79 that contains the "8".<br><br>So I understand how the loop works now, but the description, which says that all the blue are true or all the green are true, is not correct.  It's more subtle than that.<br></div>
+<div class="w100pc" id="blog-reply16654"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes you are quite right. I got the either green OR either blue from PJB as well and didn't see that was not quite accurate for the Easter Monster but it works for the pattern and all comes out in the wash. I'll amend the text.</div></div><div id="blog-reply2622" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(202,16654,2622)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16653"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Tuesday 2-Feb-2021</div></div>
+<div class="w100pc">Hello,<br><br>It doesn't seem like the comments are monitored closely, but I'll try anyway.<br><br>I am really struggling to understand how SK loops work, and the link to pjb's comments isn't helping that much - it seems to presume some knowledge of the technique already.<br><br>From the description of the Easter Monster on this page, we have:<br><br>"Since we have identified the content of these sixteen cells as a Locked Set we can eliminate along the unit of alignment. So, since B13 contains a blue {3,8} and B79 contains a green {3,8} and the solution will be one or the other, so we can remove 3 and 8 from B5 and B6."<br><br>I am interpreting this to mean that either (i) all the blue candidates are "true" and all the green candidates are "false", or (ii) all the blue candidates are "false" and all the green candidates are "true".  But according to the solution count" feature in the solver, B1 should be 2 (which is green) and B3 should be 3 (which is blue).<br><br>So am I misunderstanding something, or is there something wrong with the description?<br></div>
+<div class="w100pc" id="blog-reply16653"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(202,16653,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 29-November-2019. Views: 47790<br>
+			This page was last modified on 29-November-2019.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1022b6709f636f1',t:'MTc4MjIwMzgzMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

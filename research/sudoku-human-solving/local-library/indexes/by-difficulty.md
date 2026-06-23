@@ -26,4 +26,9 @@
 ## Extreme / Last Resort
 
 - `../techniques/11-exotic/sue-de-coq.md`
+- `../techniques/11-exotic/exocet.md`
+- `../techniques/11-exotic/sk-loop.md`
+- `../techniques/11-exotic/msls.md`
+- `../techniques/11-exotic/fireworks.md`
+- `../techniques/11-exotic/aligned-exclusion.md`
 - `../techniques/12-last-resort/forcing-vs-enumeration.md`

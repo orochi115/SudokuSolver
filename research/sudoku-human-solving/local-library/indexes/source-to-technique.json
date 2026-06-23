@@ -54,5 +54,10 @@
   "SUDOKUCOM-ZH-SWORDFISH": ["technique.fish-base-cover"],
   "SUDOKUCOM-ZH-YWING": ["technique.wings"],
   "CHINESE-CN-SUDOKUPUZZLE-XYWING": ["technique.wings"],
-  "CHINESE-CN-SUDOKUPUZZLE-UR": ["technique.uniqueness"]
+  "CHINESE-CN-SUDOKUPUZZLE-UR": ["technique.uniqueness"],
+  "SUDOKUWIKI-EXOCET": ["technique.exocet"],
+  "SUDOKUWIKI-SK-LOOP": ["technique.sk-loop", "technique.msls"],
+  "ENJOYSUDOKU-MSLS": ["technique.msls", "technique.sk-loop"],
+  "SUDOKUWIKI-FIREWORKS": ["technique.fireworks"],
+  "SUDOKUWIKI-APE": ["technique.aligned-exclusion"]
 }

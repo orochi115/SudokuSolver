@@ -1,0 +1,961 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
+<head>
+<base href="http://forum.enjoysudoku.com/"/>
+<link rel="canonical" href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Using Multi-Sector Locked Sets : Advanced solving techniques</title>
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="en-gb" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="content-language" content="en" />
+<meta name="title" content="Using Multi-Sector Locked Sets : Advanced solving techniques" />
+<meta name="description" content="Using Multi-Sector Locked Sets 1. Finding Multi-fish A working definition of a multi-fish is a combination of inconclusive fish patterns for different digits which together ..." />
+<meta name="keywords" content="leren, link, using, sets, multi, locked, sector, links, such, single" />
+<meta name="category" content="general" />
+<meta name="robots" content="index,follow" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="copyright" content="The New Sudoku Players Forum" />
+
+
+
+
+<!--
+	phpBB style name: prosilver
+	Based on style:   prosilver (this is the default phpBB3 style)
+	Original author:  Tom Beddard ( http://www.subBlue.com/ )
+	Modified by:
+-->
+
+<script type="text/javascript">
+// <![CDATA[
+	var jump_page = 'Enter the page number you wish to go to:';
+	var on_page = '1';
+	var per_page = '15';
+	var base_url = 'http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html';
+	var style_cookie = 'phpBBstyle';
+	var style_cookie_settings = '; path=/; domain=forum.enjoysudoku.com';
+	var onload_functions = new Array();
+	var onunload_functions = new Array();
+	// www.phpBB-SEO.com SEO TOOLKIT BEGIN
+	var seo_delim_start = '-';
+	var seo_static_pagination = 'page';
+	var seo_ext_pagination = '.html';
+	var seo_external = true;
+	var seo_external_sub = false;
+	var seo_ext_classes = false;
+	var seo_hashfix = false;
+	// www.phpBB-SEO.com SEO TOOLKIT END
+
+	
+
+	/**
+	* Find a member
+	*/
+	function find_username(url)
+	{
+		popup(url, 760, 570, '_usersearch');
+		return false;
+	}
+
+	/**
+	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
+	*/
+	window.onload = function()
+	{
+		for (var i = 0; i < onload_functions.length; i++)
+		{
+			eval(onload_functions[i]);
+		}
+	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
+// ]]>
+</script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/styleswitcher.js"></script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/forum_fn.js"></script>
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="http://forum.enjoysudoku.com/style.php?id=1&amp;lang=en&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/normal.css" rel="stylesheet" type="text/css" title="A" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
+
+
+
+</head>
+
+<body id="phpbb" class="section-viewtopic ltr">
+
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+	<div id="page-header">
+		<div class="headerbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<div id="site-description">
+				<a href="http://forum.enjoysudoku.com/" title="Board index" id="logo"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/site_logo.gif" width="52" height="52" alt="" title="" /></a>
+				<h1>The New Sudoku Players' Forum</h1>
+				<p>Sponsored by Enjoy Sudoku</p>
+				<p class="skiplink"><a href="#start_here">Skip to content</a></p>
+			</div>
+
+		
+			<div id="search-box">
+				<form action="./search.php?sid=0075c9cdf8f04daf9cedcccc1c7b6f03" method="get" id="search">
+				<fieldset>
+					<input name="keywords" id="keywords" type="text" maxlength="128" title="Search for keywords" class="inputbox search" value="Search…" onclick="if(this.value=='Search…')this.value='';" onblur="if(this.value=='')this.value='Search…';" />
+					<input class="button2" value="Search" type="submit" /><br />
+					<a href="./search.php?sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="View the advanced search options">Advanced search</a> <input type="hidden" name="sid" value="0075c9cdf8f04daf9cedcccc1c7b6f03" />
+
+				</fieldset>
+				</form>
+			</div>
+		
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+		<div class="navbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<ul class="linklist navlinks">
+				<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a>  <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/sudoku-the-puzzle-f5.html">Sudoku: the puzzle</a> <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html">Advanced solving techniques</a></li>
+
+				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="Change font size">Change font size</a></li>
+
+				<li class="rightside"><a href="http://forum.enjoysudoku.com/viewtopic.php?f=6&amp;t=31222&amp;start=0&amp;view=print&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Print view" accesskey="p" class="print">Print view</a></li>
+			</ul>
+
+			
+
+			<ul class="linklist rightside">
+				<li class="icon-faq"><a href="http://forum.enjoysudoku.com/faq.php?sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Frequently Asked Questions">FAQ</a></li>
+				<li class="icon-register"><a href="http://forum.enjoysudoku.com/ucp.php?mode=register&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03">Register</a></li>
+					<li class="icon-logout"><a href="http://forum.enjoysudoku.com/ucp.php?mode=login&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Login" accesskey="x">Login</a></li>
+				
+			</ul>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+	</div>
+
+	<a name="start_here"></a>
+	<div id="page-body">
+		
+<h2><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html">Using Multi-Sector Locked Sets</a></h2>
+<!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body --><div style="display: none !important;">Advanced methods and approaches for solving Sudoku puzzles<br /></div>
+
+<div class="topic-actions">
+
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=31222&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="search-box">
+			<form method="get" id="topic-search" action="./search.php?sid=0075c9cdf8f04daf9cedcccc1c7b6f03">
+			<fieldset>
+				<input class="inputbox search tiny"  type="text" name="keywords" id="search_keywords" size="20" value="Search this topic…" onclick="if(this.value=='Search this topic…')this.value='';" onblur="if(this.value=='')this.value='Search this topic…';" />
+				<input class="button2" type="submit" value="Search" />
+				<input type="hidden" name="t" value="31222" />
+<input type="hidden" name="sf" value="msgonly" />
+<input type="hidden" name="sid" value="0075c9cdf8f04daf9cedcccc1c7b6f03" />
+
+			</fieldset>
+			</form>
+		</div>
+	
+		<div class="pagination">
+			41 posts
+			 &bull; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>3</strong></a> &bull; <span><strong>1</strong><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222-15.html">2</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222-30.html">3</a></span>
+		</div>
+	
+
+</div>
+<div class="clear"></div>
+
+
+	<div id="p228336" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228336&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 class="first"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228336">Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228336.html#p228336"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Thu Jun 27, 2013 10:13 pm </p>
+
+			
+
+			<div class="content"><span style="font-weight: bold">Using Multi-Sector Locked Sets</span><br /><br /><span style="font-weight: bold">1. Finding Multi-fish</span><br /><br />A working definition of a multi-fish is a combination of inconclusive fish patterns for different digits which together reveal a core set of cells that will be forced to hold one or other of the digits in the set, so allowing various exclusions to be made.   <br /><br />The digits are partitioned into two sets – a 'Home' set typically of 4 digits and the complementary 'Away' set of 5 digits (these names have been selected to avoid any confusion with base and cover sets.) <br /><br />Individual houses can now be selected to be covered by one or other of these sets. As sets are assigned, any digits that occur as given or solved cells in the house, are removed, leaving only those that are still to be placed to remain as digit covers.   <br /><br />At any stage as the covering sets are being selected, there will be a potential Naked Set consisting of all the cells with every candidate covered, and a potential Hidden Set consisting of all the cells with at least one candidate covered. <br /><br />Let<br />NS = the total number of cells with every candidate covered (the potential Naked Set).<br />HS = the total number of cells with any candidate covered (the potential Hidden Set). <br />DC = the total number of digit covers  <br /><br />We then get HS &gt;= DC &gt;= NS <br /><br />When selecting covering sets to assign, the aim is to balance one of these inequalities while avoiding leaving a house or without a digit, or a cell with no candidates. Any candidates covered twice will affect the Potential Eliminations, so these also must also be watched.        <br /><br /><span style="font-weight: bold">Eliminations</span><br /><br />When HS = NS =&gt; An established Locked Set already exists <br /><ul> No eliminations</ul>When Dc = NS + 1 =&gt; Almost Naked Set<br /><ul> Digits in the partially covered cells that are covered more than once are false. </ul>When DC = NS =&gt; Naked Set <br /><ul> All covered digits in the partially covered cells are false.<br />Digits in the fully covered cells that are covered more than once are false</ul>When HS = DC + 1 =&gt; Almost Hidden Set <br /><ul> If exactly one cell has digits covered more than once, the other digits in that cell are false</ul>When HS = DC =&gt; Hidden Set <br /><ul> If no digits are covered more than once, digits in the partially covered cells that are uncovered are false<br />If exactly one cell has digits that are covered twice, any uncovered digits in that cell are false</ul>The proof for all these eliminations follows by considering that if one of the eliminated candidates were true it would create an inequality between the number of truths needed to satisfy each of the digit covers and the number of truths either a) needed to fill a naked set or b) capable being accommodated in a hidden set. Whatever way the remaining digits are assigned, this inequality will persist and can never be rectified so eventually either a cell would be left empty or needing to hold two digits.     <br /><br /><span style="font-style: italic">Note: in this treatment there is no need to be conscious of whether the sets being selected should be considered to be weak or strong. However for the so-minded, when naked sets are found the Home &amp; Away sets should be considered to be weak and the digits in the NS cell to be the strong set. When hidden sets are found, the HS cells make the weak set and the digit cover sets become strong.</span> <br /><br /><span style="font-weight: bold">Tactics</span><br /><br />In selecting the focus digit set concentrate on digits that appear as givens together in the same rows and columns most frequently and rarely in combination with the other digits. One way of doing this is to start with a digit which has two givens, and identify which others occur in the same rows or columns to progressively widen the set up to 4 members.<br /><br />Choose either rows or columns to hold the Home covering sets and the other to hold the Away covering sets. Now select some banker rows where two of focus digits occur as givens for the covering set and some banker columns where none of them do for the complementary cover set. From this start point explore the options for including other rows and columns to be covered to see if a locked or almost locked set can be found. <br /><br />If it happens that 5 rows and 5 columns are needed, then switching the direction to hold the Home and Away sets, and selecting the unused rows and columns instead, which will give a smaller 4x4 equivalent pattern. <br /><br />If an AHS is found then this can be converted to its complementary ANS by keeping the same rows and columns but switching over the Home and Away sets. This is advisable as the NS elimination rules are stronger and the notations are shorter.        <br /><br /><br /><span style="font-weight: bold">General Points</span><br /><br />Because the user needs only to enter house cover sets without specifying if they are weak or strong, this approach is simple and fast in comparison to using truth and link sets. However it's less powerful as it will only handle rank 0 and rank 1 patterns.     <br /> <br />Against this, a cocktail of truth and link sets should often be able to make the same eliminations with fewer sets, but at the expense of a more complicated procedure.<br /><br />TAGdpbMSLS<br /><br />[Edits 1-5 (Jul 2013)  Extensively re-worked ]<br />[Edit 6 (Jul 2016) TAG  Added ]</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a> on Fri Jul 22, 2016 9:35 pm, edited 6 times in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228336">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228337" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228337&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228337">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228337.html#p228337"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Thu Jun 27, 2013 10:13 pm </p>
+
+			
+
+			<div class="content"><span style="font-weight: bold">Example 1  </span> <br /><br />1......8......92....6.3...52....8.....5.7.....6.5....4..47...........91..3..6...7;28;elev;14;G1<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp;1*. . | . . . | . 8*. <br />&nbsp; &nbsp;. . . | . . 9*| 2*. . <br />&nbsp; &nbsp;. . 6 | . 3 . | . . 5 <br />&nbsp; &nbsp;------|-------|-------<br />&nbsp; &nbsp;2*. . | . . 8*| . . . <br />&nbsp; &nbsp;. . 5 | . 7 . | . . .<br />&nbsp; &nbsp;. 6 . | 5 . . | . . 4<br />&nbsp; -------|-------|-------<br />&nbsp; &nbsp;. . 4 | 7 . . | . . . <br />&nbsp; &nbsp;. . . | . . . | 9*1*. <br />&nbsp; &nbsp;. 3 . | . 6 . | . . 7</code></dd></dl> <br />Examining the positions of the givens [1289] they can be seen to occur together in different rows and columns. These then make an ideal choice of Home set which establishes the complementary digits [34567] as the Away set.  <br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;1&gt;&nbsp; &nbsp; &nbsp;24579&nbsp; &nbsp;2379&nbsp; &nbsp; | 246&nbsp; &nbsp; &nbsp;245&nbsp; &nbsp; &nbsp;4567-2&nbsp; | 3467&nbsp; &nbsp; &lt;8&gt;&nbsp; &nbsp; &nbsp;369&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; | 3457-8&nbsp; 4578&nbsp; &nbsp; 378&nbsp; &nbsp; &nbsp;| 1468&nbsp; &nbsp; 1458&nbsp; &nbsp; &lt;9&gt;&nbsp; &nbsp; &nbsp;| &lt;2&gt;&nbsp; &nbsp; &nbsp;3467&nbsp; &nbsp; 136&nbsp; &nbsp; &nbsp;| <br />&nbsp;47 | &#91;4789&#93;&nbsp; 289-47&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;| 128-4&nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;&#91;1247&#93;&nbsp; | &#91;147&#93;&nbsp; &nbsp;&#91;479&#93;&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;2&gt;&nbsp; &nbsp; &nbsp;1479&nbsp; &nbsp; 1379&nbsp; &nbsp; | 13469&nbsp; &nbsp;149&nbsp; &nbsp; &nbsp;&lt;8&gt;&nbsp; &nbsp; &nbsp;| 3567-1&nbsp; 3567-9&nbsp; 1369&nbsp; &nbsp; | <br />346 | &#91;3489&#93;&nbsp; 189-4&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| 129-346 &lt;7&gt;&nbsp; &nbsp; &nbsp;&#91;12346&#93; | &#91;1368&#93;&nbsp; &#91;2369&#93;&nbsp; 1289-36 | <br />&nbsp;37 | &#91;3789&#93;&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;189-37&nbsp; | &lt;5&gt;&nbsp; &nbsp; &nbsp;129&nbsp; &nbsp; &nbsp;&#91;123&#93;&nbsp; &nbsp;| &#91;1378&#93;&nbsp; &#91;2379&#93;&nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />356 | &#91;5689&#93;&nbsp; 1289-5&nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;| &lt;7&gt;&nbsp; &nbsp; &nbsp;1289-5&nbsp; &#91;1235&#93;&nbsp; | &#91;3568&#93;&nbsp; &#91;2356&#93;&nbsp; 28-36&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 567-8&nbsp; &nbsp;2578&nbsp; &nbsp; 278&nbsp; &nbsp; &nbsp;| 2348&nbsp; &nbsp; 2458&nbsp; &nbsp; 345-2&nbsp; &nbsp;| &lt;9&gt;&nbsp; &nbsp; &nbsp;&lt;1&gt;&nbsp; &nbsp; &nbsp;2368&nbsp; &nbsp; | <br />&nbsp;45 | &#91;589&#93;&nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;1289&nbsp; &nbsp; | 1289&nbsp; &nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;&#91;125&#93;&nbsp; &nbsp;| &#91;458&#93;&nbsp; &nbsp;&#91;245&#93;&nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp; &nbsp;89&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 12&nbsp; &nbsp; &nbsp; &nbsp; 18&nbsp; &nbsp; &nbsp; &nbsp;29<br />MS-NS: r35679c1678 (20 cells)<br />&nbsp; &nbsp;(47)r3,(346)r5,(37)r6,(356)r7,(45)r9,(89)c1,(12)c6,(18)c7,(29)c8 (20 digit covers)<br />=&gt; Eliminations: 2r1c6, 8r2c1, 47r3c2, 4r3c4, 1r4c7, 9r4c8, 4r5c2, 346r5c4, <br />&nbsp; &nbsp;36r5c9, 37r6c3, 5r7c2, 5r7c5, 36r7c9, 8r8c1, 2r8c6 (21 candidates in 15 cells)</code></dd></dl><br /><br />Choosing to allocate the Away set to the rows, checks are made for those rows that don't contain any Home set digit as a given. This occurs in rows 3,5,6,7,9 and so these are chosen as Away set rows. In row 3 the positions of [356] are known so only two digits, [47], remain to be placed, as shown in the left margin. The same procedure is repeated for the other selected rows. <br /><br />Attention now turns to locating any columns that contain two Home set members where it can be seen that columns 1,6,7,&amp; 8 all qualify. These are therefore selected as being the home set houses and again the digits that remain to be placed are shown in the bottom margin. <br /><br />In total there are now 20 digits to be placed across 9 houses. There are also 20 cells where the Home and Away sets intersect, and in each of these every candidate is covered by one of the sets. These 20 cells therefore form a Multi-Sector Naked Set and all instances of covered digits in partially covered cells are therefore false. This is because if one of them was true, there would be 20 Naked Set cells left to be filled but only 19 digits left to fill them.<br /><br />Another point to note is that there is set of 20 cells with no digits covered at all where the unused rows and columns intersect that form a complementary locked set. This is the set that would have been found if the Home sets were allocated to the rows and the Away set to columns.<br /><br />This first example can be considered almost self-evident because the combination of rows and columns to use is obvious, but that isn't always the case.     <br />      <br /><span style="font-weight: bold">Example 2 </span> <br /><br />3.....9...7...1.5...2.....4....76.1....3.5....6.81....4.....2...5.6...8...9.....3<br />Home Set = [2349]<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp;| &lt;3&gt;&nbsp; &nbsp; &nbsp;148&nbsp; &nbsp; &nbsp;1568-4&nbsp; | 2457&nbsp; &nbsp; 24568&nbsp; &nbsp;2478&nbsp; &nbsp; | &lt;9&gt;&nbsp; &nbsp; &nbsp;267&nbsp; &nbsp; &nbsp;1678-2&nbsp; | <br />68 | &#91;689&#93;&nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;&#91;468&#93;&nbsp; &nbsp;| 249&nbsp; &nbsp; &nbsp;2349-68 &lt;1&gt;&nbsp; &nbsp; &nbsp;| &#91;368&#93;&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;&#91;268&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp;| 1568-9&nbsp; 189&nbsp; &nbsp; &nbsp;&lt;2&gt;&nbsp; &nbsp; &nbsp;| 579&nbsp; &nbsp; &nbsp;35689&nbsp; &nbsp;3789&nbsp; &nbsp; | 1678-3&nbsp; 367&nbsp; &nbsp; &nbsp;&lt;4&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />58 | &#91;2589&#93;&nbsp; 2349-8&nbsp; &#91;3458&#93;&nbsp; | 249&nbsp; &nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;&lt;6&gt;&nbsp; &nbsp; &nbsp;| &#91;3458&#93;&nbsp; &lt;1&gt;&nbsp; &nbsp; &nbsp;&#91;2589&#93;&nbsp; | <br />&nbsp; &nbsp;| 178-29&nbsp; 12489&nbsp; &nbsp;178-4&nbsp; &nbsp;| &lt;3&gt;&nbsp; &nbsp; &nbsp;249&nbsp; &nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| 678-4&nbsp; &nbsp;24679&nbsp; &nbsp;678-29&nbsp; | <br />57 | &#91;2579&#93;&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;&#91;3457&#93;&nbsp; | &lt;8&gt;&nbsp; &nbsp; &nbsp;&lt;1&gt;&nbsp; &nbsp; &nbsp;249&nbsp; &nbsp; &nbsp;| &#91;3457&#93;&nbsp; 2349-7&nbsp; &#91;2579&#93;&nbsp; | <br />&nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp;| &lt;4&gt;&nbsp; &nbsp; &nbsp;138&nbsp; &nbsp; &nbsp;1678-3&nbsp; | 1579&nbsp; &nbsp; 3589&nbsp; &nbsp; 3789&nbsp; &nbsp; | &lt;2&gt;&nbsp; &nbsp; &nbsp;679&nbsp; &nbsp; &nbsp;1567-9&nbsp; | <br />17 | &#91;127&#93;&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;&#91;137&#93;&nbsp; &nbsp;| &lt;6&gt;&nbsp; &nbsp; &nbsp;2349&nbsp; &nbsp; 2349-7&nbsp; | &#91;147&#93;&nbsp; &nbsp;&lt;8&gt;&nbsp; &nbsp; &nbsp;&#91;179&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp;| 1678-2&nbsp; 128&nbsp; &nbsp; &nbsp;&lt;9&gt;&nbsp; &nbsp; &nbsp;| 12457&nbsp; &nbsp;2458&nbsp; &nbsp; 2478&nbsp; &nbsp; | 1567-4&nbsp; 467&nbsp; &nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp; 29&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 34&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 34&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 29&nbsp; &nbsp; &nbsp; <br />MS-NS: r2468c1379 (16 cells) <br />(68)r2,(58)r4,(57)r6,(17)r8,(29)c1,(34)c3,(34)c7,(29)c9 (16 digit covers)<br />=&gt; Eliminations:4r1c3, 2r1c9, 68r2c5, 9r3c1, 3r3c7, 8r4c2, 29r5c1, 4r5c3, 4r5c7, 29r5c9,<br />&nbsp;7r6c8, 3r7c3, 9r7c9, 7r8c6, 2r9c1, 4r9c7&nbsp; (19 candidates in 16 cells)<br />Hence (249)HS:r5c258 =&gt; r5c2 &lt;&gt; 48, r5c8 &lt;&gt; 67 (4 candidates in 2 cells) <br /><br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;3&gt;&nbsp; &nbsp; &nbsp;&#91;148&#93;&nbsp; &nbsp;1568-4&nbsp; | 2457&nbsp; &nbsp; 24568&nbsp; &nbsp;2478&nbsp; &nbsp; | &lt;9&gt;&nbsp; &nbsp; &nbsp;&#91;267&#93;&nbsp; &nbsp;1678-2&nbsp; | B1 49<br />&nbsp;68 | &#91;689&#93;&nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;&#91;468&#93;&nbsp; &nbsp;| 249&nbsp; &nbsp; &nbsp;2349-68 &lt;1&gt;&nbsp; &nbsp; &nbsp;| &#91;368&#93;&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;&#91;268&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 1568-9&nbsp; &#91;189&#93;&nbsp; &nbsp;&lt;2&gt;&nbsp; &nbsp; &nbsp;| 579&nbsp; &nbsp; &nbsp;35689&nbsp; &nbsp;3789&nbsp; &nbsp; | 1678-3&nbsp; &#91;367&#93;&nbsp; &nbsp;&lt;4&gt;&nbsp; &nbsp; &nbsp;| B3 23<br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | 2589&nbsp; &nbsp; 2349-8&nbsp; 3458&nbsp; &nbsp; | 249&nbsp; &nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;&lt;6&gt;&nbsp; &nbsp; &nbsp;| 3458&nbsp; &nbsp; &lt;1&gt;&nbsp; &nbsp; &nbsp;2589&nbsp; &nbsp; | <br />&nbsp; &nbsp; | 12789&nbsp; &nbsp;249-18&nbsp; 1478&nbsp; &nbsp; | &lt;3&gt;&nbsp; &nbsp; &nbsp;249&nbsp; &nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| 4678&nbsp; &nbsp; 249-67&nbsp; 26789&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 2579&nbsp; &nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;3457&nbsp; &nbsp; | &lt;8&gt;&nbsp; &nbsp; &nbsp;&lt;1&gt;&nbsp; &nbsp; &nbsp;249&nbsp; &nbsp; &nbsp;| 3457&nbsp; &nbsp; 2349-7&nbsp; 2579&nbsp; &nbsp; | <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;4&gt;&nbsp; &nbsp; &nbsp;&#91;138&#93;&nbsp; &nbsp;1678-3&nbsp; | 1579&nbsp; &nbsp; 3589&nbsp; &nbsp; 3789&nbsp; &nbsp; | &lt;2&gt;&nbsp; &nbsp; &nbsp;&#91;679&#93;&nbsp; &nbsp;1567-9&nbsp; | B7 23<br />&nbsp;17 | &#91;127&#93;&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;&#91;137&#93;&nbsp; &nbsp;| &lt;6&gt;&nbsp; &nbsp; &nbsp;2349&nbsp; &nbsp; 2349-7&nbsp; | &#91;147&#93;&nbsp; &nbsp;&lt;8&gt;&nbsp; &nbsp; &nbsp;&#91;179&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 1678-2&nbsp; &#91;128&#93;&nbsp; &nbsp;&lt;9&gt;&nbsp; &nbsp; &nbsp;| 12457&nbsp; &nbsp;2458&nbsp; &nbsp; 2478&nbsp; &nbsp; | 1567-4&nbsp; &#91;467&#93;&nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;| B9 49<br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 18&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 67 <br />MS-NS: r1379c28, r28c1379 (16 cells)<br />(68)r2,(17)r8,(18)c2,(67)c8,(49)b1,(23)b3,(23)b7,(49)b9 (16 digit covers)<br />=&gt; Eliminations: 4r1c3, 2r1c9, 68r2c5, 9r3c1, 3r3c7, 8r4c2, 18r5c2, 67r5c8, 7r6c8, 3r7c3,<br />&nbsp;9r7c9, 7r8c6, 2r9c1, 4r9c7, (17 candidates in 14 cells)<br />Hence (249)NS r5c258 =&gt; r5c19 &lt;&gt; 29, r5c37 &lt;&gt; 4 (6 candidates in 4 cells)</code></dd></dl> <br /> <br />The tell-tale signs of a SK loop pattern are a rectangle of 4 boxes (b1379 above) that contain diagonals of givens. Each of these diagonals contains 2 digits out of a set of 4 (2349) that are confined the same two lines in the containing bands (r13 and r79, and c13, and c79). It's these digits that are used to compose the Home set.   <br /><br />The upper grid shows the standard row/column division of the Home and Away sets, and the lower one shows the Home sets being assigned to boxes while the Away set is used in two rows and two columns (which gives an identical set of eliminations to the usual chain representation of an SK loop). <br /><br />What this demonstrates is that there is more than one way the naked set can be composed for the same grid, and these may give slightly different sets of eliminations. However in these cases it will be found that follow-on steps using the naked or hidden sets that are created by the pattern eliminations, will result in the same overall result. <br /><br /><br /><span style="font-weight: bold">Example 3  </span><br /><br />98.7.....6.7...8......85...4...3..2..9....6.......1..4.6.5..9......4...3.....2.1.;28180;GP;2011_12<br />Home Set = 1234 <br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp;56 | &lt;9&gt;&nbsp; &nbsp; &nbsp;&lt;8&gt;&nbsp; &nbsp; &nbsp;1234-5&nbsp; | &lt;7&gt;&nbsp; &nbsp; &#91;126&#93;&nbsp; &nbsp;&#91;346&#93;&nbsp; &nbsp; | 1234-5 &#91;3456&#93;&nbsp; &#91;1256&#93;&nbsp; &nbsp;| <br />&nbsp;59 | &lt;6&gt;&nbsp; &nbsp; &nbsp;1234-5&nbsp; &lt;7&gt;&nbsp; &nbsp; &nbsp;| 1234-9 &#91;129&#93;&nbsp; &nbsp;&#91;349&#93;&nbsp; &nbsp; | &lt;8&gt;&nbsp; &nbsp; &#91;3459&#93;&nbsp; &#91;1259&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 123&nbsp; &nbsp; &nbsp;1234&nbsp; &nbsp; 1234&nbsp; &nbsp; | 123469&nbsp; &lt;8&gt;&nbsp; &nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| 12347&nbsp; &nbsp;679-34&nbsp; 679-12&nbsp; | <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;4&gt;&nbsp; &nbsp; &nbsp;157&nbsp; &nbsp; &nbsp;1568&nbsp; &nbsp; | 689&nbsp; &nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;6789&nbsp; &nbsp; | 157&nbsp; &nbsp; &nbsp;&lt;2&gt;&nbsp; &nbsp; &nbsp;5789-1&nbsp; | <br />578 | 123-578 &lt;9&gt;&nbsp; &nbsp; &nbsp;123-58&nbsp; | 24-8&nbsp; &nbsp;&#91;257&#93;&nbsp; &nbsp;&#91;478&#93;&nbsp; &nbsp; | &lt;6&gt;&nbsp; &nbsp; &#91;3578&#93;&nbsp; &#91;1578&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 23578&nbsp; &nbsp;2357&nbsp; &nbsp; 23568&nbsp; &nbsp;| 2689&nbsp; &nbsp; 5679-2&nbsp; &lt;1&gt;&nbsp; &nbsp; &nbsp;| 357&nbsp; &nbsp; &nbsp;5789-3&nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp;78 | 123-78&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;1234-8&nbsp; | &lt;5&gt;&nbsp; &nbsp; &#91;17&#93;&nbsp; &nbsp; &#91;378&#93;&nbsp; &nbsp; | &lt;9&gt;&nbsp; &nbsp; &nbsp;&#91;478&#93;&nbsp; &nbsp;&#91;278&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 12578&nbsp; &nbsp;1257&nbsp; &nbsp; 12589&nbsp; &nbsp;| 1689&nbsp; &nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;6789&nbsp; &nbsp; | 257&nbsp; &nbsp; &nbsp;5678&nbsp; &nbsp; &lt;3&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; | 3578&nbsp; &nbsp; 3457&nbsp; &nbsp; 34589&nbsp; &nbsp;| 3689&nbsp; &nbsp; 679&nbsp; &nbsp; &nbsp;&lt;2&gt;&nbsp; &nbsp; &nbsp;| 457&nbsp; &nbsp; &nbsp;&lt;1&gt;&nbsp; &nbsp; &nbsp;5678&nbsp; &nbsp; | <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 12&nbsp; &nbsp; &nbsp; &nbsp;34&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 34&nbsp; &nbsp; &nbsp; 12 <br />MS-AHS r1257c5689 (16 Cells)<br />&nbsp; (56)r1,(59)r2,(578)r5,(78)r7,(12)c5,(34)c6,(34)c8,(12)c9 (17 Digit Covers)<br />Potential Eliminations 5r1c3, 5r1c7, 5r2c2, 9r2c4, 34r3c8, 12r3c9, 1r4c9, 578r5c1, <br />&nbsp;58r5c3, 8r5c4, 2r6c5, 3r6c8, 78r7c1, 8r7c3 (20 Candidates in 14 cells)</code></dd></dl><br />Here there are 17 digits occupying the 16 cells so one of them must be true in an external cell.<br />Now it can be noted the full set of PEs would leave box 1 without a 5 so identifying that it should be removed from the Away set for either row 1 or row 2, but which row it should be isn't known. <br /><br />There are now two ways to handle this <br />1) Add a Home set for <span style="color: #0000FF">box 1</span>. This will fully cover the candidates in the unsolved cells in the box and so create a Naked Set of 21 cells with 21 digits.     <br />2) Remove 5 from the covers for r1 and r2 and substitute them with a 5b3 cover (a 5b2 isn't needed as it is a given in that box). This now reduces the digit covers to 16 to balance with the size of the Naked Set. <br /><br />Note these changes have no effect on other PEs shown except of course they are now all validated.<br /><br />This pattern is an almost SK loop, with [1234]b5689 in the right positions. It's spoilt though because r5c4 should contain a given. The second pattern used in the previous example can also be adapted though as this grid shows. <br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp;| &lt;9&gt;&nbsp; &nbsp; &nbsp;&lt;8&gt;&nbsp; &nbsp; &nbsp;12345&nbsp; &nbsp;| &lt;7&gt;&nbsp; &nbsp; &nbsp;126&nbsp; &nbsp; &nbsp;346&nbsp; &nbsp; &nbsp;| 1234-5&nbsp; 3456&nbsp; &nbsp; 1256&nbsp; &nbsp; | <br />&nbsp; &nbsp; &nbsp;| &lt;6&gt;&nbsp; &nbsp; &nbsp;12345&nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;| 1234-9&nbsp; 129&nbsp; &nbsp; &nbsp;349&nbsp; &nbsp; &nbsp;| &lt;8&gt;&nbsp; &nbsp; &nbsp;3459&nbsp; &nbsp; 1259&nbsp; &nbsp; | <br />1234 |&#91;123&#93;&nbsp; &nbsp;&#91;1234&#93;&nbsp; &#91;1234&#93;&nbsp; &nbsp;|&#91;123469&#93; &lt;8&gt;&nbsp; &nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;|&#91;12347&#93;&nbsp; 679-34&nbsp; 679-12&nbsp; | <br />&nbsp; &nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp;| &lt;4&gt;&nbsp; &nbsp; &nbsp;157&nbsp; &nbsp; &nbsp;1568&nbsp; &nbsp; |&#91;689&#93;&nbsp; &nbsp; &lt;3&gt;&nbsp; &nbsp; &nbsp;6789&nbsp; &nbsp; |&#91;157&#93;&nbsp; &nbsp; &lt;2&gt;&nbsp; &nbsp; &nbsp;5789-1&nbsp; | <br />578&nbsp; | 123-578 &lt;9&gt;&nbsp; &nbsp; &nbsp;123-58&nbsp; |&#91;24&#93;-8* &#91;257&#93;&nbsp; &nbsp;&#91;478&#93;&nbsp; &nbsp; | &lt;6&gt;&nbsp; &nbsp; &#91;3578&#93;&nbsp; &#91;1578&#93;&nbsp; &nbsp;| b5 24<br />&nbsp; &nbsp; &nbsp;| 23578&nbsp; &nbsp;2357&nbsp; &nbsp; 23568&nbsp; &nbsp;|&#91;2689&#93;&nbsp; &nbsp;5679-2&nbsp; &lt;1&gt;&nbsp; &nbsp; &nbsp;|&#91;357&#93;&nbsp; &nbsp; 5789-3&nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;| b6 13<br />&nbsp; &nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp;78&nbsp; | 123-78&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;1234-8&nbsp; | &lt;5&gt;&nbsp; &nbsp; &#91;17&#93;&nbsp; &nbsp; &#91;378&#93;&nbsp; &nbsp; | &lt;9&gt;&nbsp; &nbsp; &nbsp;&#91;478&#93;&nbsp; &nbsp;&#91;278&#93;&nbsp; &nbsp;| <br />&nbsp; &nbsp; &nbsp;| 12578&nbsp; &nbsp;1257&nbsp; &nbsp; 12589&nbsp; &nbsp;|&#91;1689&#93;&nbsp; &nbsp;&lt;4&gt;&nbsp; &nbsp; &nbsp;6789&nbsp; &nbsp; |&#91;257&#93;&nbsp; &nbsp; &nbsp;5678&nbsp; &nbsp; &lt;3&gt;&nbsp; &nbsp; | b8 13<br />&nbsp; &nbsp; &nbsp;| 3578&nbsp; &nbsp; 3457&nbsp; &nbsp; 34589&nbsp; &nbsp;|&#91;3689&#93;&nbsp; &nbsp;679&nbsp; &nbsp; &nbsp;&lt;2&gt;&nbsp; &nbsp; &nbsp;|&#91;457&#93;&nbsp; &nbsp; &nbsp;&lt;1&gt;&nbsp; &nbsp; &nbsp;5678&nbsp; &nbsp;| b9 24<br />&nbsp; &nbsp; &nbsp;*-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 689&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;57 <br />MS-LS: r34689c47, r57c5689, r3c123, r5c4 (22 Cells)<br />Links 1234r3, 578r5, 78r7, 689c4, 57c7, 24b5, 13b6, 13b8, 24b9, (22 Digit Covers)<br />=&gt; Eliminations: 5r1c7, 9r2c4, 34r3c8, 12r3c9, 1r4c9, 578r5c1, 58r5c3, 8r5c4*&nbsp; <br />&nbsp; 2r6c5, 3r6c8, 78r7c1, 8r7c3, (18 Candidates in 12 cells)</code></dd></dl><br /><br />A particular point to note is that r5c4 is a member of the Naked Set with candidate (8) covered twice by digit covers for both its row and its column. It's therefore false as if it were true it would leave 21 NS cells to be filled using only the 20 remaining digit covers.  <br /><br />[Edit 1] 3rd example added<br />[Edit 2] Copying errors corrected<br />[Edit 3] Typo (box 5 should have been box 1 in note 1 for example 3)</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a> on Wed Jul 10, 2013 9:42 am, edited 4 times in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228337">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228338" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228338&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228338">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228338.html#p228338"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Thu Jun 27, 2013 10:14 pm </p>
+
+			
+
+			<div class="content">Reserved for part 2</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228338">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228339" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228339&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228339">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228339.html#p228339"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Thu Jun 27, 2013 10:14 pm </p>
+
+			
+
+			<div class="content">Reserved for part 2 examples</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228339">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228700" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228700&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228700">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228700.html#p228700"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Tue Jul 09, 2013 6:21 am </p>
+
+			
+
+			<div class="content">Hi David, I just ran your example MSLS puzzles.<br /><br />Your Example 2 puzzle line format has a missing given 1 r6c5. It should be 3.....9...7...1.5...2.....4....76.1....3.5....6.8<span style="color: #FF0000">1</span>....4.....2...5.6...8...9.....3<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228700">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228702" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228702&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228702">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228702.html#p228702"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2225.html">daj95376</a></strong> &raquo; Tue Jul 09, 2013 6:40 am </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>David P Bird wrote:</cite><span style="font-weight: bold">Example 1  </span> <br /><br />1......8......92....6.3...52....8.....5.7.....6.5....4..47...........91..3..6...7;28;elev;14;G1<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp;1*. . | . . . | . 8*. <br />&nbsp; &nbsp;. . . | . . 9*| 2*. . <br />&nbsp; &nbsp;. . 6 | . 3 . | . . 5 <br />&nbsp; &nbsp;------|-------|-------<br />&nbsp; &nbsp;2*. . | . . 8*| . . . <br />&nbsp; &nbsp;. . 5 | . 7 . | . . .<br />&nbsp; &nbsp;. 6 . | 5 . . | . 4 .<br />&nbsp; -------|-------|-------<br />&nbsp; &nbsp;. . 4 | 7 . . | . . . <br />&nbsp; &nbsp;. . . | . . . | 9*1*. <br />&nbsp; &nbsp;. 3 . | . 6 . | . . 7</code></dd></dl> <br />Examining the positions of the givens [1289] they can be seen to mainly occur together in different rows and columns. <span style="color: #800000">Only (4)r6c8 occurs in the same line as any of them</span>. These then make an ideal choice of Home set which establishes the complementary digits [34567] as the Away set.  <br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;1&gt;&nbsp; &nbsp; &nbsp;24579&nbsp; &nbsp;2379&nbsp; &nbsp; | 246&nbsp; &nbsp; &nbsp;245&nbsp; &nbsp; &nbsp;4567-2&nbsp; | 3467&nbsp; &nbsp; &lt;8&gt;&nbsp; &nbsp; &nbsp;369&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; | 3457-8&nbsp; 4578&nbsp; &nbsp; 378&nbsp; &nbsp; &nbsp;| 1468&nbsp; &nbsp; 1458&nbsp; &nbsp; &lt;9&gt;&nbsp; &nbsp; &nbsp;| &lt;2&gt;&nbsp; &nbsp; &nbsp;3467&nbsp; &nbsp; 136&nbsp; &nbsp; &nbsp;| <br />&nbsp;47 | &#91;4789&#93;&nbsp; 289-47&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;| 128-4&nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;&#91;1247&#93;&nbsp; | &#91;147&#93;&nbsp; &nbsp;&#91;479&#93;&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; | &lt;2&gt;&nbsp; &nbsp; &nbsp;1479&nbsp; &nbsp; 1379&nbsp; &nbsp; | 13469&nbsp; &nbsp;149&nbsp; &nbsp; &nbsp;&lt;8&gt;&nbsp; &nbsp; &nbsp;| 3567-1&nbsp; 3567-9&nbsp; 1369&nbsp; &nbsp; | <br />346 | &#91;3489&#93;&nbsp; 189-4&nbsp; &nbsp;&lt;5&gt;&nbsp; &nbsp; &nbsp;| 129-346 &lt;7&gt;&nbsp; &nbsp; &nbsp;&#91;12346&#93; | &#91;1368&#93;&nbsp; &#91;2369&#93;&nbsp; 1289-36 | <br />&nbsp;37 | &#91;3789&#93;&nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;189-37&nbsp; | &lt;5&gt;&nbsp; &nbsp; &nbsp;129&nbsp; &nbsp; &nbsp;&#91;123&#93;&nbsp; &nbsp;| &#91;1378&#93;&nbsp; &#91;2379&#93;&nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />356 | &#91;5689&#93;&nbsp; 1289-5&nbsp; &lt;4&gt;&nbsp; &nbsp; &nbsp;| &lt;7&gt;&nbsp; &nbsp; &nbsp;1289-5&nbsp; &#91;1235&#93;&nbsp; | &#91;3568&#93;&nbsp; &#91;2356&#93;&nbsp; 28-36&nbsp; &nbsp;| <br />&nbsp; &nbsp; | 567-8&nbsp; &nbsp;2578&nbsp; &nbsp; 278&nbsp; &nbsp; &nbsp;| 2348&nbsp; &nbsp; 2458&nbsp; &nbsp; 345-2&nbsp; &nbsp;| &lt;9&gt;&nbsp; &nbsp; &nbsp;&lt;1&gt;&nbsp; &nbsp; &nbsp;2368&nbsp; &nbsp; | <br />&nbsp;45 | &#91;589&#93;&nbsp; &nbsp;&lt;3&gt;&nbsp; &nbsp; &nbsp;1289&nbsp; &nbsp; | 1289&nbsp; &nbsp; &lt;6&gt;&nbsp; &nbsp; &nbsp;&#91;125&#93;&nbsp; &nbsp;| &#91;458&#93;&nbsp; &nbsp;&#91;245&#93;&nbsp; &nbsp;&lt;7&gt;&nbsp; &nbsp; &nbsp;| <br />&nbsp; &nbsp; *-------------------------*-------------------------*-------------------------*<br />&nbsp; &nbsp; &nbsp; &nbsp;89&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 12&nbsp; &nbsp; &nbsp; &nbsp; 18&nbsp; &nbsp; &nbsp; &nbsp;29<br />MS-NS: r35679c1678 (20 cells)<br />&nbsp; &nbsp;(47)r3,(346)r5,(37)r6,(356)r7,(45)r9,(89)c1,(12)c6,(18)c7,(29)c8 (20 digit covers)<br />=&gt; Eliminations: 2r1c6, 8r2c1, 47r3c2, 4r3c4, 1r4c7, 9r4c8, 4r5c2, 346r5c4, <br />&nbsp; &nbsp;36r5c9, 37r6c3, 5r7c2, 5r7c5, 36r7c9, 8r8c1, 2r8c6 (21 candidates in 15 cells)</code></dd></dl><br /></div></blockquote><br />Since Leren opened the door, you have an inconsistency in your first example. Your first grid shows <span style="color: #800000">r6c8=4</span>, but your second grid shows r6c9=4.<br /><br />BTW, you're only missing r5c1&lt;&gt;8 from matching all eliminations found by Templates for &lt;1289&gt;.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228702">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2225.html">daj95376</a>
+			</dt>
+
+			<dd>2014 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 2624</dd><dd><strong>Joined:</strong> 15 May 2006</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228703" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228703&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228703">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228703.html#p228703"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Tue Jul 09, 2013 6:59 am </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>Leren wrote:</cite>Hi David, I just ran your example MSLS puzzles.<br /><br />Your Example 2 puzzle line format has a missing given 1 r6c5. It should be 3.....9...7...1.5...2.....4....76.1....3.5....6.8<span style="color: #FF0000">1</span>....4.....2...5.6...8...9.....3</div></blockquote><br />Hi Leren, You're right and I'll correct the error. <br /><br />It's a bit of a worry though as I used a simple copy and paste operation from my spreadsheet to a text file which went astray. This suggests there's a corrupt cell formula I need to find!   <br /><br />DAJ your post appeared as I was checking this. It seems to pinpoint the problem to a cell involving row 6. <br /><br />Thanks! <br /><br />David</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228703">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228718" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228718&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228718">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228718.html#p228718"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Wed Jul 10, 2013 1:34 am </p>
+
+			
+
+			<div class="content"><blockquote class="uncited"><div>David P Bird Wrote :<br />Here there are 17 digits occupying the 16 cells so one of them must be true in an external cell.<br />Now it can be noted the full set of PEs would leave box 1 without a 5 so identifying that it should be removed from the Away set for either row 1 or row 2, but which row it should be isn't known. <br /><br />There are now two ways to handle this <br />1) Add a Home set for box 5. This will fully cover the candidates in the unsolved cells in the box and so create a Naked Set of 21 cells with 21 digits. <br />2) Remove 5 from the covers for r1 and r2 and substitute them with a 5b3 cover (a 5b2 isn't needed as it is a given in that box). This now reduces the digit covers to 16 to balance with the size of the Naked Set. </div></blockquote><br />Hi David, <br /><br />Your point 2) is OK and that's how I have implemented my MSLS process.<br /><br />However I'm really struggling to understand your point 1) - you seem to have covered some of the cells in Box 5 twice and I can't see what rule it is that you apply to justify the eliminations in Box 5.<br /><br />On the other hand the first 2 sentences in the quote fully justify the 18 exclusions and could be substituted for your point 1). Here's why. I'll re-word them sightly to bring out the logic.<br /><br />There are 17 links covering the 16 cells, so <span style="text-decoration: underline">exactly one </span>of the PE's must be true in an external cell.<br />One of r1c3 or r2c2 must be 5 otherwise Box 1 would be left without a 5 so the PE that is true in an external cell must be one of these 2 PE's (but we don't know which one it is).<br /><br />Nevertheless the remaining 18 PE's can be eliminated.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228718">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228719" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228719&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228719">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228719.html#p228719"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Wed Jul 10, 2013 4:23 am </p>
+
+			
+
+			<div class="content"><blockquote class="uncited"><div>David P Bird Wrote: However it's less powerful as it will only handle rank 0 and rank 1 patterns. </div></blockquote><br />Hi David, I'm not sure whether this is correct if I understand your meaning correctly.<br /><br />For example, in your second example puzzle I found the following MSLS pattern.<br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>*-------------------------------------------------------------------------*<br />| 3&nbsp; &nbsp; &nbsp; 148&nbsp; &nbsp; &nbsp;1568-4&nbsp; | 2457&nbsp; &nbsp;24568&nbsp; 2478&nbsp; &nbsp; | 9&nbsp; &nbsp; &nbsp; 267&nbsp; &nbsp; &nbsp;1678-2&nbsp; |<br />|&#91;689&#93;&nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &#91;468&#93;&nbsp; &nbsp; | 249&nbsp; &nbsp; 2349-6 1&nbsp; &nbsp; &nbsp; &nbsp;|&#91;368&#93;&nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &#91;268&#93;&nbsp; &nbsp; |<br />| 1568-9 189&nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;| 579&nbsp; &nbsp; 35689&nbsp; 3789&nbsp; &nbsp; | 1678-3 367&nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;|<br />|------------------------+-----------------------+------------------------|<br />|&#91;2589&#93;&nbsp; 2349-8 &#91;3458&#93;&nbsp; &nbsp;| 249&nbsp; &nbsp; 7&nbsp; &nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; &nbsp;|&#91;3458&#93;&nbsp; 1&nbsp; &nbsp; &nbsp; &#91;2589&#93;&nbsp; &nbsp;|<br />| 178-29 12489&nbsp; &nbsp;178-4&nbsp; &nbsp;| 3&nbsp; &nbsp; &nbsp; 249&nbsp; &nbsp; 5&nbsp; &nbsp; &nbsp; &nbsp;| 678-4&nbsp; 24679&nbsp; &nbsp;678-29&nbsp; |<br />|&#91;2579&#93;&nbsp; 6&nbsp; &nbsp; &nbsp; &#91;3457&#93;&nbsp; &nbsp;| 8&nbsp; &nbsp; &nbsp; 1&nbsp; &nbsp; &nbsp; 249&nbsp; &nbsp; &nbsp;|&#91;3457&#93;&nbsp; 2349-7 &#91;2579&#93;&nbsp; &nbsp;|<br />|------------------------+-----------------------+------------------------|<br />| 4&nbsp; &nbsp; &nbsp; 138&nbsp; &nbsp; &nbsp;1678-3&nbsp; | 1579&nbsp; &nbsp;3589&nbsp; &nbsp;3789&nbsp; &nbsp; | 2&nbsp; &nbsp; &nbsp; 679&nbsp; &nbsp; &nbsp;1567-9&nbsp; |<br />|&#91;127&#93;&nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &#91;137&#93;&nbsp; &nbsp; | 6&nbsp; &nbsp; &nbsp; 2349&nbsp; &nbsp;2349-7&nbsp; |&#91;147&#93;&nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &#91;179&#93;&nbsp; &nbsp; |<br />| 1678-2 128&nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;| 12457&nbsp; 2458&nbsp; &nbsp;2478&nbsp; &nbsp; | 1567-4 467&nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;|<br />*-------------------------------------------------------------------------*</code></dd></dl><br />MSLS 1 : Base 1678; r2468 c1379 : 16 Links; 68r2 8r4 7r6 17r8 ; 29c1 34c3 34c7 29c9 ; 5b4 5b6 ;<br /><br />The initial link count was 18, however for digit 5, links 5c13 can be swapped for 5b4 and 5c79 can be swapped for 5b6 leading to a Truth/Link balance of 16 and the same <br />19 eliminations as in your example.  The full set of patterns I found for this puzzle was:<br /><br />MSLS 1 : Base 1678; r2468 c1379 : 16 Links; 68r2 8r4 7r6 17r8 ; 29c1 34c3 34c7 29c9 ; 5b4 5b6 ;<br />MSLS 2 : Base 1678; r24568 c1379 : 20 Links; 68r2 8r4 1678r5 7r6 17r8 ; 29c1 34c3 34c7 29c9 ; 5b4 5b6 ;<br />MSLS 3 : Base 2349; r1379 c24568 : 20 Links; 24r1 39r3 39r7 24r9 ; 18c2 157c4 568c5 78c6 67c8 ;<br />MSLS 4 : Base 1678; c24568 r1379 : 20 Links; 18c2 17c4 68c5 78c6 67c8 ; 24r1 39r3 39r7 24r9 ; 5b2 5b8 ;<br />MSLS 5 : Base 2349; c1379 r2468 : 16 Links; 29c1 34c3 34c7 29c9 ; 68r2 58r4 57r6 17r8 ;<br />MSLS 6 : Base 2349; c1379 r24568 : 20 Links; 29c1 34c3 34c7 29c9 ; 68r2 58r4 1678r5 57r6 17r8 ;<br /><br />The 5th pattern is the same as your first pattern. My code does not cover the second pattern you found.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228719">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228724" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228724&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228724">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228724.html#p228724"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Wed Jul 10, 2013 10:51 am </p>
+
+			
+
+			<div class="content">Hi Leren,<br /><br />Re your first response above, sorry, in my notes for how to correct the balance in example 3, I mistyped box 5 when it should have been box 1 (I've edited it now). The only reason I like to correct the balance is to make the notation shorter. As you say, we know where the single invalid elimination is contained so all the others can be made. (Did you notice that there is also a JExocet in this puzzle too?)   <br /><br /><blockquote><div><cite>Leren wrote:</cite><blockquote class="uncited"><div>David P Bird Wrote: However it's less powerful as it will only handle rank 0 and rank 1 patterns. </div></blockquote><br />Hi David, I'm not sure whether this is correct if I understand your meaning correctly.</div></blockquote><br />My aim was to simplify the amount of work needed to find a multi-fish in comparison to Xsudo. Once I've identified a the potential Home and Away sets of digits (which I see you're calling Base and Roof sets) all I have to do is to enter 'H' or 'A' alongside each house and my spreadsheet colours the fully and partially covered cells differently and counts the digit covers and cells to check if a match (or rank 0) pattern has been found. This makes the input very quick. <br /><br />This is because I'm using truth-balancing instead of base and cover sets, but the price that must be paid is that only the most basic rank 0 and rank 1 scenarios can be explored. Broadly speaking rank 0 is when the balance is exact, and rank 1 is when there is a difference of 1. In comparison Xsudo is capable of exploring net-based deductions where the overall rank of the pattern is determined by the overall difference between the Link and Truth sets used and can extend beyond rank 1. It's then necessary to identify the digits involved in each house individually so the Home and Away set concept can't be used.<br /><br />When a balance is found there will usually be follow-one eliminations resulting from the formation of naked and hidden singles, double, triples etc. In my experience, once these have been made, all these patterns always produce the same end result. My conjecture is that if a balance exists between the full digit sets, it will always be possible to express it with one set covering the rows and the other covering the columns. I therefore don't look for other ways to balance them once I've found the first one - except to switch to the complimentary Naked Set when it's smaller.<br /><br />We then get onto cases where there is no balance available using the full digit sets and adjustments have to be made as in example 3. I've not fully explored this area but have concentrated on two cases. The first is when the boxes would have no instances of a digit left, as covered by example 3. <br /><br />The second is when one or more of the digits frequently occur as givens or solved cells in the puzzle. Here I have a couple of tactics: <br />1. To take them out of both Home and Away sets (I actually put them into a &quot;Neutral&quot; set to do this). I can then add them individually to the row or column covers where they're needed, sometimes in the home set and sometimes in the away set.<br />2. To select rows and columns so they mainly intersect on known cells for these and other digits. When these are aligned it allows the rows and columns to be both the same set and the containing box to covered by the other set. (As in the alternative form I use for SK loops.) There are a lot more options to explore when this happens though, and apart from the SK loop case, there are no sure-fire rules I can find.             <br /><br />David</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228724">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228739" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228739&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228739">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228739.html#p228739"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4302.html">blue</a></strong> &raquo; Thu Jul 11, 2013 7:57 am </p>
+
+			
+
+			<div class="content">Hi David,<br /><br /><blockquote><div><cite>David P Bird wrote:</cite><br /><span style="font-weight: bold">Eliminations</span><br /><br />(...)<br /><br />When HS = D + 1 =&gt; Almost Hidden Set <br /><ul> If exactly one cell has digits covered more than once, the other digits in that cell are false</ul>When HS = D =&gt; Hidden Set <br /><ul> If no digits are covered more than once, digits in the partially covered cells that are uncovered are false</ul></div></blockquote><br />The AHS equation should also be &quot;HS = D&quot; (or HS = DC).<br /><br />Regards,<br />Blue.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228739">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4302.html">blue</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1106</dd><dd><strong>Joined:</strong> 11 March 2013</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228741" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228741&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228741">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228741.html#p228741"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Thu Jul 11, 2013 8:40 am </p>
+
+			
+
+			<div class="content">Hi Blue, Thanks for picking up on that. <br /><br />When I wrote the piece I had your exacting standards in mind. As it was attracting no interest, I later took the opportunity to tidy up the presentation to try to make it clearer. This included the change from D in the original to DC in the rework, but I omitted to carry it through properly.<br /><br />I also have some other contributions in draft form which I may return to when time permits.    <br /><br />David.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228741">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228801" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228801&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228801">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228801.html#p228801"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Sat Jul 13, 2013 5:40 am </p>
+
+			
+
+			<div class="content">Hi David,<br /><br />Have you noticed that in the case of a fairly well behaved MSLS puzzle with a 4 digit Home set that 3 of the 4 digits almost always occur at 3 corners of a rectangle of given/solved cells ?<br /><br />This is certainly true of the 3 examples in this thread and in the majority of puzzles I've checked for this property.<br /><br />For example try these puzzles - the first 10 in Champagne's 04c multi-fish rank 0 file:<br /><br /><div style="padding: 3px; background-color: #FFFFFF; border: 1px solid #d8d8d8; font-size: 1em;"><div style="border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.9em; font-weight: bold; display: block;"><span onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') {  this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Hide</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Show</a>'; }" /><b>Hidden Text: </b><a href="#" onClick="return false;">Show</a></span></div><div class="quotecontent"><div style="display: none;">12.3.....4.5...6...7.....2.6..1..3....453.........8..9...45.1.........8......2..7;5;elev;1;2;2789;R;C; ; ;;<br />2.......6.5..8..1...4...9...7.3.1......82.......7.5.3...9...4...8..1..5.6.......2;10;tax;tarek-ultra-0203;3;2469;R;C;X; ;;<br />1.......2..94...5..6....7.....89..4....3.6.....8.4.....2....1..7.......6..5.8..3.;12;tax;gsf-2007-05-24-003 64879;3;1267;R;C;X; ;;<br />6.......2.9.4...5...1...7...5..84.......2.......3.5.4.2.....6...3...9.8...7.....1;13;tax;coloin-04-10;3;1267;R;C;X; ;;<br />1.......2.9.4...5...6...7...5.3.4.......6........58.4...2...6...3...9.8.7.......1;14;tax;coloin-04-10;3;1267;R;C;X; ;;<br />1.......2.3.4...5...6...7...5.8.4.......29......3...9...7.....1.9...8.4.2.....6..;17;Hp54;4;3;1267;R;C;X; ;;<br />1.......2.3.4...5...6...7...5.9.4.......23......8...9...2...6...9...8.4.7.......1;18;Hp54;1;3;1267;R;C;X; ;;<br />.2.4..7....6.....17...3......5....6..4.2..9.......5..8..1..8....9..7.......92.3..;20;elev;10;2;1568;R;C; ; ;;<br />1.......9.5....2....87...4.2...3......48.5....8.6...7...6..4.5.........1....9.3..;21;elev;11;2;1239;R;C; ; ;;<br />5.......9.2.1...7...8...3...4.6.........5.......2.7.1...3...8...6...4.2.9.......5;22;tax;m_b_metcalf;3;3589;R;C;X; ;;</div></div></div><br />The one exception in this lot is the in the last one; one the 2 successful Home sets for this puzzle, 3589,  doesn't fit this pattern but has a different property:<br />These digits appear as givens at the 4 corners of 2 rectangles of givens, 59 in one rectangle and 38 in the other.<br /><br />I'm betting that this pattern is the only exception to the &quot;3 corner rule'' and only occurs now and then - possibly associated with the presence of an SK loop, which this puzzle has.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228801">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228818" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228818&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228818">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228818.html#p228818"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a></strong> &raquo; Sun Jul 14, 2013 8:27 am </p>
+
+			
+
+			<div class="content">Hi Leren, <br /><br />You're right of course, but when you consider the method I've described for selecting the Home set, it's no surprise.<br /><br />When the givens for 2 digits occur in all 4 corners of a rectangle, you have the first stage requirements for an SK loop. If there is then a second pair of digits with the same property, then together they form a natural Home set to complete the second stage requirements. The third stage for is then for the two rectangles to be confined to 4 boxes. FInally if there are givens to complete the diagonals in each of these boxes there is a basic SK loop.<br /><br />Another one to look out for is a Swordfish pattern of givens when the digits they hold often make a good Away set.        <br /><br />We're enjoying a bit of a heat wave here so my Sudoku time is suffering! <br /> <br />David</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228818">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2986.html">David P Bird</a>
+			</dt>
+
+			<dd>2010 Supporter</dd>
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1043</dd><dd><strong>Joined:</strong> 16 September 2008</dd><dd><strong>Location:</strong> Middle England</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p228833" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=228833&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#p228833">Re: Using Multi-Sector Locked Sets</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post228833.html#p228833"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Mon Jul 15, 2013 1:50 am </p>
+
+			
+
+			<div class="content">Hi David, <br /><br />Subsequent to my last post I've generalised my 3 corner rule in 2 ways:<br /><br />1. Find sets of 3 digits at the 3 corners of a rectangle. Check all such instances and form 4 digit Home set guesses by combining the sets of 3 where 2 digits are common. eg if you have sets 123 and 234 them your Home set guess is 1234.<br /><br />2. Find sets of 2 digits at 3 or 4 corners of a rectangle where one or both of the diagonals of the rectangle hold the same digit.  Check all such instances and form 4 digit Home set guesses by combining the sets of 2 where no digits are common. eg if you have sets 122 and 344 them your Home set guess is 1234.<br /><br />I've tested this method of &quot;guessing&quot; Home sets on all 6333 puzzles in Champagne's 04c multi-fish rank 0 file. I guessed a correct Home sets in all but 6 cases. (There are also about a dozen puzzles in this file that don't have 4 digit bases).<br /><br />The 6 puzzles with 4 digit bases where this &quot;tactic&quot; didn't work are these:<br /><br /><div style="padding: 3px; background-color: #FFFFFF; border: 1px solid #d8d8d8; font-size: 1em;"><div style="border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.9em; font-weight: bold; display: block;"><span onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') {  this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Hide</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Show</a>'; }" /><b>Hidden Text: </b><a href="#" onClick="return false;">Show</a></span></div><div class="quotecontent"><div style="display: none;">.2...6..94......3...8...5.........7....61...2.7..92....6..7...1.....1.9....5..3..;2706;elev;1228;2;3458;R;C; ; ;; ,       MSLS 1 : Base 3458; r2349 c2569 + r4c4 : 17 Links; 58r2 34r3 3458r4 48r9 ; 19c2 26c5 9c6 67c9 ; , 22<br />98.7..6..75..8......4......6......5..9..7.8.......3..25...6.9.....1...4......2..3;8341;GP;H1979;2;1234;R;C; ; ;; ,        MSLS 1 : Base 1234; r3689 c1257 : 16 Links; 123r3 14r6 23r8 14r9 ; 8c1 67c2 59c5 57c7 ; , 20<br />98.7.....65....4....3.6....7..8..6....5....2.....3...1.4.6..7......1...3.....2.9.;8706;GP;H2238;2;123;R;C; ; ;; ,         MSLS 1 : Base 1236; c35689 r1247 : 20 Links; 12c3 2c5 13c6 13c8 2c9 ; 45r1 789r2 459r4 589r7 ; 6b3 ; , 12<br />98.7.....6.7...5......5....5..6..8...4...3.....6.9......89..7......3..2......4..1;33253;GP;2012_04;2;1234;R;C; ; ;; ,     MSLS 1 : Base 1234; r3589 c1347 + r3c2 : 17 Links; 1234r3 12r5 14r8 23r9 ; 78c1 9c3 58c4 69c7 ; , 22<br />98.7.....7.6...5......5....5..6..8...4...3.....7.9......89..6......2..1......4..3;33342;GP;2012_04;2;1234;R;C; ; ;; ,     MSLS 1 : Base 1234; r3589 c1347 + r3c2 : 17 Links; 1234r3 12r5 34r8 12r9 ; 68c1 9c3 58c4 79c7 ; , 22<br />98.7.....7.6...5......5....5..9..8...4...3.....9.6......86..7......3..2......1..3;33343;GP;2012_04;1;56789;R; ; ; ;; ,    MSLS 1 : Base 1234; r3589 c1347 + r3c2 : 17 Links; 1234r3 12r5 14r8 24r9 ; 68c1 7c3 58c4 69c7 ; , 23</div></div></div><br />Interestingly in puzzles 1, 4, 5 and 6 a successful Home set appears as the only 4 unsolved digits in one of the boxes - a possible third pattern to look for.<br /><br />How successful was this &quot;tactic&quot; compared with the brute force method of testing all 126 possible Home set combinations ?<br /><br />The overall computation time for me was reduced by 20% over the brute force method.  For the first 1000 puzzles the average number of Home set guesses was 31 with a maximum of 80 and minimum of 6.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile228833">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<form id="viewtopic" method="post" action="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222.html">
+
+	<fieldset class="display-options" style="margin-top: 0; ">
+		<a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222-15.html" class="right-box right">Next</a>
+		<label>Display posts from previous: <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select></label>
+		<label>Sort by <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select></label> <label><select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select> <input type="submit" name="sort" value="Go" class="button2" /></label>
+		
+	</fieldset>
+
+	</form>
+	<hr />
+
+
+<div class="topic-actions">
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=31222&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="pagination">
+			41 posts
+			 &bull; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>3</strong></a> &bull; <span><strong>1</strong><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222-15.html">2</a><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/using-multi-sector-locked-sets-t31222-30.html">3</a></span>
+		</div>
+	
+</div>
+
+
+	<p></p><p><a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html" class="left-box left" accesskey="r">Return to Advanced solving techniques</a></p>
+
+	<form method="post" id="jumpbox" action="http://forum.enjoysudoku.com/viewforum.php" onsubmit="if(this.f.value == -1){return false;}">
+
+	
+		<fieldset class="jumpbox">
+	
+			<label for="f" accesskey="j">Jump to:</label>
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+			
+				<option value="-1">Select a forum</option>
+			<option value="-1">------------------</option>
+				<option value="9">News and announcements</option>
+			
+				<option value="10">&nbsp; &nbsp;About the New Sudoku Players' Forum</option>
+			
+				<option value="5">Sudoku: the puzzle</option>
+			
+				<option value="7">&nbsp; &nbsp;General</option>
+			
+				<option value="33">&nbsp; &nbsp;Puzzles</option>
+			
+				<option value="4">&nbsp; &nbsp;Help with puzzles and solving techniques</option>
+			
+				<option value="6" selected="selected">&nbsp; &nbsp;Advanced solving techniques</option>
+			
+				<option value="8">&nbsp; &nbsp;Interactive games</option>
+			
+				<option value="18">&nbsp; &nbsp;Software</option>
+			
+				<option value="16">Resources</option>
+			
+				<option value="32">&nbsp; &nbsp;Published puzzles</option>
+			
+				<option value="31">&nbsp; &nbsp;Books</option>
+			
+				<option value="17">&nbsp; &nbsp;On the web</option>
+			
+				<option value="11">Related puzzles</option>
+			
+				<option value="12">&nbsp; &nbsp;Sudoku variants</option>
+			
+				<option value="13">&nbsp; &nbsp;Kakuro</option>
+			
+				<option value="14">&nbsp; &nbsp;Other logic puzzles</option>
+			
+				<option value="15">&nbsp; &nbsp;Inventors' studio</option>
+			
+				<option value="19">Off-topic</option>
+			
+				<option value="20">&nbsp; &nbsp;Coffee bar</option>
+			
+				<option value="29">&nbsp; &nbsp;Forum questions and feedback</option>
+			
+			</select>
+			<input type="submit" value="Go" class="button2" />
+		</fieldset>
+	</form>
+
+</div>
+
+<div id="page-footer">
+
+	<div class="navbar">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<ul class="linklist">
+			<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a></li>
+				
+			<li class="rightside"><a href="http://forum.enjoysudoku.com/the-team.html">The team</a> &bull; <a href="http://forum.enjoysudoku.com/ucp.php?mode=delete_cookies&amp;sid=0075c9cdf8f04daf9cedcccc1c7b6f03">Delete all board cookies</a> &bull; All times are UTC </li>
+		</ul>
+		
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<div class="copyright">Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group
+		<br /><br /><a href="http://www.phpbb-seo.com/" title="Search Engine Optimization"><img src="http://forum.enjoysudoku.com/images/phpbb-seo.png" alt="phpBB SEO"/></a>
+	</div>
+</div>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	
+</div>
+
+</body>
+</html>

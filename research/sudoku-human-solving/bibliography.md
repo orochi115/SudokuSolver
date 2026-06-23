@@ -25,6 +25,7 @@ Access date for this local library expansion: 2026-06-01.
 - Local raw HTML: `local-library/raw-html/sudokuwiki/`
 - Coverage: strategy families, logical vs brute force, intersections, subsets, X-Wing, Y-Wing, Swordfish, coloring, AIC, uniqueness, ALS.
 - Supplemental pages added later: XY-Chains, X-Cycles, 3D Medusa, W-Wing, XYZ-Wing, BUG, Forcing Nets, AIC with Groups, AIC with ALSs, and AIC with Unique Rectangles.
+- Exotic pages added 2026-06-23: Exocet, SK Loops, Fireworks, Aligned Pair Exclusion.
 - Use: primary taxonomy and explanatory source. Copyright unclear for redistribution, so cite and paraphrase in downstream work.
 
 ### Sudopedia
@@ -76,6 +77,16 @@ Access date for this local library expansion: 2026-06-01.
 - Coverage: Chinese terminology, advanced technique summaries, constructed-chain framing, X-Wing, UR.
 - Supplemental Chinese pages added later: Sudoku.com Chinese Swordfish/Y-Wing and cn.sudokupuzzle XY-Wing/Unique Rectangle.
 - Use: terminology normalization and Chinese-language synthesis.
+
+### enjoysudoku Forum (New Sudoku Players' Forum)
+
+- Source ID prefix: `ENJOYSUDOKU-*`
+- Site: http://forum.enjoysudoku.com/
+- Content: user-generated forum posts (canonical first sources for several exotic patterns, e.g. MSLS).
+- Local Markdown: `local-library/markdown/enjoysudoku/`
+- Local raw HTML: `local-library/raw-html/enjoysudoku/`
+- Coverage: Multi-Sector Locked Sets (MSLS) and related rank-0 set logic.
+- Use: primary source for exotic rank-0 techniques; attribute original posters, paraphrase, cite thread URL.
 
 ## Copyright Handling
 

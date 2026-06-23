@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Aligned Pair Exclusion - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Strategy. Aligned Pair Exclusion is a complex but interesting strategy that considered the combinations of available candidates that overlap between a box and a row or column"/>
+<meta name="twitter:description" content="Sudoku Strategy. Aligned Pair Exclusion is a complex but interesting strategy that considered the combinations of available candidates that overlap between a box and a row or column">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/APE1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/APE1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Aligned_Pair_Exclusion';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Aligned_Pair_Exclusion">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Aligned Pair Exclusion</h1><div class="SRCell">This is an interesting strategy, known by the short-hand as APE and sometimes called <span class="hy">Subset Exclusion</span>. It can overlap with <a href="/Y_Wing_Strategy">Y-Wings</a>, <a href="/XYZ_Wing">XYZ-Wings</a> and <a href="/WXYZ_Wing">WXYZ-Wings</a> but uses very different logic. The overlap is not strict so they are worth looking out for in a tough situation. <br><br>There is always a base pair of cells (which now show up as grey cell on the solver). At least one elimination will occur in one of those two cells.  The solver will also show a variety of colored cells which are the elements used to make an elimination. I used to distinguish between APE type 1 which only used bi-value cells and type 2 which used 2-cell Almost Locked Sets (ALSs). But the solver will now find a larger variety including 3-cell ALSs and since these merely extend the same logic the solver will return the first of any it finds. A better Type 1 and Type 2 distinction is between the base pair of cells which can be a locked pair (ie can see each other) or not (can't see each other). The logic is subtly different but I'll come to this in the following examples.<br></div><br>
+
+<h2>Aligned Pair Exclusion - Type 1</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE1_new.png" alt="APE example 1<br>(requires Y-Wing unchecked)" /><figcaption>APE example 1<br>(requires Y-Wing unchecked)
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=097103040030040700000670003273914586986007104154068007700091000009736050360000070">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=090000040030040700000670003200900506006000100104008007700091000009030050060000070">From the Start</a>
+</figcaption></figure>
+<br>The <span class="hy">Aligned Pair Exclusion</span> can be succinctly stated: <b>Any two cells that can see each other CANNOT contain a pair of numbers that will empty a cell in an Almost Locked Set they both entirely see.</b> <br><br>Remember - a <span class="hy">bi-value cell</span> (with two candidates) is the simplest <span class="hy">Almost Locked Set</span> since it is a set of size '1' with size+1 (ie two) candidates.<br><br>Let's consider the simplest possible example - two bi-value cell attacking the pair. I have also shown the Y-Wing in the diagram so we can see there is a simpler way to do the same job - but only in some cases.<br><br>We consider ALL the possible pairs of numbers that will fit in [<span class="hy">G2/G3</span>]. These are for <span class="hy">G2</span> and <span class="hy">G3</span>:<br><br><s>2 and 2</s> (impossible)<br>2 and 5<br>2 and 8<br>4 and 2<br>4 and 5<br>4 and 8<br><br>Apart from the first being impossible (2 and 2) since <span class="hy">G2</span> and <span class="hy">G3</span> can see each other, we have problems with some of the other combinations. What if 2 and 8 were tried as the solutions? Well, that would duplicate and therefore empty <span class="hy">G9</span>. Also 4 and 8 would empty <span class="hy">H1</span>.</div>
+
+<div class="SRCell">We are left with a set of combinations that looks like this:<br><br><s>2 and 2</s> (impossible)<br>2 and 5<br><s>2 and 8</s> (impossible)<br>4 and 2<br>4 and 5<br><s>4 and 8</s> (impossible)<br><br>Notice that we now have no 8 left in any pairing? Therefore we can remove 8 from our base pair. Voil&#224;<br> <br><b>Credits</b> - <b>Rod Hagglund</b> first popularised this method. (links now dead).<br></div><br>
+
+<h2>Example 2</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE2_new2.png" alt="APE example 2" /><figcaption>APE example 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B2b4r2y0r02038i8i5u06022e0509082f2f047v477y070r060502460509080n06022f042f020u017y0705087q060u0706080r7n7r05027z06027n4i070v4713080z2q060304022b099r0v9q024i7n3f6u2v">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000000600598004000700520090002040201000806070800050062007000800634009000000000">From the Start</a>
+</figcaption></figure>
+The next example has tri-values spread over two pairs of cells as part of the attack.  The way we can use double cells is by saying that any two cells with only <span class="hy">abc</span> excludes combinations <span class="hy">ab</span>, <span class="hy">ac</span> and <span  class="hy">bc</span> from the base pair under consideration. This neat trick greatly extends the usefulness of APE which would otherwise be a just poor man's Y-Wing.<br><br>The 2-cell ALS in [<span class="hy">A1,B3</span>] contains {1/3/7} so pairs that would cripple the solution for that ALS are {1,3}, {1,7} and {3,7}.<br><br>Let's consider all the possible pairs of numbers in our base pair [<span class="hy">C2/C3</span>].  These are:<br><br><s>1 and 3</s> - excluded by <span class="hy">A1</span> + <span class="hy">B3</span><br><s>1 and 4</s> - excluded by <span class="hy">C1</span> + <span class="hy">C5</span><br><s>1 and 9</s> - excluded by <span class="hy">C1</span> + <span class="hy">C5</span><br><s>3 and 3</s><br>3 and 4<br>3 and 9<br><s>8 and 3</s> - excluded by <span class="hy">C9</span><br>8 and 4 <br>8 and 9<br></div>
+
+<div class="SRCell"><br><br>Now, we have to be a tiny bit careful here. 3 has definitely been excluded as a possible solution in <span class="hy">C3</span> but look down the list and 3 + 4 is still OK and 3 + 9 is OK. So we can't remove 3 from <span class="hy">C2</span> just yet. <br><br>Credits: Myth Jellies came up with the insight for abc = ab/ac/bc<br><br>Note: There could be more than two, sometimes three or four ALSs of several sizes in an APE attack. I've considered examples with two for simplicity's sake<br><br></div><br>
+
+<h2>Example 3</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE3_new.png" alt="APE Example 3" /><figcaption>APE Example 3
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000370706003000300172009967238500531496728824517936600305000000000403083000000">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000370706000000000102009007030500530406028004010900600305000000000403083000000">From the Start</a>
+</figcaption></figure>
+Further into the same puzzle we come across a 3-cell ALS plus a bi-value in <span class="hy">H3</span> attacking <span class="hy">A3/B3</span>.  The ALS in [<span class="hy">A1,C1,C3</span>] contains the four numbers {1,4,7,9} which the solver thinks of as a quadruple combination.  The combinations of 'abcd' are ab, ac, ad, bc, bd and cd. Back to the base pair: We can list the combinations for <span class="hy">A3/B3</span> as <br><br>4 and 3<br><s>4 and 7</s> - excluded by [<span class="hy">A1,C1,C3</span>]<br>5 and 3<br><s>5 and 7</s> - excluded by <span class="hy">H3</span><br>7 and 3<br><s>7 and 7</s> (impossible)<br><br>The tricky one with the 3-cell ALS is not the fact that the base pair will empty it (it can't since it is two cells and the ALS is 3 cells). It's the fact that a solution of 4 in <span class="hy">A3</span> and 7 in <span class="hy">B3</span> would mean there'd be only two candidates left to fill three cells.  Thats enough to rule out the combination.<br><br></div>
+
+<h2>Aligned Pair Exclusion - Type 2</h2>
+<div class="SRCell">Aligned Pair Exclusion can also work even if the pair is not aligned. Sounds like a joke, but it's too late now to rename this strategy :) Perhaps 'Subset Exclusion' was a better idea.  There is a subtle logical different but I have found many examples and it boosts the usefulness of this strategy.<br>I'm very grateful to Joseph Aleardi for putting me on the scent of this elegant logic.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE4_new.png" alt="APE Example 4 (turn off Y-Wings)" /><figcaption>APE Example 4 (turn off Y-Wings)
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=024053600005040002900602005700501030000367500350004001200035009500010003003200850">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=004003600000040002900600005700500030000367000050004001200005009500010000003200800">From the Start</a>
+</figcaption></figure>
+The simplest type of APE2 using just two bi-value cells duplicates the Y-Wing, but I include an example to illustrate how APE2 works.<br><br>The diagram here shows first the Y-Wing based on <span class="hy">A1</span> - <span class="hy">A4</span> (the pivot) - <span class="hy">B6</span>. It's quite easy to see that 8 must occur in either <span class="hy">A1</span> or <span class="hy">B6</span>, thus removing it from <span class="hy">B1</span> and <span class="hy">B2</span>.<br><br>But let's follow the APE logic with the non-aligned pair <span class="hy">A4</span> and <span class="hy">B1</span>. (Note: We could also choose <span class="hy">A1</span> and <span class="hy">B2</span> and eliminate the 8 there also). <span class="hy">A4</span> pairs with <span class="hy">B1</span> using these combinations:<br><br><b>1 and 1</b> <span class="hg">- POSSIBLE! </span><br>1 and 6<br><s>1 and 8</s> - excluded by <span class="hy">A1</span><br>9 and 1 <br>9 and 6<br><s>9 and 8</s> - excluded by <span class="hy">B6</span><br><br>The only difference between APE 1 and APE 2 is that with non-aligned pairs the same candidate *could* be a solution in both cells. So 1 and 1 is definitely on the cards.  Not that it is critical in this case. The other exclusions mean we can't have an 8 in <span class="hy">B1</span>, just as we thought.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE5_new.png" alt="APE Example 5" /><figcaption>APE Example 5
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=450900000006800900080020030000500000640000075501078000375080149002000607064701023">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=450900000006000900080020030000500000640000075001008000070080040002000600000001023">From the Start</a>
+</figcaption></figure>
+<br><br>Here is a more complex APE that does not have a Wing alternative. We have two bi-value cells and one two cell ALS attacking <span class="hy">B1</span> and <span class="hy">C7</span>. Let's write out the combinations between those cells:<br><br>1 and 4 - excluded by <span class="hy">B9</span><br>1 and 5 - excluded by <span class="hy">B8</span><br>1 and 7 - excluded by [<span class="hy">C1</span> + <span class="hy">C3</span>]<br>2 and 4<br>2 and 5<br>2 and 7<br>7 and 4<br>7 and 5<br>7 and 7 - Permitted!<br><br>Clearly 1 is removed from <span class="hy">B1</span>. The exact same formation also removes 1 from <span class="hy">B2</span> (on the next step).</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE6_new.png" alt="APE Example 6" /><figcaption>APE Example 6
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=900000106002590000308040090080000070570204069090070040809050603000038900135000000">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000000106002590000308040000080000070000204000090070040000050603000038900105000000">From the Start</a>
+</figcaption></figure>
+<br><br>To conclude, a non-aligned pair using a bi-value cell and a 3-cell ALS. I'll leave it to the reader to work out why 6 can be removed from <span class="hy">D1</span>.<br><br>There is a second very nice APE later in the solving sequence using a 2-cell ALS and a 3-cell ALS. You can load the puzzle from the links under the diagram.<br></div>
+
+<h2>An Eight-Cell Aligned Pair</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/APE_8ALS.png" alt="An Eight-Cell Aligned Pair" /><figcaption>An Eight-Cell Aligned Pair
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B1307028308120604821b0906070l1c0814101a1208067o1ca0a0019u109u03ad1g7p08040608017u9o2c88889w9i0o047n05087p069g02012q080309042q0608049u02363m9u01039u0603162i019w9w08">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=070000640090700800008000001000300084681000000000050060200009000040200003003001000">From the Start</a>
+</figcaption></figure>
+I love to end these articles with a Sudoku from Klaus Brenner. He has made finding interesting and beautiful examples an art form and in the case of Aligned Pairs has found what we thought was impossible. An eight-cell Aligned Pair elimination! We had found some five-cell examples and wondered if there could be a six-cell or even a seven-cell. This is the first and only eight-cell formation known. Fortunately the solver can handle this many. Each cell is necessary to produce all the pairs used to cross reference with the target cells in <span class="hy">D5</span> and <span class="hy">E5</span> - the solver ignores any other ALSs that are not used. And very pretty it is.<br><br>How many difficult puzzles did Klaus have to check to find this? Astonishingly, around 21 million! </div>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Pattern_Overlay">Pattern Overlay</a></td><td class="w50pc cright">Continue to <a href="Empty_Rectangles">Empty Rectangles</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=70&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Aligned_Pair_Exclusion" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(70,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17327"><div class="w100pc"><div class="w60pc"><h2>... by: Visitor</h2></div><div class="w40pc datepost">Monday 24-Nov-2025</div></div>
+<div class="w100pc">The same for example 6:<br><br>The quintuple 1, 3, 4, 6 and 7 in B1, A3, D3, E3 and F3 forces F1 to be 2 since the 6 in F1 can be seen by all other 6s (in B1, D3 and F3).<br>But also here: It is not mentioned in the text, and it is not highlighted.<br>Can you please check?</div>
+<div class="w100pc" id="blog-reply17327"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,17327,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17326"><div class="w100pc"><div class="w60pc"><h2>... by: Visitor</h2></div><div class="w40pc datepost">Monday 24-Nov-2025</div></div>
+<div class="w100pc">I have a question to example 5:<br>Is there a reason why you do not highlight the 1 in B2 of which you write (in the last sentence) that it can be removed? I find it somehow irritating.<br><br>And, more important:<br>The quintuple 1, 4, 5, 7 and 9 in B8, B9, C1, C3 and C7 removes also 1 from C9 since it can be seen by all other 1s (in B8, B9 and C1).<br>But this is not mentioned in the text, and it is not highlighted.<br>Can you please check?</div>
+<div class="w100pc" id="blog-reply17326"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I've added "on the next step" to the text.<br>I'd have to deep dive into the code as to why it needs separate steps. Same with the quad. I think it is because it is only considering the individual ALSs and not combining them. I can add it to the job queue.</div></div><div id="blog-reply3027" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,17326,3027)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17179"><div class="w100pc"><div class="w60pc"><h2>... by: Howard Weiss</h2></div><div class="w40pc datepost">Monday 20-Jan-2025</div></div>
+<div class="w100pc">With reference to Aligned Pair Exclusion, Example 2<br><br>Is C1 and C5 an AlmostLockedSet visible from C2 and C3?  It seems to meet the definition of a locked pair (1,4) with an additional value (9 in C1)<br><br>Is so, C1+C5 knocks out the possible pair of numbers 1 and 9 from C2 C3.  If C2 == 1 and C3 == 9, then both C1 and C5 are 4</div>
+<div class="w100pc" id="blog-reply17179"></div>
+<div class="post-reply" id="reply3025"><table class="w100pc"><tr><td class="post-writes">Visitor replies:</td><td class="datepost">Monday 24-Nov-2025</td></tr>
+<tr><td colspan="2">Hello Howard,<br><br>you are right, the combination 1 and 9 is not possible.<br>There is no valid combination that contains 1, so the 1 in C2 can be removed and should therefore be highlighted in yellow also.<br><br>Andrew, can you please check?</td></tr>
+</table></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Yes, correct. Fortunately the solver was more up-to-date that the docs so I just needed to update the diagram and text. Thanks for the prompt.</div></div><div id="blog-reply3026" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,17179,3026)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16789"><div class="w100pc"><div class="w60pc"><h2>... by: Pulsar</h2></div><div class="w40pc datepost">Tuesday 15-Feb-2022</div></div>
+<div class="w100pc">It looks like all the given examples can also be solved using two Almost Locked Sets with restricted commons. Consider the most difficult example, the Eight-Cell Aligned Pair:<br><br>We can identify a 2-cell ALS {B5 C5} and a 4-cell ALS {D5 D6 E6 F4}. These two sets have a pair of restricted commons: 1 and 9. It is impossible for both sets to contain both digits, because within these sets they can only appear in the cells B5, C5, D5 and F4. These four cells cannot contain two 1's and two 9's,  because the first three cells all see each other. Therefore, at least one ALS has to lose either a 1 or a 9 to become a locked set.<br><br>Now 2 becomes the 'pincer' digit: cell E5 can see all the 2's in both ALS's and can therefore not contain a 2; if it did, both ALS's would lose their 2's, but we already know that at least one ALS must lose a 1 or a 9, and an ALS can only lose 1 digit.<br><br>You can apply the same strategy with the 2-cell ALS {D6 E6} and the 4-cell ALS {B5 C5 D5 H5}. In this case, 6 and 7 are the restricted commons.<br><br>Two Almost Locked Sets with restricted commons appear to cover a wide variety of cases. I'd love to see if they encompass all forms of aligned pair exclusion.</div>
+<div class="w100pc" id="blog-reply16789"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,16789,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16706"><div class="w100pc"><div class="w60pc"><h2>... by: Robert</h2></div><div class="w40pc datepost">Sunday 22-Aug-2021</div></div>
+<div class="w100pc">Interesting strategy.  I do have some thoughts though.<br><br>All of the examples, with the exception of the last, are cases of an AIC with almost locked sets.  My own solver, which implements this without a size limitation on the ALS (the solver at this website seems to consider only ALSs with two cells and three values) does not solve the Klaus Brener 8-cell example; however, my cell-forcing implementation does.<br><br>I think there is another way to view this sort of strategy.  There are a number of ALSs, and also some AALSs shown.  The logic of an ALS in an AIC (described on another page is this) - if a chain turns a value in an ALS "off", by virtue of being weakly linked to something somewhere that has already been turned "on", then the other values in the ALS are all turned "on" - that is, the values in an ALS are strongly linked (but not weakly linked) to each other.  Or, put another way, once a value is turned off, the ALS becomes a locked set, and the values in the locked set can be eliminated from other cells in the unit containing the ALS that was promoted to a locked set.  The chain can then continue, and possibly allow us to draw an inference.<br><br>But this idea can be extended.  Suppose you have an AALS - then two values need to be turned "off" in order to turn it into a locked set.  This will happen quite a bit in a forcing net (the only significant strategy I have implemented in my own solver, that is not described in detail at this web site).  However, it could even happen in an AIC - the chain could turn "off" some candidate in the AALS, then wander around for a while, and come back and turn off another candidate in the same AALS.  Two is all that is needed - the AALS has now become a locked set, and the inference can continue.<br><br>I have been calling this a "dynamic locked set" - it isn't a locked set, but conditional on some assumption (an AIC or forcing net becomes simply by assuming some candidate is on or off), once all the implications of that assumption are considered, the "dynamic locked set", which might have had one, two, or even more values than a locked set would, magically becomes a locked set.  And we can then turn "off" the remaining values in the dynamic locked set if they are found in other cells in the unit, and possibly continuing following the chain/net until it allows us to make some inference.<br><br>I have similarly implemented a forcing net with what I call "dynamic groups", "dynamic fish", and "dynamic finned fish".  I tried "dynamic Y-wings" and "dynamic XYZ-wings", but in my small database of 245 advanced puzzles, but this resulted in exactly zero additional inference that the forcing net could not already make.  In fact, I think among the strategies described at this web site in the "Basic", "Bent Set", "Strategies", and "Forcing Chains" sections, the only ones which are possibly not special cases of "forcing net with dynamic groups/fish/finned fish" are AIC with unique rectangles, and SK loops.  Even the "exotic" strategies include some special cases - I'm not sure about pattern overly, but other than that and Franken Fish, all "exotic" strategies listed up to APE are special cases.<br><br>So I'd say you could view this one is a particular case of "forcing net with dynamic locked sets".  That is meant in no way to denigrate this quite elegant strategy; I just think it can be generalised.<br><br>Franken fish is my next project :)<br><br></div>
+<div class="w100pc" id="blog-reply16706"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,16706,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16621"><div class="w100pc"><div class="w60pc"><h2>... by: giuseppe rizza</h2></div><div class="w40pc datepost">Sunday 4-Oct-2020</div></div>
+<div class="w100pc">if I hit  <Load Example> in APE Example 3 , it will be changed in the solver, different from what  I can see in this picture.<br>Best regards<br>Giuseppe Rizza</div>
+<div class="w100pc" id="blog-reply16621"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>True. You have to turn off WXYZ-Wing to see it.</div></div><div id="blog-reply2620" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,16621,2620)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16530"><div class="w100pc"><div class="w60pc"><h2>... by: pie314271</h2></div><div class="w40pc datepost">Saturday 30-Nov-2019</div></div>
+<div class="w100pc">I've found a very unusual APE example - <a href="/sudoku.htm?bd=040000090600010002000903700005700400010000000007809200300406000000030000001000080">try this one</a><br><br>The only other thing that happens here is Hidden Singles, and on the step with the APE 4 different ALSs are used to eliminate a total of five candidates from the two grey cells, which is definitely really high.</div>
+<div class="w100pc" id="blog-reply16530"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Great example!</div></div><div id="blog-reply2603" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,16530,2603)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16444"><div class="w100pc"><div class="w60pc"><h2>... by: David Anez</h2></div><div class="w40pc datepost">Saturday 23-Feb-2019</div></div>
+<div class="w100pc">I need some help, because I thought I understood WXYZ-wing, but in example 2, JUST before the APE would kick in, wouldn't it be a valid WXYZ-wing with A3 as hinge, together with A1/A4/H3? Locked Set of 1/4/5/7. It would clear 7 from B3, therefore solving it as 3.<br><br>* If A3 is 4, A4 solves to 1, which leads A1 to be solved as 7, which removes the 7 of B3<br>* If A3 is 5, H3 is solved as 7, which removes the 7 of B3<br>* If A3 is 7, directly removes the 7<br><br>The 7 in question is removed anyway by a second APE after the APE and Simple Colouring, but is removed because the combination 5/7 in A3/B3 would clear H3... which is part of my possible WXYZ-wing, together with A3.<br><br>Is there an assumption of WXYZ-wings that I have somehow missed?</div>
+<div class="w100pc" id="blog-reply16444"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>You are correct. In fact with example 2 the solver finds the WXYZ wing first. I think the solver strategy order has changed a little since 2018.</div></div><div id="blog-reply2584" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,16444,2584)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16020"><div class="w100pc"><div class="w60pc"><h2>... by: TAU</h2></div><div class="w40pc datepost">Monday 20-Apr-2015</div></div>
+<div class="w100pc">I don't know whether your solver implements it, but the article on APE Type 2 does not mention that the combination of the target value with the same value in a non-aligned pair cell CAN be excluded, not by an ALS, but by a Locked Set, IF the target and pair cells, between them, can see all occurrences of the common value in the Locked Set.</div>
+<div class="w100pc" id="blog-reply16020"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,16020,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15941"><div class="w100pc"><div class="w60pc"><h2>... by: rRcCV</h2></div><div class="w40pc datepost">Tuesday 22-Jul-2014</div></div>
+<div class="w100pc">Like your site very much.<br>But I would appreciate to get some help in understanding the last "Eight-Cell Aligned Pair" example.<br>As far as I can see eliminating candidate 2 from E5 just requires four of the eight cells:<br>B5, C5, D6 and E6. <br>And completing the exercise of checking all possible combinations in D5E5 against the impact of all the ALS highlighted in the diagram unveals a lot of other combinations as being impossible, but they are not enough to eliminate any candiates from either D5 or E5, since I#m left with the remaining combinations as follows:<br>1 7<br>2 4<br>6 9<br>7 9<br>9 7<br>So what's the benefit of taking EF4 and HJ5 into consideration?<br>I just don't see what makes the statement true that "Each cell is necessary to produce all the pairs used to cross reference..."<br>Thanks for any explanation.<br></div>
+<div class="w100pc" id="blog-reply15941"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15941,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15891"><div class="w100pc"><div class="w60pc"><h2>... by: Anton Delprado</h2></div><div class="w40pc datepost">Monday 10-Mar-2014</div></div>
+<div class="w100pc">I think it is important to note that any ALS seen by both cells doesn't have to be entirely seen by both cells.<br><br>For example if we were excluding "3 and 5" then the first cell only has to see the cells in the ALS that can be 3 and the second cell only has to see the cells in the ALS that can be 5.<br></div>
+<div class="w100pc" id="blog-reply15891"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Correct</div></div><div id="blog-reply2463" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,15891,2463)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15886"><div class="w100pc"><div class="w60pc"><h2>... by: LeProf</h2></div><div class="w40pc datepost">Sunday 16-Feb-2014</div></div>
+<div class="w100pc">We are great fan of your site and tools, which we use for training, and I for some leisure. I am not an expert on sudoku, but I am something of an expert on training people to do complicated procedures.  In my work, is we fail at a the training, later, either something/someone blows up (quite literally, I'm afraid), or a 1M$+ piece of equipment is taken offline or ruined. <br><br>The following comments are offered, then, as a more general comment (one example), to challenge your process of explaining how one begins to apply advanced "strategies".  It is communicated because those students and I using your clearly thoughtful and effort-intensive explanations find it possible, even so, to apply them, in largest part, only if the explained strategy is already  understood beforehand/separately from the explanation you provide. It is offered in the spirit of good organizational practice—that it is better we be talkers (providing critical feedback, even if negative) than walkers (departing the organization without comment, when needs are not met).<br><br>First, note, in your pedagogy of advanced strategies, you *do* explain superbly how the pattern you choose to act upon leads to elimination of possible numbers in cells, based on the new method being applied—the examples are all, generally, excellently explained.<br><br>But, there is little or no explanation on how one engaging a puzzle at an advanced state of solving (that shows all possibles, and that is taken as far as preceding more basic techniques allow) can  discern either that no other advanced strategy is better and actionable, or that the currently presented strategy, here APE, is present and actionable, and if several starting points are possible, how the specific one to act upon is chosen.<br><br>Hence, what we seek (elsewhere at present) are explanatory statements for various strategies, that indicate, for given points on the paths to a puzzle's solution, what patterns are to be looked for, among which frequencies of remaining numbers/number groups, to indicate the best advanced strategy to attempt to apply. <br><br>In APE Example 1, perhaps what is sought is as statement like, "After scanning the puzzle for… [patterns]  and seeing none further—note that the apparent starting points for strategies P and Q in cells A and B are dead ends—it is then may be time to apply an Aligned Pair Exclusion. To see if this strategy is applicable, units with between 4 and 5 unsolved cells are examined for presence of 2 or more bi-value cells  that can *see* the rest of the cells, and that *share candidates with them*. Of the possible starting points in Example 1, we choose row G and box GHJ123 because… and we focus on cells G2 and G3 because… "  [Note, no mention at all, yet, of Almost Locked Sets of greater complexity than bi-value.]<br><br>A related point here is that a very broad and general statement of the strategy is likely most suitable at the end, where it can be readily understood, e.g., here, where the extension from bi-value to all other Almost Locked Sets can be explained without undue complexity.<br><br>Remarkably, we know that you have already thought through this logical, truly strategic decision-making—it is what your programming, in the solver, clearly already does, walking stepwise, in a particular order, through the strategies, deciding which to apply or dismiss, based on looked-for patterns.  It is this very process of logic, of what to apply when in the course of a puzzle, and where (very specifically) to begin applying it within a puzzle matrix, at a given point of being solved, that is missing in the current "strategy" explanations.<br><br>Finally, we are aware that explaining "strategies" is not necessarily the same as explaining the process of developing an over-arching strategy of applying them, in orderly fashion to given situations.  In this regard, I would say you have laid out an excellent list of *tactics*, and that what is yet missing is an adequate discussion of strategy—the way in which "battlefield" conditions are accessed in each situation, to decide which particular tactic best applies.  <br><br>Hope this might be go some help.  We will continue exploring and learning tactics, separately, and coming here to review your well-explained examples, and to sort on our own the best over-arching strategies to apply.  Best wishes for this continuing, clearly dedicated and effort-intesive endeavour.  LeProf</div>
+<div class="w100pc" id="blog-reply15886"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Late to answer this but very appreciated nonetheless. You are correct that I separate the 'tactic' from the 'strategy' and use the later word where tactic might be a better word. To be honest I don't know what the best search for a strategy might be if confronted with a board of candidates. I am in awe of the pen-and-paper solvers who do use these strategies. When I started on the advanced ones I imagined I was only talking to the programming crowd since I consider them too difficult to manually search and use. Sudoku is interesting for having the necessity for extending the logic so far - it will be a rare puzzle indeed that is published in a newspaper that requires them. I'm hoping the real mental solvers will chime on on this topic.</div></div><div id="blog-reply2462" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,15886,2462)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15640"><div class="w100pc"><div class="w60pc"><h2>... by: ad.joe</h2></div><div class="w40pc datepost">Monday 25-Jun-2012</div></div>
+<div class="w100pc">General structure of the APE<br>------------------------------------<br>Maybe it's not easy to put this straight, but in fact there are eliminations in 2 boxes:<br><br>g k p | _ _ _ | Y Z _<br>_ _ _ | _ _ _ | _ _ _<br>_ _ X | _ _ _ | a b c<br><br>The "wings" are X=2#, Y=2*, Z=2+<br><br>Then XYZ eliminates 2 on the aligned cells abcgkp ...<br><br>(provided that these have "not much more than #*+ on it", so you have to "cross-check")<br><br>- Doesn't the APE-structure look like an xy-wing (y-wing)? Only the function does work backwards and there is no pivot necessary!!<br>So you could also call it a BACKWING or a BACKSWING!<br><br>- And of course, in an X-Sudoku the 2 aligned fields need not be in the same box<br>(as long as one of the two is on a diagonal).</div>
+<div class="w100pc" id="blog-reply15640"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15640,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15639"><div class="w100pc"><div class="w60pc"><h2>... by: ad.joe</h2></div><div class="w40pc datepost">Monday 25-Jun-2012</div></div>
+<div class="w100pc">Let's build a general structure for the APE<br>_ _ _ | g k p | y z  _<br>_ _ _ | _ _ _ | _ _ _<br>_ _ _ | x _ _ | a b c<br>the "wings" xyz (x=2#, y=2*, z=2+) eliminate 2 on the aligned cells abcgkp<br>(of course also in box 2, not only in box 3)<br><br>- While seeing this structure we can say, the form looks the same as an xy-wing (y-wing) or an xyz-wing, but the function works backward.<br>So you could call it also a BACKWING or a BACKSWING<br><br>- And of course, in an X-Sudoku the aligned fields need not be in ONE box (as soon as one of the two is on a diagonal) </div>
+<div class="w100pc" id="blog-reply15639"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15639,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15636"><div class="w100pc"><div class="w60pc"><h2>... by: ad.joe</h2></div><div class="w40pc datepost">Friday 22-Jun-2012</div></div>
+<div class="w100pc">How to tease out the APE:<br>-----------------------------------<br>First, it's not our job to solve one of the examples in another way. But it's nice that all is so understandable.<br>(Matt, I'd add three words: duplicate the contents of any "ONE of the" two-candidate cells they both see. )<br>So, as we look for the third cell of an xy-wing (having seen two "similar" ones at first), what can we do here:<br>Let's solve it by cross-checking: We assume that the most FREQUENT number of the bivalue cells can be eliminated in the two cells in question.<br>We assume this number being correct there and quickly end in error, quicker than in looking up all combinations.<br>(Who'd think that we would not score more than 90 percent, he/she can feel free to try with the other numbers)</div>
+<div class="w100pc" id="blog-reply15636"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15636,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15557"><div class="w100pc"><div class="w60pc"><h2>... by: Anon</h2></div><div class="w40pc datepost">Sunday 18-Dec-2011</div></div>
+<div class="w100pc">I want this software. how I can have it?</div>
+<div class="w100pc" id="blog-reply15557"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>See <a href="https://www.sudokuwiki.org/Sudoku_Solver_for_Mobile_Devices">Sudoku Solver for Mobile Devices<br></a></div></div><div id="blog-reply2344" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(70,15557,2344)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment15336"><div class="w100pc"><div class="w60pc"><h2>... by: Phil Gooda</h2></div><div class="w40pc datepost">Monday 8-Feb-2010</div></div>
+<div class="w100pc">I actually managed to understand all this, except for one thing......why bother, there is a far simpler soultion within that box? Let me demonstrate by considering ONLY that box and naming the cells as follows:<br><br>A B C<br>D E F<br>G H I  ..... which means that my C is the X mentioned, and my F is the Y mentioned.<br><br>Cells B, C and G contain 3 numbers and only 3 numbers between them. Therefore those 3 numbers cannot appear in the other cells. Which immediately gives you the paired 5/9 in F and I, which means that E has to be 4. Why bother doing all the APE stuff?</div>
+<div class="w100pc" id="blog-reply15336"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15336,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15329"><div class="w100pc"><div class="w60pc"><h2>... by: Patrick Barnaby</h2></div><div class="w40pc datepost">Monday 25-Jan-2010</div></div>
+<div class="w100pc">An XY-Chain removes 7 from r8c8. A Bilocation Graph reveals a 2 at r7c2 and then you'll have a naked 7 and then a naked 8 and then quite a few hidden singles on the first and second rows. So this is easier than APE except the Bilocational graph techinque.</div>
+<div class="w100pc" id="blog-reply15329"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15329,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15297"><div class="w100pc"><div class="w60pc"><h2>... by: Matt Lala</h2></div><div class="w40pc datepost">Thursday 12-Nov-2009</div></div>
+<div class="w100pc">I love the site but some of the explanations need help. Or I guess I do. I think this is one of the less clear ones. <br><br>The rule you have says:<br>Any two cells aligned on a row or column within the same box CANNOT duplicate the contents of any two-candidate cell they both see. <br><br>If I take that literally in the first example... X in the first example can see the bivalues 25 and 37. It cannot duplicate the contents of those cells. Therefore... it can't be 2,5,3 or 7? Obviously that's not what was meant.<br><br>Or is it... if the two aligned cells see some bivalue cells, and they both mutually share a certain candidate [that's part of those bivalue cells] then that shared candidate can go? But no, that's not it either.<br><br>If either if the cells see two bivalue cells, and those two bivalue cells both share a candidate with the cell under consideration... that shared one goes?<br><br>Does one actually have to enumerate the possibilities? This seems like something that can be spotted with a glance, if only it can be made clear the exact conditions needed.</div>
+<div class="w100pc" id="blog-reply15297"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15297,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment15281"><div class="w100pc"><div class="w60pc"><h2>... by: Bernard Gervais</h2></div><div class="w40pc datepost">Wednesday 30-Sep-2009</div></div>
+<div class="w100pc">Excellent site, thank you.<br>for example 1, I use the unicity concept which pinpoints A4 = 1.<br>Best regards.</div>
+<div class="w100pc" id="blog-reply15281"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(70,15281,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 11-April-2008. Views: 260940<br>
+			This page was last modified on 9-November-2013.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10229e36ebaf995',t:'MTc4MjIwMzc3MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

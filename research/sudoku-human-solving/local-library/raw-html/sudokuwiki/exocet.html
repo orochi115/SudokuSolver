@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Exocet - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script>
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Exocet';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Exocet">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Exocet</h1><div class="SRCell">a.k.a. <b>jExocet</b><h2>Full Documentation Coming Soon</h2>Exocet is a pattern that can often occur in very hard puzzles where the candidate density is very high. With few bi-value and bi-location candidates other strategies give up.  Exocet takes on three or four candidate sets at a time which is just what is needed in the bottlenecks of extreme puzzles. My first implementation solved 51 out of 123 of the weekly "unsolvables" that were created by David Filmer. We will be replacing any stock known solvable with even harder puzzles.<br> <br>Phil's concise description is impossible to better: <i>When 2 of the 3 cells in a box-line intersection together contain 3 or 4 candidates, then in each of the two boxes in the same band but in different lines, if there are cells with the same 3 or 4 candidates, any others can be removed.</i><br><br><h2>Order in Strategy List</h2>My instinct is to put this near the end of the Extremes set of strategies but many of the eliminations in Exocet can overlap earlier strategies, I am told. I do not think I have implemented many of those but to test and improve I am putting it at the start of the extremes to give it more exercise. David Bird tells me it can go after the basics but that will have to wait until more variations are in place. <br><br><h2>Credits</h2>A number of people explored this strategy and its many variations. I am told the name was coined by forum participant Champagne. The pattern was first discovered by Allan Barker in the "<a href="/sudoku.htm?bd=000000003001005600090040070000009050700050008050402000080020090003500100600000000">Fata Morgana</a>" puzzle<sup>[<a href="#notes">1</a>],[<a href="#notes">2</a>]</sup>. My main source is the excellent JExocet Compendium written by David P Bird, available in fourteen downloadable documents on the <a href="http://forum.enjoysudoku.com/jexocet-compendium-t32370.html">EnjoySudoku Forum</a> and David was kind enough to answer questions as well. I would also like to credit <a href="http://www.philsfolly.net.au/">Phil's Sudoku Solver</a> as a source of examples and help</a>. Any other credits not mentioned, please email me.<br><br>I don't intend to duplicate David's work but just the parts implemented by the solver and re-expressed in my own way. Terms and references to the original will be supplied.<br><h2>The Exocet Pattern</h2></div><br>
+
+<div class="SRCell">
+<figure style="width:350px"><img src="PuzImages/EXO1.png" alt="Exocet Pattern" /><figcaption>Exocet Pattern
+</figcaption></figure>
+Lets start with the pattern. <br><u><b>Pattern Rule 1</b></u><br>Two <span class="hy">Base</span> cells (<span class="hy">B</span>) exist in alignment in one box and usually contain three or four candidates *in total*. That could mean {1,2,3,4} + {1,2,3,4} but could also mean {1,2,3}+{2,3,4} or even {1,2,3}+{3,4}. I've not found an instance of two bi-value cells like {1,2}+{3,4} yet. To be explored.<br><br><u><b>Pattern Rule 2</b></u><br>We then check if there are two <span class="hy">Target</span> cells (<span class="hy">T</span>) that contain <u><b>all the digits</b></u>  of the Base cell (plus any extras). The Targets cannot 'see' each other or the Base Cells. They must also be in the same Tier or Stack (group of 3x3 boxes in a row or column). The diagram highlights the top tier in red.  There are only three possible cells for each Target given that they must not be 'seen'.</div>
+
+<div class="SRCell">If Bases and Targets are aligned in a Tier (as in these diagrams) we look for three <span class="hy">Cross-Lines</span> that descend from the Targets and the cell not occupied by the Bases. These are marked in yellow - columns 3, 4 and 7. We are interested in the six cells outside the Tier (or stack). These cells are called <span class="hy">S-Cells</span>. <br><br>We will be talking about some of the other cells in the pattern as well, so lets introduce them. Each Target has a <span class="hy">Companion</span> cell marked with a <span class="hy">C</span>.  Each Target has two <span class="hy">Mirror Cells</span> that are next to each opposite Target, marked <span class="hy">M<sub>1</sub></span> and <span class="hy">M<sub>2</sub></span>.<br><br>Lastly, the asterisks are called <span class="hy">Escape</span> cells which can hold the candidates that are found to be false in the base. <br><br><u><b>Pattern Rule 3</b></u> <br>To be a real Exocet pattern the Companion Cells must not contain the Base candidates, not even as clues or givens.</div><br>
+
+<div class="SRCell">
+<figure style="width:400px"><img src="PuzImages/Exo2.png" alt="Exocet Pattern - Cover Lines" /><figcaption>Exocet Pattern - Cover Lines
+</figcaption></figure>
+<u><b>Pattern Rule 4</b></u> <br>Now one last complication before we can be certain we have an Exocet. In the diagram I've set the Base candidates to be {1,2,3}. There is hopefully a scattering of these in the S-Cells. We want them to appear <u>no more than twice</u> each. If the Cross-Lines are columns we consider the rows where each Base candidate appears. These are called <span class="hy">Cover-Lines</span> and I've drawn all the cover-lines in the three colours of the three numbers.<br><br>I've stated that cover-lines are perpendicular to cross-lines. Usually they are, but to get the maximum number of elimination rules we can be flexible. It is possible that one Base candidate appears twice only in one column. If we were strictly perpendicular it would require two cover-lines, but all we want to do is "cover" the candidates, so in the single-column case we can "cover" them vertically. So the cover-line = the cross-line. <br>This will be useful later.</div>
+
+<h2>Pattern Inferences</h2>
+<div class="SRCell">If an Exocet pattern can be confirmed, then following inferences occur:<ul><li>The two Target cells must contain different base digits.<br><li>Mirror cells must contain the same base digits as their  'opposite' Target cells together with one digit that is false in the base cells.<br><li>The two true base digits must each be true in two 'S' cells</ul>As David writes, "<i>These are a rich source of eliminations, some of which can be made immediately, and some that will become available later as the solution progresses. These can also be incorporated into AICs.</i>"<br><br>Note: When we talk about "true Base digits" we are talking about the final solution and knowing what those cells actually contain. We don't know that at the start but eliminations here might tell us more and we can go back through the Exocet check-list.</div><br>
+
+<h2>Elimination Rule 1</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/EXO3.png" alt="Exocet Rule 1 (untick X-Cycles)" /><figcaption>Exocet Rule 1 (untick X-Cycles)
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=007020004930000600600300000000000050200010008006900400003700900020050001000008000">From the Start</a>
+</figcaption></figure>
+<br>Any candidate in a Target cell that is not one of the Base candidates can be removed. That takes out the 4 in <span class="hy">B4</span> and the 2 and 7 in <span class="hy">C7</span><br><br>This example actually contains a whole raft of Exocet eliminations but they rely on another test called the <span class="hy">Compatible Digit Check</span>. That I have not implemented so I'm going to ignore those. I will come back to this example in the next update when I've understood this test.</div>
+
+<h2>Elimination Rule 3</h2>
+<div class="SRCell">Bird's definition: <b>A base candidate that is restricted to only one 'S' cell cover house is invalid and is false in the base mini-line and target cells.</b></div><br>
+
+<h2>Elimination Rule 4</h2>
+<div class="SRCell">Bird's definition: <b>A base digit in a target that must be true in the other target is false.</b><br><br>Which I take to mean if eliminations thus far reduce one target to one digit ON then it is strongly linked and eliminates like a single.</div><br>
+
+<h2>Elimination Rule 5</h2>
+<div class="SRCell">Bird's definition: <b>A base candidate that has a cross-line as an 'S' cell cover house must be false in the target cell in that cross-line</b></div><br>
+
+<h2>Elimination Rule 8</h2>
+<div class="SRCell">Bird documentation states "<b>If a mirror node contains only one possible non-base digit value, it is true in that node and false in the cells in sight of it.</b>" <br>I couldn't make this work without creating incorrect eliminations. By best implementation that doesn't create incorrect removals goes along the lines of "base digit missing from mirror node or base digits missing in the mirrored target cell".  <br>See <b>Tebo</b> below in the comments for more insight.</div><br>
+
+<div class="SRCell"><h2>Exocet Exemplars</h2>
+These puzzles require the Exocet strategy at some point but are otherwise trivial.<br>
+They make good practice puzzles. Klaus Brenner finds.
+<ul>
+<li><a href="/sudoku.htm?bd=900000006050300010020400003000100280000860070030004000000020800400500060090000005">Exemplar 1, x1 (score 195)</a></li>
+<li><i>More as we find them...</i>
+</ul>
+</div><br>
+
+<div class="SRCell"><hr id="notes"><br><sup>1</sup><a href="http://forum.enjoysudoku.com/the-hardest-sudokus-new-thread-t6539-375.html#p212194">EnjoySudoku</a> forum<br><sup>2</sup>See also <a href="https://sysudoku.com/2015/06/16/fata-morgana-exocet/">Systematic Sudoku</a> for Fata Morgana.<br></div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Empty_Rectangles">Empty Rectangles</a></td><td class="w50pc cright">Continue to <a href="Double_Exocet">Double Exocet</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=195&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Exocet" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(195,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17440"><div class="w100pc"><div class="w60pc"><h2>... by: Jonathan Handojo</h2></div><div class="w40pc datepost">Thursday 11-Jun-2026</div></div>
+<div class="w100pc">I might be wrong in this, but the way I understood the Mirror Cells as described above, is that, for any value of T1 that can exist, that value must exist in at least one of the two cells of M1. Likewise for T2 and M2.<br><br>Would it be correct to say the following: for T1, if one of the two cells of M1 is opened (either as the clue or the solution) and is not one of the digits of the base cells B, then T1 and the remaining unsolved M1 cell MUST be exactly the same. As such, we can make eliminations in the corresponding Target and Mirror cells to ensure that those two cells MUST be identical to each other.</div>
+<div class="w100pc" id="blog-reply17440"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,17440,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17141"><div class="w100pc"><div class="w60pc"><h2>... by: Sulphur</h2></div><div class="w40pc datepost">Sunday 11-Aug-2024</div></div>
+<div class="w100pc">Not entirely sure what's going on here but it appears to me like the code is a little bit broken when trying to make eliminations to the exocet in this puzzle:<br><br>000400010010305709000090000250040000001200600030009080090060000300008004070000020</div>
+<div class="w100pc" id="blog-reply17141"></div>
+<div class="post-reply" id="reply2851"><table class="w100pc"><tr><td class="post-writes">Aleksandra Z replies:</td><td class="datepost">Wednesday 14-Aug-2024</td></tr>
+<tr><td colspan="2">It seems to me that the solver is trying erroneously to use a Double Exocet pattern, detailed here instead:<br><br>https://www.sudokuwiki.org/Double_Exocet<br><br>It has deviated from the only example given in the Double Exocet article; the "bases" there align upon rows in their respective boxes, whereas this example highlights dubiously a row and a column, and it has the further misfortune of both appearing within one box. From there it seems to attempt inferring that placing 2/4/6/8 there—either in the real Exocet or in the dubious one—would preclude too many 2/4/6/8 options in the other and removes all of them mutually.<br><br>I can believe that 2/4/6/8 are scarce enough in rows B, E and H that the single Exocet notion applies to E1 and H3 in the first stack, and indeed that A5 and C8 cannot be allowed to occupy the Sudoku units covering 2/4/6/8 in other stacks. Clearly though, by inclusion-exclusion we must have B1 and B3 containing the same numbers as E2 and H2, and indeed A2 and C2 matching B5 and B8.<br><br>In practice it can be solved quite well from there with chain methods! Treating box 1 as a group junction helps much for that, similar to the idea of double loops, or "SK Loops" as named here. For example, if B8 is not 6 then it is 4, thus E2 becomes 8, thus B5 becomes 2, thus H2 becomes 6—all via the box 1 groups. Either way, H8 therefore cannot be 6, after which 6 becomes unique in column 8 and from there we can solve all four of those cells.</td></tr>
+</table></div>
+</div><div id="blog-reply2851" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,17141,2851)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17133"><div class="w100pc"><div class="w60pc"><h2>... by: Aleksandra Z</h2></div><div class="w40pc datepost">Friday 28-Jun-2024</div></div>
+<div class="w100pc">Something which helped me a lot to understand the Exocet logic and explain it to others was seeing that the entire formal description for spotting it is backwards for deducing it! I think a good description for why it works—as opposed to identifying it or using it—ought to begin with the "S-Cells" and how they force digits to appear in a band where their placement would endanger other cells. Focusing on three digits as opposed to four, perhaps:<br><br>"Suppose there are three critical columns for which three digits can appear only twice each over two bands, due to each digit having two Sudoku units which cover all its possible cells in those bands. By the pigeon-hole principle, the third band must therefore contain those digits once each in those critical columns. A constraint arises if that third band also contains an almost-locked set with the same digits which can see five of the nine critical cells, a large group which therefore may contain no more than one of the digits. The other two digits must therefore appear in the other two pairs of critical cells."<br><br>The "Mirror" extension then seems to arise by means of the original columns spanning three stacks and the final two pairs each having one position blocked, creating a braid in the third band. I think the fundamental Exocet logic works without requiring different stacks (breaking "Mirror" logic) and without blocked "Companion" cells necessarily, but going that far would introduce so much box visibility that almost certainly simpler logic would solve the puzzle!<br><br>Speaking of which, the Exemplar 1 requires at least Rectangle Elimination to be disabled, and ideally also disable Hidden Unique Rectangle and Aligned Pair Exclusion so that only the Exocet is used.</div>
+<div class="w100pc" id="blog-reply17133"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Many good points here, yes.</div></div><div id="blog-reply2847" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,17133,2847)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17059"><div class="w100pc"><div class="w60pc"><h2>... by: Tim</h2></div><div class="w40pc datepost">Thursday 25-Jan-2024</div></div>
+<div class="w100pc">I can get this to work if for a given target cell, only one s-cell contains one or more base candidates.  Therefore, one of the base candidates in that cell must be true.  Then I can eliminate all non base candidates.<br><br>So it appears I was initially interpreting "one of them being true" to mean a base digit, rather than one of them having to be true within that s-cell.</div>
+<div class="w100pc" id="blog-reply17059"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,17059,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17056"><div class="w100pc"><div class="w60pc"><h2>... by: Tim</h2></div><div class="w40pc datepost">Wednesday 17-Jan-2024</div></div>
+<div class="w100pc">Hello,<br><br>  I am hoping someone can clarify what I am missing and/or what part of the clarification of rule 12 from David's compendium means.<br><br>Rule 12:  For a known base digit, any digit instance that would prevent two of its 'S' cells being true is false.<br><br>I understand that, have coded it it my solver and it works,<br><br>What confuses me is the last part of the rule 12 clarification:  If an 'S' cell is common to more than one base candidate and one of them must be true, any non-base candidates it holds must be false.<br><br>I interpret this to mean if a S cell contains one Base digit and one or more Base candidates, any non base candidates are false and can be removed.  However, nothing I try prevents incorrect eliminations.<br><br>The rule seems simple so I am starting to think there might be something wrong with it.<br><br>Maybe my implementation of pattern rules is not quite right but I only have issues (so far) with this rule.<br><br>Any ideas?<br><br>Note:  I can order the solving techniques used by my solver and was testing this puzzle with singles first and exocet second to help more thoroughly test my routines<br><br>Here is an example - all singles (done) until it does an JExocet type 12<br><br>(my rows and cols are 0-8)<br><br>B1 = (2,6,1) <br>B2 = (2,7,79)<br>T1 = (0,5,79)<br>T2 = (1,0,1)<br>C1 = (1,5,6)<br>C2 = (0,0,3)<br>M1a = (1,1,9)<br>M1b = (1,2,7)<br>M2a = (0,3,1)<br>M2b = (0,4,8)<br><br>6 is the solution to 4,8 but my solver tries to remove it based on my implementation of the rule 12 clarification.<br><br>3    2    4        1    8    79       5    6    79       <br>1    9    7        5    3    6        2    4    8        <br>6    5    8        4    2    79       1    79   3        <br><br><br>9    3    2        6    17   5        4    8    17       <br>4    7    5        8    19   2        69   3    169      <br>8    1    6        79   4    3        79   5    2        <br><br><br>2    6    3        79   5    1        8    79   4        <br>7    4    9        2    6    8         3     1    5        <br>5    8    1        3    79   4        679  2    679  <br><br>Thanks</div>
+<div class="w100pc" id="blog-reply17056"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,17056,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17045"><div class="w100pc"><div class="w60pc"><h2>... by: Mike</h2></div><div class="w40pc datepost">Wednesday 3-Jan-2024</div></div>
+<div class="w100pc">If you're attempting to find an exocet by eye, it's worth pointing out that the c1 and c2 squares almost inevitably have digits on them. (not necessarily given digits, but digits none the less).<br><br>Mostly because putting a digit on c1 and c2 is the easiest way to remove base numbers as possibilities for those two squares, whilst preserving them as possibilities in the target and S squares.<br><br>In fact, I suspect the only other way it can be managed (without destroying the logic of the puzzle and allowing it to be solved via simpler methods) is by overlapping a pair of exocets.</div>
+<div class="w100pc" id="blog-reply17045"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,17045,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16917"><div class="w100pc"><div class="w60pc"><h2>... by: Jorgen Nielsen (Denmark)</h2></div><div class="w40pc datepost">Thursday 30-Mar-2023</div></div>
+<div class="w100pc">Hi Andrew<br><br>I am working on a solver inspired by your own solver.<br><br>I have now reached the examples with the Exocet and am testing it on different patterns.<br><br>You are looking for more examples, and I have found one with four numbers in the base pair.<br><br>Testing on your Fireworks example 1 and unckecking Fireworks in the solver, I found the following pattern:<br><br>Exocet pattern of 1247 in base pair I8 and I9 and target cells in G4 and H3<br>6 removed from G4<br>9 removed from H3</div>
+<div class="w100pc" id="blog-reply16917"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16917,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16869"><div class="w100pc"><div class="w60pc"><h2>... by: Ghost 2T</h2></div><div class="w40pc datepost">Saturday 7-Jan-2023</div></div>
+<div class="w100pc">The way you use words and name the cells and hides is too flowery.<br>So I still don't fully understand this solution, what kind of hidden & how it works.<br><br>Specifically:<br>- 2 Base cells (158.158) in box 1<br>- 2 Target cells (158+N) in box (1,2).<br>- T1 & T2 & B don't see each other<br>- 2S-cells see T1 & T2 at column 4.7. So where are the S-cells in column 3? Why choose column 3 as S-cells?<br>- Is the companion cell an opened one or the original one? Is (2,4) in box (2,3) a companion cell? Or force the companion box to be (3,6).<br>- Similarly, the mirror umbrella too. Is it mandatory to lie close to each other in the same row, or is it okay to lie randomly in the box? Looking at the picture below T1=(158+4) & T2=(158+27), I don't see anything called a mirror box? (r3c89 has no hidden 4, r2c56 has no hidden 27. It's confusing?)<br><br>- What are the stars*** cells? is the target cell (158+N) but is not valid?<br><br>- Finally, the rule of type 1 I understand. What about the exclusion rules 2,3,... I don't understand what are you talking about?<br><br>THANKS!</div>
+<div class="w100pc" id="blog-reply16869"></div>
+<div class="post-reply" id="reply2743"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Sunday 8-Jan-2023</td></tr>
+<tr><td colspan="2">@Ghost 2T: Read my comment below yours. Let me know if you still don't understand: I will explain it again in simpler language.</td></tr>
+</table></div>
+</div><div id="blog-reply2743" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16869,2743)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16834"><div class="w100pc"><div class="w60pc"><h2>... by: tebo</h2></div><div class="w40pc datepost">Friday 26-Aug-2022</div></div>
+<div class="w100pc">Regarding Elimination Rule 8, I agree with you that strictly applying Bird's definition produces incorrect Eliminations.  I found three Puzzles that correctly solve after fixing a Digit in a Mirror Node because of Elimination Rule 8, however I also found one Puzzle where this rule produced inconsistent results.  So, Bird's Elimination Rule 8 just coincidentally fixed the correct Digit in the first three.<br><br>060000009020005000008070100007003000830010097000400800004080900000600010500000020<br>Ruud top50000 Number 12235<br>After Singles, Pairs, Intersection Reductions, WXYZ-Wing, and Exocet Elimination Rule 3 (your Elimination Rule 1), I get to Elimination Rule 8, which by Bird's definition gives R4C9=1.  However, this is inconsistent because the Puzzle solves with R4C9=5.<br><br>By definition, a Mirror Node must resolve to one Base Digit and one non-Base Digit.  What's missing is that it must be a "True" Base Digit.  In the above puzzle, the Base Digits are 2, 5, and 6, however, while examining the pattern, we don't know which are true and which are false.  In fact, it's the False Base Digit (R4C9=5) that correctly resolves in the Mirror Node.<br><br>While examining the pattern, the only way we can know that a Base Digit is "True" is if previous eliminations reduce the Base Cells to a Locked Pair (I think).<br><br>So, Elimination Rule 8 should be something like: After Eliminations, if both True Base Digits are determined, and a Mirror Node contains only one possible non-Base Digit, it is true in that Node and Eliminated from all Cells that See both Mirror Cells, or if the non-Base Digit occupies just one Mirror Cell, it is fixed in that Cell and Eliminated from all Cells that See the Mirror Cell.<br><br>All this was probably discussed on The New Sudoku Players' Forum, but I find it too difficult to follow.  So, I welcome your critique.</div>
+<div class="w100pc" id="blog-reply16834"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Excellent observation. When I get back onto Exocet I'll start with this</div></div><div id="blog-reply2651" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16834,2651)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16758"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Saturday 8-Jan-2022</div></div>
+<div class="w100pc">Okay, scratch my older comments, I've now perfectly understood the logic of the JExocet.<br><br>The aim is to find two 'target' cells that will together contain the digits which are in the base.<br><br>Say digits A and B are true in the base. In each cross line, A and B must appear once, therefore in the the three cross lines A and B must each appear three times.<br><br>Those 3+3=6 instances cannot be in the escape cells as they're seen by the base, they can't be in the companions either due to the pattern definition. So they can only be in targets or S-cells.<br><br>There can be only a maximum of 2 S-cell instances as the possible S-cell instances are confined to two cover houses (two instances can't be true in the same cover house) which consequently means that it should appear in at least one target. It can't be true in both targets though as the other base digit would have no target cell to occupy.<br><br>Now, the imprtance of mirror cells: Remember that the corresponding mirror pair for a target cell is actually opposite to it. In the example, B4's mirror is C89. We can say that one of the mirror cells (C89) will eventually contain the base digit which will be in the target (B4). The other will contain any other non-base candidate. This is correct because C89 are the only possibles in the box which will be able to contain the base digit, as all the cells in the box are a) seen by the base cells, b) seen by the target, or c) a companion cell.<br><br>Also, the target cells seeing each other is perfectly valid as well. In the example the second target C7 could've been in B7, in that case it's mirror should be C56.<br><br>So in conclusion, each true base digit must be true two times in S-cells and one time in a target cell, and a mirror cell pair should contain the base digit which is in its target.<br><br>Btw, the term 'Exocet' refers to any kind of pattern which has two targets containing two base digits found in base cells. This pattern is a specific case of that, and is called a jExocet (Junior Exocet). This is the most well known Exocet pattern.</div>
+<div class="w100pc" id="blog-reply16758"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>(Hidden your previous posts)</div></div><div id="blog-reply2644" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16758,2644)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16697"><div class="w100pc"><div class="w60pc"><h2>... by: Steven</h2></div><div class="w40pc datepost">Saturday 7-Aug-2021</div></div>
+<div class="w100pc">047000000500000700680700000700002000008500600900031000005900000400000012000000034<br><br>Your solver misses an exocet with base cells A1 A2, targets B4 C7, exactly like the pattern in the first diagram<br><br>___<br>How I understand exocet:<br><br>The 3 columns where the S cells are have 2 sections:<br>1. S cells: has at most 2 of each base candidate<br>2. not S cells: since the columns require 3 of each base candidate, but the S cells can only supply 2, this section must have at least 1<br><br>And there has to be base cells which just happen to eliminate all of the non S cells, *except* the target cells and the companion cells.<br><br>But the companion cells don't have base candidates.<br>So any base digit causes a target cell to have that base digit.<br>2 base cells, 2 target cells = base cells correspond to target cells<br><br>___<br>I'm not sure why the target cells cannot see each other<br>It still makes a perfectly valid (base cells correspond to target cells) deduction:<br><br>If:<br>1. 3 lines with 2 sections as described above<br>--- 1. S cells = not in same tier as base cells and companion cells (max 2 base candidates)<br>--- 2. not S cells = in same tier as base cells and companion cells (min 1 base candidate)<br>2. Where base cells limit the second section to 4 cells<br>3. And 2 of those 4 cells are companion cells (don't have base candidates)<br><br>Then:<br>Base cells correspond to target cells (note that there's no restriction with target cells seeing each other)<br><br>___<br>Or why the target cells must together contain *all* base candidates.<br><br>If: All pattern requirements are met, except for a base candidate being missing in the target cells<br><br>Then: That base candidate must appear once in the (not S cells) region.<br><br>Since that candidate is missing in both the target cells and the companion cells, but still appears in the (not S cells) region, it must see the base cells<br><br>So the base cells cannot have that candidate!<br><br>So the target cells weren't missing a base candidate after all!</div>
+<div class="w100pc" id="blog-reply16697"></div>
+<div class="post-reply" id="reply2744"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Tuesday 17-Aug-2021</td></tr>
+<tr><td colspan="2">@Steven: The target cells can see each other and it is listed as a separate type in David's documentation. The solver doesn't implement it though.</td></tr>
+</table></div>
+</div><div id="blog-reply2744" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16697,2744)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16682"><div class="w100pc"><div class="w60pc"><h2>... by: Milten</h2></div><div class="w40pc datepost">Friday 9-Jul-2021</div></div>
+<div class="w100pc">I haven't studied all the rules, but I can help with Rule 9:<br><br>If a mirror node contains a locked digit, any other digits it contains of the same type (known base or non-base) are false.<br><br>A pair of mirror cells must contain exactly one base digit and one non-base digit. That is because they contain the base digit of the opposite target cell, and then the other base digit is eliminated by the neighbouring target cell. So if one of the mirror cells has only base or non-base candidates, we know the other mirror cell will have the other type (base / non-base). Note that we actually don't need a locked digit to use this logic.<br><br>Suppose in the example puzzle that the base digits were determined to be 1 and 8 (alternatively, assume the candidate 5 in C9 were eliminated). Then C9 contains only non-base digits, so we may eliminate {2, 7, 9} from C8.</div>
+<div class="w100pc" id="blog-reply16682"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16682,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16679"><div class="w100pc"><div class="w60pc"><h2>... by: Christopher Eastwood</h2></div><div class="w40pc datepost">Tuesday 6-Jul-2021</div></div>
+<div class="w100pc">OK... not trying to be a pest, but Elimination Rule 8 still isn't making sense in the context of the CtC puzzle/video I posted earlier. (https://www.sudokuwiki.org/sudoku.htm?bd=400000002005082900020000030008010000560090078000060500010000060006150700300000004)<br><br>ER8 says "If a mirror node contains only one possible non-base digit value, it is true in that node and false in the cells in sight of it."<br><br>Target Cell F3 contains 234 (which are the three Base candidates), F3's mirror cells (F1 and F2) contain 1279 and 3479 respectively... that's 3 non-base digit values (179), not "only one possible" as ER8 says. So how does ER8 apply?</div>
+<div class="w100pc" id="blog-reply16679"></div>
+<div class="post-reply" id="reply2745"><table class="w100pc"><tr><td class="post-writes">Milten replies:</td><td class="datepost">Friday 9-Jul-2021</td></tr>
+<tr><td colspan="2">@Christopher Eastwood<br><br>The mirror cells of F3 are D89, not F12. They contain only {2, 6, 9}, from which it follows that F3 is 2 and D8 is 2. <br><br>The elimination follows from the stated Pattern Inference: "Mirror cells must contain the same base digits as their 'opposite' Target cells together with one digit that is false in the base cells." So since 3 and 4 are impossible i the mirror cells, they are eliminated from F3. <br><br>I admit that I don't think Bird's Rule 8 gives this. But it sounds like the implementation of Rule 8 more likely correspond to Rules 6 and 7 in the comment below. ("My best implementation that doesn't create incorrect removales goes along the lines of "base digit missing from mirror node or base digits missing in the mirrored target cell".") It sounds like a direct implementation of the Pattern Inference to me. </td></tr>
+</table></div>
+</div><div id="blog-reply2745" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16679,2745)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16676"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Saturday 3-Jul-2021</div></div>
+<div class="w100pc">Dude there is some chaining in this strategy, check out my last post</div>
+<div class="w100pc" id="blog-reply16676"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>True<br>What I was thinking was some kind of chain hanging off the pattern rather than within the pattern, but didn't come out right.<br>Certainly going to look closely at the comments when I can get my head into this space again<br>Cheers<br></div></div><div id="blog-reply2628" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16676,2628)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16674"><div class="w100pc"><div class="w60pc"><h2>... by: Christopher Eastwood</h2></div><div class="w40pc datepost">Friday 2-Jul-2021</div></div>
+<div class="w100pc">So, CtC used this rule (kind of) in this video: https://www.youtube.com/watch?v=n2No8hU2OwI<br><br>When running it through this solver (as Simon did in the video), it hits on the Exocet rule twice... the first time, is just eliminating the other candidates from F3 and D7, which is fine.<br><br>But the second time is causing me some trouble. The solver mentions using "Elimination Rule 4" (to eliminate 2 from D7) and "Elimination Rule 8" (to eliminate 3&4 from F3). The explanation above doesn't make any mention of either of these rules.<br><br>I understood the outcome of ER4 by basically just running through the chain of logic for every possible answer for cell E7, which all eliminate 2 from D7. But I don't understand the logic used for ER8... maybe it's a chain that I just don't have the patience to figure out, but I'm thinking that maybe there is some other application of the rules that makes this make more sense in a simpler/more straightforward way?<br><br>Anyway... any help is appreciated.</div>
+<div class="w100pc" id="blog-reply16674"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks for this comment. I've posted on the TY video<br><br>"I've, hopefully, slightly improved my solver by colouring the cover cells (in yellow) and highlighting the base digits in the cover cells. Might make the Exocet pattern a little more clear. Also, the strategy is visited twice because the second round of eliminations rely on the first Exocet set of eliminations from the target cells (green). P Bird does all eliminations in one step but I insist on separating them since some are knock on effects."<br><br>I've also listed the elimination definitions I use and I hope I can expand on them to explain them better. However Exocet documentation is very hard to wade through. There's no chaining as such or knock on chaining.<br></div></div><div id="blog-reply2627" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(195,16674,2627)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16657"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Thursday 4-Feb-2021</div></div>
+<div class="w100pc">Replying to kf4abh and Robert MauriÃƒÆ’Ã‚Â¨s:<br><br>I think I know how rule 1 works:<br><br>The base <b>usually</b> has four candidates for which digit to go in the base cell. If we prove that the two digits in the base cells will be the same as the two digits in the target cells, then we have essentially proved that Rule 1 works, because a foreign candidate cannot exist in the target cells if the base cells have no such corresponding candidate.<br><br>Let's say that the base digits are b1 and b2 (these can be any two candidates found in the base cells). Because of this, all the escape cells cannot contain b1 or b2, which creates a massive AIC which removes foreign candidates from the target cells and only leaves base digits.<br><br>For example, let us take the example in the article with base digits 1, 5, 8.<br>Let's say that b1 is 1 and b2 is 5. Then, this AIC is formed:<br><br>1[B4] = 5[B4] - 5[E4] = 5[E3] - 5[J3] = 5[J7] - 5[C7] = 1[C7] - 1[D7] = 1[D3] - 1[J3] = 1[J4] -<br><br>where "=" is a weak link and "-" is a strong link.<br><br><br>The companion cells and escape cells not having base candidates make sure that the strong links are formed properly, and Pattern rule 4 takes care of the weak links.<br><br><br>If you do have questions please reply. I hope this was clear to everybody</div>
+<div class="w100pc" id="blog-reply16657"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16657,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16566"><div class="w100pc"><div class="w60pc"><h2>... by: kf4abh</h2></div><div class="w40pc datepost">Monday 23-Mar-2020</div></div>
+<div class="w100pc">Following on the first comment by Mist...<br><br>Each of the two target cells in the Exemplar 1's Exocet pattern do not each contain all the base pair candidates, although together they do. So maybe the language of Pattern Rule 2 could be modified: "We then check if there are two Target cells (T) that together contain all the digits of the Base cell (plus any extras)."<br><br>I've just discovered the Exocet pattern and think it's great, but I sure would like to know why it works.</div>
+<div class="w100pc" id="blog-reply16566"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16566,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16536"><div class="w100pc"><div class="w60pc"><h2>... by: PseudoFish</h2></div><div class="w40pc datepost">Monday 9-Dec-2019</div></div>
+<div class="w100pc">Example 1 suggests an Exocet where:<br>  - Base is R3C1 and R3C3<br>  - Target is R1C5 and R2C7<br><br>Referring to the samples provided, I get that my Cover Lines would be C257; however, I only get one Cross Link with candidate 8 between the Cross Cover Base and CC1. I cannot make any links to CC2 because it is filled with fixed digits. It looks like I am missing two links for this to work, but somehow SW managed to make this work. What am I missing?</div>
+<div class="w100pc" id="blog-reply16536"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16536,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16369"><div class="w100pc"><div class="w60pc"><h2>... by: Mist</h2></div><div class="w40pc datepost">Wednesday 2-May-2018</div></div>
+<div class="w100pc">Hello<br><br>I just read the article several times to understand the exocet pattern better.<br>In the only exercise (not including the example in the article) "Exemplar 1, x1 (score 195)" the first (and only) exocet encountered by the solver, does not follow the rules this article teaches us. <br><br>Under "The Exocet Pattern - Pattern 2" it clearly says "We then check if there are two Target cells (T) that contain all the digits of the Base cell". However, they don't. So how are we supposed to know that?<br><br>The article is confusing in its current state. It would be nice if you could update the article so we could learn more about this very interesting pattern.<br><br>Thanks</div>
+<div class="w100pc" id="blog-reply16369"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16369,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16368"><div class="w100pc"><div class="w60pc"><h2>... by: Mist</h2></div><div class="w40pc datepost">Wednesday 2-May-2018</div></div>
+<div class="w100pc">Hello<br><br>I tried the puzzle in the given example: 007020004930000600600300000000000050200010008006900400003700900020050001000008000<br><br>Later in the same puzzle, the solver references exocet elimination rule 9. It removes candidate 8 from mirror 2 in row B colum 8. However, I could not find anything on any other exocet rules, so it just left me confused. I would be thrilled if you could include rule 9 (and perhaps rules 2-8 since there being a rule 9 implies there must be rules in-between the rule 1 showed here and rule 9 from the solver).<br><br>Thank you<br></div>
+<div class="w100pc" id="blog-reply16368"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16368,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16366"><div class="w100pc"><div class="w60pc"><h2>... by: Dale E. Kloss</h2></div><div class="w40pc datepost">Wednesday 2-May-2018</div></div>
+<div class="w100pc">What ever happened with the "Compatible Digit Check" ? <br><br>Cheers<br></div>
+<div class="w100pc" id="blog-reply16366"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16366,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16240"><div class="w100pc"><div class="w60pc"><h2>... by: Robert MauriÃ¨s</h2></div><div class="w40pc datepost">Thursday 2-Feb-2017</div></div>
+<div class="w100pc">Hello,<br>Excuse my English, I'm French.<br>In your presentation of the exocet you give the result, but you do not give the demonstration.<br>Where can one find the demonstration of the results of an exocet?</div>
+<div class="w100pc" id="blog-reply16240"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(195,16240,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 26-October-2016. Views: 80490<br>
+			This page was last modified on 2-July-2021.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a10226598e26d76d',t:'MTc4MjIwMzYyNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,7 +1,13 @@
 # 引擎方向决策：基于 HoDoKu 忠实移植重建 solver（保留契约与测试基建）
 
-> 状态：**方向已定，未动代码。** 本文记录调研结论与决策边界；未来即使开始移植 HoDoKu，也从 `research/hodoku-logic/` 这里起步（已含可运行的 HoDoKu 纯逻辑 oracle + 全套源码）。
-> 关联：[`FINDINGS.md`](./FINDINGS.md)（727 普查数据）、[`README.md`](./README.md)（oracle 构建/运行）、[`../../docs/plans/diabolical-727.md`](../../docs/plans/diabolical-727.md)（Roadmap ②）。
+> ⚠️ **部分已被 [`PORT-PLAN.md`](./PORT-PLAN.md) 取代（2026-06-23 方向调整）。** 项目现拆为**两条独立轨道**：
+> - **A（主 TS 引擎）**：保留并**自研补全**人类策略以超越 HoDoKu，见 [`../../docs/plans/diabolical-727.md`](../../docs/plans/diabolical-727.md)。**不再**"退役 33 策略 / 把 HoDoKu 塞进现有契约 / 重建主引擎"。
+> - **B（HoDoKu 移植）**：在 `research/hodoku-logic/` 下建**独立**引擎，与主引擎不共享代码，见 [`PORT-PLAN.md`](./PORT-PLAN.md)。
+>
+> 本文中**仍然有效**的部分（作为 B 的技术参考保留）：§2 调研结论、§4 难度/顺序/元数据模型、§5.2 数据结构与 solver 清单、§5.3 排除项、§6 测试、§7 风险。
+> **已被取代**的部分：§3（替换/退役主引擎策略）、§5.1（改主引擎共享契约）、§3.3（双策略集）——这些假设"在主引擎里替换 solver"，与"两条独立引擎"不再相符。
+>
+> 关联：[`FINDINGS.md`](./FINDINGS.md)（727 普查数据）、[`README.md`](./README.md)（oracle 构建/运行）。
 
 ## 1. 背景与问题
 

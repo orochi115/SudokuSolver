@@ -61,6 +61,14 @@ Use stable citation IDs in technique cards and synthesis documents.
 - `CHINESE-CN-SUDOKUPUZZLE-XYWING`: cn.sudokupuzzle XY-Wing.
 - `CHINESE-CN-SUDOKUPUZZLE-UR`: cn.sudokupuzzle Unique Rectangle.
 
+## Exotic / Rank-0 Extensions (added 2026-06-23)
+
+- `SUDOKUWIKI-EXOCET`: SudokuWiki Exocet (Junior/Senior) page.
+- `SUDOKUWIKI-SK-LOOP`: SudokuWiki SK Loops page.
+- `ENJOYSUDOKU-MSLS`: New Sudoku Players' Forum "Using Multi-Sector Locked Sets" thread.
+- `SUDOKUWIKI-FIREWORKS`: SudokuWiki Fireworks page.
+- `SUDOKUWIKI-APE`: SudokuWiki Aligned Pair Exclusion page (ATE extension cross-referenced from Sudopedia).
+
 ## Citation Style
 
 Use inline source lists in technique cards:

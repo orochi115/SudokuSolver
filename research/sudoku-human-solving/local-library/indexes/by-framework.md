@@ -31,6 +31,14 @@
 - Sue de Coq
 - Grouped AIC
 
+## Rank-0 / Multi-Sector Set Logic
+
+- Multi-Sector Locked Sets (MSLS)
+- SK-Loop (Domino Loop)
+- Exocet
+- Fireworks
+- Aligned Pair/Triple Exclusion
+
 ## Uniqueness-Assumption Logic
 
 - Unique Rectangle

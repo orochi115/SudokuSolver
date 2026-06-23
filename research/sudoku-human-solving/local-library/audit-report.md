@@ -25,11 +25,13 @@ The local Sudoku human-solving library now covers the previously selected inform
 
 | Type | Count |
 |---|---:|
-| Manifest source entries | 56 |
-| Local Markdown source files | 56 |
-| Local raw HTML source files | 56 |
-| Technique cards | 13 |
+| Manifest source entries | 61 |
+| Local Markdown source files | 61 |
+| Local raw HTML source files | 61 |
+| Technique cards | 18 |
 | Index/mapping files | 6 |
+
+> Update 2026-06-23: added 5 exotic sources (`SUDOKUWIKI-EXOCET`, `SUDOKUWIKI-SK-LOOP`, `ENJOYSUDOKU-MSLS`, `SUDOKUWIKI-FIREWORKS`, `SUDOKUWIKI-APE`; new `enjoysudoku` group) and 5 technique cards (Exocet, SK-Loop, MSLS, Fireworks, Aligned Pair/Triple Exclusion) under `11-exotic/`, in support of [`docs/plans/diabolical-727.md`](../../../../docs/plans/diabolical-727.md)'s P2 exotic tier. Counts above reflect post-update totals.
 
 ## Coverage Assessment
 

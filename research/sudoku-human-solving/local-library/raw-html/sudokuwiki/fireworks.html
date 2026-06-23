@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Fireworks - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="Sudoku Fireworks Strategy invented by Shye"/>
+<meta name="twitter:description" content="Sudoku Fireworks Strategy invented by Shye">
+<meta property="og:image" content="https://www.sudokuwiki.org/puzimages/Firework1.png"/><meta name="twitter:image" content="https://www.sudokuwiki.org/puzimages/Firework1.png" />
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Fireworks';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Fireworks">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Fireworks</h1><div class="SRCell">A super new pattern discovered by <b>shye</b> over at the New Sudoku Players Forum and posted in November 2021. The full write up is <a href="http://forum.enjoysudoku.com/fireworks-t39513.html" target="_blank">on this thread</a>.
+</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Firework1.png" alt="" /></figure>
+<br>To quote <b>shye</b> it is "built around a very simple idea, that being when a candidate in an intersecting row and column is limited to the same box, it must be placed in the intersecting cell".<br><br>Take row A and column 1 and consider candidate 9.  Clearly the cell marked with <span style="color:#88FF88"><b>X</b></span> would satisfy 9 for both the row and the column. Both the row and the column have one remaining cell outside box 1 - cells marked <span style="color:#ff00ff"><b>Y</b></span> and <span style="color:#22aaff"><b>Z</b></span>. A 9 in <span style="color:#ff00ff"><b>Y</b></span> would exclude <span style="color:#88FF88"><b>X</b></span> and necessitate another 9 in <span style="color:#22aaff"><b>Z</b></span> or maybe in the cells marked <span style="color:#22aaff"><b>a</b></span>. Same goes for 9 in <span style="color:#22aaff"><b>Z</b></span>.<br><br>The conclusion is that 9 must appear at least once in the three cells X, Y or Z. </div>
+
+<div class="SRCell">Knowing one candidate fits in X, Y and Z at least once doesn't get us very far since "there is no common seen cell to eliminate a candidate" but the pattern - a 'firework' - can explode outwards from the intersection if multiple candidates share the intersection. In the diagram above candidate 8 also works on the same logic as 9. <br><br>That gives us an interesting weak link between 8 and 9 in <span style="color:#88FF88"><b>X</b></span> that obliges at least one of <span style="color:#ff00ff"><b>Y</b></span> and <span style="color:#22aaff"><b>Z</b></span> to be 8 or 9. We could include this link in AICs and other chaining strategies.</div><br>
+
+<h2>Triple Firework</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Firework2.png" alt="Triple Firework example 1" /><figcaption>Triple Firework example 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=045000000000100070800023000000907100000000300080406020003000005070800006000000900">From the Start</a>
+</figcaption></figure>
+The magic starts when there are three candidates exhibiting the same firework pattern. Following <b>Shye</b>'s thread I'll reproduce "Triple Laser", the puzzle formulated by forum contributor <b>Qinlux</b> and then one of my own next.<br><br><span class="hy">A1</span>, <span class="hy">A9</span> and <span class="hy">J9</span> exhibit the firework pattern with candidates 1, 2 and 3. We know that each candidate must appear at least once in these three cells and we have three firework candidates so that makes a classic <b>Locked Set</b>.  We can't be certain which cells will ultimately be 1, 2 or 3 (except 3 is already excluded from <span class="hy">J9</span>) but a locked set excludes other candidates, so we can remove them. This greatly simplifies the rest of the puzzle which would otherwise require laborious chains.<br><br>Note that 1, 2 and 3 are absent from the blue shaded cells. This is how to spot the pattern. Also note that like triples in other strategies, it is not required that {1,2,3} be present in both wing cells, merely that they are present <i>across</i> the three cells. The pattern does require {1,2,3} in the intersection cell.<br><br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Firework4.png" alt="Triple Firework" /><figcaption>Triple Firework
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B02037v1n1n080g8i059u067n022v2v0h7q0d2q5u4a3y093y011i0bb60a064q168a03020g049e03360baa050h015u02055y2f2f090d0f1i82072208220b0a7q1ibmb61v1v020d077q010d0b092e2e0f0508">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=230008005060200000000090100006000320403000501025000900007080000000002070100900058">From the Start</a>
+</figcaption></figure>
+<br>This Triple runs off {3,7,8} from the intersection cell <span class="hy">F4</span>. I've marked the cells which lack these candidates in light blue to highlight how outside box 5 there is only one cell in each of row F and column 4 where {3,7,8} can fit.  The eliminations are in yellow.<br><br><span class="hc">Triple Fireworks: The three cells [F1|F4|C4] are a locked set that must contain {3/7/8} therefore<br>4/5/6 removed from C4</span><br><br>Out of some 45,000 hard puzzles in one test set I found just over 300 examples, comparable to Naked Quads.</div>
+
+<h2>Quadruple Firework</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/Firework3.png" alt="Quad Firework" /><figcaption>Quad Firework
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=002300500010040090000500006076000000800020040900000803000005002000006010000870000">From the Start</a>
+</figcaption></figure>
+Taking the idea to the next level - a quadruple firework display. Now, I've searched through thousands of difficult puzzles and not found another example beyond the demonstration puzzle <i>"Cobra Roll"</i> created by <b>jovi_al</b>, so I am using that puzzle to illustrate.<br><br>Actually, this is two double fireworks that happen to align on four cells. Down in the bottom left corner on <span class="hy">J1</span> we have two fireworks on candidates {1,2}. I've drawn the cells that don't contain 1 or 2 in light brown. The second double firework hangs on <span class="hy">D6</span> and the candidates {3,4}.  The wings of both these patterns are the same two cells: <span class="hy">D1</span> and <span class="hy">J6</span>.<br><br>While we have exactly four numbers in four cells the eliminations are a little bit more complicated than the triple. The intersection cells eliminate everything that is not a firework candidate, so <span class="hy">J1</span> will keep only {1,2} and <span class="hy">D6</span> will keep only {3,4}. While <span class="hy">D1</span> and <span class="hy">J6</span> will keep all four candidates {1,2,3,4}, if not already removed.<br><br>This pattern is rare because it not only requires four fireworks, they must be aligned just so, too many coincidences. But the logic is enjoyable.<br><br>There are a good many novel uses of this pattern in more advanced ways that I don't need to duplicate here, <a href="http://forum.enjoysudoku.com/fireworks-t39513.html">the thread is clear</a>. For this release of the solver I've included the two types above and will further document when or if I can code up more variants.<br><br></div>
+
+<h2>Fireworks Exemplars</h2>
+<div class="SRCell">These puzzles require Fireworks strategies at some point but are otherwise mostly basic strategies such as Pointing Pairs<br>
+They make good practice puzzles.<br>
+Discovered by Klaus Brenner
+<ul>
+<li><a href="/sudoku.htm?bd=609000015000050000030000080000007000207004600100800003000080034900020000400105070">Exemplar 1, (score 6.7)</a></li>
+<li><a href="/sudoku.htm?bd=000902300507600000600807005000300600070000010800010000400080000002000094905400000">Exemplar 2, (score 6.8)</a></li>
+<li><a href="/sudoku.htm?bd=000400300060907005080201000004000010000700000190005006000000803000006001740000060">Exemplar 3, (score 6.9)</a></li>
+<li><a href="/sudoku.htm?bd=100000400000010000098000006000420000700005300002086700900000005300002000470600000">Exemplar 4, x2 (score 7.4)</a></li>
+<li><a href="/sudoku.htm?bd=500007038000908002070000150340100000000000800200060000003600009000009040706000000">Exemplar 5, x2 (score 7.6)</a></li>
+<li><a href="/sudoku.htm?bd=001036850009005000000000000000050900600000023120900000000080004410000700036090010">Exemplar 6, (score 7.7)</a></li>
+<li><a href="/sudoku.htm?bd=004008007000060000500100028000400096000070080300000210100003470027000000050010000">Exemplar 7, x2 (score 7.7)</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="Tridagons">Tridagons</a></td><td class="w50pc cright">Continue to <a href="Twinned_XY_Chains">Twinned XY-Chains</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=209&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Fireworks" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(209,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17114"><div class="w100pc"><div class="w60pc"><h2>... by: blortch1</h2></div><div class="w40pc datepost">Friday 19-Apr-2024</div></div>
+<div class="w100pc">I don't understand how in Stuart's example of a triple firework (3,7,8) this can be an example of a hidden triple when there's a 7 in E4 and an 8 in D4.<br><br>Thank you for an explanation in advance.</div>
+<div class="w100pc" id="blog-reply17114"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(209,17114,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17038"><div class="w100pc"><div class="w60pc"><h2>... by: Maik</h2></div><div class="w40pc datepost">Sunday 17-Dec-2023</div></div>
+<div class="w100pc">Wait, in Triple Firework, you can also remove candidates from the four cells in the intersection box which are not on the intersecting lines, right? In Triple Firework example 1, candidate 2 in B7 can be removed, because if B7 were 2, both A1 and J9 would have to be 2, which obviously can't be the case. Also candidate 1 in C8 can be removed. And in the next example, candidate 7 from E6.</div>
+<div class="w100pc" id="blog-reply17038"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(209,17038,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17019"><div class="w100pc"><div class="w60pc"><h2>... by: David Harkness</h2></div><div class="w40pc datepost">Thursday 9-Nov-2023</div></div>
+<div class="w100pc">Peter,<br><br>I suspect the pattern holds for any candidate in the triple that isn't in the intersection as long as it only appears in one or both of the wing cells (Y and/or Z) and not in any of the other cells in the row/column being examined. If not, it won't be locked to XYZ.<br><br>If I find an example of such a case, I'll post again.<br><br>David<br></div>
+<div class="w100pc" id="blog-reply17019"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(209,17019,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16763"><div class="w100pc"><div class="w60pc"><h2>... by: JRTRCT</h2></div><div class="w40pc datepost">Sunday 9-Jan-2022</div></div>
+<div class="w100pc">The puzzle Tulip by Piatato (link at the end of the comment) has a quadruple firework on F1J1F4J4 (which chains into a triple firework) that your sudoku solver cannot spot. The solver is forced to use an alternating inference chain to break open the puzzle. Manually entering the deductions allows the solver to finish the puzzle using only basic strategies.<br><br>https://app.crackingthecryptic.com/sudoku/fpuzzlesN4IgzglgXgpiBcBOANCALhNAbO8QBUBXLCABxFQENC0ALAewCcEQAFCStT+ikR4mGBhoWAOSYBbSlgAEYQgBN6Aa0Iz+OMDMqlSWAJ4A6XgHNGEBQgDaV4AF9k9xw6egAbtMK4ALKhMQ3GAA7BDR+GBcQDywvBAA2PwDg0PCXNOcAXWRbdPdPXAAmRMCQ+DCvSOjY+ABmYuSy1Odm1yj8hAB2etLyiMzs1qrcAEZulIqW3Mr2+ABWMcaJ1zss2zaY3C6QfxLxvuXHderR7aSepoPLo58F3pWB64R5093F/anDoYQUF4a7yZaj3gCV+5wqq0GMwAHLcLkCfjs/hdckCiqC9iivrVYUt7jlAVjnoiwfsgTD0W8PpCNggTsSMf18XkacCce9PjMEWcGVcsWj6ZTJhCqdMWVsBf9mdUidzBZcVhk7EA=</div>
+<div class="w100pc" id="blog-reply16763"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(209,16763,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16762"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Sunday 9-Jan-2022</div></div>
+<div class="w100pc">Andrew, a strategy will never <b>require</b> a candidate. It's like saying the more information we have, the worse. <br>(Avoidable Rectangles and similar strategies are an exception [kinda], but even then they only ask if the candidate <b>could've</b> existed in the cells in question. That is why givens aren't considered there)<br><br><br>The pattern will still work even if certain candidates are missing from the intersection, like normal hidden triples. Speaking of hidden triples...<br><br><h3>How I understand this pattern</h3><br>Triple fireworks are just hidden triples, with the three cells in very different places however.<br>In a hidden triple, the three candidates must exist at least one in the three cells of the pattern. A firework is a way of establishing that statement.<br><br>However, there are other ways to establish that, like a simple strong link between two of the cells, or maybe a chain starting and ending with a strong link with the ends being the two wing cells.<br><br>Same goes for 4-fireworks, they're hidden quads.<br><br><h3>Sudoku X Addendum</h3><br>I see massive potential with Fireworks in Sudoku X. Diagonals can replace one or both row or column, and when there is a single firework in regular Sudoku there are no common peers so there are no useful eliminations, but in Sudoku X even a single firework can provide oppurtunities for eliminations because of the diagonals.<br><br>(Variants don't get much love by the community, even though they provide objectively more interesting solving techniques... Sad...)</div>
+<div class="w100pc" id="blog-reply16762"></div>
+<div class="post-reply" id="reply2786"><table class="w100pc"><tr><td class="post-writes">tebo replies:</td><td class="datepost">Sunday 31-Jul-2022</td></tr>
+<tr><td colspan="2">Anonymous: You state that a firework is a way of establishing another pattern, and "there are other ways".  Neither Andrew nor shye deny there are other ways.  Andrew states the "three firework candidates ... make a classic Locked Set".  As I see it, the Triple Firework pattern creates a new "House" within which the Locked Set exists.  Patterns like Fireworks create a framework within which a pattern is humanly recognizable.  The question is, are *all* the "other ways" simpler than Fireworks?</td></tr>
+</table></div>
+<div class="post-reply" id="reply2787"><table class="w100pc"><tr><td class="post-writes">Anonymous replies:</td><td class="datepost">Sunday 28-Aug-2022</td></tr>
+<tr><td colspan="2">tebo: My point was that some of these could be implemented in to the solver. There are complicated ways, but a simple strong link between two cells is simple enough to implement.</td></tr>
+</table></div>
+</div><div id="blog-reply2787" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(209,16762,2787)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16760"><div class="w100pc"><div class="w60pc"><h2>... by: Steven</h2></div><div class="w40pc datepost">Saturday 8-Jan-2022</div></div>
+<div class="w100pc">For the triple firework example, is it necessary for the intersection cell to have {1,2,3}?<br><br>Since each candidate in {1,2,3} (by the original pattern at the top) must appear at least once in X, Y, and Z (in this case, A1, A9, and J9)... I don't think it's necessary, just like any other triple.<br><br>Of course, I don't see a way for 3 to be eliminated from the intersection cell without ruining the pattern, but it still counts</div>
+<div class="w100pc" id="blog-reply16760"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(209,16760,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment16747"><div class="w100pc"><div class="w60pc"><h2>... by: jovi_al</h2></div><div class="w40pc datepost">Sunday 19-Dec-2021</div></div>
+<div class="w100pc">Fantastic to see a page on this!<br>Just want to add, the triple firework example was set by user Qinlux (the puzzle title being "Triple Laser"), and the quadruple firework example was created by myself (the puzzle title being "Cobra Roll")! This is something we've all been working on for many months, so it's very exciting to see a page on it here :)</div>
+<div class="w100pc" id="blog-reply16747"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I am very happy to include that in the main article text, good have clarity, especially as far as credits go. Cheers!</div></div><div id="blog-reply2641" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(209,16747,2641)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment16745"><div class="w100pc"><div class="w60pc"><h2>... by: Anonymous</h2></div><div class="w40pc datepost">Friday 17-Dec-2021</div></div>
+<div class="w100pc">https://www.sudokuwiki.org/sudoku.htm?bd=....8657....157.3...7...4....5....8.2..5.8..3.8....6....1...3...5.642....6293....<br><br>While using the solver on this puzzle I discovered that there was a new addition to the solver, and a very exciting one. This pattern is very clever.<br><br>I'd also like to propose a strategy for Sudoku X: Since 9 is locked to A1, A9 and J1, if the puzzle were a Sudoku X, 9 can be eliminated from E5 and J9.<br><br>Also, creative name.</div>
+<div class="w100pc" id="blog-reply16745"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(209,16745,0)">REPLY TO THIS POST</td></tr></table></div></div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 12-December-2021. Views: 52974<br>
+			This page was last modified on 7-July-2024.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a102255db86784ba',t:'MTc4MjIwMzU4Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

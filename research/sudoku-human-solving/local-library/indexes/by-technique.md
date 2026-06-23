@@ -14,4 +14,9 @@
 | ALS | `../techniques/09-als/als.md` | HODOKU-ALS, SUDOKUBLISS-ALS |
 | Uniqueness | `../techniques/10-uniqueness/unique-rectangle-bug.md` | HODOKU-UNIQUENESS, CHINESE-KAZUSA-UR |
 | Sue de Coq | `../techniques/11-exotic/sue-de-coq.md` | HODOKU-MISC |
+| Exocet | `../techniques/11-exotic/exocet.md` | SUDOKUWIKI-EXOCET |
+| SK-Loop | `../techniques/11-exotic/sk-loop.md` | SUDOKUWIKI-SK-LOOP, ENJOYSUDOKU-MSLS |
+| Multi-Sector Locked Sets (MSLS) | `../techniques/11-exotic/msls.md` | ENJOYSUDOKU-MSLS, SUDOKUWIKI-SK-LOOP |
+| Fireworks | `../techniques/11-exotic/fireworks.md` | SUDOKUWIKI-FIREWORKS |
+| Aligned Pair/Triple Exclusion | `../techniques/11-exotic/aligned-exclusion.md` | SUDOKUWIKI-APE, SUDOPEDIA-SOLVING-TECHNIQUE |
 | Forcing Boundary | `../techniques/12-last-resort/forcing-vs-enumeration.md` | HODOKU-LAST, SUDOKUWIKI-LOGIC-VS-BRUTE |

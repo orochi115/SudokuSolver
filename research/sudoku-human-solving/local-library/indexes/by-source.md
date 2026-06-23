@@ -41,3 +41,9 @@
 - Markdown: `../markdown/chinese/`
 - Raw HTML: `../raw-html/chinese/`
 - Best for: Chinese terminology, constructed-chain framing, Chinese explanation style.
+
+## enjoysudoku Forum (New Sudoku Players' Forum)
+
+- Markdown: `../markdown/enjoysudoku/`
+- Raw HTML: `../raw-html/enjoysudoku/`
+- Best for: canonical first-source threads for exotic rank-0 patterns (MSLS, SK-Loop / Domino Loop).
