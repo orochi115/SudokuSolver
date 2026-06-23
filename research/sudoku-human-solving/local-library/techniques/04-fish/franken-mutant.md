@@ -13,6 +13,7 @@ sources:
   - SUDOPEDIA-FRANKEN-FISH
   - SUDOPEDIA-MUTANT-FISH
   - SUDOPEDIA-FISH
+  - HODOKU-COMPLEX-FISH
 ---
 
 # Franken & Mutant Fish / 弗兰肯鱼与变异鱼
@@ -81,18 +82,25 @@ Target sets must be stated precisely: "secondary-set cells not in any defining h
 - **Kraken fish**: a fish whose fin connects via a chain to an eliminable candidate (an AIC overlay) — a further generalisation, out of scope here.
 - **Siamese fish (presentation note)**: when two distinct fish of the same digit share the same base lines but use **different cover sets / different fins** and yield different eliminations, they are presented together as a *Siamese* pair. Siamese is not a new pattern — it is a *display* convention for two co-located fish on one digit; engines should emit each as its own fish step.
 
-## Worked example (diagram, from source)
+## Worked example
 
-Source: Sudopedia "Mutant Fish" — *Finned Mutant Swordfish*. The page gives a schematic (not an 81-char grid). Reconstructed schematic of the defining/secondary layout for digit `X`:
+### Finned Franken Swordfish (HoDoKu `fff301`, cite `HODOKU-COMPLEX-FISH`)
 
-- **Defining set**: row 1, column 7, and one box — 3 group-conjugate strands.
-- **Secondary set**: a mix completing the 10-cell maximum pattern (column + 2 boxes form, per the Mutant Swordfish maximum).
-- **Fin**: a single cell at r1c7 in box 3 (the only legal fin location, since the other box-3 cells in row 1 / column 7 are part of the pattern).
-- **Eliminations**: the 4 candidate cells inside box 3 that see the fin.
+Givens (81 chars, row-major, '0' = empty):
 
-FLAG: this is the **source's schematic, not a verified 81-char puzzle**. A concrete grid was NOT supplied by the source page. CONSTRUCTED/needs engine verification — an engine-generated Franken/Mutant Swordfish puzzle should be substituted before this card is used for regression testing.
+```
+006700091009000062300000000000030004007200010400001000031008075000900000065000030
+```
 
-(No fin-free worked grid is given because Sudopedia presents Franken/Mutant patterns as abstract constraint-set diagrams; HoDoKu's complex-fish corpus is the recommended source of concrete grids when wiring tests.)
+- **Digit**: `8`.
+- **Fish notation** (HoDoKu): `8 c34b6 r346 fr5c7` — cover sets columns 3+4+box 6, base sets rows 3+4+6, fin at `r5c7`.
+- **Elimination**: `8` removed from `r3c7`.
+
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): `r3c7<>8` is sound against the brute-force solution.
+
+### Schematic reference (Sudopedia Mutant Fish — pattern geometry only)
+
+Sudopedia "Mutant Fish" also gives a *Finned Mutant Swordfish* schematic (defining row 1 + column 7 + one box; fin at the pattern corner). That page has no 81-char puzzle — use the HoDoKu grid above for regression fixtures.
 
 ## Soundness
 

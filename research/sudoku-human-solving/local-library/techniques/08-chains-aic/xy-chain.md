@@ -97,7 +97,7 @@ Grid: `0020003760100305000000000909008500010003040002000970030800000000030400601
 
 Short rectangular closed chain on cells B3{8,6}, D3{4,...}, D8{2,...}, B8{8,...}. Tracing from B3: 6→D3=4→D8=2→B8=8, confirming B3=8; reversing confirms the loop. Because the loop's ends (the 8s in B3 and B8) see each other it is continuous, so three of the four cross-row/col links yield removals of the hop digit from their shared units (as highlighted on the source page).
 
-(Both grids are SudokuWiki XY-Chain "From the Start" examples; Example 1's chain and three eliminations are quoted verbatim. The Example-2 closed loop is described qualitatively on the source — exact off-link removals depend on the full pencilmarks after basics.)
+Example 1 verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): eliminations `r1c3<>5`, `r3c7<>5`, `r3c9<>5` are sound against the brute-force solution. Example 2 (closed loop) is described qualitatively on the source — exact off-link removals depend on the full pencilmarks after basics.
 
 ## Soundness
 

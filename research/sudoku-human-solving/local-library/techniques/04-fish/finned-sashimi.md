@@ -93,7 +93,7 @@ Grid (81 chars, row-major, '0' = empty):
 - **Fin**: cells D4 and D5 (both in box 5, on base row D).
 - **Elimination**: remove `4` from E6 and F6 — they share box 5 with the fins AND lie on the cover column 6. (Per source: either `4` sits in {D4,D5} clearing E6/F6 by the box, or the plain X-Wing holds and clears them by column.)
 
-FLAG: base/cover line identities and the exact eliminated cells are paraphrased from the SudokuWiki page; **needs engine verification** against the loaded grid.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): eliminations `r5c6<>4`, `r6c6<>4` are sound against the brute-force solution of the givens above.
 
 Second example — Finned/Sashimi Swordfish (SudokuWiki "Finned Swordfish", *Finned Sashimi Example 2*, "From the Start" grid):
 
@@ -103,7 +103,7 @@ Second example — Finned/Sashimi Swordfish (SudokuWiki "Finned Swordfish", *Fin
 
 - **Digit**: `7`. Reduced Swordfish (1-2-2 row formation) with a double fin at A4 & A5 (one box). **Elimination**: `7` removed from A6 (the cover cell inside the fin box).
 
-FLAG: needs engine verification.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): `r1c6<>7` is sound against the brute-force solution.
 
 ## Soundness
 

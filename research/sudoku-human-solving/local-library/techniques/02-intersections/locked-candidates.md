@@ -94,7 +94,7 @@ Grid (81 chars, row-major, '0' = empty):
 - **Pointing**: 3 must lie in box 3 on row B, so remove **3 from the rest of row B** — specifically the 3s in box 1 (B1, B2, B3).
 - Per the source, a second simultaneous pointing pair has the 2s in G4 and G5 (box 8, column-aligned reading) pointing along the row to eliminate the 3 at G2.
 
-FLAG: cell coordinates and the exact victims are transcribed from the SudokuWiki page prose (which presents the position as an image); the 81-char string is the page's own "From the Start" puzzle definition. **Engine verification recommended** to confirm the candidate grid yields B1/B2/B3 as the 3-eliminations.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): pointing example eliminations `r2c1<>3`, `r2c2<>3`, `r2c3<>3` are sound against the brute-force solution.
 
 Claiming / Box-Line Reduction (SudokuWiki "Box/Line Reduction" first example, "From the Start"):
 
@@ -103,6 +103,8 @@ Claiming / Box-Line Reduction (SudokuWiki "Box/Line Reduction" first example, "F
 ```
 
 - **Digit** `2`, **row A**: the only 2s in row A are at **A4** and **A5**, both inside **box 2**. Therefore 2 in row A is *claimed* by box 2, so remove **2 from the rest of box 2** — B5, C4, C5 (per source).
+
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): claiming eliminations `r2c5<>2`, `r3c4<>2`, `r3c5<>2` are sound against the brute-force solution.
 
 ## Soundness
 

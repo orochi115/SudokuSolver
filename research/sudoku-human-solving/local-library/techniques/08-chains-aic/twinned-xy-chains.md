@@ -62,8 +62,8 @@ These EXTEND the AIC engine of `aic.md`: the sextuple is a large locked-set node
 
 ## Worked example
 
-**Example A — Nils Leder's original (source grid, SUDOKUWIKI-TWINNED-XY-CHAINS).** *(FLAG: the source describes the structure and the twin XY-cycles narratively; it does not print a single linear chain string or an explicit elimination list, so the eliminations below are reconstructed from the stated naked-set logic — verify against the solver's "From the Start" board.)*
-Grid (From the Start): `080402000000065001600100000070000300058200970300000002800010003500000009000907480`
+**Verified — Example A** (Nils Leder's original, SUDOKUWIKI-TWINNED-XY-CHAINS):
+Grid: `080402000000065001600100000070000300058200970300000002800010003500000009000907480`
 
 Six cells, two parallel rows E and J, columns 1/5/9:
 - E1 `{1,2,4}`, E5 `{1,4}`, E9 `{3,4,6}`, J1 `{2,3}`, **J5 `{2,3,5}` (pivot, 3 candidates)**, J9 `{5,6}`.
@@ -76,6 +76,8 @@ remove 2 from J5  ⇒  XY-cycle on {3,4,5,6} over E5–E9–J5–J9
 ```
 Either way one cycle fires; digit 4 is common to both, so the cycles are linked and the six cells are a locked naked sextuple on `{1,2,3,4,5,6}`. **Eliminate each of these six digits from any cell outside the sextuple that sees all of that digit's positions inside it** (off-chain, "in the direction of all pairs of numbers").
 
+Verified eliminations (`worked-examples.test.ts`): `r1c1,r4c1<>1`; `r9c2,r9c3<>2`; `r1c5,r3c5,r8c5<>3`; `r5c6<>4`; `r1c9,r4c9<>6`.
+
 **Example B — column-oriented spine (source grid, SUDOKUWIKI-TWINNED-XY-CHAINS).**
 Grid (From the Start): `850900000000010000067030400020300009003050600600001070006040510000070000000003082`
 
@@ -86,7 +88,18 @@ Grid (From the Start): `27000040000912030000000908000030050900001000062000700000
 
 A looser instance: three 4s, three 8s and three 2s each stay within their own rows (mutually visible), while 1, 3 and 9 are paired in their columns. The "XY-chain" is now only an analogy — placing a candidate in one spot removes two in two other cells — but the giant-naked-set / mutual-visibility condition still holds, so the off-chain pair eliminations are valid.
 
-(All three grids are quoted verbatim from SudokuWiki "Twinned XY-Chains" (Nils Leder's original plus two solver-found examples); the cell/candidate listings and twin-cycle decomposition are from the source. The source gives no single chain string or explicit elimination list, so the off-chain removals are stated by rule, not enumerated — FLAGGED. Grids validated as 81-char strings.)
+**Verified — Example B** (From the Start):
+Grid: `850900000000010000067030400020300009003050600600001070006040510000070000000003082`
+
+Off-chain eliminations (column-spine 6-cell locked set): `r1c5<>2`, `r1c3<>2`, `r1c6<>2`,
+`r1c9<>1`, `r9c7<>1`.
+
+**Verified — Example C** (From the Start):
+Grid: `270000400009120300000009080000300509000010000620007000002500000080074050040000906`
+
+Locked-set wing cleanup: `r6c3<>3`, `r6c3<>4` (strip non-locked digits from `F3`).
+
+Example A eliminations verified on givens and on SudokuWiki `Load Example` S9B restored state.
 
 ## Soundness
 

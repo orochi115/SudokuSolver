@@ -35,7 +35,7 @@
 - **◐ 概要**：有卡但仅"规则 + 扫描"，缺精确约束 / 边界 / 例子。
 - **✗ 缺文档**：无专卡且无可用源镜像。
 
-> 现状（2026-06-23 缺口补齐后）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级或边界级专卡（41 张）**；其中一部分的 worked example 仍待引擎验证（标 ✅\*），另一部分只有片段/图示示例（标 ✅△）。仅 P3（红线，默认不实现）保持边界卡。库存计数与源镜像见 [`research/sudoku-human-solving/local-library/audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（90 源 / 41 卡）。
+> 现状（2026-06-23 卡片补齐；**2026-06-23 晚** 引擎验证六轮）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级或边界级专卡（41 张）**。51 个 worked example 已通过 `packages/engine/test/worked-examples.test.ts` 暴力解核对（见 §文档缺口 backlog）。仍待验证的 exotic / AR 等卡保持 ✅\*。仅 P3（红线）保持边界卡。库存见 [`audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（90 源 / 41 卡）。
 
 ## 已实现（31，仅供参照，不再规划；其研究卡已于 2026-06-23 升级到实现级）
 
@@ -61,49 +61,49 @@ last-resort：`forcing-chain`。
 
 | 技巧 | 分册 | 文档状态 | 研究卡 | 说明 |
 |---|---|---|---|---|
-| Finned / Sashimi X-Wing·Swordfish·Jellyfish | 04-fish | ✅\* | `04-fish/finned-sashimi.md` | 现有 fish 的受控扩展（cover set + fin 格；仅消除"看到全部 fin"的 cover 格）。退化为 Sashimi（缺角）。**仅做到 jellyfish 大小**（更大鱼见有意排除）。 |
-| Rectangle Elimination（SudokuWiki 现行 Empty Rectangle 表述） | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/rectangle-elimination.md` | 明确补齐 SudokuWiki 2023+ Tough 策略；实现上吸收进 Empty Rectangle / grouped X-Cycle / grouped AIC，不重复增加逻辑力。 |
+| Finned / Sashimi X-Wing·Swordfish·Jellyfish | 04-fish | ✅ | `04-fish/finned-sashimi.md` | 现有 fish 的受控扩展（cover set + fin 格；仅消除"看到全部 fin"的 cover 格）。退化为 Sashimi（缺角）。**仅做到 jellyfish 大小**（更大鱼见有意排除）。 |
+| Rectangle Elimination（SudokuWiki 现行 Empty Rectangle 表述） | 05-single-digit-patterns | ✅ | `05-single-digit-patterns/rectangle-elimination.md` | 明确补齐 SudokuWiki 2023+ Tough 策略；实现上吸收进 Empty Rectangle / grouped X-Cycle / grouped AIC，不重复增加逻辑力。 |
 | Grouped AIC / Grouped Nice Loops | 08-chains-aic | ✅ | `08-chains-aic/grouped-aic.md` | 给链搜索加 **group node**。 |
 | 不连续 / 连续 Nice Loop | 08-chains-aic | ✅ | `08-chains-aic/nice-loops.md` | 链端点重合 → 强制落子/消除；727 最大族。 |
 | XY-Chain（显式） | 08-chains-aic | ✅ | `08-chains-aic/xy-chain.md` | 双值格链，AIC 的常见特例（Remote Pairs ⊂ XY-Chain ⊂ AIC）。 |
 | Hidden Unique Rectangle（Hidden Rectangle） | 10-uniqueness | ✅ | `10-uniqueness/unique-rectangle-bug.md` | 与 UR Type 6 逻辑重叠，已在卡内交叉标注。 |
 | UR Type 3 / 5 / 6 | 10-uniqueness | ✅ | `10-uniqueness/unique-rectangle-bug.md`（逐型 1–6 + Hidden UR + BUG/Unique Loop） | 补齐现有 UR 1/2/4 的其余类型。 |
-| Turbot Fish / X-Cycles（含 Fishy Cycle 别名） | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/turbot-family.md` | 与现有 skyscraper / 2-string-kite / empty-rectangle **部分重叠**，卡内已写清"同一单数字强链模式"（见 overlap）。 |
+| Turbot Fish / X-Cycles（含 Fishy Cycle 别名） | 05-single-digit-patterns | ✅ | `05-single-digit-patterns/turbot-family.md` | 与现有 skyscraper / 2-string-kite / empty-rectangle **部分重叠**，卡内已写清"同一单数字强链模式"（见 overlap）。 |
 
 ### P1 — 标准进阶，中等杠杆
 
 | 技巧 | 分册 | 文档状态 | 研究卡 |
 |---|---|---|---|
 | Tridagon / anti-Tridagon（Thor's Hammer） | 11-exotic | ✅ | `11-exotic/tridagon.md`（现代 diabolical 高杠杆，已提到 P1） |
-| Multi-Coloring | 07-coloring | ✅\* | `07-coloring/multi-coloring.md` |
-| 3D Medusa | 07-coloring | ✅\* | `07-coloring/3d-medusa.md` |
+| Multi-Coloring | 07-coloring | ✅ | `07-coloring/multi-coloring.md`（HoDoKu mc01 `r5c23<>1` 已验证） |
+| 3D Medusa | 07-coloring | ✅ | `07-coloring/3d-medusa.md`（R1/R3/R4/R5 已验证；R2 整色翻转待夹具） |
 | ALS-XY-Chain / 一般 ALS 链 | 09-als | ✅ | `09-als/als.md`（`als-xy-wing` 是其 len-2 特例） |
 | Almost Hidden Sets (AHS) 作链节点 | 09-als | ✅ | `09-als/ahs.md`（ALS 的对偶：N 数字落在 N+1 格） |
 | WXYZ-Wing | 06-wings | ✅ | `06-wings/wxyz-wing.md` |
 | Remote Pairs | 06-wings | ✅ | `06-wings/remote-pairs.md`（XY-Chain 特例） |
-| Almost Locked Pair/Triple（Bent Sets）/ Chute Remote Pairs | 06-wings | ✅\* | `06-wings/bent-sets.md`（+ chute 见 `remote-pairs.md`） |
+| Almost Locked Pair/Triple（Bent Sets）/ Chute Remote Pairs | 06-wings | ✅ | `06-wings/bent-sets.md`（+ chute 见 `remote-pairs.md`） |
 | Broken Wing / Guardians | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/broken-wing.md`（与 Turbot/X-Cycle 重叠，已交叉标注） |
-| Avoidable Rectangle Type 1–4（一般 AR） | 10-uniqueness | ✅\* | `10-uniqueness/avoidable-rectangle.md` |
+| Avoidable Rectangle Type 1–4（一般 AR） | 10-uniqueness | ✅ | `10-uniqueness/avoidable-rectangle.md`（HoDoKu ar101/ar102/ar201/ar202 已验证） |
 | Extended Unique Rectangle（2×3 / 3 数） | 10-uniqueness | ✅ | `10-uniqueness/extended-ur.md` |
 | Unique Loops / Unique Polygon / BUG 变体（BUG Lite、BUG+n） | 10-uniqueness | ✅ | `10-uniqueness/unique-rectangle-bug.md` |
 | AIC with ALS nodes | 08-chains-aic | ✅ | `08-chains-aic/aic-with-als.md` |
-| AIC with UR / grouped nodes | 08-chains-aic | ✅\* | `08-chains-aic/aic-with-ur.md`（+ grouped 见 `grouped-aic.md`） |
+| AIC with UR / grouped nodes | 08-chains-aic | ✅ | `08-chains-aic/aic-with-ur.md`（Examples A/B 已验证） |
 
 ### P2 — 罕见 / 异域，低频
 
 | 技巧 | 分册 | 文档状态 | 研究卡 |
 |---|---|---|---|
 | WXYZ-Wing 之上的翼梯：VWXYZ-Wing（及一般 size-ladder） | 06-wings | ✅ | `06-wings/wxyz-wing.md`（含 VWXYZ 与翼梯通项） |
-| Exocet（Junior / Senior）；Double Exocet 交叉标注 | 11-exotic | ✅\* | `11-exotic/exocet.md` |
-| SK-Loop（⊂ MSLS，交叉标注） | 11-exotic | ✅\* | `11-exotic/sk-loop.md` |
+| Exocet（Junior / Senior）；Double Exocet 交叉标注 | 11-exotic | ✅ | `11-exotic/exocet.md`（Rule 1 已验证） |
+| SK-Loop（⊂ MSLS，交叉标注） | 11-exotic | ✅\* | `11-exotic/sk-loop.md`（Easter Monster 外链消除 + 两例唯一性已验证；内链消除待补） |
 | MSLS（Multi-Sector Locked Sets） | 11-exotic | ✅\* | `11-exotic/msls.md` |
-| Fireworks | 11-exotic | ✅\* | `11-exotic/fireworks.md` |
-| Aligned Pair/Triple Exclusion（APE/ATE） | 11-exotic | ✅\* | `11-exotic/aligned-exclusion.md` |
+| Fireworks | 11-exotic | ✅ | `11-exotic/fireworks.md`（triple + quad 已验证） |
+| Aligned Pair/Triple Exclusion（APE/ATE） | 11-exotic | ✅ | `11-exotic/aligned-exclusion.md`（SW 四例已验证） |
 | Subset Exclusion / Subset Counting（APE/ATE 的非对齐推广） | 11-exotic | ✅\* | `11-exotic/subset-exclusion.md` |
-| Sue de Coq 扩展（更大 SdC / 双线） | 11-exotic | ✅\* | `11-exotic/sue-de-coq.md` |
+| Sue de Coq 扩展（更大 SdC / 双线） | 11-exotic | ✅ | `11-exotic/sue-de-coq.md`（HoDoKu sdc01–sdc04 已验证） |
 | AIC with exotic links | 08-chains-aic | ✅ | `08-chains-aic/aic-with-exotic-links.md` |
-| Twinned XY-Chains | 08-chains-aic | ✅\* | `08-chains-aic/twinned-xy-chains.md` |
-| Franken / Mutant fish（含 Endo Fins / Cannibalism 精炼、Siamese 呈现） | 04-fish | ✅△ | `04-fish/franken-mutant.md` |
+| Twinned XY-Chains | 08-chains-aic | ✅ | `08-chains-aic/twinned-xy-chains.md`（Examples A/B/C 已验证） |
+| Franken / Mutant fish（含 Endo Fins / Cannibalism 精炼、Siamese 呈现） | 04-fish | ✅ | `04-fish/franken-mutant.md` |
 | Gurth's Symmetrical Placement（对称占位） | 10-uniqueness | ✅ | `10-uniqueness/gurth.md`（仅对称题有效，727 上低频） |
 | Rank / SET / Phistomefel / Oddagon 理论边界 | 11-exotic | ◇ | `11-exotic/rank-set-theory.md` | 成体系现代资料补齐；作为 MSLS/SK/Oddagon/Tridagon/Broken-Wing 的理论映射，不作为默认策略。 |
 
@@ -135,11 +135,13 @@ last-resort：`forcing-chain`。
 - **Reverse BUG / Reverse ER 等"反向"边角形**：极冷门，列此备查。
 - **变体规则**（Jigsaw/Windoku/Killer/Sudoku-X：Law of Leftovers、9 Windows、cage 规则等）：非经典 9×9，727 域外。
 - **Multivalue X-Wing**：SudokuWiki 已废弃，被标准 X-Wing/finned fish 吸收。
+- **Y-Wing Chains**：SudokuWiki 已标 deprecated，逻辑 ⊂ XY-Chain（见 overlap §2）。
+- **M-Wing / M-Ring**（enjoysudoku 论坛别名）：极冷门社区技巧，视为 AIC/XY-Chain 族的非标准命名，不单独实现。
 
 ### 重叠 / 包含关系（交叉标注，避免重复实现或独立去重出错）
 
 1. **单数字强链族**：Turbot Fish = skyscraper/2-string-kite/empty-rectangle 的统一 4-链形；X-Cycle = 单数字 Nice Loop；Fishy Cycle = X-Cycle 别名；X-Wing = 长度 4 的连续 X-Cycle。→ 不要实现成 4 个独立探测器，写成"单数字链"统一说明。
-2. **链族嵌套**：Remote Pairs ⊂ XY-Chain ⊂ AIC；W-Wing 是短双值链。
+2. **链族嵌套**：Remote Pairs ⊂ XY-Chain ⊂ AIC；Y-Wing Chain（已废弃名）⊂ XY-Chain；W-Wing 是短双值链。
 3. **链引擎合一**：Grouped AIC / 连续·不连续 Nice Loop / 基础 AIC 是**同一链引擎 + 开关**（分组开关、开链 vs 环），按 feature flag 推进，而非三个技巧。
 4. **uniqueness 重叠**：Hidden UR ↔ UR Type 6（对角 hidden）逻辑重叠。
 5. **ALS 嵌套**：ALS-XY-Wing 是一般 ALS 链的 len-2 特例。
@@ -162,22 +164,45 @@ last-resort：`forcing-chain`。
 8. **Soundness 说明**：推导为何成立（uniqueness 类须显式写"假设唯一解"）。
 9. **Sources**：源镜像文件名，保持可追溯。
 
-## 文档缺口 backlog（已基本完成）
+## 文档缺口 backlog
 
-**卡片书写：✅ 基本完成（2026-06-23）。** 原三桶工作（A 网络抓取新建、B 富源 curate、C 升级 ◐ 卡）已全部落地；本轮又补齐 Rectangle Elimination、Kraken 边界、Rank/SET/Phistomefel/Oddagon 口径。00–11 分册的 P0/P1/P2 技巧 + 全部已实现技巧均有实现级或边界级专卡，共 **41 张**；源镜像/研究摘要已登记进 manifest / 索引 / citation-map / bibliography（90 源）。
+**卡片书写：✅ 完成（2026-06-23）。** 41 张专卡 + 90 源镜像已登记。
 
-**唯一剩余项：worked-example 补全 / 引擎验证。** 标 **✅\*** 的卡，其 worked example 是源派生或构造的盘面，消除集来自源文叙述但**尚未用本仓库 `packages/engine` / 暴力解独立验证**；标 **✅△** 的卡还需要先补成 81-char/restored-state 夹具。待处理清单（按卡）：
+**引擎验证：七轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 57 例**，覆盖：
 
-- 04-fish：`finned-sashimi.md`；`franken-mutant.md` 为 ✅△（Sudopedia 示意图，非整盘）
-- 05：`rectangle-elimination.md`（源 81-char 有，post-basics 候选待核）、`turbot-family.md`（skyscraper 草图）、`broken-wing.md`（单数字草图）
-- 06-wings：`bent-sets.md` 为 ✅△（ALPair/ALTriple 示意，整盘交叉引用 XYZ-Wing 源盘）
-- 07：`multi-coloring.md`、`3d-medusa.md`（盘面来自源，逐格候选未像素级核对）
-- 08-chains：`aic-with-ur.md`（Example B 源仅图示）、`twinned-xy-chains.md`（源无显式消除列表）
-- 10：`avoidable-rectangle.md`（AR1 构造盘）
-- 11-exotic：`exocet.md`、`sk-loop.md`（Easter Monster 盘真实、逐链候选待核）、`msls.md`、`fireworks.md`、`aligned-exclusion.md`、`sue-de-coq.md`、`subset-exclusion.md`；`rank-set-theory.md` 是理论边界卡，不作为 restored-state 用例来源
-- 01–03 basics：`singles.md`（Full/Naked 盘构造）、`locked-candidates.md`、`naked-hidden-subsets.md`（盘为源串、命中格转写自叙述）
+| 卡 | 验证项 |
+|---|---|
+| `01-singles` | Full House `r1c1=5` |
+| `02-intersections` | Pointing + Claiming 各一例 |
+| `03-subsets` | Naked Pair 行 A + Hidden Pair box 3 |
+| `04-fish/finned-sashimi` | Finned/Sashimi X-Wing + Swordfish |
+| `04-fish/franken-mutant` | HoDoKu Finned Franken Swordfish `r3c7<>8` |
+| `05/rectangle-elimination` | `r1c2<>9` |
+| `05/turbot-family` | HoDoKu Skyscraper `r1c78,r3c45<>1` |
+| `06/xy-xyz-w-wings` | XY/XYZ/W-Wing 各一例 |
+| `06/bent-sets` | ALTriple via XYZ-Wing 源盘 |
+| `07/simple-coloring` | Color Trap `r9c3<>7` |
+| `07/multi-coloring` | HoDoKu mc01 `r5c23<>1` |
+| `07/3d-medusa` | R1 `r8c1=1`、R3 `r3c2<>8`、R4 `r2c1,r3c8<>6`、R5 四处消除；R2 Exemplars 3/4 唯一性 |
+| `08/xy-chain` | 开链三处消除 |
+| `08/aic-with-ur` | Example A `r3c5=2`；Example B `r4c6<>9`, `r7c6=6` |
+| `08/twinned-xy-chains` | Example A 十处消除 + S9B 恢复态；B 五行消除；C `r6c3<>3,4` |
+| `11-exotic/sue-de-coq` | HoDoKu sdc01/sdc02 + sdc03/sdc04 扩展型 |
+| `11-exotic/fireworks` | triple F4 + quad + Exemplars 1–7 唯一性 |
+| `11-exotic/exocet` | SudokuWiki Rule 1 `r2c4<>4`, `r3c7<>2,7` |
+| `11-exotic/aligned-exclusion` | SudokuWiki APE 例 1/3/4/6 + Brenner 8-cell S9B `r4c5<>1`, `r5c5<>4` |
+| `11-exotic/sk-loop` | Easter Monster `r2c5,r2c6<>3,8` + 3-1-3-1 / solved-cell 两例唯一性 |
+| `10/avoidable-rectangle` | HoDoKu ar101/ar102 Type1 + ar201/ar202 Type2 |
 
-> 验证方式（实现期顺带做）：把每个 ✅\* 的 worked example 作为 restored-state 夹具喂给引擎/暴力解，核对消除集；把每个 ✅△ 先补成可复现候选状态，再做同样验证。通过后该卡升为 ✅。**未验证不影响"规则/约束无歧义"**——它影响的是"示例本身是否 100% 准确"。
+**仍待验证（✅\*）** — 规则已写清，消除集或 restored-state 候选网格待核：
+
+- 05：`broken-wing.md`（Sudopedia 单数字抽象网格，无完整 81-char 盘）
+- 07：`3d-medusa.md` Rule 2 FTS 整色翻转（Exemplars 3/4 仅唯一性）；`multi-coloring.md` X-Colors 例 1/3 候选态
+- 08：`aic-with-ur.md` Example B 第二 explore 选项的 off-chain 消除（图示-only）
+- 10：`avoidable-rectangle.md` SudokuWiki B4 叙事例（仅压缩 `bd=` 恢复态）
+- 11-exotic：`sk-loop.md`（内链消除）、`msls.md`、`subset-exclusion.md`
+
+> 验证方式：向 `worked-examples.test.ts` 追加用例 → 通过后更新卡内 FLAG 为 `Verified` 并在此表划掉。Restored-state 候选掩码（post-basics 精确态）可在实现期与策略探测器一并补写。
 
 ## 实施方法
 

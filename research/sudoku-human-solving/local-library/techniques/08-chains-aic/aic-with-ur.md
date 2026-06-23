@@ -89,7 +89,12 @@ Grid (From the Start): `00605090010026300700080000002000000850000007000931060000
 
 The UR threat is on cells around **D6 / G6**: removing the 9 from D6 "endangers the solution by exposing the unique rectangle," so we can confidently turn **ON the 6 in G6**, which lets the loop close. A second `explore` option runs the *same path* with the dual threat — losing the 6 in G6 forces ON the 9 in D6 — yielding different off-chain eliminations along the loop's weak links.
 
-(Grids, UR corner sets, the chain in `(UR[...])` notation, and the Rule-2 placement are quoted verbatim from SudokuWiki "Using Unique Rectangles as Links in Chains"; Example B's path is described there but its eliminations are diagram-only — flagged. Grids validated as 81-char strings.)
+**Verified — Example A:** `r3c5=2` placement (`worked-examples.test.ts`).
+
+**Verified — Example B** (From the Start):
+Grid: `006050900100263007000800000020000008500000070009310600000030000700981006001700400`
+
+UR-threat loop (explore option 3): `r4c6<>9`, `r7c6=6`.
 
 ## Soundness
 

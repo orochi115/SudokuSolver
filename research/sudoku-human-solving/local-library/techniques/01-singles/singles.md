@@ -77,15 +77,19 @@ Full House (HoDoKu left example): box 8 has a single empty cell; the only missin
 
 Naked Single (HoDoKu left example): cell **r6c7** — every digit except 6 appears among the 20 peers of r6c7, so 6 is the sole remaining candidate; **place 6 at r6c7**. (It is *not* a Hidden Single: row 6, column 7, and box 6 each have another candidate 6.)
 
-FLAG (constructed/paraphrased): HoDoKu publishes these examples as images, not as 81-char strings; the cell coordinates and blocking digits above are transcribed from the page prose and the grids are **not** reproduced here as a string. A self-contained Naked-Single string is given below and is **constructed** for code-mapping.
+HoDoKu's Hidden-Single / Naked-Single walkthrough grids are image-only on the source page; coordinates above are transcribed from prose.
 
-Constructed Naked-Single grid (81 chars, row-major, '0' = empty) — FLAG constructed, verify with engine:
+**Verified Full House fixture** (derived from a known solved grid by emptying `r1c1`; cite test `singles-full-house`):
+
+Givens (81 chars):
 
 ```
-123456780000000000000000000000000000000000000000000000000000000000000000000000000
+034678912672195348198342567859761423426853791713924856961537284287419635345286179
 ```
 
-- Row 1 has cells r1c1..r1c8 = 1..8 solved and r1c9 empty. Row 1 is a house with exactly one empty cell ⇒ **Full House**: the missing digit is 9 ⇒ **place 9 at r1c9**. (Equivalently `cand(r1c9) = {9}`, a Naked Single.)
+- Row 1 now has a single empty cell; the missing digit is **5** ⇒ **place 5 at r1c1** (Full House).
+
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`).
 
 ## Soundness
 

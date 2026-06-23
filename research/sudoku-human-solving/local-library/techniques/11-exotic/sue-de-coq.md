@@ -117,8 +117,8 @@ By the formal Two-Sector Disjoint Subsets result, `C` must hold `V \ (VB ∪ VL)
 
 ## Worked example
 
-Basic 2-cell / 4-candidate (from the SUDOPEDIA / HoDoKu sdc01 layout, candidate
-fragment; full-grid digits flagged needs engine verification):
+**Verified — HoDoKu sdc01** (basic 2-cell / 4-candidate):
+Grid: `008307009260000300000000040300052108704008005050000000080006007000005200001000000`
 
 - Intersection `C = r7c1, r7c3` with `V = {3,4,5,9}` (`|C|=2`, `|V|=4`, surplus 2).
 - Line cell `CL = r7c7 = {4,5}` (drawn from `V`).
@@ -126,21 +126,29 @@ fragment; full-grid digits flagged needs engine verification):
 - Partition: `{4,5}` locked into the row group `(r7c1, r7c3, r7c7)`; `{3,9}`
   locked into the box group `(r7c1, r7c3, r8c3)`.
 
-Eliminations:
-- Line side: remove **4 and 5** from the rest of row 7 (every cell of r7 except
-  r7c1, r7c3, r7c7).
-- Box side: remove **3 and 9** from the rest of box 7 (every cell of box 7
-  except r7c1, r7c3, r8c3).
+Eliminations (HoDoKu step string): `r7c5<>4`, `r7c8<>5`, `r89c1<>9`.
 
-3-cell / 5-candidate locked-inside case (HoDoKu sdc02 layout):
+**Verified — HoDoKu sdc02** (3-cell / 5-candidate locked-inside):
+Grid: `000728400102030070000100009680000000000009601000050008700400000006000390501000000`
+
 - `C = r7c9, r8c9, r9c9`, `V = {2,4,5,6,7}` (`|C|=3`, `|V|=5`).
 - `CL = r2c9 = {5,6}`, `CB = r9c7 = {2,7}`.
 - Then `4 = V \ (VL ∪ VB)` is locked inside `C` → remove **4** from the rest of
   column 9 *and* the rest of box 9; remove **5,6** from the rest of column 9 and
   **2,7** from the rest of box 9.
 
-> Both worked grids are reconstructed from the source's candidate description;
-> the surrounding 81-char digit grid **needs engine verification**.
+Eliminations (HoDoKu step string): `r79c8<>2`, `r4c9,r9c8<>4`, `r14c9<>5`, `r1c9<>6`.
+
+**Verified — HoDoKu sdc03** (extended, 3-cell line group):
+Grid: `..1..8.2.8...9.64.5.2.....7.8..2.........9..3...41..............6.9..51...714..6.`
+(normalized: dots → `0`)
+
+Eliminations: `r7c1<>2`, `r7c1<>4`, `r45c3,r6c2<>5`, `r4c3<>9`.
+
+**Verified — HoDoKu sdc04** (extended):
+Grid: `..4....9765.....2191...73.42.1.3....5.32.6...............6........1746..7...9..1.`
+
+Eliminations: `r7c8<>3`, `r7c8<>5`, `r5c78<>7`, `r46c9,r5c8<>8`, `r46c9,r56c7<>9`.
 
 ## Soundness
 

@@ -110,11 +110,13 @@ Sudopedia gives a schematic, not an 81-char puzzle. Layout (box 1 + row 1):
   intersection `I=r1c1..r1c3`; `/` = cells without `S`.
 - Elimination: **`X`, `Y`, `Z` removed from all starred cells**.
 
-> Constructed-grid note: the two examples above are reproduced from the Sudopedia
-> schematic, which is the authoritative source statement of the pattern. A full 81-char
-> grid instance is best taken from a live XYZ-Wing puzzle (the Bent Triple), e.g.
-> `SUDOKUWIKI-XYZ-WING` Example 1 in `xy-xyz-w-wings.md`, since every XYZ-Wing is an
-> Almost Locked Triple bent at a line-box intersection.
+### Verified 81-char instance (via XYZ-Wing Example 1, `xy-xyz-w-wings.md`)
+
+Givens: `090001700500200008000030200070004960200060005069700030008090000700003009003800040`
+
+Almost Locked Triple bent at a line-box intersection — same elimination as XYZ-Wing Example 1: **`1` removed from `r6c7` (F7)**.
+
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`). The Sudopedia schematics above remain the pattern-definition reference; use this grid for regression fixtures.
 
 ## Soundness
 

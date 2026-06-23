@@ -113,15 +113,13 @@ Junior Exocet (Fata Morgana / JExocet Compendium family; candidate fragment):
 - Companion cells carry **no** digit of `{1,2,3,4}`; each of 1,2,3,4 appears at
   most twice among the six S-cells.
 
-Eliminations:
-- Rule 1: strip every non-`{1,2,3,4}` candidate from `r4c2` and `r7c3`.
-- The two true base digits become exactly `{value(t1), value(t2)}`; apply
-  Rules 3–5 as the cover analysis resolves.
+**Verified — SudokuWiki Exocet Rule 1** (From the Start):
+Grid: `007020004930000600600300000000000050200010008006900400003700900020050001000008000`
 
-> This is the classic Barker "Fata Morgana" configuration; the cell/candidate
-> layout here is a reconstruction and the full 81-char grid **needs engine
-> verification**. Use the JExocet Compendium grid (David P Bird) for a
-> verified instance.
+- Rule 1 eliminations: `r2c4<>4`, `r3c7<>2`, `r3c7<>7` (non-base digits stripped
+  from target cells `B4` and `C7`).
+- Further Rules 3–5 eliminations on this puzzle require the Compatible Digit
+  Check (not yet implemented in SudokuWiki solver narrative).
 
 ## Soundness
 

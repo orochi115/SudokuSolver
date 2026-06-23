@@ -89,7 +89,7 @@ After basic candidate reduction the 7-graph has a cluster of conjugate pairs tha
 - The cell **r9c3** holds candidate 7 and is a peer of **r8c2** (same box / column reasoning) and of **r9c8** (same row 9).
 - Color Trap (Rule 4): since either r8c2's 7 or r9c8's 7 must be true, **eliminate 7 from r9c3.** SudokuWiki notes the symmetric trap also removes 7 from the mirror cell (their "H5").
 
-> FLAG: the *digit and the eliminated cell* (7 from r9c3) and the two colored endpoints are taken from SudokuWiki's published Rule-4 walkthrough for this grid; the full per-cell candidate grid at that step is reconstructed from the source description, not pixel-verified here. Cite SUDOKUWIKI-SIMPLE-COLOURING for the canonical diagram.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): `r9c3<>7` is sound against the brute-force solution of the givens above. Per-cell candidate grid at the step still follows SUDOKUWIKI-SIMPLE-COLOURING diagram SC_Rule4.
 
 **Second source grid (Color Wrap / Rule 2, "From the Start") — CITED, for the wrap case:**
 

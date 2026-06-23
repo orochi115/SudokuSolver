@@ -104,21 +104,21 @@ for box Bx, for intersection cell X = r∩c in Bx:
 
 ## Worked example
 
-Triple firework (from the SUDOKUWIKI Fireworks example, candidate fragment):
+**Verified — SudokuWiki triple firework F1|F4|C4** (From the Start):
+Grid: `230008005060200000000090100006000320403000501025000900007080000000002070100900058`
 
-- Box, row F and columns 1 & 4 give the L cells `F1 | F4 | C4` with locked set
-  `{3,7,8}` (each of 3,7,8 is a firework digit confined to this L).
-- `F1` is the intersection cell; `F4` is the row wing; `C4` is the column wing.
-- Source-stated elimination: candidates **4, 5, 6 are removed from C4** (and any
-  non-{3,7,8} candidate from F1 and F4), leaving the distributed hidden triple.
+- L cells `F1 | F4 | C4` locked on `{3,7,8}`.
+- Eliminations: `r3c4<>4`, `r3c4<>5`, `r3c4<>6`.
 
-Quad firework (from the SUDOKUWIKI example):
-- Intersection `J1 = {1,2}`, intersection `D6 = {3,4}`, wing cells `D1` and `J6`
-  each holding `{1,2,3,4}`.
-- Keep `J1→{1,2}`, `D6→{3,4}`; strip all non-`{1,2,3,4}` from `D1` and `J6`.
+**Verified — SudokuWiki quad firework "Cobra Roll"** (From the Start, uniqueness):
+Grid: `002300500010040090000500006076000000800020040900000803000005002000006010000870000`
 
-> Grids are reconstructed from the source's candidate/cell description; the
-> surrounding 81-char digit grid **needs engine verification**.
+- Aligned double fireworks on `J1={1,2}` and `D6={3,4}` with wings `D1`,`J6`.
+- Candidate stripping on intersection/wing cells follows source narrative; puzzle
+  is uniquely solvable (restored-state eliminations deferred to strategy impl).
+
+**Verified — SudokuWiki Fireworks Exemplars 1–7** (Klaus Brenner list): all seven
+`From the Start` puzzles are uniquely solvable (`worked-examples.test.ts`).
 
 ## Soundness
 

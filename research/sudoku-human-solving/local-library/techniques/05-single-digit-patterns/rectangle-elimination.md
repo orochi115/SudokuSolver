@@ -87,7 +87,7 @@ Concrete restored-state use case for implementation:
 - weak wing / elimination target: `r1c2` (`A2`)
 - deduction: `r1c2<>9`
 
-FLAG: the 81-char givens are source-provided and valid length; the exact post-basics candidate state and the `r1c2<>9` elimination still need engine verification before being used as a restored-state regression.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): `r1c2<>9` is sound against the brute-force solution of the givens above. Restored-state candidate grid at the exact step still TBD for regression fixtures.
 
 ## Soundness
 

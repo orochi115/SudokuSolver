@@ -100,20 +100,32 @@ the completing digit can be eliminated (the avoidable analogue of an Extended UR
 
 ## Worked example
 
-### Avoidable Rectangle Type 1 (source — `SUDOKUWIKI-AVOIDABLE-RECTANGLES`, canonical narrative; CONSTRUCTED grid illustrating the cited corners)
-**FLAG: constructed.** SudokuWiki presents this example only as solver screenshots, not a
-plain 81-char string; the grid below is constructed to realise the cited corner
-configuration and is offered for illustration, not as the source's verbatim puzzle.
-- Rectangle B4, C4, B7, C7 in columns 4&... spanning two boxes; **solved** (non-given):
-  C4 = 5, B7 = 5, C7 = 8. Fourth corner B4 = {8, 9}.
-- If B4 = 8, the four corners read `8/5/5/8`, swappable with `5/8/8/5` ⇒ two solutions.
-- Since none of C4/B7/C7 is a given, this is forbidden. **Eliminate 8 from B4 ⇒ B4 = 9.**
+### Verified — HoDoKu ar101 (Type 1)
+Grid: `.5........6.5.42....8.71...4....36.8.........89.1..7..3...........2.7.1..72.3..9.`
+(dots → 0)
 
-### Avoidable Rectangle Type 2 (source — cite `HODOKU-UNIQUENESS`, AR Type 2, abstract form)
-HoDoKu's worked AR2: UR on `{2,8}` in r45c37, neither r4c7 nor r5c7 a given; the two
-remaining corners carry extra candidate **9**; one of them must be 9, so
-**9 is eliminated from r1c7, r4c9, r5c9, r6c9, r5c8, r6c8** (every cell seeing both extra-9
-cells). (HoDoKu gives only rendered images, not a plain digit string; cite by reference.)
+Avoidable Rectangle Type 1: `9/7` in `r1c19,r2c19` ⇒ **`r2c9<>9`**.
+
+### Verified — HoDoKu ar102 (Type 1)
+Grid: `086040000200000000100076090000407000800090000009683070000752008000000045700300100`
+
+Avoidable Rectangle Type 1: `6/3` in `r5c78,r7c78` ⇒ **`r5c7<>3`**.
+
+### Verified — HoDoKu ar201 (Type 2)
+Grid: `900000600001006038706080000000000076004100000050947020200000005000250000000090001`
+
+Avoidable Rectangle Type 2: `3/7` in `r7c37,r8c37` ⇒ **`r4c3,r78c2<>9`**.
+
+### Verified — HoDoKu ar202 (Type 2)
+Grid: `085000060000004700030000100000000050600043000070820300000459670000000000904160003`
+
+Avoidable Rectangle Type 2: `2/8` in `r4c37,r5c37` ⇒ **`r18c7,r456c9,r56c8<>9`**.
+
+### SudokuWiki canonical narrative (B4/C4/B7/C7) — CITED, restored-state only
+SudokuWiki's B4/C4/B7/C7 example (`C4=5`, `B7=5`, `C7=8`, `B4={8,9}` ⇒ `B4=9`) is published
+only as a solver screenshot / compressed `bd=` restored state (Frisbee credit, March 2026),
+not a plain 81-char givens string. Logic matches Type 1 above; use HoDoKu ar102 for a
+fixture-tested grid.
 
 ## Soundness
 

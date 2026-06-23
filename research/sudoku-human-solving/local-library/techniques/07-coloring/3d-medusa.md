@@ -76,23 +76,29 @@ All R3/R4/R5 are *off-chain eliminations* (delete the seeing candidate only); R1
 
 ## Worked example
 
-**Source grid (SudokuWiki 3D Medusa, Rule 2 example, "From the Start") — CITED:**
+**Verified — Rule 3** (SudokuWiki "From the Start"):
+Grid: `290000030000020070000109402800760200600000007009045008903407000060030000050000084`
+Uncolored **8** in **C2** sees both Green and Blue in its cell ⇒ **eliminate 8 from r3c2**.
 
-```
-300050000250300010004607500090200805070000030408005060005408300030006084000020006
-```
+**Verified — Rule 4** (SudokuWiki "From the Start"):
+Grid: `100056000043090000800003002000000010950421037020000000300900005000010970000670001`
+Coloured 6s in **B9** and **H1** trap **6** in **B1**; coloured 6s in **C2** and **B9** trap **6** in **C8** ⇒ `r2c1<>6`, `r3c8<>6`.
 
-(SudokuWiki rows A–J = r1…r9.) Per the source: build the Green/Blue network over bi-value and bi-location links across multiple digits. Ringed in the source are **two color-Green 7s in column 7** (a same-color pair on digit 7 in one house) ⇒ **Rule 2** fires: **all Green candidates are removed and all Blue candidates become solutions.** (Source note: this example needs three Rule-6 steps before Rule 2 comes into play.)
+**Verified — Rule 1** (SudokuWiki "From the Start"):
+Grid: `093804500005600000206070000020060040000208000070040090000010703000002600002507180`
+Two same-color candidates in **H2** ⇒ opposite color solves (**Jacobs corollary**): **place 1 in H1** (`r8c1=1`).
 
-> FLAG: digit (7), the unit (column 7), the firing rule (R2), and the whole-color conclusion are from SudokuWiki's published walkthrough for this exact grid (image "Medusa2"); the per-cell colored network is reproduced from the source description, not independently pixel-verified. Cite SUDOKUWIKI-3D-MEDUSA for the canonical colored diagram.
+**Verified — Rule 5** (SudokuWiki "From the Start"):
+Grid: `900407000876050004000200030060000100430000059005000060090002000200030486000708002`
+Unit+cell contradictions on **E5/E6** and **F5** ⇒ `r5c5<>1`, `r5c5<>7`, `r5c6<>7`, `r6c5<>1`.
 
-**Second source grid (Rule 1, "From the Start") — CITED, for the cell-contradiction case:**
+**CITED — Rule 2** (SudokuWiki "From the Start", whole-color step not yet fixture-tested):
+Grid: `300050000250300010004607500090200805070000030408005060005408300030006084000020006`
+Two same-color **7**s in **column 7** ⇒ Rule 2 whole-color flip (requires prior Rule-6 steps in the source walkthrough).
 
-```
-093804500005600000206070000020060040000208000070040090000010703000002600002507180
-```
-
-SudokuWiki colors from the 4s in row B; via the bi-value link in B7 (4↔9) the network grows until **cell H2 carries two same-color (Green/yellow) candidates** ⇒ **Rule 1**: that color is false, the opposite color solves its cells (e.g. the 1 in H1 becomes a hidden single). Demonstrates the 3D (bi-value) link that Simple Coloring cannot use.
+**Verified — Rule 2 exemplars** (SudokuWiki, uniqueness only):
+- Exemplar 3: `000000009010503000003290700400001300900050008006300005008037400000108060700000000`
+- Exemplar 4: `900008007000000060000710403005030006009802000100090800403059000050000000700600000`
 
 ## Soundness
 

@@ -100,26 +100,33 @@ combinations.
 
 ## Worked example
 
-APE Type 1 (aligned pair), reconstructed minimal illustration:
+**Verified — SudokuWiki APE Type 1** (Example 1, From the Start):
+Grid: `090000040030040700000670003200900506006000100104008007700091000009030050060000070`
 
-- Base `K = {r1c1, r1c2}` (same row → aligned), `cand(r1c1)={1,2,6}`,
-  `cand(r1c2)={2,6,7}`.
-- Common bivalue buddies (seen by both base cells): `r1c3 = {1,7}`,
-  `r3c1 = {2,6}` (assume both lie in row 1 / box 1 so both base cells see them).
-- Enumerate combos `(r1c1, r1c2)` with distinct digits (aligned):
-  `(1,2)(1,6)(1,7)(2,6)(2,7)(6,2)(6,7)`.
-  - Kill by `r3c1={2,6}`: any combo using both 2 and 6 → drop `(2,6)`,`(6,2)`.
-  - Kill by `r1c3={1,7}`: any combo using both 1 and 7 → drop `(1,7)`.
-  - Allowed: `(1,2)(1,6)(2,7)(6,7)`.
-- Test base candidate `7` in `r1c1`: no allowed combo assigns 7 to r1c1 → but 7
-  ∉ cand(r1c1) anyway. Test `2` in `r1c1`: appears only via dropped combos plus
-  `(2,7)` → survives. Here the productive elimination is digit **6 from r1c2**:
-  allowed combos assign r1c2 ∈ {2,6,7}; `6` appears only in dropped `(6,2)` →
-  **eliminate 6 from r1c2** (it survives nowhere allowed in that cell).
+- Base pair `G2/G3`; combo enumeration kills all pairings with 8 → `r7c2<>8`,
+  `r7c3<>8`.
 
-> Constructed illustration; **needs engine verification** of grid consistency.
-> The canonical 8-cell published example is credited to Klaus Brenner (found
-> after ~21 million puzzles) per the source.
+**Verified — SudokuWiki APE Type 2** (Example 4, From the Start):
+Grid: `004003600000040002900600005700500030000367000050004001200005009500010000003200800`
+
+- Non-aligned pair `A4/B1`; `r2c1<>8`.
+
+**Verified — SudokuWiki APE Example 3** (From the Start):
+Grid: `000000370706000000000102009007030500530406028004010900600305000000000403083000000`
+
+- 3-cell ALS attack on `A3/B3` → `r2c3<>7`.
+
+**Verified — SudokuWiki APE Example 6** (From the Start):
+Grid: `000000106002590000308040000080000070000204000090070040000050603000038900105000000`
+
+- Bi-value + 3-cell ALS → `r4c1<>6`.
+
+**Verified — Brenner 8-cell APE** (SudokuWiki Load Example `S9B`, restored state):
+Givens: `072080640096700800008600001000300084681000000004058060210839406840200013063001008`
+
+Base pair `D5/E5`; eight ALS cells cross-reference all pairings ⇒ **`r4c5<>1`**, **`r5c5<>4`**
+(at the Load Example candidate state; diagram also marks 3 on both cells but those are absent
+from the decoded `S9B` masks).
 
 ## Soundness
 

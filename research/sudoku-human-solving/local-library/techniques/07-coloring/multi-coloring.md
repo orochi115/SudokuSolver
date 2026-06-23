@@ -84,7 +84,12 @@ This is precisely a Multi-Colors elimination reached with a single color pair vi
 
 Digit **8**. After coloring, **r1c8** is already Green, but Step 3 also lets it be colored **Blue** (it is the only cell of its box not a peer of the blue r2c3). The cell is simultaneously Blue and Green and there are two Blue cells sharing row 1 and column 8 — a contradiction. By **Rule 4.2**, the **Green cells are TRUE**: place **8** in r1c8, r7c2, r9c5. (Note: cannot conclude all Blue are false — only that Green is true.)
 
-**HoDoKu Multi-Colors type-1 reference (mc01) — CITED, no grid string published on the page (FLAG):** digit 1, colors 1a@r1c5 / 1b@r1c7 and 2a@r2c9 / 2b@r5c9; r1c7(1b) and r2c9(2a) share block 3 (weak link), so r5c2 and r5c3 (seeing 1a and 2b) lose candidate 1.
+**Verified — HoDoKu mc01** (Multi-Colors type 1):
+Grid: `000006000007030040106080095700900850900040020400008000093050010000007000000060002`
+
+Digit 1, colors 1a@r1c5 / 1b@r1c7 and 2a@r2c9 / 2b@r5c9; r1c7(1b) and r2c9(2a) share block 3 (weak link), so r5c2 and r5c3 (seeing 1a and 2b) lose candidate 1.
+
+Eliminations (HoDoKu step string): `r5c23<>1`.
 
 ## Soundness
 

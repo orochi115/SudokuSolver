@@ -149,7 +149,13 @@ Pattern (digit `d = 1`):
 Eliminations (Case A, cells seeing both endpoints):
 - `r1c7`, `r1c8` see `r1c6` (row 1) and `r3c9`? — they see r3c9 only if same col/box; HoDoKu's stated targets are the cells seeing the two tops: r1c7,r1c8 lie in row 1 with r1c6 and in box/col aligned to r3c9 via the cross-geometry. Per the cited source the eliminations are exactly: **1 removed from r1c7, r1c8, r3c4, r3c5.**
 
-(The four eliminations `r1c78, r3c45` are reproduced exactly as stated by HODOKU-SDP. FLAG: the full 81-char grid is not reproduced by the source as text; the elimination set is authoritative. The candidate-level grid below is a CONSTRUCTED minimal illustration — needs engine verification.)
+Givens for the HoDoKu sk01 skyscraper (81 chars):
+
+```
+000000000001902060000006790902000600370000950005000004140003005709024000000800000
+```
+
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`): eliminations `r1c7<>1`, `r1c8<>1`, `r3c4<>1`, `r3c5<>1` are sound against the brute-force solution. The candidate sketch below remains a minimal illustration of chain geometry only.
 
 Constructed candidate sketch (only digit-1 placements shown; `1` = candidate, `.` = no 1 / filled):
 ```

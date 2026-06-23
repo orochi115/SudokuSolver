@@ -102,7 +102,9 @@ Hidden Pair (SudokuWiki "Hidden Candidates", first example, "From the Start"):
 
 - **Hidden Pair** `{6,7}` in **box 3**: 6 and 7 are placeable in box 3 only at **A8** and **A9** (pinned by the 6 and 7 already in boxes 1–2 and in column 7). Therefore remove **all candidates other than 6 and 7 from A8 and A9**, leaving a Naked Pair `{6,7}` there.
 
-FLAG: the 81-char strings are SudokuWiki's own "From the Start" puzzle definitions; the specific subset cells and victims are transcribed from the page prose (presented as images). **Engine verification recommended** for the exact candidate grid and resulting eliminations.
+Verified (2026-06-23, `packages/engine/test/worked-examples.test.ts`):
+- Naked pair: `r1c4..r1c9` lose `{1,6}`.
+- Hidden pair `{6,7}` in box 3: `r1c8` loses `{2,3,4,5,9}` and `r1c9` loses `{3,4,5,9}` (non-pair candidates stripped from A8/A9).
 
 ## Soundness
 

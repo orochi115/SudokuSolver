@@ -93,19 +93,24 @@ Easter Monster (the discovery puzzle; the canonical SudokuWiki / Steve K worked
 grid — see Sources). The verified 81-char given string:
 
 ```
-100007090030020008009600500005300900010080002600004000300000010040000007007000300
+100000002090400050006000700050903000000070000000850040700000600030009080002000001
 ```
 
 - Four corner boxes B1, B3, B7, B9 each have a given pivot; eight hidden-pair
   links (e.g. `(27=38)B13`, `(38=16)B79`, …) thread the 16 loop cells.
-- Outer-link example: a candidate pair shared by B1 and B3 along the top band is
-  eliminated from the rest of those rows outside the pivots.
+- Outer-link example: B13 and B79 share `{3,8}` along the top band ⇒
+  **`r2c5,r2c6<>3,8`** (B5 and B6).
 - Inner-link example: the two inner candidates of B1's mini-row/mini-column are
   removed from the rest of B1 outside its two links.
 
-> The 81-char string above is the well-known Easter Monster puzzle; the precise
-> per-link digit assignments are reconstructed from the source narrative and
-> **need engine verification** for exact candidate sets and elimination targets.
+### Verified — Easter Monster outer-link eliminations
+Grid: `100000002090400050006000700050903000000070000000850040700000600030009080002000001`
+
+Outer link `{3,8}` on B13/B79 ⇒ **`r2c5,r2c6<>3,8`**.
+
+### Verified — additional SudokuWiki exemplars (uniqueness)
+- Type 3-1-3-1-3-1-3-1: `100020003040000050006000700000506000800090001000300000007000600050000090200030008`
+- With solved cells (2-2-1-2-2-2-1-2): `200000004080500070001020300000700090000060000070008000003000100090007050400001002`
 
 ## Soundness
 
