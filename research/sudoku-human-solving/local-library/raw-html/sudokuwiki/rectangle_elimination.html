@@ -1,5 +1,499 @@
-<html><head><title>SudokuWiki Rectangle Elimination - local research note</title></head><body>
-<p>Source URL: https://www.sudokuwiki.org/Rectangle_Elimination</p>
-<p>Local note only. The original page is copyrighted by Andrew Stuart / Syndicated Puzzles.</p>
-<p>Key facts retained for local research: Rectangle Elimination is a SudokuWiki Tough strategy released in 2023, presented as replacing Empty Rectangles and expressible as grouped AIC. Example puzzle from start: 200709006190000002080002030070503040000000000050904060060300090800000053900407001.</p>
-</body></html>
+
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+<title>Rectangle Elimination - SudokuWiki.org</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+<link href="css_nonsolvers.css?v=55" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=6478ee2740353a0019caf1aa&product=inline-share-buttons&source=platform" async="async"></script><meta property="og:description" content="A new tough strategy by Ken Reek"/>
+<meta name="twitter:description" content="A new tough strategy by Ken Reek">
+<meta name="wot-verification" content="3c38299cede42ba34dd0" />
+<meta name="google-site-verification" content="ONhbn9iTTYa6oUErF89wWmtAV3QAO_Kb2Ip39DahLPY" /> <!--www.sudokuwiki.org-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H7WWK2CN4M"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-H7WWK2CN4M');
+</script>
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<script>
+var pgFileName = 'Rectangle_Elimination';
+</script>
+<script src="js/commentsystem.js?v=2"></script>
+
+</head >
+<body>
+
+
+
+		<div class="gridwrapper">
+
+			<div class="toparea">
+				<div class="topareasubgrid">
+					<div class="appicondiv" style="text-align:left">
+	                    <!--a href="https://x.com/SudokuWiki"><img src="images/Follow-on-X.webp" width="190" height="102" style="width:190px" alt="News and Updates on X" /></a-->
+                        <a href="/Main_Page"><img class="smallshrink" src="images/SudokuWiki_MidNoBorder.png" alt="SudokuWiki" /></a>
+					</div>
+					<div class="wikititle">
+						<div class="css-3d-text">SudokuWiki.org</div>
+						<div class="css-3d-text_under">Strategies for Popular Number Puzzles</div>
+					</div>
+	                
+	                <div class="bmcarea">
+		                <script data-name="BMC-Widget"
+				                data-cfasync="false"
+				                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+				                data-id="str8ts"
+				                data-description="Support me on Buy me a coffee!"
+				                data-message="" data-color="#ffcc00"
+				                data-position="Left" data-x_margin="18"
+				                data-y_margin="18"></script>
+	                </div>
+                    
+				</div>
+			</div>
+
+			<div class="menuarea">
+				<div class="SRSideMenuB" style="margin-bottom:5px"><ul>
+<li><a href="SPHome.aspx">Sign up for more</a></li>
+</ul>
+</div>
+				<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Main_Page">Main Page</a></li>
+		<li id="M28"><a class="scanmenu" href="/Whats_New">What's New</a></li>
+    	<li id="M10"><a class="scanmenu" href="/Strategy_Families">Strategy Overview</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">9x9 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M1"><a class="scanmenu" href="/Sudoku.htm">Sudoku</a></li>
+		<li id="M2"><a class="scanmenu" href="/Jigsaw.aspx">Jigsaw</a></li>
+		<li id="M3"><a class="scanmenu" href="/SudokuX.aspx">Sudoku X</a></li>
+		<li id="M4"><a class="scanmenu" href="/Windoku.aspx">Windoku</a></li>
+		<li id="M5"><a class="scanmenu" href="/ColourSudoku.aspx">Colour Sudoku</a></li>
+		<li id="M6"><a class="scanmenu" href="/KillerSudoku.aspx">Killer</a></li>
+		<li id="M7"><a class="scanmenu" href="/KillerJigsaw.aspx">Killer Jigsaw</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">6x6 Solvers</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M162"><a class="scanmenu" href="/Sudoku6x6.aspx">6x6 Sudoku</a></li>
+		<li id="M163"><a class="scanmenu" href="/Killer6x6.aspx">6x6 Killer</a></li>
+		<li id="M8"><a class="scanmenu" href="/KenKen6x6.aspx">6x6 KenKen</a></li>
+		<li id="M9"><a class="scanmenu" href="/kendoku6x6.aspx">6x6 KenDoku</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Weekly 'Unsolvable'</div>
+<div class="SRSideMenuB">
+    <ul>
+		<li id="M11"><a class="scanmenu" href="/Weekly-Sudoku.aspx">Unsolvable Sudoku</a></li>
+		<!--li id="M12"><a class="scanmenu" href="/Weekly-Jigsaw.aspx">Unsolvable Jigsaw</a></li-->
+		<li id="M13"><a class="scanmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Unsolvable Str8ts</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Puzzles to Play</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Daily_Sudoku">The Daily Sudoku</a></li>
+        <li><a class="scanmenu" href="/Daily_Mini_Sudoku">Daily 6x6 Sudoku</a><span style="color:red;font-size:8pt;float:right">New!</span></li>
+        <li><a class="scanmenu" href="/Daily_Jigsaw_Sudoku">The Jigsaw Sudoku</a></li>
+		<li><a class="scanmenu" href="/Daily_Sudoku_X">The Daily Sudoku X</a></li>
+        <li id="M17"><a class="scanmenu" href="/Daily_Killer_Sudoku.aspx">The Daily Killer</a></li>
+        <li id="M18"><a class="scanmenu" href="/Daily_Mini_Killer_Sudoku.aspx">Daily Mini Killer</a></li>
+        <li id="M19"><a class="scanmenu" href="/Daily_Killer_Jigsaw.aspx">Daily Killer Jigsaw</a></li>
+        <li id="M20"><a class="scanmenu" href="/Daily_Kakuro">The Daily Kakuro</a></li>
+        <li id="M21"><a class="scanmenu" href="/Daily_KenKen.aspx">The Daily KenKen</a></li>
+        <li id="M22"><a class="scanmenu" href="/Daily_Codewords">Daily Codewords</a></li>
+        <li id="M23"><a class="scanmenu" href="https://www.str8ts.com/daily_1to25.aspx">1 to 25</a></li>
+        <li id="M160"><a class="scanmenu" href="/DailyBinairo">The Daily Binairo</a></li>
+        <li><a class="scanmenu" href="https://www.letterlicious.com/Letterlicious_Home.aspx">Letterlicious</a></li>
+        <li><a class="scanmenu" href="/ACSPuzzles.aspx">Puzzle Packs</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRBasicStrat">Basic Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Introduction">Introduction</a></li>
+        <li><a class="scanmenu" href="/Getting_Started">Getting Started</a></li>
+        <li><a class="scanmenu" href="/Naked_Candidates">Naked Candidates</a></li>
+        <li><a class="scanmenu" href="/Hidden_Candidates">Hidden Candidates</a></li>
+        <li><a class="scanmenu" href="/Intersection_Removal">Intersection Removal</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRToughStrat">Tough Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/X_Wing_Strategy">X-Wing</a></li>
+        <li><a class="scanmenu" href="/Chute_Remote_Pairs">Chute Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Simple_Colouring">Simple Colouring</a></li>
+        <li><a class="scanmenu" href="/W_Wing_Strategy">W-Wing</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Strategy">Y-Wing</a></li>
+        <li style="color:#ff0;background-color:#333"><a class="scanmenu" href="/Rectangle_Elimination">Rectangle Elimination</a></li>
+        <li><a class="scanmenu" href="/Sword_Fish_Strategy">Swordfish</a></li>
+        <li><a class="scanmenu" href="/XYZ_Wing">XYZ-Wing</a></li>
+        <li><a class="scanmenu" href="/BUG">BUG</a></li>
+        <li><a class="scanmenu" href="/Avoidable_Rectangles">Avoidable Rectangles</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDiabStrat">Diabolical Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+         <li><a class="scanmenu" href="/X_Cycles">X-Cycles (Part 1)</a></li>
+         <li><a class="scanmenu" href="/X_Cycles_Part_2">X-Cycles (Part 2)</a></li>
+         <li><a class="scanmenu" href="/3D_Medusa">3D Medusa</a></li>
+         <li><a class="scanmenu" href="/Jelly_Fish_Strategy">Jellyfish</a></li>
+         <li><a class="scanmenu" href="/Unique_Rectangles">Unique Rectangles</a></li>
+         <li><a class="scanmenu" href="/Tridagons">Tridagons</a></li>
+         <li><a class="scanmenu" href="/Fireworks">Fireworks</a></li>
+         <li><a class="scanmenu" href="/Twinned_XY_Chains ">Twinned XY-Chains </a></li>        
+         <li><a class="scanmenu" href="/SK_Loops">SK Loops</a></li>
+         <li><a class="scanmenu" href="/Extended_Unique_Rectangles">Extended Rectangles</a></li>
+         <li><a class="scanmenu" href="/Hidden_Unique_Rectangles">Hidden URs</a></li>
+         <li><a class="scanmenu" href="/WXYZ_Wing">WXYZ-Wing</a></li>
+         <li><a class="scanmenu" href="/XY_Chains">XY-Chains</a></li>
+         <li><a class="scanmenu" href="/Aligned_Pair_Exclusion">Aligned Pair Exclusion</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRExtrStrat">Extreme Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Grouped_X_Cycles">Grouped X-Cycles</a></li>
+        <li><a class="scanmenu" href="/Forcing_Nets">Forcing Nets</a></li>
+        <li><a class="scanmenu" href="/Exocet">Exocet</a></li>
+        <li><a class="scanmenu" href="/Finned_X_Wing">Finned X-Wing</a></li>
+        <li><a class="scanmenu" href="/Finned_Swordfish">Finned Swordfish</a></li>
+        <li><a class="scanmenu" href="/Alternating_Inference_Chains">Inference Chains</a></li>
+        <li><a class="scanmenu" href="/AIC_with_Groups">AIC with Groups</a></li>
+        <li><a class="scanmenu" href="/AIC_with_ALSs">AIC with ALSs</a></li>
+        <li><a class="scanmenu" href="/Using_Unique_Rectangles_as_Links_in_Chains">AIC with URs</a></li>
+        <li><a class="scanmenu" href="/Almost_Locked_Sets">Almost Locked Sets</a></li>
+        <li><a class="scanmenu" href="/Death_Blossom">Death Blossom</a></li>
+        <li><a class="scanmenu" href="/Sue_de_Coq">Sue-de-Coq</a></li>
+        <li><a class="scanmenu" href="/Digit_Forcing_Chains">Digit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Nishio_Forcing_Chains">Nishio Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Cell_Forcing_Chains">Cell Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Unit_Forcing_Chains">Unit Forcing Chains</a></li>
+        <li><a class="scanmenu" href="/Double_Exocet">Double Exocet</a></li>
+        <li><a class="scanmenu" href="/Pattern_Overlay">Pattern Overlay</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA SRDepStrat">Deprecated Strategies</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Remote_Pairs">Remote Pairs</a></li>
+        <li><a class="scanmenu" href="/Y_Wing_Chains">Y-Wing Chain</a></li>
+        <li><a class="scanmenu" href="/Multivalue_X_Wing_Strategy">Multivalue X-Wing</a></li>
+		<li><a class="scanmenu" href="/Multi_Colouring_Strategy">Multi-Colouring</a></li>
+		<li><a class="scanmenu" href="/Empty_Rectangles">Empty Rectangles</a></li>
+        <li><a class="scanmenu" href="/Guardians">Guardians</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Str8ts</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts">Home &amp; Rules</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Daily_str8ts">The Daily Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/weekly_str8ts.aspx">Weekly Extreme Str8ts</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/str8ts.htm">Str8ts Solver</a></li>
+        <li><a class="spmenu" href="https://www.str8ts.com/Str8ts_Sample_Pack.pdf" target="_samplepack">Str8ts Sample Pack</a></li>
+    </ul>
+</div>
+<div class="SRSideMenuA">Other</div>
+<div class="SRSideMenuB">
+    <ul>
+        <li><a class="scanmenu" href="/Whats_New">What's New</a></li>
+        <li><a class="scanmenu" href="/LatestArticles.aspx">Latest Articles</a></li>
+        <li><a class="scanmenu" href="/sudokufeedback.aspx">Feedback</a></li>
+        <li><a class="scanmenu" href="/Donations">Donate</a></li>
+        <li><a class="scanmenu" href="https://www.syndicatedpuzzles.com/">Syndicated Puzzles</a></li>
+    </ul>
+</div>
+<div class="SRAdvertSide">
+<!--  [Desktop/Tablet]sky_btf -->
+ <div data-pw-desk="sky_btf" id="pwDeskSkyBtf1"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyBtf1");
+   })
+ </script></div>
+
+			</div>
+		
+
+        <div class="contentarea">
+			
+
+				<div class="divtopsubgrid">
+					<div class="printlink"><a href="Print_Rectangle_Elimination">Print Version</a></div>
+					<div class="pageindex"><a href="Site_Map">Page Index</a></div>
+					
+						<div class="addthis"><!-- ShareThis BEGIN -->
+							<div class="sharethis-inline-share-buttons"></div>
+							<!-- ShareThis END -->
+						</div>
+					
+				</div>
+			
+
+            <div class="contentshell">
+				<h1>Rectangle Elimination</h1><div class="SRCell"><div style="color:#66ff66;font-size:12pt">Released 14th Oct 2023</div><br>This is the first novel 'tough' strategy in a long time and replaces <a href="Empty_Rectangles">Empty Rectangles</a> which I feel is an overly complicated pattern. <b>Ken Reek</b> from Denver, USA, sent me his explanation and it is included in his solver <a href="https://www.kmrconsulting.com">SudoKoach</a>. I think it sufficiently distinct to warrant its own test and go near the start. The pattern can also be expressed with <a href="/AIC_with_Groups">AICs</a> usually with at least one grouped cell. For those curious I've kept the Empty Rectangle test on the solver so you can go back a step, untick Rectangle Elimination and compare.<br><br>Comments welcome.<br><br>I will use the original puzzle Ken sent to me to illustrate his pattern.<br><br>The pattern works on a single number - in this case 9.</div><br>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example1b.png" alt="Rectangle Elimination 1" /><figcaption>Rectangle Elimination 1
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B027y070n828y8r081m05010804028i8m071i7y067q0n0807057v027y027q060108077y05088e060716027y7q01071601828a03020608017q0508067u0u02070607040203010805097q080282078a1r0n1q">Load Example</a>
+</figcaption></figure>
+<br>The base of the pattern consists of a Hinge cell <span class="hy">G2</span> connected to the one remaining 9 in the row (or column), in this case <span class="hy">G6</span>. This part has to be a strong either/or link. First 'wing' cell in orange.<br><br>From the hinge <span class="hy">G2</span> we look for another 9 in the opposite orientation (the column) and in a different box that is weakly linked - more than two 9s in the unit. The second 'wing' cell.<br><br>Consider the weakly-linked <span class="hy">A2</span>. If it's <span class="hg">ON</span>, then the other wing cell <span class="hy">G6</span> must also be <span class="hg">ON</span>. However, this would eliminate ALL the 9s in the 'fourth corner box' (box 2, which is the fourth corner of the rectangle). So <span class="hy">A2</span> cannot be <span class="hg">ON</span>, i.e. we can eliminate 9 as a possibility from <span class="hy">A2</span>. Simple as.</div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example2b.png" alt="Rectangle Elimination 2" /><figcaption>Rectangle Elimination 2
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B027y070n828y8r081m05010804028i8m071i7y067q0n0807057v027y027q060108077y05088e06078a027y7q01078a01828a03020608017q0508067u0u02070607040203010805097q080282078a1r0n1q">Load Example</a>
+</figcaption></figure>
+<br><br>So it turns out there is a second Rectangle Elimination at this stage of the puzzle and my solver finds it before Ken's one - just because of the way I search for the hinge first and go from top-left to bottom-right.<br><br>If the 9 in <span class="hy">F2</span> was <span class="hg">ON</span> it would remove the 9 in <span class="hy">G2</span> - AND - it would turn <span class="hr">OFF</span> the 9 in <span class="hy">F4</span> and turn <span class="hg">ON</span> the 9 in <span class="hy">J4</span> - eliminating the 9 in <span class="hy">J1</span>.<br><br>Since we can't remove all the 9s in box 7 we have a contradiction assuming 9 in <span class="hy">F2</span> can be a solution.<br><br></div>
+
+<h2>Multiple Eliminations</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example5b.png" alt="Multiple example" /><figcaption>Multiple example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B020u1a074u094r430601093y4y5q5e6i5u022q083u1f2302a2039m0f0745054503b904b60d0l0i516t4z0c5x0e0c0545095x045x065u2q0631034l4j640962080t2j1h0i1f3e0503090o14045g07504401">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=200709006190000002080002030070503040000000000050904060060300090800000053900407001">From the Start</a>
+</figcaption></figure>
+Before the October 2025 update multiple eliminations from the same hinge were handled by consecutive steps. This was a weakness of the algorithm since if a pattern has been identified it should grab all the candidates it can. If you find one elimination it is worth scanning the rest of the row or column for another, as shown in this example.</div>
+
+<h2>Double Rectangle Elimination</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example3.png" alt="Double Rectangle Elimination" /><figcaption>Double Rectangle Elimination
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0t080e2eaa7q8l1p7p070l0t0ec2b68l1p030i0f0c0201040g0h050l0e09080c06040l0g08040l090e070l03060f0c07040b01050i0h030g43060402b70e7n057p512fcyba551h040t7p590nb60e55070l">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=080000000700000003000214005009806400840907036007401500300642000500000004000000070">From the Start</a>
+</figcaption></figure>
+Prior to October 2025 the solver could identify more than one candidate in the same pattern as shown here. But the way the pattern is searched for means this double-number is now handled by consecutive steps.  <br><br><span class="hc">If +1[B8] then -1[D8] forcing +1[D1] which removes all 1s from box 1, so B8 cannot be 1<br>If +2[B8] then -2[D8] forcing +2[D1] which removes all 2s from box 1, so B8 cannot be 2</span></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example3_ER.png" alt="" /></figure>
+<br>To show how this is also an <a href="Empty_Rectangles">Empty Rectangle</a> I've displayed the pattern here. <br><br><span class="hc">Grouped X-Cycle<br>1 taken off B8. ERI=B1 + strong link on 1 between D1 and D8.<br>2 taken off B8. ERI=B1 + strong link on 2 between D1 and D8.</span></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example3b_AIC.png" alt="" /></figure>
+<br><br>And to show how these are often expressible as Nice Loops I show that pattern here<br><br><span class="hc">Grouped X-Cycle<br>X-CYCLE on 1 - Discontinuous Alternating Nice Loop, length 6):<br><br>+1[B8]-1[D8]+1[D1]-1[A1]+1[B2|B3]-1[B8]<br>- Contradiction: When B8 is set to 1 the chain implies it cannot be 1 - it can be removed</span></div>
+
+<h2>Two Strong Links</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example4b.png" alt="Two strong links example" /><figcaption>Two strong links example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B011m821g2e0u2c82080g1u0h1h091f100c040b037u052i080f019e0h02160i160703060a8i160a1i0226deb69u8i0703080a1u82040b0c010f044i02bm078205b62c2b067n0d440c04b62c2e4m860a4k06">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=100000008000090004030508010020007360000020000073800040010402070500060000400000006">From the Start</a>
+</figcaption></figure>
+<br>Another kind of double Rectangle Elimination is when both links are strong.<br>In this case the solver will return<br><br><span class="hc">If either +5[B7] or +5[E2] are ON then both are on because they are strongly linked through the hinge cell B2. If both are ON then this removes all 5s from box 6, so neither can be 5</span><br><br>This kind I find to be much, much rarer.<br><br>Note: The solver will always alternative strong/weak in a chain and draw the lines that way since it represents ON/OFF/ON etc. See <a href="/Weak_and_Strong_Links">here</a>.<br></div>
+
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_example4b_AIC.png" alt="" /></figure>
+<br>To give it's Nice Loop definition we have to use quite a complicated chain. It also works but discovering that <span class="hy">B2</span> must be the solution rather than finding the wings are <i>not</i>. Two sides of the same coin but proves Rectangle Elimination is an easier pattern to find for a human.<br><br><span class="hc">X-CYCLE on 5 - Discontinuous Alternating Nice Loop, length 6):<br>-5[B2]+5[E2]-5[E7|E9]+5[F7]-5[B7]+5[B2]<br>- Contradiction: When 5 is removed from B2 the chain implies it must be 5 - other candidates 6 can be removed</span></div>
+
+<div class="SRCell"><br>This strategy is patched into the online solver - I have run tests to check my code and see how widespread it is. I have placed it between Y-Wings and Swordfish. On testing Ruuds top 50k test set I find 35,826 instances across 23,885 puzzles, so very high - but that is partly due to being at the front of the queue. I also found a small bug in the Empty Rectangles getting more instances, but that is moot now.</div><br>
+
+<h2>Rectangle Eliminations in Jigsaws</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_jigsaw1b.png" alt="" /></figure>
+So here is an interesting situation unique to Jigsaws.<br><br>The fourth corner of this rectangle is <span class="hy">C6</span> in the top-right most box. Before the solver would not find a Rectangle Elimination because it only searched for 2s in that box. The solver has now been updated to check all boxes since Jigsaws can go all over the place. I'm still looking for a 'box' that does not overlap with any of the other parts of the rectangle. The elimination is  <br><pre>Rectangle Elimination<br>If +2[G6] then -2[G1] forcing<br>+2[C1] which removes all 2s <br>from box 8, so G6 cannot be 2</pre><a href="https://www.sudokuwiki.org/jigsaw.aspx?shape=33&bd=03v0n4u4f4bkb0099g88vanquqfqvq052gpi8c0hge118es2s2s0210gvameueeesa30s4oa30rajeqeaeoa0ho441m0ma81me6umuma110c843a3q2qg1cc38c41ul005noeofofof803pol0la5scsbarara2gpq&jigmap=111118833188888333178583332175552322177752226774755526744495926444999996449966666">Load the puzzle</a><br></div>
+
+<h2>Extended Rectangle Elimination</h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/RE_Extended1.png" alt="Extended RE example" /><figcaption>Extended RE example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=S9B0b0n0g0d08090f0e0n0i0h0n0e0f0n04070b060e0d0l0o0g0i0h0n2b020h030i0f0e0r2i0n040f0h0g0e0n0b092e0i0e0l0s0r2e0608080n090f050b2b0v2i0d0f0n070n0h020i0e050g0b0i0v0u0h0n0f">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/sudoku.htm?bd=000089000000000470600000000020300000040000009000000068809050000000700200500000000">From the Start</a>
+</figcaption></figure>
+A number of strategies can be 'extended' by inserting a chain between parts of the pattern. Bijan Khosronejad from Iran has sent me some good examples where Rectangle Elimination can go around the board between the first and final candidates extending the usefulness of this pattern.<br><br>To the right is a puzzle where the 3 in <span class="hy">J6</span> is in danger. Setting it <span class="hg">ON</span> will remove the 3s in the column in <span class="hy">BC6</span>. But there is another knock on effect. Going around the board (blue line) it also forces 3 on in <span class="hy">C9</span> which would remove the last 3 in box 2 - <span class="hy">C6</span>. So from this we can deduce <span class="hy">J6</span> cannot be 3.<br><br>This strategy is not currently in the solver but I hope to do so in a future release.</div>
+
+<h2>Using the diagonals in Sudoku X </h2>
+<div class="SRCell">
+<figure style="width:450px"><img src="PuzImages/SudokuXRE01.png" alt="RE diagonals example" /><figcaption>RE diagonals example
+: <a rel="nofollow" href="https://www.sudokuwiki.org/SudokuX.aspx?bd=X9B011g05440d074y0903c838d40abobo5e0476b604cy0603bm026a0a0794bl101xb65r5k5gc4904504cy035f78785c144h5u1x1w5r6g097s9k06dg6c044m014k800180bo5g5g074o5g0e082c03380a091g04">Load Example</a>
+ or : <a rel="nofollow" href="https://www.sudokuwiki.org/SudokuX.aspx?bd=105007093000000040040630200700000000000403000000000009006004010010000700080300904">From the Start</a>
+</figcaption></figure>
+<br>There is an easy to spot variation of Rectangle Elimination that uses the diagonals in Sudoku X puzzles - if there is a strong link between two specific candidates. This is the case for 6 between <span class="hy">B2</span> and <span class="hy">F2</span>.<br><br>If <span class="hy">B2</span> is the solution then it will remove the other 6s in row 5, at <span class="hy">B7</span> and <span class="hy">B9</span>.<br><br>So we want to look at the other end for a 6 that will remove the final 6 in <span class="hy">A7</span>. That 6 is present on <span class="hy">F7</span>. If that were the solution it would force <span class="hy">B2</span> to be the solution as well (via the strong link). So it follows <span class="hy">F7</span> cannot be 6.<br></div>
+
+<h2>Exemplars</h2>
+<div class="SRCell">These puzzles have the most Rectangle Eliminations while still being less than or equal to diabolicals. 3 new ones added June 2025 (first three)<br>
+They make good practice puzzles.
+<ul>
+<li><a href="/sudoku.htm?bd=400038200005000860000600000030920000209000006000041030000004000023000400006850009">Exemplar 1, x4 (Tough)</a></li>
+<li><a href="/sudoku.htm?bd=030200040500004008000000706050040001007103800900050030301000000800300002040005080">Exemplar 2, x1 (Tough)</a></li>
+<li><a href="/sudoku.htm?bd=000090000046003580209600003090000020000102000030000040300007802087300160000040000">Exemplar 3, x2 (Tough)</a></li>
+<li><a href="/sudoku.htm?bd=500403006003807000080050000890000015000182000120000043000040060000706400300508009">Exemplar 4, x5 (Diabolical)</a></li>
+<li><a href="/sudoku.htm?bd=060790040000401702000000000940000076005609100280000039000000000608302000090064050">Exemplar 5, x6 (Diabolical)</a></li>
+<li><a href="/sudoku.htm?bd=800007002600090004003005800702000105000020000106000308001500200500080003900600007">Exemplar 6, x5 (Diabolical)</a></li>
+<li><a href="/sudoku.htm?bd=000002000016309080007504900069000300500000001001000740004706500090403160000100000">Exemplar 7, x5 (Diabolical)</a></li>
+<li><a href="/sudoku.htm?bd=900000071000080000020507060260009054000102000510400032090604020000090000370000009">Exemplar 8, x5 (Diabolical)</a></li>
+<li><a href="/sudoku.htm?bd=200709006190000002080002030070503040000000000050904060060300090800000053900407001">Exemplar 9, x8 (Diabolical)</a></li>
+</ul>
+</div><br>
+
+
+
+
+
+
+	<div class="SRnavbox"><table class="w100pc"><tr><td class="w50pc">Go back to <a href="X_Wing_Strategy">X-Wing Strategy</a></td><td class="w50pc cright">Continue to <a href="Sword_Fish_Strategy">SwordFish Strategy</a></td></tr></table></div><br><hr class="div3" />
+
+		<a name="comments"></a>
+
+		<div id="comments-form">
+			<h1>Comments</h1>
+
+			<div id="blog-reply0">
+
+                <div class="w100pc">
+                    <div id="replyblocktop">
+                    
+                    <form target="postreturntop" action="/PageCommentSet.aspx?p=221&c=0&s=0" method="post"
+                        onsubmit="document.getElementById('addbuttontop').className='YButton';document.getElementById('addbuttontop').value='Sending....';"
+                        id="frmComment" name="comment">
+		            <input type="hidden" id="pgFileName" name="pgFileName" value="Rectangle_Elimination" />
+
+	                <div class="georgiatext">Your Name/Handle</div>
+                    <input type="text" required class="feedbackinputbox" maxlength="50" id="cmName" name="cmName" value="" /> <br>
+	                
+	                <div style="color:#999"><span class="georgiatext">Email Address</span>
+                        - required for confirmation (it will not be displayed here)</div>
+                    <input type="email" required class="feedbackinputbox" maxlength="100" id="cmEmail" name="cmEmail" value="" /><br>
+	                
+	                <div class="georgiatext">Your Comment</div>
+                    <textarea class="feedbackinputbox" rows="12" id="cmComment" name="cmComment"></textarea><br>
+	                
+                        <table width="90%" cellpadding="3">
+                        <tr>
+                            <td width="20%">
+                                Please enter the<br>letters you see:<br>
+                                <input type="text" class="feedbackinputbox" name="CaptchaCode" id="CaptchaCode" value="" size="10" maxlength="5" onkeyup="this.value=this.value.toUpperCase();" /><img src="images/GRNARR.GIF" alt="arrow" />
+                            </td>
+                            <td width="40%"><img src="/lanap.aspx?Command=CreateImage&amp;TextStyle=19&amp;ImageWidth=140" alt="Enter these letters" id="CaptchaImage" /></td>
+                            <td width="40%" align="center">
+                                <input type="checkbox" value="On" name="cmRemember" /> Remember me<br><br>
+                                <input class="SButton" type="submit" id="addbuttontop" value="Add Comment!" /><br>
+                            </td>
+                        </tr>
+                    </table>
+	                
+                    </form>
+			        <div class="pfrmtxt">Please ensure your comment is relevant to this article.<br>
+			        
+                        <strong>Email addresses are never displayed, but they are required to confirm your comments.</strong>
+			        When you enter your name and email address, you'll be sent a link to</font> confirm your comment.
+                    
+			        Line breaks and paragraphs are automatically converted - no need
+			        to use &lt;p&gt; or &lt;br&gt; tags.</div>
+                    <iframe name="postreturntop" id="postreturntop" frameborder="0" scrolling="no" style="width:1px;height:1px"></iframe>
+                    </div>
+	                <div id="returnmessagetop" style="margin-left:70px"></div>
+                </div>
+
+				<div class="w100pc">
+					<div class="w50pc" style="margin-bottom:5px">
+						<!--div style="border:3px solid #666666;padding:10px;border-radius:12pt;width:100%;max-width:300px;text-align:center"><input type="button" class="BButton" value="Show Comment Form" onclick="javascript:showreplyform(221,0,0)" /></div-->
+					</div>
+					<div class="w50pc"><a name="comments"></a><span class="buttony">Comments</span><span class="buttony"><a href="?talk#comments">Talk</a></span>
+					</div>
+				</div>
+
+				
+
+			</div>
+
+	<div class="posting" id="frmcomment17439"><div class="w100pc"><div class="w60pc"><h2>... by: sam</h2></div><div class="w40pc datepost">Saturday 6-Jun-2026</div></div>
+<div class="w100pc">In the Extended Rectangle Elimination example, is it true that C9 also can’t be 3 as it would remove all the 3s in box 2 by reversing the chains?</div>
+<div class="w100pc" id="blog-reply17439"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Good question but no. Because if you trace the chain around starting from +3[C9] you get to OFF -3[h5] but that doesn’t get you +3[J6] because there is an extra 3 in box 8 in J5</div></div><div id="blog-reply3092" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(221,17439,3092)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17203"><div class="w100pc"><div class="w60pc"><h2>... by: Ed</h2></div><div class="w40pc datepost">Wednesday 5-Mar-2025</div></div>
+<div class="w100pc">Thanks for a great site with a lot of good easy to understand material and interesting puzzles.<br><br>I agree that searching for Rectangle Elimination is much easier to identify than than the over complicated Empty Rectangles.  I do eliminate a lot of candidates using this search strategy.<br><br>I did wonder why you had placed Rectangle Elimination after Simple Colouring since it is much easier to search for Rectangle Eliminations than Simple Colouring.  All of the Simple Colouring examples are easily solved if you identify the Rectangle Eliminations before searching for Simple Colouring candidate eliminations.  Or was the search order just a matter of how much would need to be changed to modify the order since it is really the same as Empty Rectangles?<br><br>When you added Chutes Remote Pairs it was added before Simple Colouring since it was relatively easy to identify. </div>
+<div class="w100pc" id="blog-reply17203"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>RE now before Simple Colouring. Always a debate about ordering but seems sensible to have it before SC.</div></div><div id="blog-reply3053" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(221,17203,3053)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17109"><div class="w100pc"><div class="w60pc"><h2>... by: Pandu R</h2></div><div class="w40pc datepost">Saturday 30-Mar-2024</div></div>
+<div class="w100pc">Separately, I think Rectangle Elimination and Empty Rectangle are exactly equivalent (i.e. every RE can also be considered an ER, and every ER can also be considered an RE.) -- right?<br><br>If so, it might be worth saying this explicitly. The current language and UI suggests that ER is a subset of RE.</div>
+<div class="w100pc" id="blog-reply17109"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>I hope I've strengthened the language a bit, I agree it's an exact replacement not a subset.</div></div><div id="blog-reply2788" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(221,17109,2788)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17108"><div class="w100pc"><div class="w60pc"><h2>... by: Pandu R</h2></div><div class="w40pc datepost">Saturday 30-Mar-2024</div></div>
+<div class="w100pc">Here's my stab at another explanation for the first example, reusing some of your language (up until the ***) but changing some: (after the ***)<br><br>The base of the pattern consists of a Hinge cell G2 connected to the one remaining 9 in the row (or column), in this case G6. This part has to be a strong either/or link.<br><br>From the hinge G2 we look for another 9 in the opposite orientation (the column) and in a different box that is weakly linked - more than two 9s in the unit. *** (The 'hinge' cell is highlighted in green, and the 'wing' cells are highlighted in orange.)<br><br>Consider the weakly-linked 'wing' cell A2. If it's ON, then the other wing cell must also be ON. However, this would eliminate ALL the 9s in the 'fourth corner box' (box 2, which is the fourth corner of the rectangle). So A2 cannot be ON, i.e. we can eliminate 9 as a possibility from A2.<br><br>---<br><br>P.S.: I don't think the sentence "These two 'wing' cells (in orange) are locked. If one is ON the other must also be ON" is correct. (At least, if it's correct, it's not obvious, and might need more explanation.) Yes, if A2 is ON then G6 is on. But if G6 is ON, I don't see why A2 must be ON.<br></div>
+<div class="w100pc" id="blog-reply17108"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(221,17108,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17060"><div class="w100pc"><div class="w60pc"><h2>... by: tim</h2></div><div class="w40pc datepost">Saturday 27-Jan-2024</div></div>
+<div class="w100pc">I strongly recommend that you view the Sudoku Swami's explanation of Empty Rectangles on tutorial #18 of YouTube.   Conjugate Pairs ( two cells with the same value in a house) are easy to see.  When present, Empty Rectangles are also easy to see.<br><br>The Swami explains this useful and simple elimination in Clear, Simple to Understand language with Clear, Concise illustrations.<br><br><br><br></div>
+<div class="w100pc" id="blog-reply17060"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(221,17060,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17058"><div class="w100pc"><div class="w60pc"><h2>... by: Shari A Tuttle</h2></div><div class="w40pc datepost">Thursday 25-Jan-2024</div></div>
+<div class="w100pc">In the first example on this page for rectangle elimination, I am confused about the logic. If G6 is ON, then G2 is off. If G2 is off, could it not be true that E2 could be on? How do you infer that if G6 is ON, then A2 is ON? Thank you</div>
+<div class="w100pc" id="blog-reply17058"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(221,17058,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17057"><div class="w100pc"><div class="w60pc"><h2>... by: Shari A Tuttle</h2></div><div class="w40pc datepost">Thursday 25-Jan-2024</div></div>
+<div class="w100pc">In the first example on this page for rectangle elimination, I am confused about the logic. If G6 is ON, then G2 is off. If G2 is off, could it not be true that E2 could be on? How do you infer that if G6 is ON, then A2 is ON? Thank you</div>
+<div class="w100pc" id="blog-reply17057"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(221,17057,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17054"><div class="w100pc"><div class="w60pc"><h2>... by: Nephrium</h2></div><div class="w40pc datepost">Thursday 11-Jan-2024</div></div>
+<div class="w100pc">To complete Pieter's comment, if G6 is ON, A2 is OFF since G6 only leaves one 9 in block two at A5!</div>
+<div class="w100pc" id="blog-reply17054"></div>
+<table class="w100pc"><tr><td></td><td class="replypost" onclick="javascript:showreplyform(221,17054,0)">REPLY TO THIS POST</td></tr></table></div><div class="posting" id="frmcomment17025"><div class="w100pc"><div class="w60pc"><h2>... by: Pieter Newtown</h2></div><div class="w40pc datepost">Saturday 18-Nov-2023</div></div>
+<div class="w100pc">Hi Andrew<br>David H's Comment made me look closer into this strategy. Frankly I skip many Tough strategies and often go straight to X-Cycles which will find this too. <br> <br>The statement "These two 'wing' cells are <b>locked</b>. If one is <span class="hg">ON</span> the other must also be <span class="hg">ON</span>" doesn't go both ways. If <span class="hy">G6</span> is <span class="hr">OFF</span> then <span class="hy">A2</span> is <span class="hr">OFF</span> is true, but in reverse, if <span class="hy">G6</span> is <span class="hg">ON</span> then <span class="hy">A2</span> is not necessarily <span class="hg">ON</span> due to the weak link from <span class="hy">G2</span> to <span class="hy">A2</span>. If <span class="hy">A2</span> is <span class="hg">ON</span> then <span class="hy">G6</span> is <span class="hg">ON</span> would be true. <br> <br>Also, as David pointed out, a typo for us proper English spellers, should be "fourth corner box". <br> <br>Ciao, Pieter<br> <br>P.S.<br>I could never get my head around Empty Rectangles anyway!</div>
+<div class="w100pc" id="blog-reply17025"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Typo fixed thank-you!</div></div><div id="blog-reply2681" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(221,17025,2681)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17015"><div class="w100pc"><div class="w60pc"><h2>... by: David Harkness</h2></div><div class="w40pc datepost">Sunday 29-Oct-2023</div></div>
+<div class="w100pc">I see why the 9 is eliminated from A2 in the first example using the Empty Rectangle strategy, but I don't follow the description for this new strategy.<br><br>"From the hinge G2 we look for another 9 in the opposite orientation (the column) and in a different box that is weakly linked - more than two 9s in the unit."<br><br>So far, so good.<br><br>"These two 'wing' cells are locked."<br><br>Which are the two 'wing' cells? A2 and G2? A2 and G6? G2 and G6?<br><br>"If one is ON the other must also be ON."<br><br>This doesn't apply to any two cells of A2/G2/G6, so is the other wing cell in box 2? This is the part where you lost me.<br><br>"And if G6 is OFF then A2 is OFF."<br><br>Yes.<br><br>Our weakly-linked 'wing' cell 9 can be eliminated if ALL the 9s in the forth corner box are turned OFF by the action of A2 and G6."<br><br>I think that's a typo and you meant "fourth corner box" (box 2). This part is also clear. I'm just left wondering which two cells are the 'wing' cells which both must be ON if either is ON. Am I misreading that part?<br><br>Cheers,<br>David</div>
+<div class="w100pc" id="blog-reply17015"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Hi David. I've added "(in orange)" to make the wings clear.</div><div class="post-reply" id="reply2765"><table class="w100pc"><tr><td class="post-writes">Al Terry  replies:</td><td class="datepost">Friday 9-Feb-2024</td></tr>
+<tr><td colspan="2">The strategy also works when the links do not form a rectangle similar to a Y wing. If one end is assumed to be candidate a, then the other end must be a as well, as it turns off the hinge candidate a in the middle. Both ends of the chain then eliminate the candidate a’s in the cells in the parallel columns or rows. If these cells contain the only candidate a’s in a given column or row then the assumed candidate a can be eliminated.</td></tr>
+</table></div>
+<div class="post-reply" id="reply2772"><table class="w100pc"><tr><td class="post-writes">Happy Bob replies:</td><td class="datepost">Sunday 11-Feb-2024</td></tr>
+<tr><td colspan="2">The logic is quite straight forward, but the explanation needs work. The logic is that when the weak-linked wing candidate is ON, the strong-linked wing candidate has to be on also. If this situation eliminates all options in the fourth cell, then the candidate in the  weak-linked cell cannot be valid and can be eliminated.</td></tr>
+</table></div>
+</div><div id="blog-reply2772" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(221,17015,2772)">Add to this Thread</div></div>
+<div class="posting" id="frmcomment17011"><div class="w100pc"><div class="w60pc"><h2>... by: Strmckr</h2></div><div class="w40pc datepost">Tuesday 17-Oct-2023</div></div>
+<div class="w100pc">Definitely not new, this has been out since 2007 on the players forum covered by me and others<br><br>Empty rectangle intersection is the easier explination for empty rectangles  as a mini row col switch in any box. Where all the values for the box exist on these two mini sectors. <br><br>Extensions include the<br>Dual ER (2 arms off 1 box) <br>  rec`t kite (er+kite)  1 box connects to 2 arms     which are also weakly linked in another sector. <br><br>  Mutiple eri connected<br> Muti-fish for multiple digits <br><br>I have examples if you want<br><br>Ps  we use aic logic over niceloops as these have been discontinued since 2010 as well as anything colouring based. As the logic of aic is shorter and easier in many aspects. <br><br>Strmckr </div>
+<div class="w100pc" id="blog-reply17011"></div>
+<div class="post-reply moderator"><div class="post-writes moderator">Andrew Stuart writes:</div>Thanks Strmckr. Lots to absorb here. I suspected the idea goes back away. </div></div><div id="blog-reply2678" class="w100pc"></div>
+<div style="margin:0 20px 0 20px; text-align:right"><div class="w40pc replypost ccene" onclick="javascript:showreplyform(221,17011,2678)">Add to this Thread</div></div>
+</div>
+
+    </div>
+
+
+            </div>
+
+	
+    <div class="footarea SRfooterBox">
+        <footer>
+		Article created on 7-October-2023. Views: 124749<br>
+			This page was last modified on 5-June-2026.<br>
+			All text is copyright and for personal use only but may be reproduced with the permission of the author.<br>
+			Copyright <a href="https://www.sudokuwiki.org">Andrew Stuart</a> @ <a href="https://www.syndicatedpuzzles.com">Syndicated Puzzles</a>, <a href="/privacy">Privacy</a>, 2007-2026
+        <script data-cfasync="false" async src="//cdn.intergient.com/1024945/74208/ramp.js"></script>
+        </footer>
+    </div>
+	
+	<div class="rightside">
+        <!--  // [desktop/tab]skyscraper_atf: -->
+ <div data-pw-desk="sky_atf" id="pwDeskSkyAtf"></div>
+ <script type="text/javascript">
+   window.ramp.que.push(function () {
+       window.ramp.addTag("pwDeskSkyAtf");
+   })
+ </script>
+	</div>
+	
+
+    
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a103c914af120970',t:'MTc4MjIyMDc3Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

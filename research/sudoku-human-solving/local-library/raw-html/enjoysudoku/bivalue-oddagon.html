@@ -1,5 +1,621 @@
-<html><head><title>EnjoySudoku Bivalue Oddagon - local research note</title></head><body>
-<p>Source URL: http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html</p>
-<p>Local note only. User-generated forum content; reuse permission unclear.</p>
-<p>Key facts retained for local research: odd/bivalue oddagons are odd loops that would become illegal without guardians; guardians can form strong relations and support eliminations.</p>
-</body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
+<head>
+<base href="http://forum.enjoysudoku.com/"/>
+<link rel="canonical" href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon) : Advanced solving techniques</title>
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="en-gb" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="content-language" content="en" />
+<meta name="title" content="【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon) : Advanced solving techniques" />
+<meta name="description" content="if there is a loop with odd number grids(5 or 7 or 9...), and candidates in every grids is same ab , it's a deadly ..." />
+<meta name="keywords" content="bivalue, links, leren, link, single, technique, oddagon, share, odd, loop, search, hidden" />
+<meta name="category" content="general" />
+<meta name="robots" content="index,follow" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="copyright" content="The New Sudoku Players Forum" />
+
+
+
+
+<!--
+	phpBB style name: prosilver
+	Based on style:   prosilver (this is the default phpBB3 style)
+	Original author:  Tom Beddard ( http://www.subBlue.com/ )
+	Modified by:
+-->
+
+<script type="text/javascript">
+// <![CDATA[
+	var jump_page = 'Enter the page number you wish to go to:';
+	var on_page = '1';
+	var per_page = '';
+	var base_url = '';
+	var style_cookie = 'phpBBstyle';
+	var style_cookie_settings = '; path=/; domain=forum.enjoysudoku.com';
+	var onload_functions = new Array();
+	var onunload_functions = new Array();
+	// www.phpBB-SEO.com SEO TOOLKIT BEGIN
+	var seo_delim_start = '-';
+	var seo_static_pagination = 'page';
+	var seo_ext_pagination = '.html';
+	var seo_external = true;
+	var seo_external_sub = false;
+	var seo_ext_classes = false;
+	var seo_hashfix = false;
+	// www.phpBB-SEO.com SEO TOOLKIT END
+
+	
+
+	/**
+	* Find a member
+	*/
+	function find_username(url)
+	{
+		popup(url, 760, 570, '_usersearch');
+		return false;
+	}
+
+	/**
+	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
+	*/
+	window.onload = function()
+	{
+		for (var i = 0; i < onload_functions.length; i++)
+		{
+			eval(onload_functions[i]);
+		}
+	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
+// ]]>
+</script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/styleswitcher.js"></script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/forum_fn.js"></script>
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="http://forum.enjoysudoku.com/style.php?id=1&amp;lang=en&amp;sid=41d84564e4a8bb563d035b9f1353c536" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/normal.css" rel="stylesheet" type="text/css" title="A" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
+
+
+
+</head>
+
+<body id="phpbb" class="section-viewtopic ltr">
+
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+	<div id="page-header">
+		<div class="headerbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<div id="site-description">
+				<a href="http://forum.enjoysudoku.com/" title="Board index" id="logo"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/site_logo.gif" width="52" height="52" alt="" title="" /></a>
+				<h1>The New Sudoku Players' Forum</h1>
+				<p>Sponsored by Enjoy Sudoku</p>
+				<p class="skiplink"><a href="#start_here">Skip to content</a></p>
+			</div>
+
+		
+			<div id="search-box">
+				<form action="./search.php?sid=41d84564e4a8bb563d035b9f1353c536" method="get" id="search">
+				<fieldset>
+					<input name="keywords" id="keywords" type="text" maxlength="128" title="Search for keywords" class="inputbox search" value="Search…" onclick="if(this.value=='Search…')this.value='';" onblur="if(this.value=='')this.value='Search…';" />
+					<input class="button2" value="Search" type="submit" /><br />
+					<a href="./search.php?sid=41d84564e4a8bb563d035b9f1353c536" title="View the advanced search options">Advanced search</a> <input type="hidden" name="sid" value="41d84564e4a8bb563d035b9f1353c536" />
+
+				</fieldset>
+				</form>
+			</div>
+		
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+		<div class="navbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<ul class="linklist navlinks">
+				<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a>  <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/sudoku-the-puzzle-f5.html">Sudoku: the puzzle</a> <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html">Advanced solving techniques</a></li>
+
+				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="Change font size">Change font size</a></li>
+
+				<li class="rightside"><a href="http://forum.enjoysudoku.com/viewtopic.php?f=6&amp;t=33153&amp;start=0&amp;view=print&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Print view" accesskey="p" class="print">Print view</a></li>
+			</ul>
+
+			
+
+			<ul class="linklist rightside">
+				<li class="icon-faq"><a href="http://forum.enjoysudoku.com/faq.php?sid=41d84564e4a8bb563d035b9f1353c536" title="Frequently Asked Questions">FAQ</a></li>
+				<li class="icon-register"><a href="http://forum.enjoysudoku.com/ucp.php?mode=register&amp;sid=41d84564e4a8bb563d035b9f1353c536">Register</a></li>
+					<li class="icon-logout"><a href="http://forum.enjoysudoku.com/ucp.php?mode=login&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Login" accesskey="x">Login</a></li>
+				
+			</ul>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+	</div>
+
+	<a name="start_here"></a>
+	<div id="page-body">
+		
+<h2><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html">【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon)</a></h2>
+<!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body --><div style="display: none !important;">Advanced methods and approaches for solving Sudoku puzzles<br /></div>
+
+<div class="topic-actions">
+
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=33153&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="search-box">
+			<form method="get" id="topic-search" action="./search.php?sid=41d84564e4a8bb563d035b9f1353c536">
+			<fieldset>
+				<input class="inputbox search tiny"  type="text" name="keywords" id="search_keywords" size="20" value="Search this topic…" onclick="if(this.value=='Search this topic…')this.value='';" onblur="if(this.value=='')this.value='Search this topic…';" />
+				<input class="button2" type="submit" value="Search" />
+				<input type="hidden" name="t" value="33153" />
+<input type="hidden" name="sf" value="msgonly" />
+<input type="hidden" name="sid" value="41d84564e4a8bb563d035b9f1353c536" />
+
+			</fieldset>
+			</form>
+		</div>
+	
+		<div class="pagination">
+			7 posts
+			 &bull; Page <strong>1</strong> of <strong>1</strong>
+		</div>
+	
+
+</div>
+<div class="clear"></div>
+
+
+	<div id="p251454" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251454&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 class="first"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251454">【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251454.html#p251454"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a></strong> &raquo; Sat Jun 11, 2016 12:44 pm </p>
+
+			
+
+			<div class="content">if there is a loop with odd number grids(5 or 7 or 9...), and candidates in every grids is same &quot;ab&quot;, it's a &quot;deadly loop&quot;.for example, a 5 grids loop, all of the grids with candidates &quot;ab&quot;, every 4 &quot;ab&quot; can formed a &quot;remote pair&quot;, delete the 5th grid &quot;ab&quot; to nothing. so, we must avoid the &quot;deadly loop&quot; apear, then we can find some strong links.<br />this technique is similar to the technique &quot;oddagon&quot; and &quot;guardian&quot;, but there is difference between them. every grid on loop has two candidates, whole loop has two-type of candidates, but not one-type candidate as a normal oddagon. so i call this &quot;bivalue oddagon&quot;.<br />for example, if we delete r6c3(5) and r9c3(5) together, grids with the &quot;#&quot; will constitute a &quot;bivalue oddagon&quot; with candidates &quot;29&quot; in all of the grids on the loop, and the loop will die. so, we can NOT delete r6c3(5) and r9c3(5) together.it means r6c3(5)==r9c3(5), strong link between them.so, r2c3&lt;&gt;5, r2c3=1.<br /><br /><br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>*--------------------------------------------------------------------------------------------*<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;135&nbsp; &nbsp; &nbsp; &nbsp; 15|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; 34&nbsp; &nbsp; &nbsp; &nbsp;348|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; 58|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 57&nbsp; &nbsp; &nbsp; &nbsp;357&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; 23&nbsp; &nbsp; &nbsp; &nbsp;238|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; 58|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 56&nbsp; &nbsp; &nbsp; 1259&nbsp; &nbsp; &nbsp; 1259|&nbsp; &nbsp; &nbsp; &nbsp;259&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; 1269|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|<br />|&nbsp; &nbsp; &nbsp; &nbsp;468&nbsp; &nbsp; &nbsp; &nbsp; 14&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; 2489&nbsp; &nbsp; &nbsp; &nbsp;246&nbsp; &nbsp; &nbsp;12469|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;#29|<br />|&nbsp; &nbsp; &nbsp; 4578&nbsp; &nbsp; &nbsp;24579&nbsp; &nbsp; &nbsp; #259|&nbsp; &nbsp; 234589&nbsp; &nbsp; &nbsp; 2345&nbsp; &nbsp; &nbsp; 2349|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;#29&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 14&nbsp; &nbsp; &nbsp; &nbsp; 29&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6|&nbsp; &nbsp; &nbsp; 2349&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; 2349|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;129&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 15&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|&nbsp; &nbsp; &nbsp; &nbsp;259&nbsp; &nbsp; &nbsp; &nbsp;256&nbsp; &nbsp; &nbsp; &nbsp;269|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;129&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; 2459&nbsp; &nbsp; &nbsp; #259|&nbsp; &nbsp; &nbsp; &nbsp; 45&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp;#29|<br />*--------------------------------------------------------------------------------------------*</code></dd></dl><br /><br />chinese edition:<br />附上中文版：<br />如果有由奇数个格子组成的闭环（5、7、9……），并且所有格子候选数都是ab，那么这是一个“死环”。比如，一个5格的环，所有格都是ab，那么，任意四个ab可构成一个“远程数对”的结构，将第五格删空。所以，我们必须避免“死环”出现。<br />例如图中，如果同时删除r6c3(5)和r9c3(5)，打#号的格子将会构成一个“奇数双值环”，所有格都是29，这个环就死了。所以，我们不能同时删去r6c3(5)和r9c3(5)，即 r6c3(5)==r9c3(5)，二者构成强链。所以，r2c3&lt;&gt;5，r2c3=1</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a> on Sun Jun 12, 2016 7:07 am, edited 1 time in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251454">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 20</dd><dd><strong>Joined:</strong> 11 June 2016</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p251457" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251457&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251457">Re: Odd Bivalue Loop(dead loop)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251457.html#p251457"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Sat Jun 11, 2016 7:36 pm </p>
+
+			
+
+			<div class="content">This is a well known but not often used strategy called oddagons on this forum. Strictly speaking what you have is two almost oddagons in digits 2 and 9.  An oddagon is  a closed loop of Strong links on a single digit with an odd number of nodes. The two 5's you mention are the Guardians, which prevent this form of Deadly pattern from being exposed. Here is an article on Guardians <a href="http://www.sudokuwiki.org/Guardians" class="postlink" rel="nofollow">here</a> or you can type oddagon into the search box in this forum and read the posts on this topic.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251457">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p251458" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251458&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251458">Re: Odd Bivalue Loop(dead loop)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251458.html#p251458"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a></strong> &raquo; Sat Jun 11, 2016 8:25 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>Leren wrote:</cite>This is a well known but not often used strategy called oddagons on this forum. Strictly speaking what you have is two almost oddagons in digits 2 and 9.  An oddagon is  a closed loop of Strong links on a single digit with an odd number of nodes. The two 5's you mention are the Guardians, which prevent this form of Deadly pattern from being exposed. Here is an article on Guardians <a href="http://www.sudokuwiki.org/Guardians" class="postlink" rel="nofollow">here</a> or you can type oddagon into the search box in this forum and read the posts on this topic.<br /><br />Leren</div></blockquote><br />thank you very much for your reply!<br />i think there is difference between this bivalue loop technique and the oddagon. oddagon is a single-type candidate loop, but bivalue loop is double-type candidates. i will post more example tomorrow, some puzzle is hard to observe if using the oddagon and &quot;guardian&quot;, but easy if using the bivalue loop.</div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a> on Sat Jun 11, 2016 9:47 pm, edited 1 time in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251458">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 20</dd><dd><strong>Joined:</strong> 11 June 2016</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p251459" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251459&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251459">Re: Odd Bivalue Loop(dead loop)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251459.html#p251459"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a></strong> &raquo; Sat Jun 11, 2016 9:02 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>Leren wrote:</cite>This is a well known but not often used strategy called oddagons on this forum. Strictly speaking what you have is two almost oddagons in digits 2 and 9.  An oddagon is  a closed loop of Strong links on a single digit with an odd number of nodes. The two 5's you mention are the Guardians, which prevent this form of Deadly pattern from being exposed. Here is an article on Guardians <a href="http://www.sudokuwiki.org/Guardians" class="postlink" rel="nofollow">here</a> or you can type oddagon into the search box in this forum and read the posts on this topic.<br /><br />Leren</div></blockquote><br /><br />and then i searched oddagon in the forum, clicked several URLs, and found that the oddagon is single-type candidate loop, with single-type candidate guardians. maybe we can call the technique &quot;bivalue oddagon&quot;, LOL. it is more easy finding than a oddagon, because the bivalue grids with same &quot;ab&quot; always attract more focus; BTW, single-type candidate oddagon always can be replaced with two strong-link chains!</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251459">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 20</dd><dd><strong>Joined:</strong> 11 June 2016</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p251465" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251465&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251465">Re: Odd Bivalue Loop(dead loop)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251465.html#p251465"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a></strong> &raquo; Sun Jun 12, 2016 6:47 am </p>
+
+			
+
+			<div class="content">some examples:<br /><br />1.bivalue oddagon with missing candidates, and also diagonal strong link guardian:<br />the 5 &quot;#&quot; grids formed a &quot;bivalue oddagon&quot;(missing candidate &quot;9&quot; in r1c5 but doesn't matter), we can NOT delete r9c1(1) and r1c5(23) together, otherwise, 5 &quot;#&quot; grids will become a &quot;deadly loop&quot;. then, r1c5(23)==r9c1(1)--r9c4(1)==r7c6(1)--r1c6(1)==r12c6(6), so, r1c5&lt;&gt;6<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>*--------------------------------------------------------------------------------------------*<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;#69|&nbsp; &nbsp; &nbsp; 1268&nbsp; &nbsp; &nbsp; #236&nbsp; &nbsp; &nbsp; &nbsp;168|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; 3689&nbsp; &nbsp; &nbsp; 3689|<br />|&nbsp; &nbsp; &nbsp; &nbsp;269&nbsp; &nbsp; &nbsp; &nbsp;269&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; 68|&nbsp; &nbsp; &nbsp; &nbsp; 89&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|&nbsp; &nbsp; &nbsp; &nbsp; 46&nbsp; &nbsp; &nbsp; &nbsp;346&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; 36|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 69&nbsp; &nbsp; &nbsp; &nbsp;369&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|&nbsp; &nbsp; &nbsp; &nbsp;268&nbsp; &nbsp; &nbsp; &nbsp;256&nbsp; &nbsp; &nbsp; &nbsp;568|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp;389&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;369&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2|&nbsp; &nbsp; &nbsp; &nbsp;468&nbsp; &nbsp; &nbsp; &nbsp; 46&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;389&nbsp; &nbsp; &nbsp; &nbsp;389|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; 1269&nbsp; &nbsp; &nbsp; 269&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;569&nbsp; &nbsp; &nbsp; &nbsp;156|&nbsp; &nbsp; &nbsp; &nbsp; 89&nbsp; &nbsp; &nbsp; &nbsp;689&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp;#69|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; 69|<br />|&nbsp; &nbsp; &nbsp; #169&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|&nbsp; &nbsp; &nbsp; &nbsp; 16&nbsp; &nbsp; &nbsp; &nbsp;#69&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2|<br />*--------------------------------------------------------------------------------------------*</code></dd></dl><br /><br />2.bivalue oddagon with 7 grids(and also missing candidate):<br />the 7 grids with &quot;#&quot; formed a &quot;bivalue oddagon&quot;(missing candidate 5 in r8c3 but doesn't matter), we can NOT delete r8c3(8) and r8c7(1) together, otherwise, 7 &quot;#&quot; grids will become a &quot;deadly loop&quot;. then, r8c3(8)==r8c7(1)--r8c1(1)==r8c1(6), so, r8c3&lt;&gt;6, r8c3=8.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>*--------------------------------------------------------------------------------------------*<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp;#56&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|&nbsp; &nbsp; &nbsp; &nbsp;#56&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|<br />|&nbsp; &nbsp; &nbsp; &nbsp;#56&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;#56|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;#56|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp;456&nbsp; &nbsp; &nbsp; &nbsp; 46|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp;156&nbsp; &nbsp; &nbsp; &nbsp;136&nbsp; &nbsp; &nbsp; &nbsp;356|&nbsp; &nbsp; &nbsp;23568&nbsp; &nbsp; &nbsp; 4568&nbsp; &nbsp; &nbsp;24567|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp;34678&nbsp; &nbsp; &nbsp; 1468|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|&nbsp; &nbsp; &nbsp; &nbsp;368&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; 67|&nbsp; &nbsp; &nbsp; &nbsp; 36&nbsp; &nbsp; &nbsp; 3678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp;136&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|&nbsp; &nbsp; &nbsp; &nbsp;356&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;456|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;346&nbsp; &nbsp; &nbsp; &nbsp;146|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; 2368|&nbsp; &nbsp; &nbsp; &nbsp;268&nbsp; &nbsp; &nbsp; &nbsp;468&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|&nbsp; &nbsp; &nbsp; &nbsp;346&nbsp; &nbsp; &nbsp; 3468&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 16&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp;#68|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;568&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; #156&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;136&nbsp; &nbsp; &nbsp; 2368|&nbsp; &nbsp; &nbsp; 2568&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; 2456|&nbsp; &nbsp; &nbsp;13456&nbsp; &nbsp; &nbsp;34568&nbsp; &nbsp; &nbsp; 1468|<br />*--------------------------------------------------------------------------------------------*</code></dd></dl><br /><br />3.bivalue oddagon mixed with other advanced techniques:<br />the 5 &quot;#&quot; grids formed a &quot;bivalue oddagon&quot;, and the 6 &quot;*&quot; grids formed a UR (69). if r9c2&lt;&gt;6, then r8c23={69}(hidden pair), to avoid the 6 &quot;*&quot; grids formed a &quot;deadly pattern(69)&quot;, we can find r3c1=78, then, look at the 5 &quot;#&quot; grids, r34c7=6(otherwise the 5 &quot;#&quot; grids will formed a deadly loop 78). so, r9c2(6)==r34c7(6), so, r9c7&lt;&gt;6, r9c2=6.<br />Once you have used this technique, all solved.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>*--------------------------------------------------------------------------------------------*<br />|&nbsp; &nbsp; &nbsp; &nbsp;678&nbsp; &nbsp; &nbsp; &nbsp;678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp;267&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; 27|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; 67&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|<br />|&nbsp; &nbsp; #*6789&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;*69|&nbsp; &nbsp; &nbsp; &nbsp; 67&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|&nbsp; &nbsp; &nbsp; #678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; 78|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|&nbsp; &nbsp; &nbsp; #678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;678|<br />|&nbsp; &nbsp; &nbsp; &nbsp;*69&nbsp; &nbsp; &nbsp; &nbsp;*69&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|<br />|&nbsp; &nbsp; &nbsp; &nbsp;#78&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;#78|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; 78|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; 27|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp;278&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp;*6789&nbsp; &nbsp; &nbsp; &nbsp;*69|&nbsp; &nbsp; &nbsp; &nbsp;278&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; 2678&nbsp; &nbsp; &nbsp; &nbsp;678|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp;678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|&nbsp; &nbsp; &nbsp; &nbsp; 78&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp;678&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|<br />*--------------------------------------------------------------------------------------------*</code></dd></dl><br /><br />4.complex bivalue oddagon:<br />look at all 7 grids with symbols. if r4c1&lt;&gt;5, the two &quot;%&quot; grids r4c12 will formed a strong link(r4c1(7)==r4c2(2)). we can use r4c12 as a bivalue grid &quot;27&quot; in this example.  on the other hand, the two &quot;*&quot; grids r56c3 formed another strong link(r56c3(2)==r56c3(7)), we can use r56c3 as a bivalue grid &quot;27&quot; in this example.<br />so, if we delete r4c1(5) and r4c9(5) together, all of the &quot;#&quot; grids will formed a &quot;deadly loop&quot;.(r4c12(2==7), r56c3(2==7), r7c3(27), r7c9(27), r4c9(27)). it means r4c1(5)==r4c9(5). so, r4c5&lt;&gt;5, r6c5=5.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>*--------------------------------------------------------------------------------------------*<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;7|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp;%#578&nbsp; &nbsp; &nbsp; %#28&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;9|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; 4587&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;248&nbsp; &nbsp; &nbsp; #257|<br />|&nbsp; &nbsp; &nbsp; &nbsp;578&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp;*#127|&nbsp; &nbsp; &nbsp; 2479&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp;289|&nbsp; &nbsp; &nbsp;15789&nbsp; &nbsp; &nbsp; 2489&nbsp; &nbsp; &nbsp; 1257|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp;*#127|&nbsp; &nbsp; &nbsp; &nbsp;279&nbsp; &nbsp; &nbsp; &nbsp;587&nbsp; &nbsp; &nbsp; &nbsp;289|&nbsp; &nbsp; &nbsp;15789&nbsp; &nbsp; &nbsp; &nbsp;289&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6|<br />|------------------------------+------------------------------+------------------------------|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1&nbsp; &nbsp; &nbsp; &nbsp;#27|&nbsp; &nbsp; &nbsp; &nbsp; 49&nbsp; &nbsp; &nbsp; &nbsp; 48&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|&nbsp; &nbsp; &nbsp; &nbsp;789&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp;#27|<br />|&nbsp; &nbsp; &nbsp; &nbsp; 78&nbsp; &nbsp; &nbsp; &nbsp;289&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|&nbsp; &nbsp; &nbsp; 1297&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3|&nbsp; &nbsp; &nbsp;15789&nbsp; &nbsp; &nbsp; &nbsp;289&nbsp; &nbsp; &nbsp; 1257|<br />|&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6&nbsp; &nbsp; &nbsp; &nbsp;289&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5|&nbsp; &nbsp; &nbsp; 1297&nbsp; &nbsp; &nbsp; &nbsp; 78&nbsp; &nbsp; &nbsp; &nbsp;289|&nbsp; &nbsp; &nbsp; 1897&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4|<br />*--------------------------------------------------------------------------------------------*</code></dd></dl></div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a> on Sun Jun 12, 2016 4:23 pm, edited 1 time in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251465">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 20</dd><dd><strong>Joined:</strong> 11 June 2016</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p251469" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251469&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251469">Re: 【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251469.html#p251469"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Sun Jun 12, 2016 2:19 pm </p>
+
+			
+
+			<div class="content">Nice moves !<br /><span style="font-size: 85%; line-height: 116%;"><br />There is a typo in the  last one, r9c1(5) should be r4c9(5).</span></div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251469">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p251471" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=251471&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#p251471">Re: 【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon)</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post251471.html#p251471"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a></strong> &raquo; Sun Jun 12, 2016 4:25 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>eleven wrote:</cite>Nice moves !<br /><span style="font-size: 85%; line-height: 116%;"><br />There is a typo in the  last one, r9c1(5) should be r4c9(5).</span></div></blockquote><br /><br />yes! thank you very much for point it out! i have already modified it!</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile251471">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member5191.html">borescoper</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 20</dd><dd><strong>Joined:</strong> 11 June 2016</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<form id="viewtopic" method="post" action="http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html">
+
+	<fieldset class="display-options" style="margin-top: 0; ">
+		
+		<label>Display posts from previous: <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select></label>
+		<label>Sort by <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select></label> <label><select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select> <input type="submit" name="sort" value="Go" class="button2" /></label>
+		
+	</fieldset>
+
+	</form>
+	<hr />
+
+
+<div class="topic-actions">
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=33153&amp;sid=41d84564e4a8bb563d035b9f1353c536" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="pagination">
+			7 posts
+			 &bull; Page <strong>1</strong> of <strong>1</strong>
+		</div>
+	
+</div>
+
+
+	<p></p><p><a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html" class="left-box left" accesskey="r">Return to Advanced solving techniques</a></p>
+
+	<form method="post" id="jumpbox" action="http://forum.enjoysudoku.com/viewforum.php" onsubmit="if(this.f.value == -1){return false;}">
+
+	
+		<fieldset class="jumpbox">
+	
+			<label for="f" accesskey="j">Jump to:</label>
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+			
+				<option value="-1">Select a forum</option>
+			<option value="-1">------------------</option>
+				<option value="9">News and announcements</option>
+			
+				<option value="10">&nbsp; &nbsp;About the New Sudoku Players' Forum</option>
+			
+				<option value="5">Sudoku: the puzzle</option>
+			
+				<option value="7">&nbsp; &nbsp;General</option>
+			
+				<option value="33">&nbsp; &nbsp;Puzzles</option>
+			
+				<option value="4">&nbsp; &nbsp;Help with puzzles and solving techniques</option>
+			
+				<option value="6" selected="selected">&nbsp; &nbsp;Advanced solving techniques</option>
+			
+				<option value="8">&nbsp; &nbsp;Interactive games</option>
+			
+				<option value="18">&nbsp; &nbsp;Software</option>
+			
+				<option value="16">Resources</option>
+			
+				<option value="32">&nbsp; &nbsp;Published puzzles</option>
+			
+				<option value="31">&nbsp; &nbsp;Books</option>
+			
+				<option value="17">&nbsp; &nbsp;On the web</option>
+			
+				<option value="11">Related puzzles</option>
+			
+				<option value="12">&nbsp; &nbsp;Sudoku variants</option>
+			
+				<option value="13">&nbsp; &nbsp;Kakuro</option>
+			
+				<option value="14">&nbsp; &nbsp;Other logic puzzles</option>
+			
+				<option value="15">&nbsp; &nbsp;Inventors' studio</option>
+			
+				<option value="19">Off-topic</option>
+			
+				<option value="20">&nbsp; &nbsp;Coffee bar</option>
+			
+				<option value="29">&nbsp; &nbsp;Forum questions and feedback</option>
+			
+			</select>
+			<input type="submit" value="Go" class="button2" />
+		</fieldset>
+	</form>
+
+</div>
+
+<div id="page-footer">
+
+	<div class="navbar">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<ul class="linklist">
+			<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a></li>
+				
+			<li class="rightside"><a href="http://forum.enjoysudoku.com/the-team.html">The team</a> &bull; <a href="http://forum.enjoysudoku.com/ucp.php?mode=delete_cookies&amp;sid=41d84564e4a8bb563d035b9f1353c536">Delete all board cookies</a> &bull; All times are UTC </li>
+		</ul>
+		
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<div class="copyright">Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group
+		<br /><br /><a href="http://www.phpbb-seo.com/" title="Search Engine Optimization"><img src="http://forum.enjoysudoku.com/images/phpbb-seo.png" alt="phpBB SEO"/></a>
+	</div>
+</div>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	
+</div>
+
+</body>
+</html>

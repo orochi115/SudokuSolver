@@ -1,5 +1,958 @@
-<html><head><title>EnjoySudoku SET Explanations - local research note</title></head><body>
-<p>Source URL: http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html</p>
-<p>Local note only. User-generated forum content; reuse permission unclear.</p>
-<p>Key facts retained for local research: SET is a broad set-equivalence framework; useful examples overlap MSLS/fish/SK-loop/Phistomefel; unconstrained search can approach trial-and-error.</p>
-</body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
+<head>
+<base href="http://forum.enjoysudoku.com/"/>
+<link rel="canonical" href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Good Set-Equivalence-Theory Explanations : Advanced solving techniques</title>
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-language" content="en-gb" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="content-language" content="en" />
+<meta name="title" content="Good Set-Equivalence-Theory Explanations : Advanced solving techniques" />
+<meta name="description" content="SET baloney? I have found a couple of academic papers - but very hard to understand. Are there any sudoku program that use it? - ..." />
+<meta name="keywords" content="links, link, leren, equivalence, set, good, explanations, theory, least, such, single" />
+<meta name="category" content="general" />
+<meta name="robots" content="index,follow" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="copyright" content="The New Sudoku Players Forum" />
+
+
+
+
+<!--
+	phpBB style name: prosilver
+	Based on style:   prosilver (this is the default phpBB3 style)
+	Original author:  Tom Beddard ( http://www.subBlue.com/ )
+	Modified by:
+-->
+
+<script type="text/javascript">
+// <![CDATA[
+	var jump_page = 'Enter the page number you wish to go to:';
+	var on_page = '1';
+	var per_page = '15';
+	var base_url = 'http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html';
+	var style_cookie = 'phpBBstyle';
+	var style_cookie_settings = '; path=/; domain=forum.enjoysudoku.com';
+	var onload_functions = new Array();
+	var onunload_functions = new Array();
+	// www.phpBB-SEO.com SEO TOOLKIT BEGIN
+	var seo_delim_start = '-';
+	var seo_static_pagination = 'page';
+	var seo_ext_pagination = '.html';
+	var seo_external = true;
+	var seo_external_sub = false;
+	var seo_ext_classes = false;
+	var seo_hashfix = false;
+	// www.phpBB-SEO.com SEO TOOLKIT END
+
+	
+
+	/**
+	* Find a member
+	*/
+	function find_username(url)
+	{
+		popup(url, 760, 570, '_usersearch');
+		return false;
+	}
+
+	/**
+	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
+	*/
+	window.onload = function()
+	{
+		for (var i = 0; i < onload_functions.length; i++)
+		{
+			eval(onload_functions[i]);
+		}
+	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
+// ]]>
+</script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/styleswitcher.js"></script>
+<script type="text/javascript" src="http://forum.enjoysudoku.com/styles/prosilver/template/forum_fn.js"></script>
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/print.css" rel="stylesheet" type="text/css" media="print" title="printonly" />
+<link href="http://forum.enjoysudoku.com/style.php?id=1&amp;lang=en&amp;sid=80ff59994f033abb99621f5d81888163" rel="stylesheet" type="text/css" media="screen, projection" />
+
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/normal.css" rel="stylesheet" type="text/css" title="A" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/medium.css" rel="alternate stylesheet" type="text/css" title="A+" />
+<link href="http://forum.enjoysudoku.com/styles/prosilver/theme/large.css" rel="alternate stylesheet" type="text/css" title="A++" />
+
+
+
+</head>
+
+<body id="phpbb" class="section-viewtopic ltr">
+
+<div id="wrap">
+	<a id="top" name="top" accesskey="t"></a>
+	<div id="page-header">
+		<div class="headerbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<div id="site-description">
+				<a href="http://forum.enjoysudoku.com/" title="Board index" id="logo"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/site_logo.gif" width="52" height="52" alt="" title="" /></a>
+				<h1>The New Sudoku Players' Forum</h1>
+				<p>Sponsored by Enjoy Sudoku</p>
+				<p class="skiplink"><a href="#start_here">Skip to content</a></p>
+			</div>
+
+		
+			<div id="search-box">
+				<form action="./search.php?sid=80ff59994f033abb99621f5d81888163" method="get" id="search">
+				<fieldset>
+					<input name="keywords" id="keywords" type="text" maxlength="128" title="Search for keywords" class="inputbox search" value="Search…" onclick="if(this.value=='Search…')this.value='';" onblur="if(this.value=='')this.value='Search…';" />
+					<input class="button2" value="Search" type="submit" /><br />
+					<a href="./search.php?sid=80ff59994f033abb99621f5d81888163" title="View the advanced search options">Advanced search</a> <input type="hidden" name="sid" value="80ff59994f033abb99621f5d81888163" />
+
+				</fieldset>
+				</form>
+			</div>
+		
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+		<div class="navbar">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+			<ul class="linklist navlinks">
+				<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a>  <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/sudoku-the-puzzle-f5.html">Sudoku: the puzzle</a> <strong>&#8249;</strong> <a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html">Advanced solving techniques</a></li>
+
+				<li class="rightside"><a href="#" onclick="fontsizeup(); return false;" onkeypress="return fontsizeup(event);" class="fontsize" title="Change font size">Change font size</a></li>
+
+				<li class="rightside"><a href="http://forum.enjoysudoku.com/viewtopic.php?f=6&amp;t=45864&amp;start=0&amp;view=print&amp;sid=80ff59994f033abb99621f5d81888163" title="Print view" accesskey="p" class="print">Print view</a></li>
+			</ul>
+
+			
+
+			<ul class="linklist rightside">
+				<li class="icon-faq"><a href="http://forum.enjoysudoku.com/faq.php?sid=80ff59994f033abb99621f5d81888163" title="Frequently Asked Questions">FAQ</a></li>
+				<li class="icon-register"><a href="http://forum.enjoysudoku.com/ucp.php?mode=register&amp;sid=80ff59994f033abb99621f5d81888163">Register</a></li>
+					<li class="icon-logout"><a href="http://forum.enjoysudoku.com/ucp.php?mode=login&amp;sid=80ff59994f033abb99621f5d81888163" title="Login" accesskey="x">Login</a></li>
+				
+			</ul>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+	</div>
+
+	<a name="start_here"></a>
+	<div id="page-body">
+		
+<h2><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html">Good Set-Equivalence-Theory Explanations</a></h2>
+<!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body --><div style="display: none !important;">Advanced methods and approaches for solving Sudoku puzzles<br /></div>
+
+<div class="topic-actions">
+
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=45864&amp;sid=80ff59994f033abb99621f5d81888163" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="search-box">
+			<form method="get" id="topic-search" action="./search.php?sid=80ff59994f033abb99621f5d81888163">
+			<fieldset>
+				<input class="inputbox search tiny"  type="text" name="keywords" id="search_keywords" size="20" value="Search this topic…" onclick="if(this.value=='Search this topic…')this.value='';" onblur="if(this.value=='')this.value='Search this topic…';" />
+				<input class="button2" type="submit" value="Search" />
+				<input type="hidden" name="t" value="45864" />
+<input type="hidden" name="sf" value="msgonly" />
+<input type="hidden" name="sid" value="80ff59994f033abb99621f5d81888163" />
+
+			</fieldset>
+			</form>
+		</div>
+	
+		<div class="pagination">
+			19 posts
+			 &bull; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>2</strong></a> &bull; <span><strong>1</strong><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864-15.html">2</a></span>
+		</div>
+	
+
+</div>
+<div class="clear"></div>
+
+
+	<div id="p353356" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353356&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 class="first"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353356">Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353356.html#p353356"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Thu Jun 05, 2025 11:30 pm </p>
+
+			
+
+			<div class="content"><span style="font-weight: bold">SET baloney?</span><br /><br />I have found a couple of academic papers - but very hard to understand.  <br /><br />Are there any sudoku program that use it?   - I can't find any!<br /><br />Are there any clear explanations that WITH EXAMPLES that show how to generally apply the theory?<br /><br />I find a few YouTube videos that claim to explain it but they seem to be just special cases without any good explanation for the general case?<br /><br />And is there any software to be found - say in Python?<br /><br />To me if it can't be programmed then it is NOT very useful!<br /><br />RichardGoodrich</div>
+
+			<div id="sig353356" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353356">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353396" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353396&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353396">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353396.html#p353396"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Mon Jun 09, 2025 4:42 pm </p>
+
+			
+
+			<div class="content">Note that I am no expert for set equivalence theory, maybe others can tell you more.<br /><br />As i see it, it is no special technique, which you can implement easily to get eliminations, but it uses a general property of sets of cells, which are combinations of some units (rows, columns or boxes). If two of such sets contain the same number of cells, then you know, that also the non intersecting cells in both sets must contain the same numbers. If one set has one more unit than the other, then it's non intersecting cells must contain the other's numbers plus each digit from 1 to 9.<br />If it's possible to find useful sets (normally with - almost - disjunctive givens in them), you possibly can deduct candidate elminations from this property.<br />The eliminations i saw in the samples could also be made with one digit patterns (x-wing to jellyfish) or MSLS (multi sector locked sets), maybe there are others with more complex sets.<br /><br />What i really like is, that you can make eliminations from the givens without looking at all the candidates.<br />E.g. this is the sample, which has been  presentedby Smart Hobbies on yt <a href="https://www.youtube.com/watch?v=nPF3q2la6SU" class="postlink" rel="nofollow">here</a>.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v&nbsp; v&nbsp; &nbsp; &nbsp;v&nbsp; v&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v<br />&nbsp; &nbsp; +-----------+-----------+-----------+<br />&nbsp;&gt;&nbsp; | #9&nbsp; -&nbsp; -&nbsp; |&nbsp; -&nbsp; - #8&nbsp; | #7 #6&nbsp; -&nbsp; |<br />&nbsp; &nbsp; |&nbsp; . *. *.&nbsp; | *1 *9&nbsp; .&nbsp; |&nbsp; .&nbsp; . *.&nbsp; |<br />&nbsp; &nbsp; |&nbsp; .&nbsp; .&nbsp; 2&nbsp; |&nbsp; .&nbsp; .&nbsp; .&nbsp; |&nbsp; .&nbsp; .&nbsp; .&nbsp; |<br />&nbsp; &nbsp; +-----------+-----------+-----------+<br />&nbsp; &nbsp; |&nbsp; . *3 *.&nbsp; | *b *b&nbsp; .&nbsp; |&nbsp; .&nbsp; . *.&nbsp; |<br />&nbsp; &nbsp; |&nbsp; . *9 *.&nbsp; | *b *b&nbsp; .&nbsp; |&nbsp; .&nbsp; 1 *6&nbsp; |<br />&nbsp;&gt;&nbsp; | #8&nbsp; -&nbsp; -&nbsp; |&nbsp; -&nbsp; - #a&nbsp; | #5 #9&nbsp; -&nbsp; |<br />&nbsp; &nbsp; +-----------+-----------+-----------+<br />&nbsp;&gt;&nbsp; | #7&nbsp; -&nbsp; -&nbsp; |&nbsp; -&nbsp; - #6&nbsp; | #8 #5&nbsp; -&nbsp; |<br />&nbsp;&gt;&nbsp; | #5&nbsp; -&nbsp; -&nbsp; |&nbsp; -&nbsp; 8 #9&nbsp; | #6 #7&nbsp; -&nbsp; |<br />&nbsp; &nbsp; |&nbsp; . *. *.&nbsp; | *. *5&nbsp; .&nbsp; |&nbsp; .&nbsp; . *4&nbsp; |<br />&nbsp; &nbsp; +-----------+-----------+-----------+</code></dd></dl><br />    The sets are built from rows 1678 and columns 23459, the non intersecting cells are marked # and *. There is only the one non given cell ar6r6 in the #-ed cells, and they contain numbers 5-9 only.<br />    The *-ed cells contain 1,2,3 and 4 one time each. If there is another one of the four in the *-ed cells, the cell a had to be the same, otherwise the other 4 occurances had to be in the common cells (-).<br />So br45c45 cannot be 1234, because it shares the box with a. This solves the puzzle (easier than with 4 jellyfish).<br /><br /><br />[Added:] Or look, how easy SK loop eliminations can be shown, e.g. in the easter monster puzzle with the Phistomefel sets:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; &nbsp; &nbsp;#&nbsp; &nbsp; &nbsp; &nbsp; #&nbsp; #&nbsp; #&nbsp; &nbsp; &nbsp; &nbsp; #&nbsp; <br />&nbsp; +-----------+-----------+-----------+<br />* | *1&nbsp; - *.&nbsp; |&nbsp; -&nbsp; -&nbsp; -&nbsp; | *.&nbsp; - *2&nbsp; |<br />&nbsp; |&nbsp; . #9&nbsp; .&nbsp; | #4 #. #.&nbsp; |&nbsp; . #5&nbsp; .&nbsp; |<br />* | *.&nbsp; - *6&nbsp; |&nbsp; -&nbsp; -&nbsp; -&nbsp; | *7&nbsp; -&nbsp; *&nbsp; |<br />&nbsp; +-----------+-----------+-----------+<br />&nbsp; |&nbsp; . #5&nbsp; .&nbsp; |&nbsp; 9&nbsp; .&nbsp; 3&nbsp; |&nbsp; . #.&nbsp; .&nbsp; |<br />&nbsp; |&nbsp; . #.&nbsp; .&nbsp; |&nbsp; .&nbsp; 7&nbsp; .&nbsp; |&nbsp; . #.&nbsp; .&nbsp; |<br />&nbsp; |&nbsp; . #.&nbsp; .&nbsp; |&nbsp; 8&nbsp; 5&nbsp; .&nbsp; |&nbsp; . #4&nbsp; .&nbsp; |<br />&nbsp; +-----------+-----------+-----------+<br />* | *7&nbsp; -&nbsp; *&nbsp; |&nbsp; -&nbsp; -&nbsp; -&nbsp; | *6&nbsp; -&nbsp; *&nbsp; |<br />&nbsp; |&nbsp; . #3&nbsp; .&nbsp; | #. #. #9&nbsp; |&nbsp; . #8&nbsp; .&nbsp; |<br />* |&nbsp; *&nbsp; - *2&nbsp; |&nbsp; -&nbsp; -&nbsp; -&nbsp; |&nbsp; *&nbsp; - *1&nbsp; |<br />&nbsp; +-----------+-----------+-----------+</code></dd></dl><br /> r1379, and c24568, * non common cells in rows, # in columns excluding box 5 to get 16 cells each.<br /> 8 digits from 1267 in starred cells, 8 free cells in #, none of 1267 there =&gt; the free cells only can be 1267 (remove 34589 there).<br /> 8 digits from 34589 in # =&gt; the 8 free * cells can only be 34589 (remove 1267).<br /><br />PS: It's a pity, that there is no site, where the theory is explained and groups of real world examples are described. It's really cumbersome to look at youtube videos, where so much time is wasted, if you just want to understand the basics, potential and limits.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353396">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353405" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353405&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353405">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353405.html#p353405"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Mon Jun 09, 2025 11:07 pm </p>
+
+			
+
+			<div class="content">This is a puzzle by Big201 from an old chinese site <a href="https://tieba.baidu.com/p/5547459565#" class="postlink" rel="nofollow">here</a>.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp;+-------+-------+-------+<br />&nbsp;| . . 9 | . . . | 1 . . |<br />&nbsp;| . . . | 4 . 5 | . . . |<br />&nbsp;| 8 . . | . 3 . | . . 2 |<br />&nbsp;+-------+-------+-------+<br />&nbsp;| . 5 . | 1 . 7 | . 6 . |<br />&nbsp;| . . 1 | . . . | 3 . . |<br />&nbsp;| . 6 . | 5 . 3 | . 7 . |<br />&nbsp;+-------+-------+-------+<br />&nbsp;| 1 . . | . 5 . | . . 9 |<br />&nbsp;| . . . | 7 . 4 | . . . |<br />&nbsp;| . . 2 | . . . | 8 . . |<br />&nbsp;+-------+-------+-------+</code></dd></dl><br />Can you solve it now ?<br /><div style="padding: 3px; background-color: #FFFFFF; border: 1px solid #d8d8d8; font-size: 1em;"><div style="border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.9em; font-weight: bold; display: block;"><span onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') {  this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Hide</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Show</a>'; }" /><b>Hidden Text: </b><a href="#" onClick="return false;">Show</a></span></div><div class="quotecontent"><div style="display: none;">[Edit2 &#40;see next page&#41;:] After SET x-wing, 3 strong links, xy-wing and UR</div></div></div></div>
+
+			
+				<div class="notice">Last edited by <a href="http://forum.enjoysudoku.com/member2814.html">eleven</a> on Thu Jun 19, 2025 12:01 am, edited 2 times in total.
+					
+				</div>
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353405">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353410" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353410&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353410">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353410.html#p353410"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Tue Jun 10, 2025 3:15 am </p>
+
+			
+
+			<div class="content">The Smart Hobbies puzzle referred to by eleven. 9....876....19......2.......3........9.....168.....59.7....685.5...8967.....5...4<br /><br />Watching videos can upset my PC so I passed on that and just copied the puzzle.<br /><br />At the start there was a MSLS : 22 Truths r23459 c1567 + r9c8 &amp; r234c8  : 22 Links; 234r2 134r3 124r4 234r5 123r9  &amp; 8c8 ; 6c1 67c5 57c6 9c7 ;  &gt; 24 eliminations that was basically useless.<br /><br />The easy way to solve in the traditional way I used 4 finned fishes.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353410">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353433" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353433&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353433">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353433.html#p353433"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Tue Jun 10, 2025 8:14 pm </p>
+
+			
+
+			<div class="content">Thanks for responding guys!  Have not been able to get the forum to work well lately!   I have not studied your response much yet, but wanted you to know, I am seeing them now.  The one paper on the subject I have is a draft titled:  &quot;Generalizing Sudoku Strategies&quot; by Kevin Gromley (2014)   Problem for me is who is this mysterious Kevin Gromley and how would one get in contact.  From what I can decipher it sounds a bit like the n digits to n cells thing but not restricted to a single house.    Do any of you have any idea who Kevin Gromley is?  I echo the idea the YouTube videos don't give me much joy.  However, I did duplicate the mechanics on Arto Inkala' 2012 hardest sudoku and sure seemed to work.   My issues as always is what means do you use to apply the method in general or how do you know which puzzles the method could be applied to?    Now let me go back and dig into your responses before I go on...</div>
+
+			<div id="sig353433" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353433">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353465" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353465&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353465">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353465.html#p353465"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2491.html">StrmCkr</a></strong> &raquo; Wed Jun 11, 2025 6:30 pm </p>
+
+			
+
+			<div class="content"><a href="https://www.reddit.com/r/sudoku/comments/1hzyatu/set_equivalence_theory" class="postlink" rel="nofollow">https://www.reddit.com/r/sudoku/comments/1hzyatu/set_equivalence_theory</a><br /><br />i wrote about S.E.T here its a brute force application of  trial and error fashion of matching   N sets and N  Sets  with equal 9 digit placements <br />   those that talk about &quot;set&quot;  seem to miss this point  completely as it was one of the main reasons it wasn't developed  more then a test system on the setBB programmers from long before  it got re-branded as S.E.T <br /><br />we use Mutli Sector locked Sets { which is set based, a searchable application as its based on the information of the grid :  Naked/Hidden sets } as a balance equation system <br />which can be written as NxN + K fish mathematics.</div>
+
+			<div id="sig353465" class="signature">Some do, some teach, the rest look it up.<br /><a href="http://forum.enjoysudoku.com/stormdoku-t32977.html" class="postlink" rel="nofollow">stormdoku</a></div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353465">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2491.html"><img src="./download/file.php?avatar=2491_1274596818.jpg" width="89" height="93" alt="User avatar" /></a><br />
+				<a href="http://forum.enjoysudoku.com/member2491.html">StrmCkr</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 1515</dd><dd><strong>Joined:</strong> 05 September 2006</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353494" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353494&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353494">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353494.html#p353494"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Sun Jun 15, 2025 11:50 am </p>
+
+			
+
+			<div class="content">I tried  David's classic MSLS Examples <a href="http://forum.enjoysudoku.com/post228337.html#p228337" class="postlink" rel="nofollow">here</a> with SET. Note, that the real work is to find the appropriate sets to make use of it. To find eliminations then, you probably would prefer the method, which you have practiced more, the effect is the same.<br /><br />The first one is &quot;unbalanced&quot;, it has more columns than rows (therefore the columns must hold extra 1-9).<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>1......8......92....6.3...52....8.....5.7.....6.5....4..47...........91..3..6...7<br /><br />&nbsp; &nbsp; &nbsp; &nbsp;v v&nbsp; &nbsp;v v&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;v<br />&nbsp; &nbsp;+-------+-------+-------+<br />&gt;&nbsp; | 1 - - | - - * | * 8 - |<br />&gt;&nbsp; | * - - | - - 9 | 2 * - |<br />&nbsp; &nbsp;| . # 6 | # 3 . | . . 5 |<br />&nbsp; &nbsp;+-------+-------+-------+<br />&gt;&nbsp; | 2 - - | - - 8 | * * - |<br />&nbsp; &nbsp;| . # 5 | # 7 . | . . # |<br />&nbsp; &nbsp;| . 6 # | 5 # . | . . 4 |<br />&nbsp; &nbsp;+-------+-------+-------+<br />&nbsp; &nbsp;| . # 4 | 7 # . | . . # |<br />&gt;&nbsp; | * - - | - - * | 9 1 - |<br />&nbsp; &nbsp;| . 3 # | # 6 . | . . 7 |<br />&nbsp; &nbsp;+-------+-------+-------+</code></dd></dl><br /><br />Only 1289 given in 4 rows, 34567 in  5 cols.<br />Non intersecting sets:<br />rows 8 digits, 8 empty (*)<br />cols 13 digits, 12 empty (#)<br />Because the intersecting cells hold the same count for each number in both the seleccted rows and columns, for each number (1-9) in the non intersecting cells of the rows (i call it the rows set) there must be an extra number in the non intersecting cells of the columns (cols set).<br />We have 4 different digits 1289 in that rows set. Each of them has to be additional one time in the cols set, which occupies 4 cells. So the 8 givens in the rows plus 4 here exactly fit into the 12 empty cells in the cols set (#). All can only be 1289.<br />From the givens in the cols set containing the numbers 34567 there must be the same counts in the rows set minus one for each number. We have 13 givens minus 5 for each number, i.e. 8, here exactly the number of empty cells in the row set (*). So they all can only be 34567.<br /><br />The second example is straight forward with 4 rows, 4 cols and matching numbers of given and empty cells.<br />The third one depends on the strong link for 5 in box 1, and David found a way to use it:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>98.7.....6.7...8......85...4...3..2..9....6.......1..4.6.5..9......4...3.....2.1.<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v v&nbsp; &nbsp; &nbsp;v v<br />&nbsp; +-------+-------+-------+<br />&gt; | 9 8 # | 7 . . | # . . |<br />&gt; | 6 # 7 | # . . | 8 . . |<br />&nbsp; | . . . | . 8 5 | . * * |<br />&nbsp; +-------+-------+-------+<br />&nbsp; | 4 . . | . 3 * | . 2 * |<br />&gt; | # 9 # | # . . | 6 . . |<br />&nbsp; | . . . | . * 1 | . * 4 |<br />&nbsp; +-------+-------+-------+<br />&gt; | # 6 # | 5 . . | 9 . . |<br />&nbsp; | . . . | . 4 * | . * 3 |<br />&nbsp; | . . . | . * 2 | . 1 * |<br />&nbsp; +-------+-------+-------+</code></dd></dl><br />8 digits from 1234 in the cols, 58 in both sets, 9 empty cells (*)  in the rows. Since 5 is restricted to b1p35, a 5 must be there, and 1234 in the other 7 cells.<br />11 digits from 56789 in the rows, plus 5 in b1p35, minus 58 in both.<br />10 empty cells (and 58) in the cols, so they can only be 56789.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353494">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353505" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353505&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353505">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353505.html#p353505"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Mon Jun 16, 2025 2:48 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>StrmCkr wrote:</cite><a href="https://www.reddit.com/r/sudoku/comments/1hzyatu/set_equivalence_theory" class="postlink" rel="nofollow">https://www.reddit.com/r/sudoku/comments/1hzyatu/set_equivalence_theory</a><br /><br />i wrote about S.E.T here its a brute force application of  trial and error fashion of matching   N sets and N  Sets  with equal 9 digit placements <br />   those that talk about &quot;set&quot;  seem to miss this point  completely as it was one of the main reasons it wasn't developed  more then a test system on the setBB programmers from long before  it got re-branded as S.E.T <br /><br />we use Mutli Sector locked Sets { which is set based, a searchable application as its based on the information of the grid :  Naked/Hidden sets } as a balance equation system <br />which can be written as NxN + K fish mathematics.</div></blockquote><br /><br />Saw your write up.  Thx.  I wondered about that.  I really dont need another T@E method!</div>
+
+			<div id="sig353505" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353505">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353506" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353506&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353506">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353506.html#p353506"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Mon Jun 16, 2025 2:54 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>eleven wrote:</cite>I tried  David's classic MSLS Examples <a href="http://forum.enjoysudoku.com/post228337.html#p228337" class="postlink" rel="nofollow">here</a> with SET. Note, that the real work is to find the appropriate sets to make use of it. To find eliminations then, you probably would prefer the method, which you have practiced more, the effect is the same.<br /><br />The first one is &quot;unbalanced&quot;, it has more columns than rows (therefore the columns must hold extra 1-9).<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>1......8......92....6.3...52....8.....5.7.....6.5....4..47...........91..3..6...7<br /><br />&nbsp; &nbsp; &nbsp; &nbsp;v v&nbsp; &nbsp;v v&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;v<br />&nbsp; &nbsp;+-------+-------+-------+<br />&gt;&nbsp; | 1 - - | - - * | * 8 - |<br />&gt;&nbsp; | * - - | - - 9 | 2 * - |<br />&nbsp; &nbsp;| . # 6 | # 3 . | . . 5 |<br />&nbsp; &nbsp;+-------+-------+-------+<br />&gt;&nbsp; | 2 - - | - - 8 | * * - |<br />&nbsp; &nbsp;| . # 5 | # 7 . | . . # |<br />&nbsp; &nbsp;| . 6 # | 5 # . | . . 4 |<br />&nbsp; &nbsp;+-------+-------+-------+<br />&nbsp; &nbsp;| . # 4 | 7 # . | . . # |<br />&gt;&nbsp; | * - - | - - * | 9 1 - |<br />&nbsp; &nbsp;| . 3 # | # 6 . | . . 7 |<br />&nbsp; &nbsp;+-------+-------+-------+</code></dd></dl><br /><br />Only 1289 given in 4 rows, 34567 in  5 cols.<br />Non intersecting sets:<br />rows 8 digits, 8 empty (*)<br />cols 13 digits, 12 empty (#)<br />Because the intersecting cells hold the same count for each number in both the seleccted rows and columns, for each number (1-9) in the non intersecting cells of the rows (i call it the rows set) there must be an extra number in the non intersecting cells of the columns (cols set).<br />We have 4 different digits 1289 in that rows set. Each of them has to be additional one time in the cols set, which occupies 4 cells. So the 8 givens in the rows plus 4 here exactly fit into the 12 empty cells in the cols set (#). All can only be 1289.<br />From the givens in the cols set containing the numbers 34567 there must be the same counts in the rows set minus one for each number. We have 13 givens minus 5 for each number, i.e. 8, here exactly the number of empty cells in the row set (*). So they all can only be 34567.<br /><br />The second example is straight forward with 4 rows, 4 cols and matching numbers of given and empty cells.<br />The third one depends on the strong link for 5 in box 1, and David found a way to use it:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>98.7.....6.7...8......85...4...3..2..9....6.......1..4.6.5..9......4...3.....2.1.<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v v&nbsp; &nbsp; &nbsp;v v<br />&nbsp; +-------+-------+-------+<br />&gt; | 9 8 # | 7 . . | # . . |<br />&gt; | 6 # 7 | # . . | 8 . . |<br />&nbsp; | . . . | . 8 5 | . * * |<br />&nbsp; +-------+-------+-------+<br />&nbsp; | 4 . . | . 3 * | . 2 * |<br />&gt; | # 9 # | # . . | 6 . . |<br />&nbsp; | . . . | . * 1 | . * 4 |<br />&nbsp; +-------+-------+-------+<br />&gt; | # 6 # | 5 . . | 9 . . |<br />&nbsp; | . . . | . 4 * | . * 3 |<br />&nbsp; | . . . | . * 2 | . 1 * |<br />&nbsp; +-------+-------+-------+</code></dd></dl><br />8 digits from 1234 in the cols, 58 in both sets, 9 empty cells (*)  in the rows. Since 5 is restricted to b1p35, a 5 must be there, and 1234 in the other 7 cells.<br />11 digits from 56789 in the rows, plus 5 in b1p35, minus 58 in both.<br />10 empty cells (and 58) in the cols, so they can only be 56789.</div></blockquote><br /><br />Thanks for thoughtful response.  I know it works.  My issue is how to programmatically find the cases where it can be applied.  I knew about the MSLS connection, but was at a loss how to exploit that.  Maybe this will help thanks.  Thx again.</div>
+
+			<div id="sig353506" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353506">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353511" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353511&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353511">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353511.html#p353511"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Mon Jun 16, 2025 5:35 pm </p>
+
+			
+
+			<div class="content">I don't know, if MSLS programmers first look for links or appropriate units. Once you have the latter, instead of counting truths and links you count filled and empty cells in the non intersecting cells. In case of SK-loop-like MSLS's you can drop a box to get the same number of 4 units per set.<br />This should find the majority of MSLS eliminations, but not the special ones like <a href="http://forum.enjoysudoku.com/post228884.html#p228884" class="postlink" rel="nofollow">those</a>, which also turned out to be a problem for David and others.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353511">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353514" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353514&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353514">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353514.html#p353514"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member3782.html">Leren</a></strong> &raquo; Mon Jun 16, 2025 8:36 pm </p>
+
+			
+
+			<div class="content">My current MSLS code finds one for each of the puzzles in eleven's link. I think the difference is that after that post I added boxes as possible links, which increases the chance of a hit.<br /><br />Leren</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353514">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member3782.html">Leren</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 5216</dd><dd><strong>Joined:</strong> 03 June 2012</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353515" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353515&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353515">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353515.html#p353515"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member2814.html">eleven</a></strong> &raquo; Tue Jun 17, 2025 12:07 am </p>
+
+			
+
+			<div class="content">I think, i found a way to do it with SET too, let's take the 3rd puzzle:<br />In a first step we can make half of the job with the 4 rows and 4 columns:<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v v&nbsp; &nbsp; &nbsp;v v<br />&nbsp; +-------+-------+-------+<br />&gt; | 9 8 * | 7 . . |/6 . . |<br />&nbsp; | . . . | ./6 # | . # # |<br />&nbsp; | . . . | . # 5 | . 4 # |<br />&nbsp; +-------+-------+-------+<br />&gt; | 8 * * | 3 . . | 2 . . |<br />&nbsp; | . 2 . | . # 1 | . # 6 |<br />&gt; | * * 3 | * . . | * . . |<br />&nbsp; +-------+-------+-------+<br />&nbsp; | 7 . . | . 1 # | . # 5 |<br />&nbsp; | . 3 . | . 4 # | . 6 # |<br />&gt; | * * 8 | 2 . . | 9 . . |<br />&nbsp; +-------+-------+-------+</code></dd></dl><br />rows 1469 (23789), cols 5689 (1456), a 6 in each sets deleted.<br />Let set 1 be the non intersecting cells in the rows, set 2 in the cols.<br />Remove 6 from both sets, then we have<br />11 givens in set 1, 11 empty cells in set 2 =&gt; empty cells in set 2 (#) can only be 23789.<br /><br />In a second step we add box 4 to the cols, making the minirows 13 in box 4 to common cells and mini row 2 added to set 2.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; v v&nbsp; &nbsp; &nbsp;v v<br />&nbsp; +-------+-------+-------+<br />&gt; | 9 8 * | 7 . . |/6 . . |<br />&nbsp; | . . . | ./6 # | . # # |<br />&nbsp; | . . . | . # 5 | . 4 # |<br />&nbsp; +-------+-------+-------+<br />&gt; | 8 - - | 3 . . |/2 . . |<br />B4| #/2 # | . # 1 | . # 6 |<br />&gt; | - - 3 | * . . | * . . |<br />&nbsp; +-------+-------+-------+<br />&nbsp; | 7 . . | . 1 # | . # 5 |<br />&nbsp; | . 3 . | . 4 # | . 6 # |<br />&gt; | * * 8 | 2 . . | 9 . . |<br />&nbsp; +-------+-------+-------+</code></dd></dl><br />If we remove 2 from both sets, we have<br />8 givens in set 2 from 1456, and 5 empty cells in set 1.<br />This does not fit, because with the additional unit we would need 5+4=9 givens (additional one for each of the 4 digits in set 2).<br />Looking at the candidates in r5c123, they are<br /> <dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp;45&nbsp; 2&nbsp; 4579<br /></code></dd></dl>This means, r5c1 must be from set 2 anyway and we have the missing &quot;given&quot;, so we can reduce the * cells to 1256. And r5c3 must be from the other set and we can eliminate 45 there, because we can't have more &quot;givens&quot; in one set than can fit into the empty cells of the other set.</div>
+
+			
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353515">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member2814.html">eleven</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 3293</dd><dd><strong>Joined:</strong> 10 February 2008</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353535" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353535&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353535">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353535.html#p353535"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Wed Jun 18, 2025 2:16 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>eleven wrote:</cite>I think, i found a way to do it with SET too, let's take the 3rd puzzle:<br />In a first step we can make half of the job with the 4 rows and 4 columns: ...<br /></div></blockquote><br /><br /><span style="font-style: italic">eleven</span>,  I am NOT ignoring this.  I have temporarirly gone on to some other stuff for now.  Like how to program again | at least run the <span style="font-style: italic">gcc</span> compiler for some of that good code 1to9only has on his github!   I will be back ...</div>
+
+			<div id="sig353535" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353535">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353536" class="post bg1">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353536&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353536">Re: Good Set-Equivalence-Theory Explanations</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353536.html#p353536"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Wed Jun 18, 2025 2:18 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>Leren wrote:</cite>My current MSLS code finds one for each of the puzzles in eleven's link. I think the difference is that after that post I added boxes as possible links, which increases the chance of a hit.<br /><br />Leren</div></blockquote><br /><br />Leren,<br /><br />Do I have access to you MSLS code?</div>
+
+			<div id="sig353536" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353536">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<div id="p353537" class="post bg2">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div class="postbody">
+			
+				<ul class="profile-icons">
+					<li class="quote-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=quote&amp;f=6&amp;p=353537&amp;sid=80ff59994f033abb99621f5d81888163" title="Reply with quote"><span>Reply with quote</span></a></li>
+				</ul>
+			
+
+			<h3 ><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#p353537">!</a></h3>
+			<p class="author"><a href="http://forum.enjoysudoku.com/post353537.html#p353537"><img src="http://forum.enjoysudoku.com/styles/prosilver/imageset/icon_post_target.gif" width="11" height="9" alt="Post" title="Post" /></a>by <strong><a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a></strong> &raquo; Wed Jun 18, 2025 2:28 pm </p>
+
+			
+
+			<div class="content"><blockquote><div><cite>eleven wrote:</cite>This is a puzzle by Big201 from an old chinese site <a href="https://tieba.baidu.com/p/5547459565#" class="postlink" rel="nofollow">here</a>.<br /><dl class="codebox"><dt>Code: <a href="#" onclick="selectCode(this); return false;">Select all</a></dt><dd><code>&nbsp;+-------+-------+-------+<br />&nbsp;| . . 9 | . . . | 1 . . |<br />&nbsp;| . . . | 4 . 5 | . . . |<br />&nbsp;| 8 . . | . 3 . | . . 2 |<br />&nbsp;+-------+-------+-------+<br />&nbsp;| . 5 . | 1 . 7 | . 6 . |<br />&nbsp;| . . 1 | . . . | 3 . . |<br />&nbsp;| . 6 . | 5 . 3 | . 7 . |<br />&nbsp;+-------+-------+-------+<br />&nbsp;| 1 . . | . 5 . | . . 9 |<br />&nbsp;| . . . | 7 . 4 | . . . |<br />&nbsp;| . . 2 | . . . | 8 . . |<br />&nbsp;+-------+-------+-------+</code></dd></dl><br />Can you solve it now ?<br /><div style="padding: 3px; background-color: #FFFFFF; border: 1px solid #d8d8d8; font-size: 1em;"><div style="border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.9em; font-weight: bold; display: block;"><span onclick="if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') {  this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Hide</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>Hidden Text: </b><a href=\'#\' onclick=\'return false;\'>Show</a>'; }" /><b>Hidden Text: </b><a href="#" onClick="return false;">Show</a></span></div><div class="quotecontent"><div style="display: none;">[Edit &#40;first missed to make an elimination&#41;:] After SET x-wing, xy-wing and UR</div></div></div></div></blockquote><br /><br />I did look at this some.  Of course there are mutltiple ways.  I tend to &quot;cheat&quot; and use Forces along with some of the basics.  For now I lean on HoDoKu heavily.  Or I could just run DLX or skip to the end in the HoDoKu Solution Path to get the answer.  I had a python implemented 4 grid solver (like Denis Berthier) but just the basics plus Forcing after that in an iterative loop back to the basics.   Talking about rcn,rnc,ncr,bns grids.  Those other grids are great for finding in naked fashion hidden subsets (up to only quads of course! which sometimes lead to fishy patterns in the rcn grid.  Thinking of reversing the idea of simplest first and looking for 4 candidate subsets first and working on down, just to see what &quot;shakes out&quot;</div>
+
+			<div id="sig353537" class="signature">Big1952</div>
+
+		</div>
+
+		
+			<dl class="postprofile" id="profile353537">
+			<dt>
+				<a href="http://forum.enjoysudoku.com/member4064.html">RichardGoodrich</a>
+			</dt>
+
+			
+
+		<dd>&nbsp;</dd>
+
+		<dd><strong>Posts:</strong> 137</dd><dd><strong>Joined:</strong> 12 December 2012</dd><dd><strong>Location:</strong> Josephine, TX  (north of Dallas, TX)</dd>
+
+		</dl>
+	
+
+		<div class="back2top"><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html#wrap" class="top" title="Top">Top</a></div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<hr class="divider" />
+
+	<form id="viewtopic" method="post" action="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864.html">
+
+	<fieldset class="display-options" style="margin-top: 0; ">
+		<a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864-15.html" class="right-box right">Next</a>
+		<label>Display posts from previous: <select name="st" id="st"><option value="0" selected="selected">All posts</option><option value="1">1 day</option><option value="7">7 days</option><option value="14">2 weeks</option><option value="30">1 month</option><option value="90">3 months</option><option value="180">6 months</option><option value="365">1 year</option></select></label>
+		<label>Sort by <select name="sk" id="sk"><option value="a">Author</option><option value="t" selected="selected">Post time</option><option value="s">Subject</option></select></label> <label><select name="sd" id="sd"><option value="a" selected="selected">Ascending</option><option value="d">Descending</option></select> <input type="submit" name="sort" value="Go" class="button2" /></label>
+		
+	</fieldset>
+
+	</form>
+	<hr />
+
+
+<div class="topic-actions">
+	<div class="buttons">
+	
+		<div class="reply-icon"><a href="http://forum.enjoysudoku.com/posting.php?mode=reply&amp;f=6&amp;t=45864&amp;sid=80ff59994f033abb99621f5d81888163" title="Post a reply"><span></span>Post a reply</a></div>
+	
+	</div>
+
+	
+		<div class="pagination">
+			19 posts
+			 &bull; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>2</strong></a> &bull; <span><strong>1</strong><span class="page-sep">, </span><a href="http://forum.enjoysudoku.com/good-set-equivalence-theory-explanations-t45864-15.html">2</a></span>
+		</div>
+	
+</div>
+
+
+	<p></p><p><a href="http://forum.enjoysudoku.com/advanced-solving-techniques-f6.html" class="left-box left" accesskey="r">Return to Advanced solving techniques</a></p>
+
+	<form method="post" id="jumpbox" action="http://forum.enjoysudoku.com/viewforum.php" onsubmit="if(this.f.value == -1){return false;}">
+
+	
+		<fieldset class="jumpbox">
+	
+			<label for="f" accesskey="j">Jump to:</label>
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+			
+				<option value="-1">Select a forum</option>
+			<option value="-1">------------------</option>
+				<option value="9">News and announcements</option>
+			
+				<option value="10">&nbsp; &nbsp;About the New Sudoku Players' Forum</option>
+			
+				<option value="5">Sudoku: the puzzle</option>
+			
+				<option value="7">&nbsp; &nbsp;General</option>
+			
+				<option value="33">&nbsp; &nbsp;Puzzles</option>
+			
+				<option value="4">&nbsp; &nbsp;Help with puzzles and solving techniques</option>
+			
+				<option value="6" selected="selected">&nbsp; &nbsp;Advanced solving techniques</option>
+			
+				<option value="8">&nbsp; &nbsp;Interactive games</option>
+			
+				<option value="18">&nbsp; &nbsp;Software</option>
+			
+				<option value="16">Resources</option>
+			
+				<option value="32">&nbsp; &nbsp;Published puzzles</option>
+			
+				<option value="31">&nbsp; &nbsp;Books</option>
+			
+				<option value="17">&nbsp; &nbsp;On the web</option>
+			
+				<option value="11">Related puzzles</option>
+			
+				<option value="12">&nbsp; &nbsp;Sudoku variants</option>
+			
+				<option value="13">&nbsp; &nbsp;Kakuro</option>
+			
+				<option value="14">&nbsp; &nbsp;Other logic puzzles</option>
+			
+				<option value="15">&nbsp; &nbsp;Inventors' studio</option>
+			
+				<option value="19">Off-topic</option>
+			
+				<option value="20">&nbsp; &nbsp;Coffee bar</option>
+			
+				<option value="29">&nbsp; &nbsp;Forum questions and feedback</option>
+			
+			</select>
+			<input type="submit" value="Go" class="button2" />
+		</fieldset>
+	</form>
+
+</div>
+
+<div id="page-footer">
+
+	<div class="navbar">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+		<ul class="linklist">
+			<li class="icon-home"><a href="http://forum.enjoysudoku.com/" accesskey="h">Board index</a></li>
+				
+			<li class="rightside"><a href="http://forum.enjoysudoku.com/the-team.html">The team</a> &bull; <a href="http://forum.enjoysudoku.com/ucp.php?mode=delete_cookies&amp;sid=80ff59994f033abb99621f5d81888163">Delete all board cookies</a> &bull; All times are UTC </li>
+		</ul>
+		
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<div class="copyright">Powered by <a href="https://www.phpbb.com/">phpBB</a>&reg; Forum Software &copy; phpBB Group
+		<br /><br /><a href="http://www.phpbb-seo.com/" title="Search Engine Optimization"><img src="http://forum.enjoysudoku.com/images/phpbb-seo.png" alt="phpBB SEO"/></a>
+	</div>
+</div>
+
+</div>
+
+<div>
+	<a id="bottom" name="bottom" accesskey="z"></a>
+	
+</div>
+
+</body>
+</html>

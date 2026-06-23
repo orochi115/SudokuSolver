@@ -1,5 +1,1200 @@
-<html><head><title>SudokuOne Rank Logic - local research note</title></head><body>
-<p>Source URL: https://sudoku.allanbarker.com/sweb/general.htm</p>
-<p>Local note only. Copyright/reuse permission not identified.</p>
-<p>Key facts retained for local research: rank = cover links - bases; rank 0/1/R elimination rules; dark logic and odd loops relate to broken wings and guardians.</p>
-</body></html>
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    <meta name="ProgId" content="Word.Document">
+    <meta name="Generator" content="Microsoft Word 11">
+    <meta name="Originator" content="Microsoft Word 11">
+    <!--[if !mso]>
+<style>v\:* {behavior:url(#default#VML);}o\:* {behavior:url(#default#VML);}w\:* {behavior:url(#default#VML);}.shape {behavior:url(#default#VML);}</style><![endif]-->
+    <title>Basic Principles</title>
+    <!--[if gte mso 9]><xml>
+ <o:DocumentProperties>  <o:Author>ALLAN</o:Author>  <o:LastAuthor>ALLAN</o:LastAuthor>  <o:Revision>873</o:Revision>  <o:TotalTime>11189</o:TotalTime>  <o:Created>2008-06-02T01:40:00Z</o:Created>  <o:LastSaved>2009-12-24T16:22:00Z</o:LastSaved>  <o:Pages>1</o:Pages>
+  <o:Words>3959</o:Words>  <o:Characters>22568</o:Characters>  <o:Company>SELF</o:Company>  <o:Lines>188</o:Lines>  <o:Paragraphs>52</o:Paragraphs>  <o:CharactersWithSpaces>26475</o:CharactersWithSpaces>  <o:Version>11.6568</o:Version> </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>  <w:DisplayBackgroundShape/>  <w:ActiveWritingStyle Lang="EN-US" VendorID="64" DLLVersion="131078"   NLCheck="1">1</w:ActiveWritingStyle>  <w:ValidateAgainstSchemas/>  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel> </w:WordDocument></xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="156"> </w:LatentStyles></xml><![endif]-->
+    <style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:"Angsana New";
+	panose-1:2 2 6 3 5 4 5 2 3 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:16777219 0 0 0 65537 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Verdana";
+	mso-fareast-font-family:SimSun;
+	mso-bidi-font-family:"Verdana";
+	color:black;}
+a:link, span.MsoHyperlink
+	{color:#0000EE;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#000099;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Verdana";
+	mso-fareast-font-family:SimSun;
+	mso-bidi-font-family:"Verdana";
+	color:black;}
+p.AXaction2, li.AXaction2, div.AXaction2
+	{mso-style-name:AX_action2;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	margin-bottom:.0001pt;
+	text-indent:-18.0pt;
+	mso-pagination:widow-orphan;
+	mso-list:l2 level1 lfo2;
+	tab-stops:list 36.0pt;
+	font-size:12.0pt;
+	font-family:"Verdana";
+	mso-fareast-font-family:SimSun;
+	mso-bidi-font-family:"Verdana";
+	color:black;}
+span.postbody
+	{mso-style-name:postbody;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 89.85pt 72.0pt 89.85pt;
+	mso-header-margin:36.0pt;
+	mso-footer-margin:36.0pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:346056595;
+	mso-list-template-ids:1848680040;}
+@list l0:level1
+	{mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1
+	{mso-list-id:410935912;
+	mso-list-template-ids:209473890;}
+@list l2
+	{mso-list-id:2144273388;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1069559866 -431970018 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-style-link:AX_action2;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l2:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l2:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style><!--[if gte mso 10]>
+<style> /* Style Definitions */ table.MsoNormalTable	{mso-style-name:"Table Normal";	mso-tstyle-rowband-size:0;	mso-tstyle-colband-size:0;	mso-style-noshow:yes;	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;	mso-para-margin:0cm;	mso-para-margin-bottom:.0001pt;	mso-pagination:widow-orphan;	font-size:12.0pt;	font-family:"Verdana";	mso-bidi-font-family:"Verdana";	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;	mso-bidi-language:#0400;}table.MsoTableGrid	{mso-style-name:"Table Grid";	mso-tstyle-rowband-size:0;	mso-tstyle-colband-size:0;	border:solid windowtext 1.0pt;	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;	mso-border-insideh:.5pt solid windowtext;	mso-border-insidev:.5pt solid windowtext;	mso-para-margin:0cm;	mso-para-margin-bottom:.0001pt;	mso-pagination:widow-orphan;	font-size:12.0pt;	font-family:"Verdana";
+	mso-ansi-language:#0400;	mso-fareast-language:#0400;	mso-bidi-language:#0400;}</style><![endif]-->
+    <meta name="Author" content="allan barker">
+    <!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="129026"/></xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">  <o:idmap v:ext="edit" data="1"/> </o:shapelayout></xml><![endif]-->
+    <link rel="canonical" href="https://sudoku.allanbarker.com/sweb/general.htm">
+  </head>
+  <body style="tab-interval:36.0pt" bgcolor="#FFFFFF" alink="#ff0000" vlink="#000099"
+    link="#0000EE" lang="EN-US">
+    <div class="Section1">
+      <div align="center">
+        <table class="MsoNormalTable" style="width:21.0cm;mso-cellspacing:.7pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt"
+          cellspacing="1" cellpadding="0" border="0" width="794">
+          <tbody>
+            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:31.2pt">
+              <td style="width:593.95pt;padding:.75pt .75pt .75pt .75pt;
+  height:31.2pt" width="792">
+                <p class="MsoNormal"><i><span style="font-size:20.0pt;color:windowtext">Welcome
+                      to </span></i><b><span style="font-size:18.0pt;font-family:Verdana;color:#1C13D7">Sudoku</span></b><b><span
+                      style="font-size:18.0pt;font-family:Verdana;color:#A50021">One</span></b><b><span
+                      style="font-size:18.0pt;font-family:Verdana;color:windowtext">.Com</span></b><b><span
+                      style="font-size:26.0pt;font-family:Verdana;color:blue"> </span></b><b><i><span
+                        style="font-size:9.0pt;font-family:Verdana;color:gray">Pluralitas
+                        non est ponenda sin neccesitate</span></i></b><b><span style="font-size:16.0pt;
+  font-family:Verdana;color:windowtext"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-family:Verdana;color:windowtext"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:16.0pt;font-family:Verdana;color:windowtext">A</span></b><b><span
+                      style="font-size:16.0pt;font-family:Verdana;color:maroon">
+                    </span></b><b><span style="font-size:16.0pt;font-family:Verdana;color:#A50021">Universal</span></b><b><span
+                      style="font-size:16.0pt;font-family:Verdana;color:maroon">
+                    </span></b><b><span style="font-size:16.0pt;font-family:Verdana;color:#006600">Logic</span></b><b><span
+                      style="font-size:16.0pt;font-family:Verdana;color:green">
+                    </span></b><b><span style="font-size:16.0pt;font-family:Verdana;color:windowtext">for</span></b><b><span
+                      style="font-size:16.0pt;font-family:Verdana;color:maroon">
+                    </span></b><b><span style="font-size:16.0pt;font-family:Verdana;color:#1C13D7">Sudoku</span></b><b><span
+                      style="font-size:16.0pt;font-family:Verdana;color:#993300">
+                      <o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center;tab-stops:166.85pt"
+                  align="center"><b><span style="font-size:16.0pt;color:#006600"><o:p>&nbsp;</o:p></span></b></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="MsoNormal" style="text-align:center" align="center"><span style="display:none;mso-hide:all"><o:p>&nbsp;</o:p></span></p>
+      <div align="center">
+        <table class="MsoNormalTable" style="width:566.45pt;mso-cellspacing:3.7pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt"
+          cols="1" cellspacing="5" cellpadding="0" border="0" width="755">
+          <tbody>
+            <tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+              <td style="width: 559.25pt; padding: 0.75pt 36pt; font-family: &quot;Verdana&quot;; font-size: 12pt;"
+                width="746">
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Also
+                    see <a href="details.htm">details seen in images</a>.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="western" align="justify">Sudoku is defined by groups
+                  of overlapping rows, columns, boxes, and cells, each of which
+                  must contain one unique value. Universal logi<font size="3">c
+                    refers reasoning based directly on</font><font face="Verdana, sans-serif"><font
+                      style="font-size: 12pt" size="3"> this native intrinsic
+                      structure and its interactions, rather than</font></font><font
+                    color="#000000"><font face="Verdana, sans-serif"><font style="font-size: 12pt"
+                        size="3"><span lang="en-US"> separate</span></font></font></font><font
+                    face="Verdana, sans-serif"><font style="font-size: 12pt" size="3">
+                      solving methods</font></font><font face="Verdana, sans-serif"><font
+                      style="font-size: 12pt" size="3"> each designed to find
+                      specific logic or patterns. </font></font></p>
+                <p class="western" align="justify"><font face="Verdana, sans-serif"><font
+                      style="font-size: 12pt" size="3">Universal logic can</font></font><font
+                    face="Verdana, sans-serif"><font style="font-size: 12pt" size="3">
+                      therefore express any and all</font></font><font face="Verdana, sans-serif"><font
+                      style="font-size: 12pt" size="3"> logical deductions in
+                      Sudoku unlike traditional</font></font><font face="Verdana, sans-serif"><font
+                      style="font-size: 12pt" size="3"> methods. Sudoku's </font></font><font
+                    face="Verdana, sans-serif"><font style="font-size: 12pt" size="3">rows,
+                      columns, boxes, and cells are naturally viewed as sets of
+                      9 possible candidates (possible solution digits). </font></font><font
+                    face="Verdana, sans-serif"><font style="font-size: 12pt" size="3"><font
+                        face="Verdana, sans-serif"><font style="font-size: 12pt"
+                          size="3">We often consider these sets&nbsp; when
+                          thinking about solving Sudoku.</font></font><br>
+                    </font></font></p>
+                <p class="MsoNormal" style="text-align:justify">Most logical
+                  deductions fully contain some sets and parts of others. Fully
+                  contained sets must contain exactly one true candidate and are
+                  called strong links or 'truths' to indicate one candidate is
+                  logically true. Sets whose candidates are not fully contained
+                  in the logic are called weak links or just links. Links. </p>
+                <p class="MsoNormal" style="text-align:justify"><br>
+                </p>
+                <p class="MsoNormal" style="text-align:justify">So far we have
+                  not added anything new to the logic defined by Sudoku. Thus
+                  universal logic is not new. It stems from Sudoku's definition
+                  and underlies almost all Sudoku logic and methods. </p>
+                <p class="MsoNormal" style="text-align:justify"><br>
+                </p>
+                <p class="MsoNormal" style="text-align:justify">For clarity it
+                  will be useful to consider truths and links as<span style="mso-spacerun:yes"></span>
+                  <u>base</u><span style="mso-spacerun:yes"></span> and <u>cover</u>
+                  sets. In this way base sets contain all the candidates and
+                  cover sets (links) overlap or 'cover' base sets. Then we can
+                  consider:</p>
+                <ul>
+                  <li>Rules with N truths covered by N links, seen in many
+                    methods including fish.</li>
+                  <li>Treating rows, columns, boxes, and cells equally, and
+                    allowing multiple digits.</li>
+                  <li>Allowing unequal numbers of N truths covered by M links. </li>
+                  <li>Allow multiple overlapping truths and links.</li>
+                  <li>Define a property <u>rank</u> to express relative numbers
+                    of truths and links.</li>
+                  <li>Define <u>illegal logic</u> to describe uniqueness in
+                    broken wings and inference sets.</li>
+                </ul>
+                <br>
+                <p class="MsoNormal" style="text-align:justify"><span style="mso-spacerun:yes"><br>
+                  </span></p>
+                <span style="mso-spacerun:yes"></span>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Truths and Links</span></b><span style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify">Sudoku has 81
+                  row, column, box, and cell sets for a total of 4*81 = 324,
+                  each of which must have a truth.<span style="font-size:12.0pt"></span><span
+                    style="font-size:12.0pt"> For example, in row 2 below, one 5</span><span
+                    style="font-size:12.0pt"><span style="font-size:12.0pt"></span></span><span
+                    style="font-size:12.0pt"><span style="font-size:12.0pt"></span>
+                    must be true so we can represent its truth with a solid red
+                    bar connecting all 5s. The same is done for truths in
+                    columns, boxes, and cells, which we color green, brown, and
+                    blue respectively. <br>
+                  </span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1025" src="general_files/GENA000.png"
+                      border="0" width="533" height="441"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue">PART 1, </span></b><b><span style="font-size:
+  14.0pt;font-family:Verdana;color:#666699">Cover Sets and Rank</span></b><b><span
+                      style="font-size:14.0pt;font-family:Verdana;color:blue"><o:p></o:p></span></b></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal"><b><span style="font-size:12.0pt;font-family:Verdana">Base
+                      and Cover Sets and Eliminations<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">To
+                    find eliminations, we assume that each base set has one </span><span
+                    style="font-size:12.0pt"><span style="font-size:12.0pt">true
+                      candidate</span>. Then the number of true candidates
+                    equals the number of independent base sets (black
+                    rectangles). If all candidates in all base sets are also
+                    covered by links (red rectangles), then all true candidates
+                    in base sets must also be in the links.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">If
+                    the number of bases is equal the number of links, then every
+                    link has a true candidate from the bases thus any other
+                    candidates in the links can be eliminated (X). This rule
+                    holds for any equal number of bases and links. The only
+                    restriction is that the bases cannot overlap. This is
+                    discussed below. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1026" src="general_files/setperm1.png"
+                      border="0" width="570" height="198"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Diagram
+                    C above is an X-Wing, an example of which is shown in the
+                    grid below. The two truths are located in rows 2 and 5, the
+                    links are located in columns 2 and 6. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;font-family:Verdana"><img id="_x0000_i1027"
+                        src="general_files/GENB000.png" border="0" width="529" height="444"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Rank and Rank 0.</span></b><span style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">It's
+                    useful to define a term called rank where: <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><i><span style="font-size:
+  11.0pt"><o:p>&nbsp;</o:p></span></i></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><i><span
+                        style="font-size:12.0pt;color:blue">Rank&nbsp; =&nbsp;
+                        number of cover links - number of bases<o:p></o:p></span></i></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">The
+                    above examples had equal numbers of bases and links and were
+                    therefore rank 0.<span style="mso-spacerun:yes">&nbsp; </span>From
+                    the aabove we can summarize a rule for rank 0. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><i><span style="font-size:
+  11.0pt"><o:p>&nbsp;</o:p></span></i></b></p>
+                <p class="MsoNormal" style="margin-left:1.0cm;text-align:justify"><b><i><span
+                        style="font-size:12.0pt">Rank 0: </span></i></b><i><span
+                      style="font-size:
+  11.0pt">Any non-base candidate contained in any link can be eliminated.<b><o:p></o:p></b></span></i></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">This
+                    is a general rule that is not restriced to single digits and
+                    makes no distinction between cells, rows, boxes, or columns.
+                    The 81 cells are treated equally to the 81 row-digit sets,
+                    etc. This following example logic has 3 truths, 1 row + 1
+                    box + 1 cell. The truths are covered by 3 links, 1 row + 1
+                    column + 1 cell. The rank is 3 – 3 = 0. Accroding to the
+                    rank 0 rule, all candidates in all links can be removed. The
+                    links zones in row 6, column 8, and cell r4c1 are
+                    highlighted. Any candidates in these zones will be
+                    eliminated.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1028" src="general_files/GENE000.png"
+                      border="0" width="532" height="443"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Rank 1</span></b><span style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Rank
+                    1 logic has one extra link thus N sets must have N true
+                    candidates distributed among N+1 links. In this case, any <i><u>two</u></i>
+                    links are guaranteed to contain one true candidate from the
+                    bases sets, thus anywhere any two links overlap, outside of
+                    the bases, can eliminate candidates. A rank 1 rule would
+                    read<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-left:1.0cm;text-align:justify"><b><i><span
+                        style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></i></b></p>
+                <p class="MsoNormal" style="margin-left:1.0cm;text-align:justify"><b><i><span
+                        style="font-size:12.0pt">Rank 1: </span></i></b><i><span
+                      style="font-size:
+  11.0pt">Any non-base candidate contained in any <b><u>two</u></b> links can
+                      be eliminated.<b><o:p></o:p></b></span></i></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Rank
+                    1 logic is common and include chains, finned fish, XY-wings,
+                    discontinuous nice loops, and Kraken fish. A simple rank 1
+                    example below is a crossed two-string kite. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-family:
+  Verdana">&nbsp;<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1029" src="general_files/GENG000.png"
+                      border="0" width="440" height="440"></span><b><span style="font-family:Verdana"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><a name="rank_n"><b><span
+                        style="font-size:12.0pt;font-family:Verdana">Rank </span></b></a><b><span
+                      style="font-size:12.0pt;font-family:Verdana">R<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">The
+                    same general argument holds true for any rank R higher than
+                    1. Rank R logic has R extra links thus N base sets must have
+                    N true candidates distributed among N+R links. In this case,
+                    any R +1 links are guaranteed to contain one true candidate
+                    from the bases sets, thus anywhere any R + 1 links overlap,
+                    outside of the bases, can eliminate candidates. The rank R
+                    rule is.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="margin-left:1.0cm;text-align:justify"><b><i><span
+                        style="font-size:12.0pt">Rank R: </span></i></b><i><span
+                      style="font-size:
+  11.0pt">Any non-base candidate contained in any <b><u>R + 1</u></b> links can
+                      be eliminated.<b><o:p></o:p></b></span></i></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Again,
+                    this is a general rule that applies</span><span style="font-size:12.0pt;
+  color:windowtext"> to any number, type, or combination of sets, links,
+                    candidates, and digits as long as the base sets do not
+                    overlap.</span><span style="font-size:12.0pt"> No other
+                    rules or restrictions apply, this is the law!&nbsp;Rank
+                    rules apply beyond Sudoku to problems of any geometry and
+                    any number of spatial dimensions. Sudoku is limited to 3
+                    dimensions and 4 overlapping sets.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Ranks
+                    0 and 1 cover many Sudoku methods. Ranks higher than 3
+                    possible in complex eliminations when combined with
+                    triplets, described later. The rank 3 example below has 7
+                    bases covered with 10 cover links. According to the rank
+                    rule, 4 covers must overlap to eliminate a candidate. The
+                    logic has 4 independent bi-value paths emerging from the
+                    cell set in r5c5. The 4 branches converge at 5r2c2 where
+                    they eliminate the red candidate. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1030" src="general_files/GENI000.png"
+                      border="0" width="499" height="406"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Three-dimensional
+                    view with colored sets and white links. The four links
+                    converge on 5r2c2 to eliminate the orange candidate. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><img
+                    id="_x0000_i1031" src="general_files/GENI001.png" border="0"
+                    width="335" height="347"></p>
+                <p class="MsoNormal" style="text-align:justify"><a name="illegal_logic0"></a><span
+                    style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Some
+                    rank R examples:&nbsp; </span><a href="gen2/rank.htm">rank
+                    2 three leg bug</a>.</p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Illegal Logic and Rank -1<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Illegal
+                    logic is any group of sets (or candidates) that has no
+                    solution, i.e., there is no way to arrange the candidates
+                    that is allowed by the rules of Sudoku. The illegal 'fish'
+                    below has 3 bases connected by two links where it's easy to
+                    see that 3 candidates cannot be placed in the links without
+                    placing 2 in a single link. The illegal logic, denoted by
+                    black sets, has a rank of 2 links - 3 base sets equals minus
+                    1. Negative rank is real and can be a useful quantity.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1032" src="general_files/GENJ000.png"
+                      border="0" width="404" height="157"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Covering Sets, Eliminations, and Multiple Solutions</span></b><span
+                    style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Covering
+                    sets are the links that exactly cover the base candidates. A
+                    group of covering sets is any group of links containing all
+                    candidates in the base sets where no link can be removed and
+                    the candidates remain covered. <i>Covering sets are not
+                      necessarily exact cover sets because they are allowed to
+                      overlap</i>. One group of base sets can be covered by
+                    multiple groups of covering sets.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">A
+                    candidate is eliminated only when it sees other candidates
+                    through the <i>same group of covering sets</i>. In other
+                    words, rank rules are based on cover groups.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:14.2pt;margin-bottom:
+  0cm;margin-left:14.2pt;margin-bottom:.0001pt;text-align:justify"><i><span style="font-size:12.0pt">Eliminations
+                      occur when one or more links in <u>the same group of
+                        covering sets</u> overlap to contain a candidate.
+                      Overlap linksets from different cover groups do not cause
+                      eliminations.</span></i><b><span style="font-size:12.0pt"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Cannibal Eliminations</span></b><span style="font-size:
+  11.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">In
+                    Sudoku, cannibal eliminations occur when a candidates in a
+                    base set or other kind of truth are eliminated. Cannibal
+                    eliminations are virtually always caused by a <i>subgroup</i>
+                    of the base and cover sets being considered, i.e., simpler
+                    eliminations exist.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><span style="mso-spacerun:yes">&nbsp;</span><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Counting Rank</span></b><span style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">When
+                    counting rank or searching for a solution of covering sets,
+                    two points are considered. <o:p></o:p></span></p>
+                <ol style="margin-top:0cm" start="1" type="1">
+                  <li class="MsoNormal" style="margin-top:6.0pt;mso-list:l0 level1 lfo5;
+       tab-stops:list 36.0pt"><span style="font-size:12.0pt">The links must form
+                      a group of covering sets, i.e., cover all candidates with
+                      no redundancies.<o:p></o:p></span></li>
+                  <li class="MsoNormal" style="mso-list:l0 level1 lfo5;tab-stops:list 36.0pt"><span
+                      style="font-size:12.0pt"><span style="mso-spacerun:yes">&nbsp;</span>Strong
+                      links are counted as ordinary links because they are not
+                      part of the base sets.<o:p></o:p></span></li>
+                </ol>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue">PART 2, </span></b><b><span style="font-size:
+  14.0pt;font-family:Verdana;color:#666699">Triplets and Rank Regions</span></b><b><span
+                      style="font-size:14.0pt;font-family:Verdana;color:blue"><o:p></o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Triplets, Overlap, and Pointing<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="color:windowtext">Two
+                    base sets or two links that overlap form a <i>triplet</i>.
+                  </span><span style="font-size:12.0pt">The left circle below
+                    marks a candidate in 2 overlapping bases + 1 link. The right
+                    circle marks a candidate in 2 overlapping links + 1 base
+                    set. Because the three branches connected to the triplet are
+                    not equal, it's convenient to describe the direction of a
+                    triplet as pointing towards its odd branch. A triplet with
+                    two bases points in the direction of its link and a triplet
+                    with two links points in the direction of its base set. The
+                    logic in the pointing direction is called the upper branch.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><img
+                    id="_x0000_i1033" src="general_files/GENL000.png" border="0"
+                    width="630" height="203"></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext">When sets or links form <i>triplets, </i>they have a
+                    global effect on logic. When two <i><u>bases</u></i>
+                    overlap, the logic no longer contains a fixed number of <i>true</i>
+                    candidates to occupy the cover links. When two <i><u>links</u></i>
+                    overlap, the number of <i>true</i> candidates is fixed but
+                    the number of occupied links is not. Both cases can lead to
+                    regions with different rank and novel eliminations or
+                    assignments. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Base Triplets and Rank<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">When
+                    base truths overlap, the rank must be corrected because</span><span
+                    style="font-size:12.0pt;color:windowtext"> the number of <i>true</i>
+                    candidates is no longer constant. </span><span style="font-size:12.0pt">The
+                    example below has 3 base sets (2 red rows and 1 brown box)
+                    and 3 column links (light green), and a base triplet. The
+                    triplet has only two states, occupied or not. <b>Un-occupied:</b>
+                    When a base triplet is un-occupied (left) there are 3 true
+                    candidates to occupy the 3 links, thus its rank = 0. <b>Occupied:</b>
+                    When a base triplet is occupied (right), the number of</span><span
+                    style="font-size:12.0pt;color:windowtext"> <i>true</i>
+                    candidates </span><span style="font-size:12.0pt">in the
+                    logic drops by 1 because the</span><span style="font-size:12.0pt;color:windowtext">
+                    triplet's <i>true</i> candidate </span><span style="font-size:12.0pt">occupies
+                    2 bases. Two true candidates in 3 links means rank 1.
+                    However, the triplet's link must be occupied because the
+                    triplet is occupied thus the triplet's link must have a rank
+                    of 0. The worst-case rank for the logic is 1 except for the
+                    triplet's link, which is 0. </span><span style="font-size:12.0pt;color:windowtext"><span
+                      style="mso-spacerun:yes">&nbsp;&nbsp;</span></span><span style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;color:windowtext"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt;color:windowtext"><img id="_x0000_i1034"
+                      src="general_files/stp_occu.png" border="0" width="566" height="234"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext">Eliminations are based on the worst case rank, which is 0
+                    for the triplet's link in column 4. Thus all other digit 5s
+                    can be eliminated from the column. </span><span style="font-size:12.0pt">The
+                    triplet has created different rank regions in the logic. The
+                    rank 0 region in column 4 is highlighted black. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt;color:windowtext"><img id="_x0000_i1035"
+                      src="general_files/stp_elim.png" border="0" width="564" height="444"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Link Triplets<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Link
+                    triplets are slightly different because the number of <i>true</i>
+                    candidates is fixed but the number of occupied links can
+                    vary. This again can lead to mixed rank logic. The two
+                    possible states are shown below where the blue arrows mark
+                    the link triplet. There are several ways to arrange the true
+                    candidates (yellow squares), two ways are shown below. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1036" src="general_files/ltp_occu.png"
+                      border="0" width="708" height="328"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt;
+  color:windowtext">The logical argument goes like this. The overall rank is 1
+                    because the logic has one extra link. </span><b><span style="font-size:12.0pt">Occupied:</span></b><span
+                    style="font-size:12.0pt"> </span><span style="font-size:12.0pt;color:windowtext">When
+                    the triplet is occupied (right), the overall logic must be
+                    rank 0 because all links have a candidate. </span><b><span
+                      style="font-size:12.0pt">Un-occupied:</span></b><span style="font-size:12.0pt">
+                  </span><span style="font-size:12.0pt;color:windowtext">When
+                    the triplet is not occupied, (left) the overall rank must be
+                    1. However, the base set connected to the triplet now has
+                    fewer candidates to cover, which effectively lowers the rank
+                    in that branch.&nbsp;&nbsp; <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Once
+                    again, the worst case rank is 1 everywhere except for the
+                    middle row link in r5, which has a worst case rank of 0,
+                    thus the digit 5 can be eliminated from that row. The rank 0
+                    link in row 5 is highlighed black. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">However,
+                    that's not the end of the story. The worst case rank for the
+                    other 3 links is 1. According to the rank rules, anywhere 2
+                    of these links overlap can eliminate candidates. Note that
+                    the row and box links in row 8 do overlap in cell r8c5,
+                    where they eliminate the red candidate for digit 5. Thus,
+                    this example has both rank 0 and rank 1 eliminations.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt"><img id="_x0000_i1037" src="general_files/ltp_elim.png"
+                        border="0" width="594" height="444"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Link Triplets, Example 2<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">A
+                    link triplet lowers the rank of the of all linksets along
+                    its minor branch, or the set side. The example below has 2
+                    linksets in the minor branch, both of which are rank 0
+                    (black highlight) and both eliminate candidates on the left.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1038" src="general_files/GENM000.png"
+                      border="0" width="638" height="400"><o:p></o:p></span></p>
+                <p class="MsoNormal"><b><span style="font-size:12.0pt;font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Rank Regions<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Both
+                    kinds of&nbsp; triplets define boundaries between two
+                    regions. For a link triplet, one region contains the base
+                    set branch and the other contains the two link branches. If
+                    the logic on the base side never rejoins the rest of the
+                    logic then the rank will be lower everywhere along the
+                    branch. If the set branch does reconnect, then another
+                    boundary is needed to define the region. <b><i>As a rule of
+                        thumb</i></b>, the lowered rank branch usually continues
+                    until the first bifurcation that has two separate return
+                    paths back to the triplet. The example below is similar to
+                    the one above except now for the bifurcation at r5c5 that
+                    has two separate return paths to the triplet's links thus r5
+                    is no longer rank 1.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1039" src="general_files/GENM001.png"
+                      border="0" width="638" height="358"><o:p></o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">This
+                    bifurcation can be hard to spot as in the next example below
+                    with 8 sets, 9 linksets and a rank of 1. A simple way to
+                    find the low rank region is to cut the triplet node from the
+                    minor branch, then follow the branch to find those sets that
+                    can be covered by an equal number of linksets, e.g., make a
+                    new, small rank 0 logic block. If the logic was rank 2, then
+                    find N sets covered by N+1 linksets along the branch. The
+                    minor branch below (dark highlight) has 3 sets and 3
+                    linksets that make a rank 0 upper branch. Row r5 and its
+                    candidates are not included. This upper branch is a
+                    swordfish or fishy cycle.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">This
+                    procedure works because cutting the branch is the same as
+                    assuming the triplet is not occupied and the upper branch is
+                    occupied, which is how the triplet rule is derived. For a
+                    set triplet, cut the triplet from its 2 two linksets sets
+                    leaving the triplet in the minor branch as a single. This is
+                    the same as assuming the triple is occupied.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;font-family:Verdana"><img id="_x0000_i1040"
+                        src="general_files/sH-Z_0h1.jpg" border="0" width="514"
+                        height="449"><o:p></o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Rank 2 Mixed Rank Logic<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Mixed
+                    rank logic can have any rank. The link triplet example
+                    below, left has 3 sets, 4 links, and is rank 1. The
+                    triplet's minor branch includes the middle column linkset,
+                    which is rank 0 (dark highlight) and has yellow elimination
+                    zones along the column eliminating 1 candidate (red). The
+                    example on the right includes an extra candidate and linkset
+                    in row 2, which makes the logic rank 2. According to the
+                    rank rules, the minor branch of triplet r4c6 is now rank 1
+                    and cannot directly cause eliminations. However, it can
+                    eliminate the candidate at r2c5 by overlapping linkset r25.
+                    The linkset to the right of the branch, c65, also overlaps
+                    r25 but cannot cause an elimination because it is in the
+                    rank 2 region. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;font-family:Verdana"><img id="_x0000_i1041"
+                        src="general_files/b034_000.jpg" border="0" width="626"
+                        height="512"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">The Idea of Uniform Rank<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Uniform
+                    rank over a region seems counterintuitive, especially when
+                    thinking about first order logic however, there is a
+                    rational for such an effect based on permutations of
+                    candidates.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Given
+                    a rank 1 structure with 10 sets 11 linksets, the cover set
+                    principle says <u>any</u> two linksets must have at least
+                    one candidate. This is logically correct but what makes sure
+                    there is always an arrangement of candidates that fulfills
+                    this requirement? Candidates are possibilities. Without
+                    constraints, all permutations or arrangements of candidates
+                    are possible, about one billion for this example. The number
+                    is smaller because constraints remove most of them but
+                    without a constraint, or reason not to be there, every
+                    combination is possible. In this sense, the mathematics of
+                    combinorics fills all possible configurations that are not
+                    invalid, everywhere in the structure. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">This
+                    reverses the argument, rather than why should candidate
+                    configurations be there, the correct question is why would
+                    they not? In this example, if any two sets did not contain a
+                    candidate, that configuration must be invalid because it
+                    would force two candidates into one of the sets. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Additive Properties of Triplets<o:p></o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">The
+                    effects of triplets can be additive, i.e., two link triplets
+                    both aligned in the direction of a candidate can lower the
+                    rank in the region of the candidate by 2. However, such
+                    logic must follow the rules about cover sets for triplet
+                    branches. <o:p></o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Additively
+                    can be proved using the same arguments used for one triplet,
+                    by dividing the problem into occupied and unoccupied triplet
+                    states, the only difference is more states. Naive arguments
+                    for eliminations such as <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:6.0pt;margin-right:0cm;
+  margin-bottom:6.0pt;margin-left:0cm;text-align:center" align="center"><span style="font-size:12.0pt">4<i>
+                      overlap linksets =&nbsp; 2 overlap linksets + 2 pointing
+                      linksets triplets</i><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">can
+                    be helpful but the details of the logic must be considered
+                    before accepting the elimination. The rank 3 logic example
+                    below has 5 sets, 8 linksets, and 2 link triplets, 5r2c2 and
+                    5r2c5, pointing in the direction of the candidate. This adds
+                    up to the equivalent of 4 overlap linksets required to
+                    eliminate the candidate 5r7c8. Note that other digit 5
+                    candidates also sit at the overlap of various linksets, but
+                    they are not eliminated.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1042" src="general_files/bLT2_000.jpg"
+                      border="0" width="512" height="412"><o:p></o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Very Complex Logic<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Very
+                    complex eliminations only occur in the most difficult
+                    eliminations from the most difficult monster puzzles. The
+                    following elimination from Easter Monster has an incredible
+                    rank of 6. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1043" src="general_files/sMAX_001.jpg"
+                      border="0" width="570" height="595"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue">PART 3, </span></b><b><span style="font-size:
+  14.0pt;font-family:Verdana;color:#666699">Odd Loops, Broken Wings, and Dark
+                      Logic</span></b><b><span style="font-size:14.0pt;font-family:Verdana;
+  color:blue"><o:p></o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Odd
+                    length loops play a role in many methods such as chains,
+                    discontinuous nice loops, and broken wings however, the
+                    principle behind broken wings is unique and is thus a third
+                    part to Sudoku Set Logic.&nbsp; <o:p></o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Illegal Logic and Odd Length Loops<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Illegal
+                    logic is any group of sets (or candidates) that has no
+                    solution, i.e., there is no way to arrange the candidates
+                    that is allowed by the rules. One type of illegal logic
+                    was&nbsp; <a href="#illegal_logic0">shown above</a>. Odd
+                    length loops of bi-value strong links are also illegal. The
+                    length 5 loop below can contain at most two nodes without
+                    double occupancy, thus one set must be unoccupied. Set loops
+                    of any odd length have a rank of minus 1.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;font-family:Verdana"><img id="_x0000_i1044"
+                        src="general_files/b004_000.jpg" border="0" width="660"
+                        height="304"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Broken Wings&nbsp; <o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span class="postbody"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify">The <a href="http://www.sudoku.com/boards/viewtopic.php?t=2666&amp;highlight="
+                    target="_blank"><span style="color:blue">broken wing</span></a>
+                  principle, introduced by Ron Hagglund and<span style="font-size:12.0pt">
+                    later <a href="http://www.sudoku.com/boards/viewtopic.php?t=5225&amp;start=0">studied
+                      here</a>, assumes that a valid puzzle cannot contain loops
+                    with an odd number of bi-value strong links (</span><span class="postbody">conjugate
+                    pairs).</span><span style="font-size:12.0pt"> To be legal,
+                    at least one link must contain at least one extra candidate,
+                    called a guardian. If there is one guardian, it can be
+                    assigned. If there are multiple guardians, eliminations can
+                    be logically deduced. Guardians can be connected to a
+                    variety of logic. The lone guardian (G) in r3c8 below
+                    prevents the logic from being illegal thus it can be
+                    assigned, which then eliminates the orange candidates in
+                    column 8. Eliminated candidates in the structure are red and
+                    assigned candidates are green.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="margin-left:2.0cm"><span style="font-size:12.0pt"><img
+                      id="_x0000_i1045" src="general_files/b005_000.jpg" border="0"
+                      width="570" height="351"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Sets, Broken Wings, and Dark Logic<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Broken
+                    wings and other illegal logic made of strong sets occur
+                    naturally in set logic. The following is a generalized view
+                    of broken wing principles integrated with Sudoku set theory.
+                    The same principles apply to a variety of logic including
+                    deadly patterns and unique rectangles. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">To
+                    keep track of what's what, the term <i>dark </i></span>refers
+                  to anything illegal. A <i>dark</i> loop contains the set<span
+                    style="font-size:12.0pt">s and candidates belonging to
+                    illegal logic but not guardians or other logic that may be
+                    in the same sets. In other works, a group of sets may
+                    contain a dark loop <i>and</i> guardians. Defined this way,
+                    dark loops have the following properties:<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:6.0pt;margin-right:1.0cm;margin-bottom:
+  0cm;margin-left:1.0cm;margin-bottom:.0001pt"><i><span style="font-size:12.0pt">A
+                      dark loop of any size has a rank of minus 1. <o:p></o:p></span></i></p>
+                <p class="MsoNormal" style="margin-top:6.0pt;margin-right:1.0cm;margin-bottom:
+  0cm;margin-left:1.0cm;margin-bottom:.0001pt"><i><span style="font-size:12.0pt">The
+                      guardians act as a&nbsp; single virtual set that&nbsp; can
+                      span rows, columns, boxes, and digits. The&nbsp; virtual
+                      sets can be combined with any other logic and solved
+                      accordingly.<o:p></o:p></span></i></p>
+                <p class="MsoNormal" style="margin-top:6.0pt;margin-right:1.0cm;margin-bottom:
+  0cm;margin-left:1.0cm;margin-bottom:.0001pt"><i><span style="font-size:12.0pt">A
+                      dark loop can be ignored when solving logic that contains
+                      the guardians, i.e., they are not included in any cover
+                      set groups.&nbsp; <o:p></o:p></span></i></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt">Thus, dark
+                    logic works like unseen logic that exerts a force on a group
+                    of otherwise unconnected candidates causing them to be
+                    logically linked. (Well, its better than anti-logic).<o:p></o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Below
+                    is a two-guardian broken wing. Although neither guardian can
+                    be assigned, one must be true so the linkset in column 8 is
+                    always occupied, or rank 0, which eliminates the red
+                    candidates. <o:p></o:p></span></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1046" src="general_files/b006_000.jpg"
+                      border="0" width="511" height="347"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">The
+                    dark loop's guarantee of one true guardian effectively
+                    divides the problem in two. On the right, the guardians work
+                    as a virtual set that forms something like locked candidates
+                    spaning 2 boxes. On the left, rows r3 and r5 are linksets
+                    relative to the dark loop, which can be solved as a
+                    discontinuous nice loop assigning 7r2c6 and eliminating the
+                    two red candidates. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><b><span
+                      style="font-size:12.0pt;font-family:Verdana"><img id="_x0000_i1047"
+                        src="general_files/b006_002.jpg" border="0" width="512"
+                        height="324"><o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Illegal (Dark) Logic and Sets<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">Broken
+                    wings are only one form of illegal logic. Any logic can be
+                    used as dark logic if has no legal arrangement of candidates
+                    (permutations). Deadly patterns and unique rectangles are
+                    used in the same way by assuming that valid puzzles have
+                    only one solution. Broken wings and other dark logic require
+                    no assumptions.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">The
+                    most general definition of dark logic is <i><u>logic with a
+                        negative rank</u></i>. A more useful definition
+                    is:&nbsp; <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:6.0pt;margin-right:1.0cm;margin-bottom:
+  0cm;margin-left:1.0cm;margin-bottom:.0001pt"><i><span style="font-size:12.0pt">Any
+                      group of candidates that could be covered by more sets
+                      than linksets if selected candidates were removed. The
+                      'removed' candidates become guardians. This assumes
+                      non-overlap sets.<o:p></o:p></span></i></p>
+                <p class="MsoNormal" style="margin-top:6.0pt;margin-right:1.0cm;margin-bottom:
+  0cm;margin-left:1.0cm;margin-bottom:.0001pt"><i><span style="font-size:12.0pt">Additional
+                      candidates in linksets do not need to be removed and are
+                      not guardians.<o:p></o:p></span></i></p>
+                <p class="MsoNormal" style="text-align:justify"><i><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></i></p>
+                <p class="MsoNormal" style="text-align:justify"><span style="font-size:12.0pt">The
+                    definition does not require all strong links or any
+                    conjugate pairs. A simple example below uses 3 sets and 2
+                    linksets. If the two candidates labeled G are 'removed' then
+                    the 6 remaining candidates in rows 3, 5 and columns 2,5,8
+                    become <i>dark</i>. The two G candidates can then be used
+                    as a single virtual set (brown bar) to make a short chain
+                    that eliminates candidate 5 in r8c8. </span>Of course, this
+                  example looks a lot like a sashimi.<span style="font-size:12.0pt"><o:p></o:p></span></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="text-align:center" align="center"><span
+                    style="font-size:12.0pt"><img id="_x0000_i1048" src="general_files/dDS1_000.jpg"
+                      border="0" width="512" height="358"><o:p></o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify">Sudoku grids
+                  contain a lot of unseen dark logic however, most small
+                  examples turn out to be other methods or patterns. Dark logic
+                  is better suited for difficult puzzles where it might help
+                  reduce the size elimination logic because it uses two steps,
+                  finding the dark logic and then finding eliminations. </p>
+                <p class="MsoNormal" style="text-align:justify"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana">Embedded Broken Wings<o:p></o:p></span></b></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:12.0pt;
+  font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt">The dark
+                    principle applies to any logic as long as the dark logic
+                    nodes do not link to the the rest of the logic.</span><b><span
+                      style="font-size:12.0pt;font-family:Verdana"> </span></b><span
+                    style="font-size:12.0pt">A more detailed description of and
+                    examples of dark logic can be found in the <a href="gen2/blacklog.htm">Odd
+                      Loops, Broken Wings, and dark logic</a>. <o:p></o:p></span></p>
+                <p class="MsoNormal"><b><span style="font-size:12.0pt;font-family:Verdana"><o:p>&nbsp;</o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
+  font-family:Verdana;color:blue">SUMMARY<o:p></o:p></span></b></p>
+                <p class="MsoNormal"><span style="font-size:12.0pt"><o:p>&nbsp;</o:p></span></p>
+                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">1.&nbsp;&nbsp;&nbsp;
+                    Every elimination is based on two groups of sets. The <b>base
+                      set</b> group exactly contains a group of candidates and
+                    the <b>link set</b> group contains these candidates as well
+                    as other candidates that are potential eliminations. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">2.&nbsp;&nbsp;&nbsp;
+                    The number of links minus the number of base sets is called
+                    rank. Rank is a distributed property of the logic and is
+                    uniform everywhere within a logical structure except for
+                    conditions noted below. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">3.&nbsp;&nbsp;&nbsp;Rank
+                    0 eliminates any additional candidates inside of linksets.
+                    Common examples include singles, locked candidates, ALCs,
+                    X-wing, swordfish, etc. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">4.&nbsp;&nbsp;&nbsp;
+                    Rank 1 eliminates any additional candidates where two
+                    linksets overlap. Many Sudoku methods fall into this
+                    category such as finned fish, chains, discontinuous nice
+                    loops, etc.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">5.&nbsp;&nbsp;&nbsp;
+                    Ranks 2 (or 3) logic requires 3 (or 4) simultaneously
+                    overlapping linksets to cause eliminations.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">6.&nbsp;&nbsp;&nbsp;
+                    Ranks higher than 3 can only cause eliminations when
+                    combined with triplets, described next. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">7.&nbsp;&nbsp;&nbsp;
+                    A triplet is a single candidate that connects three sets. A
+                    set-triplet has two sets and one linkset, and a
+                    linkset-triplet has two linksets and one set. Triplets
+                    "point" in the direction of the minor link, i.e., the
+                    linkset direction of a two set triplet. The two types of
+                    triplets are similar but have different properties.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">8.&nbsp;&nbsp;&nbsp;
+                    Triplets can divide logic into high rank and low rank
+                    regions and therefore change the number of linksets that are
+                    needed to eliminate a candidate, but this must follow
+                    specific rules. When link triplets point in the direction of
+                    a candidate, it may reduce the number of linksets required
+                    to eliminate the candidate..<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">9.&nbsp;&nbsp;&nbsp;
+                    Set triplets can increase the number of overlap linksets
+                    required to make an elimination if they reduce the number of
+                    true nodes (assigned candidates) guaranteed to be in the set
+                    group. Link-triplets cannot.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">10.&nbsp;
+                    The area of lower rank caused by a set triplet usually
+                    extends from the triplet's linkset to the first bifurcation
+                    that has independent paths back to the triplet's two sets.
+                    For link triplets, swap the terms set and linkset. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">11.&nbsp;
+                    The candidate in a set-triplet with an unconnected linkset
+                    can be assigned in rank 0 logic.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">12.&nbsp;
+                    When triplets are located and aligned correctly, their
+                    effects can be additive however, complex arrangements often
+                    require consideration or additional logical analysis. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">13.&nbsp;
+                    When two blocks of logic are (hypothetically) combined, each
+                    retains its original rank internally and the rank of the
+                    combined logic is the sum of the&nbsp; individual ranks.
+                    Eliminations can occur when linksets of different blocks
+                    overlap based on the overall rank and triplets used to link
+                    blocks.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">14.
+                    Logic made of, or containing odd length loops of (strong)
+                    sets can contain dark logic, which works similar to broken
+                    wings. Dark logic contains only the sets and nodes that
+                    would make illegal logic. <o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">15.
+                    A dark loop has a rank of minus 1. A dark loop can be
+                    completely removed from the rest of the logic and all
+                    remaining candidates that were in the removed sets can be
+                    placed in a single virtual set. The virtual set can be used
+                    like a normal set with other logic. A virtual set can have
+                    any number of candidates and span rows, columns, and boxes.<o:p></o:p></span></p>
+                <p class="MsoNormal" style="margin-top:0cm;margin-right:0cm;margin-bottom:6.0pt;
+  margin-left:31.2pt;text-align:justify;text-indent:-19.85pt"><span style="font-size:12.0pt">16.
+                    After removal, dark loop sets that lost candidates become
+                    linksets and the dark loop can be solved separately,
+                    assuming a solution can be found. <o:p></o:p></span></p>
+                <p><o:p>&nbsp;</o:p></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="MsoNormal"><br clear="all">
+        <br>
+        &nbsp; <br>
+        &nbsp; </p>
+    </div>
+  </body>
+</html>
