@@ -168,7 +168,7 @@ last-resort：`forcing-chain`。
 
 **卡片书写：✅ 完成（2026-06-23）。** 41 张专卡 + 90 源镜像已登记。
 
-**引擎验证：八轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 67 例**，覆盖：
+**引擎验证：八轮完成（2026-06-23）。** 自动化入口：`packages/engine/test/worked-examples.test.ts`（`verifyDeductions` 对照暴力解核对消除/落子；`decodeS9B` / `gridFromS9B` 解析 SudokuWiki `Load Example`）。**已通过 69 例**，覆盖：
 
 | 卡 | 验证项 |
 |---|---|
@@ -193,7 +193,7 @@ last-resort：`forcing-chain`。
 | `11-exotic/exocet` | SudokuWiki Rule 1 `r2c4<>4`, `r3c7<>2,7` |
 | `11-exotic/aligned-exclusion` | SudokuWiki APE 例 1/3/4/6 + Brenner 8-cell S9B `r4c5<>1`, `r5c5<>4` |
 | `11-exotic/sk-loop` | Easter Monster `r2c5,r2c6<>3,8` + 3-1-3-1 / solved-cell 两例唯一性 |
-| `11-exotic/msls` | David P Bird Ex1 21 处消除（rank-0 MS-NS） |
+| `11-exotic/msls` | David P Bird Ex1–3（21 + 17 + 13 处消除） |
 | `10/avoidable-rectangle` | HoDoKu ar101/ar102 Type1 + ar201/ar202 Type2 |
 
 **仍待验证（✅\*）** — 规则已写清，消除集或 restored-state 候选网格待核：

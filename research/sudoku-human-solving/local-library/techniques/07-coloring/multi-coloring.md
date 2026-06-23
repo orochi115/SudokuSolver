@@ -73,6 +73,8 @@ Targets are always candidate `d`.
 
 **Source: Sudopedia X-Colors, Example 1 (Multicolors case) — CITED, candidate state described, not grid-pixel-verified (FLAG).**
 
+> **识图待补：** 图源 `research/sudoku-human-solving/local-library/assets/sudopedia-x-colors/01-XCEx1.png`（目标 `r2c8<>2`）。自动转写 givens 不可解；需人工抄写完整 81-char 或 post-basics 恢复态。
+
 Digit **2**. Conjugate pair seeded: **r9c2 = Blue**, **r9c8 = Green** (Step 1). Step 2 adds nothing.
 
 - **Step 3 promotion:** **r2c1** is the only cell in its box that is *not* a peer of the blue r9c2, so r2c1 is colored **Blue** (same color). No further promotion.
@@ -80,7 +82,11 @@ Digit **2**. Conjugate pair seeded: **r9c2 = Blue**, **r9c8 = Green** (Step 1). 
 
 This is precisely a Multi-Colors elimination reached with a single color pair via one promotion step.
 
+**Source: Sudopedia X-Colors, Example 2 — CITED (FLAG).** Digit 6; eliminations `r1c1<>6`, `r1c3<>6`. Image `02-XCEx2.png` — givens-only 转写不可解，待人工抄写。
+
 **Source: Sudopedia X-Colors, Example 3 (contradiction → placement) — CITED (FLAG candidate state).**
+
+> **识图待补：** 图源 `research/sudoku-human-solving/local-library/assets/sudopedia-x-colors/03-XCEx3.png`（目标 `r2c7,r2c9<>8` + `r1c8,r7c2,r9c5=8`）。自动转写不可解/不唯一。
 
 Digit **8**. After coloring, **r1c8** is already Green, but Step 3 also lets it be colored **Blue** (it is the only cell of its box not a peer of the blue r2c3). The cell is simultaneously Blue and Green and there are two Blue cells sharing row 1 and column 8 — a contradiction. By **Rule 4.2**, the **Green cells are TRUE**: place **8** in r1c8, r7c2, r9c5. (Note: cannot conclude all Blue are false — only that Green is true.)
 

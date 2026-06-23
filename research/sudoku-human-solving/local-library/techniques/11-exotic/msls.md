@@ -117,6 +117,19 @@ Eliminations (21 candidates in 15 cells):
 `2r1c6`, `8r2c1`, `47r3c2`, `4r3c4`, `1r4c7`, `9r4c8`, `4r5c2`, `346r5c4`, `36r5c9`,
 `37r6c3`, `5r7c2`, `5r7c5`, `36r7c9`, `8r8c1`, `2r8c6`.
 
+**Verified — David P Bird Example 2** (Home set `[2349]`):
+Grid: `3.....9...7...1.5...2.....4....76.1....3.5....6.81....4.....2...5.6...8...9.....3`
+
+Balanced MS-NS `r1379c28, r28c1379` (16 cells). Eliminations (17 candidates):
+`4r1c3`, `2r1c9`, `68r2c5`, `9r3c1`, `3r3c7`, `8r4c2`, `18r5c2`, `67r5c8`, `7r6c8`,
+`3r7c3`, `9r7c9`, `7r8c6`, `2r9c1`, `4r9c7`.
+
+**Verified — David P Bird Example 3** (Home set `[123489]`):
+Grid: `98.7.....6.7...8......85...4...3..2..9....6.......1..4.6.5..9......4...3.....2.1.`
+
+Balanced rank-0 MS-NS (invalid `5r1c3` dropped). Eliminations (13 candidates):
+`5r1c7`, `9r2c4`, `34r3c8`, `12r3c9`, `1r4c9`, `578r5c1`, `58r5c3`, `8r5c4`.
+
 ## Soundness
 
 At rank 0 the number of cells that *must* receive a `D` digit (truths) equals the

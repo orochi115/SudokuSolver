@@ -475,6 +475,64 @@ describe('research card worked examples (ground-truth verification)', () => {
       );
     });
 
+    it('MSLS Example 2 rank-0 MS-NS eliminates 17 candidates (David P Bird)', () => {
+      expectSound(
+        'msls-ex2',
+        '3.....9...7...1.5...2.....4....76.1....3.5....6.81....4.....2...5.6...8...9.....3'.replace(
+          /\./g,
+          '0',
+        ),
+        {
+          eliminations: [
+            { cell: rc(1, 3), digit: 4 },
+            { cell: rc(1, 9), digit: 2 },
+            { cell: rc(2, 5), digit: 6 },
+            { cell: rc(2, 5), digit: 8 },
+            { cell: rc(3, 1), digit: 9 },
+            { cell: rc(3, 7), digit: 3 },
+            { cell: rc(4, 2), digit: 8 },
+            { cell: rc(5, 2), digit: 1 },
+            { cell: rc(5, 2), digit: 8 },
+            { cell: rc(5, 8), digit: 6 },
+            { cell: rc(5, 8), digit: 7 },
+            { cell: rc(6, 8), digit: 7 },
+            { cell: rc(7, 3), digit: 3 },
+            { cell: rc(7, 9), digit: 9 },
+            { cell: rc(8, 6), digit: 7 },
+            { cell: rc(9, 1), digit: 2 },
+            { cell: rc(9, 7), digit: 4 },
+          ],
+        },
+      );
+    });
+
+    it('MSLS Example 3 balanced rank-0 MS-NS eliminates 13 candidates (David P Bird)', () => {
+      expectSound(
+        'msls-ex3',
+        '98.7.....6.7...8......85...4...3..2..9....6.......1..4.6.5..9......4...3.....2.1.'.replace(
+          /\./g,
+          '0',
+        ),
+        {
+          eliminations: [
+            { cell: rc(1, 7), digit: 5 },
+            { cell: rc(2, 4), digit: 9 },
+            { cell: rc(3, 8), digit: 3 },
+            { cell: rc(3, 8), digit: 4 },
+            { cell: rc(3, 9), digit: 1 },
+            { cell: rc(3, 9), digit: 2 },
+            { cell: rc(4, 9), digit: 1 },
+            { cell: rc(5, 1), digit: 5 },
+            { cell: rc(5, 1), digit: 7 },
+            { cell: rc(5, 1), digit: 8 },
+            { cell: rc(5, 3), digit: 5 },
+            { cell: rc(5, 3), digit: 8 },
+            { cell: rc(5, 4), digit: 8 },
+          ],
+        },
+      );
+    });
+
     it('MSLS Example 1 rank-0 multi-sector naked set eliminates 21 candidates (David P Bird)', () => {
       expectSound(
         'msls-ex1',
