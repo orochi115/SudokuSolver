@@ -1,17 +1,31 @@
-# EnjoySudoku Bivalue Oddagon Thread
+Title: 【TECHNIQUE SHARE】Odd Bivalue Loop(bivalue oddagon) : Advanced solving techniques
 
-Source ID: `ENJOYSUDOKU-BIVALUE-ODDAGON`
+URL Source: http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html
 
-URL: http://forum.enjoysudoku.com/technique-share-odd-bivalue-loop-bivalue-oddagon-t33153.html
+Markdown Content:
+some examples:
 
-Accessed: 2026-06-23
+1.bivalue oddagon with missing candidates, and also diagonal strong link guardian:
 
-Local research summary:
+the 5 "#" grids formed a "bivalue oddagon"(missing candidate "9" in r1c5 but doesn't matter), we can NOT delete r9c1(1) and r1c5(23) together, otherwise, 5 "#" grids will become a "deadly loop". then, r1c5(23)==r9c1(1)--r9c4(1)==r7c6(1)--r1c6(1)==r12c6(6), so, r1c5<>6
 
-- Thread title: "[TECHNIQUE SHARE] Odd Bivalue Loop (bivalue oddagon)".
-- Initial post by borescoper describes odd-length loops of bivalue cells with the same two candidates as deadly/illegal loops.
-- Leren replies that this is a known forum strategy called oddagons; a single-digit oddagon is a closed loop of strong links with odd node count, and guardians prevent the deadly pattern.
-- The thread gives several candidate-grid examples where guardians form strong relations and produce eliminations or placements.
-- Primary example: if both `r6c3(5)` and `r9c3(5)` are removed, marked cells become a five-cell bivalue oddagon on `{2,9}`; therefore `r6c3(5)` and `r9c3(5)` cannot both be false, yielding `r2c3<>5`, then `r2c3=1` in that candidate state.
+Code: [Select all](http://forum.enjoysudoku.com/#)`*--------------------------------------------------------------------------------------------*|         7         4       #69|      1268      #236       168|         5      3689      3689||       269       269         3|         5         7        68|        89         4         1||         8         1         5|        46       346         9|         2         7        36||------------------------------+------------------------------+------------------------------||        69       369         1|       268       256       568|         7       389         4||         4         7         8|         9         1         3|         6         2         5||         5       369         2|       468        46         7|         1       389       389||------------------------------+------------------------------+------------------------------||      1269      269         4|         3       569       156|        89       689         7||         3         5       #69|         7         8         2|         4         1        69||      #169         8         7|        16       #69         4|         3         5         2|*--------------------------------------------------------------------------------------------*`
+2.bivalue oddagon with 7 grids(and also missing candidate):
 
-License note: user-generated forum content; reuse permission unclear. This file is a paraphrased local research note.
+the 7 grids with "#" formed a "bivalue oddagon"(missing candidate 5 in r8c3 but doesn't matter), we can NOT delete r8c3(8) and r8c7(1) together, otherwise, 7 "#" grids will become a "deadly loop". then, r8c3(8)==r8c7(1)--r8c1(1)==r8c1(6), so, r8c3<>6, r8c3=8.
+
+Code: [Select all](http://forum.enjoysudoku.com/#)`*--------------------------------------------------------------------------------------------*|         2         8         4|         7       #56         9|       #56         1         3||       #56         7         1|         4         3       #56|         8         9         2||         3         9       #56|         1         2         8|         7       456        46||------------------------------+------------------------------+------------------------------||       156       136       356|     23568      4568     24567|         9     34678      1468||         4         2         9|       368         1        67|        36      3678         5||         8       136         7|       356         9       456|         2       346       146||------------------------------+------------------------------+------------------------------||         7         5      2368|       268       468         1|       346      3468         9||        16         4       #68|         9       568         3|      #156         2         7||         9       136      2368|      2568         7      2456|     13456     34568      1468|*--------------------------------------------------------------------------------------------*`
+3.bivalue oddagon mixed with other advanced techniques:
+
+the 5 "#" grids formed a "bivalue oddagon", and the 6 "*" grids formed a UR (69). if r9c2<>6, then r8c23={69}(hidden pair), to avoid the 6 "*" grids formed a "deadly pattern(69)", we can find r3c1=78, then, look at the 5 "#" grids, r34c7=6(otherwise the 5 "#" grids will formed a deadly loop 78). so, r9c2(6)==r34c7(6), so, r9c7<>6, r9c2=6.
+
+Once you have used this technique, all solved.
+
+Code: [Select all](http://forum.enjoysudoku.com/#)`*--------------------------------------------------------------------------------------------*|       678       678         5|         4         3         9|         1       678         2||         3         1         4|       267         8        27|         5        67         9||    #*6789         2       *69|        67         5         1|      #678         4         3||------------------------------+------------------------------+------------------------------||         1         4        78|         3         2         5|      #678         9       678||       *69       *69         2|         1         7         8|         3         5         4||       #78         5         3|         9         4         6|         2         1       #78||------------------------------+------------------------------+------------------------------||         4         3        78|         5         6        27|         9       278         1||         5     *6789       *69|       278         1         3|         4      2678       678||         2       678         1|        78         9         4|       678         3         5|*--------------------------------------------------------------------------------------------*`
+4.complex bivalue oddagon:
+
+look at all 7 grids with symbols. if r4c1<>5, the two "%" grids r4c12 will formed a strong link(r4c1(7)==r4c2(2)). we can use r4c12 as a bivalue grid "27" in this example. on the other hand, the two "*" grids r56c3 formed another strong link(r56c3(2)==r56c3(7)), we can use r56c3 as a bivalue grid "27" in this example.
+
+so, if we delete r4c1(5) and r4c9(5) together, all of the "#" grids will formed a "deadly loop".(r4c12(2==7), r56c3(2==7), r7c3(27), r7c9(27), r4c9(27)). it means r4c1(5)==r4c9(5). so, r4c5<>5, r6c5=5.
+
+Code: [Select all](http://forum.enjoysudoku.com/#)`*--------------------------------------------------------------------------------------------*|         2         7         3|         5         9         6|         4         1         8||         9         5         6|         8         1         4|         2         7         3||         1         4         8|         3         2         7|         6         5         9||------------------------------+------------------------------+------------------------------||     %#578      %#28         9|         6      4587         1|         3       248      #257||       578         6     *#127|      2479         3       289|     15789      2489      1257||         4         3     *#127|       279       587       289|     15789       289         6||------------------------------+------------------------------+------------------------------||         3         1       #27|        49        48         5|       789         6       #27||        78       289         4|      1297         6         3|     15789       289      1257||         6       289         5|      1297        78       289|      1897         3         4|*--------------------------------------------------------------------------------------------*`

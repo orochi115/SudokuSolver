@@ -28,6 +28,7 @@ The local Sudoku human-solving library now covers the previously selected inform
 | Manifest source entries | 90 |
 | Local Markdown source files | 90 |
 | Local raw HTML source files | 90 |
+| Local cached asset files | 50 |
 | Technique cards | 41 |
 | Index/mapping files | 6 |
 
@@ -38,6 +39,8 @@ The local Sudoku human-solving library now covers the previously selected inform
 > Update 2026-06-23 (coverage-gap fill): added 5 source notes and 2 cards for Rectangle Elimination plus Rank/SET/Phistomefel/Oddagon boundary coverage. P3 red-line names are now boundary-card covered rather than marked as missing implementation cards.
 
 > Update 2026-06-23 (raw mirror fill): replaced the 5 coverage-gap raw-HTML placeholder notes with fetched source HTML mirrors for Rectangle Elimination, bivalue oddagon, SET explanations, SudokuOne rank logic, and Phistomefel.
+
+> Update 2026-06-23 (asset + markdown sync): cached 50 image/icon dependencies for the 5 coverage-gap raw HTML mirrors under `local-library/assets/` and rewrote HTML/Markdown image references to local relative paths. Replaced the 5 coverage-gap Markdown summary notes with full Jina Reader Markdown mirrors.
 
 ## Coverage Assessment
 

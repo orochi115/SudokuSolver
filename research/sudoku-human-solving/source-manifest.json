@@ -1,11 +1,12 @@
 {
   "library": "human-sudoku-solving",
   "accessDate": "2026-06-01",
-  "storagePolicy": {
-    "markdownDir": "local-library/markdown",
-    "rawHtmlDir": "local-library/raw-html",
-    "note": "Markdown and raw HTML are stored separately. Sources with unclear copyright are retained for local research with attribution."
-  },
+    "storagePolicy": {
+      "markdownDir": "local-library/markdown",
+      "rawHtmlDir": "local-library/raw-html",
+      "assetsDir": "local-library/assets",
+      "note": "Markdown and raw HTML are stored separately. Sources with unclear copyright are retained for local research with attribution."
+    },
   "sources": [
     {"id":"HODOKU-TECHNIQUES","title":"HoDoKu Implemented Techniques","url":"https://hodoku.sourceforge.net/en/techniques.php","markdown":"local-library/markdown/hodoku/techniques.md","rawHtml":"local-library/raw-html/hodoku/techniques.html","license":"GNU FDLv1.3 noted on page","coverage":["taxonomy","technique-index"]},
     {"id":"HODOKU-INTRO","title":"HoDoKu Introduction","url":"https://hodoku.sourceforge.net/en/tech_intro.php","markdown":"local-library/markdown/hodoku/tech_intro.md","rawHtml":"local-library/raw-html/hodoku/tech_intro.html","license":"GNU FDLv1.3 noted on page","coverage":["terminology","logic-vs-brute-force"]},

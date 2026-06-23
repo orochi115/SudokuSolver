@@ -1,16 +1,24 @@
-# Jordan Eldredge Phistomefel Summary
+Title: Sudoku Set Equivalence Theory: The Phistomefel Ring / Jordan Eldredge
 
-Source ID: `JORDAN-PHISTOMEFEL`
+URL Source: https://jordaneldredge.com/phistomefel/
 
-URL: https://jordaneldredge.com/phistomefel/
+Markdown Content:
+## Sudoku Set Equivalence Theory: The Phistomefel Ring
 
-Accessed: 2026-06-23
+Nov 25, 2022|
 
-Local research summary:
+During the pandemic I became a fan of [Cracking the Cryptic](https://www.youtube.com/c/CrackingTheCryptic), a Youtube Channel in which two English guys solve — often very challenging — variant sudoku puzzles. It turns out these puzzles often have fascinating and clever emergent logic puzzles embedded within them.
 
-- The page summarizes the Phistomefel Ring as a property of all regular 9x9 Sudoku grids.
-- The four 2x2 corner blocks contain exactly the same digit multiset as the cells bordering the edge of box 5, including its corners.
-- The property is derived by Set Equivalence Theory.
-- In this roadmap it is treated as a theorem/framework relation, not as a standalone candidate-level implementation target.
+One great example, is the Phistomafel Ring, which is a surprising property that _all sudoku puzzles have_!
 
-License note: copyright/reuse permission not identified. This file is a paraphrased local research note.
+It states that:
+
+> The 2x2 corner blocks of any Regular 9x9 Sudoku Grid contain exactly the same digits as the cells that border the edge of box 5 (including the corners).
+
+It turns out one can relatively easily deduce this using set equivalence theory, and there have been a number of Sudoku puzzles which set you up to discover this property and then require you to use it to solve the puzzle!
+
+For a detailed and illustrated explanation, see: [https://crackingthecryptic.fandom.com/wiki/Phistomefel_Ring](https://crackingthecryptic.fandom.com/wiki/Phistomefel_Ring)
+
+A nicely illustrated example can be found in this video from the Youtube channel Numberphile where guest Simon Anthony of Cracking the Cryptic walks us through an approachable description:
+
+[Video 3](https://www.youtube.com/watch?v=pezlnN4X52g)
