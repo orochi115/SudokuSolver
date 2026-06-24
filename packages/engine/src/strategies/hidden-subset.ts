@@ -137,6 +137,6 @@ function makeHiddenSubsetStrategy(size: 2 | 3 | 4, id: string, difficulty: numbe
   };
 }
 
-export const hiddenPair = makeHiddenSubsetStrategy(2, 'hidden-pair', 32);
-export const hiddenTriple = makeHiddenSubsetStrategy(3, 'hidden-triple', 36);
-export const hiddenQuad = makeHiddenSubsetStrategy(4, 'hidden-quad', 39);
+export const hiddenPair = makeHiddenSubsetStrategy(2, 'hidden-pair', 320);
+export const hiddenTriple = makeHiddenSubsetStrategy(3, 'hidden-triple', 340);
+export const hiddenQuad = makeHiddenSubsetStrategy(4, 'hidden-quad', 360);

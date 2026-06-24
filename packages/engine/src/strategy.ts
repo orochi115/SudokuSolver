@@ -12,10 +12,16 @@ import type { Grid } from './grid.js';
 import type { Step } from './trace.js';
 
 /**
- * Rough cost ordering for the solver loop. Cheaper strategies run first so the
- * trace prefers the simplest available deduction (FR-7). Suggested bands:
- *   10 singles · 20 intersections · 30 subsets · 40 fish · 50 wings ·
- *   60 coloring · 70 chains/AIC · 80 ALS · 90 uniqueness · 100 forcing
+ * Cost ordering for the solver loop, ranked by HUMAN recognition / learning cost
+ * (not implementation or runtime cost). Cheaper strategies run first so the trace
+ * prefers the simplest available deduction (FR-7). Tier bands (wide gaps leave
+ * room to insert new techniques without renumbering; see docs/plans/
+ * diabolical-727-checklist.md § 难度刻度):
+ *   1xx singles · 2xx intersections · 3xx subsets · 4xx basic fish + short wings ·
+ *   5xx advanced wings · 6xx coloring · 7xx chains/AIC · 8xx ALS/AHS ·
+ *   9xx uniqueness · 1xxx exotic · 9xxx last-resort / red-line (e.g. forcing).
+ * A human-default exotic may legitimately score above forcing-chain's number —
+ * the last-resort band is isolated high, not a global "hardest" marker.
  */
 /**
  * Declared internal tie-break keys (Roadmap ② gate 4). When a strategy can match

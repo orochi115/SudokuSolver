@@ -91,8 +91,8 @@ const HARD_PUZZLES = [
 describe('simple-coloring', () => {
   it('has stable id and difficulty in band 60', () => {
     expect(simpleColoring.id).toBe('simple-coloring');
-    expect(simpleColoring.difficulty).toBeGreaterThanOrEqual(55);
-    expect(simpleColoring.difficulty).toBeLessThanOrEqual(65);
+    expect(simpleColoring.difficulty).toBeGreaterThanOrEqual(600);
+    expect(simpleColoring.difficulty).toBeLessThanOrEqual(620);
   });
 
   it('does not modify the grid', () => {
@@ -141,14 +141,14 @@ describe('simple-coloring', () => {
 describe('aic', () => {
   it('splits x-chain from general AIC with lower difficulty', () => {
     expect(xChain.id).toBe('x-chain');
-    expect(xChain.difficulty).toBeGreaterThanOrEqual(60);
+    expect(xChain.difficulty).toBeGreaterThanOrEqual(700);
     expect(xChain.difficulty).toBeLessThan(aic.difficulty);
   });
 
   it('has stable id and difficulty in band 70', () => {
     expect(aic.id).toBe('aic');
-    expect(aic.difficulty).toBeGreaterThanOrEqual(65);
-    expect(aic.difficulty).toBeLessThanOrEqual(75);
+    expect(aic.difficulty).toBeGreaterThanOrEqual(700);
+    expect(aic.difficulty).toBeLessThanOrEqual(800);
   });
 
   it('does not modify the grid', () => {
@@ -257,13 +257,13 @@ describe('als', () => {
 
   it('has stable split ids and difficulties in the ALS band', () => {
     expect(alsXz.id).toBe('als-xz');
-    expect(alsXz.difficulty).toBe(80);
+    expect(alsXz.difficulty).toBe(810);
     expect(alsXzDoublyLinked.id).toBe('als-xz-doubly-linked');
-    expect(alsXzDoublyLinked.difficulty).toBe(82);
+    expect(alsXzDoublyLinked.difficulty).toBe(820);
     expect(alsXyWing.id).toBe('als-xy-wing');
-    expect(alsXyWing.difficulty).toBe(85);
+    expect(alsXyWing.difficulty).toBe(840);
     expect(deathBlossom.id).toBe('death-blossom');
-    expect(deathBlossom.difficulty).toBe(88);
+    expect(deathBlossom.difficulty).toBe(860);
   });
 
   it('does not modify the grid', () => {
@@ -330,13 +330,13 @@ describe('als', () => {
 describe('uniqueness', () => {
   it('has stable ids and late default difficulties', () => {
     expect(bugPlusOne.id).toBe('bug-plus-one');
-    expect(bugPlusOne.difficulty).toBe(90);
+    expect(bugPlusOne.difficulty).toBe(910);
     expect(uniqueRectangleType1.id).toBe('unique-rectangle-type-1');
-    expect(uniqueRectangleType1.difficulty).toBe(91);
+    expect(uniqueRectangleType1.difficulty).toBe(920);
     expect(uniqueRectangleType2.id).toBe('unique-rectangle-type-2');
-    expect(uniqueRectangleType2.difficulty).toBe(92);
+    expect(uniqueRectangleType2.difficulty).toBe(930);
     expect(uniqueRectangleType4.id).toBe('unique-rectangle-type-4');
-    expect(uniqueRectangleType4.difficulty).toBe(93);
+    expect(uniqueRectangleType4.difficulty).toBe(950);
   });
 
   it('reports each uniqueness technique with a specific strategy id', () => {
@@ -409,8 +409,8 @@ describe('uniqueness', () => {
 describe('sue-de-coq', () => {
   it('has stable id and difficulty in band 95', () => {
     expect(sueDeCoq.id).toBe('sue-de-coq');
-    expect(sueDeCoq.difficulty).toBeGreaterThanOrEqual(92);
-    expect(sueDeCoq.difficulty).toBeLessThanOrEqual(98);
+    expect(sueDeCoq.difficulty).toBeGreaterThanOrEqual(1000);
+    expect(sueDeCoq.difficulty).toBeLessThanOrEqual(1020);
   });
 
   it('does not modify the grid', () => {
@@ -445,7 +445,7 @@ describe('sue-de-coq', () => {
 describe('forcing-chain', () => {
   it('has stable id and difficulty 100', () => {
     expect(forcingChain.id).toBe('forcing-chain');
-    expect(forcingChain.difficulty).toBe(100);
+    expect(forcingChain.difficulty).toBe(9000);
   });
 
   it('does not modify the grid', () => {

@@ -312,7 +312,7 @@ function tryBUGPlus1(grid: Grid, strategyId: string): Step | null {
 export const bugPlusOne: Strategy = {
   id: 'bug-plus-one',
   name: { zh: 'BUG+1', en: 'BUG+1' },
-  difficulty: 90,
+  difficulty: 910,
 
   apply(grid: Grid): Step | null {
     return tryBUGPlus1(grid, 'bug-plus-one');
@@ -322,7 +322,7 @@ export const bugPlusOne: Strategy = {
 export const uniqueRectangleType1: Strategy = {
   id: 'unique-rectangle-type-1',
   name: { zh: '唯一矩形 Type 1', en: 'Unique Rectangle Type 1' },
-  difficulty: 91,
+  difficulty: 920,
 
   apply(grid: Grid): Step | null {
     return tryURType1(grid, 'unique-rectangle-type-1');
@@ -332,7 +332,7 @@ export const uniqueRectangleType1: Strategy = {
 export const uniqueRectangleType2: Strategy = {
   id: 'unique-rectangle-type-2',
   name: { zh: '唯一矩形 Type 2', en: 'Unique Rectangle Type 2' },
-  difficulty: 92,
+  difficulty: 930,
 
   apply(grid: Grid): Step | null {
     return tryURType2(grid, 'unique-rectangle-type-2');
@@ -342,7 +342,7 @@ export const uniqueRectangleType2: Strategy = {
 export const uniqueRectangleType4: Strategy = {
   id: 'unique-rectangle-type-4',
   name: { zh: '唯一矩形 Type 4', en: 'Unique Rectangle Type 4' },
-  difficulty: 93,
+  difficulty: 950,
 
   apply(grid: Grid): Step | null {
     return tryURType4(grid, 'unique-rectangle-type-4');

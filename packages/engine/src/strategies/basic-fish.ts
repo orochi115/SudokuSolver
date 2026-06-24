@@ -151,6 +151,6 @@ function makeBasicFishStrategy(size: 2 | 3 | 4, id: string, difficulty: number):
   };
 }
 
-export const xWing = makeBasicFishStrategy(2, 'x-wing', 40);
-export const swordfish = makeBasicFishStrategy(3, 'swordfish', 50);
-export const jellyfish = makeBasicFishStrategy(4, 'jellyfish', 58);
+export const xWing = makeBasicFishStrategy(2, 'x-wing', 410);
+export const swordfish = makeBasicFishStrategy(3, 'swordfish', 450);
+export const jellyfish = makeBasicFishStrategy(4, 'jellyfish', 490);

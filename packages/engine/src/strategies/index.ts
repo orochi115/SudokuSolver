@@ -37,46 +37,50 @@ import { sueDeCoq } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
 
 export const STRATEGIES: readonly Strategy[] = [
-  // T1 — Singles (difficulty 4–12)
-  fullHouse,          // difficulty 4
-  nakedSingle,        // difficulty 10
-  hiddenSingle,       // difficulty 12
+  // Singles (1xx)
+  fullHouse,          // 100
+  nakedSingle,        // 150
+  hiddenSingle,       // 170
 
-  // T2 — Intersections & Subsets (difficulty 20–39)
-  lockedCandidatesPointing, // difficulty 20
-  lockedCandidatesClaiming, // difficulty 22
-  nakedPair,          // difficulty 30
-  hiddenPair,         // difficulty 32
-  nakedTriple,        // difficulty 34
-  hiddenTriple,       // difficulty 36
-  nakedQuad,          // difficulty 38
-  hiddenQuad,         // difficulty 39
+  // Intersections (2xx)
+  lockedCandidatesPointing, // 210
+  lockedCandidatesClaiming, // 220
 
-  // T3 — Fish / Single-Digit Patterns / Wings (difficulty 40–58)
-  xWing,              // difficulty 40
-  skyscraper,         // difficulty 44
-  twoStringKite,      // difficulty 46
-  emptyRectangle,     // difficulty 48
-  swordfish,          // difficulty 50
-  xyWing,             // difficulty 52
-  xyzWing,            // difficulty 54
-  wWing,              // difficulty 56
-  jellyfish,          // difficulty 58
+  // Subsets (3xx)
+  nakedPair,          // 310
+  hiddenPair,         // 320
+  nakedTriple,        // 330
+  hiddenTriple,       // 340
+  nakedQuad,          // 350
+  hiddenQuad,         // 360
 
-  // T4 — Advanced Strategies (difficulty 60–100)
-  simpleColoring,     // difficulty 60
-  xChain,             // difficulty 65
-  aic,                // difficulty 70
-  alsXz,              // difficulty 80
-  alsXzDoublyLinked,  // difficulty 82
-  alsXyWing,          // difficulty 85
-  deathBlossom,       // difficulty 88
-  bugPlusOne,         // difficulty 90
-  uniqueRectangleType1, // difficulty 91
-  uniqueRectangleType2, // difficulty 92
-  uniqueRectangleType4, // difficulty 93
-  sueDeCoq,           // difficulty 95
-  forcingChain,       // difficulty 100
+  // Basic fish + short wings (4xx)  [5xx reserved for advanced wings]
+  xWing,              // 410
+  skyscraper,         // 420
+  twoStringKite,      // 430
+  emptyRectangle,     // 440
+  swordfish,          // 450
+  xyWing,             // 460
+  xyzWing,            // 470
+  wWing,              // 480
+  jellyfish,          // 490
+
+  // Coloring (6xx) · Chains (7xx) · ALS (8xx) · Uniqueness (9xx) · Exotic (1xxx)
+  simpleColoring,     // 610
+  xChain,             // 710
+  aic,                // 750
+  alsXz,              // 810
+  alsXzDoublyLinked,  // 820
+  alsXyWing,          // 840
+  deathBlossom,       // 860
+  bugPlusOne,         // 910
+  uniqueRectangleType1, // 920
+  uniqueRectangleType2, // 930
+  uniqueRectangleType4, // 950
+  sueDeCoq,           // 1010
+
+  // Last-resort / red-line (9xxx) — excluded from the human-default profile
+  forcingChain,       // 9000
 ];
 
 /**

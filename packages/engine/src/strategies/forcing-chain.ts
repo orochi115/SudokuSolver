@@ -386,7 +386,7 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
   return {
     id: 'forcing-chain',
     name: { zh: '强制链', en: 'Forcing Chain' },
-    difficulty: 100,
+    difficulty: 9000,
 
     apply(grid: Grid): Step | null {
       const graph = buildLinkGraph(grid, { grouped: false });

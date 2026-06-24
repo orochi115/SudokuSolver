@@ -113,6 +113,6 @@ function makeNakedSubsetStrategy(size: 2 | 3 | 4, id: string, difficulty: number
   };
 }
 
-export const nakedPair = makeNakedSubsetStrategy(2, 'naked-pair', 30);
-export const nakedTriple = makeNakedSubsetStrategy(3, 'naked-triple', 34);
-export const nakedQuad = makeNakedSubsetStrategy(4, 'naked-quad', 38);
+export const nakedPair = makeNakedSubsetStrategy(2, 'naked-pair', 310);
+export const nakedTriple = makeNakedSubsetStrategy(3, 'naked-triple', 330);
+export const nakedQuad = makeNakedSubsetStrategy(4, 'naked-quad', 350);

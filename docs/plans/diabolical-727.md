@@ -37,7 +37,9 @@
 
 > 现状（2026-06-23 卡片补齐；**2026-06-23 晚** 引擎验证六轮）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级或边界级专卡（41 张）**。51 个 worked example 已通过 `packages/engine/test/worked-examples.test.ts` 暴力解核对（见 §文档缺口 backlog）。仍待验证的 exotic / AR 等卡保持 ✅\*。仅 P3（红线）保持边界卡。库存见 [`audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（90 源 / 41 卡）。
 
-## 已实现（31，仅供参照，不再规划；其研究卡已于 2026-06-23 升级到实现级）
+## 已实现（31；覆盖不再新增，但有契约 / 重构调整，见 [执行清单 §已有策略调整 backlog](./diabolical-727-checklist.md#已有策略调整-backlog回应存量调整是否入计划)）
+
+> 「不再规划」仅指**覆盖**：不再为这 31 个加新技巧。但难度重标、`tieBreak` 元数据、单数字强链族/UR/ALS 收编等**契约与重构**调整属进行中工作，统一在执行清单跟踪。其研究卡已于 2026-06-23 升级到实现级。
 
 singles：`full-house` / `naked-single` / `hidden-single`；
 intersections：`locked-candidates-pointing` / `-claiming`；
@@ -56,6 +58,8 @@ last-resort：`forcing-chain`。
 
 分类对齐研究库分册 [`research/sudoku-human-solving/local-library/techniques/`](../../research/sudoku-human-solving/local-library/techniques/)（`00-foundations … 12-last-resort`）。优先级依据：①SudokuWiki 的人类难度递进；②**用我们自己的引擎探针**对 727 实测的杠杆（不采用任何外部解法器的普查数字）。
 研究卡路径相对 `research/sudoku-human-solving/local-library/techniques/`；源镜像相对 `research/sudoku-human-solving/local-library/markdown/`。
+
+> **本目录是「家族 / 覆盖」视角。** 每个家族行**拆成具体 strategyId**、其 canonical owner / 是否共享 detector、拟定 difficulty 与逐项进度勾选，见 [**执行清单**](./diabolical-727-checklist.md)（与 [`overlap.ts`](../../packages/engine/src/strategies/overlap.ts) / [`chain/boundaries.ts`](../../packages/engine/src/chain/boundaries.ts) 互为单一真相源）。本表只维护家族级覆盖口径，不重复 strategyId 拆解。
 
 ### P0 — 高杠杆，复用现有机制（先做）
 
@@ -251,6 +255,7 @@ last-resort：`forcing-chain`。
 
 ## 关联
 
+- **执行清单（本计划的配套 tracker）**：[`diabolical-727-checklist.md`](./diabolical-727-checklist.md) —— 逐 strategyId 拆解、难度刻度、存量调整 backlog、进度勾选。本文件管「规格/覆盖」，清单管「执行/进度」。
 - 研究资料补全（卡片新建 / 网络抓取 / 索引更新）：落地于 [`research/sudoku-human-solving/`](../../research/sudoku-human-solving/)。
 - 逐格推算难度评估（引导模式）：见 [`difficulty-evaluation.md`](./difficulty-evaluation.md)（本轮仅记录方向）。
 - HoDoKu 移植（独立轨道，含 727 的纯逻辑普查结果）：见 [`research/hodoku-logic/`](../../research/hodoku-logic/)。

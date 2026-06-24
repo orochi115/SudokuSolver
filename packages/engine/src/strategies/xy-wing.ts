@@ -17,7 +17,7 @@ import type { Strategy } from '../strategy.js';
 export const xyWing: Strategy = {
   id: 'xy-wing',
   name: { zh: 'XY翼', en: 'XY-Wing' },
-  difficulty: 52,
+  difficulty: 460,
 
   apply(grid: Grid): Step | null {
     // Find all bivalue cells (exactly 2 candidates)

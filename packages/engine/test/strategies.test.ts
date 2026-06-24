@@ -67,7 +67,7 @@ function assertSoundStep(
 describe('full-house', () => {
   it('has stable id and low difficulty', () => {
     expect(fullHouse.id).toBe('full-house');
-    expect(fullHouse.difficulty).toBeLessThan(10);
+    expect(fullHouse.difficulty).toBeLessThan(150);
   });
 
   it('finds the last empty cell in a row', () => {
@@ -119,7 +119,7 @@ describe('full-house', () => {
 describe('hidden-single', () => {
   it('has stable id', () => {
     expect(hiddenSingle.id).toBe('hidden-single');
-    expect(hiddenSingle.difficulty).toBe(12);
+    expect(hiddenSingle.difficulty).toBe(170);
   });
 
   it('finds a hidden single and it is sound', () => {
@@ -158,9 +158,9 @@ describe('locked-candidates', () => {
 
   it('has stable id', () => {
     expect(lockedCandidatesPointing.id).toBe('locked-candidates-pointing');
-    expect(lockedCandidatesPointing.difficulty).toBe(20);
+    expect(lockedCandidatesPointing.difficulty).toBe(210);
     expect(lockedCandidatesClaiming.id).toBe('locked-candidates-claiming');
-    expect(lockedCandidatesClaiming.difficulty).toBe(22);
+    expect(lockedCandidatesClaiming.difficulty).toBe(220);
   });
 
   it('reports pointing with a specific strategy id', () => {
@@ -236,11 +236,11 @@ describe('locked-candidates', () => {
 describe('naked-subset', () => {
   it('has stable id', () => {
     expect(nakedPair.id).toBe('naked-pair');
-    expect(nakedPair.difficulty).toBe(30);
+    expect(nakedPair.difficulty).toBe(310);
     expect(nakedTriple.id).toBe('naked-triple');
-    expect(nakedTriple.difficulty).toBe(34);
+    expect(nakedTriple.difficulty).toBe(330);
     expect(nakedQuad.id).toBe('naked-quad');
-    expect(nakedQuad.difficulty).toBe(38);
+    expect(nakedQuad.difficulty).toBe(350);
   });
 
   it('reports each subset size with a specific strategy id', () => {
@@ -309,11 +309,11 @@ describe('naked-subset', () => {
 describe('hidden-subset', () => {
   it('has stable id', () => {
     expect(hiddenPair.id).toBe('hidden-pair');
-    expect(hiddenPair.difficulty).toBe(32);
+    expect(hiddenPair.difficulty).toBe(320);
     expect(hiddenTriple.id).toBe('hidden-triple');
-    expect(hiddenTriple.difficulty).toBe(36);
+    expect(hiddenTriple.difficulty).toBe(340);
     expect(hiddenQuad.id).toBe('hidden-quad');
-    expect(hiddenQuad.difficulty).toBe(39);
+    expect(hiddenQuad.difficulty).toBe(360);
   });
 
   it('reports each subset size with a specific strategy id', () => {
@@ -374,11 +374,11 @@ describe('hidden-subset', () => {
 describe('basic-fish', () => {
   it('has stable id', () => {
     expect(xWing.id).toBe('x-wing');
-    expect(xWing.difficulty).toBe(40);
+    expect(xWing.difficulty).toBe(410);
     expect(swordfish.id).toBe('swordfish');
-    expect(swordfish.difficulty).toBe(50);
+    expect(swordfish.difficulty).toBe(450);
     expect(jellyfish.id).toBe('jellyfish');
-    expect(jellyfish.difficulty).toBe(58);
+    expect(jellyfish.difficulty).toBe(490);
   });
 
   it('reports each fish size with a specific strategy id', () => {
@@ -438,11 +438,11 @@ describe('basic-fish', () => {
 describe('single-digit-patterns', () => {
   it('has stable id', () => {
     expect(skyscraper.id).toBe('skyscraper');
-    expect(skyscraper.difficulty).toBe(44);
+    expect(skyscraper.difficulty).toBe(420);
     expect(twoStringKite.id).toBe('two-string-kite');
-    expect(twoStringKite.difficulty).toBe(46);
+    expect(twoStringKite.difficulty).toBe(430);
     expect(emptyRectangle.id).toBe('empty-rectangle');
-    expect(emptyRectangle.difficulty).toBe(48);
+    expect(emptyRectangle.difficulty).toBe(440);
   });
 
   it('reports each single-digit pattern with a specific strategy id', () => {
@@ -514,7 +514,7 @@ describe('single-digit-patterns', () => {
 describe('xy-wing', () => {
   it('has stable id', () => {
     expect(xyWing.id).toBe('xy-wing');
-    expect(xyWing.difficulty).toBe(52);
+    expect(xyWing.difficulty).toBe(460);
   });
 
   it('does not modify the grid', () => {
@@ -573,7 +573,7 @@ describe('xy-wing', () => {
 describe('xyz-wing', () => {
   it('has stable id', () => {
     expect(xyzWing.id).toBe('xyz-wing');
-    expect(xyzWing.difficulty).toBe(54);
+    expect(xyzWing.difficulty).toBe(470);
   });
 
   it('does not modify the grid', () => {
@@ -619,7 +619,7 @@ describe('xyz-wing', () => {
 describe('w-wing', () => {
   it('has stable id', () => {
     expect(wWing.id).toBe('w-wing');
-    expect(wWing.difficulty).toBe(56);
+    expect(wWing.difficulty).toBe(480);
   });
 
   it('does not modify the grid', () => {

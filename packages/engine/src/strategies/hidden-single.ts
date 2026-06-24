@@ -25,7 +25,7 @@ function houseLabelEn(houseIdx: number): string {
 export const hiddenSingle: Strategy = {
   id: 'hidden-single',
   name: { zh: '隐性唯一', en: 'Hidden Single' },
-  difficulty: 12,
+  difficulty: 170,
 
   apply(grid: Grid): Step | null {
     for (let h = 0; h < HOUSES.length; h++) {

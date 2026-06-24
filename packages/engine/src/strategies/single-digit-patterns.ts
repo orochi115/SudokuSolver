@@ -302,7 +302,7 @@ function tryEmptyRectangle(grid: Grid, d: number, strategyId: string): Step | nu
 export const skyscraper: Strategy = {
   id: 'skyscraper',
   name: { zh: '摩天楼', en: 'Skyscraper' },
-  difficulty: 44,
+  difficulty: 420,
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {
@@ -316,7 +316,7 @@ export const skyscraper: Strategy = {
 export const twoStringKite: Strategy = {
   id: 'two-string-kite',
   name: { zh: '双线风筝', en: '2-String Kite' },
-  difficulty: 46,
+  difficulty: 430,
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {
@@ -330,7 +330,7 @@ export const twoStringKite: Strategy = {
 export const emptyRectangle: Strategy = {
   id: 'empty-rectangle',
   name: { zh: '空矩形', en: 'Empty Rectangle' },
-  difficulty: 48,
+  difficulty: 440,
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {

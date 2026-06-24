@@ -225,7 +225,7 @@ function trySdCIntersection(
 export const sueDeCoq: Strategy = {
   id: 'sue-de-coq',
   name: { zh: '苏德蔻', en: 'Sue de Coq' },
-  difficulty: 95,
+  difficulty: 1010,
 
   apply(grid: Grid): Step | null {
     // Try all row × box intersections

@@ -22,7 +22,7 @@ import type { Strategy } from '../strategy.js';
 export const nakedSingle: Strategy = {
   id: 'naked-single',
   name: { zh: '显性唯一', en: 'Naked Single' },
-  difficulty: 10,
+  difficulty: 150,
 
   apply(grid: Grid): Step | null {
     for (let cell = 0; cell < CELLS; cell++) {

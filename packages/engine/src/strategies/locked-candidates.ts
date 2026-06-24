@@ -160,7 +160,7 @@ function findClaimingSteps(grid: Grid, strategyId: string): Step[] {
 export const lockedCandidatesPointing: Strategy = {
   id: 'locked-candidates-pointing',
   name: { zh: '指向排除', en: 'Locked Candidates Pointing' },
-  difficulty: 20,
+  difficulty: 210,
 
   apply(grid: Grid): Step | null {
     return combineSteps(this.id, findPointingSteps(grid, this.id));
@@ -170,7 +170,7 @@ export const lockedCandidatesPointing: Strategy = {
 export const lockedCandidatesClaiming: Strategy = {
   id: 'locked-candidates-claiming',
   name: { zh: '声明排除', en: 'Locked Candidates Claiming' },
-  difficulty: 22,
+  difficulty: 220,
 
   apply(grid: Grid): Step | null {
     return combineSteps(this.id, findClaimingSteps(grid, this.id));
