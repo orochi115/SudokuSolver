@@ -23,11 +23,23 @@ export type LinkType = 'strong' | 'weak';
  * A chain link between two candidates, used to visualise AIC / coloring / chains.
  * - strong: if `from` is false then `to` is true (and vice-versa).
  * - weak:   if `from` is true then `to` is false.
+ *
+ * Group nodes (Roadmap ② gate 7): when a link endpoint is a GROUP of cells (e.g.
+ * a grouped AIC / grouped X-Cycle node spanning a box-line), `fromCells` /
+ * `toCells` carry every cell of that group for the same `digit`. They are
+ * additive and optional — `from` / `to` keep their single representative cell
+ * (`cells[0]`) for backward compatibility, and a consumer can treat the endpoint
+ * as a group when `fromCells`/`toCells` has length > 1. When absent, the endpoint
+ * is the single cell in `from`/`to`.
  */
 export interface Link {
   from: CellDigit;
   to: CellDigit;
   type: LinkType;
+  /** All cells of the `from` group node (same digit as `from`); omitted for single-cell nodes. */
+  fromCells?: number[];
+  /** All cells of the `to` group node (same digit as `to`); omitted for single-cell nodes. */
+  toCells?: number[];
 }
 
 /** Everything a UI needs to highlight for one step. */

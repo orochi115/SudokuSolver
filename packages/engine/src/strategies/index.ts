@@ -3,6 +3,18 @@
  *
  * Strategies are ordered by `difficulty` (ascending), so the solver loop
  * always prefers the cheapest available deduction first (FR-7).
+ *
+ * GLOBAL PRIORITY TABLE (Roadmap ② gate 2 — frozen canonical order).
+ * The `difficulty` scalar is the engine's single, total ordering of strategies.
+ * It is ranked by HUMAN recognition / learning cost (per docs/plans/diabolical-727.md),
+ * NOT implementation or runtime cost. Two invariants are machine-checked
+ * (test/strategy-profiles.test.ts):
+ *   1. `STRATEGIES.map(s => s.id)` equals `CANONICAL_STRATEGY_ORDER` exactly —
+ *      so any reordering is a deliberate edit to both, never accidental.
+ *   2. No two strategies share a `difficulty` — the order is a strict total order,
+ *      making default trace selection deterministic.
+ * Adding a strategy therefore means: insert it at its difficulty band AND add its
+ * id to CANONICAL_STRATEGY_ORDER at the same position.
  */
 
 import type { Strategy } from '../strategy.js';
@@ -65,6 +77,47 @@ export const STRATEGIES: readonly Strategy[] = [
   uniqueRectangleType4, // difficulty 93
   sueDeCoq,           // difficulty 95
   forcingChain,       // difficulty 100
+];
+
+/**
+ * Frozen snapshot of the registry order (gate 2). MUST list every id in
+ * `STRATEGIES` in the same order. Kept as an explicit constant so that a
+ * reorder/insert is a visible, reviewable diff and is enforced by tests.
+ */
+export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
+  'full-house',
+  'naked-single',
+  'hidden-single',
+  'locked-candidates-pointing',
+  'locked-candidates-claiming',
+  'naked-pair',
+  'hidden-pair',
+  'naked-triple',
+  'hidden-triple',
+  'naked-quad',
+  'hidden-quad',
+  'x-wing',
+  'skyscraper',
+  'two-string-kite',
+  'empty-rectangle',
+  'swordfish',
+  'xy-wing',
+  'xyz-wing',
+  'w-wing',
+  'jellyfish',
+  'simple-coloring',
+  'x-chain',
+  'aic',
+  'als-xz',
+  'als-xz-doubly-linked',
+  'als-xy-wing',
+  'death-blossom',
+  'bug-plus-one',
+  'unique-rectangle-type-1',
+  'unique-rectangle-type-2',
+  'unique-rectangle-type-4',
+  'sue-de-coq',
+  'forcing-chain',
 ];
 
 export {

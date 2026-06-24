@@ -208,6 +208,23 @@ last-resort：`forcing-chain`。
 
 ### 策略实现前置门槛（防漂移）
 
+> **状态（2026-06-24）：八门已全部落地**（branch `feat/strategy-gates-roadmap2`）。全量 `npm test` 绿（246 例，含 33 例新门槛测试 + AC-3 400 题 0 violation）。落地映射见下表。
+
+| 门 | 落地位置 | 测试 |
+|---|---|---|
+| 1 默认 profile | `src/strategies/profiles.ts`（`HUMAN_DEFAULT_STRATEGIES` / `LAST_RESORT_STRATEGIES`，`DEFAULT_PROFILE='human-default'`）；默认路径切到 human-default（`scripts/corpus-lib.ts`），`full-corpus`/`solve-rate` 加 `--profile` | `strategy-profiles.test.ts` |
+| 2 全局优先级表 | `src/strategies/index.ts` 冻结 `CANONICAL_STRATEGY_ORDER` + 无重复 difficulty 规约 | `strategy-profiles.test.ts` |
+| 3 重叠 canonical owner | `src/strategies/overlap.ts`（`OVERLAP_FAMILIES`，owner 唯一 + futureMembers 保留位） | `strategy-overlap.test.ts` |
+| 4 同族 tie-break | `src/strategy.ts` 增 `tieBreak` 元数据 + determinism 契约 | `strategy-precedence.test.ts`（determinism） |
+| 5 一步粒度 | `src/strategies/granularity-exceptions.ts`（白名单当前为空） | `strategy-precedence.test.ts` |
+| 6 链引擎边界 | `src/chain/boundaries.ts`（`CHAIN_OWNERSHIP` / `MULTI_BRANCH_IDS`；forcing 仅 last-resort，nice-loop/xy-chain 保留） | `strategy-overlap.test.ts` |
+| 7 group node trace | `src/trace.ts` `Link.fromCells/toCells`（加法式）；`src/chain/graph.ts` `chainToLinks` 填组格 | `group-node-trace.test.ts` |
+| 8 前置测试门槛 | 上述 4 个 test 文件（profile/order、overlap precedence、min-difficulty 选择、determinism、group link） | — |
+>
+> 经验门槛（300 题 diabolical 抽样，仅作机制验证）：human-default 258/300（0 invalid），last-resort 297/300（0 invalid）—— 差额即当前仍依赖 forcing-chain 的题，正是后续 P0→P1→P2 的目标。
+>
+> 以下为门槛的原始契约说明（保留为依据）：
+
 在开始实现任一 P0/P1/P2 具体策略前，先完成以下引擎契约冻结；否则新增 detector 容易互相吸收、trace 命名漂移，或因循环顺序改变默认解法路径。
 
 1. **默认策略 profile**：明确区分 `human-default` 与 `last-resort`。`human-default` 用于 Roadmap ② 进度统计，默认不启用 P3 / `forcing-chain`；`last-resort` 可保留现有 forcing 作为历史回归守门。727 目标优先看 `human-default` 在 P3 前的 solved 数。

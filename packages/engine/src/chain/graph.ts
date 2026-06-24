@@ -197,9 +197,15 @@ export function chainToLinks(graph: LinkGraph, chain: Chain): Link[] {
   for (let i = 1; i < chain.length; i++) {
     const a = graph.nodes[chain[i - 1]!.node]!;
     const b = graph.nodes[chain[i]!.node]!;
+    // `from`/`to` keep the single representative cell (cells[0]); group nodes
+    // (cells.length > 1) additionally expose every group cell via fromCells/toCells
+    // so the trace can express grouped AIC / grouped X-Cycle nodes (gate 7).
     const from: CellDigit = { cell: a.cells[0]!, digit: a.digit };
     const to: CellDigit = { cell: b.cells[0]!, digit: b.digit };
-    links.push({ from, to, type: chain[i]!.incoming! });
+    const link: Link = { from, to, type: chain[i]!.incoming! };
+    if (a.cells.length > 1) link.fromCells = [...a.cells];
+    if (b.cells.length > 1) link.toCells = [...b.cells];
+    links.push(link);
   }
   return links;
 }

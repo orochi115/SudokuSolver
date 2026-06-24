@@ -23,7 +23,7 @@ import { dirname, resolve } from 'node:path';
 import { Grid } from '../src/grid.js';
 import { solve } from '../src/solver.js';
 import { checkTraceSoundness } from '../src/soundness.js';
-import { STRATEGIES } from '../src/strategies/index.js';
+import { strategiesForProfile, type StrategyProfile } from '../src/strategies/profiles.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(here, '../../..');
@@ -60,12 +60,17 @@ interface SolveRateReport {
 function main(): void {
   mkdirSync(REPORTS_DIR, { recursive: true });
 
+  const profileArg = process.argv.indexOf('--profile');
+  const profile: StrategyProfile = profileArg >= 0 ? (process.argv[profileArg + 1] as StrategyProfile) : 'human-default';
+  const strategies = strategiesForProfile(profile);
+
   const report: SolveRateReport = {
     generatedAt: new Date().toISOString(),
-    strategies: STRATEGIES.map((s) => ({ id: s.id, difficulty: s.difficulty })),
+    strategies: strategies.map((s) => ({ id: s.id, difficulty: s.difficulty })),
     results: [],
     overall: { total: 0, solved: 0, solveRate: 0, soundViolations: 0 },
   };
+  console.log(`profile: ${profile}`);
 
   let overallTotal = 0;
   let overallSolved = 0;
@@ -88,13 +93,13 @@ function main(): void {
     const strategyUsage: Record<string, number> = {};
 
     // Initialize counters for all strategies
-    for (const s of STRATEGIES) strategyUsage[s.id] = 0;
+    for (const s of strategies) strategyUsage[s.id] = 0;
 
     for (const rec of records) {
       if (!rec.solution) continue;
 
       const g = Grid.fromString(rec.puzzle);
-      const trace = solve(g, STRATEGIES);
+      const trace = solve(g, strategies);
 
       // Count strategy usage
       for (const step of trace.steps) {

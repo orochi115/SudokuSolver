@@ -13,7 +13,7 @@
  */
 import { Grid } from '../src/grid.js';
 import { solve } from '../src/solver.js';
-import { STRATEGIES } from '../src/strategies/index.js';
+import { HUMAN_DEFAULT_STRATEGIES } from '../src/strategies/profiles.js';
 import type { Strategy } from '../src/strategy.js';
 
 export interface CorpusFailure {
@@ -68,6 +68,7 @@ export function validSolved(initial: string, final: string): boolean {
 export interface RunCorpusOptions {
   /** Added to the 0-based slice position to produce a stable 1-based `index`. */
   offset?: number;
+  /** Strategy list to solve with. Defaults to the human-default profile (no P3 / forcing-chain). */
   strategies?: readonly Strategy[];
   /** Called every `progressEvery` puzzles with the running stats. */
   onProgress?: (stats: CorpusStats) => void;
@@ -77,7 +78,7 @@ export interface RunCorpusOptions {
 /** Run the engine over `puzzles` and accumulate solve statistics + failures. */
 export function runCorpus(puzzles: string[], opts: RunCorpusOptions = {}): CorpusStats {
   const offset = opts.offset ?? 0;
-  const strategies = opts.strategies ?? STRATEGIES;
+  const strategies = opts.strategies ?? HUMAN_DEFAULT_STRATEGIES;
   const progressEvery = opts.progressEvery ?? 10000;
   const stats: CorpusStats = { n: 0, solved: 0, validSolved: 0, stuck: 0, errors: 0, failures: [] };
   for (let i = 0; i < puzzles.length; i++) {
