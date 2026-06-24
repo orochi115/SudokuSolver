@@ -206,6 +206,21 @@ last-resort：`forcing-chain`。
 
 ## 实施方法
 
+### 策略实现前置门槛（防漂移）
+
+在开始实现任一 P0/P1/P2 具体策略前，先完成以下引擎契约冻结；否则新增 detector 容易互相吸收、trace 命名漂移，或因循环顺序改变默认解法路径。
+
+1. **默认策略 profile**：明确区分 `human-default` 与 `last-resort`。`human-default` 用于 Roadmap ② 进度统计，默认不启用 P3 / `forcing-chain`；`last-resort` 可保留现有 forcing 作为历史回归守门。727 目标优先看 `human-default` 在 P3 前的 solved 数。
+2. **全局优先级表**：在 `packages/engine/src/strategies/index.ts` 对应文档中冻结新增策略的 `difficulty` 相对顺序。排序依据仍是人类识别/学习成本；同一候选状态下，默认 trace 必须选择更低成本、更新手可讲解的技巧。
+3. **重叠技巧 canonical owner**：把 [§ 重叠 / 包含关系](#重叠--包含关系交叉标注避免重复实现或独立去重出错) 落为工程规则。每个重叠族只能有一个默认搜索 owner；其他名称只能作为 alias、presentation split，或在更具体的 `strategyId` 下复用同一共享探测器。
+4. **同族内部 tie-break**：每个新增策略必须声明内部排序规则，例如 digit、house、size、chain length、node type、坐标顺序。不要让“第一个循环命中”成为隐式语义；若策略先枚举多个实例，应先 rank 再返回默认实例。
+5. **一步粒度**：默认仍是“一个 trace step = 一个具体模式实例”。现有同技巧跨实例合并只可作为显式 deferred exception；新增策略不得新增跨实例或跨子技巧合并。
+6. **链引擎边界**：在实现 Grouped AIC / Nice Loop / XY-Chain / AIC with ALS/UR/exotic nodes 前，先明确 AIC、X-Chain、XY-Chain、Nice Loop、Grouped AIC、forcing-chain 的归属与搜索开关。AIC 不应继续吞掉可命名的特例；forcing / contradiction / multi-branch 推演不得在 `human-default` 中伪装成普通链。
+7. **Group node trace 表达**：Grouped AIC / grouped X-Cycle 等若使用多格节点，trace/highlight 必须能表达 group node；不能只取组内第一个 candidate 作为链端点，否则 UI 与解释会漂移。
+8. **前置测试门槛**：新增 registry/profile order 测试、overlap precedence 测试、restored-state `strategyId` 测试、soundness 测试。特别要覆盖“同一 restored-state 同时命中多个技巧时默认选谁”。
+
+这些门槛本身应作为 Roadmap ② 的第一批任务完成；完成后再按 P0 → P1 → P2 推进具体策略。
+
 1. **聚类 727**（用我们自己的引擎探针，非外部解法器）：对每个 stuck 终局记录空格数、候选掩码、最后若干步策略 ID、各待实现技巧的可用性探针；按"首个可用的缺失技巧族"聚类，得到本仓库自测的杠杆排序。
 2. **按 P0 → P1 → P2 顺序、族内按实测产出**推进；每实现一个技巧前，先把它的研究卡升级到 ✅（模板九节）。
 3. **TDD**：先写失败用例（restored-state 定位首个分歧 + 整题，复用卡里的 worked example 作夹具），再最小实现新策略/更强变体；遵循 ① 的命名、一步粒度与排序原则。
