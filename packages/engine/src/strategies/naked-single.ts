@@ -23,6 +23,7 @@ export const nakedSingle: Strategy = {
   id: 'naked-single',
   name: { zh: '显性唯一', en: 'Naked Single' },
   difficulty: 150,
+  tieBreak: ['cell-index'],
 
   apply(grid: Grid): Step | null {
     for (let cell = 0; cell < CELLS; cell++) {

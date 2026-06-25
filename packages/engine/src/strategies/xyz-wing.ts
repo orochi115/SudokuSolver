@@ -21,6 +21,7 @@ export const xyzWing: Strategy = {
   id: 'xyz-wing',
   name: { zh: 'XYZ翼', en: 'XYZ-Wing' },
   difficulty: 470,
+  tieBreak: ['cell-index'],
 
   apply(grid: Grid): Step | null {
     // Pivot must have exactly 3 candidates

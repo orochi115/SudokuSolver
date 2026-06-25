@@ -101,4 +101,4 @@
 2. 确认其研究卡为 ✅ 实现级；不足则先补卡（见 spec 文档九节模板）。
 3. TDD：先写失败的 restored-state 用例（复用卡内 worked example）→ 最小实现 → 全语料无回退。
 4. 把该 id 从 `overlap.ts`/`boundaries.ts` 的 `futureMembers`/reserved 移入正式 members；在本表勾选 ✅。
-5. 每族完成后 `corpus:run --profile human-default` 记录 727 覆盖率增量。
+5. 每族完成后 `corpus:run --profile human-default` 记录 727 覆盖率增量；并用此残集做**迭代式杠杆测量**（挑下一个高杠杆技巧）——这取代了旧计划里「一次性前置聚类探针」（对未实现技巧无法探针、对全实现后又无残集，故只在循环中做，见 spec §实施方法 2）。终极 727 以 `--profile last-resort` 口径核对。

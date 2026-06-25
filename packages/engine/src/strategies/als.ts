@@ -40,7 +40,7 @@ import {
 } from '../grid.js';
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
-import type { Strategy } from '../strategy.js';
+import type { Strategy, TieBreakKey } from '../strategy.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
 interface ALS {
@@ -486,12 +486,14 @@ function makeAlsStrategy(
   id: string,
   name: { zh: string; en: string },
   difficulty: number,
+  tieBreak: readonly TieBreakKey[],
   applyTechnique: (grid: Grid, alsList: ALS[], strategyId: string) => Step | null,
 ): Strategy {
   return {
     id,
     name,
     difficulty,
+    tieBreak,
 
     apply(grid: Grid): Step | null {
       return applyTechnique(grid, findAllALS(grid), id);
@@ -503,6 +505,7 @@ export const alsXz = makeAlsStrategy(
   'als-xz',
   { zh: 'ALS-XZ', en: 'ALS-XZ' },
   810,
+  ['house'],
   tryALSXZ,
 );
 
@@ -510,6 +513,7 @@ export const alsXzDoublyLinked = makeAlsStrategy(
   'als-xz-doubly-linked',
   { zh: '双链 ALS-XZ', en: 'Doubly-linked ALS-XZ' },
   820,
+  ['house'],
   tryALSDoublyLinkedXZ,
 );
 
@@ -517,6 +521,7 @@ export const alsXyWing = makeAlsStrategy(
   'als-xy-wing',
   { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
   840,
+  ['house'],
   tryALSXYWing,
 );
 
@@ -524,5 +529,6 @@ export const deathBlossom = makeAlsStrategy(
   'death-blossom',
   { zh: '死亡之花', en: 'Death Blossom' },
   860,
+  ['cell-index'],
   tryDeathBlossom,
 );

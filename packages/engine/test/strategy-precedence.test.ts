@@ -81,3 +81,22 @@ describe('gate 5 — step granularity exceptions', () => {
     expect(GRANULARITY_EXCEPTION_IDS.size).toBe(0);
   });
 });
+
+describe('gate 4 — declared tie-break metadata', () => {
+  const VALID_KEYS = new Set(['digit', 'house', 'size', 'chain-length', 'node-type', 'cell-index']);
+
+  it('every strategy declares a non-empty tieBreak', () => {
+    for (const s of STRATEGIES) {
+      expect(Array.isArray(s.tieBreak), `${s.id} missing tieBreak`).toBe(true);
+      expect(s.tieBreak!.length, `${s.id} tieBreak empty`).toBeGreaterThan(0);
+    }
+  });
+
+  it('every tieBreak key is from the allowed vocabulary', () => {
+    for (const s of STRATEGIES) {
+      for (const k of s.tieBreak ?? []) {
+        expect(VALID_KEYS.has(k), `${s.id} has invalid tie-break key '${k}'`).toBe(true);
+      }
+    }
+  });
+});

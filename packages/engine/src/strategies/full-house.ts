@@ -26,6 +26,7 @@ export const fullHouse: Strategy = {
   id: 'full-house',
   name: { zh: '全屋唯一', en: 'Full House' },
   difficulty: 100, // Even cheaper than naked-single — scan houses first
+  tieBreak: ['house'],
 
   apply(grid: Grid): Step | null {
     for (let h = 0; h < HOUSES.length; h++) {

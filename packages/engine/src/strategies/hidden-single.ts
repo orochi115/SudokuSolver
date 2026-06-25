@@ -26,6 +26,7 @@ export const hiddenSingle: Strategy = {
   id: 'hidden-single',
   name: { zh: '隐性唯一', en: 'Hidden Single' },
   difficulty: 170,
+  tieBreak: ['house', 'digit'],
 
   apply(grid: Grid): Step | null {
     for (let h = 0; h < HOUSES.length; h++) {

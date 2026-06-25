@@ -25,6 +25,7 @@ export const wWing: Strategy = {
   id: 'w-wing',
   name: { zh: 'W翼', en: 'W-Wing' },
   difficulty: 480,
+  tieBreak: ['house'],
 
   apply(grid: Grid): Step | null {
     // Collect all bivalue cells grouped by their pair mask

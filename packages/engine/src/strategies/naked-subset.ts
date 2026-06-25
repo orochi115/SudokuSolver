@@ -50,6 +50,7 @@ function makeNakedSubsetStrategy(size: 2 | 3 | 4, id: string, difficulty: number
     id,
     name: SUBSET_NAMES[size]!,
     difficulty,
+    tieBreak: ['house'],
 
     apply(grid: Grid): Step | null {
       for (let h = 0; h < HOUSES.length; h++) {

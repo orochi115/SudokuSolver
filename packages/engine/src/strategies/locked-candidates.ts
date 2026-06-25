@@ -161,6 +161,7 @@ export const lockedCandidatesPointing: Strategy = {
   id: 'locked-candidates-pointing',
   name: { zh: '指向排除', en: 'Locked Candidates Pointing' },
   difficulty: 210,
+  tieBreak: ['house', 'digit'],
 
   apply(grid: Grid): Step | null {
     return combineSteps(this.id, findPointingSteps(grid, this.id));
@@ -171,6 +172,7 @@ export const lockedCandidatesClaiming: Strategy = {
   id: 'locked-candidates-claiming',
   name: { zh: '声明排除', en: 'Locked Candidates Claiming' },
   difficulty: 220,
+  tieBreak: ['house', 'digit'],
 
   apply(grid: Grid): Step | null {
     return combineSteps(this.id, findClaimingSteps(grid, this.id));
