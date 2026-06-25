@@ -235,7 +235,7 @@ export function gridFromS9B(bd: string): Grid {
   }
   for (let i = 0; i < CELLS; i++) {
     if (grid.values[i] === 0 && d.candidateMasks[i] !== 0) {
-      grid.candidates[i] = d.candidateMasks[i];
+      grid.candidates[i] = d.candidateMasks[i]!;
     }
   }
   return grid;

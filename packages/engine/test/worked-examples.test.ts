@@ -874,7 +874,7 @@ describe('research card worked examples (ground-truth verification)', () => {
         'S9B9f0887049i021u923m9o80805y060544800106808g01d2ba4k8g6i7x078t1ubucb03234a0r0508020u1r09071m038r8r5udmcb5f23020h8sak1u011m3o1w03051s3k464g5a391h090l1l1l09140704081u';
       const result = verifyRestoredStepSoundness(s9b, {
         strategyId: 'twinned-xy-chains',
-        difficulty: 100,
+        explanation: { zh: '', en: '' },
         placements: [],
         eliminations: [
           { cell: rc(1, 1), digit: 1 },
@@ -898,7 +898,7 @@ describe('research card worked examples (ground-truth verification)', () => {
         'S9B4g4e060a050g090w0o010i160206030h16070o120g087u7u110f150f020u160g8a0n7n08050a4e0f7u440o07804a0g09030144061018b64y4k1603220g438507160s0908011414067q5i01070b1u04b682';
       const result = verifyRestoredStepSoundness(s9b, {
         strategyId: 'aic-with-ur',
-        difficulty: 100,
+        explanation: { zh: '', en: '' },
         placements: [],
         eliminations: [
           { cell: rc(9, 5), digit: 5 },
@@ -914,7 +914,7 @@ describe('research card worked examples (ground-truth verification)', () => {
         'S9B1307028308120604821b0906070l1c0814101a1208067o1ca0a0019u109u03ad1g7p08040608017u9o2c88889w9i0o047n05087p069g02012q080309042q0608049u02363m9u01039u0603162i019w9w08';
       const result = verifyRestoredStepSoundness(s9b, {
         strategyId: 'aligned-exclusion',
-        difficulty: 100,
+        explanation: { zh: '', en: '' },
         placements: [],
         eliminations: [
           { cell: rc(4, 5), digit: 1 },
