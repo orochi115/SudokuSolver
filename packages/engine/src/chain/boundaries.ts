@@ -54,14 +54,12 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
   {
     strategyId: 'nice-loop',
     owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
 ];
 
