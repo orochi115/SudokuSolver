@@ -48,20 +48,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: true,
     profiles: ['last-resort'],
   },
-  // ---- reserved (gate 6 boundaries for future chain work) ----
+  // ---- E6: nice-loop and xy-chain implemented (P0) — reserved flag removed ----
   {
     strategyId: 'xy-chain',
     owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
   {
     strategyId: 'nice-loop',
-    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
+    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds). E6: owns all *-loop results; AIC must not emit loop kinds.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
 ];
 
