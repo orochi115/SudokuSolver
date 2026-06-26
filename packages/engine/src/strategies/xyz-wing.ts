@@ -237,6 +237,115 @@ export const wxyzWing: Strategy = {
   },
 };
 
+export const vwxyzWing: Strategy = {
+  id: 'vwxyz-wing',
+  name: { zh: 'VWXYZ翼', en: 'VWXYZ-Wing' },
+  difficulty: 530,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    for (let b = 0; b < 9; b++) {
+      const boxCells = BOXES[b]!;
+
+      const r0 = Math.floor(b / 3) * 3;
+      const c0 = (b % 3) * 3;
+      const intersectingLines = [
+        { lineCells: ROWS[r0]!, lineIdx: r0 },
+        { lineCells: ROWS[r0 + 1]!, lineIdx: r0 + 1 },
+        { lineCells: ROWS[r0 + 2]!, lineIdx: r0 + 2 },
+        { lineCells: COLS[c0]!, lineIdx: 9 + c0 },
+        { lineCells: COLS[c0 + 1]!, lineIdx: 9 + c0 + 1 },
+        { lineCells: COLS[c0 + 2]!, lineIdx: 9 + c0 + 2 },
+      ];
+
+      for (const { lineCells, lineIdx } of intersectingLines) {
+        const B_U_L_set = new Set([...boxCells, ...lineCells]);
+        const empty_B_U_L = [...B_U_L_set].filter(c => grid.get(c) === 0);
+        if (empty_B_U_L.length < 5) continue;
+
+        for (const combo of combinations(empty_B_U_L, 5)) {
+          if (combo.every(c => BOX_OF[c] === b)) continue;
+          if (combo.every(c => lineCells.includes(c))) continue;
+
+          let unionMask = 0;
+          for (const c of combo) unionMask |= grid.candidatesOf(c);
+          if (popcount(unionMask) !== 5) continue;
+
+          const digits = digitsOf(unionMask);
+          let unrestrictedDigit = -1;
+          const digitCellsMap = new Map<number, number[]>();
+
+          for (const d of digits) {
+            const dBit = maskOf(d);
+            const cellsWithD = combo.filter(c => (grid.candidatesOf(c) & dBit) !== 0);
+            digitCellsMap.set(d, cellsWithD);
+
+            let isRestricted = true;
+            for (let i = 0; i < cellsWithD.length; i++) {
+              for (let j = i + 1; j < cellsWithD.length; j++) {
+                if (!PEERS_OF[cellsWithD[i]!]!.includes(cellsWithD[j]!)) {
+                  isRestricted = false;
+                  break;
+                }
+              }
+              if (!isRestricted) break;
+            }
+
+            if (!isRestricted) {
+              if (unrestrictedDigit !== -1) {
+                unrestrictedDigit = -2;
+                break;
+              }
+              unrestrictedDigit = d;
+            }
+          }
+
+          if (unrestrictedDigit < 1) continue;
+
+          const z = unrestrictedDigit;
+          const zBit = maskOf(z);
+          const cellsWithZ = digitCellsMap.get(z)!;
+
+          const elims: { cell: number; digit: number }[] = [];
+          for (let c = 0; c < CELLS; c++) {
+            if (grid.get(c) !== 0) continue;
+            if (combo.includes(c)) continue;
+            if (!(grid.candidatesOf(c) & zBit)) continue;
+
+            const peers = new Set(PEERS_OF[c]!);
+            if (cellsWithZ.every(cz => peers.has(cz))) {
+              elims.push({ cell: c, digit: z });
+            }
+          }
+
+          if (elims.length > 0) {
+            const lineLabel = lineIdx < 9 ? `Row ${lineIdx + 1}` : `Col ${lineIdx - 9 + 1}`;
+            return {
+              strategyId: 'vwxyz-wing',
+              placements: [],
+              eliminations: elims,
+              highlights: {
+                cells: [...combo, ...elims.map(e => e.cell)],
+                candidates: [
+                  ...combo.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                  ...elims,
+                ],
+                links: [],
+              },
+              explanation: {
+                zh: `VWXYZ翼：五个格 ${combo.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')} 局限于宫 B${b+1} 和 ${lineLabel}，候选数共 ${digits.join(',')}，只有 ${z} 是非受限数字；消去所有能同时看到所有含 ${z} 格子的 ${z}。`,
+                en: `VWXYZ-Wing: five cells ${combo.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')} confined to box B${b+1} and ${lineLabel}, candidates are {${digits.join(',')}} with Z=${z} being the only non-restricted digit; eliminate ${z} from cells seeing all cells containing ${z} in the pattern.`,
+              },
+            };
+          }
+        }
+      }
+    }
+
+    return null;
+  },
+};
+
 export const bentSets: Strategy = {
   id: 'bent-sets',
   name: { zh: '弯曲集 (ALP/ALT)', en: 'Bent Sets' },

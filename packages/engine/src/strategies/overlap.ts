@@ -60,7 +60,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs', 'aic-with-als', 'wxyz-wing', 'bent-sets'],
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs', 'aic-with-als', 'wxyz-wing', 'vwxyz-wing', 'bent-sets'],
     futureMembers: ['als-xy-chain'],
     unified: false,
     note:
@@ -88,6 +88,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'avoidable-rectangle-type-3',
       'avoidable-rectangle-type-4',
       'tridagon',
+      'gurth',
     ],
     futureMembers: [],
     unified: false,

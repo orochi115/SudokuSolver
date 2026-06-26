@@ -82,18 +82,18 @@
 
 | strategyId | 目录家族 | detector（owner / 共享?） | 拟定 difficulty | 卡 | 状态 |
 |---|---|---|---|---|---|
-| `vwxyz-wing`（及 size-ladder） | VWXYZ-Wing | wing size-ladder 通项（复用 WXYZ 框架） | 530 | ✅ | ☐ |
-| `exocet`（Junior/Senior；Double Exocet 交叉标注） | Exocet | owner（exotic） | 1200 | ✅ | ☐ |
-| `sk-loop` | SK-Loop | MSLS 首发特例（每个 SK-Loop 蕴含一个 MSLS） | 1250 | ✅ | ☐ |
-| `msls` | MSLS | owner（多扇区） | 1300 | ✅ | ☐ |
-| `fireworks` | Fireworks | owner（exotic） | 1050 | ✅ | ☐ |
-| `aligned-pair-exclusion` / `aligned-triple-exclusion` | APE / ATE | ⊂ Subset Exclusion（对齐特例） | 1120 / 1130 | ✅ | ☐ |
-| `subset-exclusion`（Subset Counting） | Subset Exclusion | owner（APE/ATE 的非对齐推广） | 1140 | ✅ | ☐ |
-| `sue-de-coq-extended`（更大 SdC / 双线） | SdC 扩展 | 复用 sue-de-coq owner（界定与基型差异） | 1015 | ✅ | ☐ |
-| `aic-with-exotic-links` | AIC with exotic links | AIC 引擎 + exotic 节点 | 780 | ✅ | ☐ |
-| `twinned-xy-chains` | Twinned XY-Chains | 复用 xy-chain / aic | 775 | ✅ | ☐ |
-| `franken-fish` / `mutant-fish`（含 Endo Fins / Cannibalism / Siamese 呈现） | Franken / Mutant fish | owner（fish 扩展） | 1080 | ✅ | ☐ |
-| `gurth`（对称占位） | Gurth's Symmetrical Placement | owner（uniqueness / 对称） | 990 | ✅ | ☐ |
+| `vwxyz-wing`（及 size-ladder） | VWXYZ-Wing | wing size-ladder 通项（复用 WXYZ 框架） | 530 | ✅ | ✅ |
+| `exocet`（Junior/Senior；Double Exocet 交叉标注） | Exocet | owner（exotic） | 1200 | ✅ | ✅ |
+| `sk-loop` | SK-Loop | MSLS 首发特例（每个 SK-Loop 蕴含一个 MSLS） | 1250 | ✅ | ✅ |
+| `msls` | MSLS | owner（多扇区） | 1300 | ✅ | ✅ |
+| `fireworks` | Fireworks | owner（exotic） | 1050 | ✅ | ✅ |
+| `aligned-pair-exclusion` / `aligned-triple-exclusion` | APE / ATE | ⊂ Subset Exclusion（对齐特例） | 1120 / 1130 | ✅ | ✅ |
+| `subset-exclusion`（Subset Counting） | Subset Exclusion | owner（APE/ATE 的非对齐推广） | 1140 | ✅ | ✅ |
+| `sue-de-coq-extended`（更大 SdC / 双线） | SdC 扩展 | 复用 sue-de-coq owner（界定与基型差异） | 1015 | ✅ | ✅ |
+| `aic-with-exotic-links` | AIC with exotic links | AIC 引擎 + exotic 节点 | 780 | ✅ | ✅ |
+| `twinned-xy-chains` | Twinned XY-Chains | 复用 xy-chain / aic | 775 | ✅ | ✅ |
+| `franken-fish` / `mutant-fish`（含 Endo Fins / Cannibalism / Siamese 呈现） | Franken / Mutant fish | owner（fish 扩展） | 1080 | ✅ | ✅ |
+| `gurth`（对称占位） | Gurth's Symmetrical Placement | owner（uniqueness / 对称） | 990 | ✅ | ✅ |
 
 ## P3 — 最后手段 / 红线（仅 last-resort，隔离 human-default）
 
