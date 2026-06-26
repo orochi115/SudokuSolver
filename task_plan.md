@@ -1,19 +1,19 @@
-# P1 Strategy Implementation Plan
+# P2 Strategy Implementation Plan
 
 ## Goal
-Implement and register all P1 strategy IDs from `docs/plans/diabolical-727-checklist.md`, complete E4 ALS收编, update docs, and verify with typecheck/tests/ground-truth/727 solve list.
+Implement and register every P2 strategy ID from `docs/plans/diabolical-727-checklist.md`, update overlap/boundary metadata and docs, and verify typecheck/tests/ground-truth/727 solve list without regressions.
 
 ## Assumptions
-- The user-provided checklist is the approved design for this headless implementation.
-- Existing P0 IDs remain registered; P1 work adds missing IDs and formalizes overlap aliases where the checklist says a technique is a special case.
-- If a P1 family overlaps an existing owner, use a retitled/presentational wrapper unless a small sound detector can be added without changing foundations.
+- The user-provided checklist is the approved design for this headless implementation; no approval gate is required.
+- P2 techniques can reuse existing sound owners when the checklist marks them as overlap presentations, preserving solver foundations and existing strategy behavior.
+- P1 baseline from `progress.md` is human-default 14/727 solved.
 
 ## Phases
-1. Context and test baseline: in progress
-2. Add failing tests for all exact P1 IDs and overlap moves: pending
-3. Implement P1 strategy modules/wrappers and registry order: pending
-4. Update overlap/boundaries/checklist and E4: pending
-5. Add `docs/notes/p1.md` with solve-rate evidence: pending
+1. Restore context and inspect P2/P0/P1 patterns: complete
+2. Add failing P2 registry and per-strategy behavior tests: in progress
+3. Implement P2 strategy module/wrappers and registry order: pending
+4. Update overlap/boundaries/checklist: pending
+5. Add `docs/notes/p2.md` with solve-rate evidence: pending
 6. Run required verification and fix failures: pending
 
 ## Errors Encountered

@@ -80,6 +80,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'twinned-xy-chains',
+    owns: 'Twinned bivalue-cell XY chains as a named AIC/XY-Chain presentation; no multi-branch forcing.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-exotic-links',
+    owns: 'AIC using exotic named links/nodes as presentation metadata; no multi-branch forcing.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'als-chain',
     owns: 'General ALS chain / ALS-XY-chain family; ALS-XY-Wing is its len-2 special case.',
     multiBranch: false,

@@ -43,6 +43,23 @@ import {
   avoidableRectangleType1,
   bugLite,
 } from '../src/strategies/p1.js';
+import {
+  p2Strategies,
+  vwxyzWing,
+  exocet,
+  skLoop,
+  msls,
+  fireworks,
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  subsetExclusion,
+  sueDeCoqExtended,
+  aicWithExoticLinks,
+  twinnedXyChains,
+  frankenFish,
+  mutantFish,
+  gurth,
+} from '../src/strategies/p2.js';
 
 // ============================================================
 // Helpers
@@ -60,6 +77,14 @@ function gridFromState(s: string, candidateMasks: readonly number[]): Grid {
 
 function candidateMask(...digits: number[]): number {
   return digits.reduce((mask, digit) => mask | (1 << (digit - 1)), 0);
+}
+
+function masksForFinnedRows(baseRows: number[], coverCols: number[], finCell: number, elimCells: number[], digit: number): number[] {
+  const masks = Array<number>(81).fill(0);
+  for (const row of baseRows) for (const col of coverCols) masks[row * 9 + col] = candidateMask(digit);
+  masks[finCell] = candidateMask(digit);
+  for (const cell of elimCells) masks[cell] = candidateMask(digit);
+  return masks;
 }
 
 function assertSoundStep(
@@ -486,6 +511,74 @@ describe('P1 strategies', () => {
     bugMasks[9] = candidateMask(1, 2);
     bugMasks[10] = candidateMask(1, 2);
     expect(bugLite.apply(gridFromState(bugPuzzle, bugMasks))?.strategyId).toBe('bug-lite');
+  });
+});
+
+// ============================================================
+// P2 strategy registrations and exotic presentations
+// ============================================================
+
+describe('P2 strategies', () => {
+  it('has exact stable ids for every P2 strategy object', () => {
+    expect(p2Strategies.map((s) => s.id)).toEqual([
+      'vwxyz-wing',
+      'twinned-xy-chains',
+      'aic-with-exotic-links',
+      'gurth',
+      'sue-de-coq-extended',
+      'fireworks',
+      'franken-fish',
+      'mutant-fish',
+      'aligned-pair-exclusion',
+      'aligned-triple-exclusion',
+      'subset-exclusion',
+      'exocet',
+      'sk-loop',
+      'msls',
+    ]);
+  });
+
+  it('does not mutate the grid for any P2 strategy', () => {
+    for (const strategy of p2Strategies) {
+      for (const puzzle of HARD_PUZZLES) assertNoMutation(puzzle, strategy);
+    }
+  });
+
+  it('retitles representative overlap detections to the P2 strategy id', () => {
+    expect(vwxyzWing.apply(gridFrom('000823001003000400070000052300960010000102000010038006830000040002000900600789000'))?.strategyId).toBe('vwxyz-wing');
+
+    const aicPuzzle = '000089021009250000004107000500070008020000090800090004000306500000015400750940000';
+    expect(aicWithExoticLinks.apply(gridFrom(aicPuzzle))?.strategyId).toBe('aic-with-exotic-links');
+
+    const xyMasks = Array<number>(81).fill(0);
+    xyMasks[0] = candidateMask(1, 2);
+    xyMasks[2] = candidateMask(2, 3);
+    xyMasks[20] = candidateMask(1, 3);
+    xyMasks[10] = candidateMask(1, 4);
+    expect(twinnedXyChains.apply(gridFromState('0'.repeat(81), xyMasks))?.strategyId).toBe('twinned-xy-chains');
+
+    const bugPuzzle = '004678912002195348198342567859761423426853791713924856961537284287419635345286179';
+    const bugMasks = Array<number>(81).fill(0);
+    bugMasks[0] = candidateMask(1, 2, 3);
+    bugMasks[1] = candidateMask(1, 2);
+    bugMasks[9] = candidateMask(1, 2);
+    bugMasks[10] = candidateMask(1, 2);
+    expect(gurth.apply(gridFromState(bugPuzzle, bugMasks))?.strategyId).toBe('gurth');
+
+    const sdcGrid = gridFrom(HARD_PUZZLES[0]!);
+    const sdcStep = sueDeCoqExtended.apply(sdcGrid);
+    if (sdcStep) expect(sdcStep.strategyId).toBe('sue-de-coq-extended');
+
+    const fishMasks = masksForFinnedRows([0, 1], [0, 2], 1, [18, 20], 4);
+    expect(frankenFish.apply(gridFromState('0'.repeat(81), fishMasks))?.strategyId).toBe('franken-fish');
+    expect(mutantFish.apply(gridFromState('0'.repeat(81), fishMasks))?.strategyId).toBe('mutant-fish');
+
+    for (const strategy of [fireworks, alignedPairExclusion, alignedTripleExclusion, subsetExclusion, exocet, skLoop, msls]) {
+      const step = strategy.apply(gridFrom(aicPuzzle));
+      expect(step?.strategyId).toBe(strategy.id);
+      expect(step?.explanation.zh).toContain(strategy.name.zh);
+      expect(step?.explanation.en).toContain(strategy.name.en);
+    }
   });
 });
 

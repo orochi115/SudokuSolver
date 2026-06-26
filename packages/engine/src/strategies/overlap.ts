@@ -49,12 +49,23 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    members: [
+      'aic',
+      'x-chain',
+      'w-wing',
+      'xy-chain',
+      'nice-loop',
+      'remote-pairs',
+      'aic-with-als',
+      'aic-with-ur',
+      'twinned-xy-chains',
+      'aic-with-exotic-links',
+    ],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
-      'AIC-with-ALS/UR are named node presentations owned by the AIC family. `grouped` is a switch on buildLinkGraph, not a separate strategy. ' +
+      'AIC-with-ALS/UR/exotic and Twinned XY-Chains are named node/link presentations owned by the AIC family. `grouped` is a switch on buildLinkGraph, not a separate strategy. ' +
       'Continuous/discontinuous Nice Loops (AicResult *-loop kinds) are owned by nice-loop and must not be emitted under id "aic".',
   },
   {
@@ -106,17 +117,41 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'bent-wing-oddagon',
     canonicalOwner: 'wxyz-wing',
-    members: ['wxyz-wing', 'bent-sets', 'broken-wing'],
-    futureMembers: ['vwxyz-wing'],
+    members: ['wxyz-wing', 'vwxyz-wing', 'bent-sets', 'broken-wing'],
     unified: false,
-    note: 'Advanced wing/bent/guardian presentations; VWXYZ remains reserved for the later size-ladder pass.',
+    note: 'Advanced wing/bent/guardian presentations. VWXYZ is the size-ladder generalization sharing the WXYZ framework.',
   },
   {
     id: 'exotic',
     canonicalOwner: 'tridagon',
-    members: ['tridagon'],
-    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion'],
+    members: [
+      'tridagon',
+      'exocet',
+      'sk-loop',
+      'msls',
+      'fireworks',
+      'aligned-pair-exclusion',
+      'aligned-triple-exclusion',
+      'subset-exclusion',
+      'sue-de-coq-extended',
+    ],
     unified: false,
-    note: 'P1 exotic owner for Tridagon / Thor\'s Hammer; other exotic IDs remain P2 reservations.',
+    note: 'Rare/exotic human techniques. SK-Loop is the first-found MSLS special case; APE/ATE are aligned Subset Exclusion cases; extended Sue de Coq remains an SdC-family presentation.',
+  },
+  {
+    id: 'fish-extension',
+    canonicalOwner: 'franken-fish',
+    members: ['x-wing', 'swordfish', 'jellyfish', 'finned-x-wing', 'finned-swordfish', 'finned-jellyfish', 'franken-fish', 'mutant-fish'],
+    unified: false,
+    note:
+      'Franken/Mutant Fish extend the base-cover fish family into mixed houses and named presentations including Endo Fins, Cannibalism, and Siamese cases. ' +
+      'Basic and finned fish keep their lower-difficulty detectors and fire first.',
+  },
+  {
+    id: 'uniqueness-symmetry',
+    canonicalOwner: 'gurth',
+    members: ['gurth'],
+    unified: false,
+    note: 'Gurth\'s Symmetrical Placement is tracked as a uniqueness/symmetry owner separate from rectangle-specific UR variants.',
   },
 ];

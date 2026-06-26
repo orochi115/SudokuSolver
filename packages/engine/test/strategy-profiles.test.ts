@@ -52,6 +52,25 @@ describe('gate 2 — frozen global priority table', () => {
     ]));
   });
 
+  it('registers every required P2 strategy id exactly', () => {
+    expect(STRATEGIES.map((s) => s.id)).toEqual(expect.arrayContaining([
+      'vwxyz-wing',
+      'exocet',
+      'sk-loop',
+      'msls',
+      'fireworks',
+      'aligned-pair-exclusion',
+      'aligned-triple-exclusion',
+      'subset-exclusion',
+      'sue-de-coq-extended',
+      'aic-with-exotic-links',
+      'twinned-xy-chains',
+      'franken-fish',
+      'mutant-fish',
+      'gurth',
+    ]));
+  });
+
   it('STRATEGIES order matches CANONICAL_STRATEGY_ORDER exactly', () => {
     expect(STRATEGIES.map((s) => s.id)).toEqual([...CANONICAL_STRATEGY_ORDER]);
   });
