@@ -1,6 +1,5 @@
-# P2 累积必须注册的 strategyId（含 P0 + P1 + P2 新增，缺一即退回重试）。
-# 取自 docs/plans/diabolical-727-checklist.md §P0 + §P1 + §P2。
-# --- P0 ---
+# P2b 累积必须注册的 strategyId（P0 + P1 + 全部 P2；soft-gate 下按 727-delta 评分）。
+# 取自 docs/plans/diabolical-727-checklist.md §P0+§P1+§P2（P2 全集）。
 finned-x-wing
 finned-swordfish
 finned-jellyfish

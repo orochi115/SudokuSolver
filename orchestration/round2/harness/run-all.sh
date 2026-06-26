@@ -22,11 +22,13 @@ HARNESS="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(git rev-parse --show-toplevel)"
 R2="$(cd "$HARNESS/.." && pwd)"
 RETRIES="${RETRIES:-3}"
-MAX_PAR="${MAX_PAR:-4}"
+MAX_PAR="${MAX_PAR:-8}"               # API-turn concurrency; shared-key pairs still serialized below
+VERIFY_MAX="${VERIFY_MAX:-3}"         # local verify concurrency cap (protects the laptop); used by run-model
 SERIAL_PROVIDERS="${SERIAL_PROVIDERS:-amazon-bedrock alibaba-cn siliconflow-cn grok}"
 SERIAL_CAP="${SERIAL_CAP:-1}"
+export VERIFY_MAX
 STATUS_DIR="$R2/reports/status"
-PHASES=(p0 p1 p2 e p3)
+PHASES=(p0 p1 p2a p2b e p3)
 mkdir -p "$STATUS_DIR"
 
 cap_of() { case " $SERIAL_PROVIDERS " in *" $1 "*) printf '%s' "$SERIAL_CAP";; *) printf '%s' "$MAX_PAR";; esac; }
@@ -45,17 +47,26 @@ if [ "${1:-}" = "--one" ]; then
 
   ldir="$(cd "$REPO/.." && pwd)/sudoku-wt-r2/logs/$name"
   mkdir -p "$ldir"
-  exec > >(tee -a "$ldir/pipeline.log") 2>&1
+  exec >> "$ldir/pipeline.log" 2>&1   # append (resume keeps prior log); no tee (terminal noise off for long runs)
 
-  sf="$STATUS_DIR/$name.tsv"; : > "$sf"
-  prev_ok=1
+  # Soft-gate + resumable: status labels are OK (soft-pass, scored by 727-delta in
+  # <phase>.verify.json), STOP (hard fail: build/test/soundness/pollution), SKIP.
+  # On resume we KEEP already-decided phases and only run undecided ones.
+  sf="$STATUS_DIR/$name.tsv"; touch "$sf"
+  # Resume rule: only a clean OK is final (skip it). A prior STOP/SKIP may have been
+  # infrastructure (sleep/network), so on a fresh launch it is RE-ATTEMPTED; a genuine
+  # hard-fail just re-STOPs (bounded by RETRIES). Within ONE run, a fresh STOP cascades
+  # to SKIP for later phases (don't build on a broken/unsound/polluted state).
+  hard_stop=0
   for ph in "${PHASES[@]}"; do
-    if [ "$prev_ok" != "1" ]; then printf '%s\tSKIP\n' "$ph" >> "$sf"; continue; fi
+    prev="$(awk -F'\t' -v p="$ph" '$1==p{print $2}' "$sf" | tail -1)"
+    if [ "$prev" = "OK" ]; then echo "### [$name] $ph already OK — skip (resume)"; continue; fi
+    if [ "$hard_stop" = "1" ]; then printf '%s\tSKIP\n' "$ph" >> "$sf"; continue; fi
     echo "### [$name] $model :: $ph  ($(date '+%Y-%m-%d %H:%M:%S'))"
     if bash "$HARNESS/run-model.sh" "$model" "$name" "$runner" "$ph" "$RETRIES"; then
-      printf '%s\tPASS\n' "$ph" >> "$sf"
+      printf '%s\tOK\n' "$ph" >> "$sf"
     else
-      printf '%s\tFAIL\n' "$ph" >> "$sf"; prev_ok=0
+      printf '%s\tSTOP\n' "$ph" >> "$sf"; hard_stop=1
     fi
   done
   exit 0
@@ -66,8 +77,24 @@ MODELS_FILE="${1:-$R2/models.txt}"
 [ -f "$MODELS_FILE" ] || { echo "models file not found: $MODELS_FILE"; exit 1; }
 
 mkdir -p "$R2/reports"
+rm -rf "$R2/reports/.verifylock"   # clear stale verify-semaphore slots from a prior run
 exec > >(tee -a "$R2/reports/scheduler.log") 2>&1
 echo "===== round2 run-all start $(date '+%Y-%m-%d %H:%M:%S') ====="
+
+# Keep machine awake while running (lid-OPEN idle/system sleep only; clamshell/lid-close
+# still needs `sudo pmset -a disablesleep 1`). Auto-released when this script exits.
+if command -v caffeinate >/dev/null 2>&1; then
+  caffeinate -dimsu -w "$$" >/dev/null 2>&1 &
+  echo "caffeinate -dimsu -w $$ (PID $!) started — blocks idle/system sleep (NOT lid-close)"
+fi
+# Watchdog: reaps any pipeline whose log stops growing past WATCHDOG_STALL (sleep/network
+# wedge belt-and-suspenders, on top of run-model's own wall-clock deadlines). Dies with us.
+WATCHDOG_PID=""
+if [ "${WATCHDOG:-1}" = "1" ]; then
+  bash "$HARNESS/watchdog.sh" "$$" >>"$R2/reports/watchdog.log" 2>&1 &
+  WATCHDOG_PID=$!; echo "watchdog PID $WATCHDOG_PID (stall=${WATCHDOG_STALL:-2400}s)"
+  trap 'kill "$WATCHDOG_PID" 2>/dev/null' EXIT
+fi
 
 models=(); names=(); runners=(); ptags=(); launched=()
 while read -r m n r p _rest; do
@@ -100,7 +127,10 @@ while [ "$(remaining)" -gt 0 ] || [ "${#run_pids[@]}" -gt 0 ]; do
   fi
   if [ "$progressed" = "0" ]; then if [ "${#run_pids[@]}" -gt 0 ]; then sleep 2; else break; fi; fi
 done
-wait
+# NB: the loop above already joins every --one pipeline (reap empties run_pids on exit).
+# Do NOT `wait` here — caffeinate (-w $$) and the watchdog both block until THIS pid exits,
+# so a bare wait would deadlock. Stop the watchdog explicitly; caffeinate auto-releases on exit.
+[ -n "${WATCHDOG_PID:-}" ] && kill "$WATCHDOG_PID" 2>/dev/null
 
 echo "All pipelines finished. Generating report..."
 bash "$HARNESS/report.sh" "$MODELS_FILE" || true

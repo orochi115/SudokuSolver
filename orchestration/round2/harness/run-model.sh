@@ -39,7 +39,12 @@ mkdir -p "$LOG_DIR"
 
 note() { echo "[NOTE $NAME/$PH] $*"; printf '%s %s\n' "$(date +%H:%M:%S)" "$*" >>"$LOG_DIR/$PH.notes"; }
 
-AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n若有会影响实现的疑问,请写入 worktree 根目录的 `QUESTIONS.md`(每条一行)再继续,不要停下等待回答。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。'
+# Kill a process AND all its descendants (a bare kill left wedged children alive
+# after sleep-induced socket stalls — see round2 v1 post-mortem). TERM then KILL.
+_kill_tree() { local p="$1" c; for c in $(pgrep -P "$p" 2>/dev/null); do _kill_tree "$c"; done; kill -TERM "$p" 2>/dev/null; }
+_kill_tree9() { local p="$1" c; for c in $(pgrep -P "$p" 2>/dev/null); do _kill_tree9 "$c"; done; kill -KILL "$p" 2>/dev/null; }
+
+AUTONOMY=$'\n\n## 自主执行(headless)\n本任务在无人值守环境运行:请完全自主完成,**不要提问**;遇歧义就选合理方案、简述假设并继续。\n若有会影响实现的疑问,请写入 worktree 根目录的 `QUESTIONS.md`(每条一行)再继续,不要停下等待回答。\n反复运行 `npm run typecheck` 与 `npm test` 直到全绿后再结束。\n\n## 红线(硬性,违反直接判失败)\n- **禁止任何"伪装成人类策略"的枚举/搜索**:human-default 档的策略**不得**做试错/回溯/矛盾穷举(Nishio/forcing-net 之类),这类只允许放进 `last-resort`(P3,且 id 必须进 `LAST_RESORT_IDS`)。\n- **禁止调用暴力求解器/答案**:策略代码**绝不**可调用 `solveBruteforce`/`countSolutions`/`findGroundTruth` 或读取任何答案来"解题"——验收会扫描并直接判失败。\n- 每个 elimination/placement 必须是**有名可讲的人类推理**,验收对 400 题与 727 残集**逐步**做健全性校验,任何非法消除直接判失败。\n\n## 结束前自检(必须做,并写进设计说明)\n- 跑 `npm run solve:list -- --profile human-default` 与 `-- --profile last-resort`,记录两档 727 解出数(本阶段相对上一阶段的 delta)。\n- 确认 human-default 的解出提升来自**真实人类技巧**,不是搜索;若某策略涉及多分支搜索,要么归到 last-resort,要么不提交。\n- 自审:逐策略说明在 727 上命中多少题、有无任何策略内部做回溯/穷举。'
 
 required_ids_section() {
   local f="$R2/required-ids/$PH.txt" list
@@ -49,41 +54,52 @@ required_ids_section() {
   printf '\n\n## 必须实现/保持注册的策略(缺一不可,缺失会被验收退回重试)\n请按下列**精确 strategyId** 注册到 `strategies/index.ts`(地基已有 33 个策略,无需重列):\n%s\n' "$list"
 }
 
-# --- opencode runner (JSON event stream; idle-detect to proceed promptly) ---
-run_opencode() {
-  local log="$1"; shift
-  local idle_limit="${IDLE:-180}"
-  opencode "$@" >"$log" 2>&1 &
-  local pid=$! waited=0 idle=0 last=0 size
+# Wait for a backgrounded child by WALL-CLOCK (date), not loop-iteration count.
+# Rationale (round2 v1 post-mortem): laptop sleep freezes the poll loop, so an
+# iteration counter undercounts elapsed time and never trips — a sleep-wedged,
+# dead-socket process hung forever. Wall-clock deadlines fire correctly on wake.
+#   _wait_child <pid> <log> <idle_limit> <hard_timeout>
+# Ends the turn on: (a) natural exit, (b) no log growth for idle_limit WALL secs
+# (turn done / stalled), or (c) hard_timeout WALL secs. Kills the whole subtree.
+_wait_child() {
+  local pid="$1" log="$2" idle_limit="$3" hard="$4"
+  local start now size last_size=0 last_grow
+  start=$(date +%s); last_grow=$start
   while kill -0 "$pid" 2>/dev/null; do
-    sleep 10; waited=$((waited + 10))
+    sleep 10; now=$(date +%s)
     size=$(wc -c <"$log" 2>/dev/null | tr -d ' '); size=${size:-0}
-    if [ "$size" -gt "$last" ]; then last=$size; idle=0; else idle=$((idle + 10)); fi
-    if [ "$idle" -ge "$idle_limit" ]; then note "opencode idle ${idle_limit}s -> turn done -> $(basename "$log")"; kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break; fi
-    if [ "$waited" -ge "$TIMEOUT" ]; then note "opencode hard TIMEOUT ${TIMEOUT}s -> killed"; kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break; fi
+    if [ "$size" -gt "$last_size" ]; then last_size=$size; last_grow=$now; fi
+    if [ "$idle_limit" -gt 0 ] && [ $((now - last_grow)) -ge "$idle_limit" ]; then
+      note "idle ${idle_limit}s (wall, no output) -> turn done/stalled -> $(basename "$log")"; _kill_tree "$pid"; sleep 2; _kill_tree9 "$pid"; break; fi
+    if [ $((now - start)) -ge "$hard" ]; then
+      note "hard TIMEOUT ${hard}s (wall) -> killed -> $(basename "$log")"; _kill_tree "$pid"; sleep 2; _kill_tree9 "$pid"; break; fi
   done
   wait "$pid" 2>/dev/null; return 0
 }
 
-# --- grok runner: single-turn via --prompt-file. ---
-# NOTE: `grok -p/--prompt-file` is single-turn and EXITS when the turn is done
-# (unlike opencode, which lingers). With `--output-format json` grok also buffers
-# a single JSON object to stdout at the very END, so there is NO incremental
-# output to detect idle on — an idle-kill would (and did, in the P0 smoke) murder
-# grok mid-work before it emits the session id. So we WAIT for natural exit and
-# only enforce the hard TIMEOUT cap.
+# --- opencode runner: lingers after the turn, so idle (no-output) ends it ---
+run_opencode() {
+  local log="$1"; shift
+  : >"$log"
+  opencode "$@" >"$log" 2>&1 &
+  _wait_child "$!" "$log" "${IDLE:-180}" "$TIMEOUT"
+}
+
+# --- grok runner: single-turn via --prompt-file, exits on its own. ---
+# Uses --output-format streaming-json (NOT json): json buffers one object to the
+# END (0-byte log mid-turn -> killed the idle heuristic AND lost the process trace
+# in round2 v1). streaming-json emits incremental events (thought/text/tool/end),
+# so the log grows live -> stall detection works and the full process is captured.
+# sessionId is in the final {"type":"end",...,"sessionId":...} event.
 # Args: <log> <prompt-file> [resume-session-id]
 run_grok() {
   local log="$1" pf="$2" sid="${3:-}"
-  local args=(-m "$MODEL" --cwd "$WT" --output-format json --always-approve --no-plan --prompt-file "$pf")
+  : >"$log"
+  local args=(-m "$MODEL" --cwd "$WT" --output-format streaming-json --always-approve --no-plan --prompt-file "$pf")
   [ -n "$sid" ] && args=(-r "$sid" "${args[@]}")
   grok "${args[@]}" >"$log" 2>&1 &
-  local pid=$! waited=0
-  while kill -0 "$pid" 2>/dev/null; do
-    sleep 10; waited=$((waited + 10))
-    if [ "$waited" -ge "$TIMEOUT" ]; then note "grok hard TIMEOUT ${TIMEOUT}s -> killed"; kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break; fi
-  done
-  wait "$pid" 2>/dev/null; return 0
+  # grok exits naturally; idle here = "stalled" (e.g. sleep-killed socket), default 600s.
+  _wait_child "$!" "$log" "${GROK_STALL:-600}" "$TIMEOUT"
 }
 
 commit_phase() {
@@ -109,6 +125,35 @@ record_metrics() {
 collect_verify_json() {
   [ -f "$WT/.r2-verify-$PH.json" ] && cp "$WT/.r2-verify-$PH.json" "$LOG_DIR/$PH.verify.json" || true
   for f in "$WT/.r2-solve-$PH".*.json; do [ -f "$f" ] && cp "$f" "$LOG_DIR/" || true; done
+}
+
+# Verify concurrency lock (R6): cap simultaneous verifies across all parallel
+# models to VERIFY_MAX so N heavy vitest+solve:list runs don't thrash the laptop.
+# mkdir-based counting semaphore; run-all clears the lockdir at start (stale-safe).
+LOCKDIR="$R2/reports/.verifylock"
+acquire_verify() {
+  mkdir -p "$LOCKDIR"; local k sf
+  while true; do
+    for k in $(seq 1 "${VERIFY_MAX:-3}"); do
+      sf="$LOCKDIR/slot$k"
+      if mkdir "$sf" 2>/dev/null; then echo "$sf"; return 0; fi
+    done
+    sleep 5
+  done
+}
+release_verify() { [ -n "${1:-}" ] && rmdir "$1" 2>/dev/null; return 0; }
+
+# Run verify.sh under a verify-slot + a hard wall-clock cap (a sleep-stalled verify
+# must not wedge the pipeline). Echoes verify output; returns verify's exit code:
+#   0 = full pass | 2 = soft (sound+clean but required ids incomplete) | 1 = hard fail.
+guarded_verify() {
+  local out="$LOG_DIR/$PH-verify-$i.out"; : >"$out"; rm -f "$out.rc"
+  local slot; slot="$(acquire_verify)"
+  ( bash "$HARNESS/verify.sh" "$WT" "$PH" >"$out" 2>&1; echo $? >"$out.rc" ) &
+  _wait_child "$!" "$out" 0 "${VERIFY_TIMEOUT:-1800}"
+  release_verify "$slot"
+  cat "$out"
+  local rc; rc="$(cat "$out.rc" 2>/dev/null)"; [ -n "$rc" ] && return "$rc" || return 1
 }
 
 # --- ensure worktree (created at p0, reused later) ---
@@ -145,31 +190,34 @@ else
   [ -n "$SID" ] || note "no session id captured in attempt 1 (model may have failed to start/errored) -> see $PH-attempt-1.log"
 fi
 
+# Soft-gate loop (R4): verify rc 0=full / 2=soft(sound+clean, ids incomplete) / 1=hard.
+# Full pass -> done. Hard fail -> retry; if exhausted, STOP (exit 1). Soft -> retry to
+# push for more ids; if exhausted, ACCEPT as soft-pass (exit 0) scored by 727-delta.
+finish() {  # <status-label> <exitcode>
+  collect_verify_json; commit_phase "$1" "$i"; record_metrics "$1" "$i" "$(( $(date +%s) - t0 ))"; exit "$2"
+}
 i=1
 while true; do
-  if OUT="$(bash "$HARNESS/verify.sh" "$WT" "$PH" 2>&1)"; then
-    echo "$OUT"; echo "=== [$NAME] $PH PASSED after $i attempt(s) ==="
-    collect_verify_json; commit_phase PASS "$i"; record_metrics PASS "$i" "$(( $(date +%s) - t0 ))"; break
-  fi
+  OUT="$(guarded_verify)"; rc=$?
   echo "$OUT"
+  if [ "$rc" -eq 0 ]; then echo "=== [$NAME] $PH FULL PASS after $i attempt(s) ==="; finish OK-full 0; fi
   if [ "$i" -ge "$MAX_RETRIES" ]; then
-    echo "=== [$NAME] $PH FAILED after $i attempt(s) ==="
-    collect_verify_json; commit_phase FAIL "$i"; record_metrics FAIL "$i" "$(( $(date +%s) - t0 ))"; exit 1
+    if [ "$rc" -eq 2 ]; then echo "=== [$NAME] $PH SOFT-PASS after $i (sound+clean; ids incomplete — scored by 727-delta) ==="; finish OK-soft 0
+    else echo "=== [$NAME] $PH HARD-FAIL after $i (build/test/soundness/pollution) ==="; finish STOP 1; fi
   fi
   i=$((i + 1))
-  echo "=== [$NAME] $PH verify failed; retry $i ==="
+  echo "=== [$NAME] $PH verify rc=$rc; retry $i ==="
   LOGN="$LOG_DIR/$PH-attempt-$i.log"
-  FB="上一次验收未通过。verify 输出如下:
+  FB="上一次验收未通过(rc=$rc)。verify 输出如下:
 
 $OUT
 
-请自主修复,不要提问,直到 npm run typecheck、npm test 全绿,且引擎对 data/ground-truth 零健全性 violation、本阶段全部 required strategyId 已注册。"
+请自主修复,不要提问,直到 npm run typecheck、npm test 全绿,引擎对 data/ground-truth 与 727 残集零健全性 violation、无 human-default 污染;并尽量补全本阶段全部 required strategyId。"
   if [ "$RUNNER" = "grok" ]; then
     PFN="$LOG_DIR/$PH-prompt-$i.txt"
     if [ -n "$SID" ] && [ "$GROK_RETRY_MODE" = "resume" ]; then
       printf '%s' "$FB" >"$PFN"; run_grok "$LOGN" "$PFN" "$SID"
     else
-      # fresh fallback: re-send original prompt + feedback (same worktree state preserved)
       printf '%s\n\n%s' "$PROMPT_TEXT" "$FB" >"$PFN"; run_grok "$LOGN" "$PFN"
     fi
     NSID="$(grep -oE '"sessionId"[: ]*"[^"]+"' "$LOGN" | head -1 | sed -E 's/.*"sessionId"[: ]*"([^"]+)".*/\1/')"
