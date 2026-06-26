@@ -129,9 +129,9 @@ function legacyDfsStrong(grid: Grid, state: LegacySearchState, current: CandNode
   if (state.path.length >= LEGACY_MAX_DEPTH) return null;
   for (const next of legacyStrongNeighbors(grid, current)) {
     const key = encodeNode(next.cell, next.digit);
+    // Loop closes reserved for nice-loop strategy (E6) — do not emit under id "aic".
     if (next.cell === state.path[0]!.cell && next.digit === state.path[0]!.digit && state.path.length >= 3) {
-      const startNode = state.path[0]!;
-      return legacyBuildStep(grid, [...state.path], [...state.linkAfter, 'strong'], [{ cell: startNode.cell, digit: startNode.digit }], []);
+      continue;
     }
     if (state.visited.has(key)) continue;
     state.visited.add(key);

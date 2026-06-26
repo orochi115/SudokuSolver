@@ -64,10 +64,10 @@ describe('gate 6 — chain-engine boundaries', () => {
     }
   });
 
-  it('reserved chain strategies (nice-loop, xy-chain) are not yet registered', () => {
+  it('all non-reserved chain owners are registered', () => {
     for (const c of CHAIN_OWNERSHIP) {
-      if (!c.reserved) continue;
-      expect(registeredIds.has(c.strategyId), `reserved ${c.strategyId}`).toBe(false);
+      if (c.reserved) continue;
+      expect(registeredIds.has(c.strategyId), `chain owner ${c.strategyId}`).toBe(true);
     }
   });
 });
