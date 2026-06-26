@@ -48,6 +48,48 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: true,
     profiles: ['last-resort'],
   },
+  {
+    strategyId: 'digit-forcing-chain',
+    owns: 'Digit forcing chain presentation: branch on the candidate locations for one digit in a house.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'nishio-forcing-chain',
+    owns: 'Nishio presentation: assume one candidate, propagate, and reject contradiction.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'cell-forcing-chain',
+    owns: 'Cell forcing chain presentation: branch over candidates of one unresolved cell.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'region-forcing-chain',
+    owns: 'Region forcing chain presentation: branch over digit positions in a region / unit.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'dic',
+    owns: 'Double Implication Chain presentation of forcing-chain consequences.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'forcing-net',
+    owns: 'Forcing nets over cell / region / contradiction / verity branches.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'kraken-fish',
+    owns: 'Kraken fish: fish candidates discharged by forcing-chain branches.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
   // ---- reserved (gate 6 boundaries for future chain work) ----
   {
     strategyId: 'xy-chain',

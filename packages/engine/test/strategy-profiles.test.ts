@@ -12,6 +12,21 @@ import {
   strategiesForProfile,
 } from '../src/strategies/profiles.js';
 
+const P3_LAST_RESORT_IDS = [
+  'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
+] as const;
+
 describe('gate 2 — frozen global priority table', () => {
   it('registers every required P0 strategy id', () => {
     expect(STRATEGIES.map((s) => s.id)).toEqual(expect.arrayContaining([
@@ -71,6 +86,10 @@ describe('gate 2 — frozen global priority table', () => {
     ]));
   });
 
+  it('registers every required P3 last-resort strategy id exactly', () => {
+    expect(STRATEGIES.map((s) => s.id)).toEqual(expect.arrayContaining([...P3_LAST_RESORT_IDS]));
+  });
+
   it('STRATEGIES order matches CANONICAL_STRATEGY_ORDER exactly', () => {
     expect(STRATEGIES.map((s) => s.id)).toEqual([...CANONICAL_STRATEGY_ORDER]);
   });
@@ -102,6 +121,14 @@ describe('gate 1 — strategy profiles', () => {
 
   it('human-default excludes forcing-chain specifically', () => {
     expect(HUMAN_DEFAULT_STRATEGIES.some((s) => s.id === 'forcing-chain')).toBe(false);
+  });
+
+  it('P3 red-line ids are last-resort only and cannot pollute human-default', () => {
+    const humanIds = new Set(HUMAN_DEFAULT_STRATEGIES.map((s) => s.id));
+    for (const id of P3_LAST_RESORT_IDS) {
+      expect(LAST_RESORT_IDS.has(id), `${id} must be listed in LAST_RESORT_IDS`).toBe(true);
+      expect(humanIds.has(id), `${id} must not appear in human-default`).toBe(false);
+    }
   });
 
   it('last-resort is the full registry and includes forcing-chain', () => {

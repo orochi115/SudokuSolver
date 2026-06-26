@@ -10,6 +10,16 @@ import {
 import { CHAIN_OWNERSHIP, MULTI_BRANCH_IDS } from '../src/chain/boundaries.js';
 
 const registeredIds = new Set(STRATEGIES.map((s) => s.id));
+const P3_CHAIN_IDS = [
+  'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+] as const;
 
 describe('gate 3 — overlap canonical-owner registry', () => {
   it('each family owner is a registered strategy', () => {
@@ -51,10 +61,12 @@ describe('gate 6 — chain-engine boundaries', () => {
     }
   });
 
-  it('forcing-chain is the (only current) multi-branch owner and is last-resort only', () => {
-    expect(MULTI_BRANCH_IDS.has('forcing-chain')).toBe(true);
-    const forcing = CHAIN_OWNERSHIP.find((c) => c.strategyId === 'forcing-chain')!;
-    expect(forcing.profiles).toEqual(['last-resort']);
+  it('P3 forcing-family owners are multi-branch and last-resort only', () => {
+    for (const id of P3_CHAIN_IDS) {
+      expect(MULTI_BRANCH_IDS.has(id), `${id} must be multi-branch`).toBe(true);
+      const owner = CHAIN_OWNERSHIP.find((c) => c.strategyId === id)!;
+      expect(owner.profiles).toEqual(['last-resort']);
+    }
   });
 
   it('non-reserved chain owners are registered strategies', () => {

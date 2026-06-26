@@ -85,6 +85,19 @@ import {
 } from './uniqueness.js';
 import { sueDeCoq } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
+import {
+  digitForcingChain,
+  nishioForcingChain,
+  cellForcingChain,
+  regionForcingChain,
+  dic,
+  forcingNet,
+  krakenFish,
+  tabling,
+  pom,
+  templates,
+  gem,
+} from './p3.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -174,6 +187,17 @@ export const STRATEGIES: readonly Strategy[] = [
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
+  digitForcingChain,  // 9010
+  nishioForcingChain, // 9020
+  cellForcingChain,   // 9030
+  regionForcingChain, // 9040
+  dic,                // 9050
+  forcingNet,         // 9100
+  krakenFish,         // 9200
+  tabling,            // 9300
+  pom,                // 9400
+  templates,          // 9500
+  gem,                // 9600
 ];
 
 /**
@@ -258,6 +282,17 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'sk-loop',
   'msls',
   'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
 ];
 
 export {
@@ -337,4 +372,15 @@ export {
   skLoop,
   msls,
   forcingChain,
+  digitForcingChain,
+  nishioForcingChain,
+  cellForcingChain,
+  regionForcingChain,
+  dic,
+  forcingNet,
+  krakenFish,
+  tabling,
+  pom,
+  templates,
+  gem,
 };
