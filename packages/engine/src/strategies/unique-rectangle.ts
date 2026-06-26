@@ -183,52 +183,49 @@ export function tryUniqueRectangleType3(grid: Grid, strategyId: string): Step | 
     const sharedHouses = getCommonHouses(roof[0]!, roof[1]!);
     if (sharedHouses.length === 0) continue;
 
-    const extraMask = (grid.candidatesOf(roof[0]!) & ~intersect) | (grid.candidatesOf(roof[1]!) & ~intersect);
-    const extraDigits = digitsOf(extraMask);
-    if (extraDigits.length < 2) continue; // need a naked subset of size >= 2
+    const [x, y] = digitsOf(intersect) as [number, number];
+    const roofMask = grid.candidatesOf(roof[0]!) | grid.candidatesOf(roof[1]!);
 
     for (const houseIdx of sharedHouses) {
       const house = [...(houseIdx < 9 ? ROWS[houseIdx]! : houseIdx < 18 ? COLS[houseIdx - 9]! : BOXES[houseIdx - 18]!)];
       const outside = house.filter((c) => c !== roof[0] && c !== roof[1] && grid.get(c) === 0);
-      const subsetSize = extraDigits.length;
-      const need = subsetSize - 2;
-      for (const chosen of combinations(outside, need)) {
-        if (chosen.some((c) => !digitsOf(grid.candidatesOf(c)).every((d) => extraMask & maskOf(d)))) continue;
-        const unionDigits = new Set<number>();
-        for (const c of chosen) {
-          for (const d of digitsOf(grid.candidatesOf(c))) unionDigits.add(d);
-        }
-        for (const d of extraDigits) unionDigits.add(d);
-        if (unionDigits.size !== subsetSize) continue;
+      // Try subsets of size k (0..outside.length). The two roof cells plus k outsiders
+      // must contain exactly k+2 distinct digits to form a naked subset.
+      for (let k = 0; k <= outside.length; k++) {
+        for (const chosen of combinations(outside, k)) {
+          const subsetCells = new Set([...roof, ...chosen]);
+          let unionMask = 0;
+          for (const c of subsetCells) unionMask |= grid.candidatesOf(c);
+          const unionDigits = digitsOf(unionMask);
+          if (unionDigits.length !== k + 2) continue;
 
-        const subsetCells = new Set([...roof, ...chosen]);
-        const elims: { cell: number; digit: number }[] = [];
-        for (const c of house) {
-          if (subsetCells.has(c)) continue;
-          if (grid.get(c) !== 0) continue;
-          for (const d of extraDigits) {
-            if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
+          const elims: { cell: number; digit: number }[] = [];
+          for (const c of house) {
+            if (subsetCells.has(c)) continue;
+            if (grid.get(c) !== 0) continue;
+            for (const d of unionDigits) {
+              if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
+            }
           }
-        }
-        if (elims.length === 0) continue;
+          if (elims.length === 0) continue;
 
-        const [x, y] = digitsOf(intersect) as [number, number];
-        const r0 = roof[0]!;
-        const r1 = roof[1]!;
-        return {
-          strategyId,
-          placements: [],
-          eliminations: elims,
-          highlights: {
-            cells: [...cells, ...chosen, ...elims.map((e) => e.cell)],
-            candidates: cells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
-            links: [],
-          },
-          explanation: {
-            zh: `唯一矩形 Type 3：UR对 {${x},${y}} 的两屋顶格 ${cellLabel(r0)}、${cellLabel(r1)} 与选定格在共用${houseIdx < 9 ? '行' : houseIdx < 18 ? '列' : '宫'}中构成裸数组 {${extraDigits.join(',')}}；消去该${houseIdx < 9 ? '行' : houseIdx < 18 ? '列' : '宫'}中数组外的相应候选数。`,
-            en: `Unique Rectangle Type 3: the two roof cells of UR pair {${x},${y}} form a naked subset {${extraDigits.join(',')}} with outside cells in the shared ${houseIdx < 9 ? 'row' : houseIdx < 18 ? 'column' : 'box'}; eliminate those digits from the rest of the ${houseIdx < 9 ? 'row' : houseIdx < 18 ? 'column' : 'box'}.`,
-          },
-        };
+          const r0 = roof[0]!;
+          const r1 = roof[1]!;
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...cells, ...chosen, ...elims.map((e) => e.cell)],
+              candidates: cells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+              links: [],
+            },
+            explanation: {
+              zh: `唯一矩形 Type 3：UR对 {${x},${y}} 的两屋顶格 ${cellLabel(r0)}、${cellLabel(r1)} 与选定格在共用${houseIdx < 9 ? '行' : houseIdx < 18 ? '列' : '宫'}中构成裸数组 {${unionDigits.join(',')}}；消去该${houseIdx < 9 ? '行' : houseIdx < 18 ? '列' : '宫'}中数组外的相应候选数。`,
+              en: `Unique Rectangle Type 3: the two roof cells of UR pair {${x},${y}} form a naked subset {${unionDigits.join(',')}} with outside cells in the shared ${houseIdx < 9 ? 'row' : houseIdx < 18 ? 'column' : 'box'}; eliminate those digits from the rest of the ${houseIdx < 9 ? 'row' : houseIdx < 18 ? 'column' : 'box'}.`,
+            },
+          };
+        }
       }
     }
   }

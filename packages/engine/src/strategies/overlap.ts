@@ -49,23 +49,23 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
-      '`grouped` is a switch on buildLinkGraph, not a separate strategy. Nice-loop now owns continuous/discontinuous ' +
-      'AIC-loop kinds; aic no longer emits loop results (E6).',
+      '`grouped` is a switch on buildLinkGraph, not a separate strategy. Nice-loop owns continuous/discontinuous ' +
+      'AIC-loop kinds; aic no longer emits loop results (E6). AIC-with-ALS/UR reuse chain presentation.',
   },
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs'],
+    futureMembers: [],
     unified: false,
     note:
-      'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'ALS-XY-Wing is the k=3 special case of the general ALS-chain search (E4); ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
+      'and is intentionally not implemented standalone. AHS is the hidden dual and shares the ALS-chain infrastructure.',
   },
   {
     id: 'uniqueness-rectangle',
@@ -79,14 +79,49 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
       'bug-plus-one',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
+      'unique-loop',
+      'bug-lite',
+      'bug-plus-n',
     ],
+    futureMembers: [],
     unified: false,
     note:
-      'Deadly-pattern (uniqueness) family. Types 1–6 and Hidden UR now share a single UR engine (E3). ' +
-      'Hidden UR ↔ UR Type 6 overlap. BUG+1 shares the unique-solution assumption.',
+      'Deadly-pattern (uniqueness) family. Types 1–6 and Hidden UR share a single UR engine (E3). ' +
+      'Avoidable Rectangle, Extended UR, Unique Loop, BUG-Lite and BUG+n extend the same unique-solution assumption.',
+  },
+  {
+    id: 'coloring',
+    canonicalOwner: 'simple-coloring',
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    futureMembers: [],
+    unified: false,
+    note:
+      'Coloring family: Simple Coloring (single-digit, one cluster), Multi-Coloring (single-digit, multiple clusters / X-Colors), ' +
+      'and 3D Medusa (multi-digit). X-Colors / Color Wing / Supercoloring are subsumed under multi-coloring.',
+  },
+  {
+    id: 'advanced-wing',
+    canonicalOwner: 'xy-wing',
+    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'remote-pairs', 'bent-sets', 'broken-wing'],
+    futureMembers: ['vwxyz-wing'],
+    unified: false,
+    note:
+      'Wing family: XY/XYZ/W/WXYZ-Wing, Remote Pairs (bivalue chain), Bent Sets (ALP/ALT / chute remote pairs), and Broken Wing ' +
+      '(oddagon / single-digit cycle with guardians).',
+  },
+  {
+    id: 'exotic',
+    canonicalOwner: 'sue-de-coq',
+    members: ['sue-de-coq', 'tridagon'],
+    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion', 'sue-de-coq-extended', 'franken-fish', 'mutant-fish', 'gurth'],
+    unified: false,
+    note:
+      'Exotic / advanced pattern family. Tridagon (anti-tridagon / Thor\'s Hammer) is the first P1 exotic addition; future P2 ' +
+      'exotics reuse this family registry.',
   },
 ];

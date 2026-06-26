@@ -60,13 +60,23 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
-  // ---- reserved (gate 6 boundaries for future chain work) ----
   {
     strategyId: 'remote-pairs',
     owns: 'Remote Pairs — XY-Chain where every cell is the same bivalue pair.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'AIC whose nodes include Almost Locked Sets.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC whose nodes include Unique Rectangle patterns.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
   },
 ];
 

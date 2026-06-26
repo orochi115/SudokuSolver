@@ -41,6 +41,7 @@ import {
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
 import type { Strategy, TieBreakKey } from '../strategy.js';
+import { searchALSChain } from './als-chain.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
 interface ALS {
@@ -517,13 +518,22 @@ export const alsXzDoublyLinked = makeAlsStrategy(
   tryALSDoublyLinkedXZ,
 );
 
-export const alsXyWing = makeAlsStrategy(
-  'als-xy-wing',
-  { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
-  840,
-  ['house'],
-  tryALSXYWing,
-);
+// E4: ALS-XY-Wing is logically the k=3 special case of ALS-chain.
+// We keep the original detector as the primary path for backward compatibility,
+// and fall back to the general ALS-chain search of length 3 when it finds nothing.
+export const alsXyWing: Strategy = {
+  id: 'als-xy-wing',
+  name: { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
+  difficulty: 840,
+  tieBreak: ['house'],
+
+  apply(grid: Grid): Step | null {
+    const alsList = findAllALS(grid);
+    const original = tryALSXYWing(grid, alsList, 'als-xy-wing');
+    if (original) return original;
+    return searchALSChain(grid, 3, 'als-xy-wing');
+  },
+};
 
 export const deathBlossom = makeAlsStrategy(
   'death-blossom',
