@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# archive-run.sh [tag]      (tag default: round2)
+# archive-run.sh [tag]      (tag default: round2; USE A RUN-NESTED TAG like round2/run2
+#                            so multiple runs don't collide — v1 lives at archive/round2/run1/*)
 #
 # Finalize a completed round2 run: PRESERVE everything, then clear the working area.
 #   1. commit any uncommitted WIP in each round2 model worktree

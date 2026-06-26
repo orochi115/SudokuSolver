@@ -2,11 +2,11 @@
 
 > 用途：客观数据（PASS/FAIL/SKIP、727 增量、用时、费用、测试用时）由 harness 汇总进 `report-final.md`；
 > 本提纲是**主观评测**项，**另开一个全新 Claude 会话**逐模型分支评估，结论并入 `report-final.md` 的「主观评测」节。
-> 评测对象：各模型分支 `archive/round2/<short>`（archive-run.sh 归档后的扁平命名；通关程度从 reports 的 summary 看）。
+> 评测对象：某次运行的各模型分支 `archive/round2/<runN>/<short>`（runN 为该次运行标签，如 run2；通关程度从 reports 的 summary 看）。
 
 ## 评测前准备
-- `git fetch` 并列出 `archive/round2/*` 分支；每个模型分支单独 checkout 或用 worktree。
-- 基准对照：`foundation` 分支（起点：33 策略、727 = 0/0）。
+- 列出该次运行的 `archive/round2/<runN>/*` 分支；每个模型分支单独 checkout 或用 worktree。
+- 基准对照：`archive/round2/<runN>/foundation`（起点：33 策略、727 = 0/0）。
 
 ## 评测项
 

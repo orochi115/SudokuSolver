@@ -40,4 +40,8 @@ MAX_PAR=8 VERIFY_MAX=3 RETRIES=3 TIMEOUT=3600 GROK_RETRY_MODE=resume \
 orchestration/round2/harness/run-all.sh orchestration/round2/models.txt
 ```
 > 合盖睡眠请先 `! sudo pmset -a disablesleep 1`（跑完 `... disablesleep 0`）。中断后**直接重跑同一命令即可断点续跑**。
-跑完 `orchestration/round2/harness/archive-run.sh round2`：日志入 LFS、`model/<short>` → `archive/round2/<short>`、`foundation` → `archive/round2/foundation`。重跑前用 `harness/cleanup.sh [--purge]` 重置工作区。
+> **grok 费用**：grok CLI 不暴露 token/cost。报告内可估算——加 `GROK_PRICE_IN=<$/1M> GROK_PRICE_OUT=<$/1M>`（按 chars/4 估）；**精确花费请查 xAI 控制台（grok-build）/ Cursor 面板（grok-composer）** 本次时间窗。
+
+跑完归档（**按 run 嵌套**，支持多次运行）：`orchestration/round2/harness/archive-run.sh round2/run2`
+→ `model/<short>` → `archive/round2/run2/<short>`、`foundation` → `archive/round2/run2/foundation`、日志入 LFS。
+（v1 已归档于 `archive/round2/run1/*`。）重跑前用 `harness/cleanup.sh [--purge]` 重置工作区。
