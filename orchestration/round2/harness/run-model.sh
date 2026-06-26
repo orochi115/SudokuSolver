@@ -65,19 +65,22 @@ run_opencode() {
   wait "$pid" 2>/dev/null; return 0
 }
 
-# --- grok runner: single-turn via --prompt-file; same idle/timeout wrapper ---
+# --- grok runner: single-turn via --prompt-file. ---
+# NOTE: `grok -p/--prompt-file` is single-turn and EXITS when the turn is done
+# (unlike opencode, which lingers). With `--output-format json` grok also buffers
+# a single JSON object to stdout at the very END, so there is NO incremental
+# output to detect idle on — an idle-kill would (and did, in the P0 smoke) murder
+# grok mid-work before it emits the session id. So we WAIT for natural exit and
+# only enforce the hard TIMEOUT cap.
 # Args: <log> <prompt-file> [resume-session-id]
 run_grok() {
-  local log="$1" pf="$2" sid="${3:-}"; local idle_limit="${IDLE:-180}"
+  local log="$1" pf="$2" sid="${3:-}"
   local args=(-m "$MODEL" --cwd "$WT" --output-format json --always-approve --no-plan --prompt-file "$pf")
   [ -n "$sid" ] && args=(-r "$sid" "${args[@]}")
   grok "${args[@]}" >"$log" 2>&1 &
-  local pid=$! waited=0 idle=0 last=0 size
+  local pid=$! waited=0
   while kill -0 "$pid" 2>/dev/null; do
     sleep 10; waited=$((waited + 10))
-    size=$(wc -c <"$log" 2>/dev/null | tr -d ' '); size=${size:-0}
-    if [ "$size" -gt "$last" ]; then last=$size; idle=0; else idle=$((idle + 10)); fi
-    if [ "$idle" -ge "$idle_limit" ]; then note "grok idle ${idle_limit}s -> turn done"; kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break; fi
     if [ "$waited" -ge "$TIMEOUT" ]; then note "grok hard TIMEOUT ${TIMEOUT}s -> killed"; kill -TERM "$pid" 2>/dev/null; sleep 3; kill -KILL "$pid" 2>/dev/null; break; fi
   done
   wait "$pid" 2>/dev/null; return 0

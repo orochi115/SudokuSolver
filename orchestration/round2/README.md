@@ -35,4 +35,4 @@ SERIAL_PROVIDERS="alibaba-cn siliconflow-cn amazon-bedrock grok" SERIAL_CAP=1 \
 MAX_PAR=4 RETRIES=3 TIMEOUT=3600 \
 orchestration/round2/harness/run-all.sh orchestration/round2/models.txt
 ```
-跑完 `archive-run.sh round2`：日志入 LFS、`model/<short>` → `archive/round2/<status>/<short>`、`foundation` → `archive/round2/foundation`。
+跑完 `orchestration/round2/harness/archive-run.sh round2`：日志入 LFS、`model/<short>` → `archive/round2/<short>`、`foundation` → `archive/round2/foundation`。重跑前用 `harness/cleanup.sh [--purge]` 重置工作区。
