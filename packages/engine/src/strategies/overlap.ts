@@ -49,13 +49,14 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur', 'twinned-xy-chains', 'aic-with-exotic-links'],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
       '`grouped` is a switch on buildLinkGraph, not a separate strategy. Nice-loop owns continuous/discontinuous ' +
-      'AIC-loop kinds; aic no longer emits loop results (E6). AIC-with-ALS/UR reuse chain presentation.',
+      'AIC-loop kinds; aic no longer emits loop results (E6). AIC-with-ALS/UR/exotic-links and Twinned XY-Chains ' +
+      'reuse the AIC/XY-chain presentation.',
   },
   {
     id: 'als-chain',
@@ -87,12 +88,14 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-loop',
       'bug-lite',
       'bug-plus-n',
+      'gurth',
     ],
     futureMembers: [],
     unified: false,
     note:
-      'Deadly-pattern (uniqueness) family. Types 1–6 and Hidden UR share a single UR engine (E3). ' +
-      'Avoidable Rectangle, Extended UR, Unique Loop, BUG-Lite and BUG+n extend the same unique-solution assumption.',
+      'Deadly-pattern / uniqueness family. Types 1–6 and Hidden UR share a single UR engine (E3). ' +
+      'Avoidable Rectangle, Extended UR, Unique Loop, BUG-Lite, BUG+n and Gurth\'s Symmetrical Placement extend ' +
+      'the unique-solution assumption.',
   },
   {
     id: 'coloring',
@@ -107,21 +110,26 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'advanced-wing',
     canonicalOwner: 'xy-wing',
-    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'remote-pairs', 'bent-sets', 'broken-wing'],
-    futureMembers: ['vwxyz-wing'],
+    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'vwxyz-wing', 'remote-pairs', 'bent-sets', 'broken-wing'],
+    futureMembers: [],
     unified: false,
     note:
-      'Wing family: XY/XYZ/W/WXYZ-Wing, Remote Pairs (bivalue chain), Bent Sets (ALP/ALT / chute remote pairs), and Broken Wing ' +
+      'Wing family: XY/XYZ/W/WXYZ/VWXYZ-Wing, Remote Pairs (bivalue chain), Bent Sets (ALP/ALT / chute remote pairs), and Broken Wing ' +
       '(oddagon / single-digit cycle with guardians).',
   },
   {
     id: 'exotic',
     canonicalOwner: 'sue-de-coq',
-    members: ['sue-de-coq', 'tridagon'],
-    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion', 'sue-de-coq-extended', 'franken-fish', 'mutant-fish', 'gurth'],
+    members: [
+      'sue-de-coq', 'sue-de-coq-extended', 'tridagon', 'fireworks',
+      'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion',
+      'exocet', 'sk-loop', 'msls', 'franken-fish', 'mutant-fish',
+    ],
+    futureMembers: [],
     unified: false,
     note:
-      'Exotic / advanced pattern family. Tridagon (anti-tridagon / Thor\'s Hammer) is the first P1 exotic addition; future P2 ' +
-      'exotics reuse this family registry.',
+      'Exotic / advanced pattern family. Tridagon (P1) and the P2 additions (VWXYZ-Wing lives in advanced-wing; ' +
+      'Gurth lives in uniqueness-rectangle) are registered here. APE/ATE are subset-exclusion special cases; ' +
+      'MSLS subsumes SK-Loop; Franken/Mutant fish extend the fish family but are classified as exotic owners.',
   },
 ];
