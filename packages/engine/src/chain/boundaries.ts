@@ -79,6 +79,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  {
+    strategyId: 'aic-with-exotic-links',
+    owns: 'AIC with exotic / fireworks / ALS-doubly-linked nodes as links.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'twinned-xy-chains',
+    owns: 'Parallel XY-chains from a common start cell, sharing elimination targets.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

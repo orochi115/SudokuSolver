@@ -49,7 +49,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur', 'aic-with-exotic-links', 'twinned-xy-chains'],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
@@ -70,7 +70,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'uniqueness-rectangle',
     canonicalOwner: 'unique-rectangle-type-1',
-    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-3', 'unique-rectangle-type-4', 'unique-rectangle-type-5', 'unique-rectangle-type-6', 'hidden-unique-rectangle', 'bug-plus-one', 'avoidable-rectangle-type-1', 'avoidable-rectangle-type-2', 'avoidable-rectangle-type-3', 'avoidable-rectangle-type-4', 'extended-unique-rectangle', 'unique-loop', 'bug-lite', 'bug-plus-n'],
+    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-3', 'unique-rectangle-type-4', 'unique-rectangle-type-5', 'unique-rectangle-type-6', 'hidden-unique-rectangle', 'bug-plus-one', 'avoidable-rectangle-type-1', 'avoidable-rectangle-type-2', 'avoidable-rectangle-type-3', 'avoidable-rectangle-type-4', 'extended-unique-rectangle', 'unique-loop', 'bug-lite', 'bug-plus-n', 'gurth'],
     futureMembers: [],
     unified: false,
     note:
@@ -80,7 +80,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'coloring',
     canonicalOwner: 'simple-coloring',
-    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa', 'gurth'],
     futureMembers: [],
     unified: false,
     note:
@@ -91,8 +91,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'exotic',
     canonicalOwner: 'sue-de-coq',
-    members: ['sue-de-coq', 'tridagon'],
-    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks'],
+    members: ['sue-de-coq', 'sue-de-coq-extended', 'tridagon', 'exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion'],
+    futureMembers: [],
     unified: false,
     note:
       'Exotic/rare techniques. Tridagon (anti-Tridagon / Thor\'s Hammer) is a 12-cell deadly pattern using parity ' +
@@ -101,11 +101,19 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'wing',
     canonicalOwner: 'xy-wing',
-    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'bent-sets'],
-    futureMembers: ['vwxyz-wing'],
+    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'vwxyz-wing', 'bent-sets'],
+    futureMembers: [],
     unified: false,
     note:
       'Wing family: XY-Wing (3-cell bivalue), XYZ-Wing (4-cell), W-Wing, WXYZ-Wing (generalised ALS wing), ' +
       'Bent Sets (ALP/ALT / Chute Remote Pairs). VWXYZ-Wing is the size-ladder extension reserved for P2.',
+  },
+  {
+    id: 'fish',
+    canonicalOwner: 'x-wing',
+    members: ['x-wing', 'swordfish', 'jellyfish', 'finned-x-wing', 'finned-swordfish', 'finned-jellyfish', 'franken-fish', 'mutant-fish'],
+    futureMembers: [],
+    unified: false,
+    note: 'Fish family: basic, finned, franken, mutant fish.',
   },
 ];

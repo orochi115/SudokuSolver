@@ -146,6 +146,15 @@ export class Grid {
     return this.values[cell] === 0 && (this.candidates[cell]! & maskOf(digit)) !== 0;
   }
 
+  hasCandidateAnyOf(cell: number, digits: Set<number> | number[]): boolean {
+    if (this.values[cell] !== 0) return false;
+    const mask = this.candidates[cell]!;
+    for (const d of digits) {
+      if (mask & maskOf(d)) return true;
+    }
+    return false;
+  }
+
   /**
    * Place `digit` in `cell` and remove it from peer candidates.
    * Pure rule bookkeeping — not a logical deduction.
