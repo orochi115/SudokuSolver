@@ -1,0 +1,1 @@
+- `x-cycle` appears in the P0 checklist as an alias row, but the final required strategyId list omits it; I left it unregistered and marked the checklist row n/a for this batch.

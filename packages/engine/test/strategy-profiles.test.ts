@@ -13,6 +13,21 @@ import {
 } from '../src/strategies/profiles.js';
 
 describe('gate 2 — frozen global priority table', () => {
+  it('registers every required P0 strategy id', () => {
+    expect(STRATEGIES.map((s) => s.id)).toEqual(expect.arrayContaining([
+      'finned-x-wing',
+      'finned-swordfish',
+      'finned-jellyfish',
+      'turbot-fish',
+      'xy-chain',
+      'nice-loop',
+      'hidden-unique-rectangle',
+      'unique-rectangle-type-3',
+      'unique-rectangle-type-5',
+      'unique-rectangle-type-6',
+    ]));
+  });
+
   it('STRATEGIES order matches CANONICAL_STRATEGY_ORDER exactly', () => {
     expect(STRATEGIES.map((s) => s.id)).toEqual([...CANONICAL_STRATEGY_ORDER]);
   });

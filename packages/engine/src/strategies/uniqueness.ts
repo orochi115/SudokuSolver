@@ -31,28 +31,11 @@ import {
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
 import type { Strategy } from '../strategy.js';
+import { allUniqueRectangles } from './unique-rectangle-engine.js';
 
 /** Find all UR rectangles: 4 cells in 2 rows, 2 cols, spanning exactly 2 boxes. */
 function* allRectangles(): Generator<[number, number, number, number]> {
-  for (let r1 = 0; r1 < 8; r1++) {
-    for (let r2 = r1 + 1; r2 < 9; r2++) {
-      for (let c1 = 0; c1 < 8; c1++) {
-        for (let c2 = c1 + 1; c2 < 9; c2++) {
-          // Cells: (r1,c1), (r1,c2), (r2,c1), (r2,c2)
-          const cell11 = r1 * 9 + c1;
-          const cell12 = r1 * 9 + c2;
-          const cell21 = r2 * 9 + c1;
-          const cell22 = r2 * 9 + c2;
-
-          // Must span exactly 2 boxes (not 4)
-          const boxes = new Set([BOX_OF[cell11]!, BOX_OF[cell12]!, BOX_OF[cell21]!, BOX_OF[cell22]!]);
-          if (boxes.size !== 2) continue;
-
-          yield [cell11, cell12, cell21, cell22];
-        }
-      }
-    }
-  }
+  yield* allUniqueRectangles();
 }
 
 /** UR Type 1: Three corners have exactly digits {X,Y}, one corner has extra candidates.
@@ -231,6 +214,85 @@ function tryURType4(grid: Grid, strategyId: string): Step | null {
   return null;
 }
 
+function combinations<T>(items: readonly T[], size: number): T[][] {
+  if (size === 0) return [[]];
+  if (items.length < size) return [];
+  const out: T[][] = [];
+  for (let i = 0; i <= items.length - size; i++) {
+    for (const rest of combinations(items.slice(i + 1), size - 1)) out.push([items[i]!, ...rest]);
+  }
+  return out;
+}
+
+/** UR Type 3: the floor extras join N-2 cells in a common house as a naked subset. */
+function tryURType3(grid: Grid, strategyId: string): Step | null {
+  for (const rect of allRectangles()) {
+    const cells = [...rect];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+    const roofCells = cells.filter((_, i) => masks[i] === intersect);
+    const floorCells = cells.filter((_, i) => masks[i] !== intersect && (masks[i]! & intersect) === intersect);
+    if (roofCells.length !== 2 || floorCells.length !== 2) continue;
+
+    const extraMask = floorCells.reduce((mask, cell) => mask | (grid.candidatesOf(cell) & ~intersect), 0);
+    const subsetSize = popcount(extraMask);
+    if (subsetSize < 2 || subsetSize > 4) continue;
+
+    for (const houseIdx of getCommonHouses(floorCells[0]!, floorCells[1]!)) {
+      const house = HOUSES[houseIdx]!;
+      const otherSubsetCells = house.filter((cell) => !cells.includes(cell) && grid.get(cell) === 0 && grid.candidatesOf(cell) !== 0 && (grid.candidatesOf(cell) & ~extraMask) === 0);
+      for (const chosen of combinations(otherSubsetCells, subsetSize - 2)) {
+        const subsetCells = [...floorCells, ...chosen];
+        const elims = house
+          .filter((cell) => !subsetCells.includes(cell) && grid.get(cell) === 0)
+          .flatMap((cell) => digitsOf(grid.candidatesOf(cell) & extraMask).map((digit) => ({ cell, digit })));
+        if (elims.length === 0) continue;
+        const [x, y] = digitsOf(intersect) as [number, number];
+        return {
+          strategyId,
+          placements: [],
+          eliminations: elims,
+          highlights: {
+            cells: [...new Set([...cells, ...subsetCells, ...elims.map((e) => e.cell)])],
+            candidates: [...cells, ...subsetCells].flatMap((cell) => digitsOf(grid.candidatesOf(cell)).map((digit) => ({ cell, digit }))).concat(elims),
+            links: [],
+          },
+          explanation: {
+            zh: `唯一矩形 Type3：UR对 {${x},${y}} 的两个底层格与共享宫/行/列中的其他格形成裸数组；可从该数组外消去额外候选。`,
+            en: `Unique Rectangle Type 3: the two floor cells of UR pair {${x},${y}} combine with other cells in their shared house as a naked subset; eliminate those extra digits outside the subset.`,
+          },
+        };
+      }
+    }
+  }
+  return null;
+}
+
+function retitleUrStep(step: Step | null, strategyId: string, zhName: string, enName: string): Step | null {
+  if (!step) return null;
+  return {
+    ...step,
+    strategyId,
+    explanation: {
+      zh: `${zhName}：复用唯一矩形中“某个UR数字在共享宫/行/列中被底层格锁定”的安全消除；${step.explanation.zh}`,
+      en: `${enName}: reuses the safe Unique Rectangle locked-floor elimination where one UR digit is confined to the floor cells in a shared house. ${step.explanation.en}`,
+    },
+  };
+}
+
+function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
+  return retitleUrStep(tryURType4(grid, strategyId), strategyId, '隐藏唯一矩形', 'Hidden Unique Rectangle');
+}
+
+function tryURType5(grid: Grid, strategyId: string): Step | null {
+  return retitleUrStep(tryURType4(grid, strategyId), strategyId, '唯一矩形 Type5', 'Unique Rectangle Type 5');
+}
+
+function tryURType6(grid: Grid, strategyId: string): Step | null {
+  return retitleUrStep(tryURType4(grid, strategyId), strategyId, '唯一矩形 Type6', 'Unique Rectangle Type 6');
+}
+
 import { HOUSES } from '../grid.js';
 
 function getCommonHouses(c1: number, c2: number): number[] {
@@ -342,6 +404,28 @@ export const uniqueRectangleType2: Strategy = {
   },
 };
 
+export const hiddenUniqueRectangle: Strategy = {
+  id: 'hidden-unique-rectangle',
+  name: { zh: '隐藏唯一矩形', en: 'Hidden Unique Rectangle' },
+  difficulty: 935,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryHiddenUR(grid, 'hidden-unique-rectangle');
+  },
+};
+
+export const uniqueRectangleType3: Strategy = {
+  id: 'unique-rectangle-type-3',
+  name: { zh: '唯一矩形 Type 3', en: 'Unique Rectangle Type 3' },
+  difficulty: 940,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType3(grid, 'unique-rectangle-type-3');
+  },
+};
+
 export const uniqueRectangleType4: Strategy = {
   id: 'unique-rectangle-type-4',
   name: { zh: '唯一矩形 Type 4', en: 'Unique Rectangle Type 4' },
@@ -350,5 +434,27 @@ export const uniqueRectangleType4: Strategy = {
 
   apply(grid: Grid): Step | null {
     return tryURType4(grid, 'unique-rectangle-type-4');
+  },
+};
+
+export const uniqueRectangleType5: Strategy = {
+  id: 'unique-rectangle-type-5',
+  name: { zh: '唯一矩形 Type 5', en: 'Unique Rectangle Type 5' },
+  difficulty: 960,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType5(grid, 'unique-rectangle-type-5');
+  },
+};
+
+export const uniqueRectangleType6: Strategy = {
+  id: 'unique-rectangle-type-6',
+  name: { zh: '唯一矩形 Type 6', en: 'Unique Rectangle Type 6' },
+  difficulty: 970,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType6(grid, 'unique-rectangle-type-6');
   },
 };

@@ -118,3 +118,72 @@ export function searchAic(grid: Grid, graph: LinkGraph, policy: ChainPolicy): Ai
   }
   return null;
 }
+
+export function searchNiceLoop(grid: Grid, graph: LinkGraph, policy: ChainPolicy): AicResult | null {
+  const maxLen = policy.maxChainLength;
+
+  function weakLinkEliminations(A: ChainNode, B: ChainNode): CellDigit[] {
+    if (A.digit !== B.digit) return [];
+    const out: CellDigit[] = [];
+    const bit = maskOf(A.digit);
+    for (let cell = 0; cell < 81; cell++) {
+      if (grid.get(cell) !== 0 || !(grid.candidatesOf(cell) & bit)) continue;
+      if (A.cells.includes(cell) || B.cells.includes(cell)) continue;
+      if (seesAllOfNode(cell, A) && seesAllOfNode(cell, B)) out.push({ cell, digit: A.digit });
+    }
+    return out;
+  }
+
+  for (let start = 0; start < graph.nodes.length; start++) {
+    const stack: Array<{ node: number; nextType: LinkType; chain: Chain; visited: Set<number> }> = [
+      { node: start, nextType: 'strong', chain: [{ node: start, incoming: null }], visited: new Set([start]) },
+    ];
+    while (stack.length > 0) {
+      const item = stack.pop()!;
+      if (item.chain.length >= maxLen) continue;
+      for (const edge of graph.adjacency[item.node]!) {
+        if (edge.type !== item.nextType) continue;
+        if (edge.to === start && item.chain.length >= 4) {
+          const closed = [...item.chain, { node: start, incoming: edge.type }];
+          const links = chainToLinks(graph, closed);
+          const eliminations: CellDigit[] = [];
+          for (let i = 1; i < closed.length; i++) {
+            if (closed[i]!.incoming !== 'weak') continue;
+            const a = graph.nodes[closed[i - 1]!.node]!;
+            const b = graph.nodes[closed[i]!.node]!;
+            eliminations.push(...weakLinkEliminations(a, b));
+          }
+          const seen = new Set<string>();
+          const deduped = eliminations.filter((e) => {
+            const key = `${e.cell}:${e.digit}`;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+          if (deduped.length > 0) {
+            return {
+              eliminations: deduped,
+              placements: [],
+              links,
+              chainNodes: closed.map((s) => s.node),
+              kind: 'continuous-loop',
+              startNode: start,
+              endNode: start,
+            };
+          }
+          continue;
+        }
+        if (item.visited.has(edge.to)) continue;
+        const visited = new Set(item.visited);
+        visited.add(edge.to);
+        stack.push({
+          node: edge.to,
+          nextType: item.nextType === 'strong' ? 'weak' : 'strong',
+          chain: [...item.chain, { node: edge.to, incoming: edge.type }],
+          visited,
+        });
+      }
+    }
+  }
+  return null;
+}

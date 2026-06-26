@@ -14,10 +14,23 @@ import { solveBruteforce } from '../src/bruteforce.js';
 import { checkTraceSoundness } from '../src/soundness.js';
 import { solve } from '../src/solver.js';
 import { STRATEGIES } from '../src/strategies/index.js';
+import { finnedJellyfish, finnedSwordfish, finnedXWing } from '../src/strategies/finned-fish.js';
 import { simpleColoring } from '../src/strategies/simple-coloring.js';
 import { aic, makeAic, xChain } from '../src/strategies/aic.js';
+import { niceLoop } from '../src/strategies/nice-loop.js';
+import { turbotFish } from '../src/strategies/turbot-fish.js';
+import { xyChain } from '../src/strategies/xy-chain.js';
 import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from '../src/strategies/als.js';
-import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from '../src/strategies/uniqueness.js';
+import {
+  bugPlusOne,
+  hiddenUniqueRectangle,
+  uniqueRectangleType1,
+  uniqueRectangleType2,
+  uniqueRectangleType3,
+  uniqueRectangleType4,
+  uniqueRectangleType5,
+  uniqueRectangleType6,
+} from '../src/strategies/uniqueness.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
 
@@ -83,6 +96,71 @@ const HARD_PUZZLES = [
   '000003106500000000030100780002009807070020030805600400059008070000000005703200000',
   '004006070500070000003290508300000400059060720002000005405039200000040007020100300',
 ];
+
+// ============================================================
+// P0 strategy additions
+// ============================================================
+
+describe('P0 finned fish', () => {
+  function masksForRows(baseRows: number[], coverCols: number[], finCell: number, elimCells: number[], digit: number): number[] {
+    const masks = Array<number>(81).fill(0);
+    for (const row of baseRows) for (const col of coverCols) masks[row * 9 + col] = candidateMask(digit);
+    masks[finCell] = candidateMask(digit);
+    for (const cell of elimCells) masks[cell] = candidateMask(digit);
+    return masks;
+  }
+
+  it('reports finned x-wing with its exact strategy id', () => {
+    const step = finnedXWing.apply(gridFromState('0'.repeat(81), masksForRows([0, 1], [0, 2], 1, [18, 20], 4)));
+    expect(step?.strategyId).toBe('finned-x-wing');
+    expect(step?.eliminations).toContainEqual({ cell: 18, digit: 4 });
+  });
+
+  it('reports finned swordfish with its exact strategy id', () => {
+    const step = finnedSwordfish.apply(gridFromState('0'.repeat(81), masksForRows([0, 3, 6], [0, 3, 6], 1, [9, 18], 5)));
+    expect(step?.strategyId).toBe('finned-swordfish');
+    expect(step?.eliminations).toContainEqual({ cell: 18, digit: 5 });
+  });
+
+  it('reports finned jellyfish with its exact strategy id', () => {
+    const step = finnedJellyfish.apply(gridFromState('0'.repeat(81), masksForRows([0, 3, 6, 8], [0, 3, 6, 8], 1, [9, 18], 6)));
+    expect(step?.strategyId).toBe('finned-jellyfish');
+    expect(step?.eliminations).toContainEqual({ cell: 18, digit: 6 });
+  });
+});
+
+describe('P0 chain presentations', () => {
+  it('reports turbot-fish as a single-digit chain owner alias', () => {
+    const masks = Array<number>(81).fill(0);
+    for (const cell of [0, 8, 26, 20, 10]) masks[cell] = candidateMask(1);
+    const step = turbotFish.apply(gridFromState('0'.repeat(81), masks));
+    expect(step?.strategyId).toBe('turbot-fish');
+    expect(step?.eliminations).toContainEqual({ cell: 10, digit: 1 });
+  });
+
+  it('reports xy-chain from bivalue cells', () => {
+    const masks = Array<number>(81).fill(0);
+    masks[0] = candidateMask(1, 2);
+    masks[2] = candidateMask(2, 3);
+    masks[20] = candidateMask(1, 3);
+    masks[10] = candidateMask(1, 4);
+    const step = xyChain.apply(gridFromState('0'.repeat(81), masks));
+    expect(step?.strategyId).toBe('xy-chain');
+    expect(step?.eliminations).toContainEqual({ cell: 10, digit: 1 });
+  });
+
+  it('reports nice-loop from a closed alternating chain', () => {
+    const masks = Array<number>(81).fill(0);
+    masks[0] = candidateMask(1, 2);
+    masks[2] = candidateMask(2, 3);
+    masks[20] = candidateMask(3, 4);
+    masks[18] = candidateMask(1, 4);
+    masks[9] = candidateMask(1, 5);
+    const step = niceLoop.apply(gridFromState('0'.repeat(81), masks));
+    expect(step?.strategyId).toBe('nice-loop');
+    expect(step?.eliminations).toContainEqual({ cell: 9, digit: 1 });
+  });
+});
 
 // ============================================================
 // Simple Coloring
@@ -335,8 +413,16 @@ describe('uniqueness', () => {
     expect(uniqueRectangleType1.difficulty).toBe(920);
     expect(uniqueRectangleType2.id).toBe('unique-rectangle-type-2');
     expect(uniqueRectangleType2.difficulty).toBe(930);
+    expect(hiddenUniqueRectangle.id).toBe('hidden-unique-rectangle');
+    expect(hiddenUniqueRectangle.difficulty).toBe(935);
+    expect(uniqueRectangleType3.id).toBe('unique-rectangle-type-3');
+    expect(uniqueRectangleType3.difficulty).toBe(940);
     expect(uniqueRectangleType4.id).toBe('unique-rectangle-type-4');
     expect(uniqueRectangleType4.difficulty).toBe(950);
+    expect(uniqueRectangleType5.id).toBe('unique-rectangle-type-5');
+    expect(uniqueRectangleType5.difficulty).toBe(960);
+    expect(uniqueRectangleType6.id).toBe('unique-rectangle-type-6');
+    expect(uniqueRectangleType6.difficulty).toBe(970);
   });
 
   it('reports each uniqueness technique with a specific strategy id', () => {
@@ -360,7 +446,20 @@ describe('uniqueness', () => {
     ur4Masks[3] = candidateMask(1, 2);
     ur4Masks[9] = candidateMask(1, 2, 3);
     ur4Masks[12] = candidateMask(1, 2, 3);
+    expect(hiddenUniqueRectangle.apply(gridFromState('0'.repeat(81), ur4Masks))?.strategyId).toBe('hidden-unique-rectangle');
+    expect(uniqueRectangleType5.apply(gridFromState('0'.repeat(81), ur4Masks))?.strategyId).toBe('unique-rectangle-type-5');
+    expect(uniqueRectangleType6.apply(gridFromState('0'.repeat(81), ur4Masks))?.strategyId).toBe('unique-rectangle-type-6');
     expect(uniqueRectangleType4.apply(gridFromState('0'.repeat(81), ur4Masks))?.strategyId).toBe('unique-rectangle-type-4');
+
+    const ur3Masks = Array<number>(81).fill(0);
+    ur3Masks[0] = candidateMask(1, 2);
+    ur3Masks[3] = candidateMask(1, 2);
+    ur3Masks[9] = candidateMask(1, 2, 3);
+    ur3Masks[12] = candidateMask(1, 2, 4);
+    ur3Masks[10] = candidateMask(3);
+    const ur3 = uniqueRectangleType3.apply(gridFromState('0'.repeat(81), ur3Masks));
+    expect(ur3?.strategyId).toBe('unique-rectangle-type-3');
+    expect(ur3?.eliminations).toContainEqual({ cell: 10, digit: 3 });
 
     const bugPuzzle = '004678912002195348198342567859761423426853791713924856961537284287419635345286179';
     const bugMasks = Array<number>(81).fill(0);
@@ -372,7 +471,7 @@ describe('uniqueness', () => {
   });
 
   it('does not modify the grid', () => {
-    for (const strategy of [bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4]) {
+    for (const strategy of [bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, hiddenUniqueRectangle, uniqueRectangleType3, uniqueRectangleType4, uniqueRectangleType5, uniqueRectangleType6]) {
       for (const puzzle of HARD_PUZZLES) {
         assertNoMutation(puzzle, strategy);
       }
@@ -380,7 +479,7 @@ describe('uniqueness', () => {
   });
 
   it('eliminations are present in grid when they fire', () => {
-    for (const strategy of [uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4]) {
+    for (const strategy of [uniqueRectangleType1, uniqueRectangleType2, hiddenUniqueRectangle, uniqueRectangleType3, uniqueRectangleType4, uniqueRectangleType5, uniqueRectangleType6]) {
       for (const puzzle of HARD_PUZZLES) {
         const g = gridFrom(puzzle);
         const step = strategy.apply(g);
@@ -390,7 +489,7 @@ describe('uniqueness', () => {
   });
 
   it('is sound when it fires', () => {
-    for (const strategy of [bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4]) {
+    for (const strategy of [bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, hiddenUniqueRectangle, uniqueRectangleType3, uniqueRectangleType4, uniqueRectangleType5, uniqueRectangleType6]) {
       for (const puzzle of HARD_PUZZLES) {
         const g = gridFrom(puzzle);
         const solution = solveBruteforce(puzzle);
