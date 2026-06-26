@@ -35,7 +35,7 @@
 - **◐ 概要**：有卡但仅"规则 + 扫描"，缺精确约束 / 边界 / 例子。
 - **✗ 缺文档**：无专卡且无可用源镜像。
 
-> 现状（2026-06-23 卡片补齐；**2026-06-23 晚** 引擎验证六轮）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级或边界级专卡（41 张）**。51 个 worked example 已通过 `packages/engine/test/worked-examples.test.ts` 暴力解核对（见 §文档缺口 backlog）。仍待验证的 exotic / AR 等卡保持 ✅\*。仅 P3（红线）保持边界卡。库存见 [`audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（90 源 / 41 卡）。
+> 现状（2026-06-23 卡片补齐；**2026-06-23 晚** 引擎验证六轮）：00–11 分册的全部 P0/P1/P2 技巧均已有**实现级或边界级专卡（41 张）**。83 个 worked example 已通过 `packages/engine/test/worked-examples.test.ts` 暴力解核对（见 §文档缺口 backlog）。**P0–P2 worked example 均已引擎验证，无 ✅\* 残留**（broken-wing 原 ✅\* 系陈旧标记，已核实其 Guardian 1/2/3 在测试中验证并改回 ✅）。仅 P3（红线）保持边界卡。库存见 [`audit-report.md`](../../research/sudoku-human-solving/local-library/audit-report.md)（90 源 / 41 卡）。
 
 ## 已实现（31；覆盖不再新增，但有契约 / 重构调整，见 [执行清单 §已有策略调整 backlog](./diabolical-727-checklist.md#已有策略调整-backlog回应存量调整是否入计划)）
 
@@ -86,7 +86,7 @@ last-resort：`forcing-chain`。
 | WXYZ-Wing | 06-wings | ✅ | `06-wings/wxyz-wing.md` |
 | Remote Pairs | 06-wings | ✅ | `06-wings/remote-pairs.md`（XY-Chain 特例） |
 | Almost Locked Pair/Triple（Bent Sets）/ Chute Remote Pairs | 06-wings | ✅ | `06-wings/bent-sets.md`（+ chute 见 `remote-pairs.md`；ALP/ALT 直接 fixture 已补） |
-| Broken Wing / Guardians | 05-single-digit-patterns | ✅\* | `05-single-digit-patterns/broken-wing.md`（SW Guardian 1/2/3 已验证） |
+| Broken Wing / Guardians | 05-single-digit-patterns | ✅ | `05-single-digit-patterns/broken-wing.md`（SW Guardian 1/2/3 已引擎验证：`broken-wing-guardian1/2/3`） |
 | Avoidable Rectangle Type 1–4（一般 AR） | 10-uniqueness | ✅ | `10-uniqueness/avoidable-rectangle.md`（HoDoKu ar101/ar102/ar201/ar202 已验证） |
 | Extended Unique Rectangle（2×3 / 3 数） | 10-uniqueness | ✅ | `10-uniqueness/extended-ur.md` |
 | Unique Loops / Unique Polygon / BUG 变体（BUG Lite、BUG+n） | 10-uniqueness | ✅ | `10-uniqueness/unique-rectangle-bug.md` |

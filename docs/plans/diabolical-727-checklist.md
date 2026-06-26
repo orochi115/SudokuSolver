@@ -26,6 +26,11 @@
 
 > 注：① band 内步长留 ~10–20，插入新技巧无需再 renumber。② 4xx 内鱼与短 wing 按**原有顺序**交错（历史语义，未重排）；进阶 wing 归 5xx。③ human-default exotic（1xxx）人类难度可**高于** forcing-chain 的 9000 数字——last-resort band 高隔离只是为了排序末位，不代表「最难」。④ 重排（如把鱼/wing 分到不同 band）会改变默认 trace 选择，属行为变更，**未做**；如需，单独提案 + 707 证据。
 
+## 727 进度基线与量表
+
+- **量表工具**：`npm run solve:list -- --profile <human-default|last-resort> [--file <path>] [--out f.json]`（[`packages/engine/scripts/solve-list.ts`](../../packages/engine/scripts/solve-list.ts)）——对 `data/failing-diabolical/puzzles.txt` 跑引擎、报 solved/stuck/invalid，**不重跑 11.9 万全档**。每实现一个策略后跑它看 727 增量。
+- **基线（2026-06-26，实现任何新策略前）**：human-default **0/727**、last-resort **0/727**（均 0 invalid / 0 error）。last-resort 也为 0 → 确认 727 是真实残集（全策略含 forcing-chain 仍全 stuck），未陈旧。进度 = human-default 的 solved 数从 0 往上走。
+
 ## 状态图例
 
 ☐ 未开始 · ◐ 进行中 · ✅ 完成（detector + restored-state 测试 + 卡 Verified + 全语料无回退）。「卡」列引用 `diabolical-727.md` 文档状态。
