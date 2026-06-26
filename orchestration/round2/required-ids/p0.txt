@@ -1,0 +1,13 @@
+# P0 必须新注册的 strategyId（缺一即退回重试）。地基已有 33 个策略，无需重列；
+# 本表只列 P0 新增。纯别名（x-cycle = nice-loop 单数字特例，无独立 difficulty）不计。
+# 取自 docs/plans/diabolical-727-checklist.md §P0。
+finned-x-wing
+finned-swordfish
+finned-jellyfish
+nice-loop
+xy-chain
+turbot-fish
+hidden-unique-rectangle
+unique-rectangle-type-3
+unique-rectangle-type-5
+unique-rectangle-type-6

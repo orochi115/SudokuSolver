@@ -1,31 +1,38 @@
-# Round-2 对比测试（占位）
+# Round-2 对比测试
 
-> **状态：占位。** 第二轮多模型对比测试尚未开始；详细规划待 Roadmap ①（taxonomy 重构）与 ② 推进、且 727 聚类结果明确后再定。本文件先记录意图与方法骨架，避免散落。
+> **状态：环境就绪、待跑测。** 第二轮多模型对比，让新一批 11 个模型按 727 规划文档的策略分层，
+> 分 **5 个顺序阶段 P0→P1→P2→E→P3** 实现剩余策略族，比较实现质量、727 解题增量、用时与费用。
+> 总控分支 = `master`；执行者地基 = `foundation`（已剥离 `orchestration/` 与 `research/hodoku-logic/`，对"被对比"无感）。
 
 ## 目的
+不是再排名一个固定里程碑，而是**沿 `docs/plans/diabolical-727.md` + `diabolical-727-checklist.md` 的 P0–P3 分层把 727 残题逐层补齐**，看各模型在相同范围下能走多远、解出多少、花多少。
 
-不是再给模型排名，而是**为剩余的 diabolical 失败题生成独立的人类可解策略假设**——用对比测试这套机制探索"还缺哪些策略族"。目标集与聚类来自工程侧的 `docs/plans/diabolical-727.md`（基于 `data/failing-diabolical/` 的 727 题）。
+## 阶段（每模型独立链；前一阶段验收通过才进下一阶段，失败则该模型停在此处）
+| 阶段 | 内容 | required-ids | 进度口径 |
+|---|---|---|---|
+| P0 | 高杠杆、复用既有机制（含耦合 E2/E3/E6） | `required-ids/p0.txt` | `solve:list --profile human-default` |
+| P1 | 标准进阶（含耦合 E4） | `required-ids/p1.txt`（累积） | human-default |
+| P2 | 罕见 / 异域 | `required-ids/p2.txt`（累积） | human-default |
+| E | 独立存量调整（E1 tieBreak、E7 复核），**无新 id** | `required-ids/e.txt`（=P2） | human-default 不回退 |
+| P3 | 最后手段 / 红线，**仅 last-resort** | `required-ids/p3.txt`（累积）；防污染用 `p3-only.txt` | `--profile last-resort`（human-default 不受影响） |
 
-## 方法骨架（迁自第一轮 regression 计划的 Phase 5）
+## 资产
+- `models.txt` — 11 模型（含 runner 列：opencode / grok）。
+- `prompts/{p0,p1,p2,e,p3}.md` — 各阶段任务提示词（harness 运行时追加 required-ids 段 + 自主执行段）。
+- `required-ids/{p0,p1,p2,p3,e}.txt` + `p3-only.txt` — 各阶段必须注册的 strategyId（累积）；`p3-only` 供 P3 防污染门控。
+- `harness/`（见 [§ harness](#harness)） — round2 编排脚本（5 阶段 + grok runner + 扩展 verify/report）。
+- `EVAL-RUBRIC.md` — 跑完后另开会话做的主观评测提纲（文档/checklist 勾选、P3 是否污染 human-default、策略排序合理性）。
 
-仅在聚类已提示候选策略族之后启用：
+## harness
+复用 `orchestration/harness/` 的通用框架（worktree 隔离、idle 检测、metrics、判官），round2 专属改造放在 `orchestration/round2/harness/`：
+- `run-all.sh` 按有序阶段表 `p0 p1 p2 e p3` 逐阶段 gate 调度（替代 round1 硬编码的 M2→M3），按 `models.txt` 的 runner 列分派 opencode / grok。
+- grok runner 用 `grok` CLI 跑 `composer25` 与 `grokbuild`（重试用 session resume，不行则 single-shot 回退）。
+- verify/judge 扩展：每阶段记 `solve:list` 727 计数（P3 加跑 last-resort）+ 测试用时；P3 阶段加防污染门控。
 
-- `foundation` 保持稳定，除非需求需要澄清。
-- 写一份新的分析提示词，聚焦"解释某一个 stuck 盘面并提出人类可解策略"。
-- 用 2–4 个强模型跑同一批聚类代表盘面。
-- 把模型提出的策略族与本地研究库 `research/sudoku-human-solving/local-library/` 对照。
-- 只采纳**可解释、sound、可在当前引擎契约下测试**的策略。
-
-## 环境（执行分支对对比无感）
-
-- 从 `master` 重新切出**全新的 `foundation` 与 `orchestration` 环境**：foundation 剥离 `orchestration/`，并清除任何对比/评分/模型字样，让 worker 分支对"正在被对比"无感知。
-- 复用 `orchestration/harness/` 的通用框架（run-all / run-model / verify / judge / prompts / required-ids / 报告与分析工具）与 `orchestration/harness/methodology/` 的方法论。
-- 本轮专属产物（模型清单、报告、结果数据、调查笔记）放在 `orchestration/round2/` 下（镜像 `round1/` 的组织）。
-
-## 可选：对照开源引擎
-
-为核对策略覆盖与命名是否完整，可在分析阶段参考开源数独分析器的算法实现（如 [HoDoKu](https://github.com/PseudoFish/Hodoku/tree/master/src/solver)）。这属算法参考，与模型评测分开看待。
-
-## 待定稿
-
-- 模型清单、提示词、required-ids 增量、聚类代表盘面的选取——均待 Roadmap ①/② 推进后定稿。
+## 跑测
+```
+SERIAL_PROVIDERS="alibaba-cn siliconflow-cn amazon-bedrock grok" SERIAL_CAP=1 \
+MAX_PAR=4 RETRIES=3 TIMEOUT=3600 \
+orchestration/round2/harness/run-all.sh orchestration/round2/models.txt
+```
+跑完 `archive-run.sh round2`：日志入 LFS、`model/<short>` → `archive/round2/<status>/<short>`、`foundation` → `archive/round2/foundation`。

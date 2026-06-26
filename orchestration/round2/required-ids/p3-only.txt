@@ -1,0 +1,13 @@
+# 仅 P3 段的 strategyId —— 供 verify 的「P3 防污染」门控用（P3_IDS 环境变量）：
+# 断言每个 id ∈ profiles.ts 的 LAST_RESORT_IDS 且 ∉ HUMAN_DEFAULT_STRATEGIES。
+digit-forcing-chain
+nishio-forcing-chain
+cell-forcing-chain
+region-forcing-chain
+dic
+forcing-net
+kraken-fish
+tabling
+pom
+templates
+gem
