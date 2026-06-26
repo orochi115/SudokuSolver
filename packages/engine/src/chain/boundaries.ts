@@ -56,8 +56,32 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'remote-pairs',
+    owns: 'Remote Pairs as a repeated bivalue-cell chain presentation under XY-Chain.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'nice-loop',
     owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'AIC with ALS endpoint/node presentation; no multi-branch forcing.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC with uniqueness/UR endpoint presentation; no multi-branch forcing.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'als-chain',
+    owns: 'General ALS chain / ALS-XY-chain family; ALS-XY-Wing is its len-2 special case.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },

@@ -33,6 +33,16 @@ import {
 } from '../src/strategies/uniqueness.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
+import {
+  p1Strategies,
+  remotePairs,
+  brokenWing,
+  aicWithAls,
+  alsChain,
+  ahs,
+  avoidableRectangleType1,
+  bugLite,
+} from '../src/strategies/p1.js';
 
 // ============================================================
 // Helpers
@@ -398,6 +408,84 @@ describe('als', () => {
 
     expect(step?.strategyId).toBe('death-blossom');
     expect(step?.eliminations).toContainEqual({ cell: 10, digit: 3 });
+  });
+});
+
+// ============================================================
+// P1 strategy registrations and overlap aliases
+// ============================================================
+
+describe('P1 strategies', () => {
+  it('has exact stable ids for every P1 strategy object', () => {
+    expect(p1Strategies.map((s) => s.id)).toEqual([
+      'remote-pairs',
+      'wxyz-wing',
+      'bent-sets',
+      'broken-wing',
+      'multi-coloring',
+      '3d-medusa',
+      'aic-with-als',
+      'aic-with-ur',
+      'als-chain',
+      'ahs',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
+      'extended-unique-rectangle',
+      'unique-loop',
+      'bug-lite',
+      'bug-plus-n',
+      'tridagon',
+    ]);
+  });
+
+  it('does not mutate the grid for any P1 strategy', () => {
+    for (const strategy of p1Strategies) {
+      for (const puzzle of HARD_PUZZLES) assertNoMutation(puzzle, strategy);
+    }
+  });
+
+  it('retitles representative overlap detections to the P1 strategy id', () => {
+    const xyMasks = Array<number>(81).fill(0);
+    xyMasks[0] = candidateMask(1, 2);
+    xyMasks[2] = candidateMask(2, 3);
+    xyMasks[20] = candidateMask(1, 3);
+    xyMasks[10] = candidateMask(1, 4);
+    expect(remotePairs.apply(gridFromState('0'.repeat(81), xyMasks))?.strategyId).toBe('remote-pairs');
+
+    const xMasks = Array<number>(81).fill(0);
+    for (const cell of [0, 8, 26, 20, 10]) xMasks[cell] = candidateMask(1);
+    expect(brokenWing.apply(gridFromState('0'.repeat(81), xMasks))?.strategyId).toBe('broken-wing');
+
+    const aicStep = aicWithAls.apply(gridFrom('000089021009250000004107000500070008020000090800090004000306500000015400750940000'));
+    expect(aicStep?.strategyId).toBe('aic-with-als');
+
+    const alsMasks = Array<number>(81).fill(0);
+    alsMasks[0] = candidateMask(1, 2);
+    alsMasks[1] = candidateMask(1, 3);
+    alsMasks[9] = candidateMask(2, 3);
+    alsMasks[10] = candidateMask(3, 4);
+    expect(ahs.apply(gridFromState('0'.repeat(81), alsMasks))?.strategyId).toBe('ahs');
+
+    const alsChainGrid = '010000020600240008082030460040502010200000000900060207100050002060020080020904050';
+    const alsChainMasks = [92, 0, 348, 224, 448, 496, 340, 0, 276, 0, 340, 340, 0, 0, 337, 341, 324, 0, 80, 0, 0, 65, 0, 337, 0, 0, 273, 196, 0, 228, 0, 448, 0, 420, 0, 292, 0, 68, 229, 205, 449, 453, 436, 268, 316, 0, 20, 149, 141, 0, 133, 0, 12, 0, 0, 324, 332, 160, 0, 160, 324, 332, 0, 88, 0, 344, 69, 0, 69, 321, 0, 265, 196, 0, 196, 0, 65, 0, 101, 0, 37];
+    expect(alsChain.apply(gridFromState(alsChainGrid, alsChainMasks))?.strategyId).toBe('als-chain');
+
+    const ur1Masks = Array<number>(81).fill(0);
+    ur1Masks[0] = candidateMask(1, 2);
+    ur1Masks[3] = candidateMask(1, 2);
+    ur1Masks[9] = candidateMask(1, 2);
+    ur1Masks[12] = candidateMask(1, 2, 3);
+    expect(avoidableRectangleType1.apply(gridFromState('0'.repeat(81), ur1Masks))?.strategyId).toBe('avoidable-rectangle-type-1');
+
+    const bugPuzzle = '004678912002195348198342567859761423426853791713924856961537284287419635345286179';
+    const bugMasks = Array<number>(81).fill(0);
+    bugMasks[0] = candidateMask(1, 2, 3);
+    bugMasks[1] = candidateMask(1, 2);
+    bugMasks[9] = candidateMask(1, 2);
+    bugMasks[10] = candidateMask(1, 2);
+    expect(bugLite.apply(gridFromState(bugPuzzle, bugMasks))?.strategyId).toBe('bug-lite');
   });
 });
 

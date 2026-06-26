@@ -49,23 +49,32 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
-      '`grouped` is a switch on buildLinkGraph, not a separate strategy. Continuous/discontinuous Nice Loops ' +
-      '(AicResult *-loop kinds) are reserved for a future nice-loop strategy and must not be emitted under id "aic".',
+      'AIC-with-ALS/UR are named node presentations owned by the AIC family. `grouped` is a switch on buildLinkGraph, not a separate strategy. ' +
+      'Continuous/discontinuous Nice Loops (AicResult *-loop kinds) are owned by nice-loop and must not be emitted under id "aic".',
   },
   {
     id: 'als-chain',
-    canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    canonicalOwner: 'als-chain',
+    members: ['als-chain', 'als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'ahs', 'aic-with-als'],
+    futureMembers: ['als-xy-chain'],
     unified: false,
     note:
-      'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'ALS-XY-Wing is the len-2 special case of the registered general ALS chain; AHS is the ALS dual node form. ' +
+      'ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS and is intentionally not implemented standalone.',
+  },
+  {
+    id: 'coloring',
+    canonicalOwner: 'simple-coloring',
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    futureMembers: ['x-colors', 'color-wing', 'supercoloring'],
+    unified: false,
+    note:
+      'Multi-Coloring owns X-Colors/Weak Colors/Color Wing presentations; 3D Medusa owns Supercoloring-style candidate graph coloring.',
   },
   {
     id: 'uniqueness-rectangle',
@@ -79,14 +88,35 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-5',
       'unique-rectangle-type-6',
       'bug-plus-one',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
+      'unique-loop',
+      'bug-lite',
+      'bug-plus-n',
     ],
+    futureMembers: ['avoidable-rectangle'],
     unified: true,
     note:
-      'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
-      'unique-solution assumption. UR types currently ship as per-type detectors.',
+      'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG/AR/EUR/unique-loop variants share the ' +
+      'unique-solution assumption. UR types currently ship as per-type detectors/presentations.',
+  },
+  {
+    id: 'bent-wing-oddagon',
+    canonicalOwner: 'wxyz-wing',
+    members: ['wxyz-wing', 'bent-sets', 'broken-wing'],
+    futureMembers: ['vwxyz-wing'],
+    unified: false,
+    note: 'Advanced wing/bent/guardian presentations; VWXYZ remains reserved for the later size-ladder pass.',
+  },
+  {
+    id: 'exotic',
+    canonicalOwner: 'tridagon',
+    members: ['tridagon'],
+    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion'],
+    unified: false,
+    note: 'P1 exotic owner for Tridagon / Thor\'s Hammer; other exotic IDs remain P2 reservations.',
   },
 ];
