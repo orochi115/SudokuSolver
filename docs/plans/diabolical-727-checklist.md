@@ -24,7 +24,17 @@
 | 1xxx | exotic | sue-de-coq 1010 | tridagon、exocet、sk-loop、msls、fireworks、APE/ATE、subset-exclusion、franken/mutant |
 | 9xxx | last-resort / 红线 | forcing-chain 9000 | forcing nets、kraken、POM、templates、GEM |
 
-> 注：① band 内步长留 ~10–20，插入新技巧无需再 renumber。② 4xx 内鱼与短 wing 按**原有顺序**交错（历史语义，未重排）；进阶 wing 归 5xx。③ human-default exotic（1xxx）人类难度可**高于** forcing-chain 的 9000 数字——last-resort band 高隔离只是为了排序末位，不代表「最难」。④ 重排（如把鱼/wing 分到不同 band）会改变默认 trace 选择，属行为变更，**未做**；如需，单独提案 + 707 证据。
+### 已知跨类别错排 & 排序原则（回应「按类别分段 vs 子策略全局排序」）
+
+> **引擎事实：** `difficulty` 是引擎**唯一的全局总序**（`packages/engine/src/strategies/index.ts` 按 difficulty 升序、取**第一个命中**、禁止重复，`test/strategy-profiles.test.ts` 机检）。因此 band 方案**就是** trace 选择顺序——跨类别错排会让引擎在「更难技巧先命中」时，用它解释本可用更易技巧完成的一步。
+
+- **承认局限**：band 按**类别**切分，不是子策略粒度的全局人类成本排序，故存在跨类别错排。例证（现有 31）：
+  - uniqueness（`bug-plus-one` 910 / `unique-rectangle-type-1` 920…）人类**识别成本通常低于** `aic` 750、`death-blossom` 860，却被排在其后 → 两者同时命中时引擎先试更难者并以其解释该步。
+  - 4xx 内鱼与短 wing 按**历史顺序**交错，非真实难度序（见注②）。
+- **前向排序原则（本期新增子策略适用，不改存量行为）**：新增 strategyId 的 `difficulty` 按**全局人类识别/学习成本**插位，**band 仅作提示而非硬约束**——允许「靠后类别」的简单子策略取得比「靠前类别」更低的数字（例：`remote-pairs` 作为短双值链，可低于 `w-wing` 480，而非机械塞进 5xx 末尾）。因为只动新插入项，故不改现有解法行为。
+- **存量错排**不在本期重排（属行为变更，见注④/⑤），留待 [`已有策略调整 backlog`](#已有策略调整-backlog回应存量调整是否入计划) 的 **E7** 用 707 证据复核。
+
+> 注：① band 内步长留 ~10–20，插入新技巧无需再 renumber。② 4xx 内鱼与短 wing 按**原有顺序**交错（历史语义，未重排）；进阶 wing 归 5xx。③ human-default exotic（1xxx）人类难度可**高于** forcing-chain 的 9000 数字——last-resort band 高隔离只是为了排序末位，不代表「最难」。④ 重排（如把鱼/wing 分到不同 band）会改变默认 trace 选择，属行为变更，**未做**；如需，单独提案 + 707 证据。⑤ band 是**提示而非硬约束**：新增子策略按全局人类成本插位（可跨 band 取更低数字）；存量跨类别错排（如 uniqueness vs chains/ALS）的重排为行为变更，统一收敛到 E7。
 
 ## 727 进度基线与量表
 
@@ -85,11 +95,28 @@
 | `franken-fish` / `mutant-fish`（含 Endo Fins / Cannibalism / Siamese 呈现） | Franken / Mutant fish | owner（fish 扩展） | 1080 | ✅ | ☐ |
 | `gurth`（对称占位） | Gurth's Symmetrical Placement | owner（uniqueness / 对称） | 990 | ✅ | ☐ |
 
-> P3（红线）只在 `diabolical-727.md` 枚举命名，不进本执行清单，除非显式 flag 后决策。
+## P3 — 最后手段 / 红线（仅 last-resort，隔离 human-default）
+
+> **隔离声明（硬约束）：** P3 每个 strategyId 实现时其 id **必须加入 `LAST_RESORT_IDS`**（[`profiles.ts`](../../packages/engine/src/strategies/profiles.ts) 第 31 行），**绝不进 `HUMAN_DEFAULT_STRATEGIES`**；727 进度（human-default 口径）**不计** P3。human-default「在 P3 之前达 100%」的项目目标**不变**——本期实现 P3 只为强化 `last-resort` 回归守门与完整度（参照 HoDoKu 全 727 纯逻辑、其中 ~303 需 forcing nets）。
+
+| strategyId | 目录家族 | detector（owner / 共享?） | 拟定 difficulty | 卡 | profile | 状态 |
+|---|---|---|---|---|---|---|
+| `forcing-chain`（现存） | Forcing Chains | owner（last-resort） | 9000 | ◇ | last-resort（✅已隔离） | ✅ |
+| `digit-forcing-chain` / `nishio-forcing-chain` / `cell-forcing-chain` / `region-forcing-chain` / `dic`(Double Implication Chain) | Forcing Chains 子类 | 复用 forcing 引擎（按起点/区类型发具名 ID） | 9010 / 9020 / 9030 / 9040 / 9050 | ◇边界卡 | last-resort | ☐ |
+| `forcing-net`（cell/region/contradiction/verity 为 kind） | Forcing Nets | owner（last-resort） | 9100 | ◇边界卡 | last-resort | ☐ |
+| `kraken-fish`（Type1/Type2 为 kind） | Kraken Fish | fish + chains 组合（red-line） | 9200 | ◇边界卡 | last-resort | ☐ |
+| `tabling`（Trebor's Tables） | Tabling | owner（枚举类） | 9300 | ◇边界卡 | last-resort | ☐ |
+| `pom`（Pattern Overlay Method） | POM | owner（枚举类） | 9400 | ◇边界卡 | last-resort | ☐ |
+| `templates`（Bowman's Bingo） | Templates | owner（枚举类） | 9500 | ◇边界卡 | last-resort | ☐ |
+| `gem`（Graded Equivalence Marks / Braid Analysis） | GEM | owner（临近枚举） | 9600 | ◇边界卡 | last-resort | ☐ |
+
+> 注：① 拟定 difficulty 全在 9xxx band、互不重复、与现有 `forcing-chain` 9000 不撞——满足 `index.ts` 的 no-tie 不变量；band 内步长留 ~10–100 便于插入。② 实现前须把对应 ◇边界卡升级到实现级九节模板（spec §实现级研究卡模板），与 P0–P2 同；这些卡当前是 `diabolical-727.md` §P3 的边界卡。③ 与 spec 一致性：`diabolical-727.md` §P3 写「默认不实现；仅在确需时 flag 后引入」——「实现为 last-resort-only」即该 flag 形态，二者不冲突。
 
 ## 已有策略调整 backlog（回应「存量调整是否入计划」）
 
-`diabolical-727.md` 旧措辞「已实现…不再规划」只对**覆盖**成立；**契约 / 重构**层仍有存量任务，列此显式跟踪：
+> **定位（本期上调）：** 这些是执行计划的一等公民，**优先级高于红线 P3**——见下方引言与[推进流程](#推进流程与-diabolical-727md-实施方法一致)。
+
+`diabolical-727.md` 旧措辞「已实现…不再规划」只对**覆盖**成立；**契约 / 重构**层仍有存量任务。**这些是执行计划的一等公民，不是旁支 backlog**：作为人类技巧轨的契约/重构工作，**优先级高于红线 P3**，须在动用 P3 之前完成。触发耦合已存在——多数 E 项随其耦合的 P0–P2 策略实现时一并落地（E2↔turbot/x-cycle、E3↔UR3/5/6+AR+EUR、E4↔als-chain、E6↔nice-loop），天然先于 P3；E1（tieBreak 补全）等独立项随时可做。
 
 | # | 调整 | 触发 / 原因 | 状态 |
 |---|---|---|---|
@@ -99,11 +126,17 @@
 | E4 | **ALS 收编**：通用 `als-chain` 落地后，`als-xy-wing` 降为其特例（alias 或折叠） | 实现 als-chain 时 | ☐ |
 | E5 | **难度重标已落地**（2026-06-24）：4–100 → 分层 band | gate 2 + 本清单难度刻度节 | ✅ |
 | E6 | **chain 引擎归属落实**：nice-loop 接管 `AicResult` 现有却未返回的 `*-loop` kind；确保 aic 不私自发 loop | 实现 nice-loop 时（boundaries 已声明） | ☐ |
+| E7 | **难度刻度全局子策略粒度复核**：评估是否重排存量 31（尤其 uniqueness 9xx vs chains 7xx / ALS 8xx）使其按真实人类成本全局排序 | 用户质疑 band 跨类别错排（见[难度刻度节](#已知跨类别错排--排序原则回应按类别分段-vs-子策略全局排序)）；属行为变更（注④/⑤），须单独提案 + 707 证据 + 回归无降级方可落地 | ☐ |
 
 ## 推进流程（与 diabolical-727.md §实施方法一致）
 
-1. 选下一个 strategyId（P0→P1→P2，族内按 727 实测杠杆）。
+**执行模型（优先级 ≠ 时序，避免当成瀑布相位）：** 下面是**选下一步的优先级**与**红线门槛**，不是「做完一相再做下一相」的 Phase。
+- **P0 → P1 → P2**：技巧实现的优先级桶，大体按序，族内按 727 实测杠杆微调（见步骤 5）。
+- **E 项（存量调整）= 门槛，不是相位**：E2/E3/E4/E6 与具体技巧**耦合**，在其触发策略落地的**同一步**内一并完成（E2↔turbot/x-cycle、E3↔UR 系、E4↔als-chain、E6↔nice-loop），**不**攒到 P2 之后再做；独立项（E1）随时可做。把 E 当成「P2 之后的一个阶段」会与「E6 在实现 nice-loop(P0) 时做」直接矛盾。
+- **唯一硬时序不变量**：动用任何 P3 之前，human-default 须达 100% **且**所有被触发的 E 项已结清——这就是「E 优先级高于 P3」的**可执行**含义（门槛，非排期）。P3 仅进 last-resort 轨。
+
+1. 选下一个 strategyId（P0→P1→P2，族内按 727 实测杠杆；human-default 全覆盖收尾后才动 P3）。
 2. 确认其研究卡为 ✅ 实现级；不足则先补卡（见 spec 文档九节模板）。
 3. TDD：先写失败的 restored-state 用例（复用卡内 worked example）→ 最小实现 → 全语料无回退。
-4. 把该 id 从 `overlap.ts`/`boundaries.ts` 的 `futureMembers`/reserved 移入正式 members；在本表勾选 ✅。
-5. 每族完成后 `corpus:run --profile human-default` 记录 727 覆盖率增量；并用此残集做**迭代式杠杆测量**（挑下一个高杠杆技巧）——这取代了旧计划里「一次性前置聚类探针」（对未实现技巧无法探针、对全实现后又无残集，故只在循环中做，见 spec §实施方法 2）。终极 727 以 `--profile last-resort` 口径核对。
+4. 把该 id 从 `overlap.ts`/`boundaries.ts` 的 `futureMembers`/reserved 移入正式 members；在本表勾选 ✅。**若为 P3 策略**，额外把 id 加入 [`profiles.ts`](../../packages/engine/src/strategies/profiles.ts) 的 `LAST_RESORT_IDS`，并断言它**不出现在** `HUMAN_DEFAULT_STRATEGIES`（呼应 `strategy-profiles.test.ts`），确保不污染 human-default。
+5. 每族完成后 `corpus:run --profile human-default` 记录 727 覆盖率增量；并用此残集做**迭代式杠杆测量**（挑下一个高杠杆技巧）——这取代了旧计划里「一次性前置聚类探针」（对未实现技巧无法探针、对全实现后又无残集，故只在循环中做，见 spec §实施方法 2）。终极 727 以 `--profile last-resort` 口径核对（P3 增量在此口径体现）。
