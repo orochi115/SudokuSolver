@@ -8,6 +8,10 @@ import type { Grid } from '../grid.js';
 import type { Strategy } from '../strategy.js';
 import {
   tryBUGPlus1,
+  tryBugLite,
+  tryBugPlusN,
+  tryExtendedUR,
+  tryUniqueLoop,
   tryURType1,
   tryURType2,
   tryURType3,
@@ -16,6 +20,19 @@ import {
   tryURType6,
   tryHiddenUR,
 } from './ur-engine.js';
+import {
+  avoidableRectangleType1,
+  avoidableRectangleType2,
+  avoidableRectangleType3,
+  avoidableRectangleType4,
+} from './avoidable-rectangle.js';
+
+export {
+  avoidableRectangleType1,
+  avoidableRectangleType2,
+  avoidableRectangleType3,
+  avoidableRectangleType4,
+};
 
 export const bugPlusOne: Strategy = {
   id: 'bug-plus-one',
@@ -94,5 +111,45 @@ export const uniqueRectangleType6: Strategy = {
   tieBreak: ['cell-index'],
   apply(grid: Grid) {
     return tryURType6(grid, 'unique-rectangle-type-6');
+  },
+};
+
+export const extendedUniqueRectangle: Strategy = {
+  id: 'extended-unique-rectangle',
+  name: { zh: '扩展唯一矩形', en: 'Extended Unique Rectangle' },
+  difficulty: 980,
+  tieBreak: ['cell-index'],
+  apply(grid: Grid) {
+    return tryExtendedUR(grid, 'extended-unique-rectangle');
+  },
+};
+
+export const uniqueLoop: Strategy = {
+  id: 'unique-loop',
+  name: { zh: '唯一环', en: 'Unique Loop' },
+  difficulty: 985,
+  tieBreak: ['cell-index'],
+  apply(grid: Grid) {
+    return tryUniqueLoop(grid, 'unique-loop');
+  },
+};
+
+export const bugLite: Strategy = {
+  id: 'bug-lite',
+  name: { zh: 'BUG Lite', en: 'BUG Lite' },
+  difficulty: 986,
+  tieBreak: ['cell-index'],
+  apply(grid: Grid) {
+    return tryBugLite(grid, 'bug-lite');
+  },
+};
+
+export const bugPlusN: Strategy = {
+  id: 'bug-plus-n',
+  name: { zh: 'BUG+N', en: 'BUG+N' },
+  difficulty: 987,
+  tieBreak: ['cell-index'],
+  apply(grid: Grid) {
+    return tryBugPlusN(grid, 'bug-plus-n');
   },
 };

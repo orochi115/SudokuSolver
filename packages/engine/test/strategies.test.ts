@@ -700,6 +700,8 @@ describe('STRATEGIES registry', () => {
       'als-xz-doubly-linked',
       'als-xy-wing',
       'death-blossom',
+      'als-chain',
+      'ahs',
       'bug-plus-one',
       'unique-rectangle-type-1',
       'unique-rectangle-type-2',

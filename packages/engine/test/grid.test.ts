@@ -104,4 +104,16 @@ describe('Grid', () => {
     c.place(2, 4);
     expect(g.get(2)).toBe(0);
   });
+
+  it('tracks givens from fromString and preserves them across place()', () => {
+    const g = Grid.fromString(PUZZLE);
+    expect(g.isGiven(0)).toBe(true);
+    expect(g.isGiven(2)).toBe(false);
+    g.place(2, 4);
+    expect(g.isGiven(2)).toBe(false);
+    expect(g.get(2)).toBe(4);
+    const c = g.clone();
+    expect(c.isGiven(0)).toBe(true);
+    expect(c.isGiven(2)).toBe(false);
+  });
 });

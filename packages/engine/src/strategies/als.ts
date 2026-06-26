@@ -43,7 +43,7 @@ import type { Step } from '../trace.js';
 import type { Strategy, TieBreakKey } from '../strategy.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
-interface ALS {
+export interface ALS {
   house: number;
   cells: number[];      // cells in this ALS (all in one unit or mutually visible)
   digits: number[];     // all candidates across cells (exactly cells.length + 1 distinct digits)
@@ -74,7 +74,7 @@ function findALSInHouse(grid: Grid, house: readonly number[], houseIndex: number
 }
 
 /** Find all ALS (up to size 4) from all houses. */
-function findAllALS(grid: Grid): ALS[] {
+export function findAllALS(grid: Grid): ALS[] {
   const result: ALS[] = [];
   const seenKeys = new Set<string>();
 
@@ -107,7 +107,7 @@ function* combinations<T>(arr: T[], k: number): Generator<T[]> {
  * Check if digit d is a Restricted Common Candidate between ALS A and ALS B:
  * every cell in A that has d sees every cell in B that has d (and vice versa).
  */
-function isRCC(grid: Grid, a: ALS, b: ALS, d: number): boolean {
+export function isRCC(grid: Grid, a: ALS, b: ALS, d: number): boolean {
   const bit = maskOf(d);
   if (!(a.digitMask & bit)) return false;
   if (!(b.digitMask & bit)) return false;
@@ -130,7 +130,7 @@ function isRCC(grid: Grid, a: ALS, b: ALS, d: number): boolean {
 /**
  * Check if two ALS share any cells. They must not.
  */
-function alsShareCells(a: ALS, b: ALS): boolean {
+export function alsShareCells(a: ALS, b: ALS): boolean {
   const setA = new Set(a.cells);
   return b.cells.some((c) => setA.has(c));
 }
@@ -285,93 +285,6 @@ function tryALSXZ(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
 }
 
 /**
- * ALS-XY-Wing: Three ALS A, B, C where:
- *   A and C share RCC X
- *   B and C share RCC Y (Y ≠ X)
- *   A and B share common candidate Z (not X or Y)
- *   Eliminate Z from cells seeing all Z in A and B.
- */
-function tryALSXYWing(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
-  for (let ci = 0; ci < alsList.length; ci++) {
-    const c_als = alsList[ci]!; // pivot ALS C
-
-    for (let ai = 0; ai < alsList.length; ai++) {
-      if (ai === ci) continue;
-      const a_als = alsList[ai]!;
-      if (alsShareCells(a_als, c_als)) continue;
-
-      // Find RCC X between A and C
-      const acCommon = digitsOf(a_als.digitMask & c_als.digitMask);
-      const xCandidates = acCommon.filter((d) => isRCC(grid, a_als, c_als, d));
-      if (xCandidates.length === 0) continue;
-
-      for (let bi = 0; bi < alsList.length; bi++) {
-        if (bi === ci || bi === ai) continue;
-        const b_als = alsList[bi]!;
-        if (alsShareCells(b_als, c_als)) continue;
-        if (alsShareCells(b_als, a_als)) continue;
-
-        // Find RCC Y between B and C
-        const bcCommon = digitsOf(b_als.digitMask & c_als.digitMask);
-        const yCandidates = bcCommon.filter((d) => isRCC(grid, b_als, c_als, d));
-        if (yCandidates.length === 0) continue;
-
-        for (const x of xCandidates) {
-          for (const y of yCandidates) {
-            if (x === y) continue;
-
-            // Find common Z in A and B (not X or Y)
-            const abCommon = digitsOf(a_als.digitMask & b_als.digitMask);
-            for (const z of abCommon) {
-              if (z === x || z === y) continue;
-
-              const zBit = maskOf(z);
-              const aCellsZ = a_als.cells.filter((c) => grid.candidatesOf(c) & zBit);
-              const bCellsZ = b_als.cells.filter((c) => grid.candidatesOf(c) & zBit);
-              if (aCellsZ.length === 0 || bCellsZ.length === 0) continue;
-
-              const elims: { cell: number; digit: number }[] = [];
-              for (let cell = 0; cell < CELLS; cell++) {
-                if (grid.get(cell) !== 0) continue;
-                if (!(grid.candidatesOf(cell) & zBit)) continue;
-                if (a_als.cells.includes(cell) || b_als.cells.includes(cell) || c_als.cells.includes(cell)) continue;
-
-                const peers = new Set(PEERS_OF[cell]!);
-                if (aCellsZ.every((ac) => peers.has(ac)) && bCellsZ.every((bc) => peers.has(bc))) {
-                  elims.push({ cell, digit: z });
-                }
-              }
-
-              if (elims.length === 0) continue;
-
-              const allCells = [...a_als.cells, ...b_als.cells, ...c_als.cells];
-              return {
-                strategyId,
-                placements: [],
-                eliminations: elims,
-                highlights: {
-                  cells: [...new Set([...allCells, ...elims.map((e) => e.cell)])],
-                  candidates: [
-                    ...allCells.flatMap((cell) => digitsOf(grid.candidatesOf(cell)).map((d) => ({ cell, digit: d }))),
-                    ...elims,
-                  ],
-                  links: [],
-                },
-                explanation: {
-                  zh: `ALS-XY翼：三个 ALS 通过受限公共候选数 ${x}（A-C）和 ${y}（B-C）连接；消去能同时看到 A 和 B 中所有 ${z} 的格中的 ${z}（ALS-XY翼）。`,
-                  en: `ALS-XY-Wing: three ALS linked by RCC ${x} (A-C) and ${y} (B-C); eliminate ${z} from cells seeing all ${z} in both A and B (ALS-XY-Wing).`,
-                },
-              };
-            }
-          }
-        }
-      }
-    }
-  }
-  return null;
-}
-
-/**
  * Death Blossom: A stem cell with candidates {d1, d2, ...} is connected to
  * multiple ALS petals, each sharing one stem digit as an RCC. The common
  * candidates across all petals can be eliminated.
@@ -517,13 +430,7 @@ export const alsXzDoublyLinked = makeAlsStrategy(
   tryALSDoublyLinkedXZ,
 );
 
-export const alsXyWing = makeAlsStrategy(
-  'als-xy-wing',
-  { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
-  840,
-  ['house'],
-  tryALSXYWing,
-);
+export { alsXyWing } from './als-chain.js';
 
 export const deathBlossom = makeAlsStrategy(
   'death-blossom',
