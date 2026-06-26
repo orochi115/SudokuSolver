@@ -38,7 +38,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
     id: 'single-digit-strong-link',
     canonicalOwner: 'x-chain',
     members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle', 'turbot-fish'],
-    futureMembers: ['x-cycle', 'rectangle-elimination', 'grouped-x-cycle'],
+    futureMembers: ['rectangle-elimination', 'grouped-x-cycle'],
     unified: false,
     note:
       'All one single-digit strong-link pattern. Turbot Fish = skyscraper/2-string-kite/empty-rectangle unified 4-link; ' +
@@ -49,8 +49,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
@@ -60,24 +60,52 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs', 'aic-with-als'],
+    futureMembers: [],
     unified: false,
     note:
-      'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'ALS-XY-Wing is the len-2 special case of a general ALS chain (E4: folded). ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
+      'and is intentionally not implemented standalone. als-xz is the representative owner; als-chain is the general search.',
   },
   {
     id: 'uniqueness-rectangle',
     canonicalOwner: 'unique-rectangle-type-1',
-    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-3', 'unique-rectangle-type-4', 'unique-rectangle-type-5', 'unique-rectangle-type-6', 'hidden-unique-rectangle', 'bug-plus-one'],
-    futureMembers: [
-      'avoidable-rectangle',
-      'extended-unique-rectangle',
-    ],
+    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-3', 'unique-rectangle-type-4', 'unique-rectangle-type-5', 'unique-rectangle-type-6', 'hidden-unique-rectangle', 'bug-plus-one', 'avoidable-rectangle-type-1', 'avoidable-rectangle-type-2', 'avoidable-rectangle-type-3', 'avoidable-rectangle-type-4', 'extended-unique-rectangle', 'unique-loop', 'bug-lite', 'bug-plus-n'],
+    futureMembers: [],
     unified: false,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
       'unique-solution assumption. UR types currently ship as per-type detectors.',
+  },
+  {
+    id: 'coloring',
+    canonicalOwner: 'simple-coloring',
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    futureMembers: [],
+    unified: false,
+    note:
+      'Coloring family: Simple Coloring (single-digit, one cluster), Multi-Coloring (single-digit, multiple clusters), ' +
+      '3D Medusa (multi-digit bi-value/bi-location coloring). X-Colors/Weak Colors/Color Wing/Supercoloring are all ' +
+      'single-digit extensions and are subsumed by Multi-Coloring.',
+  },
+  {
+    id: 'exotic',
+    canonicalOwner: 'sue-de-coq',
+    members: ['sue-de-coq', 'tridagon'],
+    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks'],
+    unified: false,
+    note:
+      'Exotic/rare techniques. Tridagon (anti-Tridagon / Thor\'s Hammer) is a 12-cell deadly pattern using parity ' +
+      'contradiction (not uniqueness). Sue-De-Coq is the current owner.',
+  },
+  {
+    id: 'wing',
+    canonicalOwner: 'xy-wing',
+    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'bent-sets'],
+    futureMembers: ['vwxyz-wing'],
+    unified: false,
+    note:
+      'Wing family: XY-Wing (3-cell bivalue), XYZ-Wing (4-cell), W-Wing, WXYZ-Wing (generalised ALS wing), ' +
+      'Bent Sets (ALP/ALT / Chute Remote Pairs). VWXYZ-Wing is the size-ladder extension reserved for P2.',
   },
 ];

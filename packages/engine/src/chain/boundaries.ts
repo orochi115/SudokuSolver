@@ -61,6 +61,24 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  {
+    strategyId: 'remote-pairs',
+    owns: 'Bivalue cell chain (special case of XY-Chain). Remote Pairs = same digit pair at chain endpoints.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'AIC with ALS nodes as endpoints — integrates ALS strong links into AIC reasoning.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC with UR/grouped nodes — integrates uniqueness strong links into AIC reasoning.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

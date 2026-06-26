@@ -1,22 +1,3 @@
-/**
- * Strategy registry.
- *
- * Strategies are ordered by `difficulty` (ascending), so the solver loop
- * always prefers the cheapest available deduction first (FR-7).
- *
- * GLOBAL PRIORITY TABLE (Roadmap ② gate 2 — frozen canonical order).
- * The `difficulty` scalar is the engine's single, total ordering of strategies.
- * It is ranked by HUMAN recognition / learning cost (per docs/plans/diabolical-727.md),
- * NOT implementation or runtime cost. Two invariants are machine-checked
- * (test/strategy-profiles.test.ts):
- *   1. `STRATEGIES.map(s => s.id)` equals `CANONICAL_STRATEGY_ORDER` exactly —
- *      so any reordering is a deliberate edit to both, never accidental.
- *   2. No two strategies share a `difficulty` — the order is a strict total order,
- *      making default trace selection deterministic.
- * Adding a strategy therefore means: insert it at its difficulty band AND add its
- * id to CANONICAL_STRATEGY_ORDER at the same position.
- */
-
 import type { Strategy } from '../strategy.js';
 import { fullHouse } from './full-house.js';
 import { nakedSingle } from './naked-single.js';
@@ -40,26 +21,31 @@ import { turbotFish } from './turbot-fish.js';
 import { xyChain } from './xy-chain.js';
 import { niceLoop } from './nice-loop.js';
 import { uniqueRectangleType3, uniqueRectangleType5, uniqueRectangleType6, hiddenUniqueRectangle } from './uniqueness-ext.js';
+import { tridagon } from './tridagon.js';
+import { multiColoring } from './multi-coloring.js';
+import { medusa3d } from './3d-medusa.js';
+import { alsChain } from './als-chain.js';
+import { ahs } from './ahs.js';
+import { wxyzWing } from './wxyz-wing.js';
+import { remotePairs } from './remote-pairs.js';
+import { bentSets } from './bent-sets.js';
+import { brokenWing } from './broken-wing.js';
+import { avoidableRectangleType1, avoidableRectangleType2, avoidableRectangleType3, avoidableRectangleType4 } from './avoidable-rectangle.js';
+import { extendedUniqueRectangle, uniqueLoop, bugLite, bugPlusN } from './uniqueness-ext2.js';
+import { aicWithAls, aicWithUr } from './aic-ext.js';
 
 export const STRATEGIES: readonly Strategy[] = [
-  // Singles (1xx)
   fullHouse,          // 100
   nakedSingle,        // 150
   hiddenSingle,       // 170
-
-  // Intersections (2xx)
   lockedCandidatesPointing, // 210
   lockedCandidatesClaiming, // 220
-
-  // Subsets (3xx)
   nakedPair,          // 310
   hiddenPair,         // 320
   nakedTriple,        // 330
   hiddenTriple,       // 340
   nakedQuad,          // 350
   hiddenQuad,         // 360
-
-  // Basic fish + short wings (4xx)  [5xx reserved for advanced wings]
   xWing,              // 410
   finnedXWing,        // 415
   skyscraper,         // 420
@@ -72,39 +58,47 @@ export const STRATEGIES: readonly Strategy[] = [
   wWing,              // 480
   jellyfish,          // 490
   finnedJellyfish,    // 495
-
-  // Advanced wings (5xx)
+  remotePairs,        // 505
   turbotFish,         // 510
-
-  // Coloring (6xx) · Chains (7xx) · ALS (8xx) · Uniqueness (9xx) · Exotic (1xxx)
+  wxyzWing,           // 520
+  bentSets,           // 540
+  brokenWing,         // 560
   simpleColoring,     // 610
+  multiColoring,      // 620
+  medusa3d,           // 640
   xChain,             // 710
   xyChain,            // 715
   niceLoop,           // 720
   aic,                // 750
+  aicWithAls,         // 760
+  aicWithUr,          // 770
   alsXz,              // 810
   alsXzDoublyLinked,  // 820
   alsXyWing,          // 840
   deathBlossom,       // 860
+  alsChain,           // 880
+  ahs,                // 885
   bugPlusOne,         // 910
   uniqueRectangleType1, // 920
   uniqueRectangleType2, // 930
   hiddenUniqueRectangle, // 935
   uniqueRectangleType3, // 940
+  avoidableRectangleType1, // 945
+  avoidableRectangleType2, // 946
+  avoidableRectangleType3, // 947
+  avoidableRectangleType4, // 948
   uniqueRectangleType4, // 950
   uniqueRectangleType5, // 960
   uniqueRectangleType6, // 970
+  extendedUniqueRectangle, // 980
+  uniqueLoop,         // 985
+  bugLite,            // 986
+  bugPlusN,           // 987
   sueDeCoq,           // 1010
-
-  // Last-resort / red-line (9xxx) — excluded from the human-default profile
+  tridagon,           // 1100
   forcingChain,       // 9000
 ];
 
-/**
- * Frozen snapshot of the registry order (gate 2). MUST list every id in
- * `STRATEGIES` in the same order. Kept as an explicit constant so that a
- * reorder/insert is a visible, reviewable diff and is enforced by tests.
- */
 export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'full-house',
   'naked-single',
@@ -129,25 +123,44 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'w-wing',
   'jellyfish',
   'finned-jellyfish',
+  'remote-pairs',
   'turbot-fish',
+  'wxyz-wing',
+  'bent-sets',
+  'broken-wing',
   'simple-coloring',
+  'multi-coloring',
+  '3d-medusa',
   'x-chain',
   'xy-chain',
   'nice-loop',
   'aic',
+  'aic-with-als',
+  'aic-with-ur',
   'als-xz',
   'als-xz-doubly-linked',
   'als-xy-wing',
   'death-blossom',
+  'als-chain',
+  'ahs',
   'bug-plus-one',
   'unique-rectangle-type-1',
   'unique-rectangle-type-2',
   'hidden-unique-rectangle',
   'unique-rectangle-type-3',
+  'avoidable-rectangle-type-1',
+  'avoidable-rectangle-type-2',
+  'avoidable-rectangle-type-3',
+  'avoidable-rectangle-type-4',
   'unique-rectangle-type-4',
   'unique-rectangle-type-5',
   'unique-rectangle-type-6',
+  'extended-unique-rectangle',
+  'unique-loop',
+  'bug-lite',
+  'bug-plus-n',
   'sue-de-coq',
+  'tridagon',
   'forcing-chain',
 ];
 
@@ -175,24 +188,43 @@ export {
   wWing,
   jellyfish,
   finnedJellyfish,
+  remotePairs,
   turbotFish,
+  wxyzWing,
+  bentSets,
+  brokenWing,
   simpleColoring,
+  multiColoring,
+  medusa3d,
   xChain,
   xyChain,
   niceLoop,
   aic,
+  aicWithAls,
+  aicWithUr,
   alsXz,
   alsXzDoublyLinked,
   alsXyWing,
   deathBlossom,
+  alsChain,
+  ahs,
   bugPlusOne,
   uniqueRectangleType1,
   uniqueRectangleType2,
   hiddenUniqueRectangle,
   uniqueRectangleType3,
+  avoidableRectangleType1,
+  avoidableRectangleType2,
+  avoidableRectangleType3,
+  avoidableRectangleType4,
   uniqueRectangleType4,
   uniqueRectangleType5,
   uniqueRectangleType6,
+  extendedUniqueRectangle,
+  uniqueLoop,
+  bugLite,
+  bugPlusN,
   sueDeCoq,
+  tridagon,
   forcingChain,
 };
