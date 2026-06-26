@@ -2,7 +2,7 @@
 
 > **定位：** 主 TS 引擎（[`packages/engine/`](../../packages/engine/)）的人类技巧补全计划。目标是做到**人类解法全覆盖、并超越 HoDoKu 的完整度**——理想状态是**不依赖 forcing chain / net 也能 100% 解出** [`../../data/failing-diabolical/`](../../data/failing-diabolical/) 里的 727 道 diabolical。
 >
-> **资料口径：** 策略定义、分类与优先级**只参考网络数独资料**（SudokuWiki / Sudopedia / sudoku.com / 论坛 / 中文社区等，镜像见 [`research/sudoku-human-solving/`](../../research/sudoku-human-solving/)）；**不参考 HoDoKu 的实现与源码**（HoDoKu 仅作为另一条独立轨道，见 [`research/hodoku-logic/`](../../research/hodoku-logic/)，与本计划解耦）。
+> **资料口径：** 策略定义、分类与优先级**只参考网络数独资料**（SudokuWiki / Sudopedia / sudoku.com / 论坛 / 中文社区等，镜像见 [`research/sudoku-human-solving/`](../../research/sudoku-human-solving/)）；**不参考任何现成求解器的实现与源码**，按研究卡独立实现。
 >
 > **727 的角色：** 727 是**经验验证门槛（empirical gate）**，不是计划的组织框架——补齐技巧树后用它度量覆盖率，而非按它逆推该实现什么。
 >
@@ -259,4 +259,3 @@ last-resort：`forcing-chain`。
 - **执行清单（本计划的配套 tracker）**：[`diabolical-727-checklist.md`](./diabolical-727-checklist.md) —— 逐 strategyId 拆解、难度刻度、存量调整 backlog、进度勾选。本文件管「规格/覆盖」，清单管「执行/进度」。
 - 研究资料补全（卡片新建 / 网络抓取 / 索引更新）：落地于 [`research/sudoku-human-solving/`](../../research/sudoku-human-solving/)。
 - 逐格推算难度评估（引导模式）：见 [`difficulty-evaluation.md`](./difficulty-evaluation.md)（本轮仅记录方向）。
-- HoDoKu 移植（独立轨道，含 727 的纯逻辑普查结果）：见 [`research/hodoku-logic/`](../../research/hodoku-logic/)。

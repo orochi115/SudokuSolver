@@ -1,4 +1,0 @@
-# Compiled output (regenerate with ./build.sh)
-out/
-# Run transcripts (results live in results*/ as tsv + summary.md)
-*.log

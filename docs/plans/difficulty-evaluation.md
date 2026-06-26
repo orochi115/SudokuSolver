@@ -11,7 +11,7 @@
 
 ## 关键依赖
 
-- 需要先把主引擎 `Step` / strategy 模型里**搜索顺序（search order）与难度评分（rating）解耦**——当前 `difficulty` 一个数字同时承担两职。可借鉴 HoDoKu 移植轨道里整理的 `level + baseScore`（评分）与 `index`（搜索顺序）分离思路（见 [`research/hodoku-logic/`](../../research/hodoku-logic/) 的架构决策文档），但**实现独立**。
+- 需要先把主引擎 `Step` / strategy 模型里**搜索顺序（search order）与难度评分（rating）解耦**——当前 `difficulty` 一个数字同时承担两职。可借鉴成熟求解器常见的 `level + baseScore`（评分）与 `index`（搜索顺序）分离思路，但**实现独立**。
 - 评分口径应与 [`diabolical-727.md`](./diabolical-727.md) 的技巧分级（P0–P3 / `difficulty` 按识别成本）一致，避免两套难度体系。
 
 ## 接口占位（待定）
