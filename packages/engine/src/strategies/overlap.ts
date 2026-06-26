@@ -51,29 +51,35 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
     id: 'aic-chain',
     canonicalOwner: 'aic',
     // E6: xy-chain and nice-loop moved from futureMembers to members (P0 implementation complete)
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    // P1: remote-pairs moved from futureMembers to members (P1 implementation complete)
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
       '`grouped` is a switch on buildLinkGraph, not a separate strategy. Continuous/discontinuous Nice Loops ' +
       '(AicResult *-loop kinds) are owned by nice-loop (E6) and must not be emitted under id "aic". ' +
-      'XY-Chain is the bivalue-only AIC (P0 implementation). Nice Loop owns all *-loop AIC results (E6).',
+      'XY-Chain is the bivalue-only AIC (P0 implementation). Nice Loop owns all *-loop AIC results (E6). ' +
+      'Remote Pairs is the XY-Chain subcase where all chain cells share the same bivalue pair (P1).',
   },
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    // E4: als-chain implemented in P1; als-xy-wing is its len-2 special case (alias).
+    // P1: als-chain, ahs, aic-with-als moved from futureMembers to members.
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs', 'aic-with-als'],
+    futureMembers: [],
     unified: false,
     note:
-      'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'ALS-XY-Wing is the len-2 special case of a general ALS chain (E4: als-xy-wing is alias/folded under als-chain). ' +
+      'als-chain implements the general N-node ALS chain. ahs is the dual (Almost Hidden Set). ' +
+      'aic-with-als uses ALS nodes in AIC chains. als-xz is the representative owner.',
   },
   {
     id: 'uniqueness-rectangle',
     canonicalOwner: 'unique-rectangle-type-1',
     // E3: UR type-3/5/6 and hidden-ur moved from futureMembers to members (P0 implementation complete)
+    // P1: AR types 1-4, EUR, unique-loop, bug-lite, bug-plus-n moved from futureMembers to members
     members: [
       'unique-rectangle-type-1',
       'unique-rectangle-type-2',
@@ -83,15 +89,21 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
       'bug-plus-one',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
+      'unique-loop',
+      'bug-lite',
+      'bug-plus-n',
     ],
+    futureMembers: [],
     unified: false,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
       'unique-solution assumption. UR types ship as per-type detectors sharing allRectangles() generator (E3). ' +
-      'UR Type 3/5/6 and Hidden UR implemented in uniqueness-extended.ts (P0).',
+      'AR types require given-cell tracking (implemented as stubs pending Grid.isGiven() API). ' +
+      'EUR (2x3), unique-loop, bug-lite, bug-plus-n added in P1.',
   },
 ];
