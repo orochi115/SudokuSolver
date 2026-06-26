@@ -64,7 +64,7 @@ describe('gate 6 — chain-engine boundaries', () => {
     }
   });
 
-  it('reserved chain strategies (nice-loop, xy-chain) are not yet registered', () => {
+  it('reserved chain strategies are not yet registered', () => {
     for (const c of CHAIN_OWNERSHIP) {
       if (!c.reserved) continue;
       expect(registeredIds.has(c.strategyId), `reserved ${c.strategyId}`).toBe(false);

@@ -37,9 +37,9 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'single-digit-strong-link',
     canonicalOwner: 'x-chain',
-    members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle'],
-    futureMembers: ['turbot-fish', 'x-cycle', 'rectangle-elimination', 'grouped-x-cycle'],
-    unified: false,
+    members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle', 'turbot-fish'],
+    futureMembers: ['x-cycle', 'rectangle-elimination', 'grouped-x-cycle'],
+    unified: true,
     note:
       'All one single-digit strong-link pattern. Turbot Fish = skyscraper/2-string-kite/empty-rectangle unified 4-link; ' +
       'X-Cycle = single-digit Nice Loop; X-Wing = length-4 continuous X-Cycle (lives in the fish family, cross-ref only). ' +
@@ -49,8 +49,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing'],
-    futureMembers: ['xy-chain', 'nice-loop', 'remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
+    futureMembers: ['remote-pairs', 'grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
@@ -70,16 +70,21 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'uniqueness-rectangle',
     canonicalOwner: 'unique-rectangle-type-1',
-    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-4', 'bug-plus-one'],
-    futureMembers: [
+    members: [
+      'unique-rectangle-type-1',
+      'unique-rectangle-type-2',
       'unique-rectangle-type-3',
+      'unique-rectangle-type-4',
       'unique-rectangle-type-5',
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
+      'bug-plus-one',
+    ],
+    futureMembers: [
       'avoidable-rectangle',
       'extended-unique-rectangle',
     ],
-    unified: false,
+    unified: true,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
       'unique-solution assumption. UR types currently ship as per-type detectors.',
