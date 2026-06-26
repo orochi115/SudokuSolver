@@ -11,7 +11,7 @@ import type { Grid } from '../grid.js';
 import type { Step, Link } from '../trace.js';
 import type { Strategy } from '../strategy.js';
 import { buildLinkGraph } from '../chain/graph.js';
-import { searchAic } from '../chain/aic-search.js';
+import { searchAic, type AicResult } from '../chain/aic-search.js';
 import { DEFAULT_CHAIN_POLICY, type ChainPolicy } from '../chain/policy.js';
 
 function cellLabel(cell: number): string {
@@ -285,6 +285,35 @@ function legacySearchPeerEndpointAic(grid: Grid): Step | null {
   return null;
 }
 
+export interface SingleDigitAicResult extends AicResult {
+  digit: number;
+}
+
+/**
+ * Search for a single-digit AIC / X-Cycle for any digit.
+ *
+ * @param maxNodes If provided, only return chains whose node count is <= this
+ *                 value. Used by `turbot-fish` to claim short, generic
+ *                 single-digit strong-link patterns before the general
+ *                 `x-chain` strategy fires.
+ */
+export function findSingleDigitAic(
+  grid: Grid,
+  policy: ChainPolicy = DEFAULT_CHAIN_POLICY,
+  maxNodes?: number,
+): SingleDigitAicResult | null {
+  for (let digit = 1; digit <= 9; digit++) {
+    const graph = buildLinkGraph(grid, { digit, grouped: true });
+    const result = searchAic(grid, graph, policy);
+    if (result && result.eliminations.length > 0) {
+      if (maxNodes === undefined || result.chainNodes.length <= maxNodes) {
+        return { ...result, digit };
+      }
+    }
+  }
+  return null;
+}
+
 export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
   return {
     id: 'aic',
@@ -333,31 +362,27 @@ export function makeXChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy
     tieBreak: ['digit'],
 
     apply(grid: Grid): Step | null {
-      for (let digit = 1; digit <= 9; digit++) {
-        const graph = buildLinkGraph(grid, { digit, grouped: true });
-        const result = searchAic(grid, graph, policy);
-        if (result && result.eliminations.length > 0) {
-          const start = graph.nodes[result.startNode]!;
-          const end = graph.nodes[result.endNode]!;
-          return {
-            strategyId: this.id,
-            placements: [],
-            eliminations: result.eliminations,
-            highlights: {
-              cells: result.chainNodes.flatMap((i) => graph.nodes[i]!.cells),
-              candidates: result.chainNodes.flatMap((i) =>
-                graph.nodes[i]!.cells.map((c) => ({ cell: c, digit: graph.nodes[i]!.digit })),
-              ),
-              links: result.links,
-            },
-            explanation: {
-              zh: `X-Chain（单数字交替链）：数字 ${digit} 沿强弱交替链连接 ${cellLabel(start.cells[0]!)} 与 ${cellLabel(end.cells[0]!)}，两端必有其一为真，故可见两端的格可排除 ${digit}。`,
-              en: `X-Chain: digit ${digit} forms an alternating strong/weak chain between ${cellLabel(start.cells[0]!)} and ${cellLabel(end.cells[0]!)}; one end must be true, so cells seeing both can drop ${digit}.`,
-            },
-          };
-        }
-      }
-      return null;
+      const result = findSingleDigitAic(grid, policy);
+      if (!result) return null;
+      const graph = buildLinkGraph(grid, { digit: result.digit, grouped: true });
+      const start = graph.nodes[result.startNode]!;
+      const end = graph.nodes[result.endNode]!;
+      return {
+        strategyId: this.id,
+        placements: [],
+        eliminations: result.eliminations,
+        highlights: {
+          cells: result.chainNodes.flatMap((i) => graph.nodes[i]!.cells),
+          candidates: result.chainNodes.flatMap((i) =>
+            graph.nodes[i]!.cells.map((c) => ({ cell: c, digit: graph.nodes[i]!.digit })),
+          ),
+          links: result.links,
+        },
+        explanation: {
+          zh: `X-Chain（单数字交替链）：数字 ${result.digit} 沿强弱交替链连接 ${cellLabel(start.cells[0]!)} 与 ${cellLabel(end.cells[0]!)}，两端必有其一为真，故可见两端的格可排除 ${result.digit}。`,
+          en: `X-Chain: digit ${result.digit} forms an alternating strong/weak chain between ${cellLabel(start.cells[0]!)} and ${cellLabel(end.cells[0]!)}; one end must be true, so cells seeing both can drop ${result.digit}.`,
+        },
+      };
     },
   };
 }
