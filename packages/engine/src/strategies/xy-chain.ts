@@ -119,3 +119,114 @@ export function makeXYChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strateg
 }
 
 export const xyChain: Strategy = makeXYChain();
+
+export const remotePairs: Strategy = {
+  id: 'remote-pairs',
+  name: { zh: '远程数对', en: 'Remote Pairs' },
+  difficulty: 505,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    const pairsMap = new Map<string, number[]>();
+    for (let c = 0; c < CELLS; c++) {
+      if (grid.get(c) === 0) {
+        const mask = grid.candidatesOf(c);
+        if (popcount(mask) === 2) {
+          const digits = digitsOf(mask);
+          const key = `${digits[0]}-${digits[1]}`;
+          if (!pairsMap.has(key)) pairsMap.set(key, []);
+          pairsMap.get(key)!.push(c);
+        }
+      }
+    }
+
+    for (const [key, cells] of pairsMap) {
+      const [d1, d2] = key.split('-').map(Number) as [number, number];
+      const bit1 = maskOf(d1);
+      const bit2 = maskOf(d2);
+
+      const adj = new Map<number, number[]>();
+      for (const u of cells) {
+        adj.set(u, []);
+        for (const v of cells) {
+          if (u !== v && PEERS_OF[u]!.includes(v)) {
+            adj.get(u)!.push(v);
+          }
+        }
+      }
+
+      for (const start of cells) {
+        const dist = new Map<number, number>();
+        const parent = new Map<number, number>();
+        const queue: number[] = [start];
+        dist.set(start, 0);
+
+        while (queue.length > 0) {
+          const curr = queue.shift()!;
+          const currDist = dist.get(curr)!;
+          for (const neighbor of adj.get(curr) ?? []) {
+            if (!dist.has(neighbor)) {
+              dist.set(neighbor, currDist + 1);
+              parent.set(neighbor, curr);
+              queue.push(neighbor);
+            }
+          }
+        }
+
+        for (const end of cells) {
+          if (start === end) continue;
+          const d = dist.get(end);
+          if (d !== undefined && d % 2 === 1 && d >= 3) {
+            const elims: { cell: number; digit: number }[] = [];
+            const peersStart = new Set(PEERS_OF[start]!);
+            const peersEnd = new Set(PEERS_OF[end]!);
+
+            const pathCells: number[] = [];
+            let curr = end;
+            while (curr !== start) {
+              pathCells.push(curr);
+              curr = parent.get(curr)!;
+            }
+            pathCells.push(start);
+
+            for (let c = 0; c < CELLS; c++) {
+              if (grid.get(c) !== 0) continue;
+              if (pathCells.includes(c)) continue;
+              if (peersStart.has(c) && peersEnd.has(c)) {
+                const mask = grid.candidatesOf(c);
+                if (mask & bit1) elims.push({ cell: c, digit: d1 });
+                if (mask & bit2) elims.push({ cell: c, digit: d2 });
+              }
+            }
+
+            if (elims.length > 0) {
+              return {
+                strategyId: 'remote-pairs',
+                placements: [],
+                eliminations: elims,
+                highlights: {
+                  cells: [...pathCells, ...elims.map(e => e.cell)],
+                  candidates: [
+                    ...pathCells.flatMap(c => [{ cell: c, digit: d1 }, { cell: c, digit: d2 }]),
+                    ...elims,
+                  ],
+                  links: Array.from({ length: pathCells.length - 1 }, (_, idx) => ({
+                    from: { cell: pathCells[idx]!, digit: d1 },
+                    to: { cell: pathCells[idx + 1]!, digit: d1 },
+                    type: 'strong' as const,
+                  })),
+                },
+                explanation: {
+                  zh: `远程数对：格 R${ROW_OF[start]!+1}C${COL_OF[start]!+1} 和 R${ROW_OF[end]!+1}C${COL_OF[end]!+1} 之间有一条由相同双值数对 {${d1},${d2}} 构成的奇数长度链（距离为 ${d}）；首尾格必定互为对立，消去共同能看到的格子中的 ${d1} 和 ${d2}。`,
+                  en: `Remote Pairs: a chain of identical bivalue cells {${d1},${d2}} of odd distance ${d} between cells R${ROW_OF[start]!+1}C${COL_OF[start]!+1} and R${ROW_OF[end]!+1}C${COL_OF[end]!+1}; they must hold opposite values; eliminate ${d1} and ${d2} from their common peers.`,
+                },
+              };
+            }
+          }
+        }
+      }
+    }
+
+    return null;
+  },
+};

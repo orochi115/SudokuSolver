@@ -13,6 +13,8 @@ import type { Strategy } from '../strategy.js';
 import { buildLinkGraph } from '../chain/graph.js';
 import { searchAic } from '../chain/aic-search.js';
 import { DEFAULT_CHAIN_POLICY, type ChainPolicy } from '../chain/policy.js';
+import { tryALSChain, findAllALS } from './als.js';
+import { tryURType3 } from './uniqueness.js';
 
 function cellLabel(cell: number): string {
   return `R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}`;
@@ -363,3 +365,26 @@ export function makeXChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy
 
 export const xChain: Strategy = makeXChain();
 export const aic: Strategy = makeAic();
+
+export const aicWithAls: Strategy = {
+  id: 'aic-with-als',
+  name: { zh: '含 ALS 节点的交替推理链', en: 'AIC with ALS nodes' },
+  difficulty: 760,
+  tieBreak: ['digit'],
+
+  apply(grid: Grid): Step | null {
+    const alsList = findAllALS(grid);
+    return tryALSChain(grid, alsList, this.id, 3, 5);
+  },
+};
+
+export const aicWithUr: Strategy = {
+  id: 'aic-with-ur',
+  name: { zh: '含 UR 节点的交替推理链', en: 'AIC with UR nodes' },
+  difficulty: 770,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType3(grid, this.id);
+  },
+};

@@ -26,17 +26,17 @@ import { nakedPair, nakedTriple, nakedQuad } from './naked-subset.js';
 import { hiddenPair, hiddenTriple, hiddenQuad } from './hidden-subset.js';
 import { xWing, swordfish, jellyfish } from './basic-fish.js';
 import { finnedXWing, finnedSwordfish, finnedJellyfish } from './finned-fish.js';
-import { skyscraper, twoStringKite, emptyRectangle, turbotFish } from './single-digit-patterns.js';
+import { skyscraper, twoStringKite, emptyRectangle, turbotFish, brokenWing } from './single-digit-patterns.js';
 import { xyWing } from './xy-wing.js';
-import { xyzWing } from './xyz-wing.js';
+import { xyzWing, wxyzWing, bentSets } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
-import { simpleColoring } from './simple-coloring.js';
-import { xChain, aic } from './aic.js';
-import { xyChain } from './xy-chain.js';
+import { simpleColoring, multiColoring, medusa3d } from './simple-coloring.js';
+import { xChain, aic, aicWithAls, aicWithUr } from './aic.js';
+import { xyChain, remotePairs } from './xy-chain.js';
 import { niceLoop } from './nice-loop.js';
-import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from './als.js';
-import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType3, uniqueRectangleType4, uniqueRectangleType5, uniqueRectangleType6, hiddenUniqueRectangle } from './uniqueness.js';
-import { sueDeCoq } from './sue-de-coq.js';
+import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom, alsChain, ahs } from './als.js';
+import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType3, uniqueRectangleType4, uniqueRectangleType5, uniqueRectangleType6, hiddenUniqueRectangle, avoidableRectangleType1, avoidableRectangleType2, avoidableRectangleType3, avoidableRectangleType4, extendedUniqueRectangle, uniqueLoop, bugLite, bugPlusN } from './uniqueness.js';
+import { sueDeCoq, tridagon } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
 
 export const STRATEGIES: readonly Strategy[] = [
@@ -72,27 +72,46 @@ export const STRATEGIES: readonly Strategy[] = [
   finnedJellyfish,    // 495
 
   // Advanced wings / single-digit (5xx)
+  remotePairs,        // 505
   turbotFish,         // 510
+  wxyzWing,           // 520
+  bentSets,           // 540
+  brokenWing,         // 560
 
   // Coloring (6xx) · Chains (7xx) · ALS (8xx) · Uniqueness (9xx) · Exotic (1xxx)
   simpleColoring,     // 610
+  multiColoring,      // 620
+  medusa3d,           // 640
   xChain,             // 710
   xyChain,            // 715
   niceLoop,           // 720
   aic,                // 750
+  aicWithAls,         // 760
+  aicWithUr,          // 770
   alsXz,              // 810
   alsXzDoublyLinked,  // 820
   alsXyWing,          // 840
   deathBlossom,       // 860
+  alsChain,           // 880
+  ahs,                // 885
   bugPlusOne,         // 910
   uniqueRectangleType1, // 920
   uniqueRectangleType2, // 930
   hiddenUniqueRectangle, // 935
   uniqueRectangleType3, // 940
+  avoidableRectangleType1, // 945
+  avoidableRectangleType2, // 946
+  avoidableRectangleType3, // 947
+  avoidableRectangleType4, // 948
   uniqueRectangleType4, // 950
   uniqueRectangleType5, // 960
   uniqueRectangleType6, // 970
+  extendedUniqueRectangle, // 980
+  uniqueLoop,         // 985
+  bugLite,            // 986
+  bugPlusN,           // 987
   sueDeCoq,           // 1010
+  tridagon,           // 1100
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
@@ -127,25 +146,44 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'w-wing',
   'jellyfish',
   'finned-jellyfish',
+  'remote-pairs',
   'turbot-fish',
+  'wxyz-wing',
+  'bent-sets',
+  'broken-wing',
   'simple-coloring',
+  'multi-coloring',
+  '3d-medusa',
   'x-chain',
   'xy-chain',
   'nice-loop',
   'aic',
+  'aic-with-als',
+  'aic-with-ur',
   'als-xz',
   'als-xz-doubly-linked',
   'als-xy-wing',
   'death-blossom',
+  'als-chain',
+  'ahs',
   'bug-plus-one',
   'unique-rectangle-type-1',
   'unique-rectangle-type-2',
   'hidden-unique-rectangle',
   'unique-rectangle-type-3',
+  'avoidable-rectangle-type-1',
+  'avoidable-rectangle-type-2',
+  'avoidable-rectangle-type-3',
+  'avoidable-rectangle-type-4',
   'unique-rectangle-type-4',
   'unique-rectangle-type-5',
   'unique-rectangle-type-6',
+  'extended-unique-rectangle',
+  'unique-loop',
+  'bug-lite',
+  'bug-plus-n',
   'sue-de-coq',
+  'tridagon',
   'forcing-chain',
 ];
 
@@ -173,24 +211,43 @@ export {
   wWing,
   jellyfish,
   finnedJellyfish,
+  remotePairs,
   turbotFish,
+  wxyzWing,
+  bentSets,
+  brokenWing,
   simpleColoring,
+  multiColoring,
+  medusa3d,
   xChain,
   xyChain,
   niceLoop,
   aic,
+  aicWithAls,
+  aicWithUr,
   alsXz,
   alsXzDoublyLinked,
   alsXyWing,
   deathBlossom,
+  alsChain,
+  ahs,
   bugPlusOne,
   uniqueRectangleType1,
   uniqueRectangleType2,
   hiddenUniqueRectangle,
   uniqueRectangleType3,
+  avoidableRectangleType1,
+  avoidableRectangleType2,
+  avoidableRectangleType3,
+  avoidableRectangleType4,
   uniqueRectangleType4,
   uniqueRectangleType5,
   uniqueRectangleType6,
+  extendedUniqueRectangle,
+  uniqueLoop,
+  bugLite,
+  bugPlusN,
   sueDeCoq,
+  tridagon,
   forcingChain,
 };

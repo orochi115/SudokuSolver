@@ -43,7 +43,7 @@ import type { Step } from '../trace.js';
 import type { Strategy, TieBreakKey } from '../strategy.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
-interface ALS {
+export interface ALS {
   house: number;
   cells: number[];      // cells in this ALS (all in one unit or mutually visible)
   digits: number[];     // all candidates across cells (exactly cells.length + 1 distinct digits)
@@ -74,7 +74,7 @@ function findALSInHouse(grid: Grid, house: readonly number[], houseIndex: number
 }
 
 /** Find all ALS (up to size 4) from all houses. */
-function findAllALS(grid: Grid): ALS[] {
+export function findAllALS(grid: Grid): ALS[] {
   const result: ALS[] = [];
   const seenKeys = new Set<string>();
 
@@ -517,12 +517,243 @@ export const alsXzDoublyLinked = makeAlsStrategy(
   tryALSDoublyLinkedXZ,
 );
 
+export function tryALSChain(
+  grid: Grid,
+  alsList: ALS[],
+  strategyId: string,
+  minAlsCount: number,
+  maxAlsCount: number,
+): Step | null {
+  const n = alsList.length;
+
+  const rccs = Array.from({ length: n }, () => Array.from({ length: n }, () => [] as number[]));
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (i === j) continue;
+      if (alsShareCells(alsList[i]!, alsList[j]!)) continue;
+      const common = digitsOf(alsList[i]!.digitMask & alsList[j]!.digitMask);
+      for (const d of common) {
+        if (isRCC(grid, alsList[i]!, alsList[j]!, d)) {
+          rccs[i]![j]!.push(d);
+        }
+      }
+    }
+  }
+
+  const path: number[] = [];
+  const rccPath: number[] = [];
+
+  const neighbors = Array.from({ length: n }, () => [] as number[]);
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (rccs[i]![j]!.length > 0) {
+        neighbors[i]!.push(j);
+      }
+    }
+  }
+
+  function path_has_cell(c: number): boolean {
+    return path.some(idx => alsList[idx]!.cells.includes(c));
+  }
+
+  function path_shares_cells_with(nextIdx: number): boolean {
+    const nextCells = alsList[nextIdx]!.cells;
+    return path.some(idx => alsList[idx]!.cells.some(c => nextCells.includes(c)));
+  }
+
+  function dfs(curr: number): Step | null {
+    if (path.length >= minAlsCount && path.length <= maxAlsCount) {
+      const first = alsList[path[0]!]!;
+      const last = alsList[path[path.length - 1]!]!;
+      const firstRcc = rccPath[0]!;
+      const lastRcc = rccPath[rccPath.length - 1]!;
+
+      const commonDigits = digitsOf(first.digitMask & last.digitMask);
+      for (const z of commonDigits) {
+        if (z === firstRcc || z === lastRcc) continue;
+
+        const zBit = maskOf(z);
+        const firstCellsZ = first.cells.filter(c => (grid.candidatesOf(c) & zBit) !== 0);
+        const lastCellsZ = last.cells.filter(c => (grid.candidatesOf(c) & zBit) !== 0);
+
+        if (firstCellsZ.length === 0 || lastCellsZ.length === 0) continue;
+
+        const elims: { cell: number; digit: number }[] = [];
+        for (let c = 0; c < CELLS; c++) {
+          if (grid.get(c) !== 0) continue;
+          if (!(grid.candidatesOf(c) & zBit)) continue;
+          if (path_has_cell(c)) continue;
+
+          const peersOfC = new Set(PEERS_OF[c]!);
+          const seesAllFirstZ = firstCellsZ.every(fc => peersOfC.has(fc));
+          const seesAllLastZ = lastCellsZ.every(lc => peersOfC.has(lc));
+
+          if (seesAllFirstZ && seesAllLastZ) {
+            elims.push({ cell: c, digit: z });
+          }
+        }
+
+        if (elims.length > 0) {
+          const allCells = path.flatMap(idx => alsList[idx]!.cells);
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...new Set([...allCells, ...elims.map(e => e.cell)])],
+              candidates: [
+                ...allCells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                ...elims,
+              ],
+              links: rccPath.map((rcc, idx) => ({
+                from: { cell: alsList[path[idx]!]!.cells[0]!, digit: rcc },
+                to: { cell: alsList[path[idx + 1]!]!.cells[0]!, digit: rcc },
+                type: 'strong' as const,
+              })),
+            },
+            explanation: {
+              zh: `ALS 链：由 ${path.length} 个几乎锁定集构成的链，首尾公共候选数字为 ${z}；消去所有能同时看到首尾 ALS 中所有 ${z} 的格。`,
+              en: `ALS Chain: a chain of ${path.length} ALSs with common digit ${z}; eliminate ${z} from cells seeing all ${z} in both endpoints.`,
+            },
+          };
+        }
+      }
+    }
+
+    if (path.length >= maxAlsCount) return null;
+
+    for (const nextIdx of neighbors[curr]!) {
+      if (path.includes(nextIdx)) continue;
+      if (path_shares_cells_with(nextIdx)) continue;
+
+      const rccList = rccs[curr]![nextIdx]!;
+      for (const rcc of rccList) {
+        if (rccPath.length > 0 && rcc === rccPath[rccPath.length - 1]!) continue;
+
+        path.push(nextIdx);
+        rccPath.push(rcc);
+        const step = dfs(nextIdx);
+        if (step) return step;
+        path.pop();
+        rccPath.pop();
+      }
+    }
+
+    return null;
+  }
+
+  for (let i = 0; i < n; i++) {
+    path.push(i);
+    const step = dfs(i);
+    if (step) return step;
+    path.pop();
+  }
+
+  return null;
+}
+
+function tryALSChainStrategy(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
+  return tryALSChain(grid, alsList, strategyId, 3, 5);
+}
+
+function tryAHS(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
+  for (let i = 0; i < alsList.length; i++) {
+    for (let j = i + 1; j < alsList.length; j++) {
+      const a = alsList[i]!;
+      const b = alsList[j]!;
+
+      if (alsShareCells(a, b)) continue;
+
+      const commonDigits = digitsOf(a.digitMask & b.digitMask);
+
+      for (const x of commonDigits) {
+        if (!isRCC(grid, a, b, x)) continue;
+
+        for (const z of commonDigits) {
+          if (z === x) continue;
+
+          const zBit = maskOf(z);
+          const aCellsZ = a.cells.filter((c) => grid.candidatesOf(c) & zBit);
+          const bCellsZ = b.cells.filter((c) => grid.candidatesOf(c) & zBit);
+
+          if (aCellsZ.length === 0 || bCellsZ.length === 0) continue;
+
+          const elims: { cell: number; digit: number }[] = [];
+          for (let c = 0; c < CELLS; c++) {
+            if (grid.get(c) !== 0) continue;
+            if (!(grid.candidatesOf(c) & zBit)) continue;
+            if (a.cells.includes(c) || b.cells.includes(c)) continue;
+
+            const peersOfC = new Set(PEERS_OF[c]!);
+            const seesAllAZ = aCellsZ.every((ac) => peersOfC.has(ac));
+            const seesAllBZ = bCellsZ.every((bc) => peersOfC.has(bc));
+
+            if (seesAllAZ && seesAllBZ) {
+              elims.push({ cell: c, digit: z });
+            }
+          }
+
+          if (elims.length === 0) continue;
+
+          const houseACells = HOUSES[a.house]!.filter(c => grid.get(c) === 0);
+          const houseBCells = HOUSES[b.house]!.filter(c => grid.get(c) === 0);
+
+          const ahsA_cells = houseACells.filter(c => !a.cells.includes(c));
+          const ahsB_cells = houseBCells.filter(c => !b.cells.includes(c));
+
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...new Set([...ahsA_cells, ...ahsB_cells, ...elims.map(e => e.cell)])],
+              candidates: [
+                ...ahsA_cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                ...ahsB_cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                ...elims,
+              ],
+              links: [
+                {
+                  from: { cell: ahsA_cells[0]!, digit: x },
+                  to: { cell: ahsB_cells[0]!, digit: x },
+                  type: 'strong' as const,
+                }
+              ],
+            },
+            explanation: {
+              zh: `几乎隐藏集 (AHS)：AHS-A（格 ${ahsA_cells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')}）与 AHS-B（格 ${ahsB_cells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')}）互为几乎锁定集 (ALS) 的对偶；消去相应格中的候选数。`,
+              en: `Almost Hidden Set (AHS): AHS-A (cells ${ahsA_cells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')}) and AHS-B (cells ${ahsB_cells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')}) are the dual of ALS; eliminate candidates.`,
+            },
+          };
+        }
+      }
+    }
+  }
+  return null;
+}
+
 export const alsXyWing = makeAlsStrategy(
   'als-xy-wing',
   { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
   840,
   ['house'],
-  tryALSXYWing,
+  (grid, alsList) => tryALSChain(grid, alsList, 'als-xy-wing', 3, 3),
+);
+
+export const alsChain = makeAlsStrategy(
+  'als-chain',
+  { zh: 'ALS 链', en: 'ALS Chain' },
+  880,
+  ['house'],
+  tryALSChainStrategy,
+);
+
+export const ahs = makeAlsStrategy(
+  'ahs',
+  { zh: '几乎隐藏集', en: 'Almost Hidden Set' },
+  885,
+  ['house'],
+  tryAHS,
 );
 
 export const deathBlossom = makeAlsStrategy(

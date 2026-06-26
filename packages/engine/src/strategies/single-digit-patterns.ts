@@ -22,7 +22,7 @@
 import {
   ROWS, COLS, BOXES,
   ROW_OF, COL_OF, BOX_OF,
-  PEERS_OF, maskOf,
+  PEERS_OF, maskOf, CELLS, HOUSES, UNITS_OF, popcount, digitsOf,
 } from '../grid.js';
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
@@ -376,6 +376,181 @@ export const turbotFish: Strategy = {
             en: `Turbot Fish: digit ${digit} forms a strong-weak-strong 3-link chain between ${cellLabel(start.cells[0]!)} and ${cellLabel(end.cells[0]!)}; one end must be true, so cells seeing both can drop ${digit}.`,
           },
         };
+      }
+    }
+    return null;
+  },
+};
+
+function* combinations<T>(arr: T[], k: number): Generator<T[]> {
+  if (k === 0) { yield []; return; }
+  if (arr.length < k) return;
+  const [first, ...rest] = arr;
+  for (const combo of combinations(rest, k - 1)) {
+    yield [first!, ...combo];
+  }
+  yield* combinations(rest, k);
+}
+
+export const brokenWing: Strategy = {
+  id: 'broken-wing',
+  name: { zh: '断翼 (奇环守护者)', en: 'Broken Wing (Guardians)' },
+  difficulty: 560,
+  tieBreak: ['digit'],
+
+  apply(grid: Grid): Step | null {
+    for (let d = 1; d <= 9; d++) {
+      const bit = maskOf(d);
+      const cells: number[] = [];
+      for (let c = 0; c < CELLS; c++) {
+        if (grid.get(c) === 0 && (grid.candidatesOf(c) & bit)) {
+          cells.push(c);
+        }
+      }
+      if (cells.length < 5) continue;
+
+      const adj = new Map<number, number[]>();
+      for (const u of cells) {
+        adj.set(u, []);
+        for (const v of cells) {
+          if (u !== v && PEERS_OF[u]!.includes(v)) {
+            adj.get(u)!.push(v);
+          }
+        }
+      }
+
+      const seenCycles = new Set<string>();
+      const path: number[] = [];
+      const visited = new Set<number>();
+
+      function dfs(curr: number, start: number): Step | null {
+        if (path.length === 5) {
+          if (PEERS_OF[curr]!.includes(start)) {
+            const cycleKey = [...path].sort((a, b) => a - b).join(',');
+            if (seenCycles.has(cycleKey)) return null;
+            seenCycles.add(cycleKey);
+
+            const loop = [...path];
+            const linksHouses: number[] = [];
+            let isCycle = true;
+            for (let i = 0; i < 5; i++) {
+              const u = loop[i]!;
+              const v = loop[(i + 1) % 5]!;
+              const sharedHouses = UNITS_OF[u]!.filter(h => UNITS_OF[v]!.includes(h));
+              if (sharedHouses.length === 0) {
+                isCycle = false;
+                break;
+              }
+              linksHouses.push(sharedHouses[0]!);
+            }
+
+            if (isCycle) {
+              const G = new Set<number>();
+              for (let i = 0; i < 5; i++) {
+                const u = loop[i]!;
+                const v = loop[(i + 1) % 5]!;
+                const hIdx = linksHouses[i]!;
+                const houseCells = HOUSES[hIdx]!;
+                const candidatesInHouse = houseCells.filter(c => grid.get(c) === 0 && (grid.candidatesOf(c) & bit));
+                if (candidatesInHouse.length > 2) {
+                  for (const c of candidatesInHouse) {
+                    if (c !== u && c !== v) {
+                      G.add(c);
+                    }
+                  }
+                }
+              }
+
+              if (G.size > 0) {
+                if (G.size === 1) {
+                  const g = [...G][0]!;
+                  return {
+                    strategyId: 'broken-wing',
+                    placements: [{ cell: g, digit: d }],
+                    eliminations: [],
+                    highlights: {
+                      cells: [...loop, g],
+                      candidates: [...loop, g].map(c => ({ cell: c, digit: d })),
+                      links: linksHouses.map((hIdx, idx) => ({
+                        from: { cell: loop[idx]!, digit: d },
+                        to: { cell: loop[(idx + 1) % 5]!, digit: d },
+                        type: 'weak' as const,
+                      })),
+                    },
+                    explanation: {
+                      zh: `断翼（守护者）：数字 ${d} 构成 5-格奇数环 ${loop.map(cellLabel).join('-')}，伴随唯一守护者 ${cellLabel(g)}；为避免奇数环无解矛盾，守护者格必须填入 ${d}。`,
+                      en: `Broken Wing (Guardians): digit ${d} forms a 5-cell odd loop ${loop.map(cellLabel).join('-')} with a single guardian ${cellLabel(g)}; to avoid contradiction, the guardian must hold ${d}.`,
+                    },
+                  };
+                }
+
+                const elims: { cell: number; digit: number }[] = [];
+                for (let c = 0; c < CELLS; c++) {
+                  if (grid.get(c) !== 0) continue;
+                  if (!(grid.candidatesOf(c) & bit)) continue;
+                  if (loop.includes(c) || G.has(c)) continue;
+
+                  const peers = new Set(PEERS_OF[c]!);
+                  if ([...G].every(g => peers.has(g))) {
+                    elims.push({ cell: c, digit: d });
+                  }
+                }
+
+                for (const c of loop) {
+                  if (G.has(c)) continue;
+                  const peers = new Set(PEERS_OF[c]!);
+                  if ([...G].every(g => peers.has(g))) {
+                    elims.push({ cell: c, digit: d });
+                  }
+                }
+
+                if (elims.length > 0) {
+                  return {
+                    strategyId: 'broken-wing',
+                    placements: [],
+                    eliminations: elims,
+                    highlights: {
+                      cells: [...loop, ...G, ...elims.map(e => e.cell)],
+                      candidates: [...loop, ...G, ...elims.map(e => e.cell)].map(c => ({ cell: c, digit: d })),
+                      links: linksHouses.map((hIdx, idx) => ({
+                        from: { cell: loop[idx]!, digit: d },
+                        to: { cell: loop[(idx + 1) % 5]!, digit: d },
+                        type: 'weak' as const,
+                      })),
+                    },
+                    explanation: {
+                      zh: `断翼（守护者）：数字 ${d} 构成 5-格奇数环，伴随守护者集合 {${[...G].map(cellLabel).join(',')}}；消去同时看到所有守护者格的 ${d}。`,
+                      en: `Broken Wing (Guardians): digit ${d} forms a 5-cell odd loop with guardians {${[...G].map(cellLabel).join(',')}}; eliminate ${d} from cells seeing all guardians.`,
+                    },
+                  };
+                }
+              }
+            }
+          }
+          return null;
+        }
+
+        for (const neighbor of adj.get(curr) ?? []) {
+          if (!visited.has(neighbor)) {
+            visited.add(neighbor);
+            path.push(neighbor);
+            const step = dfs(neighbor, start);
+            if (step) return step;
+            path.pop();
+            visited.delete(neighbor);
+          }
+        }
+
+        return null;
+      }
+
+      for (const u of cells) {
+        visited.add(u);
+        path.push(u);
+        const step = dfs(u, u);
+        if (step) return step;
+        path.pop();
+        visited.delete(u);
       }
     }
     return null;

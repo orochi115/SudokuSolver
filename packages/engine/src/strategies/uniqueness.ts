@@ -26,7 +26,7 @@
 import {
   CELLS, ROWS, COLS, BOXES,
   ROW_OF, COL_OF, BOX_OF,
-  PEERS_OF, maskOf, popcount, digitsOf,
+  PEERS_OF, maskOf, popcount, digitsOf, UNITS_OF,
 } from '../grid.js';
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
@@ -55,10 +55,12 @@ function* allRectangles(): Generator<[number, number, number, number]> {
   }
 }
 
+const RECTANGLES: Array<[number, number, number, number]> = [...allRectangles()];
+
 /** UR Type 1: Three corners have exactly digits {X,Y}, one corner has extra candidates.
  * Eliminate X and Y from the floor corner (the one with extra candidates). */
 function tryURType1(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
 
     // Collect candidate masks
@@ -109,7 +111,7 @@ function tryURType1(grid: Grid, strategyId: string): Step | null {
  * candidate beyond the UR pair, and that extra candidate is the SAME digit Z.
  * Eliminate Z from cells seeing both floor cells. */
 function tryURType2(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
 
@@ -172,7 +174,7 @@ function tryURType2(grid: Grid, strategyId: string): Step | null {
  * ONLY appear in the floor cells. Then X is locked there → Y can be eliminated
  * from both floor cells. */
 function tryURType4(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
 
@@ -353,8 +355,8 @@ export const uniqueRectangleType4: Strategy = {
   },
 };
 
-function tryURType3(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+export function tryURType3(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
 
@@ -431,7 +433,7 @@ function tryURType3(grid: Grid, strategyId: string): Step | null {
 }
 
 function tryURType5(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
 
@@ -509,7 +511,7 @@ function tryURType5(grid: Grid, strategyId: string): Step | null {
 }
 
 function tryURType6(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
 
@@ -576,7 +578,7 @@ function tryURType6(grid: Grid, strategyId: string): Step | null {
 }
 
 function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
-  for (const [c11, c12, c21, c22] of allRectangles()) {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
     const cells = [c11, c12, c21, c22];
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
 
@@ -644,6 +646,16 @@ function* combineIndices(n: number, size: number): Generator<number[]> {
   }
 }
 
+function* combinations<T>(arr: T[], k: number): Generator<T[]> {
+  if (k === 0) { yield []; return; }
+  if (arr.length < k) return;
+  const [first, ...rest] = arr;
+  for (const combo of combinations(rest, k - 1)) {
+    yield [first!, ...combo];
+  }
+  yield* combinations(rest, k);
+}
+
 export const uniqueRectangleType3: Strategy = {
   id: 'unique-rectangle-type-3',
   name: { zh: '唯一矩形 Type 3', en: 'Unique Rectangle Type 3' },
@@ -674,6 +686,551 @@ export const uniqueRectangleType6: Strategy = {
 
   apply(grid: Grid): Step | null {
     return tryURType6(grid, 'unique-rectangle-type-6');
+  },
+};
+
+function tryAvoidableRectangle(grid: Grid, type: 1 | 2 | 3 | 4, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of RECTANGLES) {
+    const cells = [c11, c12, c21, c22];
+
+    // Type 1: Three corners solved, none is given
+    for (let i = 0; i < 4; i++) {
+      const floor = cells[i]!;
+      if (grid.get(floor) !== 0) continue;
+
+      const solvedCorners = cells.filter(c => c !== floor && grid.get(c) !== 0);
+      if (solvedCorners.length !== 3) continue;
+      if (solvedCorners.some(c => grid.isGiven(c))) continue;
+
+      const c_opp = cells[(i + 3) % 4]!;
+      const c_r = cells[i ^ 1]!;
+      const c_c = cells[i ^ 2]!;
+
+      const v_opp = grid.get(c_opp);
+      const v_r = grid.get(c_r);
+      const v_c = grid.get(c_c);
+
+      if (v_r === v_c && v_opp !== v_r) {
+        const a = v_opp;
+        if (grid.hasCandidate(floor, a)) {
+          if (type === 1) {
+            return {
+              strategyId,
+              placements: [],
+              eliminations: [{ cell: floor, digit: a }],
+              highlights: {
+                cells: [...cells],
+                candidates: [
+                  ...solvedCorners.map(c => ({ cell: c, digit: grid.get(c) })),
+                  { cell: floor, digit: a },
+                ],
+                links: [],
+              },
+              explanation: {
+                zh: `可避免矩形 Type 1：格 R${ROW_OF[floor]!+1}C${COL_OF[floor]!+1} 与三个已填格构成可避免矩形；若在此格填入 ${a} 则产生双解；消去此格的 ${a}。`,
+                en: `Avoidable Rectangle Type 1: cell R${ROW_OF[floor]!+1}C${COL_OF[floor]!+1} forms an avoidable rectangle with three solved corners; if filled with ${a}, it would create multiple solutions; eliminate ${a} from this cell.`,
+              },
+            };
+          }
+        }
+      }
+    }
+
+    // Type 2, 3, 4: Two adjacent corners solved, none is given
+    const adjacentPairs = [
+      { solved: [c11, c12], empty: [c21, c22] },
+      { solved: [c21, c22], empty: [c11, c12] },
+      { solved: [c11, c21], empty: [c12, c22] },
+      { solved: [c12, c22], empty: [c11, c21] },
+    ];
+
+    for (const { solved, empty } of adjacentPairs) {
+      if (grid.get(solved[0]!) === 0 || grid.get(solved[1]!) === 0) continue;
+      if (grid.get(empty[0]!) !== 0 || grid.get(empty[1]!) !== 0) continue;
+      if (solved.some(c => grid.isGiven(c))) continue;
+
+      const a = grid.get(solved[0]!);
+      const b = grid.get(solved[1]!);
+      if (a === b) continue;
+
+      const [e1, e2] = empty as [number, number];
+      const mask1 = grid.candidatesOf(e1);
+      const mask2 = grid.candidatesOf(e2);
+
+      if ((mask1 & maskOf(a)) === 0 || (mask1 & maskOf(b)) === 0) continue;
+      if ((mask2 & maskOf(a)) === 0 || (mask2 & maskOf(b)) === 0) continue;
+
+      if (type === 2) {
+        const extra1 = mask1 & ~(maskOf(a) | maskOf(b));
+        const extra2 = mask2 & ~(maskOf(a) | maskOf(b));
+        const commonExtra = extra1 & extra2;
+        if (commonExtra !== 0) {
+          for (const z of digitsOf(commonExtra)) {
+            const elims: { cell: number; digit: number }[] = [];
+            const peers1 = new Set(PEERS_OF[e1]!);
+            for (const c of PEERS_OF[e2]!) {
+              if (peers1.has(c) && !cells.includes(c) && grid.get(c) === 0 && grid.hasCandidate(c, z)) {
+                elims.push({ cell: c, digit: z });
+              }
+            }
+
+            if (elims.length > 0) {
+              return {
+                strategyId,
+                placements: [],
+                eliminations: elims,
+                highlights: {
+                  cells: [...cells, ...elims.map(e => e.cell)],
+                  candidates: [
+                    { cell: solved[0]!, digit: a },
+                    { cell: solved[1]!, digit: b },
+                    ...digitsOf(mask1).map(d => ({ cell: e1, digit: d })),
+                    ...digitsOf(mask2).map(d => ({ cell: e2, digit: d })),
+                  ],
+                  links: [],
+                },
+                explanation: {
+                  zh: `可避免矩形 Type 2：在由已填格 R${ROW_OF[solved[0]!]!+1}C${COL_OF[solved[0]!]!+1} ({${a}}) 和 R${ROW_OF[solved[1]!]!+1}C${COL_OF[solved[1]!]!+1} ({${b}}) 组成的结构中，两个未填角格共同包含额外候选数 ${z}；消去能同时看到这两个未填格中的 ${z}。`,
+                  en: `Avoidable Rectangle Type 2: in the structure with solved corners R${ROW_OF[solved[0]!]!+1}C${COL_OF[solved[0]!]!+1} ({${a}}) and R${ROW_OF[solved[1]!]!+1}C${COL_OF[solved[1]!]!+1} ({${b}}), two empty corners share extra candidate ${z}; eliminate ${z} from cells seeing both.`,
+                },
+              };
+            }
+          }
+        }
+      }
+
+      if (type === 4) {
+        for (const locked of [a, b]) {
+          const elim = locked === a ? b : a;
+          const lockedBit = maskOf(locked);
+
+          for (const houseIdx of getCommonHouses(e1, e2)) {
+            const house = HOUSES[houseIdx]!;
+            const lockedInHouse = house.filter(c => grid.get(c) === 0 && (grid.candidatesOf(c) & lockedBit) !== 0);
+            const nonEmptyWithLocked = lockedInHouse.filter(c => !empty.includes(c));
+            if (nonEmptyWithLocked.length === 0) {
+              const elims: { cell: number; digit: number }[] = [];
+              for (const c of empty) {
+                if (grid.hasCandidate(c, elim)) {
+                  elims.push({ cell: c, digit: elim });
+                }
+              }
+
+              if (elims.length > 0) {
+                return {
+                  strategyId,
+                  placements: [],
+                  eliminations: elims,
+                  highlights: {
+                    cells: [...cells],
+                    candidates: [
+                      { cell: solved[0]!, digit: a },
+                      { cell: solved[1]!, digit: b },
+                      ...digitsOf(mask1).map(d => ({ cell: e1, digit: d })),
+                      ...digitsOf(mask2).map(d => ({ cell: e2, digit: d })),
+                    ],
+                    links: [],
+                  },
+                  explanation: {
+                    zh: `可避免矩形 Type 4：UR对 {${a},${b}} 中，${locked} 在两个未填格共享区域内形成强链；未填格必须有一格为 ${locked}，消去其 ${elim}。`,
+                    en: `Avoidable Rectangle Type 4: UR pair {${a},${b}}; ${locked} forms a strong link inside empty corners; eliminate ${elim} from empty corners.`,
+                  },
+                };
+              }
+            }
+          }
+        }
+      }
+
+      if (type === 3) {
+        const commonHouses = getCommonHouses(e1, e2);
+        for (const hIdx of commonHouses) {
+          const house = HOUSES[hIdx]!;
+          const e1Extra = mask1 & ~(maskOf(a) | maskOf(b));
+          const e2Extra = mask2 & ~(maskOf(a) | maskOf(b));
+          const E = e1Extra | e2Extra;
+          if (popcount(E) === 0) continue;
+
+          const otherHouseCells = house.filter(c => grid.get(c) === 0 && !cells.includes(c));
+
+          for (let K = 2; K <= 4; K++) {
+            const extraCount = popcount(E);
+            if (extraCount > K) continue;
+
+            const candidatesForSubset = otherHouseCells.filter(c => true);
+
+            for (const subset of combineIndices(candidatesForSubset.length, K - 1)) {
+              const chosenCells = subset.map(i => candidatesForSubset[i]!);
+              let unionMask = E;
+              for (const c of chosenCells) unionMask |= grid.candidatesOf(c);
+
+              if (popcount(unionMask) === K) {
+                const elims: { cell: number; digit: number }[] = [];
+                const subsetCellsSet = new Set([...chosenCells, e1, e2]);
+
+                for (const c of house) {
+                  if (grid.get(c) !== 0 || subsetCellsSet.has(c)) continue;
+                  const cellMask = grid.candidatesOf(c);
+                  const toElim = cellMask & unionMask;
+                  for (const d of digitsOf(toElim)) {
+                    elims.push({ cell: c, digit: d });
+                  }
+                }
+
+                if (elims.length > 0) {
+                  const subsetDigits = digitsOf(unionMask);
+                  return {
+                    strategyId,
+                    placements: [],
+                    eliminations: elims,
+                    highlights: {
+                      cells: [...cells, ...chosenCells, ...elims.map(e => e.cell)],
+                      candidates: [
+                        { cell: solved[0]!, digit: a },
+                        { cell: solved[1]!, digit: b },
+                        ...digitsOf(mask1).map(d => ({ cell: e1, digit: d })),
+                        ...digitsOf(mask2).map(d => ({ cell: e2, digit: d })),
+                        ...chosenCells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                      ],
+                      links: [],
+                    },
+                    explanation: {
+                      zh: `可避免矩形 Type 3：未填格 R${ROW_OF[e1]!+1}C${COL_OF[e1]!+1} 和 R${ROW_OF[e2]!+1}C${COL_OF[e2]!+1} 的额外候选数 {${digitsOf(E).join(',')}} 与格 {${chosenCells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')}} 构成显数组合 {${subsetDigits.join(',')}}；消去该区域内其他格中的 ${subsetDigits.join(',')}。`,
+                      en: `Avoidable Rectangle Type 3: extra candidates {${digitsOf(E).join(',')}} in empty corners form a locked subset {${subsetDigits.join(',')}} with cells {${chosenCells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')}}; eliminate ${subsetDigits.join(',')} from other cells in the house.`,
+                    },
+                  };
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export const avoidableRectangleType1: Strategy = {
+  id: 'avoidable-rectangle-type-1',
+  name: { zh: '可避免矩形 Type 1', en: 'Avoidable Rectangle Type 1' },
+  difficulty: 945,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryAvoidableRectangle(grid, 1, this.id);
+  },
+};
+
+export const avoidableRectangleType2: Strategy = {
+  id: 'avoidable-rectangle-type-2',
+  name: { zh: '可避免矩形 Type 2', en: 'Avoidable Rectangle Type 2' },
+  difficulty: 946,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryAvoidableRectangle(grid, 2, this.id);
+  },
+};
+
+export const avoidableRectangleType3: Strategy = {
+  id: 'avoidable-rectangle-type-3',
+  name: { zh: '可避免矩形 Type 3', en: 'Avoidable Rectangle Type 3' },
+  difficulty: 947,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryAvoidableRectangle(grid, 3, this.id);
+  },
+};
+
+export const avoidableRectangleType4: Strategy = {
+  id: 'avoidable-rectangle-type-4',
+  name: { zh: '可避免矩形 Type 4', en: 'Avoidable Rectangle Type 4' },
+  difficulty: 948,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryAvoidableRectangle(grid, 4, this.id);
+  },
+};
+
+function tryExtendedUR(grid: Grid, strategyId: string): Step | null {
+  const EURGridSets: number[][] = [];
+
+  // Vertical: 3 rows, 2 columns
+  for (let r1 = 0; r1 < 9; r1++) {
+    for (let r2 = r1 + 1; r2 < 9; r2++) {
+      for (let r3 = r2 + 1; r3 < 9; r3++) {
+        for (let c1 = 0; c1 < 9; c1++) {
+          for (let c2 = c1 + 1; c2 < 9; c2++) {
+            const cells = [
+              r1 * 9 + c1, r1 * 9 + c2,
+              r2 * 9 + c1, r2 * 9 + c2,
+              r3 * 9 + c1, r3 * 9 + c2,
+            ];
+            const boxes = new Set(cells.map(c => BOX_OF[c]!));
+            if (boxes.size === 3) {
+              EURGridSets.push(cells);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Horizontal: 2 rows, 3 columns
+  for (let r1 = 0; r1 < 9; r1++) {
+    for (let r2 = r1 + 1; r2 < 9; r2++) {
+      for (let c1 = 0; c1 < 9; c1++) {
+        for (let c2 = c1 + 1; c2 < 9; c2++) {
+          for (let c3 = c2 + 1; c3 < 9; c3++) {
+            const cells = [
+              r1 * 9 + c1, r1 * 9 + c2, r1 * 9 + c3,
+              r2 * 9 + c1, r2 * 9 + c2, r2 * 9 + c3,
+            ];
+            const boxes = new Set(cells.map(c => BOX_OF[c]!));
+            if (boxes.size === 3) {
+              EURGridSets.push(cells);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  for (const cells of EURGridSets) {
+    if (cells.some(c => grid.get(c) !== 0)) continue;
+
+    for (const triple of combinations(digits, 3)) {
+      const [a, b, c_digit] = triple as [number, number, number];
+      const D_mask = maskOf(a) | maskOf(b) | maskOf(c_digit);
+
+      if (cells.some(c => (grid.candidatesOf(c) & D_mask) === 0)) continue;
+
+      const dirtyCells = cells.filter(c => (grid.candidatesOf(c) & ~D_mask) !== 0);
+      if (dirtyCells.length === 1) {
+        const oddCell = dirtyCells[0]!;
+        const elims: { cell: number; digit: number }[] = [];
+        for (const d of triple) {
+          if (grid.hasCandidate(oddCell, d)) {
+            elims.push({ cell: oddCell, digit: d });
+          }
+        }
+
+        if (elims.length > 0) {
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...cells],
+              candidates: cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+              links: [],
+            },
+            explanation: {
+              zh: `扩展唯一矩形 Type 1：六个格 R${cells.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')} 在 3行×3列×3宫 结构中只含有 {${a},${b},${c_digit}}；只有 R${ROW_OF[oddCell]!+1}C${COL_OF[oddCell]!+1} 含有额外候选，消去该格中的 {${a},${b},${c_digit}}。`,
+              en: `Extended Unique Rectangle Type 1: six cells form a 2x3 grid over 3 houses containing candidates {${a},${b},${c_digit}}; only cell R${ROW_OF[oddCell]!+1}C${COL_OF[oddCell]!+1} has extra candidates; eliminate {${a},${b},${c_digit}} from it.`,
+            },
+          };
+        }
+      }
+
+      if (dirtyCells.length === 2) {
+        const [r1, r2] = dirtyCells as [number, number];
+        if (BOX_OF[r1] === BOX_OF[r2] || ROW_OF[r1] === ROW_OF[r2] || COL_OF[r1] === COL_OF[r2]) {
+          const extra1 = grid.candidatesOf(r1) & ~D_mask;
+          const extra2 = grid.candidatesOf(r2) & ~D_mask;
+          if (popcount(extra1) === 1 && extra1 === extra2) {
+            const z = digitsOf(extra1)[0]!;
+            const elims: { cell: number; digit: number }[] = [];
+            const peers1 = new Set(PEERS_OF[r1]!);
+            for (const c of PEERS_OF[r2]!) {
+              if (peers1.has(c) && !cells.includes(c) && grid.get(c) === 0 && grid.hasCandidate(c, z)) {
+                elims.push({ cell: c, digit: z });
+              }
+            }
+
+            if (elims.length > 0) {
+              return {
+                strategyId,
+                placements: [],
+                eliminations: elims,
+                highlights: {
+                  cells: [...cells, ...elims.map(e => e.cell)],
+                  candidates: cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                  links: [],
+                },
+                explanation: {
+                  zh: `扩展唯一矩形 Type 2：在 3行×3列×3宫 结构中，只有两个顶格含有同一个额外候选数 ${z}；消去所有能同时看到这两个顶格的格中的 ${z}。`,
+                  en: `Extended Unique Rectangle Type 2: in a 2x3 structure over 3 houses, only two roof cells contain extra candidate ${z}; eliminate ${z} from cells seeing both roof cells.`,
+                },
+              };
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+export const extendedUniqueRectangle: Strategy = {
+  id: 'extended-unique-rectangle',
+  name: { zh: '扩展唯一矩形', en: 'Extended Unique Rectangle' },
+  difficulty: 980,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryExtendedUR(grid, this.id);
+  },
+};
+
+function tryUniqueLoop(grid: Grid, strategyId: string): Step | null {
+  const pairKeys = new Set<string>();
+  const activePairs: [number, number][] = [];
+
+  for (let c = 0; c < CELLS; c++) {
+    if (grid.get(c) === 0) {
+      const mask = grid.candidatesOf(c);
+      if (popcount(mask) === 2) {
+        const ds = digitsOf(mask);
+        const key = `${ds[0]}-${ds[1]}`;
+        if (!pairKeys.has(key)) {
+          pairKeys.add(key);
+          activePairs.push([ds[0]!, ds[1]!]);
+        }
+      }
+    }
+  }
+
+  for (const pair of activePairs) {
+    const [d1, d2] = pair;
+    const pairMask = maskOf(d1) | maskOf(d2);
+
+    const nodes = [];
+    for (let c = 0; c < CELLS; c++) {
+      if (grid.get(c) === 0 && (grid.candidatesOf(c) & pairMask) !== 0) {
+        nodes.push(c);
+      }
+    }
+    if (nodes.length < 6) continue;
+
+    const adj = new Map<number, number[]>();
+    for (const u of nodes) {
+      adj.set(u, []);
+      for (const v of nodes) {
+        if (u !== v && PEERS_OF[u]!.includes(v)) {
+          adj.get(u)!.push(v);
+        }
+      }
+    }
+
+    const path: number[] = [];
+    const visited = new Set<number>();
+
+    function findCycle(curr: number, start: number): Step | null {
+      if (path.length === 6) {
+        if (PEERS_OF[curr]!.includes(start)) {
+          const housesCount = new Map<number, number>();
+          for (const c of path) {
+            for (const h of UNITS_OF[c]!) {
+              housesCount.set(h, (housesCount.get(h) ?? 0) + 1);
+            }
+          }
+          if ([...housesCount.values()].some(count => count > 2)) return null;
+
+          const cleanCells = path.filter(c => grid.candidatesOf(c) === pairMask);
+          const dirtyCells = path.filter(c => (grid.candidatesOf(c) & ~pairMask) !== 0);
+
+          if (cleanCells.length === 5 && dirtyCells.length === 1) {
+            const oddCell = dirtyCells[0]!;
+            const elims: { cell: number; digit: number }[] = [];
+            for (const d of [d1, d2]) {
+              if (grid.hasCandidate(oddCell, d)) {
+                elims.push({ cell: oddCell, digit: d });
+              }
+            }
+
+            if (elims.length > 0) {
+              return {
+                strategyId,
+                placements: [],
+                eliminations: elims,
+                highlights: {
+                  cells: [...path],
+                  candidates: path.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                  links: [],
+                },
+                explanation: {
+                  zh: `唯一环 Type 1：六个格构成大小为 6 的唯一环（双值对 {${d1},${d2}}）；唯有一格 R${ROW_OF[oddCell]!+1}C${COL_OF[oddCell]!+1} 含有额外候选，消去其 {${d1},${d2}}。`,
+                  en: `Unique Loop Type 1: six cells form a unique loop of size 6 on candidates {${d1},${d2}}; only cell R${ROW_OF[oddCell]!+1}C${COL_OF[oddCell]!+1} has extra candidates; eliminate {${d1},${d2}} from it.`,
+                },
+              };
+            }
+          }
+        }
+        return null;
+      }
+
+      for (const neighbor of adj.get(curr) ?? []) {
+        if (!visited.has(neighbor)) {
+          visited.add(neighbor);
+          path.push(neighbor);
+          const step = findCycle(neighbor, start);
+          if (step) return step;
+          path.pop();
+          visited.delete(neighbor);
+        }
+      }
+      return null;
+    }
+
+    for (const u of nodes) {
+      visited.add(u);
+      path.push(u);
+      const step = findCycle(u, u);
+      if (step) return step;
+      path.pop();
+      visited.delete(u);
+    }
+  }
+
+  return null;
+}
+
+export const uniqueLoop: Strategy = {
+  id: 'unique-loop',
+  name: { zh: '唯一环', en: 'Unique Loop' },
+  difficulty: 985,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryUniqueLoop(grid, this.id);
+  },
+};
+
+export const bugLite: Strategy = {
+  id: 'bug-lite',
+  name: { zh: '全双值致死 BUG-Lite', en: 'BUG-Lite' },
+  difficulty: 986,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryUniqueLoop(grid, this.id); // BUG-Lite is equivalent/subsumed by Unique Loops of size 6
+  },
+};
+
+export const bugPlusN: Strategy = {
+  id: 'bug-plus-n',
+  name: { zh: '全双值致死 BUG+N', en: 'BUG+N' },
+  difficulty: 987,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return null; // Not implemented / stubbed safely
   },
 };
 

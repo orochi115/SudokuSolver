@@ -264,3 +264,147 @@ export const sueDeCoq: Strategy = {
     return null;
   },
 };
+
+function getBoxTransversals(b: number): number[][] {
+  const cells = BOXES[b]!;
+  const r0 = ROW_OF[cells[0]!]!;
+  const c0 = COL_OF[cells[0]!]!;
+
+  const permutations = [
+    [0, 1, 2],
+    [0, 2, 1],
+    [1, 0, 2],
+    [1, 2, 0],
+    [2, 0, 1],
+    [2, 1, 0],
+  ];
+  return permutations.map(([p0, p1, p2]) => {
+    return [
+      r0 * 9 + (c0 + p0!),
+      (r0 + 1) * 9 + (c0 + p1!),
+      (r0 + 2) * 9 + (c0 + p2!),
+    ];
+  });
+}
+
+function permutationParity(p: number[]): number {
+  // Even permutations of [0, 1, 2] are [0,1,2], [1,2,0], [2,0,1] -> parity +1
+  // Odd permutations are [0,2,1], [1,0,2], [2,1,0] -> parity -1
+  const even = [
+    '0,1,2',
+    '1,2,0',
+    '2,0,1',
+  ];
+  return even.includes(p.join(',')) ? 1 : -1;
+}
+
+export const tridagon: Strategy = {
+  id: 'tridagon',
+  name: { zh: '三值死环', en: 'Tridagon' },
+  difficulty: 1100,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    // Iterate over all digit triples
+    for (const combo of combineK(digits, 3)) {
+      const [d1, d2, d3] = combo as [number, number, number];
+      const D_mask = maskOf(d1) | maskOf(d2) | maskOf(d3);
+
+      // Iterate over 4-box rectangles (2 bands, 2 stacks)
+      for (let band1 = 0; band1 < 3; band1++) {
+        for (let band2 = band1 + 1; band2 < 3; band2++) {
+          for (let stack1 = 0; stack1 < 3; stack1++) {
+            for (let stack2 = stack1 + 1; stack2 < 3; stack2++) {
+              const b11 = band1 * 3 + stack1;
+              const b12 = band1 * 3 + stack2;
+              const b21 = band2 * 3 + stack1;
+              const b22 = band2 * 3 + stack2;
+              const boxes = [b11, b12, b21, b22];
+
+              // Candidates for each box
+              const boxTransversals: { t: number[]; dirtyCell: number | null; parity: number }[][] = [[], [], [], []];
+              for (let i = 0; i < 4; i++) {
+                const b = boxes[i]!;
+                const transList = getBoxTransversals(b);
+                for (const t of transList) {
+                  if (t.some(c => grid.get(c) !== 0)) continue;
+
+                  let union_mask = 0;
+                  for (const c of t) union_mask |= grid.candidatesOf(c);
+                  if ((union_mask & D_mask) !== D_mask) continue;
+
+                  const dirtyCells = t.filter(c => (grid.candidatesOf(c) & ~D_mask) !== 0);
+                  if (dirtyCells.length > 1) continue;
+
+                  const cellsWithD = t.filter(c => (grid.candidatesOf(c) & D_mask) !== 0);
+                  if (cellsWithD.length !== 3) continue;
+
+                  const cells_r0 = t[0]!;
+                  const cells_r1 = t[1]!;
+                  const cells_r2 = t[2]!;
+                  const cellsInBox = BOXES[b]!;
+                  const minicol = COL_OF[cellsInBox[0]!]!;
+                  const p = [COL_OF[cells_r0]! - minicol, COL_OF[cells_r1]! - minicol, COL_OF[cells_r2]! - minicol];
+                  const parity = permutationParity(p);
+
+                  const dirtyCell = dirtyCells.length === 1 ? dirtyCells[0]! : null;
+                  boxTransversals[i]!.push({ t, dirtyCell, parity });
+                }
+              }
+
+              for (const tr1 of boxTransversals[0]!) {
+                for (const tr2 of boxTransversals[1]!) {
+                  for (const tr3 of boxTransversals[2]!) {
+                    for (const tr4 of boxTransversals[3]!) {
+                      const dirtyCount = (tr1.dirtyCell !== null ? 1 : 0) +
+                                         (tr2.dirtyCell !== null ? 1 : 0) +
+                                         (tr3.dirtyCell !== null ? 1 : 0) +
+                                         (tr4.dirtyCell !== null ? 1 : 0);
+                      if (dirtyCount !== 1) continue;
+
+                      const product = tr1.parity * tr2.parity * tr3.parity * tr4.parity;
+                      if (product !== -1) continue;
+
+                      const patternCells = [...tr1.t, ...tr2.t, ...tr3.t, ...tr4.t];
+                      const targetCell = tr1.dirtyCell ?? tr2.dirtyCell ?? tr3.dirtyCell ?? tr4.dirtyCell!;
+
+                      const elims: { cell: number; digit: number }[] = [];
+                      const targetMask = grid.candidatesOf(targetCell);
+                      const targetDigits = digitsOf(targetMask & D_mask);
+                      for (const d of targetDigits) {
+                        elims.push({ cell: targetCell, digit: d });
+                      }
+
+                      if (elims.length === 0) continue;
+
+                      return {
+                        strategyId: 'tridagon',
+                        placements: [],
+                        eliminations: elims,
+                        highlights: {
+                          cells: patternCells,
+                          candidates: patternCells.flatMap(c => {
+                            const mask = grid.candidatesOf(c);
+                            const cand_mask = c === targetCell ? mask : mask & D_mask;
+                            return digitsOf(cand_mask).map(d => ({ cell: c, digit: d }));
+                          }),
+                          links: [],
+                        },
+                        explanation: {
+                          zh: `三值死环（雷神之锤）：四个宫 ${boxes.map(b => b + 1).join(',')} 中选择 12 个格子，它们在各宫中均构成行列不共线的对角线，且候选数联合为 {${d1},${d2},${d3}}。为避免无解，带有守护者（额外候选数）的格 R${ROW_OF[targetCell]! + 1}C${COL_OF[targetCell]! + 1} 必须取非 {${d1},${d2},${d3}} 的值；消去该格中的 ${targetDigits.join(',')}。`,
+                          en: `Tridagon (Thor's Hammer): 12 pattern cells across boxes ${boxes.map(b => b + 1).join(',')} form transversal segments and jointly carry only digits {${d1},${d2},${d3}}. To avoid dual/no solution, the target cell R${ROW_OF[targetCell]! + 1}C${COL_OF[targetCell]! + 1} carrying extra candidates must take a non-{${d1},${d2},${d3}} value; eliminate ${targetDigits.join(',')} from the target cell.`,
+                        },
+                      };
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return null;
+  },
+};

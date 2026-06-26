@@ -12,7 +12,7 @@
  * and eliminations must see the PIVOT as well (since pivot itself has Z).
  */
 
-import { CELLS, ROW_OF, COL_OF, PEERS_OF, popcount, digitsOf } from '../grid.js';
+import { CELLS, ROW_OF, COL_OF, BOX_OF, PEERS_OF, HOUSES, ROWS, COLS, BOXES, maskOf, popcount, digitsOf } from '../grid.js';
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
 import type { Strategy } from '../strategy.js';
@@ -111,6 +111,255 @@ export const xyzWing: Strategy = {
               en: `XYZ-Wing: pivot R${pr}C${pc} ({${pivotDigits.join(',')}}) sees pincers R${p1r}C${p1c} ({${digitsOf(p1Mask).join(',')}}) and R${p2r}C${p2c} ({${digitsOf(p2Mask).join(',')}}); eliminate ${z} from cells seeing all three (XYZ-Wing).`,
             },
           };
+        }
+      }
+    }
+    return null;
+  },
+};
+
+function* combinations<T>(arr: T[], k: number): Generator<T[]> {
+  if (k === 0) { yield []; return; }
+  if (arr.length < k) return;
+  const [first, ...rest] = arr;
+  for (const combo of combinations(rest, k - 1)) {
+    yield [first!, ...combo];
+  }
+  yield* combinations(rest, k);
+}
+
+export const wxyzWing: Strategy = {
+  id: 'wxyz-wing',
+  name: { zh: 'WXYZ翼', en: 'WXYZ-Wing' },
+  difficulty: 520,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    for (let b = 0; b < 9; b++) {
+      const boxCells = BOXES[b]!;
+
+      const r0 = Math.floor(b / 3) * 3;
+      const c0 = (b % 3) * 3;
+      const intersectingLines = [
+        { lineCells: ROWS[r0]!, lineIdx: r0 },
+        { lineCells: ROWS[r0 + 1]!, lineIdx: r0 + 1 },
+        { lineCells: ROWS[r0 + 2]!, lineIdx: r0 + 2 },
+        { lineCells: COLS[c0]!, lineIdx: 9 + c0 },
+        { lineCells: COLS[c0 + 1]!, lineIdx: 9 + c0 + 1 },
+        { lineCells: COLS[c0 + 2]!, lineIdx: 9 + c0 + 2 },
+      ];
+
+      for (const { lineCells, lineIdx } of intersectingLines) {
+        const B_U_L_set = new Set([...boxCells, ...lineCells]);
+        const empty_B_U_L = [...B_U_L_set].filter(c => grid.get(c) === 0);
+        if (empty_B_U_L.length < 4) continue;
+
+        for (const combo of combinations(empty_B_U_L, 4)) {
+          if (combo.every(c => BOX_OF[c] === b)) continue;
+          if (combo.every(c => lineCells.includes(c))) continue;
+
+          let unionMask = 0;
+          for (const c of combo) unionMask |= grid.candidatesOf(c);
+          if (popcount(unionMask) !== 4) continue;
+
+          const digits = digitsOf(unionMask);
+          let unrestrictedDigit = -1;
+          const digitCellsMap = new Map<number, number[]>();
+
+          for (const d of digits) {
+            const dBit = maskOf(d);
+            const cellsWithD = combo.filter(c => (grid.candidatesOf(c) & dBit) !== 0);
+            digitCellsMap.set(d, cellsWithD);
+
+            let isRestricted = true;
+            for (let i = 0; i < cellsWithD.length; i++) {
+              for (let j = i + 1; j < cellsWithD.length; j++) {
+                if (!PEERS_OF[cellsWithD[i]!]!.includes(cellsWithD[j]!)) {
+                  isRestricted = false;
+                  break;
+                }
+              }
+              if (!isRestricted) break;
+            }
+
+            if (!isRestricted) {
+              if (unrestrictedDigit !== -1) {
+                unrestrictedDigit = -2;
+                break;
+              }
+              unrestrictedDigit = d;
+            }
+          }
+
+          if (unrestrictedDigit < 1) continue;
+
+          const z = unrestrictedDigit;
+          const zBit = maskOf(z);
+          const cellsWithZ = digitCellsMap.get(z)!;
+
+          const elims: { cell: number; digit: number }[] = [];
+          for (let c = 0; c < CELLS; c++) {
+            if (grid.get(c) !== 0) continue;
+            if (combo.includes(c)) continue;
+            if (!(grid.candidatesOf(c) & zBit)) continue;
+
+            const peers = new Set(PEERS_OF[c]!);
+            if (cellsWithZ.every(cz => peers.has(cz))) {
+              elims.push({ cell: c, digit: z });
+            }
+          }
+
+          if (elims.length > 0) {
+            const lineLabel = lineIdx < 9 ? `Row ${lineIdx + 1}` : `Col ${lineIdx - 9 + 1}`;
+            return {
+              strategyId: 'wxyz-wing',
+              placements: [],
+              eliminations: elims,
+              highlights: {
+                cells: [...combo, ...elims.map(e => e.cell)],
+                candidates: [
+                  ...combo.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                  ...elims,
+                ],
+                links: [],
+              },
+              explanation: {
+                zh: `WXYZ翼：四个格 ${combo.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')} 局限于宫 B${b+1} 和 ${lineLabel}，候选数共 ${digits.join(',')}，只有 ${z} 是非受限数字；消去所有能同时看到所有含 ${z} 格子的 ${z}。`,
+                en: `WXYZ-Wing: four cells ${combo.map(c => `R${ROW_OF[c]!+1}C${COL_OF[c]!+1}`).join(',')} confined to box B${b+1} and ${lineLabel}, candidates are {${digits.join(',')}} with Z=${z} being the only non-restricted digit; eliminate ${z} from cells seeing all cells containing ${z} in the pattern.`,
+              },
+            };
+          }
+        }
+      }
+    }
+
+    return null;
+  },
+};
+
+export const bentSets: Strategy = {
+  id: 'bent-sets',
+  name: { zh: '弯曲集 (ALP/ALT)', en: 'Bent Sets' },
+  difficulty: 540,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    for (let lIdx = 0; lIdx < 18; lIdx++) {
+      const line = lIdx < 9 ? ROWS[lIdx]! : COLS[lIdx - 9]!;
+      const lineLabel = lIdx < 9 ? `Row ${lIdx + 1}` : `Col ${lIdx - 9 + 1}`;
+
+      for (let b = 0; b < 9; b++) {
+        const box = BOXES[b]!;
+        const intersect = line.filter(c => box.includes(c));
+        if (intersect.length === 0) continue;
+
+        const L_cells = line.filter(c => !intersect.includes(c));
+        const B_cells = box.filter(c => !intersect.includes(c));
+
+        for (const size of [2, 3]) {
+          const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+          for (const S_combo of combinations(digits, size)) {
+            const S_mask = S_combo.reduce((acc, d) => acc | maskOf(d), 0);
+
+            // CRITICAL: None of the digits of S should already be solved in the line or box
+            if (S_combo.some(d => line.some(c => grid.get(c) === d) || box.some(c => grid.get(c) === d))) continue;
+
+            const L_als = L_cells.filter(c => grid.get(c) === 0 && (grid.candidatesOf(c) & ~S_mask) === 0);
+            if (L_als.length !== size - 1) continue;
+
+            const B_als = B_cells.filter(c => grid.get(c) === 0 && (grid.candidatesOf(c) & ~S_mask) === 0);
+            if (B_als.length !== size - 1) continue;
+
+            // CRITICAL: The union of candidates of L_als must be exactly S
+            let L_union = 0;
+            for (const c of L_als) L_union |= grid.candidatesOf(c);
+            if (L_union !== S_mask) continue;
+
+            // CRITICAL: The union of candidates of B_als must be exactly S
+            let B_union = 0;
+            for (const c of B_als) B_union |= grid.candidatesOf(c);
+            if (B_union !== S_mask) continue;
+
+            const otherL = L_cells.filter(c => !L_als.includes(c));
+            const boxSideFree = otherL.every(c => grid.get(c) !== 0 || (grid.candidatesOf(c) & S_mask) === 0);
+
+            if (boxSideFree) {
+              const elims: { cell: number; digit: number }[] = [];
+              const otherB = B_cells.filter(c => !B_als.includes(c));
+              for (const c of otherB) {
+                if (grid.get(c) === 0) {
+                  const mask = grid.candidatesOf(c) & S_mask;
+                  for (const d of digitsOf(mask)) {
+                    elims.push({ cell: c, digit: d });
+                  }
+                }
+              }
+
+              if (elims.length > 0) {
+                const allCells = [...intersect, ...L_als, ...B_als, ...elims.map(e => e.cell)];
+                const nameZh = size === 2 ? '几乎锁定对 (ALP)' : '几乎锁定三 (ALT)';
+                const nameEn = size === 2 ? 'Almost Locked Pair' : 'Almost Locked Triple';
+                return {
+                  strategyId: 'bent-sets',
+                  placements: [],
+                  eliminations: elims,
+                  highlights: {
+                    cells: [...new Set(allCells)],
+                    candidates: [
+                      ...L_als.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                      ...B_als.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                      ...elims,
+                    ],
+                    links: [],
+                  },
+                  explanation: {
+                    zh: `弯曲集 — ${nameZh}：格集合在 ${lineLabel} 与宫 B${b + 1} 交界处弯曲；消去相应格中的候选数。`,
+                    en: `Bent Sets — ${nameEn}: cells bend across the intersection of ${lineLabel} and box B${b + 1}; eliminate candidates.`,
+                  },
+                };
+              }
+            }
+
+            const otherB = B_cells.filter(c => !B_als.includes(c));
+            const lineSideFree = otherB.every(c => grid.get(c) !== 0 || (grid.candidatesOf(c) & S_mask) === 0);
+
+            if (lineSideFree) {
+              const elims: { cell: number; digit: number }[] = [];
+              const otherL = L_cells.filter(c => !L_als.includes(c));
+              for (const c of otherL) {
+                if (grid.get(c) === 0) {
+                  const mask = grid.candidatesOf(c) & S_mask;
+                  for (const d of digitsOf(mask)) {
+                    elims.push({ cell: c, digit: d });
+                  }
+                }
+              }
+
+              if (elims.length > 0) {
+                const allCells = [...intersect, ...L_als, ...B_als, ...elims.map(e => e.cell)];
+                const nameZh = size === 2 ? '几乎锁定对 (ALP)' : '几乎锁定三 (ALT)';
+                const nameEn = size === 2 ? 'Almost Locked Pair' : 'Almost Locked Triple';
+                return {
+                  strategyId: 'bent-sets',
+                  placements: [],
+                  eliminations: elims,
+                  highlights: {
+                    cells: [...new Set(allCells)],
+                    candidates: [
+                      ...L_als.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                      ...B_als.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+                      ...elims,
+                    ],
+                    links: [],
+                  },
+                  explanation: {
+                    zh: `弯曲集 — ${nameZh}：格集合在 ${lineLabel} 与宫 B${b + 1} 交界处弯曲；消去相应格中的候选数。`,
+                    en: `Bent Sets — ${nameEn}: cells bend across the intersection of ${lineLabel} and box B${b + 1}; eliminate candidates.`,
+                  },
+                };
+              }
+            }
+          }
         }
       }
     }
