@@ -199,8 +199,11 @@ function trySdCIntersection(
         const involved = [...emptyIntersect, ...lComp, ...bComp];
         const allCands = intersectDigits;
 
+        const isBasic = emptyIntersect.length === 2 && lComp.length === 1 && bComp.length === 1;
+        const strategyId = isBasic ? 'sue-de-coq' : 'sue-de-coq-extended';
+
         return {
-          strategyId: 'sue-de-coq',
+          strategyId,
           placements: [],
           eliminations: uniqueElims,
           highlights: {
@@ -211,8 +214,12 @@ function trySdCIntersection(
             links: [],
           },
           explanation: {
-            zh: `苏德蔻：${emptyIntersect.length} 格（${lineLabel} ∩ ${boxLabel}）候选数 {${allCands.join(',')}} 分为行/列部分 {${L_digits.join(',')}} 和宫部分 {${B_digits.join(',')}}；行/列部分从行/列其余格消去，宫部分从宫其余格消去。`,
-            en: `Sue de Coq: ${emptyIntersect.length} cells (${lineLabel} ∩ ${boxLabel}) with candidates {${allCands.join(',')}} split into line-part {${L_digits.join(',')}} and box-part {${B_digits.join(',')}}; eliminate line-part from rest of line, box-part from rest of box.`,
+            zh: isBasic
+              ? `苏德蔻：${emptyIntersect.length} 格（${lineLabel} ∩ ${boxLabel}）候选数 {${allCands.join(',')}} 分为行/列部分 {${L_digits.join(',')}} 和宫部分 {${B_digits.join(',')}}；行/列部分从行/列其余格消去，宫部分从宫其余格消去。`
+              : `扩展苏德蔻：${emptyIntersect.length} 格（${lineLabel} ∩ ${boxLabel}）候选 {${allCands.join(',')}}，较大伴组/双线分割；行部分 {${L_digits.join(',')}}、宫部分 {${B_digits.join(',')}} 分别消去。`,
+            en: isBasic
+              ? `Sue de Coq: ${emptyIntersect.length} cells (${lineLabel} ∩ ${boxLabel}) with candidates {${allCands.join(',')}} split into line-part {${L_digits.join(',')}} and box-part {${B_digits.join(',')}}; eliminate line-part from rest of line, box-part from rest of box.`
+              : `Extended Sue de Coq: ${emptyIntersect.length} cells (${lineLabel} ∩ ${boxLabel}) with larger companion groups; line-part {${L_digits.join(',')}} and box-part {${B_digits.join(',')}} eliminations.`,
           },
         };
       }
@@ -241,7 +248,7 @@ export const sueDeCoq: Strategy = {
           `Row ${r + 1}`,
           `Box B${b + 1}`,
         );
-        if (step) return step;
+        if (step?.strategyId === 'sue-de-coq') return step;
       }
     }
 
@@ -257,7 +264,48 @@ export const sueDeCoq: Strategy = {
           `Col ${col + 1}`,
           `Box B${b + 1}`,
         );
-        if (step) return step;
+        if (step?.strategyId === 'sue-de-coq') return step;
+      }
+    }
+
+    return null;
+  },
+};
+
+export const sueDeCoqExtended: Strategy = {
+  id: 'sue-de-coq-extended',
+  name: { zh: '扩展苏德蔻', en: 'Extended Sue de Coq' },
+  difficulty: 1015,
+  tieBreak: ['house'],
+
+  apply(grid: Grid): Step | null {
+    for (let r = 0; r < 9; r++) {
+      const rowCells = ROWS[r]!;
+      for (let b = 0; b < 9; b++) {
+        if (!rowCells.some((c) => BOX_OF[c] === b)) continue;
+        const step = trySdCIntersection(
+          grid,
+          rowCells,
+          BOXES[b]!,
+          `Row ${r + 1}`,
+          `Box B${b + 1}`,
+        );
+        if (step?.strategyId === 'sue-de-coq-extended') return step;
+      }
+    }
+
+    for (let col = 0; col < 9; col++) {
+      const colCells = COLS[col]!;
+      for (let b = 0; b < 9; b++) {
+        if (!colCells.some((c) => BOX_OF[c] === b)) continue;
+        const step = trySdCIntersection(
+          grid,
+          colCells,
+          BOXES[b]!,
+          `Col ${col + 1}`,
+          `Box B${b + 1}`,
+        );
+        if (step?.strategyId === 'sue-de-coq-extended') return step;
       }
     }
 

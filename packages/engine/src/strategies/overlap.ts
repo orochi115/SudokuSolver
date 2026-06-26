@@ -48,7 +48,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur', 'twinned-xy-chains', 'aic-with-exotic-links'],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
@@ -86,10 +86,46 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-loop',
       'bug-lite',
       'bug-plus-n',
+      'gurth',
     ],
     unified: true,
     note:
       'Deadly-pattern (uniqueness) family. Shared ur-engine (E3). Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. ' +
-      'BUG+1 shares the unique-solution assumption.',
+      'BUG+1 shares the unique-solution assumption. Gurth exploits global clue symmetry.',
+  },
+  {
+    id: 'fish',
+    canonicalOwner: 'x-wing',
+    members: ['x-wing', 'swordfish', 'jellyfish', 'finned-x-wing', 'finned-swordfish', 'finned-jellyfish', 'franken-fish', 'mutant-fish'],
+    futureMembers: [],
+    unified: false,
+    note: 'Fish family: basic, finned, franken, and mutant fish (N≥3).',
+  },
+  {
+    id: 'advanced-wing',
+    canonicalOwner: 'xy-wing',
+    members: ['xy-wing', 'xyz-wing', 'w-wing', 'wxyz-wing', 'vwxyz-wing', 'remote-pairs', 'bent-sets', 'broken-wing'],
+    futureMembers: [],
+    unified: false,
+    note: 'Wing ladder through VWXYZ; bent sets and broken wing are advanced wing/bent family.',
+  },
+  {
+    id: 'exotic',
+    canonicalOwner: 'subset-exclusion',
+    members: [
+      'sue-de-coq',
+      'sue-de-coq-extended',
+      'tridagon',
+      'exocet',
+      'sk-loop',
+      'msls',
+      'fireworks',
+      'aligned-pair-exclusion',
+      'aligned-triple-exclusion',
+      'subset-exclusion',
+    ],
+    futureMembers: [],
+    unified: false,
+    note: 'Exotic rank-0 / enumeration techniques. APE/ATE are aligned subset-exclusion special cases; SK-Loop ⊂ MSLS.',
   },
 ];
