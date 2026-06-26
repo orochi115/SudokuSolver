@@ -38,7 +38,25 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
   },
   {
     strategyId: 'aic',
-    owns: 'General (multi-digit) alternating inference chain, open chain, Type-1/Type-2 endpoints.',
+    owns: 'General (multi-digit) alternating inference chain, open chain, Type-1/Type-2 endpoints (E6: closed loops are NOT emitted under this id).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'xy-chain',
+    owns: 'Bivalue-cell open alternating chain (special case of AIC); owns Remote Pairs as a sub-case.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'nice-loop',
+    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds, E6).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'turbot-fish',
+    owns: 'Presentation alias of the single-digit strong-link chain (length-bounded): Skyscraper / 2-String Kite / Empty Rectangle / generic 4-link Turbot Fish. Shares owner x-chain (E2).',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
@@ -47,21 +65,6 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     owns: 'Multi-branch / contradiction (verity) reasoning — cell & digit forcing chains.',
     multiBranch: true,
     profiles: ['last-resort'],
-  },
-  // ---- reserved (gate 6 boundaries for future chain work) ----
-  {
-    strategyId: 'xy-chain',
-    owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
-    multiBranch: false,
-    profiles: ['human-default', 'last-resort'],
-    reserved: true,
-  },
-  {
-    strategyId: 'nice-loop',
-    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
-    multiBranch: false,
-    profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
 ];
 

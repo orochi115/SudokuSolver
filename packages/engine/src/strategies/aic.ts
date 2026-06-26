@@ -129,9 +129,11 @@ function legacyDfsStrong(grid: Grid, state: LegacySearchState, current: CandNode
   if (state.path.length >= LEGACY_MAX_DEPTH) return null;
   for (const next of legacyStrongNeighbors(grid, current)) {
     const key = encodeNode(next.cell, next.digit);
+    // E6: the AIC strategy does NOT emit closed-loop (Nice Loop) results;
+    // nice-loop owns *-loop kinds. Skip the closure so the open-chain search
+    // continues looking for type1/type2 endpoints.
     if (next.cell === state.path[0]!.cell && next.digit === state.path[0]!.digit && state.path.length >= 3) {
-      const startNode = state.path[0]!;
-      return legacyBuildStep(grid, [...state.path], [...state.linkAfter, 'strong'], [{ cell: startNode.cell, digit: startNode.digit }], []);
+      continue;
     }
     if (state.visited.has(key)) continue;
     state.visited.add(key);
