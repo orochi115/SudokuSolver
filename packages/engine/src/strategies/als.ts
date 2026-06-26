@@ -43,7 +43,7 @@ import type { Step } from '../trace.js';
 import type { Strategy, TieBreakKey } from '../strategy.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
-interface ALS {
+export interface ALS {
   house: number;
   cells: number[];      // cells in this ALS (all in one unit or mutually visible)
   digits: number[];     // all candidates across cells (exactly cells.length + 1 distinct digits)
@@ -74,7 +74,7 @@ function findALSInHouse(grid: Grid, house: readonly number[], houseIndex: number
 }
 
 /** Find all ALS (up to size 4) from all houses. */
-function findAllALS(grid: Grid): ALS[] {
+export function findAllALS(grid: Grid): ALS[] {
   const result: ALS[] = [];
   const seenKeys = new Set<string>();
 
@@ -501,6 +501,255 @@ function makeAlsStrategy(
   };
 }
 
+function cellLabel(cell: number): string {
+  return `R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}`;
+}
+
+export interface AHS {
+  house: number;
+  digits: number[];
+  cells: number[];
+  digitMask: number;
+}
+
+function findAHSInHouse(grid: Grid, house: readonly number[], houseIndex: number, maxSize: number): AHS[] {
+  const emptyCells = house.filter((c) => grid.get(c) === 0);
+  const result: AHS[] = [];
+  const houseDigits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  for (let size = 1; size <= maxSize; size++) {
+    for (const combo of combinations(houseDigits, size)) {
+      const cells = emptyCells.filter(c => {
+        const m = grid.candidatesOf(c);
+        return combo.some(d => (m & maskOf(d)) !== 0);
+      });
+      if (cells.length === size + 1) {
+        result.push({
+          house: houseIndex,
+          digits: combo,
+          cells,
+          digitMask: combo.reduce((m, d) => m | maskOf(d), 0)
+        });
+      }
+    }
+  }
+  return result;
+}
+
+function findAllAHS(grid: Grid): AHS[] {
+  const result: AHS[] = [];
+  const seenKeys = new Set<string>();
+
+  for (let houseIndex = 0; houseIndex < HOUSES.length; houseIndex++) {
+    const house = HOUSES[houseIndex]!;
+    for (const ahs of findAHSInHouse(grid, house, houseIndex, 3)) {
+      const key = `${ahs.house}:${[...ahs.cells].sort((a, b) => a - b).join(',')}:${ahs.digits.sort((a,b)=>a-b).join(',')}`;
+      if (!seenKeys.has(key)) {
+        seenKeys.add(key);
+        result.push(ahs);
+      }
+    }
+  }
+
+  return result;
+}
+
+function tryAHSXZ(grid: Grid, ahsList: AHS[], strategyId: string): Step | null {
+  for (let i = 0; i < ahsList.length; i++) {
+    for (let j = i + 1; j < ahsList.length; j++) {
+      const a = ahsList[i]!;
+      const b = ahsList[j]!;
+
+      if (alsShareCells(a as any, b as any)) continue;
+
+      const commonDigits = digitsOf(a.digitMask & b.digitMask);
+
+      for (const x of commonDigits) {
+        if (!isRCC(grid, a as any, b as any, x)) continue;
+
+        for (const z of commonDigits) {
+          if (z === x) continue;
+
+          const zBit = maskOf(z);
+          const aCellsZ = a.cells.filter((c) => grid.candidatesOf(c) & zBit);
+          const bCellsZ = b.cells.filter((c) => grid.candidatesOf(c) & zBit);
+
+          if (aCellsZ.length === 0 || bCellsZ.length === 0) continue;
+
+          const elims: { cell: number; digit: number }[] = [];
+          for (let c = 0; c < CELLS; c++) {
+            if (grid.get(c) !== 0) continue;
+            if (!(grid.candidatesOf(c) & zBit)) continue;
+            if (a.cells.includes(c) || b.cells.includes(c)) continue;
+
+            const peersOfC = new Set(PEERS_OF[c]!);
+            const seesAllAZ = aCellsZ.every((ac) => peersOfC.has(ac));
+            const seesAllBZ = bCellsZ.every((bc) => peersOfC.has(bc));
+
+            if (seesAllAZ && seesAllBZ) {
+              elims.push({ cell: c, digit: z });
+            }
+          }
+
+          if (elims.length === 0) continue;
+
+          const allCells = [...a.cells, ...b.cells];
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...new Set([...allCells, ...elims.map((e) => e.cell)])],
+              candidates: [
+                ...a.cells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                ...b.cells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                ...elims,
+              ],
+              links: [],
+            },
+            explanation: {
+              zh: `几乎隐藏集 AHS-XZ：AHS-A（格 ${a.cells.map((c) => cellLabel(c)).join(',')} 候选数 {${a.digits.join('')}}）与 AHS-B（格 ${b.cells.map((c) => cellLabel(c)).join(',')} 候选数 {${b.digits.join('')}}）通过受限公共候选数 ${x} 连接；消去公共可见格中的 ${z}。`,
+              en: `Almost Hidden Set AHS-XZ: AHS-A (cells ${a.cells.map((c) => cellLabel(c)).join(',')} cands {${a.digits.join('')}}) and AHS-B (cells ${b.cells.map((c) => cellLabel(c)).join(',')} cands {${b.digits.join('')}}) linked by RCC ${x}; eliminate ${z} from cells seeing all ${z} in both.`,
+            },
+          };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function precomputeRccs(grid: Grid, alsList: ALS[]): Map<string, number[]> {
+  const rccTable = new Map<string, number[]>();
+  for (let i = 0; i < alsList.length; i++) {
+    for (let j = 0; j < alsList.length; j++) {
+      if (i === j) continue;
+      const a = alsList[i]!;
+      const b = alsList[j]!;
+      if (alsShareCells(a, b)) continue;
+
+      const common = digitsOf(a.digitMask & b.digitMask);
+      const rccs = common.filter(d => isRCC(grid, a, b, d));
+      if (rccs.length > 0) {
+        rccTable.set(`${i},${j}`, rccs);
+      }
+    }
+  }
+  return rccTable;
+}
+
+function dfsAlsChain(
+  grid: Grid,
+  alsList: ALS[],
+  current: ALS,
+  path: ALS[],
+  rccs: number[],
+  maxLen: number,
+  rccTable: Map<string, number[]>
+): Step | null {
+  if (path.length >= 2) {
+    const first = path[0]!;
+    const last = path[path.length - 1]!;
+
+    const commonDigits = digitsOf(first.digitMask & last.digitMask);
+    for (const z of commonDigits) {
+      if (z === rccs[0]! || z === rccs[rccs.length - 1]!) continue;
+
+      const zBit = maskOf(z);
+      const firstZ = first.cells.filter(c => grid.candidatesOf(c) & zBit);
+      const lastZ = last.cells.filter(c => grid.candidatesOf(c) & zBit);
+      if (firstZ.length === 0 || lastZ.length === 0) continue;
+
+      const elims: { cell: number; digit: number }[] = [];
+      const chainCells = new Set(path.flatMap(a => a.cells));
+
+      for (let c = 0; c < 81; c++) {
+        if (grid.get(c) === 0 && (grid.candidatesOf(c) & zBit) !== 0 && !chainCells.has(c)) {
+          const seesAllFirst = firstZ.every(fc => PEERS_OF[c]!.includes(fc));
+          const seesAllLast = lastZ.every(lc => PEERS_OF[c]!.includes(lc));
+          if (seesAllFirst && seesAllLast) {
+            elims.push({ cell: c, digit: z });
+          }
+        }
+      }
+
+      if (elims.length > 0) {
+        const allCells = path.flatMap(a => a.cells);
+        return {
+          strategyId: 'als-chain',
+          placements: [],
+          eliminations: elims,
+          highlights: {
+            cells: [...new Set([...allCells, ...elims.map(e => e.cell)])],
+            candidates: [
+              ...path.flatMap(a => a.cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d })))),
+              ...elims
+            ],
+            links: []
+          },
+          explanation: {
+            zh: `ALS 链：长度为 ${path.length} 的 ALS 链（包含格 ${path.map(a => a.cells.map(c => cellLabel(c)).join(',')).join(' | ')}），通过受限公共候选数 [${rccs.join(',')}] 相连；两端均含 ${z}，消去其公共可见格中的 ${z}。`,
+            en: `ALS Chain: ALS Chain of length ${path.length} (cells ${path.map(a => a.cells.map(c => cellLabel(c)).join(',')).join(' | ')}), connected by RCCs [${rccs.join(',')}]; eliminate ${z} from cells seeing all ${z} in both endpoints.`
+          }
+        };
+      }
+    }
+  }
+
+  if (path.length >= maxLen) return null;
+
+  const currentIdx = alsList.indexOf(current);
+  for (let nextIdx = 0; nextIdx < alsList.length; nextIdx++) {
+    const next = alsList[nextIdx]!;
+    if (path.includes(next)) continue;
+    if (alsShareCells(current, next)) continue;
+
+    const pairKey = `${currentIdx},${nextIdx}`;
+    const rccList = rccTable.get(pairKey) || [];
+    for (const rcc of rccList) {
+      if (rccs.length > 0 && rcc === rccs[rccs.length - 1]!) continue;
+
+      rccs.push(rcc);
+      path.push(next);
+      const res = dfsAlsChain(grid, alsList, next, path, rccs, maxLen, rccTable);
+      if (res) return res;
+      path.pop();
+      rccs.pop();
+    }
+  }
+
+  return null;
+}
+
+export const alsChain: Strategy = {
+  id: 'als-chain',
+  name: { zh: 'ALS 链', en: 'ALS Chain' },
+  difficulty: 880,
+  tieBreak: ['house'],
+
+  apply(grid: Grid): Step | null {
+    const alsList = findAllALS(grid);
+    const rccTable = precomputeRccs(grid, alsList);
+    for (const start of alsList) {
+      const res = dfsAlsChain(grid, alsList, start, [start], [], 6, rccTable);
+      if (res) return res;
+    }
+    return null;
+  }
+};
+
+export const ahs: Strategy = {
+  id: 'ahs',
+  name: { zh: '几乎隐藏集', en: 'Almost Hidden Set' },
+  difficulty: 885,
+  tieBreak: ['house'],
+
+  apply(grid: Grid): Step | null {
+    const ahsList = findAllAHS(grid);
+    return tryAHSXZ(grid, ahsList, this.id);
+  }
+};
+
 export const alsXz = makeAlsStrategy(
   'als-xz',
   { zh: 'ALS-XZ', en: 'ALS-XZ' },
@@ -517,13 +766,25 @@ export const alsXzDoublyLinked = makeAlsStrategy(
   tryALSDoublyLinkedXZ,
 );
 
-export const alsXyWing = makeAlsStrategy(
-  'als-xy-wing',
-  { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
-  840,
-  ['house'],
-  tryALSXYWing,
-);
+export const alsXyWing: Strategy = {
+  id: 'als-xy-wing',
+  name: { zh: 'ALS-XY翼', en: 'ALS-XY-Wing' },
+  difficulty: 840,
+  tieBreak: ['house'],
+
+  apply(grid: Grid): Step | null {
+    const alsList = findAllALS(grid);
+    const rccTable = precomputeRccs(grid, alsList);
+    for (const start of alsList) {
+      const res = dfsAlsChain(grid, alsList, start, [start], [], 3, rccTable);
+      if (res) {
+        res.strategyId = this.id;
+        return res;
+      }
+    }
+    return null;
+  }
+};
 
 export const deathBlossom = makeAlsStrategy(
   'death-blossom',
