@@ -1,3 +1,0 @@
-# 重跑:替换路由后的两个模型(qwen3-coder-plus 直连;minimax 改用 coding-plan provider)。
-alibaba-cn/qwen3-coder-plus          qwen3coder
-minimax-cn-coding-plan/MiniMax-M2.7  minimax-m27
