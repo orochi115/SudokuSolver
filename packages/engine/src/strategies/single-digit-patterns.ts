@@ -303,7 +303,7 @@ export const skyscraper: Strategy = {
   id: 'skyscraper',
   name: { zh: '摩天楼', en: 'Skyscraper' },
   difficulty: 420,
-  tieBreak: ['digit'],
+  tieBreak: ['digit', 'house', 'cell-index'],
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {
@@ -318,7 +318,7 @@ export const twoStringKite: Strategy = {
   id: 'two-string-kite',
   name: { zh: '双线风筝', en: '2-String Kite' },
   difficulty: 430,
-  tieBreak: ['digit'],
+  tieBreak: ['digit', 'house', 'cell-index'],
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {
@@ -333,7 +333,7 @@ export const emptyRectangle: Strategy = {
   id: 'empty-rectangle',
   name: { zh: '空矩形', en: 'Empty Rectangle' },
   difficulty: 440,
-  tieBreak: ['digit'],
+  tieBreak: ['digit', 'house', 'cell-index'],
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {

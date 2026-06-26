@@ -136,7 +136,7 @@ function makeBasicFishStrategy(size: 2 | 3 | 4, id: string, difficulty: number):
     id,
     name: FISH_NAMES[size]!,
     difficulty,
-    tieBreak: ['digit'],
+    tieBreak: ['digit', 'house'],
 
     apply(grid: Grid): Step | null {
       for (let d = 1; d <= 9; d++) {

@@ -84,6 +84,29 @@ describe('gate 5 — step granularity exceptions', () => {
 
 describe('gate 4 — declared tie-break metadata', () => {
   const VALID_KEYS = new Set(['digit', 'house', 'size', 'chain-length', 'node-type', 'cell-index']);
+  const EXPECTED_NESTED_TIE_BREAKS = new Map<string, readonly string[]>([
+    ['naked-pair', ['house', 'cell-index']],
+    ['naked-triple', ['house', 'cell-index']],
+    ['naked-quad', ['house', 'cell-index']],
+    ['hidden-pair', ['house', 'digit', 'cell-index']],
+    ['hidden-triple', ['house', 'digit', 'cell-index']],
+    ['hidden-quad', ['house', 'digit', 'cell-index']],
+    ['x-wing', ['digit', 'house']],
+    ['swordfish', ['digit', 'house']],
+    ['jellyfish', ['digit', 'house']],
+    ['skyscraper', ['digit', 'house', 'cell-index']],
+    ['two-string-kite', ['digit', 'house', 'cell-index']],
+    ['empty-rectangle', ['digit', 'house', 'cell-index']],
+    ['xy-wing', ['cell-index', 'digit']],
+    ['xyz-wing', ['cell-index', 'digit']],
+    ['w-wing', ['cell-index', 'digit', 'house']],
+    ['simple-coloring', ['digit', 'cell-index']],
+    ['x-chain', ['digit', 'cell-index', 'chain-length']],
+    ['xy-chain', ['cell-index', 'digit', 'chain-length']],
+    ['nice-loop', ['cell-index', 'digit', 'chain-length']],
+    ['turbot-fish', ['digit', 'cell-index', 'chain-length']],
+    ['aic', ['cell-index', 'digit', 'chain-length']],
+  ]);
 
   it('every strategy declares a non-empty tieBreak', () => {
     for (const s of STRATEGIES) {
@@ -97,6 +120,13 @@ describe('gate 4 — declared tie-break metadata', () => {
       for (const k of s.tieBreak ?? []) {
         expect(VALID_KEYS.has(k), `${s.id} has invalid tie-break key '${k}'`).toBe(true);
       }
+    }
+  });
+
+  it('multi-instance families declare their nested canonical ordering axes', () => {
+    const byId = new Map(STRATEGIES.map((s) => [s.id, s]));
+    for (const [id, expected] of EXPECTED_NESTED_TIE_BREAKS) {
+      expect(byId.get(id)?.tieBreak, id).toEqual(expected);
     }
   });
 });

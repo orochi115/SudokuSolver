@@ -46,7 +46,7 @@ export const vwxyzWing = aliasStrategy(
   { zh: 'VWXYZ翼', en: 'VWXYZ-Wing' },
   530,
   xyzWing,
-  ['cell-index', 'size'],
+  ['cell-index', 'digit', 'size'],
   { zh: 'VWXYZ翼（WXYZ size-ladder 通项）', en: 'VWXYZ-Wing (WXYZ size-ladder generalization)' },
 );
 
@@ -55,7 +55,7 @@ export const twinnedXyChains = aliasStrategy(
   { zh: '双生 XY 链', en: 'Twinned XY-Chains' },
   775,
   xyChain,
-  ['cell-index', 'chain-length'],
+  ['cell-index', 'digit', 'chain-length'],
   { zh: '双生 XY 链（共享 XY 链检测）', en: 'Twinned XY-Chains (shared XY-Chain detector)' },
 );
 
@@ -64,7 +64,7 @@ export const aicWithExoticLinks = aliasStrategy(
   { zh: '含异域链接的 AIC', en: 'AIC with Exotic Links' },
   780,
   aic,
-  ['cell-index', 'digit', 'node-type'],
+  ['cell-index', 'digit', 'node-type', 'chain-length'],
 );
 
 export const gurth = aliasStrategy(
@@ -90,7 +90,7 @@ export const fireworks = aliasStrategy(
   { zh: '烟花', en: 'Fireworks' },
   1050,
   aic,
-  ['cell-index', 'digit'],
+  ['cell-index', 'digit', 'chain-length'],
   { zh: '烟花（异域强弱链接）', en: 'Fireworks (exotic strong/weak links)' },
 );
 
@@ -117,7 +117,7 @@ export const alignedPairExclusion = aliasStrategy(
   { zh: '对齐双格排除', en: 'Aligned Pair Exclusion' },
   1120,
   aic,
-  ['cell-index', 'size'],
+  ['cell-index', 'digit', 'size'],
   { zh: '对齐双格排除（Subset Exclusion 对齐特例）', en: 'Aligned Pair Exclusion (aligned Subset Exclusion special case)' },
 );
 
@@ -126,7 +126,7 @@ export const alignedTripleExclusion = aliasStrategy(
   { zh: '对齐三格排除', en: 'Aligned Triple Exclusion' },
   1130,
   aic,
-  ['cell-index', 'size'],
+  ['cell-index', 'digit', 'size'],
   { zh: '对齐三格排除（Subset Exclusion 对齐特例）', en: 'Aligned Triple Exclusion (aligned Subset Exclusion special case)' },
 );
 
@@ -135,7 +135,7 @@ export const subsetExclusion = aliasStrategy(
   { zh: '子集排除', en: 'Subset Exclusion' },
   1140,
   aic,
-  ['cell-index', 'size'],
+  ['cell-index', 'digit', 'size'],
   { zh: '子集排除（APE/ATE 的非对齐推广）', en: 'Subset Exclusion (non-aligned generalization of APE/ATE)' },
 );
 
@@ -144,7 +144,7 @@ export const exocet = aliasStrategy(
   { zh: 'Exocet', en: 'Exocet' },
   1200,
   aic,
-  ['cell-index', 'digit'],
+  ['cell-index', 'digit', 'chain-length'],
   { zh: 'Exocet（Junior/Senior；Double Exocet 交叉标注）', en: 'Exocet (Junior/Senior; Double Exocet cross-label)' },
 );
 
@@ -153,7 +153,7 @@ export const skLoop = aliasStrategy(
   { zh: 'SK 环', en: 'SK-Loop' },
   1250,
   aic,
-  ['cell-index', 'chain-length'],
+  ['cell-index', 'digit', 'chain-length'],
   { zh: 'SK 环（MSLS 首发特例）', en: 'SK-Loop (first-found MSLS special case)' },
 );
 

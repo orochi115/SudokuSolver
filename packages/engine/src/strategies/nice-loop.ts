@@ -16,7 +16,7 @@ export const niceLoop: Strategy = {
   id: 'nice-loop',
   name: { zh: 'Nice Loop', en: 'Nice Loop' },
   difficulty: 720,
-  tieBreak: ['cell-index', 'chain-length'],
+  tieBreak: ['cell-index', 'digit', 'chain-length'],
   apply(grid: Grid): Step | null {
     for (let cell = 0; cell < CELLS; cell++) {
       const mask = grid.candidatesOf(cell);

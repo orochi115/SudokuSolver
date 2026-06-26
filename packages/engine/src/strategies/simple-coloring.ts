@@ -67,7 +67,7 @@ export const simpleColoring: Strategy = {
   id: 'simple-coloring',
   name: { zh: '简单染色', en: 'Simple Coloring' },
   difficulty: 610,
-  tieBreak: ['digit'],
+  tieBreak: ['digit', 'cell-index'],
 
   apply(grid: Grid): Step | null {
     for (let d = 1; d <= 9; d++) {

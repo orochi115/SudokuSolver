@@ -16,7 +16,7 @@ export const turbotFish: Strategy = {
   id: 'turbot-fish',
   name: { zh: '涡轮鱼', en: 'Turbot Fish' },
   difficulty: 510,
-  tieBreak: ['digit', 'chain-length'],
+  tieBreak: ['digit', 'cell-index', 'chain-length'],
   apply(grid: Grid): Step | null {
     for (let digit = 1; digit <= 9; digit++) {
       const graph = buildLinkGraph(grid, { digit, grouped: true });

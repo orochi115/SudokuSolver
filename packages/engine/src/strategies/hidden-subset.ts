@@ -51,7 +51,7 @@ function makeHiddenSubsetStrategy(size: 2 | 3 | 4, id: string, difficulty: numbe
     id,
     name: SUBSET_NAMES[size]!,
     difficulty,
-    tieBreak: ['house', 'digit'],
+    tieBreak: ['house', 'digit', 'cell-index'],
 
     apply(grid: Grid): Step | null {
       for (let h = 0; h < HOUSES.length; h++) {

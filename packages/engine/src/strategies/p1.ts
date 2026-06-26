@@ -55,7 +55,7 @@ export const remotePairs = aliasStrategy(
   { zh: '远程数对', en: 'Remote Pairs' },
   505,
   xyChain,
-  ['cell-index', 'chain-length'],
+  ['cell-index', 'digit', 'chain-length'],
 );
 
 export const wxyzWing = aliasStrategy(
@@ -63,7 +63,7 @@ export const wxyzWing = aliasStrategy(
   { zh: 'WXYZ翼', en: 'WXYZ-Wing' },
   520,
   xyzWing,
-  ['cell-index'],
+  ['cell-index', 'digit'],
   { zh: 'WXYZ翼（进阶弯集）', en: 'WXYZ-Wing (advanced bent set)' },
 );
 
@@ -72,7 +72,7 @@ export const bentSets = aliasStrategy(
   { zh: '弯集', en: 'Bent Sets' },
   540,
   xyzWing,
-  ['cell-index'],
+  ['cell-index', 'digit'],
   { zh: '弯集（ALP/ALT）', en: 'Bent Set (ALP/ALT)' },
 );
 
@@ -81,7 +81,7 @@ export const brokenWing = aliasStrategy(
   { zh: '断翼', en: 'Broken Wing' },
   560,
   xChain,
-  ['digit', 'chain-length'],
+  ['digit', 'cell-index', 'chain-length'],
   { zh: '断翼（守护候选）', en: 'Broken Wing (guardians)' },
 );
 
@@ -90,7 +90,7 @@ export const multiColoring = aliasStrategy(
   { zh: '多重染色', en: 'Multi-Coloring' },
   620,
   simpleColoring,
-  ['digit'],
+  ['digit', 'cell-index'],
   { zh: '多重染色（含 X-Colors/Color Wing）', en: 'Multi-Coloring (X-Colors/Color Wing)' },
 );
 
@@ -99,7 +99,7 @@ export const threeDMedusa = aliasStrategy(
   { zh: '3D美杜莎', en: '3D Medusa' },
   640,
   aic,
-  ['cell-index', 'digit'],
+  ['cell-index', 'digit', 'chain-length'],
   { zh: '3D美杜莎（候选图染色）', en: '3D Medusa (candidate graph coloring)' },
 );
 
@@ -108,7 +108,7 @@ export const aicWithAls = aliasStrategy(
   { zh: '含 ALS 的 AIC', en: 'AIC with ALS' },
   760,
   aic,
-  ['cell-index', 'digit'],
+  ['cell-index', 'digit', 'chain-length'],
 );
 
 export const aicWithUr = aliasStrategy(
@@ -116,7 +116,7 @@ export const aicWithUr = aliasStrategy(
   { zh: '含 UR 的 AIC', en: 'AIC with UR' },
   770,
   aic,
-  ['cell-index', 'digit'],
+  ['cell-index', 'digit', 'chain-length'],
 );
 
 export const alsChain = aliasStrategy(
@@ -124,7 +124,7 @@ export const alsChain = aliasStrategy(
   { zh: 'ALS链', en: 'ALS Chain' },
   880,
   alsXyWing,
-  ['house', 'chain-length'],
+  ['house', 'cell-index', 'chain-length'],
   { zh: 'ALS链（ALS-XY链；ALS-XY翼为长度2特例）', en: 'ALS Chain (ALS-XY Chain; ALS-XY-Wing is the len-2 case)' },
 );
 

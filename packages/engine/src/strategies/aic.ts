@@ -290,7 +290,7 @@ export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
     id: 'aic',
     name: { zh: '交替推理链', en: 'Alternating Inference Chain' },
     difficulty: 750,
-    tieBreak: ['cell-index', 'digit'],
+    tieBreak: ['cell-index', 'digit', 'chain-length'],
 
     apply(grid: Grid): Step | null {
       const peerEndpoint = legacySearchPeerEndpointAic(grid);
@@ -330,7 +330,7 @@ export function makeXChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy
     id: 'x-chain',
     name: { zh: 'X-Chain', en: 'X-Chain' },
     difficulty: 710,
-    tieBreak: ['digit'],
+    tieBreak: ['digit', 'cell-index', 'chain-length'],
 
     apply(grid: Grid): Step | null {
       for (let digit = 1; digit <= 9; digit++) {

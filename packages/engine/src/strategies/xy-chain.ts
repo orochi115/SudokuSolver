@@ -115,6 +115,6 @@ export const xyChain: Strategy = {
   id: 'xy-chain',
   name: { zh: 'XY-Chain', en: 'XY-Chain' },
   difficulty: 715,
-  tieBreak: ['cell-index', 'chain-length'],
+  tieBreak: ['cell-index', 'digit', 'chain-length'],
   apply: search,
 };

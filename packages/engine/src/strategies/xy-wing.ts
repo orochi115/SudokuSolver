@@ -18,7 +18,7 @@ export const xyWing: Strategy = {
   id: 'xy-wing',
   name: { zh: 'XY翼', en: 'XY-Wing' },
   difficulty: 460,
-  tieBreak: ['cell-index'],
+  tieBreak: ['cell-index', 'digit'],
 
   apply(grid: Grid): Step | null {
     // Find all bivalue cells (exactly 2 candidates)
