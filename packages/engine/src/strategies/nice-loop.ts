@@ -25,7 +25,7 @@ export const niceLoop: Strategy = {
   id: 'nice-loop',
   name: { zh: 'Nice环', en: 'Nice Loop' },
   difficulty: 720,
-  tieBreak: ['cell-index', 'digit'],
+  tieBreak: ['digit', 'cell-index'],
 
   apply(grid: Grid): Step | null {
     // Try single-digit first (X-Cycle presentation)
