@@ -79,7 +79,8 @@ MODELS_FILE="${1:-$R2/models.txt}"
 mkdir -p "$R2/reports"
 rm -rf "$R2/reports/.verifylock"   # clear stale verify-semaphore slots from a prior run
 exec > >(tee -a "$R2/reports/scheduler.log") 2>&1
-echo "===== round2 run-all start $(date '+%Y-%m-%d %H:%M:%S') ====="
+echo "===== round2 run-all start $(date '+%Y-%m-%d %H:%M:%S') (pid $$) ====="
+echo "$$" > "$R2/reports/run-all.pid"   # so launch.sh / the user can target the (possibly detached) process group
 
 # Keep machine awake while running (lid-OPEN idle/system sleep only; clamshell/lid-close
 # still needs `sudo pmset -a disablesleep 1`). Auto-released when this script exits.
@@ -109,10 +110,33 @@ reap() { local np=() nv=() i; for i in "${!run_pids[@]}"; do if kill -0 "${run_p
 count_prov() { local p="$1" c=0 x; for x in ${run_provs[@]+"${run_provs[@]}"}; do [ "$x" = "$p" ] && c=$((c+1)); done; printf '%s' "$c"; }
 remaining() { local c=0 i; for i in "${!models[@]}"; do [ "${launched[$i]}" = "0" ] && c=$((c+1)); done; printf '%s' "$c"; }
 
+# --- liveness instrumentation (to diagnose the run2 whole-run death) ---
+START=$(date +%s)
+# Snapshot the run + process listing on any CATCHABLE fatal signal, before dying.
+# SIGKILL can't be trapped — but if scheduler.log has no "caught SIG" line at the
+# end, that itself rules out TERM/HUP/INT and points at KILL / OS sleep / supervisor.
+_on_sig() {
+  # Write DIRECTLY to a file, not via stdout: stdout is a pipe to `tee` (line 81), and a
+  # process-group signal kills tee too — echoing here would die on SIGPIPE and log nothing
+  # (this is why run2's death left no trace in scheduler.log). A fresh fd survives.
+  {
+    echo "!!!!! run-all caught SIG$1 @ $(date '+%F %T') (alive $(( $(date +%s) - START ))s; running=${#run_pids[@]}; remaining=$(remaining)) !!!!!"
+    ps -o pid,ppid,pgid,etime,stat,command -ax 2>/dev/null | grep -E 'run-all|run-model|opencode|grok|caffeinate|watchdog\.sh' | grep -v grep || true
+  } >> "$R2/reports/run-all.signal.log" 2>&1
+  exit 143
+}
+trap '_on_sig TERM' TERM; trap '_on_sig HUP' HUP; trap '_on_sig INT' INT
+HEARTBEAT="${HEARTBEAT_SEC:-60}"; last_hb=$START   # periodic liveness so the scheduler is never output-silent
+
 echo "Scheduler: MAX_PAR=$MAX_PAR, serial=[$SERIAL_PROVIDERS]@$SERIAL_CAP, RETRIES=$RETRIES, phases=[${PHASES[*]}], $n_models models"
 
 while [ "$(remaining)" -gt 0 ] || [ "${#run_pids[@]}" -gt 0 ]; do
   reap; progressed=0
+  now=$(date +%s)
+  if [ $((now - last_hb)) -ge "$HEARTBEAT" ]; then
+    last_hb=$now
+    echo "[hb $(date '+%H:%M:%S')] alive $(( now - START ))s | running=${#run_pids[@]} remaining=$(remaining)"
+  fi
   if [ "${#run_pids[@]}" -lt "$MAX_PAR" ]; then
     for i in "${!models[@]}"; do
       [ "${launched[$i]}" = "0" ] || continue

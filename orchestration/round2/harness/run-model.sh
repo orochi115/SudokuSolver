@@ -54,6 +54,31 @@ required_ids_section() {
   printf '\n\n## 必须实现/保持注册的策略(缺一不可,缺失会被验收退回重试)\n请按下列**精确 strategyId** 注册到 `strategies/index.ts`(地基已有 33 个策略,无需重列):\n%s\n' "$list"
 }
 
+# Fail-safe self-improvement: if THIS phase was attempted in a PRIOR run and did not
+# pass (we're resuming), rebuild a post-mortem from the persisted artifacts —
+#   .notes (idle/timeout self-kills), .verify.json (soundness/pollution/missing ids),
+#   <ph>.watchdog-kill.txt (external stall kill) — and prepend it to attempt-1's prompt
+# so the model knows exactly what went wrong last time and corrects instead of repeating.
+# (.notes/.verify.json/watchdog-kill survive across runs; attempt logs are truncated.)
+resume_feedback_section() {
+  local notes="$LOG_DIR/$PH.notes" vj="$LOG_DIR/$PH.verify.json" wk="$LOG_DIR/$PH.watchdog-kill.txt"
+  [ -f "$notes" ] || [ -f "$vj" ] || [ -f "$wk" ] || return 0   # no prior attempt -> first run, nothing to say
+  printf '\n\n## ⚠️ 续跑提示:上次本阶段未完成,先读这里再动手\n'
+  printf '你在上一次运行中**没有通过本阶段**(代码改动已保留在当前 worktree)。下面是上次失败/被中断的原因,请**针对性改进、不要重复同样的错误**:\n'
+  if [ -f "$wk" ]; then
+    printf '\n### 上次被 watchdog 强杀(长时间零输出)\n```\n%s\n```\n' "$(tail -n 14 "$wk")"
+    printf '→ 上次很可能陷入死循环、单步过久、或在等待输入。**把工作切成小步、持续产生输出**:每实现/修改一个策略就立刻 `npm run typecheck` + 跑相关测试并打印进度;严禁长时间静默或一次性铺很大改动。\n'
+  fi
+  if [ -f "$notes" ]; then
+    local idle; idle="$(grep -iE 'idle|timeout|stall' "$notes" 2>/dev/null | tail -n 4)"
+    [ -n "$idle" ] && printf '\n### 上次的 idle/超时记录\n```\n%s\n```\n→ 同上:频繁产出、避免静默。\n' "$idle"
+  fi
+  if [ -f "$vj" ]; then
+    printf '\n### 上次验收结果(.verify.json 摘要)\n```json\n%s\n```\n' "$(head -c 1400 "$vj")"
+    printf '→ 优先修复其中的 soundness violation / human-default 污染 / 缺失的 required strategyId。\n'
+  fi
+}
+
 # Wait for a backgrounded child by WALL-CLOCK (date), not loop-iteration count.
 # Rationale (round2 v1 post-mortem): laptop sleep freezes the poll loop, so an
 # iteration counter undercounts elapsed time and never trips — a sleep-wedged,
@@ -172,7 +197,7 @@ fi
 echo "=== [$NAME] installing deps ==="
 ( cd "$WT" && npm install --silent )
 
-PROMPT_TEXT="$(cat "$PROMPT_PATH")$(required_ids_section)$AUTONOMY"
+PROMPT_TEXT="$(cat "$PROMPT_PATH")$(required_ids_section)$AUTONOMY$(resume_feedback_section)"
 
 # --- attempt 1 ---
 echo "=== [$NAME] $PH attempt 1 :: $MODEL ($RUNNER) ==="
