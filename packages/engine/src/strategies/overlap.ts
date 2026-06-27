@@ -37,25 +37,36 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'single-digit-strong-link',
     canonicalOwner: 'x-chain',
-    members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle'],
-    futureMembers: ['turbot-fish', 'x-cycle', 'rectangle-elimination', 'grouped-x-cycle'],
-    unified: false,
+    members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle', 'turbot-fish'],
+    futureMembers: ['x-cycle', 'rectangle-elimination', 'grouped-x-cycle'],
+    unified: true,
     note:
       'All one single-digit strong-link pattern. Turbot Fish = skyscraper/2-string-kite/empty-rectangle unified 4-link; ' +
       'X-Cycle = single-digit Nice Loop; X-Wing = length-4 continuous X-Cycle (lives in the fish family, cross-ref only). ' +
-      'Skyscraper/2-string-kite/empty-rectangle currently fire first by difficulty; x-chain is the general fallback. ' +
-      'Future Turbot/X-Cycle must reuse this, not add a 4th independent detector.',
+      'Skyscraper/2-string-kite/empty-rectangle fire first by difficulty; x-chain + turbot-fish share the general ' +
+      'single-digit alternating-chain detector. (E2 — single-digit strong-link family unified.)',
   },
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing'],
-    futureMembers: ['xy-chain', 'nice-loop', 'remote-pairs', 'grouped-aic'],
-    unified: false,
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
+    futureMembers: ['remote-pairs', 'grouped-aic'],
+    unified: true,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
       '`grouped` is a switch on buildLinkGraph, not a separate strategy. Continuous/discontinuous Nice Loops ' +
-      '(AicResult *-loop kinds) are reserved for a future nice-loop strategy and must not be emitted under id "aic".',
+      'are owned by `nice-loop`; `aic` only emits open-chain Type-1/Type-2 findings. (E6 — chain engine ownership ' +
+      'settled: AicResult *-loop kinds emitted under nice-loop, never under aic.)',
+  },
+  {
+    id: 'fish',
+    canonicalOwner: 'x-wing',
+    members: ['x-wing', 'swordfish', 'jellyfish', 'finned-x-wing', 'finned-swordfish', 'finned-jellyfish'],
+    futureMembers: ['franken-fish', 'mutant-fish'],
+    unified: true,
+    note:
+      'Basic fish (size 2/3/4) and their Finned/Sashimi variants share the base/cover + fin detector. ' +
+      'Franken/Mutant fish reuse the same owner when added.',
   },
   {
     id: 'als-chain',
@@ -70,18 +81,24 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'uniqueness-rectangle',
     canonicalOwner: 'unique-rectangle-type-1',
-    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-4', 'bug-plus-one'],
-    futureMembers: [
+    members: [
+      'unique-rectangle-type-1',
+      'unique-rectangle-type-2',
       'unique-rectangle-type-3',
+      'unique-rectangle-type-4',
       'unique-rectangle-type-5',
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
+      'bug-plus-one',
+    ],
+    futureMembers: [
       'avoidable-rectangle',
       'extended-unique-rectangle',
     ],
-    unified: false,
+    unified: true,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
-      'unique-solution assumption. UR types currently ship as per-type detectors.',
+      'unique-solution assumption. UR types 1..6 + Hidden UR + BUG+1 are all registered. (E3 — UR family unified ' +
+      'around a shared UR-context predicate in uniqueness-ext.ts.)',
   },
 ];
