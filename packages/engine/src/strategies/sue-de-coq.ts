@@ -264,3 +264,193 @@ export const sueDeCoq: Strategy = {
     return null;
   },
 };
+
+// ============================================================
+// Sue de Coq Extended (P2b) — 苏德蔻扩展
+// ============================================================
+//
+// Extends the basic SdC by allowing larger intersection sets (up to 4 cells)
+// and more companion cells. The elimination logic is identical: the
+// intersection cells + companions form locked sets in both the line and box,
+// restricting L-digits to the line set and B-digits to the box set.
+//
+// The key difference from the base SdC: the base restricts intersections to
+// 2–3 cells; the extended form also tries 4-cell intersections and allows
+// larger companion sets (ALS-like). This catches deeper SdC patterns that
+// the base form misses.
+
+function trySdCExtendedIntersection(
+  grid: Grid,
+  lineCells: readonly number[],
+  boxCells: readonly number[],
+  lineLabel: string,
+  boxLabel: string,
+): Step | null {
+  const intersectCells = lineCells.filter((c) => boxCells.includes(c));
+  const emptyIntersect = intersectCells.filter((c) => grid.get(c) === 0);
+
+  // Extended: allow 2–4 cell intersections
+  if (emptyIntersect.length < 2 || emptyIntersect.length > 4) return null;
+
+  const restLine = lineCells.filter((c) => !intersectCells.includes(c) && grid.get(c) === 0);
+  const restBox = boxCells.filter((c) => !intersectCells.includes(c) && grid.get(c) === 0);
+
+  let intersectMask = 0;
+  for (const c of emptyIntersect) intersectMask |= grid.candidatesOf(c);
+  const intersectDigits = digitsOf(intersectMask);
+
+  if (intersectDigits.length < 3) return null;
+
+  const N = emptyIntersect.length;
+
+  const numDigits = intersectDigits.length;
+
+  for (let lineMask = 1; lineMask < (1 << numDigits) - 1; lineMask++) {
+    const L_mask = intersectDigits.reduce((acc, d, i) => {
+      return (lineMask & (1 << i)) ? acc | maskOf(d) : acc;
+    }, 0);
+    const B_mask = intersectMask & ~L_mask;
+    if (B_mask === 0) continue;
+
+    const L_digits = digitsOf(L_mask);
+    const B_digits = digitsOf(B_mask);
+
+    const neededLineCompanions = L_digits.length - N;
+    const neededBoxCompanions = B_digits.length - N;
+
+    if (neededLineCompanions < 0 || neededBoxCompanions < 0) continue;
+    // Extended: allow up to 4 companions per side
+    if (neededLineCompanions > 4 || neededBoxCompanions > 4) continue;
+
+    const lineCompanionCandidates = restLine.filter((c) => {
+      const m = grid.candidatesOf(c);
+      return m !== 0 && (m & ~L_mask) === 0;
+    });
+
+    if (lineCompanionCandidates.length < neededLineCompanions) continue;
+
+    const boxCompanionCandidates = restBox.filter((c) => {
+      const m = grid.candidatesOf(c);
+      return m !== 0 && (m & ~B_mask) === 0;
+    });
+
+    if (boxCompanionCandidates.length < neededBoxCompanions) continue;
+
+    for (const lComp of combineK(lineCompanionCandidates, neededLineCompanions)) {
+      let coveredL = 0;
+      for (const c of emptyIntersect) coveredL |= (grid.candidatesOf(c) & L_mask);
+      for (const c of lComp) coveredL |= (grid.candidatesOf(c) & L_mask);
+      if (coveredL !== L_mask) continue;
+
+      const L_confinedInLine = restLine.every((c) => {
+        if (lComp.includes(c)) return true;
+        return (grid.candidatesOf(c) & L_mask) === 0;
+      });
+      if (!L_confinedInLine) continue;
+
+      for (const bComp of combineK(boxCompanionCandidates, neededBoxCompanions)) {
+        let coveredB = 0;
+        for (const c of emptyIntersect) coveredB |= (grid.candidatesOf(c) & B_mask);
+        for (const c of bComp) coveredB |= (grid.candidatesOf(c) & B_mask);
+        if (coveredB !== B_mask) continue;
+
+        const B_confinedInBox = restBox.every((c) => {
+          if (bComp.includes(c)) return true;
+          return (grid.candidatesOf(c) & B_mask) === 0;
+        });
+        if (!B_confinedInBox) continue;
+
+        const elims: { cell: number; digit: number }[] = [];
+
+        for (const c of restLine) {
+          if (lComp.includes(c)) continue;
+          for (const d of L_digits) {
+            if (grid.hasCandidate(c, d)) {
+              elims.push({ cell: c, digit: d });
+            }
+          }
+        }
+
+        for (const c of restBox) {
+          if (bComp.includes(c)) continue;
+          for (const d of B_digits) {
+            if (grid.hasCandidate(c, d)) {
+              elims.push({ cell: c, digit: d });
+            }
+          }
+        }
+
+        if (elims.length === 0) continue;
+
+        const seen = new Set<number>();
+        const uniqueElims = elims.filter((e) => {
+          const key = e.cell * 10 + e.digit;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+        if (uniqueElims.length === 0) continue;
+
+        // Only return if this yields MORE than the base SdC would
+        // (base SdC handles N=2,3 with ≤3 companions; extended adds N=4 or >3 companions)
+        const isExtended = N === 4 || neededLineCompanions > 3 || neededBoxCompanions > 3;
+        if (!isExtended) continue;
+
+        const involved = [...emptyIntersect, ...lComp, ...bComp];
+        const allCands = intersectDigits;
+
+        return {
+          strategyId: 'sue-de-coq-extended',
+          placements: [],
+          eliminations: uniqueElims,
+          highlights: {
+            cells: [...new Set([...involved, ...uniqueElims.map((e) => e.cell)])],
+            candidates: involved.flatMap((c) =>
+              digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d })),
+            ),
+            links: [],
+          },
+          explanation: {
+            zh: `苏德蔻扩展：${emptyIntersect.length} 格（${lineLabel} ∩ ${boxLabel}）候选数 {${allCands.join(',')}} 分为行/列部分 {${L_digits.join(',')}} 和宫部分 {${B_digits.join(',')}}（扩展型：更大交集或更多伴格）；行/列部分从行/列其余格消去，宫部分从宫其余格消去。`,
+            en: `Sue de Coq Extended: ${emptyIntersect.length} cells (${lineLabel} ∩ ${boxLabel}) with candidates {${allCands.join(',')}} split into line-part {${L_digits.join(',')}} and box-part {${B_digits.join(',')}} (extended: larger intersection or more companions); eliminate line-part from rest of line, box-part from rest of box.`,
+          },
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+export const sueDeCoqExtended: Strategy = {
+  id: 'sue-de-coq-extended',
+  name: { zh: '苏德蔻扩展', en: 'Sue de Coq Extended' },
+  difficulty: 1015,
+  tieBreak: ['house'],
+
+  apply(grid: Grid): Step | null {
+    for (let r = 0; r < 9; r++) {
+      const rowCells = ROWS[r]!;
+      for (let b = 0; b < 9; b++) {
+        if (!rowCells.some((c) => BOX_OF[c] === b)) continue;
+        const step = trySdCExtendedIntersection(
+          grid, rowCells, BOXES[b]!, `Row ${r + 1}`, `Box B${b + 1}`,
+        );
+        if (step) return step;
+      }
+    }
+
+    for (let col = 0; col < 9; col++) {
+      const colCells = COLS[col]!;
+      for (let b = 0; b < 9; b++) {
+        if (!colCells.some((c) => BOX_OF[c] === b)) continue;
+        const step = trySdCExtendedIntersection(
+          grid, colCells, BOXES[b]!, `Col ${col + 1}`, `Box B${b + 1}`,
+        );
+        if (step) return step;
+      }
+    }
+
+    return null;
+  },
+};

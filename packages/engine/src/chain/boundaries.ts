@@ -67,6 +67,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'twinned-xy-chains',
+    owns: 'Two-branch bivalue propagation (cell forcing): from a bivalue cell, both values are propagated via short AIC chains; common forced-false candidates are eliminated.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-exotic-links',
+    owns: 'AIC on the grouped graph with extended chain length (exotic/grouped link structures). Sound endpoints only.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'forcing-chain',
     owns: 'Multi-branch / contradiction (verity) reasoning — cell & digit forcing chains.',
     multiBranch: true,
