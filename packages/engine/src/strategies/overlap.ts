@@ -45,10 +45,10 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'exotic',
     canonicalOwner: 'tridagon',
-    members: ['tridagon', 'sue-de-coq', 'fireworks', 'exocet', 'sk-loop', 'msls', 'aligned-pair-exclusion', 'aligned-triple-exclusion'],
-    futureMembers: ['subset-exclusion', 'sue-de-coq-extended', 'aic-with-exotic-links'],
+    members: ['tridagon', 'sue-de-coq', 'fireworks', 'exocet', 'sk-loop', 'msls', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion', 'sue-de-coq-extended', 'aic-with-exotic-links'],
+    futureMembers: [],
     unified: false,
-    note: 'P2a: fireworks/exocet/sk-loop/msls/APE/ATE added to exotic family (sk-loop special case of msls).',
+    note: 'P2b: subset-exclusion (general, incl APE/ATE aligned special cases), sue-de-coq-extended, aic-with-exotic-links added; subset-exclusion is owner for subset family.',
   },
   {
     id: 'single-digit-strong-link',
@@ -65,12 +65,12 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur', 'aic-with-exotic-links', 'twinned-xy-chains'],
     futureMembers: ['grouped-aic'],
     unified: true,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
-      'E6: nice-loop owns *-loop kinds; aic no longer emits loops. `grouped` is a switch on buildLinkGraph, not a separate strategy. P1: aic-with-als/ur added.',
+      'E6: nice-loop owns *-loop kinds; aic no longer emits loops. `grouped` is a switch on buildLinkGraph, not a separate strategy. P1: aic-with-als/ur added. P2b: aic-with-exotic-links, twinned-xy-chains (reuse xy/aic engine).',
   },
   {
     id: 'als-chain',
@@ -102,12 +102,29 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-loop',
       'bug-lite',
       'bug-plus-n',
+      'gurth',
     ],
     futureMembers: [
       'avoidable-rectangle',
     ],
     unified: true,
     note:
-      'Deadly-pattern (uniqueness) family. E3: shared engine. P1: AR1-4, EUR, UniqueLoop, BUG variants added.',
+      'Deadly-pattern (uniqueness) family. E3: shared engine. P1: AR1-4, EUR, UniqueLoop, BUG variants added. P2b: gurth (symmetrical placement) added under uniqueness/symmetry.',
+  },
+  {
+    id: 'fish',
+    canonicalOwner: 'x-wing',
+    members: ['x-wing', 'finned-x-wing', 'swordfish', 'finned-swordfish', 'jellyfish', 'finned-jellyfish', 'franken-fish', 'mutant-fish'],
+    futureMembers: [],
+    unified: false,
+    note: 'P2b: franken-fish and mutant-fish added as fish family extensions (incl endo-fins, cannibalism, siamese presentation). Basic and finned fish listed for family grouping.',
+  },
+  {
+    id: 'subset-exclusion',
+    canonicalOwner: 'subset-exclusion',
+    members: ['aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion'],
+    futureMembers: [],
+    unified: false,
+    note: 'P2b: subset-exclusion is owner (general subset counting/exclusion); APE/ATE are its aligned k=2/3 special cases (P2a).',
   },
 ];

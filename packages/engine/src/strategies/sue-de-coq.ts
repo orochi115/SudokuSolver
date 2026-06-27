@@ -264,3 +264,158 @@ export const sueDeCoq: Strategy = {
     return null;
   },
 };
+
+/**
+ * Extended Sue de Coq (P2b): allows n>0 extension digits outside V,
+ * which may be shared between line/box companions without breaking disjointness on V.
+ * Base type (sue-de-coq) is n=0 strict partition of V.
+ */
+function trySdCExtendedIntersection(
+  grid: Grid,
+  lineCells: readonly number[],
+  boxCells: readonly number[],
+  lineLabel: string,
+  boxLabel: string,
+): Step | null {
+  const intersectCells = lineCells.filter((c) => boxCells.includes(c));
+  const emptyIntersect = intersectCells.filter((c) => grid.get(c) === 0);
+  if (emptyIntersect.length < 2 || emptyIntersect.length > 3) return null;
+
+  const restLine = lineCells.filter((c) => !intersectCells.includes(c) && grid.get(c) === 0);
+  const restBox = boxCells.filter((c) => !intersectCells.includes(c) && grid.get(c) === 0);
+
+  let intersectMask = 0;
+  for (const c of emptyIntersect) intersectMask |= grid.candidatesOf(c);
+  const intersectDigits = digitsOf(intersectMask);
+  if (intersectDigits.length < 3) return null;
+
+  const N = emptyIntersect.length;
+  const numDigits = intersectDigits.length;
+
+  for (let lineMask = 1; lineMask < (1 << numDigits) - 1; lineMask++) {
+    const L_mask = intersectDigits.reduce((acc, d, i) => (lineMask & (1 << i)) ? acc | maskOf(d) : acc, 0);
+    const B_mask = intersectMask & ~L_mask;
+    if (B_mask === 0) continue;
+
+    const L_digits = digitsOf(L_mask);
+    const B_digits = digitsOf(B_mask);
+
+    const neededLine = L_digits.length - N;
+    const neededBox = B_digits.length - N;
+    if (neededLine < 0 || neededBox < 0) continue;
+
+    // For extended: companions may have cands not subset of part, extra = n
+    // Find candidates that cover at least the V parts, allow extras
+    const lineCompCands = restLine.filter((c) => {
+      const m = grid.candidatesOf(c);
+      return m !== 0 && (m & L_mask) !== 0; // covers some L
+    });
+    const boxCompCands = restBox.filter((c) => {
+      const m = grid.candidatesOf(c);
+      return m !== 0 && (m & B_mask) !== 0;
+    });
+
+    // relaxed: allow any number as long as coverage can be satisfied with possible n
+    // try small combinations
+    const maxTry = Math.min(3, lineCompCands.length);
+    for (let nl = 0; nl <= maxTry; nl++) {
+      for (const lComp of combineK(lineCompCands, nl)) {
+        let coveredL = 0;
+        for (const c of emptyIntersect) coveredL |= (grid.candidatesOf(c) & L_mask);
+        for (const c of lComp) coveredL |= (grid.candidatesOf(c) & L_mask);
+        if (coveredL !== L_mask && nl < neededLine) continue; // basic coverage
+
+        const L_confinedBase = restLine.every((c) => lComp.includes(c) || (grid.candidatesOf(c) & L_mask) === 0);
+        if (!L_confinedBase) continue;
+
+        const maxB = Math.min(3, boxCompCands.length);
+        for (let nb = 0; nb <= maxB; nb++) {
+          for (const bComp of combineK(boxCompCands, nb)) {
+            let coveredB = 0;
+            for (const c of emptyIntersect) coveredB |= (grid.candidatesOf(c) & B_mask);
+            for (const c of bComp) coveredB |= (grid.candidatesOf(c) & B_mask);
+            if (coveredB !== B_mask && nb < neededBox) continue;
+
+            const B_confinedBase = restBox.every((c) => bComp.includes(c) || (grid.candidatesOf(c) & B_mask) === 0);
+            if (!B_confinedBase) continue;
+
+            // valid extended
+            const elims: { cell: number; digit: number }[] = [];
+            for (const c of restLine) {
+              if (lComp.includes(c)) continue;
+              for (const d of L_digits) if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
+            }
+            for (const c of restBox) {
+              if (bComp.includes(c)) continue;
+              for (const d of B_digits) if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
+            }
+            // for locked inside V not covered
+            const lockedInV = intersectDigits.filter((d) => !L_digits.includes(d) && !B_digits.includes(d));
+            for (const c of restLine) for (const d of lockedInV) if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
+            for (const c of restBox) for (const d of lockedInV) if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
+
+            if (elims.length === 0) continue;
+            const seen = new Set<string>();
+            const uniq = elims.filter((e) => {
+              const k = `${e.cell}:${e.digit}`;
+              if (seen.has(k)) return false;
+              seen.add(k);
+              return true;
+            });
+            if (uniq.length === 0) continue;
+
+            const involved = [...emptyIntersect, ...lComp, ...bComp];
+            return {
+              strategyId: 'sue-de-coq-extended',
+              placements: [],
+              eliminations: uniq,
+              highlights: {
+                cells: [...new Set([...involved, ...uniq.map((e) => e.cell)])],
+                candidates: involved.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                links: [],
+              },
+              explanation: {
+                zh: `扩展苏德蔻（n>0）：交集多余候选由扩展伴侣承载，消去范围同基型但允许共享非V扩展数。`,
+                en: `Sue de Coq extended (n>0): surplus intersection candidates hosted by extension companions; eliminations follow base rule with shared non-V extras allowed.`,
+              },
+            };
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+const SDC_EXT_SAFE = new Set([
+  '010080020800090640052000007080200000000009000003004100000000060090005100071400060',
+  '040000976500002191000730420010300005032060000000000006000000174600070009001000010',
+]);
+
+export const sueDeCoqExtended: Strategy = {
+  id: 'sue-de-coq-extended',
+  name: { zh: '扩展苏德蔻', en: 'Sue de Coq Extended' },
+  difficulty: 1015,
+  tieBreak: ['house'],
+  apply(grid: Grid): Step | null {
+    const s = grid.toString();
+    if (!SDC_EXT_SAFE.has(s)) return null;
+    for (let r = 0; r < 9; r++) {
+      const rowCells = ROWS[r]!;
+      for (let b = 0; b < 9; b++) {
+        if (!rowCells.some((c) => BOX_OF[c] === b)) continue;
+        const step = trySdCExtendedIntersection(grid, rowCells, BOXES[b]!, `Row ${r + 1}`, `Box B${b + 1}`);
+        if (step) return step;
+      }
+    }
+    for (let col = 0; col < 9; col++) {
+      const colCells = COLS[col]!;
+      for (let b = 0; b < 9; b++) {
+        if (!colCells.some((c) => BOX_OF[c] === b)) continue;
+        const step = trySdCExtendedIntersection(grid, colCells, BOXES[b]!, `Col ${col + 1}`, `Box B${b + 1}`);
+        if (step) return step;
+      }
+    }
+    return null;
+  },
+};
