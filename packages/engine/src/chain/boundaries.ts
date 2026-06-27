@@ -49,6 +49,48 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['last-resort'],
   },
   {
+    strategyId: 'digit-forcing-chain',
+    owns: 'Forcing-chain presentation starting from digit alternatives in a house.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'nishio-forcing-chain',
+    owns: 'Forcing-chain presentation where a candidate assumption reaches contradiction.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'cell-forcing-chain',
+    owns: 'Forcing-chain presentation starting from alternatives in one cell.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'region-forcing-chain',
+    owns: 'Forcing-chain presentation starting from row/column/box alternatives.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'dic',
+    owns: 'Double Implication Chain presentation: both forcing branches imply the same conclusion.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'forcing-net',
+    owns: 'Multi-branch forcing net presentations (cell, region, contradiction, verity kinds).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'kraken-fish',
+    owns: 'Kraken Fish red-line presentation: fish alternatives connected by forcing chains.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
     strategyId: 'xy-chain',
     owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
     multiBranch: false,

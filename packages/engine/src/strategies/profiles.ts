@@ -14,7 +14,7 @@
  *    puzzles or introduce invalid solutions as the human techniques grow.
  *
  * Membership is expressed as an id-set (not a field on `Strategy`) so strategy
- * implementations stay pure and so future P3 strategies only need their id added
+ * implementations stay pure and so P3 strategies only need their id added
  * to `LAST_RESORT_IDS`.
  */
 
@@ -25,10 +25,22 @@ export type StrategyProfile = 'human-default' | 'last-resort';
 
 /**
  * Ids excluded from `human-default`: P3 / red-line last-resort techniques.
- * Add a strategy's id here when it is classified as P3 (forcing nets, Kraken,
- * POM, templates, GEM, …) — see docs/plans/diabolical-727.md § P3.
+ * See docs/plans/diabolical-727.md § P3.
  */
-export const LAST_RESORT_IDS: ReadonlySet<string> = new Set<string>(['forcing-chain']);
+export const LAST_RESORT_IDS: ReadonlySet<string> = new Set<string>([
+  'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
+]);
 
 /** Strategies in the default human-solving path (excludes P3 / red-line). */
 export const HUMAN_DEFAULT_STRATEGIES: readonly Strategy[] = STRATEGIES.filter(

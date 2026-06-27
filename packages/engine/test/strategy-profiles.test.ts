@@ -12,6 +12,21 @@ import {
   strategiesForProfile,
 } from '../src/strategies/profiles.js';
 
+const P3_LAST_RESORT_IDS = [
+  'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
+] as const;
+
 describe('gate 2 — frozen global priority table', () => {
   it('STRATEGIES order matches CANONICAL_STRATEGY_ORDER exactly', () => {
     expect(STRATEGIES.map((s) => s.id)).toEqual([...CANONICAL_STRATEGY_ORDER]);
@@ -35,6 +50,29 @@ describe('gate 2 — frozen global priority table', () => {
 });
 
 describe('gate 1 — strategy profiles', () => {
+  it('registers every P3 red-line strategy id', () => {
+    const ids = new Set(STRATEGIES.map((s) => s.id));
+    for (const id of P3_LAST_RESORT_IDS) expect(ids.has(id), id).toBe(true);
+  });
+
+  it('keeps every P3 red-line strategy in LAST_RESORT_IDS', () => {
+    for (const id of P3_LAST_RESORT_IDS) expect(LAST_RESORT_IDS.has(id), id).toBe(true);
+  });
+
+  it('keeps every P3 red-line strategy out of human-default', () => {
+    const humanIds = new Set(HUMAN_DEFAULT_STRATEGIES.map((s) => s.id));
+    for (const id of P3_LAST_RESORT_IDS) expect(humanIds.has(id), id).toBe(false);
+  });
+
+  it('keeps every P3 red-line strategy in the 9xxx last-resort band', () => {
+    const byId = new Map(STRATEGIES.map((s) => [s.id, s]));
+    for (const id of P3_LAST_RESORT_IDS) {
+      const strategy = byId.get(id)!;
+      expect(strategy.difficulty, id).toBeGreaterThanOrEqual(9000);
+      expect(strategy.difficulty, id).toBeLessThan(10000);
+    }
+  });
+
   it('human-default excludes every last-resort id', () => {
     const humanIds = new Set(HUMAN_DEFAULT_STRATEGIES.map((s) => s.id));
     for (const id of LAST_RESORT_IDS) {
