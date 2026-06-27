@@ -60,6 +60,24 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  {
+    strategyId: 'remote-pairs',
+    owns: 'Remote Pairs as the fixed two-digit, bivalue-cell sub-case of XY-Chain.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'AIC presentation that treats ALS-chain deductions as named ALS nodes, without branching.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC presentation reserved for UR/grouped nodes, without contradiction or multi-branch forcing.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

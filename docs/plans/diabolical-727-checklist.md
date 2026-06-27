@@ -63,20 +63,20 @@
 
 | strategyId | 目录家族 | detector（owner / 共享?） | 拟定 difficulty | 卡 | 状态 |
 |---|---|---|---|---|---|
-| `tridagon`（anti-Tridagon / Thor's Hammer） | Tridagon | owner（exotic） | 1100 | ✅ | ☐ |
-| `multi-coloring` | Multi-Coloring | owner（coloring）；X-Colors/Weak Colors/Color Wing 等并入（overlap #9） | 620 | ✅ | ☐ |
-| `3d-medusa` | 3D Medusa | owner（coloring）；Supercoloring 并入 | 640 | ✅ | ☐ |
-| `als-chain`（一般 ALS 链 / ALS-XY-Chain） | ALS-XY-Chain | owner（ALS）；`als-xy-wing` 是其 len-2 特例 | 880 | ✅ | ☐ |
-| `ahs`（Almost Hidden Set 作链节点） | AHS | ALS 的对偶；供链引擎复用 | 885 | ✅ | ☐ |
-| `wxyz-wing` | WXYZ-Wing | owner（进阶 wing） | 510→ 520 | ✅ | ☐ |
-| `remote-pairs` | Remote Pairs | XY-Chain 特例（复用 aic/xy-chain 引擎） | 505 | ✅ | ☐ |
-| `bent-sets`（ALP/ALT / Chute Remote Pairs） | Almost Locked Pair/Triple | owner（进阶 wing / bent） | 540 | ✅ | ☐ |
-| `broken-wing`（Guardians） | Broken Wing | owner（单数字 / oddagon 亲缘） | 560 | ✅* | ☐ |
-| `avoidable-rectangle-type-1..4` | Avoidable Rectangle 1–4 | AR detector（逐型，与 UR 平行） | 945（带子步） | ✅ | ☐ |
-| `extended-unique-rectangle` | Extended UR (2×3) | UR detector 扩展 | 980 | ✅ | ☐ |
-| `unique-loop` / `bug-lite` / `bug-plus-n` | Unique Loops / BUG 变体 | uniqueness detector 扩展 | 985 | ✅ | ☐ |
-| `aic-with-als` | AIC with ALS nodes | AIC 引擎 + ALS 节点（复用 aic owner） | 760 | ✅ | ☐ |
-| `aic-with-ur` | AIC with UR / grouped nodes | AIC 引擎 + UR/grouped 节点 | 770 | ✅ | ☐ |
+| `tridagon`（anti-Tridagon / Thor's Hammer） | Tridagon | owner（exotic） | 1100 | ✅ | ✅ |
+| `multi-coloring` | Multi-Coloring | owner（coloring）；X-Colors/Weak Colors/Color Wing 等并入（overlap #9） | 620 | ✅ | ✅ |
+| `3d-medusa` | 3D Medusa | owner（coloring）；Supercoloring 并入 | 640 | ✅ | ✅ |
+| `als-chain`（一般 ALS 链 / ALS-XY-Chain） | ALS-XY-Chain | owner（ALS）；`als-xy-wing` 是其 len-2 特例 | 880 | ✅ | ✅ |
+| `ahs`（Almost Hidden Set 作链节点） | AHS | ALS 的对偶；供链引擎复用 | 885 | ✅ | ✅ |
+| `wxyz-wing` | WXYZ-Wing | owner（进阶 wing） | 510→ 520 | ✅ | ✅ |
+| `remote-pairs` | Remote Pairs | XY-Chain 特例（复用 aic/xy-chain 引擎） | 505 | ✅ | ✅ |
+| `bent-sets`（ALP/ALT / Chute Remote Pairs） | Almost Locked Pair/Triple | owner（进阶 wing / bent） | 540 | ✅ | ✅ |
+| `broken-wing`（Guardians） | Broken Wing | owner（单数字 / oddagon 亲缘） | 560 | ✅* | ✅ |
+| `avoidable-rectangle-type-1..4` | Avoidable Rectangle 1–4 | AR detector（逐型，与 UR 平行） | 945（带子步） | ✅ | ✅ |
+| `extended-unique-rectangle` | Extended UR (2×3) | UR detector 扩展 | 980 | ✅ | ✅ |
+| `unique-loop` / `bug-lite` / `bug-plus-n` | Unique Loops / BUG 变体 | uniqueness detector 扩展 | 985 | ✅ | ✅ |
+| `aic-with-als` | AIC with ALS nodes | AIC 引擎 + ALS 节点（复用 aic owner） | 760 | ✅ | ✅ |
+| `aic-with-ur` | AIC with UR / grouped nodes | AIC 引擎 + UR/grouped 节点 | 770 | ✅ | ✅ |
 
 ## P2 — 罕见 / 异域
 
@@ -128,7 +128,7 @@
 | E1 | 给现有多实例策略**填 `tieBreak` 元数据** | **独立**（存量策略调整步） | gate 4 收尾：字段已加、determinism 已测，但声明式排序键尚未逐策略填写 | ☐ |
 | E2 | **单数字强链族统一**：评估把 skyscraper/kite/ER 收编进共享 owner | **耦合 P0** | 实现 turbot-fish/x-cycle 时（`overlap.unified: false→true`） | ☐ |
 | E3 | **UR 引擎重构**：3 个独立 UR detector → 共享 UR engine | **耦合 P0**（AR/EUR 部分随 P1） | 实现 UR3/5/6 + Hidden UR + AR + EUR 时 | ☐ |
-| E4 | **ALS 收编**：通用 `als-chain` 落地后，`als-xy-wing` 降为其特例（alias 或折叠） | **耦合 P1** | 实现 als-chain 时 | ☐ |
+| E4 | **ALS 收编**：通用 `als-chain` 落地后，`als-xy-wing` 降为其特例（alias 或折叠） | **耦合 P1** | 实现 als-chain 时 | ✅ |
 | E5 | **难度重标已落地**（2026-06-24）：4–100 → 分层 band | —（已完成） | gate 2 + 本清单难度刻度节 | ✅ |
 | E6 | **chain 引擎归属落实**：nice-loop 接管 `AicResult` 现有却未返回的 `*-loop` kind；确保 aic 不私自发 loop | **耦合 P0** | 实现 nice-loop 时（boundaries 已声明） | ☐ |
 | E7 | **难度刻度全局子策略粒度复核**：评估是否重排存量 31（尤其 uniqueness 9xx vs chains 7xx / ALS 8xx）使其按真实人类成本全局排序 | **独立**（存量策略调整步，仅复核/提案） | 用户质疑 band 跨类别错排（见[难度刻度节](#已知跨类别错排--排序原则回应按类别分段-vs-子策略全局排序)）；属行为变更（注④/⑤），须单独提案 + 707 证据 + 回归无降级方可落地 | ☐ |

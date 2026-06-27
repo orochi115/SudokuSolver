@@ -49,8 +49,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-ur'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
@@ -60,9 +60,9 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
-    unified: false,
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs', 'aic-with-als'],
+    futureMembers: ['als-xy-chain'],
+    unified: true,
     note:
       'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
       'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
@@ -79,14 +79,40 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
       'bug-plus-one',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
+      'unique-loop',
+      'bug-lite',
+      'bug-plus-n',
     ],
+    futureMembers: ['avoidable-rectangle'],
     unified: false,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
       'unique-solution assumption. UR types currently ship as per-type detectors.',
+  },
+  {
+    id: 'coloring-advanced',
+    canonicalOwner: 'simple-coloring',
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    unified: true,
+    note: 'Multi-Coloring / X-Colors / Color Wing and 3D Medusa / Supercoloring are coloring-family presentations; implemented without multi-branch forcing.',
+  },
+  {
+    id: 'advanced-wing-bent',
+    canonicalOwner: 'wxyz-wing',
+    members: ['wxyz-wing', 'bent-sets', 'broken-wing'],
+    unified: true,
+    note: 'Advanced wing and bent-set family. WXYZ/Bent Sets reuse ALS-family sound eliminations where applicable; Broken Wing is reserved as a conservative detector shell.',
+  },
+  {
+    id: 'exotic-tridagon',
+    canonicalOwner: 'tridagon',
+    members: ['tridagon'],
+    unified: true,
+    note: 'Tridagon / anti-Tridagon owner; conservative detector shell until a non-search pattern matcher is added.',
   },
 ];
