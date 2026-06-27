@@ -46,6 +46,19 @@ describe('gate 1 — strategy profiles', () => {
     expect(HUMAN_DEFAULT_STRATEGIES.some((s) => s.id === 'forcing-chain')).toBe(false);
   });
 
+  it('has all P0 strategies registered', () => {
+    const ids = STRATEGIES.map((s) => s.id);
+    const p0 = [
+      'finned-x-wing', 'finned-swordfish', 'finned-jellyfish',
+      'turbot-fish', 'xy-chain', 'nice-loop',
+      'hidden-unique-rectangle', 'unique-rectangle-type-3',
+      'unique-rectangle-type-5', 'unique-rectangle-type-6',
+    ];
+    for (const id of p0) {
+      expect(ids).toContain(id);
+    }
+  });
+
   it('last-resort is the full registry and includes forcing-chain', () => {
     expect(LAST_RESORT_STRATEGIES.map((s) => s.id)).toEqual(STRATEGIES.map((s) => s.id));
     expect(LAST_RESORT_STRATEGIES.some((s) => s.id === 'forcing-chain')).toBe(true);

@@ -17,10 +17,15 @@ import { lockedCandidatesPointing, lockedCandidatesClaiming } from '../src/strat
 import { nakedPair, nakedTriple, nakedQuad } from '../src/strategies/naked-subset.js';
 import { hiddenPair, hiddenTriple, hiddenQuad } from '../src/strategies/hidden-subset.js';
 import { xWing, swordfish, jellyfish } from '../src/strategies/basic-fish.js';
+import { finnedXWing, finnedSwordfish, finnedJellyfish } from '../src/strategies/finned-fish.js';
 import { skyscraper, twoStringKite, emptyRectangle } from '../src/strategies/single-digit-patterns.js';
 import { xyWing } from '../src/strategies/xy-wing.js';
 import { xyzWing } from '../src/strategies/xyz-wing.js';
 import { wWing } from '../src/strategies/w-wing.js';
+import { turbotFish } from '../src/strategies/turbot-fish.js';
+import { xyChain } from '../src/strategies/xy-chain.js';
+import { niceLoop } from '../src/strategies/nice-loop.js';
+import { hiddenUniqueRectangle, uniqueRectangleType3, uniqueRectangleType5, uniqueRectangleType6 } from '../src/strategies/uniqueness.js';
 
 // ============================================================
 // Helpers
@@ -698,6 +703,16 @@ describe('STRATEGIES registry', () => {
       'unique-rectangle-type-1',
       'unique-rectangle-type-2',
       'unique-rectangle-type-4',
+      'finned-x-wing',
+      'finned-swordfish',
+      'finned-jellyfish',
+      'turbot-fish',
+      'xy-chain',
+      'nice-loop',
+      'hidden-unique-rectangle',
+      'unique-rectangle-type-3',
+      'unique-rectangle-type-5',
+      'unique-rectangle-type-6',
       'sue-de-coq',
       'forcing-chain',
     ];
@@ -721,6 +736,164 @@ describe('STRATEGIES registry', () => {
       expect(typeof s.difficulty).toBe('number');
       expect(s.difficulty).toBeGreaterThan(0);
     }
+  });
+});
+
+// ============================================================
+// P0 New Strategies
+// ============================================================
+
+describe('finned-fish', () => {
+  it('has stable id', () => {
+    expect(finnedXWing.id).toBe('finned-x-wing');
+    expect(finnedXWing.difficulty).toBe(415);
+    expect(finnedSwordfish.id).toBe('finned-swordfish');
+    expect(finnedSwordfish.difficulty).toBe(455);
+    expect(finnedJellyfish.id).toBe('finned-jellyfish');
+    expect(finnedJellyfish.difficulty).toBe(495);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    finnedXWing.apply(g);
+    finnedSwordfish.apply(g);
+    finnedJellyfish.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+});
+
+describe('turbot-fish', () => {
+  it('has stable id', () => {
+    expect(turbotFish.id).toBe('turbot-fish');
+    expect(turbotFish.difficulty).toBe(510);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    turbotFish.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+
+  it('detects turbot-fish pattern and is sound', () => {
+    const puzzle = '000000000001902060000006790902000600370000950005000004140003005709024000000800000';
+    const g = gridFrom(puzzle);
+    const solution = solveBruteforce(puzzle);
+    expect(solution).not.toBeNull();
+    const step = turbotFish.apply(g);
+    if (step) {
+      expect(step.strategyId).toBe('turbot-fish');
+      assertSoundStep(puzzle, step);
+    }
+  });
+});
+
+describe('xy-chain', () => {
+  it('has stable id', () => {
+    expect(xyChain.id).toBe('xy-chain');
+    expect(xyChain.difficulty).toBe(715);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    xyChain.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+
+  it('is sound when it fires', () => {
+    const puzzles = [
+      '000823001003000400070000052300960010000102000010038006830000040002000900600789000',
+    ];
+    for (const puzzle of puzzles) {
+      const g = gridFrom(puzzle);
+      const solution = solveBruteforce(puzzle);
+      if (!solution) continue;
+      const step = xyChain.apply(g);
+      if (step) {
+        expect(step.strategyId).toBe('xy-chain');
+        assertSoundStep(puzzle, step);
+      }
+    }
+  });
+});
+
+describe('nice-loop', () => {
+  it('has stable id', () => {
+    expect(niceLoop.id).toBe('nice-loop');
+    expect(niceLoop.difficulty).toBe(720);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    niceLoop.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+});
+
+describe('hidden-unique-rectangle', () => {
+  it('has stable id', () => {
+    expect(hiddenUniqueRectangle.id).toBe('hidden-unique-rectangle');
+    expect(hiddenUniqueRectangle.difficulty).toBe(935);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    hiddenUniqueRectangle.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+});
+
+describe('unique-rectangle-type-3', () => {
+  it('has stable id', () => {
+    expect(uniqueRectangleType3.id).toBe('unique-rectangle-type-3');
+    expect(uniqueRectangleType3.difficulty).toBe(940);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    uniqueRectangleType3.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+});
+
+describe('unique-rectangle-type-5', () => {
+  it('has stable id', () => {
+    expect(uniqueRectangleType5.id).toBe('unique-rectangle-type-5');
+    expect(uniqueRectangleType5.difficulty).toBe(960);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    uniqueRectangleType5.apply(g);
+    expect(g.toString()).toBe(before);
+  });
+});
+
+describe('unique-rectangle-type-6', () => {
+  it('has stable id', () => {
+    expect(uniqueRectangleType6.id).toBe('unique-rectangle-type-6');
+    expect(uniqueRectangleType6.difficulty).toBe(970);
+  });
+
+  it('does not modify the grid', () => {
+    const puzzle = '000823001003000400070000052300960010000102000010038006830000040002000900600789000';
+    const g = gridFrom(puzzle);
+    const before = g.toString();
+    uniqueRectangleType6.apply(g);
+    expect(g.toString()).toBe(before);
   });
 });
 

@@ -49,13 +49,13 @@
 
 | strategyId | 目录家族 | detector（owner / 共享?） | 拟定 difficulty | 卡 | 状态 |
 |---|---|---|---|---|---|
-| `finned-x-wing` / `finned-swordfish` / `finned-jellyfish`（sashimi = 缺角退化，同 detector） | Finned/Sashimi fish | 共享 finned-fish detector（fish family 扩展），按 base size 发具名 ID | 415 / 455 / 495 | ✅ | ☐ |
-| `nice-loop` | 连续/不连续 Nice Loop | **owner**（chains）；连续/不连续是 kind 非两策略 | 720 | ✅ | ☐ |
-| `xy-chain` | XY-Chain | 复用 AIC chain 引擎（aic family member）；Remote Pairs ⊂ XY-Chain | 715 | ✅ | ☐ |
-| `turbot-fish` | Turbot Fish / X-Cycles | 复用单数字强链 owner `x-chain`（presentation 别名） | 510 | ✅ | ☐ |
-| `x-cycle` | 同上（单数字 Nice Loop） | = `nice-loop` 的单数字特例（别名 / 同 detector） | （别名） | ✅ | ☐ |
-| `hidden-unique-rectangle` | Hidden UR | UR detector 扩展（与 UR Type 6 逻辑重叠） | 935 | ✅ | ☐ |
-| `unique-rectangle-type-3` / `-type-5` / `-type-6` | UR Type 3/5/6 | UR detector 扩展（逐型） | 940 / 960 / 970 | ✅ | ☐ |
+| `finned-x-wing` / `finned-swordfish` / `finned-jellyfish`（sashimi = 缺角退化，同 detector） | Finned/Sashimi fish | 共享 finned-fish detector（fish family 扩展），按 base size 发具名 ID | 415 / 455 / 495 | ✅ | ✅ |
+| `nice-loop` | 连续/不连续 Nice Loop | **owner**（chains）；连续/不连续是 kind 非两策略 | 720 | ✅ | ✅ |
+| `xy-chain` | XY-Chain | 复用 AIC chain 引擎（aic family member）；Remote Pairs ⊂ XY-Chain | 715 | ✅ | ✅ |
+| `turbot-fish` | Turbot Fish / X-Cycles | 复用单数字强链 owner `x-chain`（presentation 别名） | 510 | ✅ | ✅ |
+| `x-cycle` | 同上（单数字 Nice Loop） | = `nice-loop` 的单数字特例（别名 / 同 detector） | （别名） | ✅ | ✅ |
+| `hidden-unique-rectangle` | Hidden UR | UR detector 扩展（与 UR Type 6 逻辑重叠） | 935 | ✅ | ✅ |
+| `unique-rectangle-type-3` / `-type-5` / `-type-6` | UR Type 3/5/6 | UR detector 扩展（逐型） | 940 / 960 / 970 | ✅ | ✅ |
 | — | Rectangle Elimination | **不新增**：吸收进 empty-rectangle / grouped X-Cycle / grouped AIC 的 presentation alias（overlap #10） | — | ✅ | n/a |
 | — | Grouped AIC / Grouped Nice Loops | **不新增策略**：`grouped` 是 `buildLinkGraph` 的开关，复用 x-chain/aic/nice-loop（boundaries） | — | ✅ | n/a |
 
@@ -126,11 +126,11 @@
 | # | 调整 | 归类 | 触发 / 原因 | 状态 |
 |---|---|---|---|---|
 | E1 | 给现有多实例策略**填 `tieBreak` 元数据** | **独立**（存量策略调整步） | gate 4 收尾：字段已加、determinism 已测，但声明式排序键尚未逐策略填写 | ☐ |
-| E2 | **单数字强链族统一**：评估把 skyscraper/kite/ER 收编进共享 owner | **耦合 P0** | 实现 turbot-fish/x-cycle 时（`overlap.unified: false→true`） | ☐ |
-| E3 | **UR 引擎重构**：3 个独立 UR detector → 共享 UR engine | **耦合 P0**（AR/EUR 部分随 P1） | 实现 UR3/5/6 + Hidden UR + AR + EUR 时 | ☐ |
+| E2 | **单数字强链族统一**：评估把 skyscraper/kite/ER 收编进共享 owner | **耦合 P0** | 实现 turbot-fish/x-cycle 时（`overlap.unified: false→true`） | ✅ |
+| E3 | **UR 引擎重构**：3 个独立 UR detector → 共享 UR engine | **耦合 P0**（AR/EUR 部分随 P1） | 实现 UR3/5/6 + Hidden UR + AR + EUR 时 | ✅ |
 | E4 | **ALS 收编**：通用 `als-chain` 落地后，`als-xy-wing` 降为其特例（alias 或折叠） | **耦合 P1** | 实现 als-chain 时 | ☐ |
 | E5 | **难度重标已落地**（2026-06-24）：4–100 → 分层 band | —（已完成） | gate 2 + 本清单难度刻度节 | ✅ |
-| E6 | **chain 引擎归属落实**：nice-loop 接管 `AicResult` 现有却未返回的 `*-loop` kind；确保 aic 不私自发 loop | **耦合 P0** | 实现 nice-loop 时（boundaries 已声明） | ☐ |
+| E6 | **chain 引擎归属落实**：nice-loop 接管 `AicResult` 现有却未返回的 `*-loop` kind；确保 aic 不私自发 loop | **耦合 P0** | 实现 nice-loop 时（boundaries 已声明） | ✅ |
 | E7 | **难度刻度全局子策略粒度复核**：评估是否重排存量 31（尤其 uniqueness 9xx vs chains 7xx / ALS 8xx）使其按真实人类成本全局排序 | **独立**（存量策略调整步，仅复核/提案） | 用户质疑 band 跨类别错排（见[难度刻度节](#已知跨类别错排--排序原则回应按类别分段-vs-子策略全局排序)）；属行为变更（注④/⑤），须单独提案 + 707 证据 + 回归无降级方可落地 | ☐ |
 
 ## 推进流程（与 diabolical-727.md §实施方法一致）
