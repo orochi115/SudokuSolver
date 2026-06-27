@@ -61,7 +61,25 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
-  
+  // ---- registered (P1) ----
+  {
+    strategyId: 'remote-pairs',
+    owns: 'Bivalue-cell chain with same pair on all cells; sub-case of XY-Chain.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'Alternating inference chain with ALS/grouped nodes.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'Alternating inference chain with UR/grouped nodes.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

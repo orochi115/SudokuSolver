@@ -48,8 +48,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
     unified: true,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
@@ -58,22 +57,17 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   },
   {
     id: 'als-chain',
-    canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
-    unified: false,
+    canonicalOwner: 'als-chain',
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs', 'aic-with-als'],
+    unified: true,
     note:
       'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'and is intentionally not implemented standalone. als-chain is the general chain search now.',
   },
   {
     id: 'uniqueness-rectangle',
     canonicalOwner: 'unique-rectangle-type-1',
-    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-3', 'unique-rectangle-type-4', 'unique-rectangle-type-5', 'unique-rectangle-type-6', 'hidden-unique-rectangle', 'bug-plus-one'],
-    futureMembers: [
-      'avoidable-rectangle',
-      'extended-unique-rectangle',
-    ],
+    members: ['unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-3', 'unique-rectangle-type-4', 'unique-rectangle-type-5', 'unique-rectangle-type-6', 'hidden-unique-rectangle', 'bug-plus-one', 'avoidable-rectangle-type-1', 'avoidable-rectangle-type-2', 'avoidable-rectangle-type-3', 'avoidable-rectangle-type-4', 'extended-unique-rectangle', 'unique-loop', 'bug-lite', 'bug-plus-n'],
     unified: true,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +

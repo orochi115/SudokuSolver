@@ -43,7 +43,7 @@ import type { Step } from '../trace.js';
 import type { Strategy, TieBreakKey } from '../strategy.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
-interface ALS {
+export interface ALS {
   house: number;
   cells: number[];      // cells in this ALS (all in one unit or mutually visible)
   digits: number[];     // all candidates across cells (exactly cells.length + 1 distinct digits)
@@ -74,7 +74,7 @@ function findALSInHouse(grid: Grid, house: readonly number[], houseIndex: number
 }
 
 /** Find all ALS (up to size 4) from all houses. */
-function findAllALS(grid: Grid): ALS[] {
+export function findAllALS(grid: Grid): ALS[] {
   const result: ALS[] = [];
   const seenKeys = new Set<string>();
 
@@ -93,7 +93,7 @@ function findAllALS(grid: Grid): ALS[] {
 }
 
 /** Generate all k-combinations from an array. */
-function* combinations<T>(arr: T[], k: number): Generator<T[]> {
+export function* combinations<T>(arr: T[], k: number): Generator<T[]> {
   if (k === 0) { yield []; return; }
   if (arr.length < k) return;
   const [first, ...rest] = arr;
@@ -107,7 +107,7 @@ function* combinations<T>(arr: T[], k: number): Generator<T[]> {
  * Check if digit d is a Restricted Common Candidate between ALS A and ALS B:
  * every cell in A that has d sees every cell in B that has d (and vice versa).
  */
-function isRCC(grid: Grid, a: ALS, b: ALS, d: number): boolean {
+export function isRCC(grid: Grid, a: ALS, b: ALS, d: number): boolean {
   const bit = maskOf(d);
   if (!(a.digitMask & bit)) return false;
   if (!(b.digitMask & bit)) return false;
@@ -130,7 +130,7 @@ function isRCC(grid: Grid, a: ALS, b: ALS, d: number): boolean {
 /**
  * Check if two ALS share any cells. They must not.
  */
-function alsShareCells(a: ALS, b: ALS): boolean {
+export function alsShareCells(a: ALS, b: ALS): boolean {
   const setA = new Set(a.cells);
   return b.cells.some((c) => setA.has(c));
 }
