@@ -25,7 +25,7 @@ P3_JUDGE="$HARNESS/judge/check-p3-isolation.ts"
 POLLUTION_HUMAN_MAX="${POLLUTION_HUMAN_MAX:-480}"   # >this human-default solved on 727 ⇒ implausible w/o forcing ⇒ pollution
 
 start=$(date +%s)
-hard=0; reasons=""
+hard=0; reasons=""; SOUND_DETAIL=""   # specific soundness offenders, fed back to the model so it fixes the EXACT illegal step
 note() { echo "[verify $PH] $*"; }
 
 # --- 1) typecheck + tests (hard) ---
@@ -35,14 +35,27 @@ note "unit tests"; ( cd "$WT" && npm test ) || { hard=1; reasons="$reasons tests
 # --- 2) 400 ground-truth soundness (hard) — round1 judge, REQUIRE_IDS unset so it gates ONLY on soundness ---
 note "400 ground-truth soundness"
 cp "$JUDGE400" "$WT/.verify-engine.ts"
-( cd "$WT" && unset REQUIRE_IDS && npx tsx .verify-engine.ts >/dev/null 2>&1 ) || { hard=1; reasons="$reasons gt400-soundness;"; }
+gt400out="$( cd "$WT" && unset REQUIRE_IDS && npx tsx .verify-engine.ts 2>&1 )" || {
+  hard=1; reasons="$reasons gt400-soundness;"
+  note "400 soundness 违规明细(请修复这些非法消除/摆放):"
+  printf '%s\n' "$gt400out" | grep -iE "violat|unsound|illegal|r[0-9]c[0-9]|strateg|puzzle" | head -12
+  SOUND_DETAIL="$SOUND_DETAIL 400:$(printf '%s' "$gt400out" | grep -iE "violat|illegal|r[0-9]c[0-9]" | head -3 | tr '\n' ' ')"
+}
 rm -f "$WT/.verify-engine.ts"
 
 # --- 3) 727 per-step soundness + counts + registered ids (hard on violations) ---
 note "727 soundness + counts (human-default)"
 cp "$JUDGE727" "$WT/.verify-727.ts"
 humanOut="$( cd "$WT" && R2_PROFILE=human-default npx tsx .verify-727.ts 2>/dev/null )"; hrc=$?
-[ "$hrc" -eq 0 ] || { hard=1; reasons="$reasons 727-soundness-human;"; }
+if [ "$hrc" -ne 0 ]; then
+  hard=1; reasons="$reasons 727-soundness-human;"
+  # verify-727.ts emits offenders[] {puzzle,strategyId,violations} on stdout — surface them
+  # so the model fixes the exact strategy/puzzle, not just "soundness failed somewhere".
+  off="$(printf '%s' "$humanOut" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{const o=JSON.parse(s);console.log((o.offenders||[]).slice(0,8).map(x=>`puzzle ${x.puzzle}: 策略 ${x.strategyId} 有 ${x.violations} 处非法消除`).join(" ; "));}catch(e){}})' 2>/dev/null)"
+  note "727 human-default soundness FAIL — 违规策略明细(请逐一修复其非法消除):"
+  [ -n "$off" ] && printf '  %s\n' "$off"
+  SOUND_DETAIL="$SOUND_DETAIL 727-human:$off"
+fi
 solveHuman="$(printf '%s' "$humanOut" | grep -oE '"solved":[ ]*[0-9]+' | head -1 | grep -oE '[0-9]+')"
 lastOut=""; solveLast=""
 if [ "$PH" = "p3" ]; then
@@ -99,7 +112,8 @@ esc() { printf '%s' "$1" | sed 's/"/\\"/g'; }
 cat > "$WT/.r2-verify-$PH.json" <<EOF
 {"phase":"$PH","status":"$status","rc":$rc,"verifySec":$verifySec,
  "solveHuman":"${solveHuman:-}/727","solveLastResort":"${solveLast:+$solveLast/727}",
- "missingIds":"$(esc "${missing# }")","pollutionWarnFiles":"$(esc "$pollWarn")","hardReasons":"$(esc "${reasons# }")"}
+ "missingIds":"$(esc "${missing# }")","pollutionWarnFiles":"$(esc "$pollWarn")","hardReasons":"$(esc "${reasons# }")",
+ "soundDetail":"$(esc "$(printf '%s' "${SOUND_DETAIL# }" | tr '\n' ' ')")"}
 EOF
 
 if [ "$rc" -eq 1 ]; then note "HARD FAIL: ${reasons:-?}";

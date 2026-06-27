@@ -86,16 +86,24 @@ resume_feedback_section() {
 #   _wait_child <pid> <log> <idle_limit> <hard_timeout>
 # Ends the turn on: (a) natural exit, (b) no log growth for idle_limit WALL secs
 # (turn done / stalled), or (c) hard_timeout WALL secs. Kills the whole subtree.
+# Bytes of MEANINGFUL output in $1. If $2 (an ERE) is given, lines matching it are
+# EXCLUDED from the count. grok streams reasoning/narration as {"type":"thought"} and
+# {"type":"text"} events; a stuck grok emits those forever WITHOUT ever calling a tool
+# (run2: composer25 = 2864 thought + 160 text + 0 tool/end events over 40min, even
+# auto-compacted from overflow). Raw-byte growth never trips idle; counting only
+# tool/result/end progress (everything NOT thought/text) does — "talking, not acting" = stalled.
+_meas() { if [ -n "${2:-}" ]; then grep -aEv "$2" "$1" 2>/dev/null | wc -c | tr -d ' '; else wc -c <"$1" 2>/dev/null | tr -d ' '; fi; }
 _wait_child() {
-  local pid="$1" log="$2" idle_limit="$3" hard="$4"
-  local start now size last_size=0 last_grow
+  local pid="$1" log="$2" idle_limit="$3" hard="$4" skip="${5:-}"
+  local start now size last_size=0 last_grow what="no output"
+  [ -n "$skip" ] && what="no PRODUCTIVE output (only thinking/narration, no tool calls)"
   start=$(date +%s); last_grow=$start
   while kill -0 "$pid" 2>/dev/null; do
     sleep 10; now=$(date +%s)
-    size=$(wc -c <"$log" 2>/dev/null | tr -d ' '); size=${size:-0}
+    size=$(_meas "$log" "$skip"); size=${size:-0}
     if [ "$size" -gt "$last_size" ]; then last_size=$size; last_grow=$now; fi
     if [ "$idle_limit" -gt 0 ] && [ $((now - last_grow)) -ge "$idle_limit" ]; then
-      note "idle ${idle_limit}s (wall, no output) -> turn done/stalled -> $(basename "$log")"; _kill_tree "$pid"; sleep 2; _kill_tree9 "$pid"; break; fi
+      note "idle ${idle_limit}s (wall, $what) -> turn done/stalled -> $(basename "$log")"; _kill_tree "$pid"; sleep 2; _kill_tree9 "$pid"; break; fi
     if [ $((now - start)) -ge "$hard" ]; then
       note "hard TIMEOUT ${hard}s (wall) -> killed -> $(basename "$log")"; _kill_tree "$pid"; sleep 2; _kill_tree9 "$pid"; break; fi
   done
@@ -123,8 +131,9 @@ run_grok() {
   local args=(-m "$MODEL" --cwd "$WT" --output-format streaming-json --always-approve --no-plan --prompt-file "$pf")
   [ -n "$sid" ] && args=(-r "$sid" "${args[@]}")
   grok "${args[@]}" >"$log" 2>&1 &
-  # grok exits naturally; idle here = "stalled" (e.g. sleep-killed socket), default 600s.
-  _wait_child "$!" "$log" "${GROK_STALL:-600}" "$TIMEOUT"
+  # grok exits naturally; idle = "stalled". Measure tool/result/end growth (exclude
+  # thought+text) so an endless think/narrate stream with no actions trips GROK_STALL (600s).
+  _wait_child "$!" "$log" "${GROK_STALL:-600}" "$TIMEOUT" '"type":"(thought|text)"'
 }
 
 commit_phase() {
@@ -157,16 +166,21 @@ collect_verify_json() {
 # mkdir-based counting semaphore; run-all clears the lockdir at start (stale-safe).
 LOCKDIR="$R2/reports/.verifylock"
 acquire_verify() {
-  mkdir -p "$LOCKDIR"; local k sf
+  mkdir -p "$LOCKDIR"; local k sf opid
   while true; do
     for k in $(seq 1 "${VERIFY_MAX:-3}"); do
       sf="$LOCKDIR/slot$k"
-      if mkdir "$sf" 2>/dev/null; then echo "$sf"; return 0; fi
+      if mkdir "$sf" 2>/dev/null; then echo "$$" >"$sf/owner"; echo "$sf"; return 0; fi
+      # Slot taken — but reclaim it if the owner died holding it (e.g. watchdog-killed
+      # mid-verify). Without this a leaked slot permanently shrinks VERIFY_MAX and can
+      # wedge every other model (suspected gpt55 stall in run2). Self-healing.
+      opid="$(cat "$sf/owner" 2>/dev/null)"
+      if [ -n "$opid" ] && ! kill -0 "$opid" 2>/dev/null; then rm -rf "$sf" 2>/dev/null; fi
     done
     sleep 5
   done
 }
-release_verify() { [ -n "${1:-}" ] && rmdir "$1" 2>/dev/null; return 0; }
+release_verify() { [ -n "${1:-}" ] && rm -rf "$1" 2>/dev/null; return 0; }
 
 # Run verify.sh under a verify-slot + a hard wall-clock cap (a sleep-stalled verify
 # must not wedge the pipeline). Echoes verify output; returns verify's exit code:
