@@ -300,6 +300,10 @@ export function makeAic(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
       const graph = buildLinkGraph(grid, { grouped: true });
       const result = searchAic(grid, graph, policy);
       if (result && result.eliminations.length > 0) {
+        // E6: nice-loop owns *-loop kinds; aic must not emit loops.
+        if (result.kind === 'continuous-loop' || result.kind === 'discontinuous-loop') {
+          return null;
+        }
         const start = graph.nodes[result.startNode]!;
         const end = graph.nodes[result.endNode]!;
         const sameDigit = start.digit === end.digit;

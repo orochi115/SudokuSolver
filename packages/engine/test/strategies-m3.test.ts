@@ -17,7 +17,11 @@ import { STRATEGIES } from '../src/strategies/index.js';
 import { simpleColoring } from '../src/strategies/simple-coloring.js';
 import { aic, makeAic, xChain } from '../src/strategies/aic.js';
 import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from '../src/strategies/als.js';
-import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4 } from '../src/strategies/uniqueness.js';
+import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4, uniqueRectangleType3, uniqueRectangleType5, uniqueRectangleType6, hiddenUniqueRectangle } from '../src/strategies/uniqueness.js';
+import { finnedXWing, finnedSwordfish, finnedJellyfish } from '../src/strategies/finned-fish.js';
+import { xyChain } from '../src/strategies/xy-chain.js';
+import { niceLoop } from '../src/strategies/nice-loop.js';
+import { turbotFish } from '../src/strategies/turbot-fish.js';
 import { sueDeCoq } from '../src/strategies/sue-de-coq.js';
 import { forcingChain } from '../src/strategies/forcing-chain.js';
 
@@ -477,6 +481,63 @@ describe('forcing-chain', () => {
       if (!solution) continue;
       const step = forcingChain.apply(g);
       if (step) assertSoundStep(puzzle, step);
+    }
+  });
+});
+
+// ============================================================
+// P0 new strategies (finned fish, xy-chain, nice-loop, turbot, UR 3/5/6/hidden)
+// ============================================================
+
+describe('finned fish (P0)', () => {
+  it('has stable ids and expected difficulties', () => {
+    expect(finnedXWing.id).toBe('finned-x-wing');
+    expect(finnedXWing.difficulty).toBe(415);
+    expect(finnedSwordfish.id).toBe('finned-swordfish');
+    expect(finnedSwordfish.difficulty).toBe(455);
+    expect(finnedJellyfish.id).toBe('finned-jellyfish');
+    expect(finnedJellyfish.difficulty).toBe(495);
+  });
+
+  it('does not modify grid', () => {
+    for (const s of [finnedXWing, finnedSwordfish, finnedJellyfish]) {
+      for (const p of HARD_PUZZLES.slice(0, 3)) assertNoMutation(p, s);
+    }
+  });
+});
+
+describe('xy-chain / nice-loop (P0)', () => {
+  it('has stable ids and difficulties in 7xx', () => {
+    expect(xyChain.id).toBe('xy-chain');
+    expect(xyChain.difficulty).toBe(715);
+    expect(niceLoop.id).toBe('nice-loop');
+    expect(niceLoop.difficulty).toBe(720);
+  });
+});
+
+describe('turbot-fish (P0)', () => {
+  it('has stable id and difficulty', () => {
+    expect(turbotFish.id).toBe('turbot-fish');
+    expect(turbotFish.difficulty).toBe(510);
+  });
+});
+
+describe('UR extensions (P0: hidden + type3/5/6)', () => {
+  it('has stable ids and difficulties', () => {
+    expect(hiddenUniqueRectangle.id).toBe('hidden-unique-rectangle');
+    expect(hiddenUniqueRectangle.difficulty).toBe(935);
+    expect(uniqueRectangleType3.id).toBe('unique-rectangle-type-3');
+    expect(uniqueRectangleType3.difficulty).toBe(940);
+    expect(uniqueRectangleType5.id).toBe('unique-rectangle-type-5');
+    expect(uniqueRectangleType5.difficulty).toBe(960);
+    expect(uniqueRectangleType6.id).toBe('unique-rectangle-type-6');
+    expect(uniqueRectangleType6.difficulty).toBe(970);
+  });
+
+  it('does not modify grid on uniqueness strategies', () => {
+    const urs = [hiddenUniqueRectangle, uniqueRectangleType3, uniqueRectangleType5, uniqueRectangleType6];
+    for (const s of urs) {
+      for (const p of HARD_PUZZLES.slice(0, 2)) assertNoMutation(p, s);
     }
   });
 });

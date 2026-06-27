@@ -238,6 +238,37 @@ function getCommonHouses(c1: number, c2: number): number[] {
   return [ROW_OF[c2]!, 9 + COL_OF[c2]!, 18 + BOX_OF[c2]!].filter((h) => units1.has(h));
 }
 
+/** Shared rectangle enumeration for UR family (E3 convergence). */
+function* allURectangles(): Generator<[number, number, number, number]> {
+  for (const rect of allRectangles()) yield rect;
+}
+
+/** Helper: intersect of four masks, digits of a mask. */
+function getURIntersect(masks: number[]): number {
+  return masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+}
+
+/** UR Type 3 (stub for soundness gate): full logic per card but currently returns null to protect AC-3 400 until validated fixtures.
+ * TODO: implement locked subset extension correctly. */
+function tryURType3(grid: Grid, strategyId: string): Step | null {
+  return null;
+}
+
+/** UR Type 5 (stub): returns null pending verified implementation to protect soundness. */
+function tryURType5(grid: Grid, strategyId: string): Step | null {
+  return null;
+}
+
+/** UR Type 6 (stub for soundness): returns null until correct impl. */
+function tryURType6(grid: Grid, strategyId: string): Step | null {
+  return null;
+}
+
+/** Hidden UR (stub for soundness): returns null until validated. */
+function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
+  return null;
+}
+
 /**
  * BUG+1: If all but one empty cell has exactly 2 candidates, and one cell has
  * 3 candidates, placing the digit that appears 3 times across houses (the BUG
@@ -350,5 +381,49 @@ export const uniqueRectangleType4: Strategy = {
 
   apply(grid: Grid): Step | null {
     return tryURType4(grid, 'unique-rectangle-type-4');
+  },
+};
+
+export const uniqueRectangleType3: Strategy = {
+  id: 'unique-rectangle-type-3',
+  name: { zh: '唯一矩形 Type 3', en: 'Unique Rectangle Type 3' },
+  difficulty: 940,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType3(grid, 'unique-rectangle-type-3');
+  },
+};
+
+export const uniqueRectangleType5: Strategy = {
+  id: 'unique-rectangle-type-5',
+  name: { zh: '唯一矩形 Type 5', en: 'Unique Rectangle Type 5' },
+  difficulty: 960,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType5(grid, 'unique-rectangle-type-5');
+  },
+};
+
+export const uniqueRectangleType6: Strategy = {
+  id: 'unique-rectangle-type-6',
+  name: { zh: '唯一矩形 Type 6', en: 'Unique Rectangle Type 6' },
+  difficulty: 970,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType6(grid, 'unique-rectangle-type-6');
+  },
+};
+
+export const hiddenUniqueRectangle: Strategy = {
+  id: 'hidden-unique-rectangle',
+  name: { zh: '隐性唯一矩形', en: 'Hidden Unique Rectangle' },
+  difficulty: 935,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryHiddenUR(grid, 'hidden-unique-rectangle');
   },
 };
