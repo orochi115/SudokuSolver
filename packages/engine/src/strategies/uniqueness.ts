@@ -29,7 +29,7 @@ import {
   PEERS_OF, maskOf, popcount, digitsOf,
 } from '../grid.js';
 import type { Grid } from '../grid.js';
-import type { Step } from '../trace.js';
+import type { Step, CellDigit } from '../trace.js';
 import type { Strategy } from '../strategy.js';
 
 /** Find all UR rectangles: 4 cells in 2 rows, 2 cols, spanning exactly 2 boxes. */
@@ -350,5 +350,330 @@ export const uniqueRectangleType4: Strategy = {
 
   apply(grid: Grid): Step | null {
     return tryURType4(grid, 'unique-rectangle-type-4');
+  },
+};
+
+function cellLabel(cell: number): string {
+  return `R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}`;
+}
+
+function* combineIndices(n: number, size: number): Generator<number[]> {
+  if (n < size) return;
+  const idx = Array.from({ length: size }, (_, i) => i);
+  while (true) {
+    yield [...idx];
+    let i = size - 1;
+    while (i >= 0 && idx[i]! === n - size + i) i--;
+    if (i < 0) break;
+    idx[i]!++;
+    for (let j = i + 1; j < size; j++) idx[j] = idx[j - 1]! + 1;
+  }
+}
+
+function tryURType3(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+
+    const urDigits = digitsOf(intersect);
+    const [x, y] = urDigits as [number, number];
+
+    const roofIndices = cells.map((c, i) => i).filter(i => {
+      const m = masks[i]!;
+      return m !== intersect && (m & intersect) === intersect;
+    });
+    if (roofIndices.length !== 2) continue;
+
+    const r1Idx = roofIndices[0]!;
+    const r2Idx = roofIndices[1]!;
+    const r1 = cells[r1Idx]!;
+    const r2 = cells[r2Idx]!;
+
+    if (ROW_OF[r1]! !== ROW_OF[r2]! && COL_OF[r1]! !== COL_OF[r2]!) continue;
+
+    const extrasMask = (masks[r1Idx]! | masks[r2Idx]!) & ~intersect;
+    const extras = digitsOf(extrasMask);
+    if (extras.length === 0 || extras.length > 4) continue;
+
+    const commonHouses = getCommonHouses(r1, r2);
+
+    for (const houseIdx of commonHouses) {
+      const house = HOUSES[houseIdx]!;
+      const otherCells = house.filter(c => c !== r1 && c !== r2 && grid.get(c) === 0);
+
+      const S = extras.length;
+      for (const otherCombo of combineIndices(otherCells.length, S - 1)) {
+        const chosenOther = otherCombo.map(i => otherCells[i]!);
+
+        const allInside = chosenOther.every(c => {
+          const m = grid.candidatesOf(c);
+          return (m & ~extrasMask) === 0;
+        });
+
+        if (!allInside) continue;
+
+        const elims: CellDigit[] = [];
+        for (const cell of otherCells) {
+          if (chosenOther.includes(cell)) continue;
+          for (const d of extras) {
+            if (grid.hasCandidate(cell, d)) {
+              elims.push({ cell, digit: d });
+            }
+          }
+        }
+
+        if (elims.length === 0) continue;
+
+        return {
+          strategyId,
+          placements: [],
+          eliminations: elims,
+          highlights: {
+            cells: [...cells, ...chosenOther],
+            candidates: [
+              ...cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+              ...chosenOther.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+            ],
+            links: [],
+          },
+          explanation: {
+            zh: `唯一矩形 Type 3：格 ${cellLabel(r1)} 和 ${cellLabel(r2)} 的额外候选数 {${extras.join(',')}} 与同一单元内的其他格构成显性数组；可在该单元其他格中消去 {${extras.join(',')}}。`,
+            en: `Unique Rectangle Type 3: extra candidates {${extras.join(',')}} in ${cellLabel(r1)} and ${cellLabel(r2)} form a naked subset with other cells in their shared house; eliminate {${extras.join(',')}} from other cells.`,
+          },
+        };
+      }
+    }
+  }
+  return null;
+}
+
+function tryURType5(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+
+    const [x, y] = digitsOf(intersect) as [number, number];
+
+    const extraIndices = cells.map((_, i) => i).filter(i => {
+      const m = masks[i]!;
+      return m !== intersect && (m & intersect) === intersect;
+    });
+    if (extraIndices.length !== 2 && extraIndices.length !== 3) continue;
+
+    if (extraIndices.length === 2) {
+      const diagonal = (extraIndices[0] === 0 && extraIndices[1] === 3) || (extraIndices[0] === 1 && extraIndices[1] === 2);
+      if (!diagonal) continue;
+    }
+
+    const extrasMasks = extraIndices.map(i => masks[i]! & ~intersect);
+    const firstExtra = extrasMasks[0]!;
+    if (popcount(firstExtra) !== 1) continue;
+    if (extrasMasks.some(m => m !== firstExtra)) continue;
+
+    const z = digitsOf(firstExtra)[0]!;
+    const extraCells = extraIndices.map(i => cells[i]!);
+
+    const elims: CellDigit[] = [];
+    for (let c = 0; c < 81; c++) {
+      if (grid.get(c) !== 0 || !grid.hasCandidate(c, z)) continue;
+      if (extraCells.includes(c)) continue;
+
+      const seesAll = extraCells.every(ec => PEERS_OF[c]!.includes(ec));
+      if (seesAll) {
+        elims.push({ cell: c, digit: z });
+      }
+    }
+
+    if (elims.length === 0) continue;
+
+    return {
+      strategyId,
+      placements: [],
+      eliminations: elims,
+      highlights: {
+        cells: [...cells, ...elims.map(e => e.cell)],
+        candidates: cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d }))),
+        links: [],
+      },
+      explanation: {
+        zh: `唯一矩形 Type 5：对角或三格含有相同的额外候选数 ${z}（UR对 {${x},${y}}）；必须填入 ${z} 以避免双解；从所有能看到这些格子的格中消去 ${z}。`,
+        en: `Unique Rectangle Type 5: diagonal or three corners have extra candidate ${z} (UR pair {${x},${y}}); ${z} must go in one corner to avoid dual solutions; eliminate ${z} from cells seeing all these corners.`,
+      },
+    };
+  }
+  return null;
+}
+
+function tryURType6(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+
+    const [x, y] = digitsOf(intersect) as [number, number];
+
+    const extraIndices = cells.map((_, i) => i).filter(i => {
+      const m = masks[i]!;
+      return m !== intersect && (m & intersect) === intersect;
+    });
+    if (extraIndices.length !== 2) continue;
+
+    const diagonal = (extraIndices[0] === 0 && extraIndices[1] === 3) || (extraIndices[0] === 1 && extraIndices[1] === 2);
+    if (!diagonal) continue;
+
+    const extraCells = extraIndices.map(i => cells[i]!);
+
+    for (const d of [x, y]) {
+      const bit = maskOf(d);
+
+      const rowsConfined = [ROW_OF[c11]!, ROW_OF[c21]!].every(r => {
+        const rowCells = ROWS[r]!.filter(c => grid.get(c) === 0 && (grid.candidatesOf(c) & bit) !== 0);
+        return rowCells.every(c => cells.includes(c));
+      });
+
+      const colsConfined = [COL_OF[c11]!, COL_OF[c12]!].every(c => {
+        const colCells = COLS[c]!.filter(cell => grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0);
+        return colCells.every(cell => cells.includes(cell));
+      });
+
+      if (rowsConfined && colsConfined) {
+        const elims: CellDigit[] = [];
+        for (const ec of extraCells) {
+          if (grid.hasCandidate(ec, d)) {
+            elims.push({ cell: ec, digit: d });
+          }
+        }
+
+        if (elims.length === 0) continue;
+
+        return {
+          strategyId,
+          placements: [],
+          eliminations: elims,
+          highlights: {
+            cells: [...cells],
+            candidates: cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(digit => ({ cell: c, digit }))),
+            links: [],
+          },
+          explanation: {
+            zh: `唯一矩形 Type 6：UR对 {${x},${y}} 中，${d} 在其所在的行列中构成 X翼；消去两个含有额外候选数的对角格中的 ${d}。`,
+            en: `Unique Rectangle Type 6: UR pair {${x},${y}}; digit ${d} forms an X-Wing on the UR rows and columns, so eliminate ${d} from the diagonal corners with extra candidates.`,
+          },
+        };
+      }
+    }
+  }
+  return null;
+}
+
+function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+
+    const [x, y] = digitsOf(intersect) as [number, number];
+
+    for (let sIdx = 0; sIdx < 4; sIdx++) {
+      if (masks[sIdx] !== intersect) continue;
+
+      const start = cells[sIdx]!;
+      const oppIdx = 3 - sIdx;
+      const opp = cells[oppIdx]!;
+
+      if ((masks[oppIdx]! & intersect) !== intersect || masks[oppIdx] === intersect) continue;
+
+      const r_opp = ROW_OF[opp]!;
+      const c_opp = COL_OF[opp]!;
+
+      for (const d of [x, y]) {
+        const otherD = d === x ? y : x;
+        const bit = maskOf(d);
+
+        const rowOk = ROWS[r_opp]!.every(c => {
+          if (c === opp || c === cells[sIdx === 0 || sIdx === 1 ? sIdx + 2 : sIdx - 2]!) return true;
+          return grid.get(c) !== 0 || (grid.candidatesOf(c) & bit) === 0;
+        });
+
+        const colOk = COLS[c_opp]!.every(c => {
+          if (c === opp || c === cells[sIdx === 0 || sIdx === 2 ? sIdx + 1 : sIdx - 1]!) return true;
+          return grid.get(c) !== 0 || (grid.candidatesOf(c) & bit) === 0;
+        });
+
+        if (rowOk && colOk) {
+          if (grid.hasCandidate(opp, otherD)) {
+            return {
+              strategyId,
+              placements: [],
+              eliminations: [{ cell: opp, digit: otherD }],
+              highlights: {
+                cells: [...cells],
+                candidates: cells.flatMap(c => digitsOf(grid.candidatesOf(c)).map(digit => ({ cell: c, digit }))),
+                links: [],
+              },
+              explanation: {
+                zh: `隐性唯一矩形：UR对 {${x},${y}} 中，${d} 在对角格所在的行列中均只能出现在该对角格及同边格；为避免双解，对角格 R${r_opp+1}C${c_opp+1} 必须不能为 ${otherD}，消去之。`,
+                en: `Hidden Unique Rectangle: UR pair {${x},${y}}; digit ${d} is confined to UR cells in both the row and column of the opposite corner, so R${r_opp+1}C${c_opp+1} cannot be ${otherD}; eliminate ${otherD}.`,
+              },
+            };
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export const hiddenUniqueRectangle: Strategy = {
+  id: 'hidden-unique-rectangle',
+  name: { zh: '隐性唯一矩形', en: 'Hidden Unique Rectangle' },
+  difficulty: 935,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryHiddenUR(grid, 'hidden-unique-rectangle');
+  },
+};
+
+export const uniqueRectangleType3: Strategy = {
+  id: 'unique-rectangle-type-3',
+  name: { zh: '唯一矩形 Type 3', en: 'Unique Rectangle Type 3' },
+  difficulty: 940,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType3(grid, 'unique-rectangle-type-3');
+  },
+};
+
+export const uniqueRectangleType5: Strategy = {
+  id: 'unique-rectangle-type-5',
+  name: { zh: '唯一矩形 Type 5', en: 'Unique Rectangle Type 5' },
+  difficulty: 960,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType5(grid, 'unique-rectangle-type-5');
+  },
+};
+
+export const uniqueRectangleType6: Strategy = {
+  id: 'unique-rectangle-type-6',
+  name: { zh: '唯一矩形 Type 6', en: 'Unique Rectangle Type 6' },
+  difficulty: 970,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryURType6(grid, 'unique-rectangle-type-6');
   },
 };
