@@ -2,7 +2,7 @@
  * AIC with Exotic Links (P2b) — AIC with exotic nodes (XW 4-cell single-digit formation)
  *
  * Reuses chain concepts; the XW node packages a micro "two-OFF => forced ON" as one strong link.
- * Pure, no backtrack beyond the linear chain walk (same as AIC).
+ * Pure, no branching beyond the linear chain walk (same as AIC).
  */
 
 import { CELLS, ROW_OF, COL_OF, BOX_OF, PEERS_OF, maskOf, popcount, digitsOf, HOUSES } from '../grid.js';

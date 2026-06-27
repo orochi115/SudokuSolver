@@ -38,7 +38,7 @@ import { niceLoop } from './nice-loop.js';
 import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from './als.js';
 import { bugPlusOne, uniqueRectangleType1, uniqueRectangleType2, uniqueRectangleType4, uniqueRectangleType3, uniqueRectangleType5, uniqueRectangleType6, hiddenUniqueRectangle } from './uniqueness.js';
 import { sueDeCoq } from './sue-de-coq.js';
-import { forcingChain } from './forcing-chain.js';
+import { forcingChain, cellForcingChain, digitForcingChain, regionForcingChain, nishioForcingChain, dic, forcingNet, krakenFish, tabling, pom, templates, gem } from './forcing-chain.js';
 import { multiColoring } from './multi-coloring.js';
 import { medusa3D } from './3d-medusa.js';
 import { tridagon } from './tridagon.js';
@@ -159,6 +159,17 @@ export const STRATEGIES: readonly Strategy[] = [
 
   // Last-resort / red-line (9xxx)
   forcingChain,       // 9000
+  digitForcingChain,  // 9010
+  nishioForcingChain, // 9020
+  cellForcingChain,   // 9030
+  regionForcingChain, // 9040
+  dic,                // 9050
+  forcingNet,         // 9100
+  krakenFish,         // 9200
+  tabling,            // 9300
+  pom,                // 9400
+  templates,          // 9500
+  gem,                // 9600
 ];
 
 /**
@@ -243,6 +254,17 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'sk-loop',
   'msls',
   'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
 ];
 
 export {
@@ -322,4 +344,15 @@ export {
   frankenFish,
   mutantFish,
   gurth,
+  cellForcingChain,
+  digitForcingChain,
+  regionForcingChain,
+  nishioForcingChain,
+  dic,
+  forcingNet,
+  krakenFish,
+  tabling,
+  pom,
+  templates,
+  gem,
 };

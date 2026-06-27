@@ -48,6 +48,42 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: true,
     profiles: ['last-resort'],
   },
+  {
+    strategyId: 'digit-forcing-chain',
+    owns: 'Digit forcing chain (house locations of a digit).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'nishio-forcing-chain',
+    owns: 'Nishio (single-candidate assumption to contradiction).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'cell-forcing-chain',
+    owns: 'Cell forcing chain (bivalue cell branches).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'region-forcing-chain',
+    owns: 'Region/unit forcing chain.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'dic',
+    owns: 'Double Implication Chain.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'forcing-net',
+    owns: 'Forcing net (multi-branch generalization).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
   // xy-chain and nice-loop implemented (P0); no longer reserved.
   {
     strategyId: 'xy-chain',

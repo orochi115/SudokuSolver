@@ -127,4 +127,12 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
     unified: false,
     note: 'P2b: subset-exclusion is owner (general subset counting/exclusion); APE/ATE are its aligned k=2/3 special cases (P2a).',
   },
+  {
+    id: 'forcing-last-resort',
+    canonicalOwner: 'forcing-chain',
+    members: ['forcing-chain', 'digit-forcing-chain', 'nishio-forcing-chain', 'cell-forcing-chain', 'region-forcing-chain', 'dic', 'forcing-net', 'kraken-fish'],
+    futureMembers: [],
+    unified: false,
+    note: 'P3 last-resort only. Forcing subs reuse engine, emit named ids; forcing-net is multi-branch owner. Kraken treated as fish+chain hybrid (boundary).',
+  },
 ];

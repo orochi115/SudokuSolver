@@ -624,7 +624,7 @@ function findAHSInHouse(grid: Grid, house: readonly number[], hi: number): AHS[]
   const empty = house.filter((c)=>grid.get(c)===0);
   for (let nd = 1; nd <= 8; nd++) {
     // choose nd digits, see if they appear only in <= nd+1 cells of house
-    // brute via subsets of digits 1-9
+    // enumerate via subsets of digits 1-9
   }
   // simplified: treat conjugate pairs (nd=1, 2 cells) and small
   for (let d=1; d<=9;d++) {

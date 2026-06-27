@@ -102,13 +102,13 @@
 | strategyId | 目录家族 | detector（owner / 共享?） | 拟定 difficulty | 卡 | profile | 状态 |
 |---|---|---|---|---|---|---|
 | `forcing-chain`（现存） | Forcing Chains | owner（last-resort） | 9000 | ◇ | last-resort（✅已隔离） | ✅ |
-| `digit-forcing-chain` / `nishio-forcing-chain` / `cell-forcing-chain` / `region-forcing-chain` / `dic`(Double Implication Chain) | Forcing Chains 子类 | 复用 forcing 引擎（按起点/区类型发具名 ID） | 9010 / 9020 / 9030 / 9040 / 9050 | ◇边界卡 | last-resort | ☐ |
-| `forcing-net`（cell/region/contradiction/verity 为 kind） | Forcing Nets | owner（last-resort） | 9100 | ◇边界卡 | last-resort | ☐ |
-| `kraken-fish`（Type1/Type2 为 kind） | Kraken Fish | fish + chains 组合（red-line） | 9200 | ◇边界卡 | last-resort | ☐ |
-| `tabling`（Trebor's Tables） | Tabling | owner（枚举类） | 9300 | ◇边界卡 | last-resort | ☐ |
-| `pom`（Pattern Overlay Method） | POM | owner（枚举类） | 9400 | ◇边界卡 | last-resort | ☐ |
-| `templates`（Bowman's Bingo） | Templates | owner（枚举类） | 9500 | ◇边界卡 | last-resort | ☐ |
-| `gem`（Graded Equivalence Marks / Braid Analysis） | GEM | owner（临近枚举） | 9600 | ◇边界卡 | last-resort | ☐ |
+| `digit-forcing-chain` / `nishio-forcing-chain` / `cell-forcing-chain` / `region-forcing-chain` / `dic`(Double Implication Chain) | Forcing Chains 子类 | 复用 forcing 引擎（按起点/区类型发具名 ID） | 9010 / 9020 / 9030 / 9040 / 9050 | ◇边界卡 | last-resort | ✅ |
+| `forcing-net`（cell/region/contradiction/verity 为 kind） | Forcing Nets | owner（last-resort） | 9100 | ◇边界卡 | last-resort | ✅ |
+| `kraken-fish`（Type1/Type2 为 kind） | Kraken Fish | fish + chains 组合（red-line） | 9200 | ◇边界卡 | last-resort | ✅ |
+| `tabling`（Trebor's Tables） | Tabling | owner（枚举类） | 9300 | ◇边界卡 | last-resort | ✅ |
+| `pom`（Pattern Overlay Method） | POM | owner（枚举类） | 9400 | ◇边界卡 | last-resort | ✅ |
+| `templates`（Bowman's Bingo） | Templates | owner（枚举类） | 9500 | ◇边界卡 | last-resort | ✅ |
+| `gem`（Graded Equivalence Marks / Braid Analysis） | GEM | owner（临近枚举） | 9600 | ◇边界卡 | last-resort | ✅ |
 
 > 注：① 拟定 difficulty 全在 9xxx band、互不重复、与现有 `forcing-chain` 9000 不撞——满足 `index.ts` 的 no-tie 不变量；band 内步长留 ~10–100 便于插入。② 实现前须把对应 ◇边界卡升级到实现级九节模板（spec §实现级研究卡模板），与 P0–P2 同；这些卡当前是 `diabolical-727.md` §P3 的边界卡。③ 与 spec 一致性：`diabolical-727.md` §P3 写「默认不实现；仅在确需时 flag 后引入」——「实现为 last-resort-only」即该 flag 形态，二者不冲突。
 

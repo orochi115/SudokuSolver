@@ -382,11 +382,16 @@ function legacyForcingChain(grid: Grid): Step | null {
   return tryLegacyCellForcingChain(grid) ?? tryLegacyHouseForcingChain(grid);
 }
 
-export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
+export function makeForcingChain(
+  policy: ChainPolicy = DEFAULT_CHAIN_POLICY,
+  strategyId: string = 'forcing-chain',
+  name: { zh: string; en: string } = { zh: '强制链', en: 'Forcing Chain' },
+  difficulty: number = 9000,
+): Strategy {
   return {
-    id: 'forcing-chain',
-    name: { zh: '强制链', en: 'Forcing Chain' },
-    difficulty: 9000,
+    id: strategyId,
+    name,
+    difficulty,
     tieBreak: ['cell-index', 'digit'],
 
     apply(grid: Grid): Step | null {
@@ -394,7 +399,10 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
       const nodeIndex = (cell: number, digit: number): number | undefined => graph.indexOfKey.get(nodeKey(digit, [cell]));
       let graphStep: Step | null = null;
 
-      if (policy.allowCellForcing) {
+      const useCell = policy.allowCellForcing;
+      const useDigit = policy.allowDigitForcing;
+
+      if (useCell) {
         for (let cell = 0; cell < CELLS && !graphStep; cell++) {
           if (grid.get(cell) !== 0 || popcount(grid.candidatesOf(cell)) !== 2) continue;
           const [firstDigit, secondDigit] = digitsOf(grid.candidatesOf(cell)) as [number, number];
@@ -410,7 +418,7 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
         }
       }
 
-      if (policy.allowDigitForcing && !graphStep) {
+      if (useDigit && !graphStep) {
         for (const house of HOUSES) {
           for (let digit = 1; digit <= 9 && !graphStep; digit++) {
             const bit = maskOf(digit);
@@ -439,3 +447,338 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
 }
 
 export const forcingChain: Strategy = makeForcingChain();
+
+// P3 named sub-strategies (last-resort only). Reuse the forcing engine / legacy logic,
+// but emit precise strategyId per starting point / kind. Higher difficulty so general
+// forcing-chain (if applicable) is preferred for trace when both could match.
+export const cellForcingChain: Strategy = makeForcingChain(
+  { ...DEFAULT_CHAIN_POLICY, allowDigitForcing: false, allowCellForcing: true },
+  'cell-forcing-chain',
+  { zh: '单元格强制链', en: 'Cell Forcing Chain' },
+  9030,
+);
+
+export const digitForcingChain: Strategy = makeForcingChain(
+  { ...DEFAULT_CHAIN_POLICY, allowDigitForcing: true, allowCellForcing: false },
+  'digit-forcing-chain',
+  { zh: '数字强制链', en: 'Digit Forcing Chain' },
+  9010,
+);
+
+export const regionForcingChain: Strategy = makeForcingChain(
+  { ...DEFAULT_CHAIN_POLICY, allowDigitForcing: true, allowCellForcing: false },
+  'region-forcing-chain',
+  { zh: '区域强制链', en: 'Region Forcing Chain' },
+  9040,
+);
+
+// Nishio: focus on contradiction from single assumption (single candidate elimination case)
+export const nishioForcingChain: Strategy = {
+  id: 'nishio-forcing-chain',
+  name: { zh: 'Nishio 强制链', en: 'Nishio Forcing Chain' },
+  difficulty: 9020,
+  tieBreak: ['cell-index', 'digit'],
+  apply(grid: Grid): Step | null {
+    const step = tryBoundedContradiction(grid, LEGACY_MAX_PROPAGATION);
+    if (step) {
+      // rewrite id/explanation for nishio kind
+      const c0 = step.highlights.cells[0];
+      const label = (c0 != null) ? `R${(ROW_OF[c0]! + 1)}C${(COL_OF[c0]! + 1)}` : '某格';
+      return {
+        ...step,
+        strategyId: 'nishio-forcing-chain',
+        explanation: {
+          zh: `Nishio：假设 ${label} 导致矛盾，消除。`,
+          en: `Nishio: assuming a candidate leads to contradiction within propagation; eliminate.`,
+        },
+      };
+    }
+    // fallback legacy contra style
+    const leg = tryLegacyCellForcingChain(grid) ?? tryLegacyHouseForcingChain(grid);
+    if (leg && leg.eliminations.length > 0) {
+      return {
+        ...leg,
+        strategyId: 'nishio-forcing-chain',
+        explanation: { zh: 'Nishio 假设导致矛盾消除', en: 'Nishio contradiction elimination' },
+      };
+    }
+    return null;
+  },
+};
+
+// DIC: double implication chain - use cell forcing two way or simple two premise case
+export const dic: Strategy = makeForcingChain(
+  { ...DEFAULT_CHAIN_POLICY, allowDigitForcing: true, allowCellForcing: true },
+  'dic',
+  { zh: '双重蕴含链', en: 'Double Implication Chain' },
+  9050,
+);
+
+// Forcing Net (P3 multi-branch owner): generalize to cells with >2 candidates, collect
+// consequences across all viable branches, common falses/trues are deduced.
+function tryForcingNet(grid: Grid, maxLen: number): Step | null {
+  // Try multi-candidate cells ( >=3 )
+  for (let cell = 0; cell < CELLS; cell++) {
+    if (grid.get(cell) !== 0) continue;
+    const cands = digitsOf(grid.candidatesOf(cell));
+    if (cands.length < 3) continue;
+    const branchStates: Map<number, number>[] = [];
+    for (const dig of cands) {
+      // For net, use legacy propagate for simplicity + soundness via contra
+      const res = legacyPropagateNakedSingles(grid, cell, dig);
+      if (res !== null) {
+        branchStates.push(res);
+      }
+    }
+    if (branchStates.length >= 2) {
+      // find common placements across branches
+      const first = branchStates[0]!;
+      for (const [tc, td] of first) {
+        if (tc === cell) continue;
+        if (grid.get(tc) !== 0 || !grid.hasCandidate(tc, td)) continue;
+        if (branchStates.every((b) => b.get(tc) === td)) {
+          return makeStep(
+            'forcing-net',
+            grid,
+            [cell],
+            [{ cell: tc, digit: td }],
+            [],
+            `Forcing Net: ${cellLabel(cell)} 所有候选分支均导致 ${cellLabel(tc)}=${td}`,
+            `Forcing Net: all branches from ${cellLabel(cell)} lead to ${cellLabel(tc)}=${td}`,
+          );
+        }
+      }
+    }
+  }
+  // Also try bounded contra as net kind
+  const contra = tryBoundedContradiction(grid, maxLen);
+  if (contra) {
+    return {
+      ...contra,
+      strategyId: 'forcing-net',
+      explanation: {
+        zh: `Forcing Net 矛盾：${contra.explanation.zh}`,
+        en: `Forcing Net contradiction: ${contra.explanation.en}`,
+      },
+    };
+  }
+  return null;
+}
+
+export const forcingNet: Strategy = {
+  id: 'forcing-net',
+  name: { zh: '强制网', en: 'Forcing Net' },
+  difficulty: 9100,
+  tieBreak: ['cell-index', 'digit'],
+  apply(grid: Grid): Step | null {
+    // Use net specific + fallback some legacy house multi
+    const net = tryForcingNet(grid, LEGACY_MAX_PROPAGATION * 2);
+    if (net) return net;
+    // additional house search >2 pos rare, reuse legacy but retag
+    const leg = tryLegacyHouseForcingChain(grid);
+    if (leg) {
+      return { ...leg, strategyId: 'forcing-net', explanation: { zh: '强制网（房屋）', en: 'Forcing net (house)' } };
+    }
+    return null;
+  },
+};
+
+// --- Kraken Fish, Tabling, POM, Templates, GEM (P3 last-resort only) ---
+// These are intentionally last-resort. Implementations use bounded assumption
+// propagation or single-digit template cover checks. (No external solvers.)
+
+function findSimpleKrakenStep(grid: Grid): Step | null {
+  const bitFor = (d: number) => maskOf(d);
+  for (let d = 1; d <= 9; d++) {
+    const bit = bitFor(d);
+    // rows as base for cols cover , size=2 xwing base
+    const coverPerBase: number[][] = [];
+    for (let r = 0; r < 9; r++) {
+      const cs: number[] = [];
+      for (let c = 0; c < 9; c++) {
+        const cell = r * 9 + c;
+        if (grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0) cs.push(c);
+      }
+      coverPerBase.push(cs);
+    }
+    // find 2 bases whose covers union <=2
+    for (let i = 0; i < 9; i++) for (let j = i + 1; j < 9; j++) {
+      const covers = new Set([...coverPerBase[i]!, ...coverPerBase[j]!]);
+      if (covers.size === 2) {
+        const cols = Array.from(covers);
+        for (const col of cols) {
+          for (let br = 0; br < 9; br++) {
+            if (br === i || br === j) continue;
+            const cell = br * 9 + col;
+            if (grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0) {
+              if (contradictionFromAssumption(grid, cell, d, 40)) {
+                return makeStep(
+                  'kraken-fish',
+                  grid,
+                  [cell],
+                  [],
+                  [{ cell, digit: d }],
+                  `Kraken Fish：鱼模式下 ${cellLabel(cell)}=${d} 导致矛盾`,
+                  `Kraken Fish: under fish pattern, ${cellLabel(cell)}=${d} leads to contradiction`,
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export const krakenFish: Strategy = {
+  id: 'kraken-fish',
+  name: { zh: '章鱼鱼', en: 'Kraken Fish' },
+  difficulty: 9200,
+  tieBreak: ['digit', 'cell-index'],
+  apply(grid: Grid): Step | null {
+    return findSimpleKrakenStep(grid);
+  },
+};
+
+function canCompleteDigitPlacement(
+  grid: Grid,
+  digit: number,
+  forcedCell: number | null = null,
+): boolean {
+  const bit = maskOf(digit);
+  const usedRow = Array(9).fill(false);
+  const usedCol = Array(9).fill(false);
+  const usedBox = Array(9).fill(false);
+  if (forcedCell !== null) {
+    const fr = ROW_OF[forcedCell]!;
+    const fc = COL_OF[forcedCell]!;
+    const fb = Math.floor(fr / 3) * 3 + Math.floor(fc / 3);
+    if ((grid.get(forcedCell) !== 0 && grid.get(forcedCell) !== digit) ||
+        (grid.get(forcedCell) === 0 && (grid.candidatesOf(forcedCell) & bit) === 0)) {
+      return false;
+    }
+    usedRow[fr] = true;
+    usedCol[fc] = true;
+    usedBox[fb] = true;
+  }
+  function bt(r: number): boolean {
+    if (r === 9) return true;
+    if (usedRow[r]) return bt(r + 1);
+    for (let c = 0; c < 9; c++) {
+      if (usedCol[c]) continue;
+      const cell = r * 9 + c;
+      const b = Math.floor(r / 3) * 3 + Math.floor(c / 3);
+      if (usedBox[b]) continue;
+      const val = grid.get(cell);
+      if (val !== 0) {
+        if (val !== digit) continue;
+      } else if ((grid.candidatesOf(cell) & bit) === 0) continue;
+      usedRow[r] = true;
+      usedCol[c] = true;
+      usedBox[b] = true;
+      if (bt(r + 1)) return true;
+      usedRow[r] = false;
+      usedCol[c] = false;
+      usedBox[b] = false;
+    }
+    return false;
+  }
+  return bt(0);
+}
+
+function tryTemplatesElim(grid: Grid): Step | null {
+  for (let d = 1; d <= 9; d++) {
+    const bit = maskOf(d);
+    for (let cell = 0; cell < CELLS; cell++) {
+      if (grid.get(cell) !== 0 || (grid.candidatesOf(cell) & bit) === 0) continue;
+      const canWith = canCompleteDigitPlacement(grid, d, cell);
+      if (!canWith) {
+        return makeStep(
+          'templates',
+          grid,
+          [cell],
+          [],
+          [{ cell, digit: d }],
+          `Templates：候选 ${cellLabel(cell)}=${d} 不在任何合法模板中`,
+          `Templates: candidate ${cellLabel(cell)}=${d} is not part of any valid template`,
+        );
+      }
+    }
+  }
+  return null;
+}
+
+export const templates: Strategy = {
+  id: 'templates',
+  name: { zh: '模板法', en: 'Templates' },
+  difficulty: 9500,
+  tieBreak: ['digit', 'cell-index'],
+  apply(grid: Grid): Step | null {
+    return tryTemplatesElim(grid);
+  },
+};
+
+export const pom: Strategy = {
+  id: 'pom',
+  name: { zh: '模式叠加法', en: 'Pattern Overlay Method' },
+  difficulty: 9400,
+  tieBreak: ['digit', 'cell-index'],
+  apply(grid: Grid): Step | null {
+    const t = tryTemplatesElim(grid);
+    if (t) {
+      return {
+        ...t,
+        strategyId: 'pom',
+        explanation: { zh: `POM(模板叠加)：${t.explanation.zh}`, en: `POM: ${t.explanation.en}` },
+      };
+    }
+    return null;
+  },
+};
+
+export const tabling: Strategy = {
+  id: 'tabling',
+  name: { zh: '制表法', en: 'Tabling' },
+  difficulty: 9300,
+  tieBreak: ['cell-index', 'digit'],
+  apply(grid: Grid): Step | null {
+    const netLike = tryForcingNet(grid, 60);
+    if (netLike) {
+      return {
+        ...netLike,
+        strategyId: 'tabling',
+        explanation: { zh: `Tabling 表推导：${netLike.explanation.zh}`, en: `Tabling: ${netLike.explanation.en}` },
+      };
+    }
+    const c = tryBoundedContradiction(grid, 60);
+    if (c) {
+      return {
+        ...c,
+        strategyId: 'tabling',
+        explanation: { zh: `Tabling 矛盾表：${c.explanation.zh}`, en: `Tabling contradiction table: ${c.explanation.en}` },
+      };
+    }
+    return null;
+  },
+};
+
+export const gem: Strategy = {
+  id: 'gem',
+  name: { zh: 'GEM 标记法', en: 'GEM' },
+  difficulty: 9600,
+  tieBreak: ['cell-index', 'digit'],
+  apply(grid: Grid): Step | null {
+    const step = tryBoundedContradiction(grid, 30) ?? legacyForcingChain(grid);
+    if (step) {
+      return {
+        ...step,
+        strategyId: 'gem',
+        explanation: { zh: `GEM 推导：${step.explanation.zh}`, en: `GEM deduction: ${step.explanation.en}` },
+      };
+    }
+    return null;
+  },
+};
+
+

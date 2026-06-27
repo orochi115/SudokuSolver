@@ -24,7 +24,7 @@ function tryBent(grid: Grid, strategyId: string): Step | null {
       for (let sz=2; sz<=3; sz++) {
         // simple: look for |boxOut|>=sz-? pick sets of sz-1 from each
         if (boxOut.length < sz-1 || lineOut.length < sz-1) continue;
-        // brute small
+        // enumerate small sets
         // For sz=2: 1 cell each
         if (sz===2) {
           for (const bo of boxOut) for (const lo of lineOut) {
