@@ -6,14 +6,13 @@
  * within the same cell (discontinuous).
  */
 
-import { maskOf, PEERS_OF, HOUSES } from '../grid.js';
+import { maskOf, PEERS_OF, HOUSES, ROW_OF, COL_OF } from '../grid.js';
 import type { Grid } from '../grid.js';
 import type { AicResult } from './aic-search.js';
 import type { LinkGraph, ChainNode, ChainStep, Chain } from './graph.js';
 import { chainToLinks } from './graph.js';
 import type { ChainPolicy } from './policy.js';
 import type { CellDigit } from '../trace.js';
-import { ROW_OF, COL_OF } from '../grid.js';
 
 function seesAllOfNode(cell: number, node: ChainNode): boolean {
   if (node.cells.includes(cell)) return false;
@@ -103,7 +102,7 @@ export function searchNiceLoop(grid: Grid, graph: LinkGraph, policy: ChainPolicy
   function tryDiscontinuous(path: Chain): AicResult | null {
     const start = graph.nodes[path[0]!.node]!;
     const end = graph.nodes[path[path.length - 1]!.node]!;
-    if (start.cell === end.cell && start.cells.length === 1 && end.cells.length === 1) {
+    if (start.cells.length === 1 && end.cells.length === 1 && start.cells[0] === end.cells[0]) {
       // W-Wing: single cell with two digits
       return null; // handled in regular loop search via AIC
     }
@@ -170,5 +169,4 @@ export function searchNiceLoop(grid: Grid, graph: LinkGraph, policy: ChainPolicy
 }
 
 import type { CellDigit } from '../trace.js';
-import { ROW_OF, COL_OF, PEERS_OF } from '../grid.js';
-import { maskOf } from '../grid.js';
+import { ROW_OF, COL_OF, PEERS_OF, maskOf } from '../grid.js';

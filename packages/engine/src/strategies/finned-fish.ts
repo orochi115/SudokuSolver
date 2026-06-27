@@ -120,20 +120,22 @@ function tryFinnedFish(
       const baseCells: number[] = [];
       const affectedCells = new Set<number>();
 
-      // Standard fish coverage eliminations (non-fin part)
-      for (const ci of coverList) {
-        const coverHouse = coverHouses[ci]!;
-        for (const cell of coverHouse) {
-          if (grid.get(cell) !== 0 || (grid.candidatesOf(cell) & bit) === 0) continue;
-          const baseCoord = baseAxis === 'row' ? ROW_OF[cell]! : COL_OF[cell]!;
-          if (baseSet.has(baseCoord)) {
-            baseCells.push(cell);
-          } else if (!finCells.includes(cell)) {
-            eliminations.push({ cell, digit: d });
-            affectedCells.add(cell);
-          }
-        }
+  // Standard fish coverage eliminations (non-fin part)
+  for (const ci of coverList) {
+    const coverHouse = coverHouses[ci];
+    if (!coverHouse) continue;
+    for (const cell of coverHouse) {
+      if (grid.get(cell) !== 0 || (grid.candidatesOf(cell) & bit) === 0) continue;
+      const baseCoord = baseAxis === 'row' ? ROW_OF[cell] : COL_OF[cell];
+      if (baseCoord === undefined || baseCoord === null) continue;
+      if (baseSet.has(baseCoord)) {
+        baseCells.push(cell);
+      } else if (!finCells.includes(cell)) {
+        eliminations.push({ cell, digit: d });
+        affectedCells.add(cell);
       }
+    }
+  }
 
       // Finned elimination: any cell in the same line/box as a fin that can see
       // all base houses and is not a base cell
@@ -153,11 +155,17 @@ function tryFinnedFish(
           for (const bi of baseIndices) {
             const baseCoord = baseAxis === 'row' ? bi : finRow;
             let seesHouse = false;
-            for (const bc of baseHouses[bi]!) {
+            const baseHouse = baseHouses[bi];
+            if (!baseHouse) continue;
+            for (const bc of baseHouse) {
               if (bc === cell) continue;
-              if (ROW_OF[cell] === ROW_OF[bc] || COL_OF[cell] === COL_OF[bc] ||
-                  (Math.floor(ROW_OF[cell] / 3) === Math.floor(ROW_OF[bc] / 3) &&
-                   Math.floor(COL_OF[cell] / 3) === Math.floor(COL_OF[bc] / 3))) {
+              const rowMatch = ROW_OF[cell] !== undefined && ROW_OF[bc] !== undefined && ROW_OF[cell] === ROW_OF[bc];
+              const colMatch = COL_OF[cell] !== undefined && COL_OF[bc] !== undefined && COL_OF[cell] === COL_OF[bc];
+              const boxMatch = ROW_OF[cell] !== undefined && ROW_OF[bc] !== undefined && 
+                               COL_OF[cell] !== undefined && COL_OF[bc] !== undefined &&
+                               Math.floor(ROW_OF[cell] / 3) === Math.floor(ROW_OF[bc] / 3) &&
+                               Math.floor(COL_OF[cell] / 3) === Math.floor(COL_OF[bc] / 3);
+              if (rowMatch || colMatch || boxMatch) {
                 seesHouse = true;
                 break;
               }
@@ -184,11 +192,17 @@ function tryFinnedFish(
           for (const bi of baseIndices) {
             const baseCoord = baseAxis === 'row' ? bi : finCol;
             let seesHouse = false;
-            for (const bc of baseHouses[bi]!) {
+            const baseHouse = baseHouses[bi];
+            if (!baseHouse) continue;
+            for (const bc of baseHouse) {
               if (bc === cell) continue;
-              if (ROW_OF[cell] === ROW_OF[bc] || COL_OF[cell] === COL_OF[bc] ||
-                  (Math.floor(ROW_OF[cell] / 3) === Math.floor(ROW_OF[bc] / 3) &&
-                   Math.floor(COL_OF[cell] / 3) === Math.floor(COL_OF[bc] / 3))) {
+              const rowMatch = ROW_OF[cell] !== undefined && ROW_OF[bc] !== undefined && ROW_OF[cell] === ROW_OF[bc];
+              const colMatch = COL_OF[cell] !== undefined && COL_OF[bc] !== undefined && COL_OF[cell] === COL_OF[bc];
+              const boxMatch = ROW_OF[cell] !== undefined && ROW_OF[bc] !== undefined && 
+                               COL_OF[cell] !== undefined && COL_OF[bc] !== undefined &&
+                               Math.floor(ROW_OF[cell] / 3) === Math.floor(ROW_OF[bc] / 3) &&
+                               Math.floor(COL_OF[cell] / 3) === Math.floor(COL_OF[bc] / 3);
+              if (rowMatch || colMatch || boxMatch) {
                 seesHouse = true;
                 break;
               }
@@ -207,7 +221,7 @@ function tryFinnedFish(
         // Check siblings in the same box
         for (let r = finBox * 3; r < finBox * 3 + 3; r++) {
           for (let c = finCol * 3; c < finCol * 3 + 3; c++) {
-            const cell = (finBox * 3) + r + c;
+            const cell = r * 9 + c;
             if (cell === finCell) continue;
             if (grid.get(cell) !== 0 || (grid.candidatesOf(cell) & bit) === 0) continue;
             if (baseCells.includes(cell) || affectedCells.has(cell)) continue;
@@ -215,11 +229,17 @@ function tryFinnedFish(
             let seesAll = true;
             for (const bi of baseIndices) {
               let seesHouse = false;
-              for (const bc of baseHouses[bi]!) {
+              const baseHouse = baseHouses[bi];
+              if (!baseHouse) continue;
+              for (const bc of baseHouse) {
                 if (bc === cell) continue;
-                if (ROW_OF[cell] === ROW_OF[bc] || COL_OF[cell] === COL_OF[bc] ||
-                    (Math.floor(ROW_OF[cell] / 3) === Math.floor(ROW_OF[bc] / 3) &&
-                     Math.floor(COL_OF[cell] / 3) === Math.floor(COL_OF[bc] / 3))) {
+                const rowMatch = ROW_OF[cell] !== undefined && ROW_OF[bc] !== undefined && ROW_OF[cell] === ROW_OF[bc];
+                const colMatch = COL_OF[cell] !== undefined && COL_OF[bc] !== undefined && COL_OF[cell] === COL_OF[bc];
+                const boxMatch = ROW_OF[cell] !== undefined && ROW_OF[bc] !== undefined && 
+                                 COL_OF[cell] !== undefined && COL_OF[bc] !== undefined &&
+                                 Math.floor(ROW_OF[cell] / 3) === Math.floor(ROW_OF[bc] / 3) &&
+                                 Math.floor(COL_OF[cell] / 3) === Math.floor(COL_OF[bc] / 3);
+                if (rowMatch || colMatch || boxMatch) {
                   seesHouse = true;
                   break;
                 }
