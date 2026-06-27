@@ -50,6 +50,12 @@ import { brokenWing } from './broken-wing.js';
 import { avoidableRectangleType1, avoidableRectangleType2, avoidableRectangleType3, avoidableRectangleType4, extendedUniqueRectangle, uniqueLoop, bugLite, bugPlusN } from './uniqueness.js';
 import { aicWithAls } from './aic-with-als.js';
 import { aicWithUr } from './aic-with-ur.js';
+import { vwxyzWing } from './vwxyz-wing.js';
+import { fireworks } from './fireworks.js';
+import { alignedPairExclusion, alignedTripleExclusion } from './aligned-exclusion.js';
+import { exocet } from './exocet.js';
+import { skLoop } from './sk-loop.js';
+import { msls } from './msls.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -85,6 +91,7 @@ export const STRATEGIES: readonly Strategy[] = [
   remotePairs,        // 505
   turbotFish,         // 510
   wxyzWing,           // 520
+  vwxyzWing,          // 530
   bentSets,           // 540
   brokenWing,         // 560
 
@@ -129,7 +136,13 @@ export const STRATEGIES: readonly Strategy[] = [
 
   // Exotic (1xxx)
   sueDeCoq,           // 1010
+  fireworks,          // 1050
   tridagon,           // 1100
+  alignedPairExclusion, // 1120
+  alignedTripleExclusion, // 1130
+  exocet,             // 1200
+  skLoop,             // 1250
+  msls,               // 1300
 
   // Last-resort / red-line (9xxx)
   forcingChain,       // 9000
@@ -167,6 +180,7 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'remote-pairs',
   'turbot-fish',
   'wxyz-wing',
+  'vwxyz-wing',
   'bent-sets',
   'broken-wing',
   'simple-coloring',
@@ -201,7 +215,13 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'bug-lite',
   'bug-plus-n',
   'sue-de-coq',
+  'fireworks',
   'tridagon',
+  'aligned-pair-exclusion',
+  'aligned-triple-exclusion',
+  'exocet',
+  'sk-loop',
+  'msls',
   'forcing-chain',
 ];
 
@@ -268,4 +288,11 @@ export {
   tridagon,
   sueDeCoq,
   forcingChain,
+  vwxyzWing,
+  fireworks,
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  exocet,
+  skLoop,
+  msls,
 };

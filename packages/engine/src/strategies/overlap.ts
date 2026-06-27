@@ -45,10 +45,10 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'exotic',
     canonicalOwner: 'tridagon',
-    members: ['tridagon', 'sue-de-coq'],
-    futureMembers: [],
+    members: ['tridagon', 'sue-de-coq', 'fireworks', 'exocet', 'sk-loop', 'msls', 'aligned-pair-exclusion', 'aligned-triple-exclusion'],
+    futureMembers: ['subset-exclusion', 'sue-de-coq-extended', 'aic-with-exotic-links'],
     unified: false,
-    note: 'P1: tridagon owner (exotic).',
+    note: 'P2a: fireworks/exocet/sk-loop/msls/APE/ATE added to exotic family (sk-loop special case of msls).',
   },
   {
     id: 'single-digit-strong-link',
