@@ -104,9 +104,9 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'advanced-wing-bent',
     canonicalOwner: 'wxyz-wing',
-    members: ['wxyz-wing', 'bent-sets', 'broken-wing'],
+    members: ['wxyz-wing', 'vwxyz-wing', 'bent-sets', 'broken-wing'],
     unified: true,
-    note: 'Advanced wing and bent-set family. WXYZ/Bent Sets reuse ALS-family sound eliminations where applicable; Broken Wing is reserved as a conservative detector shell.',
+    note: 'Advanced wing and bent-set family. WXYZ/VWXYZ/Bent Sets reuse ALS-family sound eliminations where applicable; Broken Wing is reserved as a conservative detector shell.',
   },
   {
     id: 'exotic-tridagon',
@@ -114,5 +114,34 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
     members: ['tridagon'],
     unified: true,
     note: 'Tridagon / anti-Tridagon owner; conservative detector shell until a non-search pattern matcher is added.',
+  },
+  {
+    id: 'exocet',
+    canonicalOwner: 'exocet',
+    members: ['exocet'],
+    unified: true,
+    note: 'Exocet owner for Junior/Senior Exocet. Kept conservative until target/base/S-cell checks can be implemented without search.',
+  },
+  {
+    id: 'msls-exotic',
+    canonicalOwner: 'msls',
+    members: ['msls', 'sk-loop'],
+    unified: true,
+    note: 'MSLS is the rank-0 set-logic owner; SK-Loop is its hand-scannable first-discovered special case.',
+  },
+  {
+    id: 'fireworks',
+    canonicalOwner: 'fireworks',
+    members: ['fireworks'],
+    unified: true,
+    note: 'Fireworks owner for distributed hidden-set patterns; conservative until a full non-search matcher is added.',
+  },
+  {
+    id: 'aligned-exclusion',
+    canonicalOwner: 'aligned-pair-exclusion',
+    members: ['aligned-pair-exclusion', 'aligned-triple-exclusion'],
+    futureMembers: ['subset-exclusion'],
+    unified: true,
+    note: 'APE/ATE are aligned special cases of Subset Exclusion. Current owner implements the common-bivalue ALS exclusion subcase without puzzle search.',
   },
 ];

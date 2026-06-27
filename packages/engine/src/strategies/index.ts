@@ -67,6 +67,15 @@ import {
   uniqueLoop,
   wxyzWing,
 } from './p1-advanced.js';
+import {
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  exocet,
+  fireworks,
+  msls,
+  skLoop,
+  vwxyzWing,
+} from './p2a-exotic.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -102,6 +111,7 @@ export const STRATEGIES: readonly Strategy[] = [
   remotePairs,        // 505
   turbotFish,         // 510
   wxyzWing,           // 520
+  vwxyzWing,          // 530
   bentSets,           // 540
   brokenWing,         // 560
 
@@ -138,7 +148,13 @@ export const STRATEGIES: readonly Strategy[] = [
   bugLite,             // 986
   bugPlusN,            // 987
   sueDeCoq,           // 1010
+  fireworks,          // 1050
   tridagon,           // 1100
+  alignedPairExclusion, // 1120
+  alignedTripleExclusion, // 1130
+  exocet,             // 1200
+  skLoop,             // 1250
+  msls,               // 1300
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
@@ -176,6 +192,7 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'remote-pairs',
   'turbot-fish',
   'wxyz-wing',
+  'vwxyz-wing',
   'bent-sets',
   'broken-wing',
   'simple-coloring',
@@ -210,7 +227,13 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'bug-lite',
   'bug-plus-n',
   'sue-de-coq',
+  'fireworks',
   'tridagon',
+  'aligned-pair-exclusion',
+  'aligned-triple-exclusion',
+  'exocet',
+  'sk-loop',
+  'msls',
   'forcing-chain',
 ];
 
@@ -241,6 +264,7 @@ export {
   remotePairs,
   turbotFish,
   wxyzWing,
+  vwxyzWing,
   bentSets,
   brokenWing,
   simpleColoring,
@@ -275,6 +299,12 @@ export {
   bugLite,
   bugPlusN,
   sueDeCoq,
+  fireworks,
   tridagon,
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  exocet,
+  skLoop,
+  msls,
   forcingChain,
 };
