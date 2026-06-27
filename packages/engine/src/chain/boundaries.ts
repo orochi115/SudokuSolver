@@ -43,6 +43,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'xy-chain',
+    owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'nice-loop',
+    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'forcing-chain',
     owns: 'Multi-branch / contradiction (verity) reasoning — cell & digit forcing chains.',
     multiBranch: true,
@@ -50,18 +62,10 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
   },
   // ---- reserved (gate 6 boundaries for future chain work) ----
   {
-    strategyId: 'xy-chain',
-    owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
+    strategyId: 'turbot-fish',
+    owns: 'Single-digit 4-link strong-link pattern (presentation alias for skyscraper/kite/ER general case).',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
-  },
-  {
-    strategyId: 'nice-loop',
-    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
-    multiBranch: false,
-    profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
 ];
 
