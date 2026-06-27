@@ -352,3 +352,535 @@ export const uniqueRectangleType4: Strategy = {
     return tryURType4(grid, 'unique-rectangle-type-4');
   },
 };
+
+// ===========================================================================
+// P1 uniqueness extensions — Hidden UR, UR Type 3/5/6, Extended UR,
+// Unique Loop, BUG-lite / BUG+n, Avoidable Rectangle 1–4.
+//
+// All UR/EUR/loop variants rely on the deadly-pattern argument and need NO
+// given-vs-solved distinction. Avoidable Rectangle DOES need that distinction
+// (see avoidable-rectangle.md); the Grid foundation tracks no givens, so the AR
+// detectors are registered but conservatively inactive (return null) to stay
+// sound. See docs/notes/p1.md.
+// ===========================================================================
+
+/** Cells of a candidate digit d confined to the 4 UR cells within house H. */
+function confinedToUrInHouse(grid: Grid, d: number, houseIdx: number, urSet: Set<number>): boolean {
+  const bit = maskOf(d);
+  for (const c of HOUSES[houseIdx]!) {
+    if (grid.get(c) !== 0 || !(grid.candidatesOf(c) & bit)) continue;
+    if (!urSet.has(c)) return false;
+  }
+  return true;
+}
+
+/** Hidden Unique Rectangle (HUR): pure start corner + diagonal opposite whose
+ *  row & column confine one UR digit to the UR cells → eliminate the other UR
+ *  digit from the opposite corner. */
+function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+    if (masks.some((m) => m === 0)) continue;
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+    const [a, b] = digitsOf(intersect) as [number, number];
+    const urSet = new Set(cells);
+
+    // Two diagonals: (c11,c22) and (c12,c21). For each, treat one pure end as
+    // the "start" and the other as the "opposite".
+    const diagonals: Array<[number, number]> = [
+      [c11, c22],
+      [c12, c21],
+      [c22, c11],
+      [c21, c12],
+    ];
+    for (const [start, opp] of diagonals) {
+      const startMask = grid.candidatesOf(start);
+      if (startMask !== intersect) continue; // start must be a pure floor corner
+      const dRow = ROW_OF[opp]!;
+      const dCol = 9 + COL_OF[opp]!;
+      // try eliminating each UR digit: if the OTHER digit is confined to UR in
+      // both of opp's row & col, eliminate the confined one's partner from opp.
+      for (const [confined, elim] of [
+        [a, b],
+        [b, a],
+      ] as [number, number][]) {
+        if (confinedToUrInHouse(grid, confined, dRow, urSet) && confinedToUrInHouse(grid, confined, dCol, urSet)) {
+          if (grid.hasCandidate(opp, elim)) {
+            return {
+              strategyId,
+              placements: [],
+              eliminations: [{ cell: opp, digit: elim }],
+              highlights: {
+                cells: [...cells, opp],
+                candidates: cells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                links: [
+                  { from: { cell: start, digit: confined }, to: { cell: opp, digit: confined }, type: 'strong' },
+                ],
+              },
+              explanation: {
+                zh: `隐性唯一矩形：UR对 {${a},${b}}，起始纯角 R${ROW_OF[start]! + 1}C${COL_OF[start]! + 1} 对角 R${ROW_OF[opp]! + 1}C${COL_OF[opp]! + 1} 的行列均把 ${confined} 锁在UR内；故该对角格不能为 ${elim}，消去 ${elim}。`,
+                en: `Hidden Unique Rectangle: UR pair {${a},${b}}; pure corner R${ROW_OF[start]! + 1}C${COL_OF[start]! + 1}, diagonal R${ROW_OF[opp]! + 1}C${COL_OF[opp]! + 1} has ${confined} confined to the UR in its row & column; eliminate ${elim} from it.`,
+              },
+            };
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+/** UR Type 3: the roof-extras-as-naked-subset reduction has a subtle soundness
+ *  condition (the roof contributes "at least one" extra, not "all" extras, so a
+ *  naive naked-pair over the roof pseudo-cell is unsound). Pending a precise
+ *  implementation of the locked-subset variant, this detector is conservatively
+ *  inactive (sound no-op). See docs/notes/p1.md. */
+function tryURType3(_grid: Grid, _strategyId: string): Step | null {
+  return null;
+}
+
+/** UR Type 5: single extra digit c on two DIAGONAL corners → eliminate c from
+ *  cells seeing both. */
+function tryURType5(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+    if (masks.some((m) => m === 0)) continue;
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+
+    // Two diagonals; check each as the pair carrying one shared extra digit.
+    const diagonals: Array<[number, number, number, number]> = [
+      [c11, c22, c12, c21],
+      [c12, c21, c11, c22],
+    ];
+    for (const [d1c, d2c, f1, f2] of diagonals) {
+      // The two non-diagonal corners must be pure floor
+      if (grid.candidatesOf(f1) !== intersect || grid.candidatesOf(f2) !== intersect) continue;
+      const e1 = grid.candidatesOf(d1c) & ~intersect;
+      const e2 = grid.candidatesOf(d2c) & ~intersect;
+      if (popcount(e1) !== 1 || e1 !== e2) continue;
+      const c = digitsOf(e1)[0]!;
+      const peers1 = new Set(PEERS_OF[d1c]!);
+      const elims: { cell: number; digit: number }[] = [];
+      for (const cc of PEERS_OF[d2c]!) {
+        if (cc === d1c || cc === d2c) continue;
+        if (peers1.has(cc) && grid.hasCandidate(cc, c)) elims.push({ cell: cc, digit: c });
+      }
+      if (elims.length === 0) continue;
+      const [a, b] = digitsOf(intersect) as [number, number];
+      return {
+        strategyId,
+        placements: [],
+        eliminations: elims,
+        highlights: {
+          cells: [...cells, ...elims.map((e) => e.cell)],
+          candidates: cells.flatMap((cc) => digitsOf(grid.candidatesOf(cc)).map((d) => ({ cell: cc, digit: d }))),
+          links: [],
+        },
+        explanation: {
+          zh: `唯一矩形 Type5：UR对 {${a},${b}} 的对角两角各含额外候选 ${c}；其一必为 ${c}，消去同时看到两角的格的 ${c}。`,
+          en: `Unique Rectangle Type 5: UR pair {${a},${b}} with extra ${c} on two diagonal corners; one must be ${c}; eliminate ${c} from cells seeing both.`,
+        },
+      };
+    }
+  }
+  return null;
+}
+
+/** UR Type 6: extras on two diagonal corners; one UR digit forms an X-Wing on
+ *  the 4 UR cells → eliminate that UR digit from both diagonal extra corners. */
+function tryURType6(grid: Grid, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11, c12, c21, c22];
+    const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+    if (masks.some((m) => m === 0)) continue;
+    const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
+    if (popcount(intersect) !== 2) continue;
+    const [a, b] = digitsOf(intersect) as [number, number];
+    const urSet = new Set(cells);
+
+    const diagonals: Array<[number, number, number, number]> = [
+      [c11, c22, c12, c21],
+      [c12, c21, c11, c22],
+    ];
+    for (const [d1c, d2c, f1, f2] of diagonals) {
+      if (grid.candidatesOf(f1) !== intersect || grid.candidatesOf(f2) !== intersect) continue;
+      if ((grid.candidatesOf(d1c) & ~intersect) === 0) continue;
+      if ((grid.candidatesOf(d2c) & ~intersect) === 0) continue;
+      // one UR digit forms X-Wing (confined to UR across the two UR rows & cols)
+      for (const x of [a, b]) {
+        const r1 = ROW_OF[c11]!, r2 = ROW_OF[c21]!;
+        const col1 = 9 + COL_OF[c11]!, col2 = 9 + COL_OF[c12]!;
+        if (
+          confinedToUrInHouse(grid, x, r1, urSet) &&
+          confinedToUrInHouse(grid, x, r2, urSet) &&
+          confinedToUrInHouse(grid, x, col1, urSet) &&
+          confinedToUrInHouse(grid, x, col2, urSet)
+        ) {
+          const elims: { cell: number; digit: number }[] = [];
+          if (grid.hasCandidate(d1c, x)) elims.push({ cell: d1c, digit: x });
+          if (grid.hasCandidate(d2c, x)) elims.push({ cell: d2c, digit: x });
+          if (elims.length === 0) continue;
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...cells],
+              candidates: cells.flatMap((cc) => digitsOf(grid.candidatesOf(cc)).map((d) => ({ cell: cc, digit: d }))),
+              links: [],
+            },
+            explanation: {
+              zh: `唯一矩形 Type6：UR对 {${a},${b}}；${x} 在UR四格构成X-Wing，对角额外角填 ${x} 会致双解；消去两对角额外角的 ${x}。`,
+              en: `Unique Rectangle Type 6: UR pair {${a},${b}}; ${x} forms an X-Wing on the UR cells; placing ${x} in a diagonal extra corner forces the deadly swap; eliminate ${x} from both diagonal extra corners.`,
+            },
+          };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+/** Extended Unique Rectangle (2×3): six cells in 3 rows ∩ 3 cols ∩ 3 boxes with
+ *  union of candidates exactly 3 digits {a,b,c}. Type 1: one cell has an extra
+ *  → eliminate {a,b,c} from it. Type 2: two roof cells each carry one shared
+ *  extra d → eliminate d from cells seeing both roof cells. */
+function tryExtendedUR(grid: Grid, strategyId: string): Step | null {
+  // Orientation A: 2 rows × 3 cols (rows in same box-row → 3 boxes via 3 cols).
+  for (let br = 0; br < 3; br++) {
+    for (const [r1, r2] of pairs2([br * 3, br * 3 + 1, br * 3 + 2])) {
+      for (const cols of combinations3([0, 1, 2, 3, 4, 6, 7, 8].length ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [])) {
+        if (new Set(cols.map((c) => Math.floor(c / 3))).size !== 3) continue;
+        const six = cols.flatMap((c) => [r1 * 9 + c, r2 * 9 + c]);
+        const step = tryEURCells(grid, six, strategyId, 'row');
+        if (step) return step;
+      }
+    }
+  }
+  // Orientation B: 3 rows × 2 cols (cols in same box-col → 3 boxes).
+  for (let bc = 0; bc < 3; bc++) {
+    for (const [c1, c2] of pairs2([bc * 3, bc * 3 + 1, bc * 3 + 2])) {
+      for (const rows of combinations3([0, 1, 2, 3, 4, 5, 6, 7, 8])) {
+        if (new Set(rows.map((r) => Math.floor(r / 3))).size !== 3) continue;
+        const six = rows.flatMap((r) => [r * 9 + c1, r * 9 + c2]);
+        const step = tryEURCells(grid, six, strategyId, 'col');
+        if (step) return step;
+      }
+    }
+  }
+  return null;
+}
+
+function tryEURCells(
+  grid: Grid,
+  six: number[],
+  strategyId: string,
+  orient: 'row' | 'col',
+): Step | null {
+  if (six.some((c) => grid.get(c) !== 0)) return null;
+  let unionMask = 0;
+  for (const c of six) unionMask |= grid.candidatesOf(c);
+  if (popcount(unionMask) < 3) return null;
+  // find any 3-digit subset {a,b,c} of unionMask that EXACTLY covers all six cells
+  const unionDigits = digitsOf(unionMask);
+  for (const trip of combinationsK(unionDigits, 3)) {
+    const tripMask = trip.reduce((m, d) => m | maskOf(d), 0);
+    // every cell's candidates ⊆ tripMask
+    if (!six.every((c) => (grid.candidatesOf(c) & ~tripMask) === 0)) continue;
+    // Type 1: exactly one cell has extras beyond tripMask... but we required none
+    // beyond tripMask. Type 1 = one cell's mask ≠ tripMask union... i.e. one cell
+    // has a candidate outside {a,b,c}? That can't be (we required ⊆ tripMask).
+    // So Type 1 (extra beyond deadly) means a cell whose mask includes a digit
+    // OUTSIDE trip — handled by re-checking with the ORIGINAL union.
+    void tripMask;
+  }
+  // Type 1 recompute: choose deadly digits = the 3 most-common; a cell with an
+  // extra digit (not in the deadly triple) → eliminate the deadly triple from it.
+  for (const trip of combinationsK(unionDigits, 3)) {
+    const tripMask = trip.reduce((m, d) => m | maskOf(d), 0);
+    // all six cells must be ABLE to hold only trip (candidates ⊆ trip ∪ extras)
+    // and at least the deadly core must be {a,b,c}. A cell has "extra" if it has
+    // a candidate outside trip.
+    const extras = six.filter((c) => (grid.candidatesOf(c) & ~tripMask) !== 0);
+    // Deadly core: cells without extras must collectively cover trip. Require
+    // the non-extra cells alone already span trip (so triple is "locked").
+    const coreCells = six.filter((c) => (grid.candidatesOf(c) & ~tripMask) === 0);
+    let coreUnion = 0;
+    for (const c of coreCells) coreUnion |= grid.candidatesOf(c);
+    if (popcount(coreUnion) !== 3 || coreUnion !== tripMask) continue;
+    if (extras.length === 1) {
+      // Type 1: eliminate trip from the extra cell
+      const e = extras[0]!;
+      const elims = trip.filter((d) => grid.hasCandidate(e, d)).map((d) => ({ cell: e, digit: d }));
+      if (elims.length === 0) continue;
+      return {
+        strategyId,
+        placements: [],
+        eliminations: elims,
+        highlights: {
+          cells: [...six, e],
+          candidates: six.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+          links: [],
+        },
+        explanation: {
+          zh: `扩展唯一矩形（2×3）：六格三数 {${trip.join(',')}} 致死图案，单格带额外候选；消去该格的 ${trip.join(',')}。`,
+          en: `Extended UR (2×3): six cells / three digits {${trip.join(',')}} deadly; one cell carries an extra candidate; eliminate ${trip.join(',')} from it.`,
+        },
+      };
+    }
+    if (extras.length === 2) {
+      // Type 2: both extra cells carry the SAME single extra digit d
+      const e1m = grid.candidatesOf(extras[0]!) & ~tripMask;
+      const e2m = grid.candidatesOf(extras[1]!) & ~tripMask;
+      if (e1m === e2m && popcount(e1m) === 1) {
+        const d = digitsOf(e1m)[0]!;
+        const peers1 = new Set(PEERS_OF[extras[0]!]!);
+        const elims: { cell: number; digit: number }[] = [];
+        for (const cc of PEERS_OF[extras[1]!]!) {
+          if (cc === extras[0] || cc === extras[1]) continue;
+          if (peers1.has(cc) && grid.hasCandidate(cc, d)) elims.push({ cell: cc, digit: d });
+        }
+        if (elims.length === 0) continue;
+        return {
+          strategyId,
+          placements: [],
+          eliminations: elims,
+          highlights: {
+            cells: [...six, ...elims.map((e) => e.cell)],
+            candidates: six.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((dd) => ({ cell: c, digit: dd }))),
+            links: [],
+          },
+          explanation: {
+            zh: `扩展唯一矩形 Type2：六格三数致死图案，双翼格各带额外候选 ${d}；其一必为 ${d}，消去同时看到两翼的格的 ${d}。`,
+            en: `Extended UR Type 2: six/three deadly pattern; both roof cells carry extra ${d}; eliminate ${d} from cells seeing both roofs.`,
+          },
+        };
+      }
+    }
+    void orient;
+  }
+  return null;
+}
+
+/** Unique Loop (Type 1): an even bivalue cycle on {a,b} (≥6 cells) where exactly
+ *  one cell carries an extra candidate → eliminate {a,b} from that cell. */
+function tryUniqueLoop(grid: Grid, strategyId: string): Step | null {
+  for (let a = 1; a <= 9; a++) {
+    for (let b = a + 1; b <= 9; b++) {
+      const pairMask = maskOf(a) | maskOf(b);
+      // Candidate cycle cells: bivalue cells whose mask ⊆ {a,b} OR cells
+      // containing both a and b (potential extra cell).
+      const nodes: number[] = [];
+      for (let c = 0; c < CELLS; c++) {
+        if (grid.get(c) !== 0) continue;
+        const m = grid.candidatesOf(c);
+        if ((m & pairMask) === pairMask) nodes.push(c); // has both a and b
+      }
+      if (nodes.length < 6) continue;
+      // BFS for an even-length cycle through these cells (adjacent = peers).
+      const step = searchUniqueLoop(grid, nodes, a, b, strategyId);
+      if (step) return step;
+    }
+  }
+  return null;
+}
+
+function searchUniqueLoop(
+  grid: Grid,
+  nodes: number[],
+  a: number,
+  b: number,
+  strategyId: string,
+): Step | null {
+  const nodeSet = new Set(nodes);
+  const pairMask = maskOf(a) | maskOf(b);
+  const MAX_LEN = 8;
+  const BUDGET = 1500;
+  let spent = 0;
+
+  for (const start of nodes) {
+    if (spent > BUDGET) break;
+    // DFS for a cycle returning to start, alternating houses loosely (we just
+    // require peers and even length ≥6, with exactly one "extra" cell).
+    const stack: Array<{ node: number; prev: number; path: number[]; visited: Set<number> }> = [
+      { node: start, prev: -1, path: [start], visited: new Set([start]) },
+    ];
+    while (stack.length && spent <= BUDGET) {
+      spent++;
+      const item = stack.pop()!;
+      const last = item.node;
+      for (const nb of PEERS_OF[last]!) {
+        if (!nodeSet.has(nb)) continue;
+        if (nb === start && item.path.length >= 6 && item.path.length % 2 === 0) {
+          // closed even cycle
+          const cycle = item.path;
+          const extras = cycle.filter((c) => grid.candidatesOf(c) !== pairMask);
+          if (extras.length === 1) {
+            const e = extras[0]!;
+            const elims: { cell: number; digit: number }[] = [];
+            if (grid.hasCandidate(e, a)) elims.push({ cell: e, digit: a });
+            if (grid.hasCandidate(e, b)) elims.push({ cell: e, digit: b });
+            if (elims.length === 0) continue;
+            return {
+              strategyId,
+              placements: [],
+              eliminations: elims,
+              highlights: {
+                cells: [...cycle, e],
+                candidates: cycle.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                links: [],
+              },
+              explanation: {
+                zh: `唯一环：{${a},${b}} 双值格构成偶数环（${cycle.length} 格），恰一环格带额外候选；该格不能为 ${a} 或 ${b}，消去之。`,
+                en: `Unique Loop: bivalue {${a},${b}} form a ${cycle.length}-cell even cycle with exactly one extra-candidate cell; eliminate ${a},${b} from it.`,
+              },
+            };
+          }
+          continue;
+        }
+        if (item.visited.has(nb)) continue;
+        if (item.path.length >= MAX_LEN) continue;
+        const v = new Set(item.visited);
+        v.add(nb);
+        stack.push({ node: nb, prev: last, path: [...item.path, nb], visited: v });
+      }
+    }
+  }
+  return null;
+}
+
+/** BUG-lite / BUG+n: conservative. A full BUG (all-bivalue, every digit twice
+ *  per house) is deadly; BUG+1 is handled by bug-plus-one. The +n generalisa-
+ *  tion requires multi-cell reasoning that is unsafe to emit without enumerating
+ *  the exact break-set, so these detectors return null (sound, inactive). See
+ *  docs/notes/p1.md. */
+function tryBUGLite(_grid: Grid, _strategyId: string): Step | null {
+  return null;
+}
+function tryBUGPlusN(_grid: Grid, _strategyId: string): Step | null {
+  return null;
+}
+
+/** Avoidable Rectangle 1–4: requires distinguishing original givens from solved
+ *  cells. The Grid foundation tracks no givens, so we conservatively assume any
+ *  solved corner MIGHT be a given (which blocks the swap) and never fire. This
+ *  is sound (no eliminations) but inactive; pending a foundation given-flag. */
+function tryAvoidableRectangle(_grid: Grid, _strategyId: string): Step | null {
+  return null;
+}
+
+// ---- combinatoric helpers ----
+function pairs2<T>(arr: T[]): Array<[T, T]> {
+  const out: Array<[T, T]> = [];
+  for (let i = 0; i < arr.length; i++) for (let j = i + 1; j < arr.length; j++) out.push([arr[i]!, arr[j]!]);
+  return out;
+}
+function combinations3<T>(arr: T[]): T[][] {
+  return combinationsK(arr, 3);
+}
+function combinationsK<T>(arr: T[], k: number): T[][] {
+  const out: T[][] = [];
+  const n = arr.length;
+  if (k > n) return out;
+  const idx = Array.from({ length: k }, (_, i) => i);
+  while (true) {
+    out.push(idx.map((i) => arr[i]!));
+    let i = k - 1;
+    while (i >= 0 && idx[i] === n - k + i) i--;
+    if (i < 0) break;
+    idx[i]!++;
+    for (let j = i + 1; j < k; j++) idx[j] = idx[j - 1]! + 1;
+  }
+  return out;
+}
+
+// ---- exported P1 uniqueness strategies ----
+export const hiddenUniqueRectangle: Strategy = {
+  id: 'hidden-unique-rectangle',
+  name: { zh: '隐性唯一矩形', en: 'Hidden Unique Rectangle' },
+  difficulty: 935,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryHiddenUR(grid, 'hidden-unique-rectangle'); },
+};
+export const uniqueRectangleType3: Strategy = {
+  id: 'unique-rectangle-type-3',
+  name: { zh: '唯一矩形 Type 3', en: 'Unique Rectangle Type 3' },
+  difficulty: 940,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryURType3(grid, 'unique-rectangle-type-3'); },
+};
+export const uniqueRectangleType5: Strategy = {
+  id: 'unique-rectangle-type-5',
+  name: { zh: '唯一矩形 Type 5', en: 'Unique Rectangle Type 5' },
+  difficulty: 960,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryURType5(grid, 'unique-rectangle-type-5'); },
+};
+export const uniqueRectangleType6: Strategy = {
+  id: 'unique-rectangle-type-6',
+  name: { zh: '唯一矩形 Type 6', en: 'Unique Rectangle Type 6' },
+  difficulty: 970,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryURType6(grid, 'unique-rectangle-type-6'); },
+};
+export const extendedUniqueRectangle: Strategy = {
+  id: 'extended-unique-rectangle',
+  name: { zh: '扩展唯一矩形', en: 'Extended Unique Rectangle' },
+  difficulty: 980,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryExtendedUR(grid, 'extended-unique-rectangle'); },
+};
+export const uniqueLoop: Strategy = {
+  id: 'unique-loop',
+  name: { zh: '唯一环', en: 'Unique Loop' },
+  difficulty: 985,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryUniqueLoop(grid, 'unique-loop'); },
+};
+export const bugLite: Strategy = {
+  id: 'bug-lite',
+  name: { zh: 'BUG-Lite', en: 'BUG-Lite' },
+  difficulty: 987,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryBUGLite(grid, 'bug-lite'); },
+};
+export const bugPlusN: Strategy = {
+  id: 'bug-plus-n',
+  name: { zh: 'BUG+n', en: 'BUG+n' },
+  difficulty: 989,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryBUGPlusN(grid, 'bug-plus-n'); },
+};
+export const avoidableRectangleType1: Strategy = {
+  id: 'avoidable-rectangle-type-1',
+  name: { zh: '可避免矩形 Type 1', en: 'Avoidable Rectangle Type 1' },
+  difficulty: 945,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryAvoidableRectangle(grid, 'avoidable-rectangle-type-1'); },
+};
+export const avoidableRectangleType2: Strategy = {
+  id: 'avoidable-rectangle-type-2',
+  name: { zh: '可避免矩形 Type 2', en: 'Avoidable Rectangle Type 2' },
+  difficulty: 946,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryAvoidableRectangle(grid, 'avoidable-rectangle-type-2'); },
+};
+export const avoidableRectangleType3: Strategy = {
+  id: 'avoidable-rectangle-type-3',
+  name: { zh: '可避免矩形 Type 3', en: 'Avoidable Rectangle Type 3' },
+  difficulty: 947,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryAvoidableRectangle(grid, 'avoidable-rectangle-type-3'); },
+};
+export const avoidableRectangleType4: Strategy = {
+  id: 'avoidable-rectangle-type-4',
+  name: { zh: '可避免矩形 Type 4', en: 'Avoidable Rectangle Type 4' },
+  difficulty: 948,
+  tieBreak: ['cell-index'],
+  apply(grid) { return tryAvoidableRectangle(grid, 'avoidable-rectangle-type-4'); },
+};
+void getCommonHouses;

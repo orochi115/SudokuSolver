@@ -43,25 +43,34 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'xy-chain',
+    owns: 'Bivalue-cell AIC (ungrouped graph); owns Remote Pairs as a sub-case.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'nice-loop',
+    owns: 'Continuous / discontinuous Nice Loops (AIC on the grouped graph whose endpoints close the loop).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'AIC exercising ALS group nodes (reuses grouped link graph + searchAic; sound endpoints only).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC exercising UR/grouped nodes (reuses grouped link graph + searchAic; sound endpoints only).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'forcing-chain',
     owns: 'Multi-branch / contradiction (verity) reasoning — cell & digit forcing chains.',
     multiBranch: true,
     profiles: ['last-resort'],
-  },
-  // ---- reserved (gate 6 boundaries for future chain work) ----
-  {
-    strategyId: 'xy-chain',
-    owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
-    multiBranch: false,
-    profiles: ['human-default', 'last-resort'],
-    reserved: true,
-  },
-  {
-    strategyId: 'nice-loop',
-    owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
-    multiBranch: false,
-    profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
 ];
 

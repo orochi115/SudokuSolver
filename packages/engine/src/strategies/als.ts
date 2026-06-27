@@ -532,3 +532,259 @@ export const deathBlossom = makeAlsStrategy(
   ['cell-index'],
   tryDeathBlossom,
 );
+
+// ===========================================================================
+// P1 ALS extensions — ALS-Chain (general) and AHS (Almost Hidden Set).
+//
+// ALS-Chain: A sequence of ALS A1..An, each adjacent pair sharing an RCC, such
+// that A1 and An share a common candidate Z that sees-through the chain. The
+// len-2 case (two ALS, one RCC, shared Z) is ALS-XZ (als-xz, difficulty 810)
+// / ALS-XY-Wing (840) territory — those fire first, so this general detector
+// only realises chains of length ≥ 3 (it will still match len-2 but never win
+// the tie because als-xz/als-xy-wing run earlier). This is the E4 fold: ALS-XY-
+// Wing is the len-2 ALS-chain special case, kept as its own (lower-difficulty)
+// id; the general owner is `als-chain`.
+//
+// Soundness: an ALS chain of length n where A1..An are linked by RCCs and A1,An
+// share Z that "sees through" forces Z to be false in cells seeing all Z in A1
+// AND all Z in An (the standard ALS-chain propagation). Implemented as bounded
+// DFS over ALS adjacency.
+// ===========================================================================
+
+/** RCCs between two ALS — digits that are common AND fully mutually visible. */
+function rccsBetween(grid: Grid, a: ALS, b: ALS): number[] {
+  if (alsShareCells(a, b)) return [];
+  const common = digitsOf(a.digitMask & b.digitMask);
+  return common.filter((d) => isRCC(grid, a, b, d));
+}
+
+/** Eliminations of Z from cells seeing all Z-cells in A AND all Z-cells in B. */
+function zElims(grid: Grid, a: ALS, b: ALS, z: number): { cell: number; digit: number }[] {
+  const zBit = maskOf(z);
+  const aZ = a.cells.filter((c) => grid.candidatesOf(c) & zBit);
+  const bZ = b.cells.filter((c) => grid.candidatesOf(c) & zBit);
+  if (aZ.length === 0 || bZ.length === 0) return [];
+  const elims: { cell: number; digit: number }[] = [];
+  const seenIn = new Set(a.cells.concat(b.cells));
+  for (let c = 0; c < CELLS; c++) {
+    if (grid.get(c) !== 0 || !(grid.candidatesOf(c) & zBit)) continue;
+    if (seenIn.has(c)) continue;
+    const peers = new Set(PEERS_OF[c]!);
+    if (aZ.every((x) => peers.has(x)) && bZ.every((x) => peers.has(x))) {
+      elims.push({ cell: c, digit: z });
+    }
+  }
+  return elims;
+}
+
+/** ALS-Chain: a path A1-RCC1-A2-RCC2-...-An where A1,An share a non-RCC digit Z
+ *  (Z not used as any RCC along the path) and Z sees-through. Bounded DFS. */
+function tryALSChain(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
+  const MAX_LEN = 4;
+  const BUDGET = 3000;
+  let spent = 0;
+
+  // Precompute RCC adjacency.
+  const adj: number[][] = alsList.map(() => []);
+  const rccMap = new Map<string, number[]>();
+  for (let i = 0; i < alsList.length; i++) {
+    for (let j = i + 1; j < alsList.length; j++) {
+      const r = rccsBetween(grid, alsList[i]!, alsList[j]!);
+      if (r.length > 0) {
+        adj[i]!.push(j);
+        adj[j]!.push(i);
+        rccMap.set(`${i},${j}`, r);
+        rccMap.set(`${j},${i}`, r);
+      }
+    }
+  }
+
+  for (let s = 0; s < alsList.length; s++) {
+    if (spent > BUDGET) break;
+    // DFS: path of ALS indices, accumulating used RCC digits.
+    interface St { idx: number; usedRcc: Set<number>; path: number[]; visited: Set<number>; }
+    const stack: St[] = [{ idx: s, usedRcc: new Set(), path: [s], visited: new Set([s]) }];
+    while (stack.length && spent <= BUDGET) {
+      spent++;
+      const it = stack.pop()!;
+      if (it.path.length >= 2) {
+        const a1 = alsList[it.path[0]!]!;
+        const an = alsList[it.idx]!;
+        // try every common digit Z not used as an RCC in the chain
+        const commonZ = digitsOf(a1.digitMask & an.digitMask).filter((z) => !it.usedRcc.has(z));
+        for (const z of commonZ) {
+          // Z must "see through": for the chain to force Z false outside, the
+          // standard condition is that Z is a common candidate of A1 and An that
+          // is NOT an RCC of any adjacent link (guaranteed by usedRcc). Apply the
+          // endpoint elimination.
+          const elims = zElims(grid, a1, an, z);
+          if (elims.length > 0) {
+            const pathCells = it.path.flatMap((i) => alsList[i]!.cells);
+            const links: import('../trace.js').Link[] = [];
+            for (let k = 0; k + 1 < it.path.length; k++) {
+              const A = alsList[it.path[k]!]!, B = alsList[it.path[k + 1]!]!;
+              const rcc = rccMap.get(`${it.path[k]},${it.path[k + 1]}`)!;
+              // representative RCC cell link
+              const ac = A.cells.find((c) => grid.candidatesOf(c) & maskOf(rcc[0]!));
+              const bc = B.cells.find((c) => grid.candidatesOf(c) & maskOf(rcc[0]!));
+              if (ac !== undefined && bc !== undefined) {
+                links.push({ from: { cell: ac, digit: rcc[0]! }, to: { cell: bc, digit: rcc[0]! }, type: 'strong' });
+              }
+            }
+            return {
+              strategyId,
+              placements: [],
+              eliminations: elims,
+              highlights: {
+                cells: [...new Set([...pathCells, ...elims.map((e) => e.cell)])],
+                candidates: [
+                  ...pathCells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                  ...elims,
+                ],
+                links,
+              },
+              explanation: {
+                zh: `ALS链：${it.path.length} 个 ALS 经受限公共候选数连接，首尾共享 ${z}；消去同时看到首尾 ALS 中所有 ${z} 的格的 ${z}。`,
+                en: `ALS-Chain: ${it.path.length} ALS linked by RCCs, endpoints share ${z}; eliminate ${z} from cells seeing all ${z} in both endpoint ALS.`,
+              },
+            };
+          }
+        }
+      }
+      if (it.path.length >= MAX_LEN) continue;
+      for (const nb of adj[it.idx]!) {
+        if (it.visited.has(nb)) continue;
+        const rcc = rccMap.get(`${it.idx},${nb}`)!;
+        // each link uses one RCC digit; pick the first (deterministic) — chain
+        // can use any single RCC per link; we branch on each RCC choice.
+        for (const r of rcc) {
+          if (it.usedRcc.has(r)) continue;
+          const used = new Set(it.usedRcc);
+          used.add(r);
+          const visited = new Set(it.visited);
+          visited.add(nb);
+          stack.push({ idx: nb, usedRcc: used, path: [...it.path, nb], visited });
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export const alsChain = makeAlsStrategy(
+  'als-chain',
+  { zh: 'ALS链', en: 'ALS-Chain' },
+  880,
+  ['chain-length', 'cell-index'],
+  tryALSChain,
+);
+
+// ===========================================================================
+// AHS — Almost Hidden Set (dual of ALS). N cells in a house with exactly N-1
+// distinct digits that are "hidden" (each appears in few cells). Provided as a
+// chain node; here we expose a simple, sound deduction: a 2-cell AHS in a house
+// (two cells holding collectively only 1 digit beyond a hidden single) acts as
+// a strong node. We implement the AHS-XZ analogue: two AHS in different houses
+// sharing a restricted digit X, eliminating the other shared digit Z from cells
+// seeing all Z in both AHS. Sound by the ALS/AHS duality.
+// ===========================================================================
+
+interface AHS {
+  house: number;
+  cells: number[];
+  digits: number[];    // exactly cells.length - 1 distinct digits
+  digitMask: number;
+}
+
+/** An AHS: cells that collectively contain exactly (cells.length - 1) digits,
+ *  i.e. one digit "missing" → that digit's placements are confined to these
+ *  cells in the house (a hidden locked set). We collect 2-cell AHS (one missing
+ *  digit → the present digit is a hidden single across these cells) and treat
+ *  the "missing" digit as the AHS's restricted candidate. */
+function findAHSInHouse(grid: Grid, house: readonly number[], houseIndex: number, maxSize: number): AHS[] {
+  const emptyCells = house.filter((c) => grid.get(c) === 0);
+  const result: AHS[] = [];
+  for (let size = 2; size <= Math.min(maxSize, emptyCells.length); size++) {
+    for (const combo of combinations(emptyCells, size)) {
+      let mask = 0;
+      for (const c of combo) mask |= grid.candidatesOf(c);
+      if (popcount(mask) === size - 1) {
+        result.push({ house: houseIndex, cells: combo, digits: digitsOf(mask), digitMask: mask });
+      }
+    }
+  }
+  return result;
+}
+
+function findAllAHS(grid: Grid): AHS[] {
+  const result: AHS[] = [];
+  const seen = new Set<string>();
+  for (let h = 0; h < HOUSES.length; h++) {
+    for (const ahs of findAHSInHouse(grid, HOUSES[h]!, h, 4)) {
+      const key = `${ahs.house}:${[...ahs.cells].sort((a, b) => a - b).join(',')}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        result.push(ahs);
+      }
+    }
+  }
+  return result;
+}
+
+/** AHS-XZ analogue: two AHS share a restricted digit X (all X-cells of A see all
+ *  X-cells of B) and another shared digit Z not X → eliminate Z from cells seeing
+ *  all Z in both AHS. Sound (AHS is the row/col/box-dual of an ALS). */
+function tryAHSXZ(grid: Grid, strategyId: string): Step | null {
+  const list = findAllAHS(grid);
+  for (let i = 0; i < list.length; i++) {
+    for (let j = i + 1; j < list.length; j++) {
+      const a = list[i]!, b = list[j]!;
+      const aSet = new Set(a.cells);
+      if (b.cells.some((c) => aSet.has(c))) continue;
+      const common = digitsOf(a.digitMask & b.digitMask);
+      for (const x of common) {
+        // X restricted: all x-cells of a see all x-cells of b
+        const aX = a.cells.filter((c) => grid.candidatesOf(c) & maskOf(x));
+        const bX = b.cells.filter((c) => grid.candidatesOf(c) & maskOf(x));
+        if (aX.length === 0 || bX.length === 0) continue;
+        let restricted = true;
+        for (const ac of aX) for (const bc of bX) if (!PEERS_OF[ac]!.includes(bc)) { restricted = false; break; }
+        if (!restricted) continue;
+        for (const z of common) {
+          if (z === x) continue;
+          const elims = zElims(grid, a as unknown as ALS, b as unknown as ALS, z);
+          if (elims.length === 0) continue;
+          const allCells = [...a.cells, ...b.cells];
+          return {
+            strategyId,
+            placements: [],
+            eliminations: elims,
+            highlights: {
+              cells: [...new Set([...allCells, ...elims.map((e) => e.cell)])],
+              candidates: [
+                ...allCells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))),
+                ...elims,
+              ],
+              links: [],
+            },
+            explanation: {
+              zh: `AHS-XZ：两个几乎隐性集（{${a.digits.join(',')}} / {${b.digits.join(',')}}）经受限候选数 ${x} 连接；消去同时看到两者中所有 ${z} 的格的 ${z}。`,
+              en: `AHS-XZ: two Almost Hidden Sets ({${a.digits.join(',')}} / {${b.digits.join(',')}}) linked by restricted candidate ${x}; eliminate ${z} from cells seeing all ${z} in both.`,
+            },
+          };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export const ahs: Strategy = {
+  id: 'ahs',
+  name: { zh: '几乎隐性集', en: 'Almost Hidden Set' },
+  difficulty: 885,
+  tieBreak: ['cell-index'],
+  apply(grid: Grid): Step | null {
+    return tryAHSXZ(grid, 'ahs');
+  },
+};
