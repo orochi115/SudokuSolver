@@ -75,4 +75,40 @@ describe('gate 1 — strategy profiles', () => {
     expect(strategiesForProfile()).toBe(STRATEGY_PROFILES['human-default']);
     expect(strategiesForProfile('last-resort')).toBe(STRATEGY_PROFILES['last-resort']);
   });
+
+  // P3 anti-pollution gate (diabolical-727-checklist §P3 隔离声明):
+  // every P3 / red-line strategy id MUST be last-resort only and MUST NOT leak
+  // into the human-default profile. A leak here is an automatic FAIL.
+  const P3_IDS = [
+    'forcing-chain',
+    'digit-forcing-chain',
+    'nishio-forcing-chain',
+    'cell-forcing-chain',
+    'region-forcing-chain',
+    'dic',
+    'forcing-net',
+    'kraken-fish',
+    'tabling',
+    'pom',
+    'templates',
+    'gem',
+  ];
+
+  it('every P3 id is a registered strategy', () => {
+    const ids = new Set(STRATEGIES.map((s) => s.id));
+    for (const id of P3_IDS) expect(ids.has(id), `P3 id ${id} not registered`).toBe(true);
+  });
+
+  it('every P3 id is a member of LAST_RESORT_IDS', () => {
+    for (const id of P3_IDS) {
+      expect(LAST_RESORT_IDS.has(id), `P3 id ${id} not in LAST_RESORT_IDS`).toBe(true);
+    }
+  });
+
+  it('no P3 id leaks into HUMAN_DEFAULT_STRATEGIES (anti-pollution)', () => {
+    const humanIds = new Set(HUMAN_DEFAULT_STRATEGIES.map((s) => s.id));
+    for (const id of P3_IDS) {
+      expect(humanIds.has(id), `P3 id ${id} leaked into human-default`).toBe(false);
+    }
+  });
 });

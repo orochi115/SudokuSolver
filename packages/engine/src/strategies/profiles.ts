@@ -28,7 +28,24 @@ export type StrategyProfile = 'human-default' | 'last-resort';
  * Add a strategy's id here when it is classified as P3 (forcing nets, Kraken,
  * POM, templates, GEM, …) — see docs/plans/diabolical-727.md § P3.
  */
-export const LAST_RESORT_IDS: ReadonlySet<string> = new Set<string>(['forcing-chain']);
+export const LAST_RESORT_IDS: ReadonlySet<string> = new Set<string>([
+  'forcing-chain',
+  // P3 forcing-chain sub-types (reuse the forcing engine, named by premise type)
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  // P3 forcing net (multi-branch owner)
+  'forcing-net',
+  // P3 fish + chains combination
+  'kraken-fish',
+  // P3 enumeration class
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
+]);
 
 /** Strategies in the default human-solving path (excludes P3 / red-line). */
 export const HUMAN_DEFAULT_STRATEGIES: readonly Strategy[] = STRATEGIES.filter(

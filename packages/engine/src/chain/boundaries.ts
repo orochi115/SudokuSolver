@@ -84,6 +84,48 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: true,
     profiles: ['last-resort'],
   },
+  {
+    strategyId: 'digit-forcing-chain',
+    owns: 'Forcing chain from a digit confined to two spots in a house (named sub-type of the forcing engine).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'nishio-forcing-chain',
+    owns: 'Single-candidate assumption propagated to a naked-singles contradiction (Nishio).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'cell-forcing-chain',
+    owns: 'Forcing chain from a bivalue cell (two-value dichotomy) over the link graph.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'region-forcing-chain',
+    owns: 'Forcing chain from a digit confined to two spots in a region, full naked-singles propagation.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'dic',
+    owns: 'Double Implication Chain — two-branch forcing whose common conclusion (elimination/placement) holds in both branches.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'forcing-net',
+    owns: 'Multi-branch (>=3) forcing net over a house digit positions or a trivalue cell; intersection of all branches.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'kraken-fish',
+    owns: 'Finned fish reinforced by forcing chains from each fin (fish + chains combination). Conservative (returns null) until full detector; registered id.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
 ];
 
 /**
