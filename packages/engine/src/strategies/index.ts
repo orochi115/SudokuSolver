@@ -76,6 +76,15 @@ import {
   skLoop,
   vwxyzWing,
 } from './p2a-exotic.js';
+import {
+  aicWithExoticLinks,
+  frankenFish,
+  gurth,
+  mutantFish,
+  subsetExclusion,
+  sueDeCoqExtended,
+  twinnedXyChains,
+} from './p2b-exotic.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -125,6 +134,8 @@ export const STRATEGIES: readonly Strategy[] = [
   aic,                // 750
   aicWithAls,         // 760
   aicWithUr,          // 770
+  twinnedXyChains,    // 775
+  aicWithExoticLinks, // 780
   alsXz,              // 810
   alsXzDoublyLinked,  // 820
   alsXyWing,          // 840
@@ -147,11 +158,16 @@ export const STRATEGIES: readonly Strategy[] = [
   uniqueLoop,          // 985
   bugLite,             // 986
   bugPlusN,            // 987
+  gurth,               // 990
   sueDeCoq,           // 1010
+  sueDeCoqExtended,   // 1015
   fireworks,          // 1050
+  frankenFish,        // 1080
+  mutantFish,         // 1090
   tridagon,           // 1100
   alignedPairExclusion, // 1120
   alignedTripleExclusion, // 1130
+  subsetExclusion,    // 1140
   exocet,             // 1200
   skLoop,             // 1250
   msls,               // 1300
@@ -204,6 +220,8 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'aic',
   'aic-with-als',
   'aic-with-ur',
+  'twinned-xy-chains',
+  'aic-with-exotic-links',
   'als-xz',
   'als-xz-doubly-linked',
   'als-xy-wing',
@@ -226,11 +244,16 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'unique-loop',
   'bug-lite',
   'bug-plus-n',
+  'gurth',
   'sue-de-coq',
+  'sue-de-coq-extended',
   'fireworks',
+  'franken-fish',
+  'mutant-fish',
   'tridagon',
   'aligned-pair-exclusion',
   'aligned-triple-exclusion',
+  'subset-exclusion',
   'exocet',
   'sk-loop',
   'msls',
@@ -276,6 +299,8 @@ export {
   aic,
   aicWithAls,
   aicWithUr,
+  twinnedXyChains,
+  aicWithExoticLinks,
   alsXz,
   alsXzDoublyLinked,
   alsXyWing,
@@ -298,11 +323,16 @@ export {
   uniqueLoop,
   bugLite,
   bugPlusN,
+  gurth,
   sueDeCoq,
+  sueDeCoqExtended,
   fireworks,
+  frankenFish,
+  mutantFish,
   tridagon,
   alignedPairExclusion,
   alignedTripleExclusion,
+  subsetExclusion,
   exocet,
   skLoop,
   msls,

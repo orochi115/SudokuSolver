@@ -78,6 +78,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  {
+    strategyId: 'twinned-xy-chains',
+    owns: 'Two coordinated bivalue XY chains; registered as a non-branching XY-chain family presentation.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-exotic-links',
+    owns: 'AIC presentation for named exotic link nodes; no contradiction, forcing, or multi-branch search.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

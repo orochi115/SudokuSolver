@@ -35,6 +35,24 @@ export interface OverlapFamily {
 
 export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
+    id: 'fish-base-cover',
+    canonicalOwner: 'x-wing',
+    members: [
+      'x-wing',
+      'swordfish',
+      'jellyfish',
+      'finned-x-wing',
+      'finned-swordfish',
+      'finned-jellyfish',
+      'franken-fish',
+      'mutant-fish',
+    ],
+    unified: false,
+    note:
+      'Base/cover fish family. Franken and Mutant fish are registered as conservative fish-extension owners; ' +
+      'Endo fins, cannibalism, and Siamese presentations belong here rather than to chain/forcing owners.',
+  },
+  {
     id: 'single-digit-strong-link',
     canonicalOwner: 'x-chain',
     members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle', 'turbot-fish'],
@@ -49,7 +67,17 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-ur'],
+    members: [
+      'aic',
+      'x-chain',
+      'w-wing',
+      'xy-chain',
+      'nice-loop',
+      'remote-pairs',
+      'aic-with-ur',
+      'twinned-xy-chains',
+      'aic-with-exotic-links',
+    ],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
@@ -87,6 +115,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-loop',
       'bug-lite',
       'bug-plus-n',
+      'gurth',
     ],
     futureMembers: ['avoidable-rectangle'],
     unified: false,
@@ -107,6 +136,13 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
     members: ['wxyz-wing', 'vwxyz-wing', 'bent-sets', 'broken-wing'],
     unified: true,
     note: 'Advanced wing and bent-set family. WXYZ/VWXYZ/Bent Sets reuse ALS-family sound eliminations where applicable; Broken Wing is reserved as a conservative detector shell.',
+  },
+  {
+    id: 'sue-de-coq',
+    canonicalOwner: 'sue-de-coq',
+    members: ['sue-de-coq', 'sue-de-coq-extended'],
+    unified: true,
+    note: 'Extended Sue de Coq reuses the same row/column-box intersection owner; larger/double-line forms stay conservative until non-search matching is added.',
   },
   {
     id: 'exotic-tridagon',
@@ -139,8 +175,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aligned-exclusion',
     canonicalOwner: 'aligned-pair-exclusion',
-    members: ['aligned-pair-exclusion', 'aligned-triple-exclusion'],
-    futureMembers: ['subset-exclusion'],
+    members: ['aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion'],
     unified: true,
     note: 'APE/ATE are aligned special cases of Subset Exclusion. Current owner implements the common-bivalue ALS exclusion subcase without puzzle search.',
   },
