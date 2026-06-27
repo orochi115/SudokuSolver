@@ -26,6 +26,10 @@ MAX_PAR="${MAX_PAR:-8}"               # API-turn concurrency; shared-key pairs s
 VERIFY_MAX="${VERIFY_MAX:-3}"         # local verify concurrency cap (protects the laptop); used by run-model
 SERIAL_PROVIDERS="${SERIAL_PROVIDERS:-amazon-bedrock alibaba-cn siliconflow-cn grok}"
 SERIAL_CAP="${SERIAL_CAP:-1}"
+# Stagger between launches so N models don't all cold-start at once (npm install + MCP
+# spin-up + first API turn). The run2 grok Read tool_output_error was contention at the
+# 8-way simultaneous cold-start; spreading launches out gives each room to initialize.
+LAUNCH_STAGGER="${LAUNCH_STAGGER:-8}"
 export VERIFY_MAX
 STATUS_DIR="$R2/reports/status"
 PHASES=(p0 p1 p2a p2b e p3)
@@ -128,7 +132,7 @@ _on_sig() {
 trap '_on_sig TERM' TERM; trap '_on_sig HUP' HUP; trap '_on_sig INT' INT
 HEARTBEAT="${HEARTBEAT_SEC:-60}"; last_hb=$START   # periodic liveness so the scheduler is never output-silent
 
-echo "Scheduler: MAX_PAR=$MAX_PAR, serial=[$SERIAL_PROVIDERS]@$SERIAL_CAP, RETRIES=$RETRIES, phases=[${PHASES[*]}], $n_models models"
+echo "Scheduler: MAX_PAR=$MAX_PAR, stagger=${LAUNCH_STAGGER}s, serial=[$SERIAL_PROVIDERS]@$SERIAL_CAP, RETRIES=$RETRIES, phases=[${PHASES[*]}], $n_models models"
 
 while [ "$(remaining)" -gt 0 ] || [ "${#run_pids[@]}" -gt 0 ]; do
   reap; progressed=0
@@ -146,6 +150,8 @@ while [ "$(remaining)" -gt 0 ] || [ "${#run_pids[@]}" -gt 0 ]; do
         "$SELF" --one "${models[$i]}" "${names[$i]}" "${runners[$i]}" "$p" &
         run_pids+=("$!"); run_provs+=("$p"); launched[$i]="1"; progressed=1
         echo "launched ${names[$i]} ($p / ${runners[$i]})  [running=${#run_pids[@]}]"
+        # stagger cold-starts (skip the wait once all models are already running)
+        [ "$(remaining)" -gt 0 ] && sleep "$LAUNCH_STAGGER"
       fi
     done
   fi
