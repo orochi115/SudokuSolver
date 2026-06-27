@@ -1,15 +1,31 @@
-# P0 关键发现
+# Findings & Decisions
 
-## 现有架构
-- `buildLinkGraph` 已支持 group nodes、bivalue strong links、单数字强链。
-- `searchAic` 返回 `AicResult` 含 kind: 'type1' | 'type2' | 'discontinuous-loop' | 'continuous-loop'，但当前 `aic.ts` 只消费 type1/type2 open chain，loop kinds 未被使用。
-- `boundaries.ts` 已预留 `nice-loop` 和 `xy-chain`，`overlap.ts` 已预留这些 id 的 futureMembers。
-- `uniqueness.ts` 目前是 3 个独立函数，需扩展为共享 UR engine。
+## Requirements
+- 在 P0（33 策略）基础上实现 P1 全部 28 个 strategyId（见 checklist §P1）。
+- 必须实现：finned-x-wing、finned-swordfish、finned-jellyfish、nice-loop、xy-chain、turbot-fish、hidden-unique-rectangle、unique-rectangle-type-3/5/6、tridagon、multi-coloring、3d-medusa、als-chain、ahs、wxyz-wing、remote-pairs、bent-sets、broken-wing、avoidable-rectangle-type-1/2/3/4、extended-unique-rectangle、unique-loop、bug-lite、bug-plus-n、aic-with-als、aic-with-ur。
+- 耦合重构 E4：als-xy-wing 降为 als-chain 的 len-2 特例。
+- 产出 `docs/notes/p1.md`；勾选 checklist；通过 typecheck / npm test / 400 ground-truth / 727 增量。
 
-## 验收失败原因
-- 缺少 strategyId: finned-x-wing, finned-swordfish, finned-jellyfish, nice-loop, xy-chain, turbot-fish, hidden-unique-rectangle, unique-rectangle-type-3, unique-rectangle-type-5, unique-rectangle-type-6。
+## Research Findings
+- 待填充。
 
-## 实现顺序
-1. Finned fish（复用 basic-fish 结构）
-2. Nice loop / XY-chain / Turbot fish（复用链引擎）
-3. UR 扩展（扩展 uniqueness.ts）
+## Technical Decisions
+| Decision | Rationale |
+|----------|-----------|
+| 待记录 | 待记录 |
+
+## Issues Encountered
+| Issue | Resolution |
+|-------|------------|
+| 无 | 无 |
+
+## Resources
+- `docs/plans/diabolical-727-checklist.md`
+- `docs/strategy-implementation-guide.md`
+- `packages/engine/src/strategy.ts`
+- `packages/engine/src/strategies/index.ts`
+- `packages/engine/src/strategies/overlap.ts`
+- `packages/engine/src/chain/boundaries.ts`
+
+## Visual/Browser Findings
+- 无。

@@ -1,52 +1,68 @@
-# P0 策略补全任务计划
+# Task Plan: P1 标准进阶策略实现（diabolical-727）
 
-## 目标
-实现 Roadmap ② P0 全部 10 个 strategyId，提升 727 diabolical 残集 human-default 解出率。
+## Goal
+在已完成 P0 的 33 个策略基础上，实现 `docs/plans/diabolical-727-checklist.md` §P1 列出的全部 28 个 strategyId，完成必要重构（E4 ALS 收编），通过类型检查与全量测试，提升 727 解出率并产出设计说明 `docs/notes/p1.md`。
 
-## 阶段
+## Current Phase
+Phase 1
 
-### 阶段 1: 基础设施与读取 (done)
-- [x] 读取项目结构、契约文件、现有策略实现、研究卡、测试。
+## Phases
 
-### 阶段 2: Finned/Sashimi Fish
-- [ ] 在 `basic-fish.ts` 旁创建 `finned-fish.ts`
-- [ ] 实现统一 finned-fish detector，按 size 发 id `finned-x-wing`/`finned-swordfish`/`finned-jellyfish`
-- [ ] 单元测试（用 worked example）
-- [ ] 注册到 index.ts / overlap.ts
+### Phase 1: Requirements & Discovery
+- [x] 阅读 §P1 表与实现指南
+- [ ] 探索现有 strategies/、overlap.ts、boundaries.ts、engine 接口
+- [ ] 阅读研究卡（P1  exotic/coloring/ALS/AHS/wing/UR 相关）
+- [ ] 记录 findings.md
+- **Status:** in_progress
 
-### 阶段 3: 链引擎扩展 (nice-loop, xy-chain, turbot-fish)
-- [ ] 扩展 `aic-search.ts` / `chain/graph.ts` 以返回 loop kinds，或复用 searchAic
-- [ ] 实现 `nice-loop` (continuous/discontinuous)
-- [ ] 实现 `xy-chain` (复用 AIC 但限制 bivalue cells)
-- [ ] 实现 `turbot-fish` (presentation alias，复用 x-chain)
-- [ ] E6: aic 不私自发 loop；nice-loop 接管 loop kinds
-- [ ] E2: 评估 unified single-digit strong-link family
-- [ ] 单元测试
-- [ ] 注册到 index.ts / overlap.ts / boundaries.ts
+### Phase 2: Planning & Structure
+- [ ] 确定各 strategyId 的复用 owner 与 detector 分配
+- [ ] 确定 difficulty 与 CANONICAL_STRATEGY_ORDER 插入位置
+- [ ] 规划新增/修改文件清单
+- **Status:** pending
 
-### 阶段 4: UR 扩展 (type 3/5/6 + hidden UR)
-- [ ] 重构/扩展 uniqueness.ts 为共享 UR engine
-- [ ] 实现 `unique-rectangle-type-3`
-- [ ] 实现 `unique-rectangle-type-5`
-- [ ] 实现 `unique-rectangle-type-6`
-- [ ] 实现 `hidden-unique-rectangle`
-- [ ] E3: 3 个独立 UR detector 收敛为共享 engine
-- [ ] 单元测试
-- [ ] 注册到 index.ts / overlap.ts
+### Phase 3: Implementation
+- [ ] 实现 finned fish 三策略
+- [ ] 实现 coloring 族（multi-coloring、3d-medusa）
+- [ ] 实现 chain/AIC 族扩展（nice-loop、xy-chain、turbot-fish 若 P0 未做、AIC-with-ALS/UR）
+- [ ] 实现 wing/bent/oddagon 族（wxyz-wing、remote-pairs、bent-sets、broken-wing）
+- [ ] 实现 uniqueness 扩展（AR1–4、EUR、unique-loop、BUG 变体）
+- [ ] 实现 ALS/AHS 族并落 E4 收编
+- [ ] 实现 tridagon
+- [ ] 更新 overlap.ts / boundaries.ts / profiles.ts / index.ts
+- **Status:** pending
 
-### 阶段 5: 验证与文档
+### Phase 4: Testing & Verification
 - [ ] `npm run typecheck` exit 0
-- [ ] `npm test` 全绿
-- [ ] 400 ground-truth 零 violation
-- [ ] 727 human-default / last-resort 跑分
-- [ ] 更新 `docs/plans/diabolical-727-checklist.md` §P0 勾选
-- [ ] 撰写 `docs/notes/p0.md`
+- [ ] `npm test` 全部通过
+- [ ] `data/ground-truth/` 全 400 题零 violation
+- [ ] 727 增量：`npm run solve:list -- --profile human-default` 与 last-resort
+- [ ] 写 `docs/notes/p1.md`
+- **Status:** pending
 
-## 当前问题
-- 上阶段验收因缺少 10 个 strategyId 被退回。
-- 当前 human-default 727 solved = 0，需补全策略提升。
+### Phase 5: Delivery
+- [ ] 更新 checklist §P1 与 E4 勾选
+- [ ] 最终自检：无枚举伪装、无暴力求解器调用
+- **Status:** pending
 
-## 约束
-- 不修改地基、既有 33 策略行为。
-- 不调用暴力求解器。
-- 每个策略必须有 soundness 测试。
+## Key Questions
+1. P0 实际已实现哪些策略？基线 727 解出数是多少？
+2. 哪些 P1 策略可共享 detector/owner，哪些必须新建？
+3. ALS-chain 的通用实现如何兼容现有 als-xy-wing？
+4. AIC-with-ALS/UR 的链节点类型如何扩展 buildLinkGraph？
+5. 全语料运行耗时与是否需要增量调试？
+
+## Decisions Made
+| Decision | Rationale |
+|----------|-----------|
+| 待记录 | 待记录 |
+
+## Errors Encountered
+| Error | Attempt | Resolution |
+|-------|---------|------------|
+| python 命令未找到 | 1 | 使用 python3 |
+
+## Notes
+- 用户要求 headless 自主执行，不写进 QUESTIONS.md 除非遇到会阻塞实现的歧义。
+- 所有新增策略必须精确注册 strategyId，缺一即退回重试。
+- 严禁 human-default 策略内部做试错/穷举/调用暴力求解器。
