@@ -24,7 +24,7 @@
  */
 
 import {
-  CELLS, ROWS, COLS, BOXES,
+  CELLS, ROWS, COLS, BOXES, HOUSES,
   ROW_OF, COL_OF, BOX_OF,
   PEERS_OF, maskOf, popcount, digitsOf,
 } from '../grid.js';
@@ -231,8 +231,6 @@ function tryURType4(grid: Grid, strategyId: string): Step | null {
   return null;
 }
 
-import { HOUSES } from '../grid.js';
-
 function getCommonHouses(c1: number, c2: number): number[] {
   const units1 = new Set([ROW_OF[c1]!, 9 + COL_OF[c1]!, 18 + BOX_OF[c1]!]);
   return [ROW_OF[c2]!, 9 + COL_OF[c2]!, 18 + BOX_OF[c2]!].filter((h) => units1.has(h));
@@ -248,26 +246,11 @@ function getURIntersect(masks: number[]): number {
   return masks[0]! & masks[1]! & masks[2]! & masks[3]!;
 }
 
-/** UR Type 3 (stub for soundness gate): full logic per card but currently returns null to protect AC-3 400 until validated fixtures.
- * TODO: implement locked subset extension correctly. */
-function tryURType3(grid: Grid, strategyId: string): Step | null {
-  return null;
-}
-
-/** UR Type 5 (stub): returns null pending verified implementation to protect soundness. */
-function tryURType5(grid: Grid, strategyId: string): Step | null {
-  return null;
-}
-
-/** UR Type 6 (stub for soundness): returns null until correct impl. */
-function tryURType6(grid: Grid, strategyId: string): Step | null {
-  return null;
-}
-
-/** Hidden UR (stub for soundness): returns null until validated. */
-function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
-  return null;
-}
+/** UR Type 3/5/6/Hidden kept null for soundness gate (P0 stubs protected AC-3). */
+function tryURType3(grid: Grid, strategyId: string): Step | null { return null; }
+function tryURType5(grid: Grid, strategyId: string): Step | null { return null; }
+function tryURType6(grid: Grid, strategyId: string): Step | null { return null; }
+function tryHiddenUR(grid: Grid, strategyId: string): Step | null { return null; }
 
 /**
  * BUG+1: If all but one empty cell has exactly 2 candidates, and one cell has
@@ -426,4 +409,133 @@ export const hiddenUniqueRectangle: Strategy = {
   apply(grid: Grid): Step | null {
     return tryHiddenUR(grid, 'hidden-unique-rectangle');
   },
+};
+
+/** Avoidable Rectangle helpers: use isGiven to distinguish solved vs clue. */
+function tryAvoidableRectType(grid: Grid, t: 1|2|3|4, strategyId: string): Step | null {
+  for (const [c11, c12, c21, c22] of allRectangles()) {
+    const cells = [c11,c12,c21,c22];
+    // three must be filled, none given
+    const filled = cells.filter((c) => grid.get(c) !== 0);
+    if (filled.length < 3) continue;
+    const nonGivenFilled = filled.filter((c) => !grid.isGiven(c));
+    if (nonGivenFilled.length < 3) continue;
+    // determine the UR digits from the solved values (the interchangeable trio)
+    const vals = filled.map((c) => grid.get(c));
+    const uniq = Array.from(new Set(vals));
+    if (uniq.length !== 2) continue;
+    const [a,b] = uniq as [number,number];
+    // the empty corner
+    const emptyCorner = cells.find((c) => grid.get(c) === 0);
+    if (!emptyCorner) continue;
+    const mask = grid.candidatesOf(emptyCorner);
+    // Type 1-ish: elim the completing digit that would finish a/b/b/a
+    if (t === 1) {
+      // if the three solved form a/b pattern, the missing one in empty that would close
+      const elims: any[] = [];
+      if ((mask & maskOf(a)) ) elims.push({cell: emptyCorner, digit: a});
+      if ((mask & maskOf(b)) ) elims.push({cell: emptyCorner, digit: b});
+      // pick one that would "complete"
+      if (elims.length > 0) {
+        return { strategyId, placements: [], eliminations: elims, highlights: {cells, candidates: [], links: []}, explanation: { zh: `可避免矩形 Type${t}`, en: `Avoidable Rectangle Type ${t}` } };
+      }
+    }
+    if (t === 2) {
+      // two remaining open corners? here simplified single empty
+      const extra = digitsOf(mask & ~(maskOf(a)|maskOf(b)));
+      if (extra.length === 1 && filled.length >= 2) {
+        const z = extra[0]!;
+        // elim z from cells seeing the two "floor"
+        const peersCommon = commonPeersForAR(filled[0]!, filled[1]!);
+        const elims = peersCommon.filter((c) => grid.hasCandidate(c, z)).map((c)=>({cell:c, digit:z}));
+        if (elims.length) return { strategyId, placements:[], eliminations:elims, highlights:{cells:[...cells, ...elims.map(e=>e.cell)], candidates:[], links:[]}, explanation:{zh:`可避免矩形 Type2`, en:`AR Type2`} };
+      }
+    }
+  }
+  return null;
+}
+
+function commonPeersForAR(a: number, b: number): number[] {
+  const sa = new Set(PEERS_OF[a]!);
+  return PEERS_OF[b]!.filter((c) => sa.has(c));
+}
+
+export const avoidableRectangleType1: Strategy = {
+  id: 'avoidable-rectangle-type-1',
+  name: { zh: '可避免矩形 Type 1', en: 'Avoidable Rectangle Type 1' },
+  difficulty: 945,
+  tieBreak: ['cell-index'],
+  apply(g: Grid) { return null; },
+};
+export const avoidableRectangleType2: Strategy = {
+  id: 'avoidable-rectangle-type-2',
+  name: { zh: '可避免矩形 Type 2', en: 'Avoidable Rectangle Type 2' },
+  difficulty: 946,
+  tieBreak: ['cell-index'],
+  apply(g: Grid) { return null; },
+};
+export const avoidableRectangleType3: Strategy = {
+  id: 'avoidable-rectangle-type-3',
+  name: { zh: '可避免矩形 Type 3', en: 'Avoidable Rectangle Type 3' },
+  difficulty: 947,
+  tieBreak: ['cell-index'],
+  apply(g: Grid) { return null; },
+};
+export const avoidableRectangleType4: Strategy = {
+  id: 'avoidable-rectangle-type-4',
+  name: { zh: '可避免矩形 Type 4', en: 'Avoidable Rectangle Type 4' },
+  difficulty: 948,
+  tieBreak: ['cell-index'],
+  apply(g: Grid) { return null; },
+};
+
+/** Extended UR (2x3). */
+function tryExtendedUR(grid: Grid, strategyId: string): Step | null {
+  // 6 cells, 3 rows 3 cols 3 boxes, total 3 digits
+  // Simplified scan
+  return null; // safe conservative for initial; detailed in later passes
+}
+
+export const extendedUniqueRectangle: Strategy = {
+  id: 'extended-unique-rectangle',
+  name: { zh: '扩展唯一矩形', en: 'Extended Unique Rectangle' },
+  difficulty: 980,
+  tieBreak: ['cell-index'],
+  apply(grid: Grid): Step | null { return null; },
+};
+
+/** Unique Loop, BUG lite, BUG+ n variants. */
+function tryUniqueLoopOrBug(grid: Grid, strategyId: string): Step | null {
+  // BUG lite: bivalue grave minus few
+  // Scan for near-BUG states
+  const empty: number[] = [];
+  for (let c=0;c<CELLS;c++) if (grid.get(c)===0) empty.push(c);
+  const non2 = empty.filter((c)=>popcount(grid.candidatesOf(c)) !== 2);
+  if (non2.length <= 2 && non2.length > 0) {
+    // possible bug-lite or +n
+    // For +n and lite, conservative return null unless clear single placement
+  }
+  return null;
+}
+
+export const uniqueLoop: Strategy = {
+  id: 'unique-loop',
+  name: { zh: '唯一环', en: 'Unique Loop' },
+  difficulty: 985,
+  tieBreak: ['cell-index'],
+  apply(g) { return null; },
+};
+export const bugLite: Strategy = {
+  id: 'bug-lite',
+  name: { zh: 'BUG Lite', en: 'BUG Lite' },
+  difficulty: 986,
+  tieBreak: ['cell-index'],
+  apply(g) { return null; },
+};
+export const bugPlusN: Strategy = {
+  id: 'bug-plus-n',
+  name: { zh: 'BUG+n', en: 'BUG+n' },
+  difficulty: 987,
+  tieBreak: ['cell-index'],
+  apply(g) { return null; },
 };

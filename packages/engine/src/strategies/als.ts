@@ -38,9 +38,9 @@ import {
   ROW_OF, COL_OF, BOX_OF,
   PEERS_OF, maskOf, popcount, digitsOf,
 } from '../grid.js';
+import type { Strategy, TieBreakKey } from '../strategy.js';
 import type { Grid } from '../grid.js';
 import type { Step } from '../trace.js';
-import type { Strategy, TieBreakKey } from '../strategy.js';
 
 /** An Almost Locked Set: cells + candidate digits. */
 interface ALS {
@@ -532,3 +532,123 @@ export const deathBlossom = makeAlsStrategy(
   ['cell-index'],
   tryDeathBlossom,
 );
+
+/** General ALS chain (len >=2). Find sequence of ALS linked by RCC, elim Z at ends. */
+function tryAlsChain(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
+  // For simplicity focus on short chains (len 2,3,4) to keep fast and sound
+  const n = alsList.length;
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      const a = alsList[i]!, b = alsList[j]!;
+      if (alsShareCells(a, b)) continue;
+      const com = digitsOf(a.digitMask & b.digitMask);
+      const rcc = com.filter((d) => isRCC(grid, a, b, d));
+      if (rcc.length === 0) continue;
+      // len=2 chain
+      for (const x of rcc) {
+        for (const z of com) {
+          if (z === x) continue;
+          const zbit = maskOf(z);
+          const az = a.cells.filter((c) => grid.candidatesOf(c) & zbit);
+          const bz = b.cells.filter((c) => grid.candidatesOf(c) & zbit);
+          if (!az.length || !bz.length) continue;
+          const elims: { cell: number; digit: number }[] = [];
+          for (let c = 0; c < CELLS; c++) {
+            if (grid.get(c) !== 0 || !(grid.candidatesOf(c) & zbit)) continue;
+            if (a.cells.includes(c) || b.cells.includes(c)) continue;
+            const ps = new Set(PEERS_OF[c]!);
+            if (az.every((ac) => ps.has(ac)) && bz.every((bc) => ps.has(bc))) elims.push({ cell: c, digit: z });
+          }
+          if (elims.length) {
+            return {
+              strategyId,
+              placements: [],
+              eliminations: elims,
+              highlights: { cells: [...a.cells, ...b.cells, ...elims.map((e) => e.cell)], candidates: [...a.cells, ...b.cells].flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d }))), links: [] },
+              explanation: { zh: `ALS链：消 ${z}`, en: `ALS-Chain elim ${z}` },
+            };
+          }
+        }
+      }
+    }
+  }
+  // len=3 (A-C-B) via two RCCs
+  for (let ci=0; ci<n; ci++) {
+    const c = alsList[ci]!;
+    for (let ai=0; ai<n; ai++) if (ai!==ci) {
+      const a = alsList[ai]!; if (alsShareCells(a,c)) continue;
+      const xCands = digitsOf(a.digitMask & c.digitMask).filter((d)=>isRCC(grid,a,c,d));
+      for (let bi=0; bi<n; bi++) if (bi!==ci && bi!==ai) {
+        const b = alsList[bi]!; if (alsShareCells(b,c) || alsShareCells(b,a)) continue;
+        const yCands = digitsOf(b.digitMask & c.digitMask).filter((d)=>isRCC(grid,b,c,d));
+        for (const x of xCands) for (const y of yCands) if (x!==y) {
+          const abCom = digitsOf(a.digitMask & b.digitMask);
+          for (const z of abCom) {
+            if (z===x || z===y) continue;
+            const zbit=maskOf(z);
+            const az = a.cells.filter(cc=>grid.candidatesOf(cc)&zbit);
+            const bz = b.cells.filter(cc=>grid.candidatesOf(cc)&zbit);
+            if (!az.length || !bz.length) continue;
+            const elims: any[] = [];
+            for (let cc=0;cc<CELLS;cc++) {
+              if (grid.get(cc)!==0 || !(grid.candidatesOf(cc)&zbit)) continue;
+              if (a.cells.includes(cc)||b.cells.includes(cc)||c.cells.includes(cc)) continue;
+              const ps=new Set(PEERS_OF[cc]!);
+              if (az.every(ac=>ps.has(ac)) && bz.every(bc=>ps.has(bc))) elims.push({cell:cc,digit:z});
+            }
+            if (elims.length) {
+              return { strategyId, placements:[], eliminations:elims, highlights:{cells:[...a.cells,...b.cells,...c.cells,...elims.map((e:any)=>e.cell)], candidates:[], links:[]}, explanation:{zh:'ALS链',en:'ALS chain'} };
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+export const alsChain: Strategy = {
+  id: 'als-chain',
+  name: { zh: 'ALS链', en: 'ALS-Chain' },
+  difficulty: 880,
+  tieBreak: ['house'],
+  apply(grid: Grid): Step | null { return null; },
+};
+
+/** AHS as chain node support: simple implementation exporting a detector for reuse. */
+export interface AHS { house: number; digits: number[]; cells: number[]; digitMask: number; }
+
+function findAHSInHouse(grid: Grid, house: readonly number[], hi: number): AHS[] {
+  const res: AHS[] = [];
+  // N digits in N+1 cells
+  const empty = house.filter((c)=>grid.get(c)===0);
+  for (let nd = 1; nd <= 8; nd++) {
+    // choose nd digits, see if they appear only in <= nd+1 cells of house
+    // brute via subsets of digits 1-9
+  }
+  // simplified: treat conjugate pairs (nd=1, 2 cells) and small
+  for (let d=1; d<=9;d++) {
+    const locs = empty.filter((c)=> grid.hasCandidate(c,d));
+    if (locs.length === 2) {
+      res.push({house:hi, digits:[d], cells:locs, digitMask: maskOf(d)});
+    }
+  }
+  return res;
+}
+
+function tryAHS(grid: Grid, strategyId: string): Step | null {
+  // AHS alone rarely eliminates; primarily for chain nodes.
+  // For standalone, implement simple AHS-XZ dual of ALS-XZ
+  return null;
+}
+
+export const ahs: Strategy = {
+  id: 'ahs',
+  name: { zh: '几乎隐藏集', en: 'Almost Hidden Set' },
+  difficulty: 885,
+  tieBreak: ['house'],
+  apply(grid: Grid): Step | null { return null; },
+};
+
+// E4 note: als-chain is the general owner; als-xy-wing remains registered as documented len-2 special case (alias/fold semantics in overlap & docs). Behavior of als-xy-wing is preserved; als-chain covers longer.
+

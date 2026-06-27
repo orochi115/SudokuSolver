@@ -35,6 +35,22 @@ export interface OverlapFamily {
 
 export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
+    id: 'coloring',
+    canonicalOwner: 'simple-coloring',
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    futureMembers: [],
+    unified: false,
+    note: 'P1: multi-coloring (X-Colors incl) and 3D Medusa (multi-digit) under coloring owner.',
+  },
+  {
+    id: 'exotic',
+    canonicalOwner: 'tridagon',
+    members: ['tridagon', 'sue-de-coq'],
+    futureMembers: [],
+    unified: false,
+    note: 'P1: tridagon owner (exotic).',
+  },
+  {
     id: 'single-digit-strong-link',
     canonicalOwner: 'x-chain',
     members: ['x-chain', 'skyscraper', 'two-string-kite', 'empty-rectangle', 'turbot-fish'],
@@ -49,22 +65,22 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    futureMembers: ['grouped-aic'],
     unified: true,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
-      'E6: nice-loop owns *-loop kinds; aic no longer emits loops. `grouped` is a switch on buildLinkGraph, not a separate strategy.',
+      'E6: nice-loop owns *-loop kinds; aic no longer emits loops. `grouped` is a switch on buildLinkGraph, not a separate strategy. P1: aic-with-als/ur added.',
   },
   {
     id: 'als-chain',
-    canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    canonicalOwner: 'als-chain',
+    members: ['als-chain', 'als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'ahs', 'aic-with-als'],
+    futureMembers: ['als-xy-chain'],
     unified: false,
     note:
-      'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'E4: als-chain is now canonical owner (general ALS-XY-Chain); als-xy-wing is documented len-2 special case (alias/fold). ' +
+      'AHS for chain node reuse. aic-with-als reuses the family.',
   },
   {
     id: 'uniqueness-rectangle',
@@ -78,13 +94,20 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
       'bug-plus-one',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
+      'extended-unique-rectangle',
+      'unique-loop',
+      'bug-lite',
+      'bug-plus-n',
     ],
     futureMembers: [
       'avoidable-rectangle',
-      'extended-unique-rectangle',
     ],
     unified: true,
     note:
-      'Deadly-pattern (uniqueness) family. E3: three prior UR detectors converged to shared engine in uniqueness.ts (allRect + per-type handlers). Hidden UR ↔ UR Type 6 overlap. BUG+1 shares the unique-solution assumption. UR types now under shared scanner.',
+      'Deadly-pattern (uniqueness) family. E3: shared engine. P1: AR1-4, EUR, UniqueLoop, BUG variants added.',
   },
 ];

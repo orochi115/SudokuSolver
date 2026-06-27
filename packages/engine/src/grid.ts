@@ -91,10 +91,13 @@ export class Grid {
   readonly values: Uint8Array;
   /** Candidate bitmask per cell (only meaningful when values[i] === 0). */
   readonly candidates: Uint16Array;
+  /** Original clue mask (1 = given/clue, never deduced). Used by AR etc. */
+  readonly givenMask: Uint8Array;
 
-  private constructor(values: Uint8Array, candidates: Uint16Array) {
+  private constructor(values: Uint8Array, candidates: Uint16Array, givenMask?: Uint8Array) {
     this.values = values;
     this.candidates = candidates;
+    this.givenMask = givenMask ?? new Uint8Array(CELLS);
   }
 
   /** Build a grid from an 81-char row-major string ('0' or '.' = empty). */
@@ -104,12 +107,15 @@ export class Grid {
       throw new Error(`Grid string must be ${CELLS} chars, got ${compact.length}`);
     }
     const values = new Uint8Array(CELLS);
+    const givenMask = new Uint8Array(CELLS);
     for (let i = 0; i < CELLS; i++) {
       const ch = compact[i]!;
-      values[i] = ch === '.' || ch === '0' ? 0 : Number(ch);
+      const v = ch === '.' || ch === '0' ? 0 : Number(ch);
+      values[i] = v;
+      if (v !== 0) givenMask[i] = 1;
     }
     const candidates = new Uint16Array(CELLS);
-    const g = new Grid(values, candidates);
+    const g = new Grid(values, candidates, givenMask);
     g.recomputeCandidates();
     return g;
   }
@@ -131,7 +137,7 @@ export class Grid {
   }
 
   clone(): Grid {
-    return new Grid(this.values.slice(), this.candidates.slice());
+    return new Grid(this.values.slice(), this.candidates.slice(), this.givenMask.slice());
   }
 
   get(cell: number): number {
@@ -144,6 +150,10 @@ export class Grid {
 
   hasCandidate(cell: number, digit: number): boolean {
     return this.values[cell] === 0 && (this.candidates[cell]! & maskOf(digit)) !== 0;
+  }
+
+  isGiven(cell: number): boolean {
+    return this.givenMask[cell] === 1;
   }
 
   /**
