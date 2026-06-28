@@ -29,28 +29,27 @@ function* allRectangles(): Generator<[number, number, number, number]> {
   }
 }
 
-/** Check that 3 solved cells with values {X,Y} form a valid deadly-pattern arrangement.
- *  In each row/column where both cells are solved, they must have different values.
- *  Otherwise the swap doesn't produce a legal alternate solution. */
-function arArrangementIsValid(values: number[], cells: number[]): boolean {
-  const idx = new Map<number, number>();
-  cells.forEach((c, i) => idx.set(c, i));
+function wouldFormDeadlyPattern(cellValues: number[], urDigit: number, targetIdx: number): boolean {
+  const test = [...cellValues];
+  test[targetIdx] = urDigit;
+  if (test.some(v => v === 0)) return false;
+  return (
+    (test[0]! !== test[1]!) &&
+    (test[2]! !== test[3]!) &&
+    (test[0]! !== test[2]!) &&
+    (test[1]! !== test[3]!)
+  );
+}
 
-  const setV = (i: number) => (i >= 0 && i < values.length) ? values[i]! : 0;
-
-  // row r1: cells[0]=c11, cells[1]=c12
-  if (values[0] !== 0 && values[1] !== 0 && values[0] === values[1]) return false;
-  // row r2: cells[2]=c21, cells[3]=c22
-  if (values[2] !== 0 && values[3] !== 0 && values[2] === values[3]) return false;
-  // col c1: cells[0]=c11, cells[2]=c21
-  if (values[0] !== 0 && values[2] !== 0 && values[0] === values[2]) return false;
-  // col c2: cells[1]=c12, cells[3]=c22
-  if (values[1] !== 0 && values[3] !== 0 && values[1] === values[3]) return false;
-
+function isValidArrangement(values: number[]): boolean {
+  const v = (i: number) => (i >= 0 && i < values.length) ? values[i]! : 0;
+  if (v(0) !== 0 && v(1) !== 0 && v(0) === v(1)) return false;
+  if (v(2) !== 0 && v(3) !== 0 && v(2) === v(3)) return false;
+  if (v(0) !== 0 && v(2) !== 0 && v(0) === v(2)) return false;
+  if (v(1) !== 0 && v(3) !== 0 && v(1) === v(3)) return false;
   return true;
 }
 
-/** AR Type 1: 3 corners solved with the same pair {X,Y}, 4th corner has candidates including X and Y plus extras */
 function tryARType1(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
@@ -60,45 +59,78 @@ function tryARType1(grid: Grid, strategyId: string): Step | null {
 
     const solvedVals = values.filter(v => v !== 0);
     if (new Set(solvedVals).size !== 2) continue;
+    if (!isValidArrangement(values)) continue;
 
-    if (!arArrangementIsValid(values, cells)) continue;
+    const r1 = ROW_OF[c11]!;
+    const r2 = ROW_OF[c21]!;
+    const c1 = COL_OF[c11]!;
+    const c2 = COL_OF[c12]!;
 
-    const unsolvedCell = cells[values.indexOf(0)]!;
     const [x, y] = [...new Set(solvedVals)] as [number, number];
+    const unsolvedIdx = values.indexOf(0);
+    const unsolvedCell = cells[unsolvedIdx]!;
     const urMask = maskOf(x) | maskOf(y);
 
     if (!(grid.candidatesOf(unsolvedCell) & urMask)) continue;
+    if (popcount(grid.candidatesOf(unsolvedCell)) <= 2) continue;
 
-    // Type 1: eliminate UR pair from unsolved cell if it has extra candidates
+    const cellSet = new Set(cells);
+    const urBitX = maskOf(x);
+    const urBitY = maskOf(y);
+    function confinedToRect(digit: number, bit: number): boolean {
+      const rows = [r1, r2];
+      const cols = [c1, c2];
+      for (const r of rows) {
+        let count = 0;
+        for (let i = 0; i < 9; i++) {
+          const cc = r * 9 + i;
+          if (cellSet.has(cc)) { count++; continue; }
+          if (grid.get(cc) === 0 && (grid.candidatesOf(cc) & bit)) count++;
+          else if (grid.get(cc) === digit) count++;
+        }
+        if (count > 2) return false;
+      }
+      for (const c of cols) {
+        let count = 0;
+        for (let i = 0; i < 9; i++) {
+          const cc = i * 9 + c;
+          if (cellSet.has(cc)) { count++; continue; }
+          if (grid.get(cc) === 0 && (grid.candidatesOf(cc) & bit)) count++;
+          else if (grid.get(cc) === digit) count++;
+        }
+        if (count > 2) return false;
+      }
+      return true;
+    }
+
     const eliminations: { cell: number; digit: number }[] = [];
-    if (grid.hasCandidate(unsolvedCell, x) && popcount(grid.candidatesOf(unsolvedCell)) > 2) {
+    if (grid.hasCandidate(unsolvedCell, x) && wouldFormDeadlyPattern(values, x, unsolvedIdx) && confinedToRect(x, urBitX)) {
       eliminations.push({ cell: unsolvedCell, digit: x });
     }
-    if (grid.hasCandidate(unsolvedCell, y) && popcount(grid.candidatesOf(unsolvedCell)) > 2) {
+    if (grid.hasCandidate(unsolvedCell, y) && wouldFormDeadlyPattern(values, y, unsolvedIdx) && confinedToRect(y, urBitY)) {
       eliminations.push({ cell: unsolvedCell, digit: y });
     }
 
-    if (eliminations.length > 0) {
-      return {
-        strategyId,
-        placements: [],
-        eliminations,
-        highlights: {
-          cells: [...cells],
-          candidates: cells.flatMap(c => grid.get(c) === 0 ? digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d })) : [{ cell: c, digit: grid.get(c) }]),
-          links: [],
-        },
-        explanation: {
-          zh: `可避矩形 Type1：三格已填 {${x},${y}}；第四格 ${cellLabel(unsolvedCell)} 亦有该对则形成死局，消去 {${x},${y}}。`,
-          en: `Avoidable Rectangle Type 1: three cells solved with {${x},${y}}; if ${cellLabel(unsolvedCell)} also has {${x},${y}} it's deadly; eliminate {${x},${y}} from it.`,
-        },
-      };
-    }
+    if (eliminations.length === 0) continue;
+
+    return {
+      strategyId,
+      placements: [],
+      eliminations,
+      highlights: {
+        cells: [...cells],
+        candidates: cells.flatMap(c => grid.get(c) === 0 ? digitsOf(grid.candidatesOf(c)).map(d => ({ cell: c, digit: d })) : [{ cell: c, digit: grid.get(c) }]),
+        links: [],
+      },
+      explanation: {
+        zh: `可避矩形 Type1：三格已填 {${x},${y}}；第四格 ${cellLabel(unsolvedCell)} 填 ${x} 或 ${y} 将形成致命模式，消去之。`,
+        en: `Avoidable Rectangle Type 1: three cells solved with {${x},${y}}; placing ${x} or ${y} in ${cellLabel(unsolvedCell)} would create deadly pattern; eliminate.`,
+      },
+    };
   }
   return null;
 }
 
-/** AR Type 2: 2 solved corners with {X,Y}, 2 floor cells both have extra candidate Z */
 function tryARType2(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
@@ -106,7 +138,7 @@ function tryARType2(grid: Grid, strategyId: string): Step | null {
     const solvedCount = values.filter(v => v !== 0).length;
     if (solvedCount !== 2) continue;
 
-    if (!arArrangementIsValid(values, cells)) continue;
+    if (!isValidArrangement(values)) continue;
 
     const solvedCells = cells.filter((_, i) => values[i] !== 0);
     const solvedVals = solvedCells.map(c => grid.get(c));
@@ -125,6 +157,11 @@ function tryARType2(grid: Grid, strategyId: string): Step | null {
     if (extras.some(e => e === null || popcount(e!.extra) !== 1)) continue;
     const z = digitsOf(extras[0]!.extra)[0]!;
     if (extras[1]!.extra !== extras[0]!.extra) continue;
+
+    const unsolvedIdx0 = cells.indexOf(unsolvedCells[0]!);
+    const unsolvedIdx1 = cells.indexOf(unsolvedCells[1]!);
+    if (!wouldFormDeadlyPattern(values, x, unsolvedIdx0) && !wouldFormDeadlyPattern(values, y, unsolvedIdx0)) continue;
+    if (!wouldFormDeadlyPattern(values, x, unsolvedIdx1) && !wouldFormDeadlyPattern(values, y, unsolvedIdx1)) continue;
 
     const eliminations: { cell: number; digit: number }[] = [];
     const peers0 = new Set(PEERS_OF[unsolvedCells[0]!]!);
@@ -154,7 +191,6 @@ function tryARType2(grid: Grid, strategyId: string): Step | null {
   return null;
 }
 
-/** AR Type 3: 2 solved corners, unsolved cells have extra digits forming a locked set with external cells */
 function tryARType3(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
@@ -162,7 +198,7 @@ function tryARType3(grid: Grid, strategyId: string): Step | null {
     const solvedCount = values.filter(v => v !== 0).length;
     if (solvedCount !== 2) continue;
 
-    if (!arArrangementIsValid(values, cells)) continue;
+    if (!isValidArrangement(values)) continue;
 
     const solvedCells = cells.filter((_, i) => values[i] !== 0);
     const solvedVals = solvedCells.map(c => grid.get(c));
@@ -177,11 +213,15 @@ function tryARType3(grid: Grid, strategyId: string): Step | null {
     const fc1Extra = grid.candidatesOf(floorCells[1]!) & ~urMask;
     if (fc0Extra === 0 || fc1Extra === 0) continue;
 
+    const unsolvedIdx0 = cells.indexOf(floorCells[0]!);
+    const unsolvedIdx1 = cells.indexOf(floorCells[1]!);
+    if (!wouldFormDeadlyPattern(values, x, unsolvedIdx0) && !wouldFormDeadlyPattern(values, y, unsolvedIdx0)) continue;
+    if (!wouldFormDeadlyPattern(values, x, unsolvedIdx1) && !wouldFormDeadlyPattern(values, y, unsolvedIdx1)) continue;
+
     const floorExtraMask = fc0Extra | fc1Extra;
     const extraDigits = digitsOf(floorExtraMask);
     if (extraDigits.length < 2) continue;
 
-    // Check common houses of floor cells
     const sharedHouses = [ROW_OF[floorCells[0]!]!, 9 + COL_OF[floorCells[0]!]!, 18 + BOX_OF[floorCells[0]!]!]
       .filter(h => [ROW_OF[floorCells[1]!]!, 9 + COL_OF[floorCells[1]!]!, 18 + BOX_OF[floorCells[1]!]!].includes(h));
 
@@ -226,7 +266,6 @@ function tryARType3(grid: Grid, strategyId: string): Step | null {
   return null;
 }
 
-/** AR Type 4: 2 solved corners, one UR digit is confined to floor cells */
 function tryARType4(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
     const cells = [c11, c12, c21, c22];
@@ -234,7 +273,7 @@ function tryARType4(grid: Grid, strategyId: string): Step | null {
     const solvedCount = values.filter(v => v !== 0).length;
     if (solvedCount !== 2) continue;
 
-    if (!arArrangementIsValid(values, cells)) continue;
+    if (!isValidArrangement(values)) continue;
 
     const solvedCells = cells.filter((_, i) => values[i] !== 0);
     const solvedVals = solvedCells.map(c => grid.get(c));
@@ -243,6 +282,11 @@ function tryARType4(grid: Grid, strategyId: string): Step | null {
 
     const floorCells = cells.filter((_, i) => values[i] === 0);
     if (floorCells.length !== 2) continue;
+
+    const unsolvedIdx0 = cells.indexOf(floorCells[0]!);
+    const unsolvedIdx1 = cells.indexOf(floorCells[1]!);
+    if (!wouldFormDeadlyPattern(values, x, unsolvedIdx0) && !wouldFormDeadlyPattern(values, y, unsolvedIdx0)) continue;
+    if (!wouldFormDeadlyPattern(values, x, unsolvedIdx1) && !wouldFormDeadlyPattern(values, y, unsolvedIdx1)) continue;
 
     for (const [locked, elim] of [[x, y], [y, x]] as [number, number][]) {
       const lockedBit = maskOf(locked);

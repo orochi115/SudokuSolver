@@ -74,7 +74,7 @@ export const wxyzWing: Strategy = {
                 if (!(grid.candidatesOf(c) & zBit)) continue;
                 if (c === pivot || testPetals.includes(c)) continue;
                 const peers = new Set(PEERS_OF[c]!);
-                if (testPetals.every(p => peers.has(p))) {
+                if (peers.has(pivot) && testPetals.every(p => peers.has(p))) {
                   eliminations.push({ cell: c, digit: z });
                 }
               }
@@ -123,7 +123,7 @@ export const wxyzWing: Strategy = {
             if (!(grid.candidatesOf(c) & zBit)) continue;
             if (c === pivot || usedPetals.includes(c)) continue;
             const peers = new Set(PEERS_OF[c]!);
-            if (usedPetals.every(p => peers.has(p))) {
+            if (peers.has(pivot) && usedPetals.every(p => peers.has(p))) {
               eliminations.push({ cell: c, digit: z });
             }
           }

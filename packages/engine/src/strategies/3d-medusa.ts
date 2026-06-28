@@ -61,6 +61,7 @@ export const medusa3d: Strategy = {
   id: '3d-medusa',
   name: { zh: '三维美杜莎染色', en: '3D Medusa' },
   difficulty: 640,
+  tieBreak: ['cell-index'],
 
   apply(grid: Grid): Step | null {
     const globalVisited = new Set<string>();
