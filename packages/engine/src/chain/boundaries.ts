@@ -127,6 +127,48 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  {
+    strategyId: 'vwxyz-wing',
+    owns: 'Bent Almost Locked Set of N cells / N digits (WXYZ size-ladder rung 5).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'exocet',
+    owns: 'Junior / Senior Exocet — base/target/S-cell forced-digit pattern.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'sk-loop',
+    owns: 'SK-Loop (Virus pattern) — 16-cell closed loop of hidden pairs across 4 boxes (MSLS special case).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'msls',
+    owns: 'Multi-Sector Locked Sets — rank-0 set logic across rows and columns.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'fireworks',
+    owns: 'Triple / Quad Fireworks — distributed hidden triple/quad on a row-col L inside a box.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aligned-pair-exclusion',
+    owns: 'APE — Aligned Pair Exclusion (combination enumeration over a 2-cell base + bivalue buddies).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aligned-triple-exclusion',
+    owns: 'ATE — Aligned Triple Exclusion (combination enumeration over a 3-cell base + bivalue buddies).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

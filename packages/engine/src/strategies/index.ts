@@ -56,12 +56,18 @@ import {
 import { extendedUniqueRectangle } from './extended-unique-rectangle.js';
 import { bugPlusN, bugLite, uniqueLoop } from './unique-loop.js';
 import { wxyzWing } from './wxyz-wing.js';
+import { vwxyzWing } from './vwxyz-wing.js';
 import { remotePairs } from './remote-pairs.js';
 import { bentSets } from './bent-sets.js';
 import { brokenWing } from './broken-wing.js';
 import { tridagon } from './tridagon.js';
 import { sueDeCoq } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
+import { exocet } from './exocet.js';
+import { skLoop } from './sk-loop.js';
+import { msls } from './msls.js';
+import { fireworks } from './fireworks.js';
+import { alignedPairExclusion, alignedTripleExclusion } from './aligned-exclusion.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -99,6 +105,7 @@ export const STRATEGIES: readonly Strategy[] = [
   remotePairs,        // 505
   turbotFish,         // 510
   wxyzWing,           // 520
+  vwxyzWing,          // 530
   bentSets,           // 540
   brokenWing,         // 560
 
@@ -135,7 +142,13 @@ export const STRATEGIES: readonly Strategy[] = [
   bugLite,            // 983
   uniqueLoop,         // 984
   sueDeCoq,           // 1010
+  fireworks,          // 1050
   tridagon,           // 1100
+  alignedPairExclusion, // 1120
+  alignedTripleExclusion, // 1130
+  exocet,             // 1200
+  skLoop,             // 1250
+  msls,               // 1300
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
@@ -173,6 +186,7 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'remote-pairs',
   'turbot-fish',
   'wxyz-wing',
+  'vwxyz-wing',
   'bent-sets',
   'broken-wing',
   'simple-coloring',
@@ -207,7 +221,13 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'bug-lite',
   'unique-loop',
   'sue-de-coq',
+  'fireworks',
   'tridagon',
+  'aligned-pair-exclusion',
+  'aligned-triple-exclusion',
+  'exocet',
+  'sk-loop',
+  'msls',
   'forcing-chain',
 ];
 
@@ -238,6 +258,7 @@ export {
   remotePairs,
   turbotFish,
   wxyzWing,
+  vwxyzWing,
   bentSets,
   brokenWing,
   simpleColoring,
@@ -272,6 +293,12 @@ export {
   bugLite,
   bugPlusN,
   sueDeCoq,
+  fireworks,
   tridagon,
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  exocet,
+  skLoop,
+  msls,
   forcingChain,
 };

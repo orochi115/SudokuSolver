@@ -126,8 +126,17 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'exotic',
     canonicalOwner: 'tridagon',
-    members: ['tridagon', 'sue-de-coq'],
-    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'franken-fish', 'mutant-fish', 'ape', 'ate', 'subset-exclusion', 'gurth'],
+    members: [
+      'tridagon',
+      'sue-de-coq',
+      'fireworks',
+      'aligned-pair-exclusion',
+      'aligned-triple-exclusion',
+      'exocet',
+      'sk-loop',
+      'msls',
+    ],
+    futureMembers: ['franken-fish', 'mutant-fish', 'subset-exclusion', 'gurth'],
     unified: false,
     note:
       'Exotic family: rare techniques on the hardest puzzles. `tridagon` (Thors Hammer) and `sue-de-coq` are the ' +
