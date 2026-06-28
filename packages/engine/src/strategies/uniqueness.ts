@@ -592,3 +592,103 @@ export const uniqueRectangleType6: Strategy = {
     return tryURType6(grid, 'unique-rectangle-type-6');
   },
 };
+
+type SymmetryType = 'diag' | 'anti-diag' | 'rotate180';
+
+function partner(cell: number, type: SymmetryType): number {
+  const r = ROW_OF[cell]!;
+  const c = COL_OF[cell]!;
+  if (type === 'diag') return c * 9 + r;
+  if (type === 'anti-diag') return (8 - c) * 9 + (8 - r);
+  return (8 - r) * 9 + (8 - c);
+}
+
+function fixedCells(type: SymmetryType): number[] {
+  const out: number[] = [];
+  for (let cell = 0; cell < CELLS; cell++) {
+    if (partner(cell, type) === cell) out.push(cell);
+  }
+  return out;
+}
+
+function deriveGurthPermutation(grid: Grid, type: SymmetryType): number[] | null {
+  const perm = new Array<number>(10).fill(0); // 1-indexed
+  const used = new Array<boolean>(10).fill(false);
+
+  for (let cell = 0; cell < CELLS; cell++) {
+    const p = partner(cell, type);
+    const v1 = grid.get(cell);
+    const v2 = grid.get(p);
+    if (v1 === 0 || v2 === 0) continue; // only paired givens/deductions constrain π
+    if (perm[v1] === 0) {
+      if (used[v2]) return null; // inconsistent mapping
+      perm[v1] = v2;
+      used[v2] = true;
+    } else if (perm[v1] !== v2) {
+      return null;
+    }
+  }
+
+  // Require a complete bijection on digits 1..9
+  for (let d = 1; d <= 9; d++) {
+    if (perm[d] === 0) return null;
+  }
+  return perm;
+}
+
+function tryGurth(grid: Grid, strategyId: string): Step | null {
+  for (const type of ['diag', 'anti-diag', 'rotate180'] as SymmetryType[]) {
+    const perm = deriveGurthPermutation(grid, type);
+    if (!perm) continue;
+
+    const selfMappedDigits = digitsOf(
+      (() => {
+        let mask = 0;
+        for (let d = 1; d <= 9; d++) if (perm[d] === d) mask |= 1 << (d - 1);
+        return mask;
+      })(),
+    );
+
+    const eliminations: { cell: number; digit: number }[] = [];
+    for (const cell of fixedCells(type)) {
+      if (grid.get(cell) !== 0) continue;
+      const candidates = digitsOf(grid.candidatesOf(cell));
+      for (const d of candidates) {
+        if (!selfMappedDigits.includes(d)) eliminations.push({ cell, digit: d });
+      }
+    }
+
+    if (eliminations.length === 0) continue;
+
+    const typeZh = type === 'diag' ? '主对角线' : type === 'anti-diag' ? '反对角线' : '180°旋转';
+    const typeEn = type === 'diag' ? 'main diagonal' : type === 'anti-diag' ? 'anti-diagonal' : '180° rotation';
+    return {
+      strategyId,
+      placements: [],
+      eliminations,
+      highlights: {
+        cells: fixedCells(type),
+        candidates: fixedCells(type).flatMap((c) =>
+          digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d })),
+        ),
+        links: [],
+      },
+      explanation: {
+        zh: `葛斯定理（对称摆放）：当前盘面在${typeZh}下对称，固定格只能取自映射到自身的数字 {${selfMappedDigits.join(',')}}；消去其它候选。`,
+        en: `Gurth's Symmetrical Placement: the board is symmetric under ${typeEn}; fixed cells may only use self-mapped digits {${selfMappedDigits.join(',')}}.`,
+      },
+    };
+  }
+  return null;
+}
+
+export const gurth: Strategy = {
+  id: 'gurth',
+  name: { zh: '葛斯定理（对称摆放）', en: "Gurth's Symmetrical Placement" },
+  difficulty: 990,
+  tieBreak: ['cell-index'],
+
+  apply(grid: Grid): Step | null {
+    return tryGurth(grid, 'gurth');
+  },
+};

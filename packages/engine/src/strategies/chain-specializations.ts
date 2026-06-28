@@ -321,3 +321,107 @@ export const turbotFish: Strategy = {
   tieBreak: ['digit', 'cell-index'],
   apply: (grid) => searchTurbotFish(grid, 'turbot-fish'),
 };
+
+function cellsMutuallySee(grid: Grid, cells: readonly number[]): boolean {
+  for (let i = 0; i < cells.length; i++) {
+    for (let j = i + 1; j < cells.length; j++) {
+      if (!PEERS_OF[cells[i]!]!.includes(cells[j]!)) return false;
+    }
+  }
+  return true;
+}
+
+function searchTwinnedXyChains(grid: Grid, strategyId: string): Step | null {
+  // Canonical Twinned XY-Chains: a 3x2 or 2x3 cell formation that forms a
+  // giant naked set — k cells with k distinct digits where all occurrences of
+  // each digit inside the formation mutually see each other.
+  const rows3cols2: number[][] = [];
+  for (let r1 = 0; r1 < 9; r1++) {
+    for (let r2 = r1 + 1; r2 < 9; r2++) {
+      for (let c1 = 0; c1 < 9; c1++) {
+        for (let c2 = c1 + 1; c2 < 9; c2++) {
+          for (let c3 = c2 + 1; c3 < 9; c3++) {
+            rows3cols2.push([
+              r1 * 9 + c1, r1 * 9 + c2, r1 * 9 + c3,
+              r2 * 9 + c1, r2 * 9 + c2, r2 * 9 + c3,
+            ]);
+          }
+        }
+      }
+    }
+  }
+
+  const rows2cols3: number[][] = [];
+  for (let c1 = 0; c1 < 9; c1++) {
+    for (let c2 = c1 + 1; c2 < 9; c2++) {
+      for (let r1 = 0; r1 < 9; r1++) {
+        for (let r2 = r1 + 1; r2 < 9; r2++) {
+          for (let r3 = r2 + 1; r3 < 9; r3++) {
+            rows2cols3.push([
+              r1 * 9 + c1, r2 * 9 + c1, r3 * 9 + c1,
+              r1 * 9 + c2, r2 * 9 + c2, r3 * 9 + c2,
+            ]);
+          }
+        }
+      }
+    }
+  }
+
+  function tryFormation(cells: readonly number[]): Step | null {
+    if (cells.some((c) => grid.get(c) !== 0)) return null;
+    let unionMask = 0;
+    for (const c of cells) unionMask |= grid.candidatesOf(c);
+    if (popcount(unionMask) !== 6) return null;
+
+    const digits = digitsOf(unionMask);
+    const cellsForDigit = new Map<number, number[]>();
+    for (const d of digits) {
+      const list = cells.filter((c) => (grid.candidatesOf(c) & (1 << (d - 1))) !== 0);
+      if (!cellsMutuallySee(grid, list)) return null;
+      cellsForDigit.set(d, list);
+    }
+
+    const eliminations: { cell: number; digit: number }[] = [];
+    for (const d of digits) {
+      const owners = cellsForDigit.get(d)!;
+      for (let c = 0; c < CELLS; c++) {
+        if (grid.get(c) !== 0) continue;
+        if (cells.includes(c)) continue;
+        if ((grid.candidatesOf(c) & (1 << (d - 1))) === 0) continue;
+        if (owners.every((owner) => PEERS_OF[c]!.includes(owner))) {
+          eliminations.push({ cell: c, digit: d });
+        }
+      }
+    }
+
+    if (eliminations.length === 0) return null;
+    const chainCandidates = cells.flatMap((c) => digitsOf(grid.candidatesOf(c)).map((d) => ({ cell: c, digit: d })));
+    return makeChainStep(
+      strategyId,
+      [],
+      eliminations,
+      dedupe(chainCandidates),
+      [],
+      `孪生 XY 链：${cells.map(cellLabel).join(',')} 构成六格裸六元组；从看到某数字全部位置的格中消去该数字。`,
+      `Twinned XY-Chains: ${cells.map(cellLabel).join(',')} form a six-cell naked sextuple; eliminate each digit from cells seeing all of its positions.`,
+    );
+  }
+
+  for (const formation of rows3cols2) {
+    const step = tryFormation(formation);
+    if (step) return step;
+  }
+  for (const formation of rows2cols3) {
+    const step = tryFormation(formation);
+    if (step) return step;
+  }
+  return null;
+}
+
+export const twinnedXyChains: Strategy = {
+  id: 'twinned-xy-chains',
+  name: { zh: '孪生 XY 链', en: 'Twinned XY-Chains' },
+  difficulty: 775,
+  tieBreak: ['cell-index', 'digit'],
+  apply: (grid) => searchTwinnedXyChains(grid, 'twinned-xy-chains'),
+};

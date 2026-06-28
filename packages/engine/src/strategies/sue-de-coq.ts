@@ -62,13 +62,14 @@ function trySdCIntersection(
   boxCells: readonly number[],
   lineLabel: string,
   boxLabel: string,
+  maxIntersectionSize = 3,
 ): Step | null {
   // Intersection: cells in both line and box
   const intersectCells = lineCells.filter((c) => boxCells.includes(c));
 
-  // Only consider 2-cell intersections (most common, simplest correct form)
+  // Standard SdC uses 2-3 cells; extended allows up to 4
   const emptyIntersect = intersectCells.filter((c) => grid.get(c) === 0);
-  if (emptyIntersect.length < 2 || emptyIntersect.length > 3) return null;
+  if (emptyIntersect.length < 2 || emptyIntersect.length > maxIntersectionSize) return null;
 
   // Cells in rest of line (not in intersection, empty)
   const restLine = lineCells.filter((c) => !intersectCells.includes(c) && grid.get(c) === 0);

@@ -249,3 +249,93 @@ export const alignedTripleExclusion: Strategy = {
     return tryAlignedExclusion(grid, 3, this.id, this.name);
   },
 };
+
+function legalAssignmentForSubset(
+  assignment: { cell: number; digit: number }[],
+): boolean {
+  for (let i = 0; i < assignment.length; i++) {
+    for (let j = i + 1; j < assignment.length; j++) {
+      const a = assignment[i]!;
+      const b = assignment[j]!;
+      if (a.digit === b.digit && PEERS_OF[a.cell]!.includes(b.cell)) return false;
+    }
+  }
+  return true;
+}
+
+function assignmentEmptiesWitnessForSubset(
+  grid: Grid,
+  assignment: Assignment,
+  alsCell: number,
+): boolean {
+  const alsDigits = digitsOf(grid.candidatesOf(alsCell));
+  return alsDigits.every((digit) => assignment.some((entry) => entry.digit === digit && PEERS_OF[entry.cell]!.includes(alsCell)));
+}
+
+function trySubsetExclusion(grid: Grid, strategyId: string, name: Name): Step | null {
+  const candidateCells: number[] = [];
+  for (let cell = 0; cell < CELLS; cell++) {
+    if (grid.get(cell) === 0 && popcount(grid.candidatesOf(cell)) >= 2) candidateCells.push(cell);
+  }
+
+  for (const baseCells of combinations(candidateCells, 3)) {
+    const blockers = candidateCells.filter(
+      (cell) =>
+        !baseCells.includes(cell) &&
+        popcount(grid.candidatesOf(cell)) === 2 &&
+        baseCells.every((base) => PEERS_OF[base]!.includes(cell)),
+    );
+    if (blockers.length === 0) continue;
+
+    const allowed = assignmentsFor(grid, baseCells).filter(
+      (assignment) =>
+        legalAssignmentForSubset(assignment) &&
+        !blockers.some((alsCell) => assignmentEmptiesWitnessForSubset(grid, assignment, alsCell)),
+    );
+    if (allowed.length === 0) continue;
+
+    const eliminations: { cell: number; digit: number }[] = [];
+    for (const cell of baseCells) {
+      for (const digit of digitsOf(grid.candidatesOf(cell))) {
+        if (!allowed.some((assignment) => assignment.some((entry) => entry.cell === cell && entry.digit === digit))) {
+          eliminations.push({ cell, digit });
+        }
+      }
+    }
+
+    if (eliminations.length === 0) continue;
+
+    const blockerText = blockers.map(cellName).join(', ');
+    const baseText = baseCells.map(cellName).join(', ');
+    return {
+      strategyId,
+      placements: [],
+      eliminations,
+      highlights: {
+        cells: [...baseCells, ...blockers],
+        candidates: [
+          ...baseCells.flatMap((cell) => digitsOf(grid.candidatesOf(cell)).map((digit) => ({ cell, digit }))),
+          ...blockers.flatMap((cell) => digitsOf(grid.candidatesOf(cell)).map((digit) => ({ cell, digit }))),
+          ...eliminations,
+        ],
+        links: [],
+      },
+      explanation: {
+        zh: `${name.zh}：基准格 ${baseText} 的候选组合逐一排除；共同可见的双值 ALS ${blockerText} 会被某些组合清空。剩余合法组合中从未出现的候选可删除。`,
+        en: `${name.en}: enumerate base cells ${baseText}; common bivalue ALS cells ${blockerText} exclude combinations that would empty them. Candidates absent from every surviving combination are eliminated.`,
+      },
+    };
+  }
+
+  return null;
+}
+
+export const subsetExclusion: Strategy = {
+  id: 'subset-exclusion',
+  name: { zh: '子集排除', en: 'Subset Exclusion' },
+  difficulty: 1140,
+  tieBreak: ['cell-index', 'digit'],
+  apply(grid: Grid): Step | null {
+    return trySubsetExclusion(grid, this.id, this.name);
+  },
+};

@@ -115,6 +115,14 @@ export const aicWithUr = aliasStrategy(
   ['chain-length', 'cell-index', 'digit'],
 );
 
+export const aicWithExoticLinks = aliasStrategy(
+  'aic-with-exotic-links',
+  { zh: '含奇异链接的 AIC', en: 'AIC with Exotic Links' },
+  780,
+  aic,
+  ['chain-length', 'cell-index', 'digit'],
+);
+
 export const alsChain = aliasStrategy(
   'als-chain',
   { zh: 'ALS 链', en: 'ALS Chain' },
