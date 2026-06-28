@@ -1,4 +1,4 @@
-{"phase":"p0","status":"hard","rc":1,"verifySec":3,
+{"phase":"p0","status":"hard","rc":1,"verifySec":4,
  "solveHuman":"/727","solveLastResort":"",
  "missingIds":"","pollutionWarnFiles":"","hardReasons":"typecheck; tests; gt400-soundness; 727-soundness-human;",
  "soundDetail":"400: 727-human:"}
