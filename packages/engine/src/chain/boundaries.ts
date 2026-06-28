@@ -67,6 +67,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  {
+    strategyId: 'aic-with-exotic-links',
+    owns: 'AIC with XW 4-cell exotic nodes (single-digit forcing micro-net packaged as a strong link).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'twinned-xy-chains',
+    owns: '6-cell locked-set (giant naked sextuple) decomposed as twin pivot-linked XY-cycles.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
 ];
 
 /**

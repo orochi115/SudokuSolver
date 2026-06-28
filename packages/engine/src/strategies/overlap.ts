@@ -49,13 +49,14 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-exotic-links', 'twinned-xy-chains'],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
       '`grouped` is a switch on buildLinkGraph, not a separate strategy. Nice Loop handles continuous/discontinuous loops ' +
-      '(AicResult *-loop kinds); aic does not emit loop results.',
+      '(AicResult *-loop kinds); aic does not emit loop results. AIC-with-exotic-links uses XW 4-cell nodes. ' +
+      'Twinned XY-Chains is a 6-cell locked-set node decomposed as twin XY-cycles.',
   },
   {
     id: 'als-chain',
@@ -77,11 +78,49 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'extended-unique-rectangle',
       'avoidable-rectangle-type-1', 'avoidable-rectangle-type-2',
       'avoidable-rectangle-type-3', 'avoidable-rectangle-type-4',
+      'gurth',
     ],
     futureMembers: [],
     unified: true,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
-      'unique-solution assumption. UR types share a common rectangle-finding engine with per-type extensions.',
+      'unique-solution assumption. UR types share a common rectangle-finding engine with per-type extensions. ' +
+      'Gurth uses global board symmetry (automorphism) under the same unique-solution assumption.',
+  },
+  {
+    id: 'fish',
+    canonicalOwner: 'x-wing',
+    members: [
+      'x-wing', 'swordfish', 'jellyfish',
+      'finned-x-wing', 'finned-swordfish', 'finned-jellyfish',
+      'franken-fish', 'mutant-fish',
+    ],
+    futureMembers: [],
+    unified: false,
+    note:
+      'Fish family: basic fish (X-Wing/Swordfish/Jellyfish) compare rows vs columns. ' +
+      'Finned fish add exo-fins. Franken fish mix boxes into one side. ' +
+      'Mutant fish freely mix rows, columns, and boxes in defining/secondary sets.',
+  },
+  {
+    id: 'subset-exclusion',
+    canonicalOwner: 'subset-exclusion',
+    members: ['subset-exclusion', 'aligned-pair-exclusion', 'aligned-triple-exclusion'],
+    futureMembers: [],
+    unified: false,
+    note:
+      'Subset Exclusion generalises APE/ATE by dropping the alignment requirement. ' +
+      'APE (k=2 aligned) and ATE (k=3 aligned) are special cases. ' +
+      'Subset Counting (Extended Subset Principle) is the dual counting form.',
+  },
+  {
+    id: 'sue-de-coq',
+    canonicalOwner: 'sue-de-coq',
+    members: ['sue-de-coq', 'sue-de-coq-extended'],
+    futureMembers: [],
+    unified: true,
+    note:
+      'Sue de Coq family: basic SdC handles 2-cell/4-candidate and 3-cell/5-candidate forms. ' +
+      'Extended SdC handles larger companion groups and extension candidates.',
   },
 ];
