@@ -49,14 +49,15 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'aic-with-als', 'aic-with-ur', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs'],
+    futureMembers: ['grouped-aic'],
     unified: true,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
       '`grouped` is a switch on buildLinkGraph, not a separate strategy. Continuous/discontinuous Nice Loops ' +
-      'are owned by `nice-loop`; `aic` only emits open-chain Type-1/Type-2 findings. (E6 — chain engine ownership ' +
-      'settled: AicResult *-loop kinds emitted under nice-loop, never under aic.)',
+      'are owned by `nice-loop`; `aic` only emits open-chain Type-1/Type-2 findings. AIC-with-ALS and AIC-with-UR ' +
+      'are presentation aliases over the same search engine, labelling chains that pass through ALS / UR nodes. ' +
+      '(E6 — chain engine ownership settled: AicResult *-loop kinds emitted under nice-loop, never under aic.)',
   },
   {
     id: 'fish',
@@ -70,13 +71,16 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   },
   {
     id: 'als-chain',
-    canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
-    unified: false,
+    canonicalOwner: 'als-chain',
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs'],
+    futureMembers: [],
+    unified: true,
     note:
       'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'and is intentionally not implemented standalone. `als-chain` is the canonical owner (general ALS chain search). ' +
+      '`ahs` (Almost Hidden Set) is the dual of ALS and shares the same chain engine. ' +
+      '(E4 — ALS family unified around als-chain as the canonical owner; als-xy-wing remains as a registered id for ' +
+      'precedence / labelling but its underlying logic is the len-3 case of als-chain.)',
   },
   {
     id: 'uniqueness-rectangle',
@@ -90,15 +94,44 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
       'bug-plus-one',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
+      'bug-plus-n',
+      'bug-lite',
+      'unique-loop',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
     ],
+    futureMembers: [],
     unified: true,
     note:
-      'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
-      'unique-solution assumption. UR types 1..6 + Hidden UR + BUG+1 are all registered. (E3 — UR family unified ' +
-      'around a shared UR-context predicate in uniqueness-ext.ts.)',
+      'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1, BUG+N, BUG-Lite, ' +
+      'and Unique Loop share the unique-solution assumption. Avoidable Rectangle Types 1–4 mirror UR Types 1–4 ' +
+      'using solved cells instead of pencilmarks. Extended UR is the 2×3 / 3-digit generalisation. ' +
+      '(E3 — UR family unified around a shared UR-context predicate.)',
+  },
+  {
+    id: 'coloring',
+    canonicalOwner: 'multi-coloring',
+    members: ['simple-coloring', 'multi-coloring', '3d-medusa'],
+    futureMembers: [],
+    unified: true,
+    note:
+      'Coloring family: Simple Coloring (single-digit, no promotion); Multi-Coloring (X-Colors with promotion; ' +
+      'subsumes Multi-Colors, Weak Colors, Color Wing, Supercoloring per Sudopedia); 3D Medusa is the multi-digit ' +
+      'generalisation (medusa cells/digits with bi-location + bi-value strong links). All rules fire under ' +
+      '`multi-coloring` or `3d-medusa`.',
+  },
+  {
+    id: 'exotic',
+    canonicalOwner: 'tridagon',
+    members: ['tridagon', 'sue-de-coq'],
+    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'franken-fish', 'mutant-fish', 'ape', 'ate', 'subset-exclusion', 'gurth'],
+    unified: false,
+    note:
+      'Exotic family: rare techniques on the hardest puzzles. `tridagon` (Thors Hammer) and `sue-de-coq` are the ' +
+      'currently implemented P1 / P2 members. Future members (sk-loop, msls, exocet, fireworks, APE/ATE, franken/mutant ' +
+      'fish, gurth) will reuse the canonical owner family pattern.',
   },
 ];

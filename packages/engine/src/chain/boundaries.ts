@@ -43,12 +43,24 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'aic-with-als',
+    owns: 'AIC whose chain nodes include an Almost Locked Set (ALS) supplying the strong link. Presentation alias over the shared AIC engine.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC whose chain nodes include a Unique Rectangle (UR) supplying the strong link (uniqueness assumption). Presentation alias over the shared AIC engine.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'forcing-chain',
     owns: 'Multi-branch / contradiction (verity) reasoning — cell & digit forcing chains.',
     multiBranch: true,
     profiles: ['last-resort'],
   },
-  // ---- reserved (gate 6 boundaries for future chain work) ----
+  // ---- chain owners (gate 6 boundaries for chain work) ----
   {
     strategyId: 'xy-chain',
     owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
@@ -58,6 +70,60 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
   {
     strategyId: 'nice-loop',
     owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'als-chain',
+    owns: 'General ALS-XY-Chain — sequence of ALS linked by RCCs, with endpoints sharing a common digit Z.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'ahs',
+    owns: 'Almost Hidden Set — hidden-space dual of ALS, used as chain node or directly for hidden-locked-set eliminations.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'multi-coloring',
+    owns: 'Single-digit coloring family: Simple Coloring (no promotion), X-Colors (single-cluster + promotion), Multi-Colors (two-cluster).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: '3d-medusa',
+    owns: 'Multi-digit coloring (Medusa): bi-location + bi-value strong links across all digits.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'wxyz-wing',
+    owns: 'Bent Almost Locked Set of N cells / N digits (WXYZ size-ladder rung 4).',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'bent-sets',
+    owns: 'Almost Locked Pair / Triple — bent ALS across line-box intersection.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'broken-wing',
+    owns: 'Odd-cycle (oddagon) single-digit strong-link loops with guardians.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'remote-pairs',
+    owns: 'Chain of identical bivalue cells linked by conjugate pairs; XY-Chain sub-case.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'tridagon',
+    owns: 'Tridagon / Anti-Tridagon / Thors Hammer — 12 cells over 4 boxes, three-digit deadly pattern.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
