@@ -49,8 +49,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
@@ -60,8 +60,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'aic-with-als'],
+    futureMembers: ['als-xy-chain'],
     unified: false,
     note:
       'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
@@ -74,11 +74,11 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-1', 'unique-rectangle-type-2', 'unique-rectangle-type-4',
       'bug-plus-one', 'hidden-unique-rectangle',
       'unique-rectangle-type-3', 'unique-rectangle-type-5', 'unique-rectangle-type-6',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
       'extended-unique-rectangle',
+      'avoidable-rectangle-type-1', 'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3', 'avoidable-rectangle-type-4',
     ],
+    futureMembers: [],
     unified: true,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
