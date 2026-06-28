@@ -208,11 +208,21 @@ function tryARType3(grid: Grid): Step | null {
       ? [solved[0]!.value, solved[1]!.value]
       : [solved[1]!.value, solved[0]!.value];
     const [a, b] = pair;
-    // Roof cells open[0], open[1] share a line. Their extra digit mask.
-    const openMasks = open.map((c) => grid.candidatesOf(c));
-    const extraMask = (openMasks[0]! & ~maskOf(a) & ~maskOf(b)) | (openMasks[1]! & ~maskOf(a) & ~maskOf(b));
-    if (popcount(extraMask) < 2) continue;
+    const aBit = maskOf(a);
+    const bBit = maskOf(b);
     const [o1, o2] = open as [number, number];
+    // CRITICAL: both open corners MUST contain the UR pair {a,b} as candidates.
+    // Otherwise the rectangle cannot be a swappable deadly set, and a "lock
+    // on extras" argument does not hold (an open corner could take a non-UR
+    // digit, freeing extras to spill over to cells outside the subset).
+    const o1Mask = grid.candidatesOf(o1);
+    const o2Mask = grid.candidatesOf(o2);
+    if ((o1Mask & aBit) === 0 || (o1Mask & bBit) === 0) continue;
+    if ((o2Mask & aBit) === 0 || (o2Mask & bBit) === 0) continue;
+    // Roof cells open[0], open[1] share a line. Their extra digit mask.
+    const openMasks = [o1Mask, o2Mask];
+    const extraMask = (openMasks[0]! & ~aBit & ~bBit) | (openMasks[1]! & ~aBit & ~bBit);
+    if (popcount(extraMask) < 2) continue;
     const sameRow = ROW_OF[o1] === ROW_OF[o2];
     const sameCol = COL_OF[o1] === COL_OF[o2];
     if (!sameRow && !sameCol) continue;
@@ -230,8 +240,20 @@ function tryARType3(grid: Grid): Step | null {
     if (outside.length === 0) continue;
     const totalSubsetCells = 2 + outside.length;
     if (totalSubsetCells !== popcount(extraMask)) continue;
+    // SOUNDNESS: confirm the "extras" digits are actually CONFINED to the
+    // subset within the line. If any non-subset cell on the line still holds
+    // an extra as a candidate, the lock is broken (the cell could host the
+    // extra) and the elimination would be unsound.
     const subset = new Set<number>([o1, o2, ...outside]);
     const subsetDigits = digitsOf(extraMask);
+    let confinementBroken = false;
+    for (const c of line) {
+      if (subset.has(c)) continue;
+      if (grid.get(c) !== 0) continue;
+      const m = grid.candidatesOf(c);
+      if ((m & extraMask) !== 0) { confinementBroken = true; break; }
+    }
+    if (confinementBroken) continue;
     const elims: { cell: number; digit: number }[] = [];
     for (const c of line) {
       if (subset.has(c)) continue;
