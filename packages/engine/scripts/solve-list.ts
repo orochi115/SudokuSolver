@@ -67,7 +67,13 @@ export function readPuzzleList(file: string, limit = Infinity): string[] {
 function main(): void {
   const opts = parseArgs(process.argv.slice(2));
   const puzzles = readPuzzleList(opts.file, opts.limit);
-  const stats = runCorpus(puzzles, { strategies: strategiesForProfile(opts.profile) });
+  const stats = runCorpus(puzzles, {
+    strategies: strategiesForProfile(opts.profile),
+    progressEvery: 50,
+    onProgress: (pStats) => {
+      console.log(`Progress: ${pStats.n}/${puzzles.length} checked. Solved: ${pStats.solved}`);
+    }
+  });
 
   console.error(`file:    ${opts.file}`);
   console.error(`profile: ${opts.profile}`);

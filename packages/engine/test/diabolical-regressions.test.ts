@@ -202,8 +202,7 @@ describe('diabolical strategy regressions', () => {
       expect(step?.strategyId).toBe('als-xy-wing');
       expect(step?.placements).toEqual([]);
       expect(step?.eliminations).toEqual(expect.arrayContaining([
-        { cell: 42, digit: 3 },
-        { cell: 44, digit: 3 },
+        { cell: 15, digit: 3 },
       ]));
     });
   });

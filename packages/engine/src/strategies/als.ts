@@ -290,84 +290,154 @@ function tryALSXZ(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
  *   B and C share RCC Y (Y ≠ X)
  *   A and B share common candidate Z (not X or Y)
  *   Eliminate Z from cells seeing all Z in A and B.
+ *
+ * Folded into the general ALS-Chain (searchAlsChain) with minLen=3, maxLen=3.
  */
 function tryALSXYWing(grid: Grid, alsList: ALS[], strategyId: string): Step | null {
-  for (let ci = 0; ci < alsList.length; ci++) {
-    const c_als = alsList[ci]!; // pivot ALS C
+  return searchAlsChain(grid, alsList, 3, 3);
+}
 
-    for (let ai = 0; ai < alsList.length; ai++) {
-      if (ai === ci) continue;
-      const a_als = alsList[ai]!;
-      if (alsShareCells(a_als, c_als)) continue;
+/**
+ * ALS-Chain: A sequence of ALS linked by RCCs; endpoint shared candidates are eliminated.
+ */
+export function searchAlsChain(
+  grid: Grid,
+  alsList: ALS[],
+  minLen: number,
+  maxLen: number,
+): Step | null {
+  const n = alsList.length;
 
-      // Find RCC X between A and C
-      const acCommon = digitsOf(a_als.digitMask & c_als.digitMask);
-      const xCandidates = acCommon.filter((d) => isRCC(grid, a_als, c_als, d));
-      if (xCandidates.length === 0) continue;
-
-      for (let bi = 0; bi < alsList.length; bi++) {
-        if (bi === ci || bi === ai) continue;
-        const b_als = alsList[bi]!;
-        if (alsShareCells(b_als, c_als)) continue;
-        if (alsShareCells(b_als, a_als)) continue;
-
-        // Find RCC Y between B and C
-        const bcCommon = digitsOf(b_als.digitMask & c_als.digitMask);
-        const yCandidates = bcCommon.filter((d) => isRCC(grid, b_als, c_als, d));
-        if (yCandidates.length === 0) continue;
-
-        for (const x of xCandidates) {
-          for (const y of yCandidates) {
-            if (x === y) continue;
-
-            // Find common Z in A and B (not X or Y)
-            const abCommon = digitsOf(a_als.digitMask & b_als.digitMask);
-            for (const z of abCommon) {
-              if (z === x || z === y) continue;
-
-              const zBit = maskOf(z);
-              const aCellsZ = a_als.cells.filter((c) => grid.candidatesOf(c) & zBit);
-              const bCellsZ = b_als.cells.filter((c) => grid.candidatesOf(c) & zBit);
-              if (aCellsZ.length === 0 || bCellsZ.length === 0) continue;
-
-              const elims: { cell: number; digit: number }[] = [];
-              for (let cell = 0; cell < CELLS; cell++) {
-                if (grid.get(cell) !== 0) continue;
-                if (!(grid.candidatesOf(cell) & zBit)) continue;
-                if (a_als.cells.includes(cell) || b_als.cells.includes(cell) || c_als.cells.includes(cell)) continue;
-
-                const peers = new Set(PEERS_OF[cell]!);
-                if (aCellsZ.every((ac) => peers.has(ac)) && bCellsZ.every((bc) => peers.has(bc))) {
-                  elims.push({ cell, digit: z });
-                }
-              }
-
-              if (elims.length === 0) continue;
-
-              const allCells = [...a_als.cells, ...b_als.cells, ...c_als.cells];
-              return {
-                strategyId,
-                placements: [],
-                eliminations: elims,
-                highlights: {
-                  cells: [...new Set([...allCells, ...elims.map((e) => e.cell)])],
-                  candidates: [
-                    ...allCells.flatMap((cell) => digitsOf(grid.candidatesOf(cell)).map((d) => ({ cell, digit: d }))),
-                    ...elims,
-                  ],
-                  links: [],
-                },
-                explanation: {
-                  zh: `ALS-XY翼：三个 ALS 通过受限公共候选数 ${x}（A-C）和 ${y}（B-C）连接；消去能同时看到 A 和 B 中所有 ${z} 的格中的 ${z}（ALS-XY翼）。`,
-                  en: `ALS-XY-Wing: three ALS linked by RCC ${x} (A-C) and ${y} (B-C); eliminate ${z} from cells seeing all ${z} in both A and B (ALS-XY-Wing).`,
-                },
-              };
-            }
-          }
+  // Precompute adjacency list to avoid O(n^2) nested loops inside BFS
+  const adj: { nextIdx: number; rcc: number }[][] = Array.from({ length: n }, () => []);
+  for (let i = 0; i < n; i++) {
+    const alsI = alsList[i]!;
+    for (let j = 0; j < n; j++) {
+      if (i === j) continue;
+      const alsJ = alsList[j]!;
+      if (alsShareCells(alsI, alsJ)) continue;
+      
+      const common = digitsOf(alsI.digitMask & alsJ.digitMask);
+      for (const d of common) {
+        if (isRCC(grid, alsI, alsJ, d)) {
+          adj[i]!.push({ nextIdx: j, rcc: d });
         }
       }
     }
   }
+
+  for (let s = 0; s < n; s++) {
+    const queue: Array<{
+      currentALSIdx: number;
+      rccHistory: number[];
+      alsHistory: number[];
+    }> = [{ currentALSIdx: s, rccHistory: [], alsHistory: [s] }];
+
+    let budget = 150; // safety limit to prevent explosion
+    while (queue.length > 0 && budget-- > 0) {
+      const state = queue.shift()!;
+      const currIdx = state.currentALSIdx;
+      const currALS = alsList[currIdx]!;
+
+      if (state.alsHistory.length >= minLen) {
+        const firstALS = alsList[state.alsHistory[0]!]!;
+        const lastALS = currALS;
+        const x1 = state.rccHistory[0]!;
+        const xk = state.rccHistory[state.rccHistory.length - 1]!;
+
+        const commonDigits = digitsOf(firstALS.digitMask & lastALS.digitMask);
+        for (const z of commonDigits) {
+          if (z === x1 || z === xk) continue;
+
+          const zBit = maskOf(z);
+          const aCellsZ = firstALS.cells.filter((c) => grid.candidatesOf(c) & zBit);
+          const bCellsZ = lastALS.cells.filter((c) => grid.candidatesOf(c) & zBit);
+          if (aCellsZ.length === 0 || bCellsZ.length === 0) continue;
+
+          const elims: { cell: number; digit: number }[] = [];
+          for (let cell = 0; cell < CELLS; cell++) {
+            if (grid.get(cell) !== 0) continue;
+            if (!(grid.candidatesOf(cell) & zBit)) continue;
+
+            let inChain = false;
+            for (const aIdx of state.alsHistory) {
+              if (alsList[aIdx]!.cells.includes(cell)) {
+                inChain = true;
+                break;
+              }
+            }
+            if (inChain) continue;
+
+            const peers = PEERS_OF[cell]!;
+            if (aCellsZ.every((ac) => peers.includes(ac)) && bCellsZ.every((bc) => peers.includes(bc))) {
+              elims.push({ cell, digit: z });
+            }
+          }
+
+          if (elims.length > 0) {
+            const allCells = state.alsHistory.flatMap((idx) => alsList[idx]!.cells);
+            const strategyId = state.alsHistory.length === 3 ? 'als-xy-wing' : 'als-chain';
+
+            const links = [];
+            for (let i = 0; i < state.rccHistory.length; i++) {
+              const rcc = state.rccHistory[i]!;
+              const fromALS = alsList[state.alsHistory[i]!]!;
+              const toALS = alsList[state.alsHistory[i + 1]!]!;
+              const fromCell = fromALS.cells.find((c) => grid.candidatesOf(c) & maskOf(rcc))!;
+              const toCell = toALS.cells.find((c) => grid.candidatesOf(c) & maskOf(rcc))!;
+              links.push({
+                from: { cell: fromCell, digit: rcc },
+                to: { cell: toCell, digit: rcc },
+                type: 'strong' as const,
+              });
+            }
+
+            return {
+              strategyId,
+              placements: [],
+              eliminations: elims,
+              highlights: {
+                cells: [...new Set([...allCells, ...elims.map((e) => e.cell)])],
+                candidates: [
+                  ...state.alsHistory.flatMap((idx) =>
+                    alsList[idx]!.cells.flatMap((cell) =>
+                      digitsOf(grid.candidatesOf(cell)).map((d) => ({ cell, digit: d })),
+                    ),
+                  ),
+                  ...elims,
+                ],
+                links,
+              },
+              explanation: {
+                zh: strategyId === 'als-xy-wing'
+                  ? `ALS-XY翼：三个 ALS 通过受限公共候选数 ${x1}（A-C）和 ${xk}（B-C）连接；消去能同时看到 A 和 B 中所有 ${z} 的格中的 ${z}（ALS-XY翼）。`
+                  : `ALS链（长度为 ${state.alsHistory.length}）：通过受限公共候选数连接；消去能同时看到链两端中所有 ${z} 的格中的 ${z}。`,
+                en: strategyId === 'als-xy-wing'
+                  ? `ALS-XY-Wing: three ALS linked by RCC ${x1} (A-C) and ${xk} (B-C); eliminate ${z} from cells seeing all ${z} in both A and B (ALS-XY-Wing).`
+                  : `ALS-Chain (length ${state.alsHistory.length}): ALS linked by RCCs; eliminate ${z} from cells seeing all ${z} in both endpoints.`,
+              },
+            };
+          }
+        }
+      }
+
+      if (state.alsHistory.length >= maxLen) continue;
+
+      const neighbors = adj[currIdx]!;
+      for (const { nextIdx, rcc } of neighbors) {
+        if (state.alsHistory.includes(nextIdx)) continue;
+        if (state.rccHistory.length > 0 && rcc === state.rccHistory[state.rccHistory.length - 1]) {
+          continue;
+        }
+        queue.push({
+          currentALSIdx: nextIdx,
+          rccHistory: [...state.rccHistory, rcc],
+          alsHistory: [...state.alsHistory, nextIdx],
+        });
+      }
+    }
+  }
+
   return null;
 }
 
@@ -531,4 +601,12 @@ export const deathBlossom = makeAlsStrategy(
   860,
   ['cell-index'],
   tryDeathBlossom,
+);
+
+export const alsChain = makeAlsStrategy(
+  'als-chain',
+  { zh: 'ALS链', en: 'ALS-Chain' },
+  880,
+  ['house'],
+  (grid, alsList, id) => searchAlsChain(grid, alsList, 3, 5),
 );

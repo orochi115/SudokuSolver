@@ -45,6 +45,14 @@ function assertSoundStep(
 // Test Suite
 // ============================================================
 
+const P0_STRATEGIES = STRATEGIES.filter(s => s.difficulty < 500 || [
+  'simple-coloring', 'x-chain', 'xy-chain', 'nice-loop', 'aic',
+  'als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom',
+  'bug-plus-one', 'unique-rectangle-type-1', 'unique-rectangle-type-2',
+  'hidden-unique-rectangle', 'unique-rectangle-type-3', 'unique-rectangle-type-4',
+  'unique-rectangle-type-5', 'unique-rectangle-type-6', 'sue-de-coq', 'forcing-chain'
+].includes(s.id));
+
 describe('P0 Human Solving Strategies', () => {
   describe('finned-x-wing', () => {
     const puzzle = '300002500000080060080700041700001300000070000008200005510008020030090000004500009';
@@ -56,7 +64,7 @@ describe('P0 Human Solving Strategies', () => {
 
     it('applies to worked example under solving flow', () => {
       const g = gridFrom(puzzle);
-      const trace = solve(g, STRATEGIES);
+      const trace = solve(g, P0_STRATEGIES);
       const step = trace.steps.find((s) => s.strategyId === 'finned-x-wing');
       expect(step).toBeDefined();
       expect(step!.eliminations.length).toBeGreaterThan(0);
@@ -118,7 +126,7 @@ describe('P0 Human Solving Strategies', () => {
 
     it('applies to worked example under solving flow', () => {
       const g = gridFrom(puzzle);
-      const trace = solve(g, STRATEGIES);
+      const trace = solve(g, P0_STRATEGIES);
       const step = trace.steps.find((s) => s.strategyId === 'xy-chain');
       expect(step).toBeDefined();
       expect(step!.eliminations.length).toBeGreaterThan(0);
