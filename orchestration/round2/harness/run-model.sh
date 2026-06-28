@@ -213,6 +213,25 @@ echo "=== [$NAME] installing deps ==="
 
 PROMPT_TEXT="$(cat "$PROMPT_PATH")$(required_ids_section)$AUTONOMY$(resume_feedback_section)"
 
+# --- resume hygiene (run2 post-mortem) ---
+# resume_feedback_section above has already consumed last run's .notes/.verify.json/
+# .watchdog-kill.txt. Now move THIS phase's prior attempt/prompt/verify logs into
+# prevruns/ so they (a) don't pollute this run's metrics as orphans — the old metrics
+# globbed every <phase>-attempt-*.log, so a re-run summed run1+run2 and activeSec spanned
+# the inter-run idle gap — while (b) staying on disk and still summed for CUMULATIVE cost
+# (metrics.mjs reads prevruns/). Then drop the consumed watchdog-kill marker so a later
+# non-killed failure doesn't inherit a stale "you were killed" hint.
+if ls "$LOG_DIR/$PH-attempt-"*.log >/dev/null 2>&1; then
+  RUNHIST="$LOG_DIR/prevruns"; mkdir -p "$RUNHIST"
+  rN=1; while [ -e "$RUNHIST/$PH-r$rN" ]; do rN=$((rN+1)); done
+  dst="$RUNHIST/$PH-r$rN"; mkdir -p "$dst"
+  mv "$LOG_DIR/$PH-attempt-"*.log "$dst/" 2>/dev/null
+  mv "$LOG_DIR/$PH-prompt-"*.txt "$dst/" 2>/dev/null
+  for x in "$LOG_DIR/$PH-verify-"*.out "$LOG_DIR/$PH-verify-"*.out.rc; do [ -e "$x" ] && mv "$x" "$dst/" 2>/dev/null; done
+  echo "=== [$NAME] $PH: archived prior run's logs -> prevruns/$PH-r$rN (kept for cumulative metrics) ==="
+fi
+rm -f "$LOG_DIR/$PH.watchdog-kill.txt"
+
 # --- attempt 1 ---
 echo "=== [$NAME] $PH attempt 1 :: $MODEL ($RUNNER) ==="
 LOG1="$LOG_DIR/$PH-attempt-1.log"

@@ -43,11 +43,16 @@ jget() { # jget <file> <key> ; tiny JSON scalar extractor (no jq dependency)
 grep -vE '^[[:space:]]*(#|$)' "$MODELS_FILE" | while read -r model name runner ptag _rest; do
   ldir="$WT_ROOT/logs/$name"; sf="$STATUS_DIR/$name.tsv"; wt="$WT_ROOT/$name"
   for ph in "${PHASES[@]}"; do
-    st="$(grep -E "^$ph	" "$sf" 2>/dev/null | cut -f2)"; st="${st:-—}"
+    # last-wins: a resumed phase appends a fresh status row; the FINAL decision is the
+    # last one. (awk last-match avoids grep's multi-line output that split table rows.)
+    st="$(awk -F'\t' -v p="$ph" '$1==p{v=$2} END{if(v!="")print v}' "$sf" 2>/dev/null)"; st="${st:-—}"
     mj="$ldir/$ph.metrics.json"; vj="$ldir/$ph.verify.json"
     cost="$(jget "$mj" cost)"; ain="$(jget "$mj" input)"; aout="$(jget "$mj" output)"; act="$(jget "$mj" activeSec)"
     vh="$(jget "$vj" solveHuman)"; vl="$(jget "$vj" solveLastResort)"; vs="$(jget "$vj" verifySec)"
-    miss="$(jget "$vj" missingIds)"; nmiss=$(printf '%s' "$miss" | tr ' ' '\n' | grep -c . 2>/dev/null || echo 0)
+    # grep -c prints "0" AND exits 1 on no match; the old `|| echo 0` then appended a
+    # SECOND 0, embedding a newline that broke every table row in two. `|| true` keeps
+    # grep's single count and swallows the exit code.
+    miss="$(jget "$vj" missingIds)"; nmiss=$(printf '%s' "$miss" | tr ' ' '\n' | grep -c . || true); nmiss="${nmiss:-0}"
     pollf="$(jget "$vj" pollutionWarnFiles)"; poll=$([ -n "${pollf// /}" ] && echo "⚠" || echo "-")
     printf '| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s/%s |\n' \
       "$name" "${runner:-?}" "$ph" "$st" "${vh:-—}" "${vl:-—}" "${nmiss:-—}" "$poll" "${vs:-—}" "${act:-—}" "${cost:-—}" "${ain:-—}" "${aout:-—}" >> "$SUMMARY"

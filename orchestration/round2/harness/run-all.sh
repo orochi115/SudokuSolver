@@ -57,20 +57,32 @@ if [ "${1:-}" = "--one" ]; then
   # <phase>.verify.json), STOP (hard fail: build/test/soundness/pollution), SKIP.
   # On resume we KEEP already-decided phases and only run undecided ones.
   sf="$STATUS_DIR/$name.tsv"; touch "$sf"
+  # set_status keeps exactly ONE row per phase, in PHASES order (a resumed phase used to
+  # APPEND a duplicate row — run2 post-mortem: every re-run model ended with overlapping
+  # rows, and report.sh then read a stale one). Full history goes to <name>.hist.tsv.
+  set_status() {  # <phase> <status>
+    printf '%s\t%s\t%s\n' "$1" "$2" "$(date +%s)" >> "$STATUS_DIR/$name.hist.tsv"
+    local q tmp="$sf.tmp" pv; : > "$tmp"
+    for q in "${PHASES[@]}"; do
+      if [ "$q" = "$1" ]; then printf '%s\t%s\n' "$q" "$2" >> "$tmp"
+      else pv="$(awk -F'\t' -v p="$q" '$1==p{v=$2} END{if(v!="")print v}' "$sf" 2>/dev/null)"; [ -n "$pv" ] && printf '%s\t%s\n' "$q" "$pv" >> "$tmp"; fi
+    done
+    mv "$tmp" "$sf"
+  }
   # Resume rule: only a clean OK is final (skip it). A prior STOP/SKIP may have been
   # infrastructure (sleep/network), so on a fresh launch it is RE-ATTEMPTED; a genuine
   # hard-fail just re-STOPs (bounded by RETRIES). Within ONE run, a fresh STOP cascades
   # to SKIP for later phases (don't build on a broken/unsound/polluted state).
   hard_stop=0
   for ph in "${PHASES[@]}"; do
-    prev="$(awk -F'\t' -v p="$ph" '$1==p{print $2}' "$sf" | tail -1)"
+    prev="$(awk -F'\t' -v p="$ph" '$1==p{v=$2} END{if(v!="")print v}' "$sf")"
     if [ "$prev" = "OK" ]; then echo "### [$name] $ph already OK — skip (resume)"; continue; fi
-    if [ "$hard_stop" = "1" ]; then printf '%s\tSKIP\n' "$ph" >> "$sf"; continue; fi
+    if [ "$hard_stop" = "1" ]; then set_status "$ph" SKIP; continue; fi
     echo "### [$name] $model :: $ph  ($(date '+%Y-%m-%d %H:%M:%S'))"
     if bash "$HARNESS/run-model.sh" "$model" "$name" "$runner" "$ph" "$RETRIES"; then
-      printf '%s\tOK\n' "$ph" >> "$sf"
+      set_status "$ph" OK
     else
-      printf '%s\tSTOP\n' "$ph" >> "$sf"; hard_stop=1
+      set_status "$ph" STOP; hard_stop=1
     fi
   done
   exit 0
