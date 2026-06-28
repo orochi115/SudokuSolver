@@ -14,7 +14,9 @@
  * unit tests, and 400 ground-truth soundness are NOT repeated here — they are covered
  * by `npm run typecheck` and `npm test`, which you must also run green.
  *
- * Usage:  npm run verify:r2 -- --phase p1     (phase ∈ p0 p1 p2a p2b e p3; default p1)
+ * Usage:  npm run verify:r2 -- --phase p1              (phase ∈ p0 p1 p2a p2b e p3; default p1)
+ *         npm run verify:r2 -- --phase p1 --limit 100  (first 100 puzzles — fast iteration;
+ *                                                       run full before finishing)
  * Exit 0 = sound + unpolluted. Exit 1 = would HARD-FAIL the judge.
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -39,15 +41,21 @@ const PUZZLE_FILE = process.env.R2_727_FILE
 const POLLUTION_HUMAN_MAX = Number(process.env.POLLUTION_HUMAN_MAX ?? 480);
 
 let phase = 'p1';
+let limit = Infinity;
 const argv = process.argv.slice(2);
 for (let i = 0; i < argv.length; i++) {
   if (argv[i] === '--phase') phase = argv[i + 1] ?? phase;
+  else if (argv[i] === '--limit') limit = Number(argv[i + 1] ?? '0') || Infinity;
 }
 
-const puzzles = readFileSync(PUZZLE_FILE, 'utf8')
+const allPuzzles = readFileSync(PUZZLE_FILE, 'utf8')
   .split(/\r?\n/)
   .map((l) => l.trim())
   .filter((l) => l.length === 81 && !l.startsWith('#'));
+// --limit N runs only the first N puzzles — for FAST iteration while fixing a strategy.
+// Run WITHOUT --limit (full 727) before finishing, since that is what the judge checks.
+const puzzles = Number.isFinite(limit) ? allPuzzles.slice(0, limit) : allPuzzles;
+if (Number.isFinite(limit)) console.log(`[verify:r2] --limit ${limit}: 仅检查前 ${puzzles.length}/${allPuzzles.length} 题(快速迭代用;交付前请跑全量)`);
 
 interface Offender { puzzle: string; strategyId: string; violations: number; }
 interface SoundReport { solved: number; violationsTotal: number; offenders: Offender[]; }
@@ -57,7 +65,12 @@ function checkSoundness(profile: StrategyProfile): SoundReport {
   let solved = 0;
   let violationsTotal = 0;
   const offenders: Offender[] = [];
+  let n = 0;
   for (const puzzle of puzzles) {
+    // Periodic progress so this script is never silent for long — a worker running it
+    // mid-turn would otherwise hit the harness 180s idle-kill while it brute-forces +
+    // solves all 727 (minutes on a full strategy set).
+    if (++n % 50 === 0) console.log(`[verify:r2] ${profile}: ${n}/${puzzles.length} 已检查 (solved ${solved}, 非法消除 ${violationsTotal})`);
     let solution: string | null = null;
     try { solution = solveBruteforce(puzzle); } catch { continue; }
     if (!solution) continue;
