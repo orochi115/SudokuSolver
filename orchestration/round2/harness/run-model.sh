@@ -211,7 +211,14 @@ fi
 echo "=== [$NAME] installing deps ==="
 ( cd "$WT" && npm install --silent )
 
-PROMPT_TEXT="$(cat "$PROMPT_PATH")$(required_ids_section)$AUTONOMY$(resume_feedback_section)"
+# Phase-aware self-check mandate. run2/run3 post-mortem: most failures were on gates
+# the worker could NOT check locally (727 per-step soundness, pollution) — the judge
+# scripts are injected then deleted, so workers flew blind into them. foundation now
+# ships `npm run verify:r2` (same checks); make running it to green a hard finishing step.
+selfcheck_section() {
+  printf '\n\n## 结束前必须本地自校验(三项全过才算完成)\n判官的硬门里有两项你以前无法本地验证(727 逐步健全性、污染检测)——现在 foundation 自带 `npm run verify:r2`,与判官同源。**结束前必须把下面三项都跑到通过**,任一不过都不要结束:\n1. `npm run typecheck` → exit 0\n2. `npm test` → 全绿(含 400 题健全性回归)\n3. `npm run verify:r2 -- --phase %s` → exit 0\n   - 它用暴力 oracle 对 **727 残集逐步校验健全性**,并检测**污染**(策略调用暴力求解器 / human-default 解出数超阈值 / P3 泄漏进 human-default)——正是多数模型被判退的原因。\n   - 看到「非法消除明细(puzzle … 策略 X 有 N 处)」就去修那个策略的消除逻辑,改到 0 violation;看到污染提示就移除暴力调用或把搜索类策略归入 last-resort。改到 `✓ 通过` 再交。\n' "$PH"
+}
+PROMPT_TEXT="$(cat "$PROMPT_PATH")$(required_ids_section)$AUTONOMY$(selfcheck_section)$(resume_feedback_section)"
 
 # --- resume hygiene (run2 post-mortem) ---
 # resume_feedback_section above has already consumed last run's .notes/.verify.json/
