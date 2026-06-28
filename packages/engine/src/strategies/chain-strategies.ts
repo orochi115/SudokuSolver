@@ -138,7 +138,12 @@ export function makeTurbotFish(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Stra
 export const turbotFish: Strategy = makeTurbotFish();
 
 /**
- * Build Link[] from a chain of node indices, using actual edge types.
+ * Build Link[] from a chain of node indices, inferring link types from the
+ * node topology: in-cell links are STRONG, between-cell links are WEAK.
+ * The XY-Chain alternation is encoded by the bivalue-cell path itself, not
+ * by the underlying link graph (the graph can carry duplicate strong+weak
+ * edges for the same node pair via conjugate-pair vs sees relationships).
+ *
  * The hop digit is the digit shared between the two consecutive cells.
  */
 function buildChainLinksFromGraph(graph: LinkGraph, chain: readonly number[]): Link[] {
@@ -146,30 +151,23 @@ function buildChainLinksFromGraph(graph: LinkGraph, chain: readonly number[]): L
   for (let k = 1; k < chain.length; k++) {
     const a = graph.nodes[chain[k - 1]!]!;
     const b = graph.nodes[chain[k]!]!;
-    const shared = (graph.adjacency[chain[k - 1]!] ?? []).find((e) => e.to === chain[k]!);
-    const type: 'strong' | 'weak' = shared?.type ?? 'weak';
     const aCell = a.cells[0]!;
     const bCell = b.cells[0]!;
-    if (aCell === bCell) {
-      // In-cell link: link is the other digit at the cell.
-      const otherDigit = a.digit === b.digit ? a.digit : (a.digit === b.digit ? a.digit : a.digit);
-      // Use a.digit and b.digit as the link's `digit` for symmetry.
-      const digit = a.digit;
+    const inCell = aCell === bCell;
+    const type: 'strong' | 'weak' = inCell ? 'strong' : 'weak';
+    if (inCell) {
       links.push({
-        from: { cell: aCell, digit },
+        from: { cell: aCell, digit: a.digit },
         to: { cell: bCell, digit: b.digit },
         type,
       });
     } else {
-      // Between-cell link: hop digit is the shared digit between cells.
-      const sharedMask = (a.digit & b.digit);
-      const hopD = (a.digit === b.digit) ? a.digit : a.digit;
+      const hopD = a.digit;
       links.push({
         from: { cell: aCell, digit: hopD },
         to: { cell: bCell, digit: hopD },
         type,
       });
-      void sharedMask;
     }
   }
   return links;
@@ -219,17 +217,16 @@ function bfsXyChain(
       && popped.cells[0] !== startCell
       && popped.cells.length === 1) {
       const endCell = popped.cells[0]!;
-      // Standard XY-chain elimination rule (cells seeing both endpoints
-      // can't have Z) only applies when the chain is consistent:
-      //   - XOR chains (odd number of links) are always consistent.
-      //   - AND chains (even number of links) are consistent only when the
-      //     endpoints do NOT see each other (otherwise the chain forces
-      //     a contradiction). For an AND chain with conflicting endpoints,
-      //     the chain still deduces `startCell ≠ Z` and `endCell ≠ Z`, but
-      //     the standard "see-both" elimination does not apply (a cell
-      //     seeing both endpoints may legitimately be Z).
+      // XY-Chain standard rule: only ODD chains (XOR) yield the
+      // "see both endpoints, eliminate Z" inference. An ODD chain proves
+      // startCell.Z != endCell.Z (exactly one end is Z); a cell seeing
+      // both can therefore not be Z (peer rule). An EVEN chain proves
+      // startCell.Z == endCell.Z (both true or both false); a cell seeing
+      // both can legitimately be Z (it merely forces both ends to not-Z,
+      // which is consistent with the chain). Skipping even chains keeps
+      // the standard "see both, eliminate" rule sound.
       const numLinks = item.chain.length - 1;
-      if (numLinks % 2 === 0 && seesCell(startCell, endCell)) continue;
+      if (numLinks % 2 === 0) continue;
       const targets: { cell: number; digit: number }[] = [];
       for (let c = 0; c < CELLS; c++) {
         if (grid.get(c) !== 0 || !(grid.candidatesOf(c) & bit)) continue;
@@ -258,10 +255,14 @@ function bfsXyChain(
       // 2 cells in the shared unit hold the digit). Otherwise the link
       // is "at most one" and the chain cannot be read in both directions,
       // which breaks the standard XY-Chain elimination rule.
+      //
+      // IMPORTANT: the digit to check is the CURRENT weak link's digit
+      // (a.digit), not the chain's start digit. Each hop in the chain
+      // alternates between the two digits of the bivalue cells.
       if (edge.type === 'weak') {
         const aCell = a.cells[0]!;
         const bCell = b.cells[0]!;
-        if (!isConjugatePair(grid, aCell, bCell, z)) continue;
+        if (!isConjugatePair(grid, aCell, bCell, a.digit)) continue;
       }
       queue.push({
         node: edge.to,

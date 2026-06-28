@@ -336,15 +336,32 @@ function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
   for (const ctx of findURContexts(grid)) {
     const { cells, masks, intersect, urDigits } = ctx;
 
-    // For each corner as "opposite", find another corner with NO extra
-    // candidates (pure floor). Then check the row and column of the
-    // diagonally opposite corner: if a is absent there outside the UR,
-    // eliminate b there.
-    for (let oppositeIdx = 0; oppositeIdx < 4; oppositeIdx++) {
+    // For each corner as the "start" (must be a pure floor: only the UR pair,
+    // no extra candidates), find its DIAGONAL OPPOSITE (shares neither row
+    // nor column with start) as the elimination target. If one UR digit
+    // `a` is absent from the diagonal opposite's row AND column outside the
+    // UR, then the opposite corner is forced to `a` and we can drop the
+    // other UR digit `b` from it.
+    for (let startIdx = 0; startIdx < 4; startIdx++) {
+      const startMask = masks[startIdx]!;
+      if ((startMask & intersect) !== intersect) continue; // not a floor
+      if (popcount(startMask) !== 2) continue; // floor must be exactly the UR pair
+      const startCell = cells[startIdx]!;
+      const startRow = ROW_OF[startCell]!;
+      const startCol = COL_OF[startCell]!;
+
+      // Find the diagonally opposite corner.
+      let oppositeIdx = -1;
+      for (let i = 0; i < 4; i++) {
+        if (i === startIdx) continue;
+        const otherCell = cells[i]!;
+        if (ROW_OF[otherCell] === startRow) continue;
+        if (COL_OF[otherCell] === startCol) continue;
+        oppositeIdx = i;
+        break;
+      }
+      if (oppositeIdx < 0) continue;
       const opposite = cells[oppositeIdx]!;
-      const oppositeMask = masks[oppositeIdx]!;
-      if ((oppositeMask & intersect) !== intersect) continue; // not a floor
-      if (popcount(oppositeMask) !== 2) continue; // floor must be exactly the UR pair
 
       const oppositeRow = ROW_OF[opposite]!;
       const oppositeCol = COL_OF[opposite]!;
@@ -384,8 +401,8 @@ function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
             links: [],
           },
           explanation: {
-            zh: `隐性唯一矩形（HUR）：UR对 {${urDigits[0]},${urDigits[1]}} 中，对角格 ${cellLabel(opposite)} 的行/列中除 UR 角格外再无 ${a}（被 ${a} 锁在该格），故对角格须为 ${a}；消去 ${other}（隐性唯一矩形）。`,
-            en: `Hidden Unique Rectangle (HUR): UR pair {${urDigits[0]},${urDigits[1]}}; ${a} is absent from the row and column of ${cellLabel(opposite)} outside the UR (locked onto that corner); so the opposite corner must be ${a}; eliminate ${other} from ${cellLabel(opposite)}.`,
+            zh: `隐性唯一矩形（HUR）：UR对 {${urDigits[0]},${urDigits[1]}} 中，纯底层格 ${cellLabel(startCell)} 的对角格 ${cellLabel(opposite)} 的行/列中除 UR 外再无 ${a}，故 ${cellLabel(opposite)} 必为 ${a}；消去 ${other}（隐性唯一矩形）。`,
+            en: `Hidden Unique Rectangle (HUR): UR pair {${urDigits[0]},${urDigits[1]}}; diagonal of pure floor ${cellLabel(startCell)} is ${cellLabel(opposite)}, whose row and column contain no other ${a} outside the UR, so ${cellLabel(opposite)} is forced to ${a}; eliminate ${other} from ${cellLabel(opposite)}.`,
           },
         };
       }
