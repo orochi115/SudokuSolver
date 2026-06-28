@@ -70,6 +70,17 @@ import { frankenFish, mutantFish } from './complex-fish.js';
 import { gurth } from './gurth.js';
 import { subsetExclusion } from './subset-exclusion.js';
 import { forcingChain } from './forcing-chain.js';
+import { digitForcingChain } from './digit-forcing-chain.js';
+import { nishioForcingChain } from './nishio-forcing-chain.js';
+import { cellForcingChain } from './cell-forcing-chain.js';
+import { regionForcingChain } from './region-forcing-chain.js';
+import { dic } from './dic.js';
+import { forcingNet } from './forcing-net.js';
+import { krakenFish } from './kraken-fish.js';
+import { tabling } from './tabling.js';
+import { pom } from './pom.js';
+import { templates } from './templates.js';
+import { gem } from './gem.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -169,6 +180,17 @@ export const STRATEGIES: readonly Strategy[] = [
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
+  digitForcingChain,  // 9010
+  nishioForcingChain, // 9020
+  cellForcingChain,   // 9030
+  regionForcingChain, // 9040
+  dic,                // 9050
+  forcingNet,         // 9060
+  krakenFish,         // 9070
+  tabling,            // 9080
+  pom,                // 9090
+  templates,          // 9100
+  gem,                // 9110
 ];
 
 /**
@@ -253,6 +275,17 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'sk-loop',
   'msls',
   'forcing-chain',
+  'digit-forcing-chain',
+  'nishio-forcing-chain',
+  'cell-forcing-chain',
+  'region-forcing-chain',
+  'dic',
+  'forcing-net',
+  'kraken-fish',
+  'tabling',
+  'pom',
+  'templates',
+  'gem',
 ];
 
 export {
@@ -332,4 +365,15 @@ export {
   skLoop,
   msls,
   forcingChain,
+  digitForcingChain,
+  nishioForcingChain,
+  cellForcingChain,
+  regionForcingChain,
+  dic,
+  forcingNet,
+  krakenFish,
+  tabling,
+  pom,
+  templates,
+  gem,
 };

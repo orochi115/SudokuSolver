@@ -60,6 +60,72 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: true,
     profiles: ['last-resort'],
   },
+  {
+    strategyId: 'digit-forcing-chain',
+    owns: 'Digit forcing chain — branching on digit positions within a house.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'nishio-forcing-chain',
+    owns: 'Nishio contradiction — assume candidate, propagate, find contradiction.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'cell-forcing-chain',
+    owns: 'Cell forcing chain — branching on all candidates of a bivalue/multivalue cell.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'region-forcing-chain',
+    owns: 'Region forcing chain — branching on two positions of a digit in a house.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'dic',
+    owns: 'Dynamic Implication Chains — multi-branch implication tracking with contradiction detection.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'forcing-net',
+    owns: 'Forcing Net — multi-branch forcing from cell or house, wider than simple forcing chains.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'kraken-fish',
+    owns: 'Kraken Fish — fish pattern combined with forcing chains on fin cells.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'tabling',
+    owns: 'Tabling — exhaustive candidate implication table with contradiction detection.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'pom',
+    owns: 'Pattern Overlay Method — test each candidate against valid digit placement patterns.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'templates',
+    owns: 'Templates — enumerate valid digit templates, eliminate incompatible candidates.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'gem',
+    owns: 'Grouped Exclusion Method — multi-branch exclusion with grouped propagation.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
   // ---- reserved (gate 6 boundaries for future chain work) ----
   {
     strategyId: 'turbot-fish',
