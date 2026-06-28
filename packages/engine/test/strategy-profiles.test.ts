@@ -76,3 +76,48 @@ describe('gate 1 — strategy profiles', () => {
     expect(strategiesForProfile('last-resort')).toBe(STRATEGY_PROFILES['last-resort']);
   });
 });
+
+describe('P3 anti-pollution gate — every P3 id is last-resort only', () => {
+  const P3_IDS = [
+    'forcing-chain',
+    'digit-forcing-chain',
+    'nishio-forcing-chain',
+    'cell-forcing-chain',
+    'region-forcing-chain',
+    'dic',
+    'forcing-net',
+    'kraken-fish',
+    'tabling',
+    'pom',
+    'templates',
+    'gem',
+  ] as const;
+
+  const humanIds = new Set(HUMAN_DEFAULT_STRATEGIES.map((s) => s.id));
+  const registeredIds = new Set(STRATEGIES.map((s) => s.id));
+
+  for (const id of P3_IDS) {
+    it(`${id} is in LAST_RESORT_IDS`, () => {
+      expect(LAST_RESORT_IDS.has(id)).toBe(true);
+    });
+    it(`${id} is NOT in human-default profile`, () => {
+      expect(humanIds.has(id)).toBe(false);
+    });
+    it(`${id} is registered in STRATEGIES`, () => {
+      expect(registeredIds.has(id)).toBe(true);
+    });
+  }
+
+  it('all P3 ids have difficulty >= 9000 (last-resort band)', () => {
+    for (const id of P3_IDS) {
+      const strategy = STRATEGIES.find((s) => s.id === id);
+      expect(strategy).toBeDefined();
+      expect(strategy!.difficulty).toBeGreaterThanOrEqual(9000);
+    }
+  });
+
+  it('no P3 id shares a difficulty with another strategy', () => {
+    const p3Diffs = P3_IDS.map((id) => STRATEGIES.find((s) => s.id === id)!.difficulty);
+    expect(new Set(p3Diffs).size).toBe(p3Diffs.length);
+  });
+});

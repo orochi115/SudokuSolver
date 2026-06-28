@@ -107,7 +107,7 @@ function tryFrankenFish(grid: Grid, d: number): Step | null {
   for (let c = 0; c < CELLS; c++) {
     if (grid.get(c) === 0 && (grid.candidatesOf(c) & bit)) totalCands++;
   }
-  if (totalCands > 30) return null;
+  if (totalCands > 24) return null;
 
   const activeRows: number[] = [];
   const activeCols: number[] = [];
@@ -188,7 +188,7 @@ function tryMutantFish(grid: Grid, d: number): Step | null {
   for (let c = 0; c < CELLS; c++) {
     if (grid.get(c) === 0 && (grid.candidatesOf(c) & bit)) totalCands++;
   }
-  if (totalCands > 25) return null;
+  if (totalCands > 18) return null;
 
   const activeHouses: { type: string; index: number; cells: readonly number[] }[] = [];
   for (let i = 0; i < 9; i++) {
@@ -201,7 +201,7 @@ function tryMutantFish(grid: Grid, d: number): Step | null {
   }
 
   const n = activeHouses.length;
-  if (n < 6) return null;
+  if (n < 6 || n > 16) return null;
 
   for (let i = 0; i < n - 2; i++) {
     for (let j = i + 1; j < n - 1; j++) {
