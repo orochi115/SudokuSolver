@@ -171,7 +171,14 @@ describe('research-card soundness (verifyDeductions)', () => {
 
   it('bent-sets ALP elimination is sound', () => {
     const puzzle = '6....7..4..45..7...9..4..8..8.2....3..3...2..5....3.1...1.9..6.4....51...6.3....2'.replace(/\./g, '0');
-    const result = verifyDeductions(puzzle, { eliminations: [{ cell: rc(3, 1), digit: 3 }] });
+    const result = verifyDeductions(puzzle, {
+      eliminations: [
+        { cell: rc(3, 1), digit: 1 },
+        { cell: rc(3, 6), digit: 1 },
+        { cell: rc(3, 6), digit: 6 },
+        { cell: rc(2, 9), digit: 9 },
+      ],
+    });
     expect(result.ok).toBe(true);
   });
 });
