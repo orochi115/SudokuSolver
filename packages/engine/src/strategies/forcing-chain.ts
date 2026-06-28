@@ -100,7 +100,7 @@ function makeStep(
   };
 }
 
-function combineForcingSteps(grid: Grid, first: Step, second: Step): Step {
+function combineForcingSteps(strategyId: string, grid: Grid, first: Step, second: Step): Step {
   const seenPlacements = new Set<string>();
   const placements = [...first.placements, ...second.placements].filter((placement) => {
     const key = `${placement.cell}:${placement.digit}`;
@@ -116,7 +116,7 @@ function combineForcingSteps(grid: Grid, first: Step, second: Step): Step {
     return !placements.some((placement) => placement.cell === elimination.cell && placement.digit === elimination.digit);
   });
   return makeStep(
-    'forcing-chain',
+    strategyId,
     grid,
     [...first.highlights.cells, ...second.highlights.cells],
     placements,
@@ -216,13 +216,13 @@ function contradictionFromAssumption(grid: Grid, cell: number, digit: number, ma
   return false;
 }
 
-function tryBoundedContradiction(grid: Grid, maxChainLength: number): Step | null {
+function tryBoundedContradiction(strategyId: string, grid: Grid, maxChainLength: number): Step | null {
   for (let cell = 0; cell < CELLS; cell++) {
     if (grid.get(cell) !== 0 || popcount(grid.candidatesOf(cell)) < 2) continue;
     for (const digit of digitsOf(grid.candidatesOf(cell))) {
       if (!contradictionFromAssumption(grid, cell, digit, maxChainLength)) continue;
       return makeStep(
-        'forcing-chain',
+        strategyId,
         grid,
         [cell],
         [],
@@ -242,7 +242,32 @@ type CachedForcingStep = {
   readonly step: Step | null;
 };
 
-const forcingStepCache = new WeakMap<Grid, CachedForcingStep>();
+const forcingStepCache = new WeakMap<Grid, Map<string, CachedForcingStep>>();
+
+interface ForcingSearchOptions {
+  readonly allowCellGraph: boolean;
+  readonly allowDigitGraph: boolean;
+  readonly allowContradiction: boolean;
+  readonly allowLegacyCell: boolean;
+  readonly allowLegacyHouse: boolean;
+  readonly combineGraphAndContradiction: boolean;
+}
+
+const DEFAULT_FORCING_SEARCH: ForcingSearchOptions = {
+  allowCellGraph: true,
+  allowDigitGraph: true,
+  allowContradiction: true,
+  allowLegacyCell: true,
+  allowLegacyHouse: true,
+  combineGraphAndContradiction: true,
+};
+
+export interface ForcingStrategyOptions {
+  readonly id?: string;
+  readonly name?: { zh: string; en: string };
+  readonly difficulty?: number;
+  readonly search?: Partial<ForcingSearchOptions>;
+}
 
 function policyKey(policy: ChainPolicy): string {
   return [
@@ -255,12 +280,45 @@ function policyKey(policy: ChainPolicy): string {
   ].join('/');
 }
 
-function forcingStateKey(grid: Grid, policy: ChainPolicy): string {
-  let key = policyKey(policy) + '|';
+function searchOptionsKey(options: ForcingSearchOptions): string {
+  return [
+    options.allowCellGraph ? 1 : 0,
+    options.allowDigitGraph ? 1 : 0,
+    options.allowContradiction ? 1 : 0,
+    options.allowLegacyCell ? 1 : 0,
+    options.allowLegacyHouse ? 1 : 0,
+    options.combineGraphAndContradiction ? 1 : 0,
+  ].join('/');
+}
+
+function searchCacheKey(policy: ChainPolicy, options: ForcingSearchOptions): string {
+  return `${policyKey(policy)}|${searchOptionsKey(options)}`;
+}
+
+function gridStateKey(grid: Grid): string {
+  let key = '';
   for (let cell = 0; cell < CELLS; cell++) {
     key += `${grid.values[cell]}/${grid.candidates[cell]},`;
   }
   return key;
+}
+
+function getCachedStep(grid: Grid, cacheKey: string, stateKey: string): Step | null | undefined {
+  const cached = forcingStepCache.get(grid)?.get(cacheKey);
+  return cached?.key === stateKey ? cached.step : undefined;
+}
+
+function setCachedStep(grid: Grid, cacheKey: string, stateKey: string, step: Step | null): void {
+  let bySearch = forcingStepCache.get(grid);
+  if (!bySearch) {
+    bySearch = new Map<string, CachedForcingStep>();
+    forcingStepCache.set(grid, bySearch);
+  }
+  bySearch.set(cacheKey, { key: stateKey, step });
+}
+
+function fullSearchAlreadyFailed(grid: Grid, policy: ChainPolicy, stateKey: string): boolean {
+  return getCachedStep(grid, searchCacheKey(policy, DEFAULT_FORCING_SEARCH), stateKey) === null;
 }
 
 function legacyPropagateNakedSingles(grid: Grid, cell: number, digit: number): Map<number, number> | null {
@@ -298,7 +356,7 @@ function legacyPropagateNakedSingles(grid: Grid, cell: number, digit: number): M
   return placements;
 }
 
-function tryLegacyCellForcingChain(grid: Grid): Step | null {
+function tryLegacyCellForcingChain(strategyId: string, grid: Grid): Step | null {
   for (let cell = 0; cell < CELLS; cell++) {
     if (grid.get(cell) !== 0) continue;
     const candidates = digitsOf(grid.candidatesOf(cell));
@@ -316,7 +374,7 @@ function tryLegacyCellForcingChain(grid: Grid): Step | null {
       const digit = contradictions[0]!;
       if (!grid.hasCandidate(cell, digit)) continue;
       return makeStep(
-        'forcing-chain',
+        strategyId,
         grid,
         [cell],
         [],
@@ -333,7 +391,7 @@ function tryLegacyCellForcingChain(grid: Grid): Step | null {
       if (!grid.hasCandidate(targetCell, targetDigit)) continue;
       if (!branches.every((branch) => branch.get(targetCell) === targetDigit)) continue;
       return makeStep(
-        'forcing-chain',
+        strategyId,
         grid,
         [cell],
         [{ cell: targetCell, digit: targetDigit }],
@@ -347,7 +405,7 @@ function tryLegacyCellForcingChain(grid: Grid): Step | null {
   return null;
 }
 
-function tryLegacyHouseForcingChain(grid: Grid): Step | null {
+function tryLegacyHouseForcingChain(strategyId: string, grid: Grid): Step | null {
   for (const house of HOUSES) {
     for (let digit = 1; digit <= 9; digit++) {
       const bit = maskOf(digit);
@@ -360,7 +418,7 @@ function tryLegacyHouseForcingChain(grid: Grid): Step | null {
 
       if (firstBranch === null && secondBranch !== null && grid.hasCandidate(secondCell, digit)) {
         return makeStep(
-          'forcing-chain',
+          strategyId,
           grid,
           positions,
           [{ cell: secondCell, digit }],
@@ -372,7 +430,7 @@ function tryLegacyHouseForcingChain(grid: Grid): Step | null {
 
       if (secondBranch === null && firstBranch !== null && grid.hasCandidate(firstCell, digit)) {
         return makeStep(
-          'forcing-chain',
+          strategyId,
           grid,
           positions,
           [{ cell: firstCell, digit }],
@@ -389,7 +447,7 @@ function tryLegacyHouseForcingChain(grid: Grid): Step | null {
         if (!grid.hasCandidate(targetCell, targetDigit)) continue;
         if (secondBranch.get(targetCell) !== targetDigit) continue;
         return makeStep(
-          'forcing-chain',
+          strategyId,
           grid,
           [...positions, targetCell],
           [{ cell: targetCell, digit: targetDigit }],
@@ -404,27 +462,38 @@ function tryLegacyHouseForcingChain(grid: Grid): Step | null {
   return null;
 }
 
-function legacyForcingChain(grid: Grid): Step | null {
-  return tryLegacyCellForcingChain(grid) ?? tryLegacyHouseForcingChain(grid);
+function legacyForcingChain(strategyId: string, grid: Grid, options: ForcingSearchOptions): Step | null {
+  return (
+    (options.allowLegacyCell ? tryLegacyCellForcingChain(strategyId, grid) : null) ??
+    (options.allowLegacyHouse ? tryLegacyHouseForcingChain(strategyId, grid) : null)
+  );
 }
 
-export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): Strategy {
+export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY, options: ForcingStrategyOptions = {}): Strategy {
+  const strategyId = options.id ?? 'forcing-chain';
+  const searchOptions = { ...DEFAULT_FORCING_SEARCH, ...options.search };
+  const isDefaultSearch = searchOptionsKey(searchOptions) === searchOptionsKey(DEFAULT_FORCING_SEARCH);
   return {
-    id: 'forcing-chain',
-    name: { zh: '强制链', en: 'Forcing Chain' },
-    difficulty: 9000,
+    id: strategyId,
+    name: options.name ?? { zh: '强制链', en: 'Forcing Chain' },
+    difficulty: options.difficulty ?? 9000,
     tieBreak: ['cell-index', 'digit'],
 
     apply(grid: Grid): Step | null {
-      const cacheKey = forcingStateKey(grid, policy);
-      const cached = forcingStepCache.get(grid);
-      if (cached?.key === cacheKey) return cached.step;
+      const stateKey = gridStateKey(grid);
+      const cacheKey = searchCacheKey(policy, searchOptions);
+      const cached = getCachedStep(grid, cacheKey, stateKey);
+      if (cached !== undefined) return cached;
+      if (!isDefaultSearch && fullSearchAlreadyFailed(grid, policy, stateKey)) {
+        setCachedStep(grid, cacheKey, stateKey, null);
+        return null;
+      }
 
       const graph = buildLinkGraph(grid, { grouped: false });
       const nodeIndex = (cell: number, digit: number): number | undefined => graph.indexOfKey.get(nodeKey(digit, [cell]));
       let graphStep: Step | null = null;
 
-      if (policy.allowCellForcing) {
+      if (policy.allowCellForcing && searchOptions.allowCellGraph) {
         for (let cell = 0; cell < CELLS && !graphStep; cell++) {
           if (grid.get(cell) !== 0 || popcount(grid.candidatesOf(cell)) !== 2) continue;
           const [firstDigit, secondDigit] = digitsOf(grid.candidatesOf(cell)) as [number, number];
@@ -440,7 +509,7 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
         }
       }
 
-      if (policy.allowDigitForcing && !graphStep) {
+      if (policy.allowDigitForcing && searchOptions.allowDigitGraph && !graphStep) {
         for (const house of HOUSES) {
           for (let digit = 1; digit <= 9 && !graphStep; digit++) {
             const bit = maskOf(digit);
@@ -460,13 +529,15 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
         }
       }
 
-      const contradictionStep = tryBoundedContradiction(grid, policy.maxChainLength * 4);
-      const result = !graphStep
-        ? contradictionStep ?? legacyForcingChain(grid)
-        : contradictionStep
-          ? combineForcingSteps(grid, graphStep, contradictionStep)
-          : graphStep;
-      forcingStepCache.set(grid, { key: cacheKey, step: result });
+      const contradictionStep = searchOptions.allowContradiction
+        ? tryBoundedContradiction(strategyId, grid, policy.maxChainLength * 4)
+        : null;
+      const result = graphStep
+        ? searchOptions.combineGraphAndContradiction && contradictionStep
+          ? combineForcingSteps(strategyId, grid, graphStep, contradictionStep)
+          : graphStep
+        : contradictionStep ?? legacyForcingChain(strategyId, grid, searchOptions);
+      setCachedStep(grid, cacheKey, stateKey, result);
       return result;
     },
   };
