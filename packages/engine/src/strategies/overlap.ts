@@ -50,24 +50,28 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop'],
-    futureMembers: ['remote-pairs', 'grouped-aic'],
+    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
       '`grouped` is a switch on buildLinkGraph, not a separate strategy. ' +
       'xy-chain (P0) now registered as bivalue-only AIC sub-family. ' +
-      'nice-loop (P0, E6) now owns continuous/discontinuous Nice Loop kinds; aic must not emit loop results.',
+      'nice-loop (P0, E6) now owns continuous/discontinuous Nice Loop kinds; aic must not emit loop results. ' +
+      'remote-pairs (P1) now registered as XY-Chain special case. ' +
+      'aic-with-als (P1) and aic-with-ur (P1) now registered as AIC extensions.',
   },
   {
     id: 'als-chain',
     canonicalOwner: 'als-xz',
-    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom'],
-    futureMembers: ['als-xy-chain', 'aic-with-als'],
+    members: ['als-xz', 'als-xz-doubly-linked', 'als-xy-wing', 'death-blossom', 'als-chain', 'ahs'],
+    futureMembers: [],
     unified: false,
     note:
-      'ALS-XY-Wing is the len-2 special case of a general ALS chain; ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS ' +
-      'and is intentionally not implemented standalone. als-xz is the representative owner pending a general ALS-chain search.',
+      'ALS-XY-Wing is the len-2 special case of a general ALS chain (E4: als-xy-wing is now a special case of als-chain). ' +
+      'ALS-W-Wing is absorbed by ALS chain / AIC-with-ALS and is intentionally not implemented standalone. ' +
+      'als-chain (P1) now registered as the general ALS chain. ' +
+      'ahs (P1) now registered as the Almost Hidden Set chain node strategy.',
   },
   {
     id: 'uniqueness-rectangle',
@@ -81,15 +85,31 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-rectangle-type-6',
       'hidden-unique-rectangle',
       'bug-plus-one',
-    ],
-    futureMembers: [
-      'avoidable-rectangle',
+      'bug-lite',
+      'bug-plus-n',
+      'avoidable-rectangle-type-1',
+      'avoidable-rectangle-type-2',
+      'avoidable-rectangle-type-3',
+      'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
+      'unique-loop',
     ],
+    futureMembers: [],
     unified: false,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
       'unique-solution assumption. UR types now ship as per-type detectors sharing the rectangle enumeration. ' +
-      '(E3) UR3/5/6 + Hidden UR now implemented and registered, sharing allRectangles() engine.',
+      '(E3) UR3/5/6 + Hidden UR now implemented and registered, sharing allRectangles() engine. ' +
+      '(P1) AR1-4, EUR, Unique Loop, BUG-Lite, BUG+N now registered as uniqueness extensions.',
+  },
+  {
+    id: 'exotic-patterns',
+    canonicalOwner: 'tridagon',
+    members: ['tridagon', 'sue-de-coq'],
+    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion', 'franken-fish', 'mutant-fish'],
+    unified: false,
+    note:
+      'Exotic pattern family. Tridagon is the first P1 exotic strategy. ' +
+      'sue-de-coq is already implemented in P0.',
   },
 ];

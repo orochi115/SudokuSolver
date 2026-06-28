@@ -1,0 +1,4 @@
+{"phase":"p1","status":"full","rc":0,"verifySec":135,
+ "solveHuman":"8/727","solveLastResort":"",
+ "missingIds":"","pollutionWarnFiles":"/Users/sakura/LLM_Work/sudoku-wt-r2/sonnet46/packages/engine/src/strategies/uniqueness-p1.ts ","hardReasons":"",
+ "soundDetail":""}
