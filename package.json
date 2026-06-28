@@ -14,7 +14,8 @@
     "gen:ground-truth": "tsx packages/engine/scripts/gen-ground-truth.ts",
     "solve:rate": "tsx packages/engine/scripts/solve-rate.ts",
     "solve:list": "tsx packages/engine/scripts/solve-list.ts",
-    "corpus:run": "tsx packages/engine/scripts/full-corpus.ts"
+    "corpus:run": "tsx packages/engine/scripts/full-corpus.ts",
+    "verify:r2": "tsx packages/engine/scripts/verify-r2.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
