@@ -28,7 +28,17 @@ while kill -0 "$SCHED" 2>/dev/null; do
   for pl in "$LOGS"/*/pipeline.log; do
     [ -f "$pl" ] || continue
     name="$(basename "$(dirname "$pl")")"
-    mt=$(stat -f %m "$pl" 2>/dev/null || echo "$now"); age=$((now - mt))
+    # Liveness = newest mtime across ALL of this model's logs, not just pipeline.log:
+    # the model TURN writes to <ph>-attempt-*.log and VERIFY writes to <ph>-verify-*.out,
+    # both of which leave pipeline.log silent. Using only pipeline.log false-reaped models
+    # that were actively working or verifying (run2/run3). Genuine hang = ALL logs stale.
+    dir="$(dirname "$pl")"
+    mt=$(stat -f %m "$pl" 2>/dev/null || echo 0)
+    for f in "$dir"/*-attempt-*.log "$dir"/*-verify-*.out; do
+      [ -f "$f" ] || continue
+      m2=$(stat -f %m "$f" 2>/dev/null || echo 0); [ "$m2" -gt "$mt" ] && mt=$m2
+    done
+    age=$((now - mt))
     [ "$age" -lt "$STALL" ] && continue
     # is a run-model for this model still alive? (pipeline done models won't match)
     rmpid=$(pgrep -f "run-model\.sh [^ ]+ $name " 2>/dev/null | head -1)

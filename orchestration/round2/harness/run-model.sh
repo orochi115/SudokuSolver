@@ -187,9 +187,17 @@ release_verify() { [ -n "${1:-}" ] && rm -rf "$1" 2>/dev/null; return 0; }
 #   0 = full pass | 2 = soft (sound+clean but required ids incomplete) | 1 = hard fail.
 guarded_verify() {
   local out="$LOG_DIR/$PH-verify-$i.out"; : >"$out"; rm -f "$out.rc"
+  # Heartbeat to OUR stdout (-> pipeline.log) every HB_VERIFY_SEC so the watchdog (it
+  # reaps a model whose pipeline.log is stale for WATCHDOG_STALL) does NOT false-kill us
+  # while we (a) WAIT for a verify slot — acquire_verify is silent — or (b) run a long,
+  # output-buffered verify. run2/run3 post-mortem: minimax-m3 was SIGKILLed at 2400s while
+  # blocked in acquire_verify behind two slow 727-soundness verifies. Ticker dies with us.
+  ( while true; do sleep "${HB_VERIFY_SEC:-45}"; printf '[hb %s/%s] verify/queue alive %s\n' "$NAME" "$PH" "$(date +%H:%M:%S)"; done ) &
+  local hb=$!
   local slot; slot="$(acquire_verify)"
   ( bash "$HARNESS/verify.sh" "$WT" "$PH" >"$out" 2>&1; echo $? >"$out.rc" ) &
-  _wait_child "$!" "$out" 0 "${VERIFY_TIMEOUT:-1800}"
+  _wait_child "$!" "$out" 0 "${VERIFY_TIMEOUT:-2700}"
+  kill "$hb" 2>/dev/null
   release_verify "$slot"
   cat "$out"
   local rc; rc="$(cat "$out.rc" 2>/dev/null)"; [ -n "$rc" ] && return "$rc" || return 1
