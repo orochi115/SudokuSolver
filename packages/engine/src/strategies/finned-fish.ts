@@ -67,23 +67,22 @@ function tryFinnedFish(
       const finBoxes = new Set(fins.map((f) => BOX_OF[f.cell]!));
       if (finBoxes.size !== 1) continue;
 
-      let reducedValid = true;
-      for (const bi of baseIndices) {
-        const inCover = allCands.filter((c) => c.baseIdx === bi && coverSet.has(c.coverIdx));
-        if (inCover.length === 0) {
-          reducedValid = false;
-          break;
-        }
-      }
-      if (!reducedValid) continue;
-
+      const finCellSet = new Set(fins.map((f) => f.cell));
       const finCells = fins.map((f) => f.cell);
-      const eliminations: { cell: number; digit: number }[] = [];
-      const baseCells: number[] = [];
+      const finBox = [...finBoxes][0]!;
       const sashimi = fins.some((f) => {
         const inCoverOnLine = allCands.filter((c) => c.baseIdx === f.baseIdx && coverSet.has(c.coverIdx));
         return inCoverOnLine.length === 0;
       });
+
+      const reducedValid = sashimi || baseIndices.every((bi) => {
+        const remaining = allCands.filter((c) => c.baseIdx === bi && !finCellSet.has(c.cell));
+        return remaining.some((c) => coverSet.has(c.coverIdx));
+      });
+      if (!reducedValid) continue;
+
+      const eliminations: { cell: number; digit: number }[] = [];
+      const baseCells: number[] = [];
 
       for (const ci of coverSet) {
         for (const cell of coverHouses[ci]!) {
@@ -93,6 +92,7 @@ function tryFinnedFish(
             baseCells.push(cell);
             continue;
           }
+          if (BOX_OF[cell]! !== finBox) continue;
           if (seesAllFins(cell, finCells)) eliminations.push({ cell, digit: d });
         }
       }

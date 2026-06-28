@@ -146,6 +146,7 @@ function makeLoopResult(
 export function searchNiceLoop(grid: Grid, graph: LinkGraph, policy: ChainPolicy): LoopResult | null {
   const n = graph.nodes.length;
   const maxLen = policy.maxChainLength;
+  const perStartBudget = 8000;
 
   for (let start = 0; start < n; start++) {
     interface State {
@@ -153,9 +154,11 @@ export function searchNiceLoop(grid: Grid, graph: LinkGraph, policy: ChainPolicy
       visited: Set<number>;
     }
 
+    let budget = perStartBudget;
     const queue: State[] = [{ path: [start], visited: new Set([start]) }];
 
     while (queue.length) {
+      if (budget-- <= 0) break;
       const state = queue.shift()!;
       const cur = state.path[state.path.length - 1]!;
       const depth = state.path.length;

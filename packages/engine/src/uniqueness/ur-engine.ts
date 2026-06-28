@@ -33,6 +33,51 @@ function getCommonHouses(c1: number, c2: number): number[] {
   return [ROW_OF[c2]!, 9 + COL_OF[c2]!, 18 + BOX_OF[c2]!].filter((h) => units1.has(h));
 }
 
+/** Diagonal corner opposite in [c11,c12,c21,c22] layout. */
+const DIAG_OPPOSITE = [3, 2, 1, 0] as const;
+
+function seesBoth(cell: number, a: number, b: number): boolean {
+  return PEERS_OF[a]!.includes(cell) && PEERS_OF[b]!.includes(cell);
+}
+
+function isAdjacentRoofPair(cells: readonly number[], a: number, b: number): boolean {
+  const i = cells.indexOf(a);
+  const j = cells.indexOf(b);
+  if (i < 0 || j < 0) return false;
+  const d = i ^ j;
+  return d === 1 || d === 2;
+}
+
+function* combinations<T>(items: readonly T[], k: number): Generator<T[]> {
+  if (k === 0) {
+    yield [];
+    return;
+  }
+  if (items.length < k) return;
+  const [head, ...tail] = items;
+  for (const rest of combinations(tail, k - 1)) yield [head!, ...rest];
+  yield* combinations(tail, k);
+}
+
+function nakedSubsetWithVirtual(
+  virtualMask: number,
+  outsideCells: readonly number[],
+  grid: Grid,
+  size: number,
+): number[] | null {
+  const need = size - 1;
+  if (outsideCells.length < need) return null;
+  for (const combo of combinations(outsideCells, need)) {
+    const masks = [virtualMask, ...combo.map((c) => grid.candidatesOf(c))];
+    const union = masks.reduce((acc, mask) => acc | mask, 0);
+    if (popcount(union) !== size) continue;
+    if (masks.length !== size) continue;
+    if (!masks.every((mask) => (mask & ~union) === 0)) continue;
+    return combo;
+  }
+  return null;
+}
+
 function urPairMask(grid: Grid, cells: number[]): number {
   const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
   return masks[0]! & masks[1]! & masks[2]! & masks[3]!;
@@ -121,39 +166,39 @@ export function tryURType3(grid: Grid, strategyId: string): Step | null {
     if (popcount(intersect) !== 2) continue;
 
     const masks = cells.map((c) => (grid.get(c) === 0 ? grid.candidatesOf(c) : 0));
+    const floorCells = cells.filter((_, i) => masks[i] === intersect);
     const roofCells = cells.filter((_, i) => {
       const m = masks[i]!;
-      return m !== intersect && m !== 0 && (m & intersect) === intersect && popcount(m) > 2;
+      return m !== intersect && m !== 0 && (m & intersect) === intersect;
     });
-    const floorCells = cells.filter((_, i) => masks[i] === intersect);
     if (roofCells.length !== 2 || floorCells.length !== 2) continue;
+    if (!isAdjacentRoofPair(cells, roofCells[0]!, roofCells[1]!)) continue;
 
-    const roofExtras = roofCells.map((c) => grid.candidatesOf(c) & ~intersect);
-    const combinedExtras = roofExtras[0]! | roofExtras[1]!;
-    if (popcount(combinedExtras) < 2) continue;
+    const combinedExtras = roofCells.reduce((acc, c) => acc | (grid.candidatesOf(c) & ~intersect), 0);
+    const subsetSize = popcount(combinedExtras);
+    if (subsetSize < 2) continue;
 
-    for (const houseIdx of getCommonHouses(roofCells[0]!, roofCells[1]!)) {
+    const [r0, r1] = roofCells as [number, number];
+    for (const houseIdx of getCommonHouses(r0, r1)) {
       const house = HOUSES[houseIdx]!;
-      const subsetCells: number[] = [];
-      const subsetDigits = new Set<number>();
-
+      const outsidePool: number[] = [];
       for (const c of house) {
-        if (grid.get(c) !== 0) continue;
+        if (roofCells.includes(c) || floorCells.includes(c) || grid.get(c) !== 0) continue;
+        if (!seesBoth(c, r0, r1)) continue;
         const cm = grid.candidatesOf(c);
-        const overlap = cm & combinedExtras;
-        if (overlap === 0) continue;
-        if (roofCells.includes(c) || (cm & ~intersect & ~combinedExtras) === 0) {
-          subsetCells.push(c);
-          for (const d of digitsOf(overlap)) subsetDigits.add(d);
-        }
+        if ((cm & ~combinedExtras) !== 0) continue;
+        if ((cm & combinedExtras) === 0) continue;
+        outsidePool.push(c);
       }
 
-      const subsetSize = subsetCells.length;
-      if (subsetSize < 2 || subsetDigits.size !== subsetSize) continue;
+      const outsideSubset = nakedSubsetWithVirtual(combinedExtras, outsidePool, grid, subsetSize);
+      if (!outsideSubset) continue;
 
+      const subsetDigits = digitsOf(combinedExtras);
+      const subsetMembers = new Set([...roofCells, ...outsideSubset]);
       const elims: { cell: number; digit: number }[] = [];
       for (const c of house) {
-        if (subsetCells.includes(c) || grid.get(c) !== 0) continue;
+        if (subsetMembers.has(c) || grid.get(c) !== 0) continue;
         for (const d of subsetDigits) {
           if (grid.hasCandidate(c, d)) elims.push({ cell: c, digit: d });
         }
@@ -371,10 +416,12 @@ export function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
     const [x, y] = digitsOf(intersect) as [number, number];
 
     for (let i = 0; i < 4; i++) {
+      const oppIdx = DIAG_OPPOSITE[i]!;
       const start = cells[i]!;
-      const opposite = cells[(i + 2) % 4]!;
-      const startExtra = masks[i]! & ~intersect;
-      if (startExtra !== 0) continue;
+      const opposite = cells[oppIdx]!;
+      if (masks[i] !== intersect) continue;
+      if ((masks[oppIdx]! & intersect) !== intersect) continue;
+      if (popcount(masks[oppIdx]!) <= 2) continue;
 
       const oppRow = ROW_OF[opposite]!;
       const oppCol = COL_OF[opposite]!;
@@ -382,6 +429,11 @@ export function tryHiddenUR(grid: Grid, strategyId: string): Step | null {
         const bit = maskOf(locked);
         const rowHouse = HOUSES[oppRow]!;
         const colHouse = HOUSES[9 + oppCol]!;
+        const urRowCells = rowHouse.filter((c) => cells.includes(c));
+        const urColCells = colHouse.filter((c) => cells.includes(c));
+        const rowLocked = urRowCells.filter((c) => grid.hasCandidate(c, locked));
+        const colLocked = urColCells.filter((c) => grid.hasCandidate(c, locked));
+        if (rowLocked.length !== 2 || colLocked.length !== 2) continue;
         const inRowOutside = rowHouse.filter((c) => !cells.includes(c) && grid.get(c) === 0 && (grid.candidatesOf(c) & bit));
         const inColOutside = colHouse.filter((c) => !cells.includes(c) && grid.get(c) === 0 && (grid.candidatesOf(c) & bit));
         if (inRowOutside.length > 0 || inColOutside.length > 0) continue;
