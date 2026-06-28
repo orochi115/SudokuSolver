@@ -29,6 +29,27 @@ function* allRectangles(): Generator<[number, number, number, number]> {
   }
 }
 
+/** Check that 3 solved cells with values {X,Y} form a valid deadly-pattern arrangement.
+ *  In each row/column where both cells are solved, they must have different values.
+ *  Otherwise the swap doesn't produce a legal alternate solution. */
+function arArrangementIsValid(values: number[], cells: number[]): boolean {
+  const idx = new Map<number, number>();
+  cells.forEach((c, i) => idx.set(c, i));
+
+  const setV = (i: number) => (i >= 0 && i < values.length) ? values[i]! : 0;
+
+  // row r1: cells[0]=c11, cells[1]=c12
+  if (values[0] !== 0 && values[1] !== 0 && values[0] === values[1]) return false;
+  // row r2: cells[2]=c21, cells[3]=c22
+  if (values[2] !== 0 && values[3] !== 0 && values[2] === values[3]) return false;
+  // col c1: cells[0]=c11, cells[2]=c21
+  if (values[0] !== 0 && values[2] !== 0 && values[0] === values[2]) return false;
+  // col c2: cells[1]=c12, cells[3]=c22
+  if (values[1] !== 0 && values[3] !== 0 && values[1] === values[3]) return false;
+
+  return true;
+}
+
 /** AR Type 1: 3 corners solved with the same pair {X,Y}, 4th corner has candidates including X and Y plus extras */
 function tryARType1(grid: Grid, strategyId: string): Step | null {
   for (const [c11, c12, c21, c22] of allRectangles()) {
@@ -39,11 +60,13 @@ function tryARType1(grid: Grid, strategyId: string): Step | null {
 
     const solvedVals = values.filter(v => v !== 0);
     if (new Set(solvedVals).size !== 2) continue;
-    
+
+    if (!arArrangementIsValid(values, cells)) continue;
+
     const unsolvedCell = cells[values.indexOf(0)]!;
     const [x, y] = [...new Set(solvedVals)] as [number, number];
     const urMask = maskOf(x) | maskOf(y);
-    
+
     if (!(grid.candidatesOf(unsolvedCell) & urMask)) continue;
 
     // Type 1: eliminate UR pair from unsolved cell if it has extra candidates
@@ -54,7 +77,7 @@ function tryARType1(grid: Grid, strategyId: string): Step | null {
     if (grid.hasCandidate(unsolvedCell, y) && popcount(grid.candidatesOf(unsolvedCell)) > 2) {
       eliminations.push({ cell: unsolvedCell, digit: y });
     }
-    
+
     if (eliminations.length > 0) {
       return {
         strategyId,
@@ -82,6 +105,8 @@ function tryARType2(grid: Grid, strategyId: string): Step | null {
     const values = cells.map(c => grid.get(c));
     const solvedCount = values.filter(v => v !== 0).length;
     if (solvedCount !== 2) continue;
+
+    if (!arArrangementIsValid(values, cells)) continue;
 
     const solvedCells = cells.filter((_, i) => values[i] !== 0);
     const solvedVals = solvedCells.map(c => grid.get(c));
@@ -136,6 +161,8 @@ function tryARType3(grid: Grid, strategyId: string): Step | null {
     const values = cells.map(c => grid.get(c));
     const solvedCount = values.filter(v => v !== 0).length;
     if (solvedCount !== 2) continue;
+
+    if (!arArrangementIsValid(values, cells)) continue;
 
     const solvedCells = cells.filter((_, i) => values[i] !== 0);
     const solvedVals = solvedCells.map(c => grid.get(c));
@@ -206,6 +233,8 @@ function tryARType4(grid: Grid, strategyId: string): Step | null {
     const values = cells.map(c => grid.get(c));
     const solvedCount = values.filter(v => v !== 0).length;
     if (solvedCount !== 2) continue;
+
+    if (!arArrangementIsValid(values, cells)) continue;
 
     const solvedCells = cells.filter((_, i) => values[i] !== 0);
     const solvedVals = solvedCells.map(c => grid.get(c));
