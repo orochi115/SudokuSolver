@@ -1,0 +1,10 @@
+import { Grid } from './packages/engine/src/grid.js';
+import { solve } from './packages/engine/src/solver.js';
+import { STRATEGIES } from './packages/engine/src/strategies/index.js';
+import { checkTraceSoundness } from './packages/engine/src/soundness.js';
+const puzzle = '200900060090000500005100000306200050000030000010008207000007800002000040080004003';
+const solution = '243985761197463582865172394376241958528739416419658237654317829732896145981524673';
+const trace = solve(Grid.fromString(puzzle), STRATEGIES);
+console.log(trace.outcome, trace.steps.length);
+const res = checkTraceSoundness(trace, solution);
+console.log(res.sound, res.violations.slice(0,5));

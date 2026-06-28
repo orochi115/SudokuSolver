@@ -44,8 +44,10 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'finned-x-wing',
       'finned-swordfish',
       'finned-jellyfish',
+      'franken-fish',
+      'mutant-fish',
     ],
-    futureMembers: ['franken-fish', 'mutant-fish'],
+    futureMembers: [],
     unified: false,
     note:
       'Base/cover fish family including finned/sashimi variants. Franken and Mutant fish are reserved for a future fish-extension owner.',
@@ -73,8 +75,10 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'nice-loop',
       'remote-pairs',
       'aic-with-ur',
+      'twinned-xy-chains',
+      'aic-with-exotic-links',
     ],
-    futureMembers: ['twinned-xy-chains', 'aic-with-exotic-links', 'grouped-aic'],
+    futureMembers: ['grouped-aic'],
     unified: false,
     note:
       'Chain nesting: Remote Pairs ⊂ XY-Chain ⊂ AIC; W-Wing is a short bivalue chain; X-Chain is single-digit AIC. ' +
@@ -111,8 +115,9 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'unique-loop',
       'bug-lite',
       'bug-plus-n',
+      'gurth',
     ],
-    futureMembers: ['avoidable-rectangle', 'gurth'],
+    futureMembers: ['avoidable-rectangle'],
     unified: false,
     note:
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
@@ -135,8 +140,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'sue-de-coq',
     canonicalOwner: 'sue-de-coq',
-    members: ['sue-de-coq'],
-    futureMembers: ['sue-de-coq-extended'],
+    members: ['sue-de-coq', 'sue-de-coq-extended'],
+    futureMembers: [],
     unified: true,
     note: 'Sue de Coq owner for row/column-box intersection ALS patterns. Extended forms stay reserved.',
   },
@@ -171,8 +176,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aligned-exclusion',
     canonicalOwner: 'aligned-pair-exclusion',
-    members: ['aligned-pair-exclusion', 'aligned-triple-exclusion'],
-    futureMembers: ['subset-exclusion'],
+    members: ['aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion'],
+    futureMembers: [],
     unified: true,
     note: 'APE/ATE are aligned special cases of Subset Exclusion. Subset Exclusion stays reserved for a future P2b owner.',
   },

@@ -26,16 +26,18 @@ import { nakedPair, nakedTriple, nakedQuad } from './naked-subset.js';
 import { hiddenPair, hiddenTriple, hiddenQuad } from './hidden-subset.js';
 import { xWing, swordfish, jellyfish } from './basic-fish.js';
 import { finnedXWing, finnedSwordfish, finnedJellyfish } from './finned-fish.js';
+import { frankenFish, mutantFish } from './complex-fish.js';
 import { skyscraper, twoStringKite, emptyRectangle } from './single-digit-patterns.js';
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
 import { simpleColoring } from './simple-coloring.js';
 import { xChain, aic } from './aic.js';
-import { turbotFish, xyChain, niceLoop } from './chain-specializations.js';
+import { turbotFish, twinnedXyChains, xyChain, niceLoop } from './chain-specializations.js';
 import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from './als.js';
 import {
   bugPlusOne,
+  gurth,
   uniqueRectangleType1,
   uniqueRectangleType2,
   hiddenUniqueRectangle,
@@ -44,10 +46,11 @@ import {
   uniqueRectangleType5,
   uniqueRectangleType6,
 } from './uniqueness.js';
-import { sueDeCoq } from './sue-de-coq.js';
+import { sueDeCoq, sueDeCoqExtended } from './sue-de-coq.js';
 import { forcingChain } from './forcing-chain.js';
 import {
   aicWithAls,
+  aicWithExoticLinks,
   aicWithUr,
   ahs,
   alsChain,
@@ -74,6 +77,7 @@ import {
   fireworks,
   msls,
   skLoop,
+  subsetExclusion,
   vwxyzWing,
 } from './p2a-exotic.js';
 
@@ -125,6 +129,8 @@ export const STRATEGIES: readonly Strategy[] = [
   aic,                // 750
   aicWithAls,         // 760
   aicWithUr,          // 770
+  twinnedXyChains,    // 775
+  aicWithExoticLinks, // 780
   alsXz,              // 810
   alsXzDoublyLinked,  // 820
   alsXyWing,          // 840
@@ -147,11 +153,16 @@ export const STRATEGIES: readonly Strategy[] = [
   uniqueLoop,          // 985
   bugLite,             // 986
   bugPlusN,            // 987
+  gurth,              // 990
   sueDeCoq,           // 1010
+  sueDeCoqExtended,   // 1015
   fireworks,          // 1050
+  frankenFish,        // 1080
+  mutantFish,         // 1085
   tridagon,           // 1100
   alignedPairExclusion, // 1120
   alignedTripleExclusion, // 1130
+  subsetExclusion,    // 1140
   exocet,             // 1200
   skLoop,             // 1250
   msls,               // 1300
@@ -204,6 +215,8 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'aic',
   'aic-with-als',
   'aic-with-ur',
+  'twinned-xy-chains',
+  'aic-with-exotic-links',
   'als-xz',
   'als-xz-doubly-linked',
   'als-xy-wing',
@@ -226,11 +239,16 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'unique-loop',
   'bug-lite',
   'bug-plus-n',
+  'gurth',
   'sue-de-coq',
+  'sue-de-coq-extended',
   'fireworks',
+  'franken-fish',
+  'mutant-fish',
   'tridagon',
   'aligned-pair-exclusion',
   'aligned-triple-exclusion',
+  'subset-exclusion',
   'exocet',
   'sk-loop',
   'msls',
@@ -298,11 +316,16 @@ export {
   uniqueLoop,
   bugLite,
   bugPlusN,
+  gurth,
   sueDeCoq,
+  sueDeCoqExtended,
   fireworks,
+  frankenFish,
+  mutantFish,
   tridagon,
   alignedPairExclusion,
   alignedTripleExclusion,
+  subsetExclusion,
   exocet,
   skLoop,
   msls,

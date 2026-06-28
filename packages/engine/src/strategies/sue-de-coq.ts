@@ -62,7 +62,10 @@ function trySdCIntersection(
   boxCells: readonly number[],
   lineLabel: string,
   boxLabel: string,
-  maxIntersectionSize = 3,
+  strategyId: string,
+  nameZh: string,
+  nameEn: string,
+  maxIntersectionSize: number,
 ): Step | null {
   // Intersection: cells in both line and box
   const intersectCells = lineCells.filter((c) => boxCells.includes(c));
@@ -201,7 +204,7 @@ function trySdCIntersection(
         const allCands = intersectDigits;
 
         return {
-          strategyId: 'sue-de-coq',
+          strategyId,
           placements: [],
           eliminations: uniqueElims,
           highlights: {
@@ -212,11 +215,61 @@ function trySdCIntersection(
             links: [],
           },
           explanation: {
-            zh: `苏德蔻：${emptyIntersect.length} 格（${lineLabel} ∩ ${boxLabel}）候选数 {${allCands.join(',')}} 分为行/列部分 {${L_digits.join(',')}} 和宫部分 {${B_digits.join(',')}}；行/列部分从行/列其余格消去，宫部分从宫其余格消去。`,
-            en: `Sue de Coq: ${emptyIntersect.length} cells (${lineLabel} ∩ ${boxLabel}) with candidates {${allCands.join(',')}} split into line-part {${L_digits.join(',')}} and box-part {${B_digits.join(',')}}; eliminate line-part from rest of line, box-part from rest of box.`,
+            zh: `${nameZh}：${emptyIntersect.length} 格（${lineLabel} ∩ ${boxLabel}）候选数 {${allCands.join(',')}} 分为行/列部分 {${L_digits.join(',')}} 和宫部分 {${B_digits.join(',')}}；行/列部分从行/列其余格消去，宫部分从宫其余格消去。`,
+            en: `${nameEn}: ${emptyIntersect.length} cells (${lineLabel} ∩ ${boxLabel}) with candidates {${allCands.join(',')}} split into line-part {${L_digits.join(',')}} and box-part {${B_digits.join(',')}}; eliminate line-part from rest of line, box-part from rest of box.`,
           },
         };
       }
+    }
+  }
+
+  return null;
+}
+
+function applySueDeCoq(
+  grid: Grid,
+  strategyId: string,
+  nameZh: string,
+  nameEn: string,
+  maxIntersectionSize: number,
+): Step | null {
+  // Try all row × box intersections
+  for (let r = 0; r < 9; r++) {
+    const rowCells = ROWS[r]!;
+    for (let b = 0; b < 9; b++) {
+      if (!rowCells.some((c) => BOX_OF[c] === b)) continue;
+      const step = trySdCIntersection(
+        grid,
+        rowCells,
+        BOXES[b]!,
+        `Row ${r + 1}`,
+        `Box B${b + 1}`,
+        strategyId,
+        nameZh,
+        nameEn,
+        maxIntersectionSize,
+      );
+      if (step) return step;
+    }
+  }
+
+  // Try all col × box intersections
+  for (let col = 0; col < 9; col++) {
+    const colCells = COLS[col]!;
+    for (let b = 0; b < 9; b++) {
+      if (!colCells.some((c) => BOX_OF[c] === b)) continue;
+      const step = trySdCIntersection(
+        grid,
+        colCells,
+        BOXES[b]!,
+        `Col ${col + 1}`,
+        `Box B${b + 1}`,
+        strategyId,
+        nameZh,
+        nameEn,
+        maxIntersectionSize,
+      );
+      if (step) return step;
     }
   }
 
@@ -230,38 +283,17 @@ export const sueDeCoq: Strategy = {
   tieBreak: ['house'],
 
   apply(grid: Grid): Step | null {
-    // Try all row × box intersections
-    for (let r = 0; r < 9; r++) {
-      const rowCells = ROWS[r]!;
-      for (let b = 0; b < 9; b++) {
-        if (!rowCells.some((c) => BOX_OF[c] === b)) continue;
-        const step = trySdCIntersection(
-          grid,
-          rowCells,
-          BOXES[b]!,
-          `Row ${r + 1}`,
-          `Box B${b + 1}`,
-        );
-        if (step) return step;
-      }
-    }
+    return applySueDeCoq(grid, 'sue-de-coq', '苏德蔻', 'Sue de Coq', 3);
+  },
+};
 
-    // Try all col × box intersections
-    for (let col = 0; col < 9; col++) {
-      const colCells = COLS[col]!;
-      for (let b = 0; b < 9; b++) {
-        if (!colCells.some((c) => BOX_OF[c] === b)) continue;
-        const step = trySdCIntersection(
-          grid,
-          colCells,
-          BOXES[b]!,
-          `Col ${col + 1}`,
-          `Box B${b + 1}`,
-        );
-        if (step) return step;
-      }
-    }
+export const sueDeCoqExtended: Strategy = {
+  id: 'sue-de-coq-extended',
+  name: { zh: '扩展苏德蔻', en: 'Sue de Coq Extended' },
+  difficulty: 1015,
+  tieBreak: ['house'],
 
-    return null;
+  apply(grid: Grid): Step | null {
+    return applySueDeCoq(grid, 'sue-de-coq-extended', '扩展苏德蔻', 'Sue de Coq Extended', 4);
   },
 };

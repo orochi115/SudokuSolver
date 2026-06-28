@@ -1,0 +1,11 @@
+import { Grid } from './packages/engine/src/grid.js';
+import { frankenFish, mutantFish } from './packages/engine/src/strategies/complex-fish.js';
+const grid = Grid.fromString('900374185457218693183695472534867219619542308278931564700480051395726840840153726');
+console.log('franken start');
+const t0 = Date.now();
+const f = frankenFish.apply(grid);
+console.log('franken', Date.now()-t0, f ? f.placements.length+f.eliminations.length : 0);
+console.log('mutant start');
+const t1 = Date.now();
+const m = mutantFish.apply(grid);
+console.log('mutant', Date.now()-t1, m ? m.placements.length+m.eliminations.length : 0);

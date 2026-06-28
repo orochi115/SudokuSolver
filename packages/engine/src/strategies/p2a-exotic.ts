@@ -251,7 +251,7 @@ export const alignedTripleExclusion: Strategy = {
 };
 
 function legalAssignmentForSubset(
-  assignment: { cell: number; digit: number }[],
+  assignment: readonly { cell: number; digit: number }[],
 ): boolean {
   for (let i = 0; i < assignment.length; i++) {
     for (let j = i + 1; j < assignment.length; j++) {

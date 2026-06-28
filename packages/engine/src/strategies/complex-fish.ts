@@ -95,6 +95,21 @@ function isFrankenFish(baseSet: number[], coverSet: number[]): boolean {
   return pureSide && mixedSide;
 }
 
+function candidateHousesForDigit(grid: Grid, digit: number): number[] {
+  const bit = maskOf(digit);
+  const houses: number[] = [];
+  for (let h = 0; h < HOUSES.length; h++) {
+    const house = HOUSES[h]!;
+    for (const cell of house) {
+      if (grid.get(cell) === 0 && (grid.candidatesOf(cell) & bit) !== 0) {
+        houses.push(h);
+        break;
+      }
+    }
+  }
+  return houses;
+}
+
 function tryComplexFish(
   grid: Grid,
   digit: number,
@@ -105,10 +120,12 @@ function tryComplexFish(
   acceptType: 'franken' | 'mutant',
 ): Step | null {
   const bit = maskOf(digit);
-  const allHouses = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
+  const allHouses = candidateHousesForDigit(grid, digit);
+  if (allHouses.length < size) return null;
 
   for (const baseSet of combinations(allHouses, size)) {
     for (const coverSet of combinations(allHouses, size)) {
+      if (baseSet.some((h) => coverSet.includes(h))) continue;
       if (isBasicFish(baseSet, coverSet)) continue;
       const isFranken = isFrankenFish(baseSet, coverSet);
       if (acceptType === 'franken' && !isFranken) continue;

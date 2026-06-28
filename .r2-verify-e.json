@@ -1,4 +1,4 @@
-{"phase":"e","status":"hard","rc":1,"verifySec":318,
- "solveHuman":"14/727","solveLastResort":"",
- "missingIds":"subset-exclusion sue-de-coq-extended aic-with-exotic-links twinned-xy-chains franken-fish mutant-fish gurth","pollutionWarnFiles":"","hardReasons":"typecheck;",
- "soundDetail":""}
+{"phase":"e","status":"hard","rc":1,"verifySec":1170,
+ "solveHuman":"139/727","solveLastResort":"",
+ "missingIds":"","pollutionWarnFiles":"","hardReasons":"tests; gt400-soundness; 727-soundness-human;",
+ "soundDetail":"400:  \"totalViolations\": 302,       \"violations\": 0       \"violations\": 0  727-human:puzzle 900000005004129600000605000040060020000708000780000063007000300020304080008050100: 策略 franken-fish 有 38 处非法消除 ; puzzle 006401500300509001000030000205000703030040020670000058060907080000050000002304900: 策略 franken-fish 有 34 处非法消除 ; puzzle 380700090000050001001804000670000000002000300000000084000509700500080000090001042: 策略 franken-fish 有 41 处非法消除 ; puzzle 000200060180076090006080700090000002018000650500000070001020400070310026060009000: 策略 franken-fish 有 13 处非法消除 ; puzzle 500080000040520003100304000005100094006040500430008100000703005300065080000010009: 策略 franken-fish 有 24 处非法消除 ; puzzle 003021600054009008020000000001003080070040030030600400000000050500100360002530700: 策略 franken-fish 有 28 处非法消除 ; puzzle 006020100040900080100007004005070020200503007060090800400600002070002040009040300: 策略 franken-fish 有 28 处非法消除 ; puzzle 009050400040207080006000200900000006080000010002030700030405020600108004000000000: 策略 franken-fish 有 30 处非法消除"}
