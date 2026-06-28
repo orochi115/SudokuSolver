@@ -1,14 +1,10 @@
 import {
-  CELLS, HOUSES, ROWS, COLS, BOXES,
-  ROW_OF, COL_OF, BOX_OF,
+  CELLS, ROW_OF, COL_OF, BOX_OF,
   PEERS_OF, maskOf, popcount, digitsOf,
 } from '../grid.js';
 import type { Grid } from '../grid.js';
-import type { Step, Link } from '../trace.js';
+import type { Step } from '../trace.js';
 import type { Strategy } from '../strategy.js';
-import { buildLinkGraph } from '../chain/graph.js';
-import { searchAic } from '../chain/aic-search.js';
-import { DEFAULT_CHAIN_POLICY } from '../chain/policy.js';
 
 function cellLabel(cell: number): string {
   return `R${ROW_OF[cell]! + 1}C${COL_OF[cell]! + 1}`;
@@ -43,31 +39,24 @@ export const aicWithUr: Strategy = {
       const cells = [c11, c12, c21, c22];
       const masks = cells.map(c => grid.get(c) === 0 ? grid.candidatesOf(c) : 0);
       if (masks.some(m => m === 0)) continue;
-
       const intersect = masks[0]! & masks[1]! & masks[2]! & masks[3]!;
       if (popcount(intersect) !== 2) continue;
 
       const [x, y] = digitsOf(intersect) as [number, number];
-      const urMask = intersect;
-
-      const extraCells = cells.filter((_, i) => (masks[i]! & ~urMask) !== 0);
+      const extraCells = cells.filter((_, i) => (masks[i]! & ~intersect) !== 0);
       if (extraCells.length < 1 || extraCells.length > 2) continue;
 
       for (let c = 0; c < CELLS; c++) {
         if (cells.includes(c)) continue;
         if (grid.get(c) !== 0) continue;
         const m = grid.candidatesOf(c);
-
-        const common = digitsOf(m & urMask);
+        const common = digitsOf(m & intersect);
         if (common.length === 0) continue;
 
         for (const d of common) {
-          const bit = maskOf(d);
           const elimDigit = d === x ? y : x;
-
           const urPeers = new Set(PEERS_OF[c]!);
           const urHasDigit = cells.filter(cc => grid.hasCandidate(cc, d));
-
           if (urHasDigit.every(uc => urPeers.has(uc))) {
             const extraPeers = new Set(PEERS_OF[c]!);
             for (const ec of extraCells) {
@@ -86,8 +75,8 @@ export const aicWithUr: Strategy = {
                       links: [],
                     },
                     explanation: {
-                      zh: `含UR的AIC：UR矩形 {${x},${y}} 与格 ${cellLabel(c)} 构成推理链；消去 ${cellLabel(c)} 中的 ${elimDigit}（含UR）。`,
-                      en: `AIC with UR: UR rectangle {${x},${y}} and ${cellLabel(c)} form inference chain; eliminate ${elimDigit} from ${cellLabel(c)} (AIC-with-UR).`,
+                      zh: `含UR的AIC：UR矩形 {${x},${y}} 与 ${cellLabel(c)} 构成推理链；消去 ${cellLabel(c)} 中的 ${elimDigit}。`,
+                      en: `AIC with UR: UR rectangle {${x},${y}} and ${cellLabel(c)} form inference chain; eliminate ${elimDigit} from ${cellLabel(c)}.`,
                     },
                   };
                 }
