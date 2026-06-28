@@ -167,6 +167,3 @@ export function searchNiceLoop(grid: Grid, graph: LinkGraph, policy: ChainPolicy
 
   return null;
 }
-
-import type { CellDigit } from '../trace.js';
-import { ROW_OF, COL_OF, PEERS_OF, maskOf } from '../grid.js';

@@ -25,6 +25,7 @@ import { lockedCandidatesPointing, lockedCandidatesClaiming } from './locked-can
 import { nakedPair, nakedTriple, nakedQuad } from './naked-subset.js';
 import { hiddenPair, hiddenTriple, hiddenQuad } from './hidden-subset.js';
 import { xWing, swordfish, jellyfish } from './basic-fish.js';
+import { finnedXWing, finnedSwordfish, finnedJellyfish } from './finned-fish.js';
 import { skyscraper, twoStringKite, emptyRectangle } from './single-digit-patterns.js';
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
@@ -56,14 +57,17 @@ export const STRATEGIES: readonly Strategy[] = [
 
   // Basic fish + short wings (4xx)  [5xx reserved for advanced wings]
   xWing,              // 410
+  finnedXWing,        // 415
   skyscraper,         // 420
   twoStringKite,      // 430
   emptyRectangle,     // 440
   swordfish,          // 450
+  finnedSwordfish,    // 455
   xyWing,             // 460
   xyzWing,            // 470
   wWing,              // 480
   jellyfish,          // 490
+  finnedJellyfish,    // 495
 
   // Coloring (6xx) · Chains (7xx) · ALS (8xx) · Uniqueness (9xx) · Exotic (1xxx)
   simpleColoring,     // 610
@@ -101,14 +105,17 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'naked-quad',
   'hidden-quad',
   'x-wing',
+  'finned-x-wing',
   'skyscraper',
   'two-string-kite',
   'empty-rectangle',
   'swordfish',
+  'finned-swordfish',
   'xy-wing',
   'xyz-wing',
   'w-wing',
   'jellyfish',
+  'finned-jellyfish',
   'simple-coloring',
   'x-chain',
   'aic',
@@ -137,14 +144,17 @@ export {
   nakedQuad,
   hiddenQuad,
   xWing,
+  finnedXWing,
   skyscraper,
   twoStringKite,
   emptyRectangle,
   swordfish,
+  finnedSwordfish,
   xyWing,
   xyzWing,
   wWing,
   jellyfish,
+  finnedJellyfish,
   simpleColoring,
   xChain,
   aic,
@@ -158,4 +168,4 @@ export {
   uniqueRectangleType4,
   sueDeCoq,
   forcingChain,
-};
+];
