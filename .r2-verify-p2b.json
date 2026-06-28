@@ -1,0 +1,4 @@
+{"phase":"p2b","status":"hard","rc":1,"verifySec":1668,
+ "solveHuman":"13/727","solveLastResort":"",
+ "missingIds":"subset-exclusion sue-de-coq-extended aic-with-exotic-links twinned-xy-chains franken-fish mutant-fish gurth","pollutionWarnFiles":"/Users/sakura/LLM_Work/sudoku-wt-r2/minimax-m3/packages/engine/src/strategies/aligned-exclusion.ts ","hardReasons":"typecheck;",
+ "soundDetail":""}

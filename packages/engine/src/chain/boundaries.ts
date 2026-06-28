@@ -55,6 +55,18 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     profiles: ['human-default', 'last-resort'],
   },
   {
+    strategyId: 'aic-with-exotic-links',
+    owns: 'AIC whose chain nodes include an exotic structural pattern (remote pair, box-overlap, UR substrate). Presentation alias over the shared AIC engine.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'twinned-xy-chains',
+    owns: 'Twinned XY-Chains — six-cell giant naked sextuple decomposed into two pivot-linked XY-cycles.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
     strategyId: 'forcing-chain',
     owns: 'Multi-branch / contradiction (verity) reasoning — cell & digit forcing chains.',
     multiBranch: true,

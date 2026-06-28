@@ -62,8 +62,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'fish',
     canonicalOwner: 'x-wing',
-    members: ['x-wing', 'swordfish', 'jellyfish', 'finned-x-wing', 'finned-swordfish', 'finned-jellyfish'],
-    futureMembers: ['franken-fish', 'mutant-fish'],
+    members: ['x-wing', 'swordfish', 'jellyfish', 'finned-x-wing', 'finned-swordfish', 'finned-jellyfish', 'franken-fish', 'mutant-fish'],
+    futureMembers: [],
     unified: true,
     note:
       'Basic fish (size 2/3/4) and their Finned/Sashimi variants share the base/cover + fin detector. ' +
@@ -129,18 +129,24 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
     members: [
       'tridagon',
       'sue-de-coq',
+      'sue-de-coq-extended',
       'fireworks',
+      'franken-fish',
+      'mutant-fish',
       'aligned-pair-exclusion',
       'aligned-triple-exclusion',
+      'subset-exclusion',
+      'gurth',
       'exocet',
       'sk-loop',
       'msls',
     ],
-    futureMembers: ['franken-fish', 'mutant-fish', 'subset-exclusion', 'gurth'],
+    futureMembers: [],
     unified: false,
     note:
       'Exotic family: rare techniques on the hardest puzzles. `tridagon` (Thors Hammer) and `sue-de-coq` are the ' +
-      'currently implemented P1 / P2 members. Future members (sk-loop, msls, exocet, fireworks, APE/ATE, franken/mutant ' +
-      'fish, gurth) will reuse the canonical owner family pattern.',
+      'currently implemented P1 / P2 members. Franken/Mutant fish are in the fish family as well; Subset Exclusion ' +
+      'is the canonical owner of APE/ATE generalisation; Gurth is the symmetry-based uniqueness technique. ' +
+      'All members reuse the canonical owner family pattern.',
   },
 ];
