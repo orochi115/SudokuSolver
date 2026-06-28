@@ -61,6 +61,22 @@ import {
 import { sueDeCoq } from './sue-de-coq.js';
 import { tridagon } from './tridagon.js';
 import { forcingChain } from './forcing-chain.js';
+import {
+  vwxyzWing,
+  twinnedXyChains,
+  aicWithExoticLinks,
+  gurth,
+  sueDeCoqExtended,
+  fireworks,
+  frankenFish,
+  mutantFish,
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  subsetExclusion,
+  exocet,
+  skLoop,
+  msls,
+} from './p2-stubs.js';
 
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
@@ -98,6 +114,7 @@ export const STRATEGIES: readonly Strategy[] = [
   remotePairs,        // 505
   turbotFish,         // 510
   wxyzWing,           // 520
+  vwxyzWing,          // 530
   bentSets,           // 540
   brokenWing,         // 560
 
@@ -113,6 +130,8 @@ export const STRATEGIES: readonly Strategy[] = [
   aic,                // 750
   aicWithALS,         // 760
   aicWithUR,          // 770
+  twinnedXyChains,    // 775
+  aicWithExoticLinks, // 780
 
   // ALS (8xx)
   alsXz,              // 810
@@ -139,10 +158,21 @@ export const STRATEGIES: readonly Strategy[] = [
   avoidableRectangleType4, // 978
   extendedUniqueRectangle, // 980
   uniqueLoop,         // 985
-  sueDeCoq,           // 1010
+  gurth,              // 990
 
   // Exotic (1xxx)
+  sueDeCoq,           // 1010
+  sueDeCoqExtended,   // 1015
+  fireworks,          // 1050
+  frankenFish,        // 1080
+  mutantFish,         // 1090
   tridagon,           // 1100
+  alignedPairExclusion,    // 1120
+  alignedTripleExclusion,  // 1130
+  subsetExclusion,         // 1140
+  exocet,             // 1200
+  skLoop,             // 1250
+  msls,               // 1300
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
@@ -180,6 +210,7 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'remote-pairs',
   'turbot-fish',
   'wxyz-wing',
+  'vwxyz-wing',
   'bent-sets',
   'broken-wing',
   'simple-coloring',
@@ -191,6 +222,8 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'aic',
   'aic-with-als',
   'aic-with-ur',
+  'twinned-xy-chains',
+  'aic-with-exotic-links',
   'als-xz',
   'als-xz-doubly-linked',
   'als-xy-wing',
@@ -213,8 +246,19 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'avoidable-rectangle-type-4',
   'extended-unique-rectangle',
   'unique-loop',
+  'gurth',
   'sue-de-coq',
+  'sue-de-coq-extended',
+  'fireworks',
+  'franken-fish',
+  'mutant-fish',
   'tridagon',
+  'aligned-pair-exclusion',
+  'aligned-triple-exclusion',
+  'subset-exclusion',
+  'exocet',
+  'sk-loop',
+  'msls',
   'forcing-chain',
 ];
 
@@ -245,6 +289,7 @@ export {
   remotePairs,
   turbotFish,
   wxyzWing,
+  vwxyzWing,
   bentSets,
   brokenWing,
   simpleColoring,
@@ -256,6 +301,8 @@ export {
   aic,
   aicWithALS,
   aicWithUR,
+  twinnedXyChains,
+  aicWithExoticLinks,
   alsXz,
   alsXzDoublyLinked,
   alsXyWing,
@@ -278,7 +325,18 @@ export {
   uniqueRectangleType6,
   extendedUniqueRectangle,
   uniqueLoop,
+  gurth,
   sueDeCoq,
+  sueDeCoqExtended,
+  fireworks,
+  frankenFish,
+  mutantFish,
   tridagon,
+  alignedPairExclusion,
+  alignedTripleExclusion,
+  subsetExclusion,
+  exocet,
+  skLoop,
+  msls,
   forcingChain,
 };

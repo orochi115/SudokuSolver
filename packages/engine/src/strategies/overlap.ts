@@ -50,7 +50,10 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
   {
     id: 'aic-chain',
     canonicalOwner: 'aic',
-    members: ['aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs', 'aic-with-als', 'aic-with-ur'],
+    members: [
+      'aic', 'x-chain', 'w-wing', 'xy-chain', 'nice-loop', 'remote-pairs',
+      'aic-with-als', 'aic-with-ur', 'twinned-xy-chains', 'aic-with-exotic-links',
+    ],
     futureMembers: ['grouped-aic'],
     unified: false,
     note:
@@ -59,7 +62,8 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'xy-chain (P0) now registered as bivalue-only AIC sub-family. ' +
       'nice-loop (P0, E6) now owns continuous/discontinuous Nice Loop kinds; aic must not emit loop results. ' +
       'remote-pairs (P1) now registered as XY-Chain special case. ' +
-      'aic-with-als (P1) and aic-with-ur (P1) now registered as AIC extensions.',
+      'aic-with-als (P1) and aic-with-ur (P1) now registered as AIC extensions. ' +
+      'twinned-xy-chains (P2) and aic-with-exotic-links (P2) now registered as P2 AIC extensions.',
   },
   {
     id: 'als-chain',
@@ -93,6 +97,7 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'avoidable-rectangle-type-4',
       'extended-unique-rectangle',
       'unique-loop',
+      'gurth',
     ],
     futureMembers: [],
     unified: false,
@@ -100,16 +105,34 @@ export const OVERLAP_FAMILIES: readonly OverlapFamily[] = [
       'Deadly-pattern (uniqueness) family. Hidden UR ↔ UR Type 6 (diagonal hidden) overlap. BUG+1 shares the ' +
       'unique-solution assumption. UR types now ship as per-type detectors sharing the rectangle enumeration. ' +
       '(E3) UR3/5/6 + Hidden UR now implemented and registered, sharing allRectangles() engine. ' +
-      '(P1) AR1-4, EUR, Unique Loop, BUG-Lite, BUG+N now registered as uniqueness extensions.',
+      '(P1) AR1-4, EUR, Unique Loop, BUG-Lite, BUG+N now registered as uniqueness extensions. ' +
+      '(P2) gurth now registered as symmetry-based uniqueness strategy.',
   },
   {
     id: 'exotic-patterns',
     canonicalOwner: 'tridagon',
-    members: ['tridagon', 'sue-de-coq'],
-    futureMembers: ['exocet', 'sk-loop', 'msls', 'fireworks', 'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion', 'franken-fish', 'mutant-fish'],
+    members: [
+      'tridagon', 'sue-de-coq', 'sue-de-coq-extended',
+      'fireworks', 'franken-fish', 'mutant-fish',
+      'aligned-pair-exclusion', 'aligned-triple-exclusion', 'subset-exclusion',
+      'exocet', 'sk-loop', 'msls',
+    ],
+    futureMembers: [],
     unified: false,
     note:
       'Exotic pattern family. Tridagon is the first P1 exotic strategy. ' +
-      'sue-de-coq is already implemented in P0.',
+      'sue-de-coq is already implemented in P0. ' +
+      '(P2) sue-de-coq-extended, fireworks, franken-fish, mutant-fish, aligned-pair-exclusion, ' +
+      'aligned-triple-exclusion, subset-exclusion, exocet, sk-loop, msls now registered as P2 stubs.',
+  },
+  {
+    id: 'wing-family',
+    canonicalOwner: 'wxyz-wing',
+    members: ['wxyz-wing', 'vwxyz-wing'],
+    futureMembers: [],
+    unified: false,
+    note:
+      'Wing size-ladder family. WXYZ-Wing (size 4) and VWXYZ-Wing (size 5) share the same ' +
+      'generalised wing detection framework. Further size extensions would join this family.',
   },
 ];
