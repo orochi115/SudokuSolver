@@ -62,6 +62,73 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
   },
+  // ---- P3 last-resort chain strategies (all multiBranch: true) ----
+  {
+    strategyId: 'digit-forcing-chain',
+    owns: 'Forcing chain starting from the two positions of a digit in a house (conjugate pair).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'nishio-forcing-chain',
+    owns: 'Single-branch contradiction search (Nishio): assume a digit in a cell, propagate naked/hidden singles until contradiction.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'cell-forcing-chain',
+    owns: 'Forcing chain from all candidates of a cell; conclusions common to ALL branches are deduced.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'region-forcing-chain',
+    owns: 'Forcing chain from all positions of a digit in a house; conclusions common to ALL branches are deduced.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'dic',
+    owns: 'Double Implication Chain: two-branch forcing over any bivalue cell or conjugate pair.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'forcing-net',
+    owns: 'Multi-branch forcing tree (DAG); each branch may itself fork. Kinds: cell/region/contradiction/verity.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'kraken-fish',
+    owns: 'Fish pattern combined with forcing chains through fin cells. Types: Type1 (fin→cover) and Type2 (fin→victim).',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'tabling',
+    owns: 'Trebor\'s Tables: two-level nested implication table; enumeration technique.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'pom',
+    owns: 'Pattern Overlay Method: enumerate all valid digit patterns per digit; overlay to find universal placements/eliminations.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'templates',
+    owns: 'Template method: enumerate and maintain all valid templates per digit across deduction steps.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
+  {
+    strategyId: 'gem',
+    owns: 'Graded Equivalence Marks (Braid Analysis): three-valued T/F/B propagation over the candidate graph.',
+    multiBranch: true,
+    profiles: ['last-resort'],
+  },
 ];
 
 /**
