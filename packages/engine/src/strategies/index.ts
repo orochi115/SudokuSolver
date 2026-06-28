@@ -30,10 +30,15 @@ import { skyscraper, twoStringKite, emptyRectangle } from './single-digit-patter
 import { xyWing } from './xy-wing.js';
 import { xyzWing } from './xyz-wing.js';
 import { wWing } from './w-wing.js';
+import { remotePairs, wxyzWing, bentSets, brokenWing } from './advanced-wings.js';
 import { turbotFish, xyChain, niceLoop } from './chains.js';
 import { simpleColoring } from './simple-coloring.js';
+import { multiColoring } from './multi-coloring.js';
+import { medusa3D } from './3d-medusa.js';
 import { xChain, aic } from './aic.js';
+import { aicWithALS, aicWithUR } from './aic-extended.js';
 import { alsXz, alsXzDoublyLinked, alsXyWing, deathBlossom } from './als.js';
+import { alsChain, ahs } from './als-chain.js';
 import {
   bugPlusOne,
   hiddenUniqueRectangle,
@@ -44,7 +49,18 @@ import {
   uniqueRectangleType5,
   uniqueRectangleType6,
 } from './uniqueness.js';
+import {
+  bugLite,
+  bugPlusN,
+  avoidableRectangleType1,
+  avoidableRectangleType2,
+  avoidableRectangleType3,
+  avoidableRectangleType4,
+  extendedUniqueRectangle,
+  uniqueLoop,
+} from './uniqueness-p1.js';
 import { sueDeCoq } from './sue-de-coq.js';
+import { tridagon } from './tridagon.js';
 import { forcingChain } from './forcing-chain.js';
 
 export const STRATEGIES: readonly Strategy[] = [
@@ -80,19 +96,37 @@ export const STRATEGIES: readonly Strategy[] = [
   finnedJellyfish,    // 495
 
   // Advanced wings (5xx)
+  remotePairs,        // 505
   turbotFish,         // 510
+  wxyzWing,           // 520
+  bentSets,           // 540
+  brokenWing,         // 560
 
-  // Coloring (6xx) · Chains (7xx) · ALS (8xx) · Uniqueness (9xx) · Exotic (1xxx)
+  // Coloring (6xx)
   simpleColoring,     // 610
+  multiColoring,      // 620
+  medusa3D,           // 640
+
+  // Chains (7xx)
   xChain,             // 710
   xyChain,            // 715
   niceLoop,           // 720
   aic,                // 750
+  aicWithALS,         // 760
+  aicWithUR,          // 770
+
+  // ALS (8xx)
   alsXz,              // 810
   alsXzDoublyLinked,  // 820
-  alsXyWing,          // 840
+  alsXyWing,          // 840 — len-2 ALS chain (E4 special case)
   deathBlossom,       // 860
+  alsChain,           // 880
+  ahs,                // 885
+
+  // Uniqueness (9xx)
   bugPlusOne,         // 910
+  bugLite,            // 912
+  bugPlusN,           // 914
   uniqueRectangleType1, // 920
   uniqueRectangleType2, // 930
   hiddenUniqueRectangle, // 935
@@ -100,7 +134,16 @@ export const STRATEGIES: readonly Strategy[] = [
   uniqueRectangleType4, // 950
   uniqueRectangleType5, // 960
   uniqueRectangleType6, // 970
+  avoidableRectangleType1, // 975
+  avoidableRectangleType2, // 976
+  avoidableRectangleType3, // 977
+  avoidableRectangleType4, // 978
+  extendedUniqueRectangle, // 980
+  uniqueLoop,         // 985
   sueDeCoq,           // 1010
+
+  // Exotic (1xxx)
+  tridagon,           // 1100
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
@@ -109,7 +152,7 @@ export const STRATEGIES: readonly Strategy[] = [
 /**
  * Frozen snapshot of the registry order (gate 2). MUST list every id in
  * `STRATEGIES` in the same order. Kept as an explicit constant so that a
- * reorder/insert is a visible, reviewable diff and is enforced by tests.
+ * reorder/insert is a deliberate, reviewable diff and is enforced by tests.
  */
 export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'full-house',
@@ -135,17 +178,29 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'w-wing',
   'jellyfish',
   'finned-jellyfish',
+  'remote-pairs',
   'turbot-fish',
+  'wxyz-wing',
+  'bent-sets',
+  'broken-wing',
   'simple-coloring',
+  'multi-coloring',
+  '3d-medusa',
   'x-chain',
   'xy-chain',
   'nice-loop',
   'aic',
+  'aic-with-als',
+  'aic-with-ur',
   'als-xz',
   'als-xz-doubly-linked',
   'als-xy-wing',
   'death-blossom',
+  'als-chain',
+  'ahs',
   'bug-plus-one',
+  'bug-lite',
+  'bug-plus-n',
   'unique-rectangle-type-1',
   'unique-rectangle-type-2',
   'hidden-unique-rectangle',
@@ -153,7 +208,14 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'unique-rectangle-type-4',
   'unique-rectangle-type-5',
   'unique-rectangle-type-6',
+  'avoidable-rectangle-type-1',
+  'avoidable-rectangle-type-2',
+  'avoidable-rectangle-type-3',
+  'avoidable-rectangle-type-4',
+  'extended-unique-rectangle',
+  'unique-loop',
   'sue-de-coq',
+  'tridagon',
   'forcing-chain',
 ];
 
@@ -181,17 +243,29 @@ export {
   xyzWing,
   wWing,
   jellyfish,
+  remotePairs,
   turbotFish,
+  wxyzWing,
+  bentSets,
+  brokenWing,
   simpleColoring,
+  multiColoring,
+  medusa3D,
   xChain,
   xyChain,
   niceLoop,
   aic,
+  aicWithALS,
+  aicWithUR,
   alsXz,
   alsXzDoublyLinked,
   alsXyWing,
   deathBlossom,
+  alsChain,
+  ahs,
   bugPlusOne,
+  bugLite,
+  bugPlusN,
   hiddenUniqueRectangle,
   uniqueRectangleType1,
   uniqueRectangleType2,
@@ -199,6 +273,13 @@ export {
   uniqueRectangleType4,
   uniqueRectangleType5,
   uniqueRectangleType6,
+  avoidableRectangleType1,
+  avoidableRectangleType2,
+  avoidableRectangleType3,
+  avoidableRectangleType4,
+  extendedUniqueRectangle,
+  uniqueLoop,
   sueDeCoq,
+  tridagon,
   forcingChain,
 };
