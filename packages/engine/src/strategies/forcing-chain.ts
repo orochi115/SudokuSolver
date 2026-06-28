@@ -237,6 +237,32 @@ function tryBoundedContradiction(grid: Grid, maxChainLength: number): Step | nul
 
 const LEGACY_MAX_PROPAGATION = 50;
 
+type CachedForcingStep = {
+  readonly key: string;
+  readonly step: Step | null;
+};
+
+const forcingStepCache = new WeakMap<Grid, CachedForcingStep>();
+
+function policyKey(policy: ChainPolicy): string {
+  return [
+    policy.maxChainLength,
+    policy.maxForcingWidth,
+    policy.allowCellForcing ? 1 : 0,
+    policy.allowDigitForcing ? 1 : 0,
+    policy.allowNets ? 1 : 0,
+    policy.allowUniqueness ? 1 : 0,
+  ].join('/');
+}
+
+function forcingStateKey(grid: Grid, policy: ChainPolicy): string {
+  let key = policyKey(policy) + '|';
+  for (let cell = 0; cell < CELLS; cell++) {
+    key += `${grid.values[cell]}/${grid.candidates[cell]},`;
+  }
+  return key;
+}
+
 function legacyPropagateNakedSingles(grid: Grid, cell: number, digit: number): Map<number, number> | null {
   const placements = new Map<number, number>();
   const work = grid.clone();
@@ -390,6 +416,10 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
     tieBreak: ['cell-index', 'digit'],
 
     apply(grid: Grid): Step | null {
+      const cacheKey = forcingStateKey(grid, policy);
+      const cached = forcingStepCache.get(grid);
+      if (cached?.key === cacheKey) return cached.step;
+
       const graph = buildLinkGraph(grid, { grouped: false });
       const nodeIndex = (cell: number, digit: number): number | undefined => graph.indexOfKey.get(nodeKey(digit, [cell]));
       let graphStep: Step | null = null;
@@ -431,9 +461,13 @@ export function makeForcingChain(policy: ChainPolicy = DEFAULT_CHAIN_POLICY): St
       }
 
       const contradictionStep = tryBoundedContradiction(grid, policy.maxChainLength * 4);
-      if (!graphStep) return contradictionStep ?? legacyForcingChain(grid);
-      if (contradictionStep) return combineForcingSteps(grid, graphStep, contradictionStep);
-      return graphStep;
+      const result = !graphStep
+        ? contradictionStep ?? legacyForcingChain(grid)
+        : contradictionStep
+          ? combineForcingSteps(grid, graphStep, contradictionStep)
+          : graphStep;
+      forcingStepCache.set(grid, { key: cacheKey, step: result });
+      return result;
     },
   };
 }

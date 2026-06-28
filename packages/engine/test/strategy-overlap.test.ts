@@ -51,7 +51,7 @@ describe('gate 6 — chain-engine boundaries', () => {
     }
   });
 
-  it('forcing-chain is the (only current) multi-branch owner and is last-resort only', () => {
+  it('forcing-chain is multi-branch and last-resort only', () => {
     expect(MULTI_BRANCH_IDS.has('forcing-chain')).toBe(true);
     const forcing = CHAIN_OWNERSHIP.find((c) => c.strategyId === 'forcing-chain')!;
     expect(forcing.profiles).toEqual(['last-resort']);
@@ -61,13 +61,6 @@ describe('gate 6 — chain-engine boundaries', () => {
     for (const c of CHAIN_OWNERSHIP) {
       if (c.reserved) continue;
       expect(registeredIds.has(c.strategyId), `chain owner ${c.strategyId}`).toBe(true);
-    }
-  });
-
-  it('reserved chain strategies (nice-loop, xy-chain) are not yet registered', () => {
-    for (const c of CHAIN_OWNERSHIP) {
-      if (!c.reserved) continue;
-      expect(registeredIds.has(c.strategyId), `reserved ${c.strategyId}`).toBe(false);
     }
   });
 });

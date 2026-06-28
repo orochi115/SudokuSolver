@@ -48,20 +48,35 @@ export const CHAIN_OWNERSHIP: readonly ChainOwnership[] = [
     multiBranch: true,
     profiles: ['last-resort'],
   },
-  // ---- reserved (gate 6 boundaries for future chain work) ----
   {
     strategyId: 'xy-chain',
     owns: 'Bivalue-cell chain (special case of AIC); owns Remote Pairs as a sub-case.',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
   },
   {
     strategyId: 'nice-loop',
     owns: 'Continuous / discontinuous single-digit & general Nice Loops (AicResult *-loop kinds).',
     multiBranch: false,
     profiles: ['human-default', 'last-resort'],
-    reserved: true,
+  },
+  {
+    strategyId: 'remote-pairs',
+    owns: 'Remote Pairs as the fixed two-digit, bivalue-cell sub-case of XY-Chain.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-als',
+    owns: 'AIC presentation that treats ALS-chain deductions as named ALS nodes, without branching.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
+  },
+  {
+    strategyId: 'aic-with-ur',
+    owns: 'AIC presentation reserved for UR/grouped nodes, without contradiction or multi-branch forcing.',
+    multiBranch: false,
+    profiles: ['human-default', 'last-resort'],
   },
 ];
 
