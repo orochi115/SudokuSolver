@@ -53,6 +53,13 @@ import { extendedUniqueRectangle } from './extended-unique-rectangle.js';
 import { uniqueLoop, bugLite, bugPlusN } from './uniqueness-extensions.js';
 import { aicWithAls, aicWithUr } from './aic-extensions.js';
 
+import { vwxyzWing } from './vwxyz-wing.js';
+import { exocet } from './exocet.js';
+import { skLoop } from './sk-loop.js';
+import { msls } from './msls.js';
+import { fireworks } from './fireworks.js';
+import { alignedPairExclusion, alignedTripleExclusion } from './aligned-exclusion.js';
+
 export const STRATEGIES: readonly Strategy[] = [
   // Singles (1xx)
   fullHouse,          // 100
@@ -89,6 +96,7 @@ export const STRATEGIES: readonly Strategy[] = [
   remotePairs,        // 505
   turbotFish,         // 510
   wxyzWing,           // 520
+  vwxyzWing,          // 530
   bentSets,           // 540
   brokenWing,         // 560
 
@@ -125,7 +133,13 @@ export const STRATEGIES: readonly Strategy[] = [
   bugLite,             // 986
   bugPlusN,            // 987
   sueDeCoq,           // 1010
+  fireworks,          // 1050
   tridagon,           // 1100
+  alignedPairExclusion, // 1120
+  alignedTripleExclusion, // 1130
+  exocet,             // 1200
+  skLoop,             // 1250
+  msls,               // 1300
 
   // Last-resort / red-line (9xxx) — excluded from the human-default profile
   forcingChain,       // 9000
@@ -163,6 +177,7 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'remote-pairs',
   'turbot-fish',
   'wxyz-wing',
+  'vwxyz-wing',
   'bent-sets',
   'broken-wing',
   'simple-coloring',
@@ -197,7 +212,13 @@ export const CANONICAL_STRATEGY_ORDER: readonly string[] = [
   'bug-lite',
   'bug-plus-n',
   'sue-de-coq',
+  'fireworks',
   'tridagon',
+  'aligned-pair-exclusion',
+  'aligned-triple-exclusion',
+  'exocet',
+  'sk-loop',
+  'msls',
   'forcing-chain',
 ];
 
@@ -262,6 +283,13 @@ export {
   bugLite,
   bugPlusN,
   sueDeCoq,
+  vwxyzWing,
+  exocet,
+  skLoop,
+  msls,
+  fireworks,
+  alignedPairExclusion,
+  alignedTripleExclusion,
   tridagon,
   forcingChain,
 };
