@@ -2,7 +2,7 @@
 
 > **状态：设计文档已就绪，harness 待实现。**
 > 这是 **Round2 对比实验**的第 **4 次跑测（run4）** 的协议与脚本改造，不是新的「Round4 实验」。
-> 在 run1–run3（harness v2）复盘基础上，引入 turn 制、append-only 状态、checkpoint、detach + Monitor。
+> 在 run1–run3（harness v2）复盘基础上，引入 step 制、append-only 状态、checkpoint、detach + Monitor。
 
 ## 术语（避免混淆）
 
@@ -10,9 +10,13 @@
 |---|---|
 | **Round2** | 第二轮多模型对比实验整体（727 残题、P0–P3、同一批模型） |
 | **run1 / run2 / run3 / run4** | Round2 的第 N 次**跑测**；归档于 `archive/round2/runN/` |
-| **round**（harness） | 单次 run 内的**阶段**，即 P0 / P1 / P2a / P2b / E / P3（勿与 Round2 混读） |
-| **turn** | 单个 `strategyId` 的实现 |
-| **action** | 单次 opencode 对话 |
+| **phase** | 单次 run 内的**阶段**（= 代码里 `PHASES`、`p0`…`p3`；原 harness 已用此名） |
+| **step** | 单个 `strategyId` 的实现单元（编排器驱动，非 LLM 自由发挥） |
+| **invocation** | 单次 opencode 调用（同 step 内可连续多次，共享 session） |
+
+弃用 **round / turn / action** 作为内层术语——易与 Round2、run、对话「轮次」混淆。对应关系：phase ≈ 原「回合」，step ≈ 原「轮次」，invocation ≈ 原「行动」。
+
+与 v2 日志：`p0-attempt-N` 表示 **phase 级**重试；v3 改为 `phases/p0/steps/<id>/invocation-<seq>-<ts>.log`。
 
 ## 文档索引
 
@@ -26,12 +30,12 @@
 
 | 维度 | run1–run3（v2） | run4（v3，本文档） |
 |---|---|---|
-| 阶段交付 | 整 phase 一次 prompt | **round** 内 **turn** 制（单 strategyId） |
+| 阶段交付 | 整 phase 一次 prompt | **phase** 内 **step** 制（单 strategyId） |
 | runner | opencode + grok CLI | **统一 opencode** |
 | 状态 | `status/*.tsv`、可覆盖 `*.metrics.json` | **append-only jsonl** |
 | 恢复 | prevruns 搬文件 + 阶段 resume | **checkpoint + events 游标** |
 | 监管 | launch detach | detach + **monitor.sh** + control 信号 |
-| 策略 id | 每阶段注册 | **预写死 stub**；difficulty 模型在 turn 内设定 |
+| 策略 id | 每阶段注册 | **预写死 stub**；difficulty 模型在 step 内设定 |
 
 历史报告：[`../report-final.md`](../report-final.md)（run3）、[`../results-summary.md`](../results-summary.md)。
 
@@ -42,7 +46,7 @@
 ## 实现顺序
 
 1. `state-and-events.md` 事件 schema
-2. `run-turn.sh` → `run-round.sh` → 改造 `run-all.sh` / `launch.sh`
+2. `run-step.sh` → `run-phase.sh` → 改造 `run-all.sh` / `launch.sh`
 3. `watchdog.sh` 费用熔断 + 留痕
 4. `monitor.sh`
 5. `report.sh` 读 jsonl

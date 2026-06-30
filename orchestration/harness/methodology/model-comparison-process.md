@@ -5,7 +5,7 @@
 > `model-comparison.md` 为操作手册与速查）。下一轮对比测试时从 master 切出新的 foundation/orchestration，
 > 让执行分支对对比无感知。
 >
-> **Round2 run4 harness（v3）**（turn 制、事件留痕、resume、Monitor）：见 [`../../round2/design/harness-spec.md`](../../round2/design/harness-spec.md)、
+> **Round2 run4 harness（v3）**（phase/step/invocation、事件留痕、resume、Monitor）：见 [`../../round2/design/harness-spec.md`](../../round2/design/harness-spec.md)、
 > [`../../round2/design/state-and-events.md`](../../round2/design/state-and-events.md)。
 
 ## 1. 测什么 / 三条核心理念

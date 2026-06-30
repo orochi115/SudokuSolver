@@ -10,7 +10,7 @@
 | 允许 | 禁止 |
 |---|---|
 | 向 `*.jsonl` **追加**一行 | 重写整个 jsonl |
-| 创建 `action-003-<ts>.log` 新文件 | 复用 `action-001.log` 写入第二次 |
+| 创建 `invocation-003-<ts>.log` 新文件 | 复用 `invocation-001.log` 写入第二次 |
 | 用 **原子 replace** 更新「当前视图」快照（见 §2.3） | 直接 `>` 覆盖无历史的 `status.json` |
 | `pipeline.log` append | 截断 `pipeline.log`（`cleanup` 除外） |
 
@@ -22,10 +22,10 @@
 
 - scheduler **start** / **stop**（正常结束）
 - 每模型 pipeline **start** / **stop**
-- 每 **round** start / complete / fail / skip
-- 每 **turn** start / complete / fail / skip
-- 每 **action** start / end（含 exitReason）
-- **verify-turn** / **verify-round** start / end
+- 每 **phase** start / complete / fail / skip
+- 每 **step** start / complete / fail / skip
+- 每 **invocation** start / end（含 exitReason）
+- **verify-step** / **verify-phase** start / end
 - **git commit**（checkpoint）
 - **pause** 请求被采纳 / **resume** 游标恢复
 - watchdog **kill**（含 reason、被 kill 的 pid 树）
@@ -67,18 +67,18 @@ orchestration/round2/reports/
 logs/<name>/
   pipeline.log                # append
   events.jsonl                # 本模型全量事件（append）
-  checkpoints.jsonl           # 仅 turn 检查点（append）
+  checkpoints.jsonl           # 仅 step 检查点（append）
   stats.jsonl                 # 度量增量（append，§4）
 
-  rounds/<round>/             # round = p0|p1|p2a|p2b|e|p3
-    round-meta.json           # 创建后不变；含 startedAt、requiredIds[]
-    turns/<strategyId>/
-      turn-meta.json          # 创建后不变；parentCommit、startedAt
-      action-<seq>-<ts>.log
-      action-<seq>-<ts>.prompt.txt
-      action-<seq>-<ts>.meta.json   # exit code, sessionId, wallSec, idleReason
-      verify-turn-<seq>-<ts>.json
-      turn-summary.json       # turn 结束时写一次（不可变；失败则写 turn-summary-fail-<ts>.json）
+  phases/<phase>/             # round = p0|p1|p2a|p2b|e|p3
+    phase-meta.json           # 创建后不变；含 startedAt、requiredIds[]
+    steps/<strategyId>/
+      step-meta.json          # 创建后不变；parentCommit、startedAt
+      invocation-<seq>-<ts>.log
+      invocation-<seq>-<ts>.prompt.txt
+      invocation-<seq>-<ts>.meta.json   # exit code, sessionId, wallSec, idleReason
+      verify-step-<seq>-<ts>.json
+      step-summary.json       # step 结束时写一次（不可变；失败则写 step-summary-fail-<ts>.json）
 ```
 
 **不存在的路径**：`p0-attempt-1.log` 覆写、`p0.metrics.json` 单文件覆盖、把旧日志 mv 到 prevruns（run4 v3 不需要 prevruns）。
@@ -109,7 +109,7 @@ write_snapshot() {
   "unix": 1782811200,
   "runId": "round2-run4-20260630",          // 本次实验 ID，launch 时生成
   "name": "gpt55",                     // 模型短名；scheduler 级事件可省略
-  "kind": "action.end",                // 见下表
+  "kind": "invocation.end",                // 见下表
   "data": { /* kind-specific */ }
 }
 ```
@@ -122,27 +122,27 @@ write_snapshot() {
 | `scheduler.stop` | run-all 正常退出 | `{ pid, reason:"complete", running:0 }` |
 | `scheduler.signal` | trap 收到 SIG | `{ sig, pid }` |
 | `pipeline.start` | --one 开始 | `{ pid, model, runner }` |
-| `pipeline.stop` | --one 结束 | `{ pid, reason, lastRound, lastTurn }` |
-| `round.start` | 进入 round | `{ round, requiredIds[] }` |
-| `round.complete` | round 末 verify 过 | `{ round, verifyRc, gitCommit }` |
-| `round.fail` | round 失败 | `{ round, verifyRc, hardReasons }` |
-| `round.skip` | 前序 fail 跳过 | `{ round, because }` |
-| `turn.start` | 开始实现 strategyId | `{ round, strategyId, parentCommit }` |
-| `turn.complete` | turn 夹具+verify-turn 过 | `{ round, strategyId, gitCommit, actions, costUsd }` |
-| `turn.fail` | turn 重试耗尽 | `{ round, strategyId, lastCommit, reason }` |
-| `turn.skip` | 可选：跳过该 id | `{ round, strategyId, reason }` |
-| `action.start` | opencode 调用前 | `{ round, strategyId, seq, sessionId? }` |
-| `action.end` | opencode 退出后 | `{ seq, exitCode, idleReason?, wallSec, sessionId }` |
-| `verify.turn.start` | turn 末验证开始 | `{ round, strategyId, seq }` |
-| `verify.turn.end` | 结束 | `{ rc, hardReasons?, fixturePass }` |
-| `verify.round.start` | round 末验证 | `{ round }` |
-| `verify.round.end` | 结束 | `{ rc, solveHuman, solveLast, offenders[] }` |
-| `git.commit` | turn/round 提交后 | `{ commit, parent, subject, round, strategyId? }` |
-| `checkpoint` | turn 成功或显式存档 | `{ commit, round, strategyId, actionCount }` |
-| `pause.accepted` | action 末读到 PAUSE | `{ scope:"global"|"model", round, turn }` |
-| `resume.cursor` | 启动时恢复游标 | `{ round, strategyId, commit, actionSeq }` |
-| `watchdog.kill` | SIGKILL 子树 | `{ round, turn, targetPid, staleSec, reason }` |
-| `cost.fuse` | 超 MAX_COST | `{ costUsd, limit, action }` |
+| `pipeline.stop` | --one 结束 | `{ pid, reason, lastPhase, lastStep }` |
+| `phase.start` | 进入 phase | `{ phase, requiredIds[] }` |
+| `phase.complete` | phase 末 verify 过 | `{ phase, verifyRc, gitCommit }` |
+| `phase.fail` | phase 失败 | `{ phase, verifyRc, hardReasons }` |
+| `phase.skip` | 前序 fail 跳过 | `{ phase, because }` |
+| `step.start` | 开始实现 strategyId | `{ phase, strategyId, parentCommit }` |
+| `step.complete` | step 夹具+verify-step 过 | `{ phase, strategyId, gitCommit, invocations, costUsd }` |
+| `step.fail` | step 重试耗尽 | `{ phase, strategyId, lastCommit, reason }` |
+| `step.skip` | 可选：跳过该 id | `{ phase, strategyId, reason }` |
+| `invocation.start` | opencode 调用前 | `{ phase, strategyId, seq, sessionId? }` |
+| `invocation.end` | opencode 退出后 | `{ seq, exitCode, idleReason?, wallSec, sessionId }` |
+| `verify.step.start` | step 末验证开始 | `{ phase, strategyId, seq }` |
+| `verify.step.end` | 结束 | `{ rc, hardReasons?, fixturePass }` |
+| `verify.phase.start` | phase 末验证 | `{ round }` |
+| `verify.phase.end` | 结束 | `{ rc, solveHuman, solveLast, offenders[] }` |
+| `git.commit` | step/phase 提交后 | `{ commit, parent, subject, phase, strategyId? }` |
+| `checkpoint` | step 成功或显式存档 | `{ commit, round, strategyId, invocationCount }` |
+| `pause.accepted` | invocation 末读到 PAUSE | `{ scope:"global"|"model", round, step }` |
+| `resume.cursor` | 启动时恢复游标 | `{ phase, strategyId, commit, invocationSeq }` |
+| `watchdog.kill` | SIGKILL 子树 | `{ phase, step, targetPid, staleSec, reason }` |
+| `cost.fuse` | 超 MAX_COST | `{ costUsd, limit, invocation }` |
 | `control.touch` | 用户 touch 信号 | `{ file, by:"monitor"|"user" }` |
 
 ---
@@ -155,8 +155,8 @@ write_snapshot() {
 {
   "ts": "...",
   "name": "gpt55",
-  "scope": "action",        // action | turn | round
-  "round": "p1",
+  "scope": "invocation",        // invocation | step | round
+  "phase": "p1",
   "strategyId": "tridagon",
   "seq": 3,
   "costUsd": 0.18,
@@ -180,17 +180,17 @@ report.sh **只读 stats.jsonl 求和**，不读可变的 `metrics.json`。
 {
   "ts": "...",
   "name": "gpt55",
-  "round": "p1",
+  "phase": "p1",
   "strategyId": "tridagon",
   "gitCommit": "a1b2c3d4",
   "parentCommit": "f0e0e0e0",
-  "actionCount": 2,
-  "verify": "turn-pass",
-  "costUsdTurn": 0.55
+  "invocationCount": 2,
+  "verify": "step-pass",
+  "costUsdStep": 0.55
 }
 ```
 
-**恢复默认策略**：turn 失败且 `TURN_RETRIES` 耗尽 → `git reset --hard <parentCommit>` → 新 session → 新 action 序列（不覆盖旧 action 日志）。
+**恢复默认策略**：step 失败且 `STEP_RETRIES` 耗尽 → `git reset --hard <parentCommit>` → 新 session → 新 invocation 序列（不覆盖旧 invocation 日志）。
 
 ---
 
@@ -209,9 +209,9 @@ launch.sh
 
 ```
 用户: touch reports/control/PAUSE[.<name>]
-runner: 当前 action 结束 → verify-turn → 写 pause.accepted → pipeline.stop reason=paused
-        不标 round/turn fail；status 中 current.state = "paused"
-下次 launch: resume.cursor 读 status + events → 从下一 action 或下一 turn 继续
+runner: 当前 invocation 结束 → verify-step → 写 pause.accepted → pipeline.stop reason=paused
+        不标 phase/step fail；status 中 current.state = "paused"
+下次 launch: resume.cursor 读 status + events → 从下一 invocation 或下一 step 继续
 ```
 
 ### 6.3 外部停止
@@ -228,9 +228,9 @@ monitor.sh stop-all
 
 ```
 watchdog 检测 stale → 写 logs/<name>/events.jsonl watchdog.kill
-  → 写 rounds/.../action-*-*.meta.json exitReason=watchdog
+  → 写 phases/.../invocation-*-*.meta.json exitReason=watchdog
   → 不删 pid 文件；runner 死后 scheduler 标 pipeline.stop reason=watchdog
-resume: 该 turn 未 turn.complete → 从 turn.start 的 parentCommit 或上一 checkpoint 重试
+resume: 该 step 未 step.complete → 从 step.start 的 parentCommit 或上一 checkpoint 重试
 ```
 
 ### 6.5 费用熔断
@@ -239,7 +239,7 @@ resume: 该 turn 未 turn.complete → 从 turn.start 的 parentCommit 或上一
 watchdog 累加 stats.jsonl cost → 超阈
   → touch control/STOP.cost.<name>
   → events cost.fuse
-runner 在 action 末读到 → pipeline.stop reason=cost-fuse
+runner 在 invocation 末读到 → pipeline.stop reason=cost-fuse
 ```
 
 ---
@@ -249,24 +249,24 @@ runner 在 action 末读到 → pipeline.stop reason=cost-fuse
 ```text
 function resumeModel(name):
   events = readJsonl(logs/name/events.jsonl)
-  cp = last(events, kind in ["checkpoint", "turn.complete"])
+  cp = last(events, kind in ["checkpoint", "step.complete"])
   if exists(control/PAUSE*) and not forced:
     cursor = last(events, kind == "pause.accepted")
   else:
     cursor = deriveCursor(events)
     append(resume.cursor, cursor)
 
-  if cursor.roundComplete:
+  if cursor.phaseComplete:
     nextRound = nextRequiredRound(status)
-  else if cursor.turnComplete:
+  else if cursor.stepComplete:
     nextTurn = nextStrategyId(cursor.round)
   else:
     git checkout cursor.parentCommit or cursor.commit
     nextTurn = cursor.strategyId
-    nextActionSeq = cursor.actionSeq + 1
+    nextInvocationSeq = cursor.invocationSeq + 1
 
   status[name].json = snapshot(cursor)
-  return { nextRound, nextTurn, nextActionSeq, sessionId: null }  // 失败 turn 换新 session
+  return { nextRound, nextTurn, nextInvocationSeq, sessionId: null }  // 失败 step 换新 session
 ```
 
 **与 run1–run3 隔离**：run4 使用新 `runId`（如 `round2-run4-20260630`）；不读取 run1–run3 的 `status/*.tsv`。
@@ -278,13 +278,13 @@ function resumeModel(name):
   "runId": "round2-run4-20260630",
   "name": "gpt55",
   "state": "running",       // idle | running | paused | stopped | complete
-  "currentRound": "p1",
-  "currentTurn": "tridagon",
-  "currentActionSeq": 3,
+  "currentPhase": "p1",
+  "currentStep": "tridagon",
+  "currentInvocationSeq": 3,
   "lastCheckpoint": "a1b2c3d4",
-  "rounds": {
+  "phases": {
     "p0": { "state": "complete", "commit": "..." },
-    "p1": { "state": "in_progress", "turnsDone": ["..."], "turnsFail": [] }
+    "p1": { "state": "in_progress", "stepsDone": ["..."], "stepsFail": [] }
   },
   "costUsdTotal": 12.5,
   "updatedAt": "..."
@@ -299,7 +299,7 @@ function resumeModel(name):
 
 1. **进度 / 结果**：`status/*.json` + `events.jsonl` 按 `runId` 过滤
 2. **费用 / token**：仅累加 `stats.jsonl`
-3. **失败原因**：`verify-turn-*.json` / `verify-round-*.json` + `turn-summary*.json`
+3. **失败原因**：`verify-step-*.json` / `verify-phase-*.json` + `step-summary*.json`
 4. **禁止**：依赖可被覆盖的单一 `p0.metrics.json`（run4 harness 不再生成）
 
 全语料 **full corpus** 不在此流程内；跑完后人工执行，结果单独目录归档（见 [scoring.md](./scoring.md)）。
@@ -310,4 +310,4 @@ function resumeModel(name):
 
 `cleanup.sh` 是唯一允许删除 `logs/` 与 `reports/status` 的入口；默认**不删** `events.jsonl`（除非 `--purge` 显式抹掉整次 run）。
 
-归档时：`archive-run.sh` 将 `logs/` + `reports/` 打 tar.gz（LFS），**不 truncate 源文件直到 tar 成功**（同 round2 教训）。
+归档时：`archive-run.sh` 将 `logs/` + `reports/` 打 tar.gz（LFS），**不 truncate 源文件直到 tar 成功**（同 phase2 教训）。

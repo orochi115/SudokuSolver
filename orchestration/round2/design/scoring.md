@@ -7,7 +7,7 @@
 
 | 类型 | 用途 | 示例 |
 |---|---|---|
-| **Hard gate** | 能否继续链 / 是否作废本 round | 夹具失败、727 violation、污染 |
+| **Hard gate** | 能否继续链 / 是否作废本 phase | 夹具失败、727 violation、污染 |
 | **Primary KPI** | 横向排名主指标 | 策略利用率、有效步率 |
 | **Secondary KPI** | 参考 | 727 human-default 解出增量 |
 | **Post-hoc** | 深度质量 | full corpus valid%（人工触发） |
@@ -25,21 +25,21 @@
 | `usage[id]` |  trace 中 `step.strategyId === id` 的步数 |
 | `emptySteps` | 总步数 − 有 elimination/placement 的步数（或引擎 reported stuck 前空转步） |
 | `utilization[id]` | `usage[id] / totalSteps` |
-| `roundUtilization` | 本 round 新增 id 的 `Σ usage[id] / totalSteps` |
+| `phaseUtilization` | 本 phase 新增 id 的 `Σ usage[id] / totalSteps` |
 | `fixtureIsolation` | 夹具通过但 `usage[id]==0` → flag，供人工复核 |
 
 ### 2.2 记录位置
 
-round 末 `verify-round` 后追加一行 `stats.jsonl`：
+phase 末 `verify-phase` 后追加一行 `stats.jsonl`：
 
 ```jsonc
 {
-  "scope": "round-kpi",
-  "round": "p1",
+  "scope": "phase-kpi",
+  "phase": "p1",
   "solveHuman": "21/727",
   "totalSteps": 12040,
   "usage": { "tridagon": 3, "als-chain": 12 },
-  "roundUtilization": 0.0012,
+  "phaseUtilization": 0.0012,
   "emptyStepRate": 0.05,
   "fixtureFlags": ["wxyz-wing"]
 }
@@ -47,26 +47,26 @@ round 末 `verify-round` 后追加一行 `stats.jsonl`：
 
 ### 2.3 排名建议
 
-1. **round 完成度**（到达 p3 且 round 链 complete）
-2. **累计 roundUtilization**（各 round 加权）
+1. **phase 完成度**（到达 p3 且 phase 链 complete）
+2. **累计 phaseUtilization**（各 phase 加权）
 3. **727 human solved**（次要）
 4. **费用 / wall**（效率 tie-break）
 
 ## 3. 解出率（次要 KPI）
 
-- `solveHuman` / `solveLast` 仍从 `verify-round` 读取
-- **不作 turn 通过条件**
-- p3 round 看 `solveLast` 增量；human-default 看 `solveHuman`
+- `solveHuman` / `solveLast` 仍从 `verify-phase` 读取
+- **不作 step 通过条件**
+- p3 phase 看 `solveLast` 增量；human-default 看 `solveHuman`
 
 ## 4. 完成度与漏实现
 
 | 状态 | 判定 |
 |---|---|
-| turn 完成 | 存在 `turn.complete` + 夹具绿 + checkpoint |
-| 漏实现 | required id 无 `turn.complete` |
-| 摆烂嫌疑 | `turn.complete` 但 `usage[id]==0` 且 `fixtureIsolation` |
+| step 完成 | 存在 `step.complete` + 夹具绿 + checkpoint |
+| 漏实现 | required id 无 `step.complete` |
+| 摆烂嫌疑 | `step.complete` 但 `usage[id]==0` 且 `fixtureIsolation` |
 
-round 末 report 输出矩阵：id ×（turn 状态 / usage / 夹具）。
+phase 末 report 输出矩阵：id ×（step 状态 / usage / 夹具）。
 
 ## 5. Soft 项（不 STOP）
 
@@ -94,9 +94,9 @@ node orchestration/harness/run-archive-full-corpus.mjs \
 | 节 | 数据源 |
 |---|---|
 | 进度总览 | `status/*.json` |
-| round × 模型 | `events.jsonl` kind=round.* |
+| phase × 模型 | `events.jsonl` kind=phase.* |
 | 费用 / token | `stats.jsonl` 求和 |
-| 利用率表 | `stats.jsonl` scope=round-kpi |
+| 利用率表 | `stats.jsonl` scope=phase-kpi |
 | 漏实现 / 摆烂 flag | events + kpi |
 | checkpoint 索引 | `checkpoints.jsonl` |
 

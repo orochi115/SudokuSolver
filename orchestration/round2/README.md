@@ -83,4 +83,4 @@ orchestration/round2/harness/launch.sh orchestration/round2/models.txt
 
 ## run4 Harness 改造（v3 设计）
 
-基于 run1–run3 复盘，**第 4 次跑测（run4）** 的协议与实现规格见 **[`design/`](./design/)**（turn 制、append-only 状态、Monitor、checkpoint）。仍在 Round2 实验内，不是新实验轮次。
+基于 run1–run3 复盘，**第 4 次跑测（run4）** 的协议与实现规格见 **[`design/`](./design/)**（phase/step/invocation、append-only 状态、Monitor、checkpoint）。仍在 Round2 实验内，不是新实验轮次。
