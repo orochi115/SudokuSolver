@@ -35,8 +35,8 @@ flowchart TB
   sched --> wd
   sched --> pipe
   pipe --> stepNode
-  turn --> oc
-  turn --> vt[verify-step.sh]
+  stepNode --> oc
+  stepNode --> vt[verify-step.sh]
   pipe --> vr[verify-phase.sh]
 
   monitor -->|read| status[status + jsonl]
