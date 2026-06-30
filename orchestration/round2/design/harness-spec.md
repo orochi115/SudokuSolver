@@ -253,7 +253,11 @@ report / 人工可据 `checkpoints.jsonl` 检出任意 step 起点复现。
 | `prevruns/` | 不需要 |
 | `resume_feedback_section` | 读 events + verify JSON 生成 |
 
-## 15. 实现检查清单
+## 15. 实现补充
+
+环境变量、共享库、prompt 模板、夹具映射、stub 预写死、v2 脚本迁移、pilot 流程见 [**implementation-gaps.md**](./implementation-gaps.md)。
+
+## 16. 实现检查清单
 
 - [ ] `runId` 贯穿所有 jsonl
 - [ ] 无覆盖写（CI grep 检查 `> logs/*attempt*` 禁止）

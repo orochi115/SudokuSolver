@@ -25,6 +25,7 @@
 | [**harness-spec.md**](./harness-spec.md) | 主规格：状态机、文件布局、resume、verify、Monitor/Watchdog |
 | [**state-and-events.md**](./state-and-events.md) | 状态与事件：禁止覆盖、jsonl 留痕、resume 伪代码 |
 | [**scoring.md**](./scoring.md) | KPI（策略利用率）、full corpus 人工跑 |
+| [**implementation-gaps.md**](./implementation-gaps.md) | 实现补充：env、prompt、夹具、stub、v2 迁移、pilot |
 
 ## run1–run3 vs run4（harness）
 

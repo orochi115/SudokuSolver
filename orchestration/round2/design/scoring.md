@@ -81,7 +81,7 @@ phase 末 report 输出矩阵：id ×（step 状态 / usage / 夹具）。
 ```bash
 # 示例：对归档分支跑全语料
 node orchestration/harness/run-archive-full-corpus.mjs \
-  --ref archive/round2/run4/run1/glm52 \
+  --ref archive/round2/run4/glm52 \
   --name glm52-run4 \
   --out-dir orchestration/round2/reports/full-corpus/glm52-run4 \
   --workers 16

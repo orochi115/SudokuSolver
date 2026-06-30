@@ -70,7 +70,7 @@ logs/<name>/
   checkpoints.jsonl           # 仅 step 检查点（append）
   stats.jsonl                 # 度量增量（append，§4）
 
-  phases/<phase>/             # round = p0|p1|p2a|p2b|e|p3
+  phases/<phase>/             # phase = p0|p1|p2a|p2b|e|p3
     phase-meta.json           # 创建后不变；含 startedAt、requiredIds[]
     steps/<strategyId>/
       step-meta.json          # 创建后不变；parentCommit、startedAt
@@ -135,11 +135,11 @@ write_snapshot() {
 | `invocation.end` | opencode 退出后 | `{ seq, exitCode, idleReason?, wallSec, sessionId }` |
 | `verify.step.start` | step 末验证开始 | `{ phase, strategyId, seq }` |
 | `verify.step.end` | 结束 | `{ rc, hardReasons?, fixturePass }` |
-| `verify.phase.start` | phase 末验证 | `{ round }` |
+| `verify.phase.start` | phase 末验证 | `{ phase }` |
 | `verify.phase.end` | 结束 | `{ rc, solveHuman, solveLast, offenders[] }` |
 | `git.commit` | step/phase 提交后 | `{ commit, parent, subject, phase, strategyId? }` |
-| `checkpoint` | step 成功或显式存档 | `{ commit, round, strategyId, invocationCount }` |
-| `pause.accepted` | invocation 末读到 PAUSE | `{ scope:"global"|"model", round, step }` |
+| `checkpoint` | step 成功或显式存档 | `{ commit, phase, strategyId, invocationCount }` |
+| `pause.accepted` | invocation 末读到 PAUSE | `{ scope:"global"|"model", phase, strategyId }` |
 | `resume.cursor` | 启动时恢复游标 | `{ phase, strategyId, commit, invocationSeq }` |
 | `watchdog.kill` | SIGKILL 子树 | `{ phase, step, targetPid, staleSec, reason }` |
 | `cost.fuse` | 超 MAX_COST | `{ costUsd, limit, invocation }` |
@@ -155,7 +155,7 @@ write_snapshot() {
 {
   "ts": "...",
   "name": "gpt55",
-  "scope": "invocation",        // invocation | step | round
+  "scope": "invocation",        // invocation | step | phase
   "phase": "p1",
   "strategyId": "tridagon",
   "seq": 3,
@@ -257,16 +257,16 @@ function resumeModel(name):
     append(resume.cursor, cursor)
 
   if cursor.phaseComplete:
-    nextRound = nextRequiredRound(status)
+    nextPhase = nextRequiredPhase(status)
   else if cursor.stepComplete:
-    nextTurn = nextStrategyId(cursor.round)
+    nextStrategyId = nextStrategyIdInPhase(cursor.phase)
   else:
     git checkout cursor.parentCommit or cursor.commit
-    nextTurn = cursor.strategyId
+    nextStrategyId = cursor.strategyId
     nextInvocationSeq = cursor.invocationSeq + 1
 
   status[name].json = snapshot(cursor)
-  return { nextRound, nextTurn, nextInvocationSeq, sessionId: null }  // 失败 step 换新 session
+  return { nextPhase, nextStrategyId, nextInvocationSeq, sessionId: null }  // 失败 step 换新 session
 ```
 
 **与 run1–run3 隔离**：run4 使用新 `runId`（如 `round2-run4-20260630`）；不读取 run1–run3 的 `status/*.tsv`。
@@ -310,4 +310,4 @@ function resumeModel(name):
 
 `cleanup.sh` 是唯一允许删除 `logs/` 与 `reports/status` 的入口；默认**不删** `events.jsonl`（除非 `--purge` 显式抹掉整次 run）。
 
-归档时：`archive-run.sh` 将 `logs/` + `reports/` 打 tar.gz（LFS），**不 truncate 源文件直到 tar 成功**（同 phase2 教训）。
+归档时：`archive-run.sh` 将 `logs/` + `reports/` 打 tar.gz（LFS），**不 truncate 源文件直到 tar 成功**（同 round2 run2 教训）。
