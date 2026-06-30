@@ -39,7 +39,7 @@
 | run2 | v2 中断 | `run-round2-run2-20260627-074107.tar.gz` | `archive/round2/run2/` | 0/11 |
 | **run3** | **权威** | `run-round2-run3-20260629-081109.tar.gz` | `archive/round2/run3/` | **5/11** |
 
-工作区：`model/*` 已清空。run3 的 `foundation` 分支仍可用；**run4 建议从 master 重切 foundation**（见下方「分支策略」）。
+工作区：`model/*` 已清空；**`foundation` 工作分支已退役**（快照在 `archive/round2/run3/foundation`）。run4 从 master 重切（见下方「分支策略」）。
 
 ## 分支策略（run4+）
 
@@ -54,7 +54,7 @@ master      ← 唯一源头：引擎代码、harness、verify:r2、文档
 
 - **引擎/worker 工具**（如 `packages/engine/scripts/verify-r2.ts`）必须先落在 **master**，再随重切带入 foundation。不要只提交在 foundation 上——run4 重切时会丢。
 - **harness 改造**只改 `master` 上的 `orchestration/`，与 foundation 重切无关。
-- run4 准备：从当前 master 重切 foundation（同 `a2f9070` 做法：删 orchestration/、research/hodoku-logic/、中性化文档），不必在旧 foundation 上 cherry-pick。
+- run4 准备：从当前 master 重切 `foundation`（同 `a2f9070` 做法：删 orchestration/、research/hodoku-logic/、中性化文档）。旧 foundation 已归档为 `archive/round2/run3/foundation`（`0ee279e`，含 verify:r2）。
 
 ## harness（v2 关键改造）
 - **恢复机制**：墙钟超时（睡眠也计时）；`run-all` 断点续跑（只跳过 OK 阶段，STOP/中断的会重试）；`watchdog.sh` 自动 reap 卡死子树；`caffeinate -dimsu` 自启（挡空闲睡眠，**合盖仍需 `sudo pmset -a disablesleep 1`**）；子树 kill（修复睡眠后僵死进程杀不掉）。
