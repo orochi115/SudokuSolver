@@ -1,4 +1,4 @@
-# Round-4 评分与 KPI
+# Round2 run4 · 评分与 KPI
 
 > 实验内**硬门**与**评分**分离。硬门保证健全性；评分比较模型实现质量。
 > 全语料 **full corpus** 为跑后人工加测，不参与自动 STOP。
@@ -81,9 +81,9 @@ round 末 report 输出矩阵：id ×（turn 状态 / usage / 夹具）。
 ```bash
 # 示例：对归档分支跑全语料
 node orchestration/harness/run-archive-full-corpus.mjs \
-  --ref archive/round4/run1/glm52 \
-  --name glm52-round4 \
-  --out-dir orchestration/round4/reports/full-corpus/glm52-round4 \
+  --ref archive/round2/run4/run1/glm52 \
+  --name glm52-run4 \
+  --out-dir orchestration/round2/reports/full-corpus/glm52-run4 \
   --workers 16
 ```
 

@@ -1,4 +1,4 @@
-# Round-4：状态、统计与事件留痕
+# Round2 run4 · 状态、统计与事件留痕
 
 > 本文是 [harness-spec.md](./harness-spec.md) 的配套细则。**核心约束：状态与统计只允许追加或新建文件，禁止覆盖。**
 > 每个 start / stop / pause / kill 必须写一条事件，resume 只读这些事件重建游标。
@@ -38,10 +38,10 @@
 
 ## 2. 文件布局
 
-根目录：`orchestration/round4/reports/`（调度层）、`../sudoku-wt-r4/logs/<name>/`（每模型）。
+根目录：`orchestration/round2/reports/`（调度层）、`../sudoku-wt-r2/logs/<name>/`（每模型）。
 
 ```
-orchestration/round4/reports/
+orchestration/round2/reports/
   run-all.pid                 # scheduler pgid（启动时写，退出时删）
   run-all.jsonl               # 全局 scheduler 事件
   watchdog.pid
@@ -81,7 +81,7 @@ logs/<name>/
       turn-summary.json       # turn 结束时写一次（不可变；失败则写 turn-summary-fail-<ts>.json）
 ```
 
-**不存在的路径**：`p0-attempt-1.log` 覆写、`p0.metrics.json` 单文件覆盖、把旧日志 mv 到 prevruns（round4 不需要 prevruns）。
+**不存在的路径**：`p0-attempt-1.log` 覆写、`p0.metrics.json` 单文件覆盖、把旧日志 mv 到 prevruns（run4 v3 不需要 prevruns）。
 
 ### 2.3 「当前视图」快照 vs 历史
 
@@ -107,7 +107,7 @@ write_snapshot() {
 {
   "ts": "2026-06-30T12:00:00+08:00",  // ISO8601
   "unix": 1782811200,
-  "runId": "round4-20260630",          // 本次实验 ID，launch 时生成
+  "runId": "round2-run4-20260630",          // 本次实验 ID，launch 时生成
   "name": "gpt55",                     // 模型短名；scheduler 级事件可省略
   "kind": "action.end",                // 见下表
   "data": { /* kind-specific */ }
@@ -269,13 +269,13 @@ function resumeModel(name):
   return { nextRound, nextTurn, nextActionSeq, sessionId: null }  // 失败 turn 换新 session
 ```
 
-**round2 兼容**：round4 新 run 用新 `runId`；不读取 round2 的 `status/*.tsv`。
+**与 run1–run3 隔离**：run4 使用新 `runId`（如 `round2-run4-20260630`）；不读取 run1–run3 的 `status/*.tsv`。
 
 ### 7.1 status/<name>.json 快照字段
 
 ```jsonc
 {
-  "runId": "round4-20260630",
+  "runId": "round2-run4-20260630",
   "name": "gpt55",
   "state": "running",       // idle | running | paused | stopped | complete
   "currentRound": "p1",
@@ -300,7 +300,7 @@ function resumeModel(name):
 1. **进度 / 结果**：`status/*.json` + `events.jsonl` 按 `runId` 过滤
 2. **费用 / token**：仅累加 `stats.jsonl`
 3. **失败原因**：`verify-turn-*.json` / `verify-round-*.json` + `turn-summary*.json`
-4. **禁止**：依赖可被覆盖的单一 `p0.metrics.json`（round4 不再生成）
+4. **禁止**：依赖可被覆盖的单一 `p0.metrics.json`（run4 harness 不再生成）
 
 全语料 **full corpus** 不在此流程内；跑完后人工执行，结果单独目录归档（见 [scoring.md](./scoring.md)）。
 

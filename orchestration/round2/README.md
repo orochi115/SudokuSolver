@@ -81,6 +81,6 @@ orchestration/round2/harness/launch.sh orchestration/round2/models.txt
 → `model/<short>` → `archive/round2/run4/<short>`、`foundation` 快照 → `archive/round2/run4/foundation`、日志入 LFS。
 重跑前用 `harness/cleanup.sh [--purge]` 重置工作区。
 
-## Round-4 设计（下一版 harness）
+## run4 Harness 改造（v3 设计）
 
-基于 run2/run3 复盘的新协议（turn 制、append-only 状态、Monitor、checkpoint）见 **[`../round4/`](../round4/)**。
+基于 run1–run3 复盘，**第 4 次跑测（run4）** 的协议与实现规格见 **[`design/`](./design/)**（turn 制、append-only 状态、Monitor、checkpoint）。仍在 Round2 实验内，不是新实验轮次。

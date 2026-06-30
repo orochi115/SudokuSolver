@@ -1,7 +1,8 @@
-# Round-4 Harness 规格
+# Round2 run4 · Harness 规格（v3）
 
-> 主设计文档。状态文件与留痕细则见 [state-and-events.md](./state-and-events.md)；KPI 见 [scoring.md](./scoring.md)。
-> 术语：**round**（原 P0/P1/…）→ **turn**（单 strategyId）→ **action**（单次 opencode 对话）。
+> **Round2 第 4 次跑测**的 harness 改造，不是新实验轮次。主文档见 [README.md](./README.md)。
+> 状态留痕：[state-and-events.md](./state-and-events.md)；KPI：[scoring.md](./scoring.md)。
+> 术语：**round** = 阶段 P0/P1/… → **turn** = 单 strategyId → **action** = 单次 opencode。
 
 ## 1. 目标
 
@@ -68,7 +69,7 @@ flowchart TB
 
 ### 3.2 策略注册（id 预写死）
 
-- `packages/engine/src/strategies/registry.ts`（或等价）：**全部** round4 required id 占位，`apply() => null`
+- `packages/engine/src/strategies/registry.ts`（或等价）：**全部** round2 required id 占位，`apply() => null`
 - `required-ids/<round>.txt`：本 round 应**实现**的 id 子集（非注册子集）
 - turn 任务：**只实现** `strategies/<id>.ts`，**禁止**增删 registry 条目
 
@@ -236,14 +237,14 @@ report / 人工可据 `checkpoints.jsonl` 检出任意 turn 起点复现。
 5. [可选] touch PAUSE → 合盖/断网 → 再 launch  resume
 6. scheduler 结束 → report.sh    # 只读 jsonl
 7. [人工] full corpus 各 archive 分支
-8. archive-run.sh round4/runN
+8. archive-run.sh round2/run4
 ```
 
 **full corpus 不进入步骤 3–6 脚本。**
 
-## 14. 与 round2 harness 文件映射
+## 14. 与 run1–run3（harness v2）文件映射
 
-| round2 | round4 |
+| run1–run3（v2） | run4（v3） |
 |---|---|
 | `run-model.sh`（整 phase） | `run-round.sh` + `run-turn.sh` |
 | `p0-attempt-N.log` 覆写 | `action-<seq>-<ts>.log` 新建 |
