@@ -25,7 +25,9 @@
 | [**harness-spec.md**](./harness-spec.md) | 主规格：状态机、文件布局、resume、verify、Monitor/Watchdog |
 | [**state-and-events.md**](./state-and-events.md) | 状态与事件：禁止覆盖、jsonl 留痕、resume 伪代码 |
 | [**scoring.md**](./scoring.md) | KPI（策略利用率）、full corpus 人工跑 |
-| [**implementation-gaps.md**](./implementation-gaps.md) | 实现补充：env、prompt、夹具、stub、v2 迁移、pilot |
+| [**prompt-engineering.md**](./prompt-engineering.md) | 提示词分层、组装管线、attemptKind、dossier |
+| [**checkpoint-and-reset.md**](./checkpoint-and-reset.md) | git reset 与 artifact 保留、capture-attempt |
+| [**implementation-gaps.md**](./implementation-gaps.md) | 实现补充：env、夹具、stub、v2 迁移、pilot |
 
 ## run1–run3 vs run4（harness）
 
@@ -47,10 +49,12 @@
 ## 实现顺序
 
 1. `state-and-events.md` 事件 schema
-2. `run-step.sh` → `run-phase.sh` → 改造 `run-all.sh` / `launch.sh`
-3. `watchdog.sh` 费用熔断 + 留痕
-4. `monitor.sh`
-5. `report.sh` 读 jsonl
+2. `lib/build-prompt.sh` + `capture-attempt.sh`（见 prompt-engineering / checkpoint-and-reset）
+3. `run-step.sh` → `run-phase.sh` → 改造 `run-all.sh` / `launch.sh`
+4. `watchdog.sh` 费用熔断 + 留痕
+5. `monitor.sh`
+6. `report.sh` 读 jsonl
+7. pilot：`models-pilot.txt`（minimax-m3）只跑 p0
 
 ## 跑测（run4，实现后）
 

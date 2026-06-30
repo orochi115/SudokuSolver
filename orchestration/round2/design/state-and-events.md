@@ -78,6 +78,10 @@ logs/<name>/
       invocation-<seq>-<ts>.prompt.txt
       invocation-<seq>-<ts>.meta.json   # exit code, sessionId, wallSec, idleReason
       verify-step-<seq>-<ts>.json
+      attempt-history.jsonl   # verify-step 失败时 append（reset 前 capture）
+      attempt-<n>-diffstat.txt
+      attempt-<n>-diff-excerpt.patch
+      invocation-<seq>-<ts>.prompt-manifest.json
       step-summary.json       # step 结束时写一次（不可变；失败则写 step-summary-fail-<ts>.json）
 ```
 
@@ -129,7 +133,7 @@ write_snapshot() {
 | `phase.skip` | 前序 fail 跳过 | `{ phase, because }` |
 | `step.start` | 开始实现 strategyId | `{ phase, strategyId, parentCommit }` |
 | `step.complete` | step 夹具+verify-step 过 | `{ phase, strategyId, gitCommit, invocations, costUsd }` |
-| `step.fail` | step 重试耗尽 | `{ phase, strategyId, lastCommit, reason }` |
+| `step.fail` | verify 失败将 reset | `{ phase, strategyId, parentCommit, failedCommit, attempt, verifyRef, diffRef, invocationRefs[] }` |
 | `step.skip` | 可选：跳过该 id | `{ phase, strategyId, reason }` |
 | `invocation.start` | opencode 调用前 | `{ phase, strategyId, seq, sessionId? }` |
 | `invocation.end` | opencode 退出后 | `{ seq, exitCode, idleReason?, wallSec, sessionId }` |
@@ -190,7 +194,7 @@ report.sh **只读 stats.jsonl 求和**，不读可变的 `metrics.json`。
 }
 ```
 
-**恢复默认策略**：step 失败且 `STEP_RETRIES` 耗尽 → `git reset --hard <parentCommit>` → 新 session → 新 invocation 序列（不覆盖旧 invocation 日志）。
+**恢复默认策略**：step 失败且 `STEP_RETRIES` 未耗尽 → `capture-attempt` → `git reset --hard <parentCommit>` → 新 session → **递增** invocation 序号（不覆盖旧 log）；prompt 通过 attempt dossier 引用 `attempt-history.jsonl` 与 diff excerpt。详见 [checkpoint-and-reset.md](./checkpoint-and-reset.md)。
 
 ---
 

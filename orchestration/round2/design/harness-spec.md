@@ -201,31 +201,24 @@ monitor.sh stop-all        # touch STOP + kill -TERM -pgid
 
 ## 11. Prompt 结构（每 invocation）
 
-harness 拼接（非模型自选）：
+v3 **不用** v2 式整 phase 巨 prompt。由 `lib/build-prompt.sh` 按 **attemptKind** 分层组装（窄 step 任务 + 重试时 attempt dossier）。
 
-1. phase/step 上下文（当前 id、已完成 id 列表）
-2. 本 id 研究卡路径 + 夹具要求
-3. 红线（oracle、profiles）
-4. 若 retry：结构化失败（`verify-step` / `invocation.end` 摘要）
-5. **禁止**一次实现多个 id
+详见 [**prompt-engineering.md**](./prompt-engineering.md)：section 分层、token 预算、`prompt-manifest.json`、与 v2 `resume_feedback_section` 的对应关系。
+
+要点：
+- 每次 invocation **仅一个** `strategyId`
+- `step-retry`（verify 失败后 reset）**新 session** + 完整 dossier（含 diff excerpt、verify JSON）
+- `invocation-retry`（stall/kill）续 session + 轻量摘要
 
 ## 12. Git checkpoint 与恢复
 
-每 `step.complete`：
+成功 `step.complete` → `git commit` + 追加 `checkpoints.jsonl`。
 
-```bash
-git commit -m "model/<name>: <phase>/<strategyId> ok (invocation=N)"
-# append checkpoints.jsonl + events git.commit
-```
+`STEP_RETRIES` 失败 → **先** `capture-attempt.sh`（diff/verify/log 指针写入 `attempt-history.jsonl`）→ **再** `git reset --hard <parentCommit>` → 新 invocation + dossier prompt。**日志与 jsonl 不删。**
 
-step 失败恢复：
+详见 [**checkpoint-and-reset.md**](./checkpoint-and-reset.md)。
 
-```bash
-git reset --hard <parentCommit>
-# 新 invocation 序列；prompt 含「上轮失败摘要」
-```
-
-report / 人工可据 `checkpoints.jsonl` 检出任意 step 起点复现。
+report / 人工可据 `checkpoints.jsonl` + `attempt-history.jsonl` 复现任意 step 起点与失败路径。
 
 ## 13. 跑测生命周期
 
@@ -255,7 +248,8 @@ report / 人工可据 `checkpoints.jsonl` 检出任意 step 起点复现。
 
 ## 15. 实现补充
 
-环境变量、共享库、prompt 模板、夹具映射、stub 预写死、v2 脚本迁移、pilot 流程见 [**implementation-gaps.md**](./implementation-gaps.md)。
+提示词见 [**prompt-engineering.md**](./prompt-engineering.md)；checkpoint/reset 见 [**checkpoint-and-reset.md**](./checkpoint-and-reset.md)。
+环境变量、共享库、夹具映射、stub 预写死、v2 脚本迁移、pilot 见 [**implementation-gaps.md**](./implementation-gaps.md)。
 
 ## 16. 实现检查清单
 
@@ -264,6 +258,6 @@ report / 人工可据 `checkpoints.jsonl` 检出任意 step 起点复现。
 - [ ] 每种 kill 有 `watchdog.kill` 或 `pipeline.stop`
 - [ ] pause 不产生 `phase.fail`
 - [ ] resume 读 jsonl 不读孤立 metrics
-- [ ] step 失败可 `git reset` 到 `parentCommit`
+- [ ] step 失败：`capture-attempt` → `git reset` → dossier prompt（见 checkpoint-and-reset.md）
 - [ ] report.sh 仅聚合 jsonl
 - [ ] README 与 round2 交叉链接

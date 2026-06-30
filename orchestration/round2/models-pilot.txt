@@ -1,0 +1,4 @@
+# run4 pilot — 单模型验证 harness（prompt 组装、checkpoint reset、resume）
+# 用法: launch.sh orchestration/round2/models-pilot.txt
+# 建议: PILOT_PHASES=p0 MAX_PAR=1
+minimax-cn-coding-plan/MiniMax-M3       minimax-m3     opencode  minimax-cn-coding-plan
