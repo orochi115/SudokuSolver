@@ -1,8 +1,8 @@
 # Round-2 对比测试
 
-> **状态：环境就绪、待跑测。** 第二轮多模型对比，让新一批 11 个模型按 727 规划文档的策略分层，
-> 分 **5 个顺序阶段 P0→P1→P2→E→P3** 实现剩余策略族，比较实现质量、727 解题增量、用时与费用。
-> 总控分支 = `master`；执行者地基 = `foundation`（已剥离 `orchestration/` 与 `research/hodoku-logic/`，对"被对比"无感）。
+> **状态：run3 已完成并归档（2026-06-29）。** P3 通关 5/11；权威结果见 [`report-final.md`](./report-final.md)、[`results-summary.md`](./results-summary.md)。
+> 第二轮多模型对比：11 个模型按 727 规划文档的策略分层，分 **P0→P1→P2a→P2b→E→P3** 六阶段链实现剩余策略族。
+> 总控分支 = `master`；执行者地基 = `foundation`（已含 `npm run verify:r2`；已剥离 `orchestration/` 与 `research/hodoku-logic/`）。
 
 ## 目的
 不是再排名一个固定里程碑，而是**沿 `docs/plans/diabolical-727.md` + `diabolical-727-checklist.md` 的 P0–P3 分层把 727 残题逐层补齐**，看各模型在相同范围下能走多远、解出多少、花多少。
@@ -25,7 +25,20 @@
 - `required-ids/{p0,p1,p2a,p2b,p3,e}.txt` + `p3-only.txt` — 各阶段累积 strategyId；`p3-only` 供 P3 防污染门控。
 - `docs/strategy-implementation-guide.md`（worker-facing 脚手架，随 foundation 继承）。
 - `harness/` — run-all / run-model / verify / watchdog / judge(verify-727,check-p3-isolation) / metrics(-grok) / report / cleanup / archive-run。
-- `EVAL-RUBRIC.md` — 跑完后另开会话的主观评测（文档/checklist 勾选、P3 是否污染 human-default、策略排序合理性）。
+- `EVAL-RUBRIC.md` — 主观评测提纲（待另开会话执行）。
+- `report-final.md` / `results-summary.md` — run3 完整报告与摘要。
+- `reports/run3-summary.md` — run3 客观数据表（从 LFS tarball 恢复）。
+- `run-logs/run-round2-*.tar.gz` — 三次运行日志（Git LFS）。
+
+## 归档索引
+
+| Run | 标签 | Tarball | 分支前缀 | P3 完成 |
+|---|---|---|---|---:|
+| run1 | v1 harness | `run-round2-20260627-004321.tar.gz` | `archive/round2/run1/` | 1/11 |
+| run2 | v2 中断 | `run-round2-run2-20260627-074107.tar.gz` | `archive/round2/run2/` | 0/11 |
+| **run3** | **权威** | `run-round2-run3-20260629-081109.tar.gz` | `archive/round2/run3/` | **5/11** |
+
+工作区：`model/*` 已清空；`foundation` 保留供下次跑测。
 
 ## harness（v2 关键改造）
 - **恢复机制**：墙钟超时（睡眠也计时）；`run-all` 断点续跑（只跳过 OK 阶段，STOP/中断的会重试）；`watchdog.sh` 自动 reap 卡死子树；`caffeinate -dimsu` 自启（挡空闲睡眠，**合盖仍需 `sudo pmset -a disablesleep 1`**）；子树 kill（修复睡眠后僵死进程杀不掉）。
@@ -33,15 +46,21 @@
 - **门控/判官**：`verify-727.ts` 对 727 逐步健全性 + 计数；`check-p3-isolation.ts` P3 隔离；污染检测（暴力 oracle 扫描 + 解出数阈值）。
 - **并发**：`MAX_PAR=8`，共享 key 三对仍串行；`VERIFY_MAX` 限制并发 verify，保护本地机器。
 
-## 跑测
+## 跑测（下次 run4+）
+
+**必须用 detached 启动**（run2 教训：直接跑 `run-all.sh` 会被会话 SIG 杀整组）：
+
 ```
+sudo pmset -a disablesleep 1   # 合盖前
 SERIAL_PROVIDERS="alibaba-cn siliconflow-cn amazon-bedrock grok" SERIAL_CAP=1 \
 MAX_PAR=8 VERIFY_MAX=3 RETRIES=3 TIMEOUT=3600 GROK_RETRY_MODE=resume \
-orchestration/round2/harness/run-all.sh orchestration/round2/models.txt
+orchestration/round2/harness/launch.sh orchestration/round2/models.txt
+# 监控: tail -f orchestration/round2/reports/run-all.out
 ```
-> 合盖睡眠请先 `! sudo pmset -a disablesleep 1`（跑完 `... disablesleep 0`）。中断后**直接重跑同一命令即可断点续跑**。
+
+> 跑完 `sudo pmset -a disablesleep 0`。中断后**直接重跑同一 launch 命令即可断点续跑**。
 > **grok 费用**：grok CLI 不暴露 token/cost。报告内可估算——加 `GROK_PRICE_IN=<$/1M> GROK_PRICE_OUT=<$/1M>`（按 chars/4 估）；**精确花费请查 xAI 控制台（grok-build）/ Cursor 面板（grok-composer）** 本次时间窗。
 
-跑完归档（**按 run 嵌套**，支持多次运行）：`orchestration/round2/harness/archive-run.sh round2/run2`
-→ `model/<short>` → `archive/round2/run2/<short>`、`foundation` → `archive/round2/run2/foundation`、日志入 LFS。
-（v1 已归档于 `archive/round2/run1/*`。）重跑前用 `harness/cleanup.sh [--purge]` 重置工作区。
+跑完归档（scheduler 打印 `All pipelines finished` 后）：`orchestration/round2/harness/archive-run.sh round2/run4`
+→ `model/<short>` → `archive/round2/run4/<short>`、`foundation` 快照 → `archive/round2/run4/foundation`、日志入 LFS。
+重跑前用 `harness/cleanup.sh [--purge]` 重置工作区。
