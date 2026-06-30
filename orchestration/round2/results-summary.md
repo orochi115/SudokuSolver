@@ -50,7 +50,7 @@
 | run3 模型分支 | `archive/round2/run3/{gpt55,sonnet46,glm52,grokbuild,qwen37max,...}` |
 | run3 地基快照 | `archive/round2/run3/foundation` |
 | run1/run2 历史 | `archive/round2/run{1,2}/*` |
-| 下次跑测地基 | `foundation`（已含 `npm run verify:r2`） |
+| 下次跑测地基 | 从 `master` 重切 `foundation`（`verify:r2` 已在 master） |
 | 运行日志 | `orchestration/round2/run-logs/run-round2-*.tar.gz` |
 
 ## 下一步（改进方向摘要）

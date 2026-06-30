@@ -2,7 +2,8 @@
 
 > **状态：run3 已完成并归档（2026-06-29）。** P3 通关 5/11；权威结果见 [`report-final.md`](./report-final.md)、[`results-summary.md`](./results-summary.md)。
 > 第二轮多模型对比：11 个模型按 727 规划文档的策略分层，分 **P0→P1→P2a→P2b→E→P3** 六阶段链实现剩余策略族。
-> 总控分支 = `master`；执行者地基 = `foundation`（已含 `npm run verify:r2`；已剥离 `orchestration/` 与 `research/hodoku-logic/`）。
+> 总控分支 = `master`（引擎 + harness + `verify:r2` 等 worker 工具的**源头**）。
+> 执行者地基 = `foundation`（从 master **派生**：剥离 `orchestration/` 与 `research/hodoku-logic/`；run4 将按需从 master 重切）。
 
 ## 目的
 不是再排名一个固定里程碑，而是**沿 `docs/plans/diabolical-727.md` + `diabolical-727-checklist.md` 的 P0–P3 分层把 727 残题逐层补齐**，看各模型在相同范围下能走多远、解出多少、花多少。
@@ -38,7 +39,22 @@
 | run2 | v2 中断 | `run-round2-run2-20260627-074107.tar.gz` | `archive/round2/run2/` | 0/11 |
 | **run3** | **权威** | `run-round2-run3-20260629-081109.tar.gz` | `archive/round2/run3/` | **5/11** |
 
-工作区：`model/*` 已清空；`foundation` 保留供下次跑测。
+工作区：`model/*` 已清空。run3 的 `foundation` 分支仍可用；**run4 建议从 master 重切 foundation**（见下方「分支策略」）。
+
+## 分支策略（run4+）
+
+```
+master      ← 唯一源头：引擎代码、harness、verify:r2、文档
+   │
+   ├─ orchestration/  只在 master，worker 看不到
+   │
+   └─ foundation      ← 从 master 派生（删 orchestration/、中性化提示）
+         └─ model/<short>  ← 跑测时 worktree 分叉点
+```
+
+- **引擎/worker 工具**（如 `packages/engine/scripts/verify-r2.ts`）必须先落在 **master**，再随重切带入 foundation。不要只提交在 foundation 上——run4 重切时会丢。
+- **harness 改造**只改 `master` 上的 `orchestration/`，与 foundation 重切无关。
+- run4 准备：从当前 master 重切 foundation（同 `a2f9070` 做法：删 orchestration/、research/hodoku-logic/、中性化文档），不必在旧 foundation 上 cherry-pick。
 
 ## harness（v2 关键改造）
 - **恢复机制**：墙钟超时（睡眠也计时）；`run-all` 断点续跑（只跳过 OK 阶段，STOP/中断的会重试）；`watchdog.sh` 自动 reap 卡死子树；`caffeinate -dimsu` 自启（挡空闲睡眠，**合盖仍需 `sudo pmset -a disablesleep 1`**）；子树 kill（修复睡眠后僵死进程杀不掉）。
