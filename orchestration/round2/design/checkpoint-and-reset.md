@@ -1,6 +1,7 @@
 # Round2 run4 · Checkpoint 与 Git Reset
 
 > **结论**：checkpoint **值得做**，但 reset 不是 `git reset --hard` 一行了事。
+> 对应假设 H3，见 [experiment-matrix.md](./experiment-matrix.md)。
 > 代码回滚到 `parentCommit` 的同时，**日志 / jsonl / attempt 摘要必须保留**，且下一轮的 prompt 必须通过 **attempt dossier** 把失败经验写回去（见 [prompt-engineering.md §5–6](./prompt-engineering.md#5-attemptkind-与上下文深度)）。
 
 ## 1. 两个层次

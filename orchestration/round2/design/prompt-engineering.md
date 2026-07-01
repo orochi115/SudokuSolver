@@ -1,6 +1,7 @@
 # Round2 run4 · 提示词工程
 
 > v2 是「整 phase 一条巨 prompt + 续跑时 prepend 失败摘要」；v3 改为 **step 窄任务 + 分层组装 + 按重试类型注入不同深度的上下文**。
+> 对应假设 H2/H3，见 [experiment-matrix.md](./experiment-matrix.md)。
 > 配套：[checkpoint-and-reset.md](./checkpoint-and-reset.md)（git reset 后如何把「学到的东西」写回 prompt）。
 
 ## 1. 设计原则

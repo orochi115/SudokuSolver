@@ -1,6 +1,7 @@
 # Round2 run4 · 状态、统计与事件留痕
 
 > 本文是 [harness-spec.md](./harness-spec.md) 的配套细则。**核心约束：状态与统计只允许追加或新建文件，禁止覆盖。**
+> 对应假设 H4，见 [experiment-matrix.md](./experiment-matrix.md)。
 > 每个 start / stop / pause / kill 必须写一条事件，resume 只读这些事件重建游标。
 
 ## 1. 设计原则

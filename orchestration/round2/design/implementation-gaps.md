@@ -2,6 +2,7 @@
 
 > 本文补齐 [harness-spec.md](./harness-spec.md) 与 [state-and-events.md](./state-and-events.md) 中**实现前必须约定**、但主规格未展开的细节。
 > 读完本文 + 三份主文档，即可开始写 harness 代码。
+> 跑前冻结清单、pilot 与 full run 解读协议见 [experiment-matrix.md](./experiment-matrix.md)。
 
 ## 1. 完备度结论
 

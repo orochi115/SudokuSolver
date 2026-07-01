@@ -28,6 +28,7 @@
 | [**prompt-engineering.md**](./prompt-engineering.md) | 提示词分层、组装管线、attemptKind、dossier |
 | [**checkpoint-and-reset.md**](./checkpoint-and-reset.md) | git reset 与 artifact 保留、capture-attempt |
 | [**implementation-gaps.md**](./implementation-gaps.md) | 实现补充：env、夹具、stub、v2 迁移、pilot |
+| [**experiment-matrix.md**](./experiment-matrix.md) | **实验矩阵**：五层变量、H1–H5 假设、跑前冻结/跑后填表 |
 
 ## run1–run3 vs run4（harness）
 

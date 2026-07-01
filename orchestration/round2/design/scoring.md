@@ -1,6 +1,7 @@
 # Round2 run4 · 评分与 KPI
 
 > 实验内**硬门**与**评分**分离。硬门保证健全性；评分比较模型实现质量。
+> 五层变量、失败分类 A–E、跑后解读顺序见 [experiment-matrix.md](./experiment-matrix.md)。
 > 全语料 **full corpus** 为跑后人工加测，不参与自动 STOP。
 
 ## 1. 原则

@@ -27,6 +27,8 @@
 - `docs/strategy-implementation-guide.md`（worker-facing 脚手架，随 foundation 继承）。
 - `harness/` — run-all / run-model / verify / watchdog / judge(verify-727,check-p3-isolation) / metrics(-grok) / report / cleanup / archive-run。
 - `EVAL-RUBRIC.md` — 主观评测提纲（待另开会话执行）。
+- `design/experiment-matrix.md` — run4 实验矩阵（五层变量、H1–H5、跑前冻结/跑后解读协议）。
+- `reports/run4-analysis.md` — run4 跑后填表（机制验收、假设判定、模型横向）。
 - `report-final.md` / `results-summary.md` — run3 完整报告与摘要。
 - `reports/run3-summary.md` — run3 客观数据表（从 LFS tarball 恢复）。
 - `run-logs/run-round2-*.tar.gz` — 三次运行日志（Git LFS）。

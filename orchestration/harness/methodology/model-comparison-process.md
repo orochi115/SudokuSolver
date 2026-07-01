@@ -6,7 +6,8 @@
 > 让执行分支对对比无感知。
 >
 > **Round2 run4 harness（v3）**（phase/step/invocation、事件留痕、resume、Monitor）：见 [`../../round2/design/harness-spec.md`](../../round2/design/harness-spec.md)、
-> [`../../round2/design/state-and-events.md`](../../round2/design/state-and-events.md)。
+> [`../../round2/design/state-and-events.md`](../../round2/design/state-and-events.md)、
+> [`../../round2/design/experiment-matrix.md`](../../round2/design/experiment-matrix.md)（变量分层与 run3→run4 对照协议）。
 
 ## 1. 测什么 / 三条核心理念
 

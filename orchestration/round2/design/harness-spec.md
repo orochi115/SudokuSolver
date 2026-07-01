@@ -1,7 +1,7 @@
 # Round2 run4 · Harness 规格（v3）
 
 > **Round2 第 4 次跑测**的 harness 改造，不是新实验轮次。主文档见 [README.md](./README.md)。
-> 状态留痕：[state-and-events.md](./state-and-events.md)；KPI：[scoring.md](./scoring.md)。
+> 状态留痕：[state-and-events.md](./state-and-events.md)；KPI：[scoring.md](./scoring.md)；变量与假设：[experiment-matrix.md](./experiment-matrix.md)。
 > 术语：**phase** = 阶段 P0/P1/… → **step** = 单 strategyId → **invocation** = 单次 opencode。
 
 ## 1. 目标
